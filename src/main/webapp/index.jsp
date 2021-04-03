@@ -13,7 +13,5 @@
 <body>
 	<c:set var="contextPath" value="<%= request.getContextPath() %>"/>
 	<jsp:include page="/WEB-INF/views/common/menubar.jsp"/>
-	
-	<jsp:include page="/WEB-INF/views/common/menubar.jsp"/>
 </body>
 </html>
