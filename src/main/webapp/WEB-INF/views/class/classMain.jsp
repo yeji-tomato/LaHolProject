@@ -8,5 +8,6 @@
 </head>
 <body>
 <h1>고고</h1>
+<h2>씽~</h2>
 </body>
 </html>
