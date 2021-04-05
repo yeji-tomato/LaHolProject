@@ -7,6 +7,6 @@
 <title>Lahol-CoffeeClassMain</title>
 </head>
 <body>
-커피한잔
+<h1>고고</h1>
 </body>
 </html>
