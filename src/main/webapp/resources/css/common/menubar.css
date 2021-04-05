@@ -1,18 +1,16 @@
 @charset "UTF-8";
 
+/* 넥슨 고딕 Bold */
 @font-face {
-    font-family: 'ELAND_Nice_M';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts-20-12@1.0/ELAND_Nice_M.woff') format('woff');
+    font-family: 'NEXON Lv1 Gothic OTF Bold';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF Bold.woff') format('woff');
     font-weight: normal;
     font-style: normal;
 }
 
-body{
-    background: #5A452E;
-}
-
 /* 네비부분 */
 #nav{
+	font-family: 'NEXON Lv1 Gothic OTF Bold';
     background-color: transparent;
     position: fixed;
     z-index: 99;
@@ -36,7 +34,7 @@ align-items: flex-start;
 display: flex;
 text-align: center;
 box-sizing: border-box;
-font-family: 'Source Serif Pro', serif;
+font-family: 'NEXON Lv1 Gothic OTF Bold';
 }
 
 .menuWrapper .mainMenu {
@@ -54,12 +52,12 @@ align-items: flex-start;
 vertical-align: middle;
 }
 .mainMenu ul li {
-    font-family: 'ELAND_Nice_M';
-align-self: flex-start;
-list-style: none;
-text-align: center;
-padding : 38px;
-line-height: 1px;
+    font-family: 'NEXON Lv1 Gothic OTF Bold';
+	align-self: flex-start;
+	list-style: none;
+	text-align: center;
+	padding : 38px;
+	line-height: 1px;
 }
 
 .mainMenu a {
@@ -113,11 +111,11 @@ justify-content: flex-end;
 }
 
 .loginArea .loginMenu ul li {
-    font-family: 'ELAND_Nice_M';
-list-style-type: none;
-text-align: center;
-padding : 38px 15px;
-line-height: 1px;
+    font-family: 'NEXON Lv1 Gothic OTF Bold';
+	list-style-type: none;
+	text-align: center;
+	padding : 38px 15px;
+	line-height: 1px;
 }
 
 .loginArea .loginMenu ul li a {
@@ -132,6 +130,6 @@ color : #4B654A;
 transition: all 0.5s linear;
 }
 
-nav.active{
-background: #CDC2AF;
+#nav.active{
+	background: #CDC2AF;
 }
