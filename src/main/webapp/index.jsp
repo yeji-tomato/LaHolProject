@@ -8,5 +8,6 @@
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/common/menubar.jsp"/>
-</body> 
+</body>  
+<h2>왜 안되죠</h2>
 </html> 
