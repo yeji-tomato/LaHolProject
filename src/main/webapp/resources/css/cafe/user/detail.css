@@ -1,0 +1,277 @@
+@charset "UTF-8";
+
+/* 넥슨 고딕 Bold */
+@font-face {
+    font-family: 'NEXON Lv1 Gothic OTF Bold';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF Bold.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+ 
+
+*{
+    font-family: 'NEXON Lv1 Gothic OTF Bold';
+}
+
+#detailContainer{
+	 padding-top: 7%;
+	
+}
+
+
+
+/* 캐로셀 */
+#caroselLeft img{
+width: 500px;
+height: 500px;
+}
+
+#myTab{
+padding-top: 2%;
+}
+
+.nav-item{
+padding-left: 5px;
+}
+
+.nav-link{
+width: 15vw;
+margin: 3%;
+margin-left: 40%;
+}
+
+#home-tab.active, #review-tab.active, #qa-tab.active{
+background-color: #E5BD62;
+color: white;
+}
+
+#home-tab, #review-tab, #qa-tab{
+background-color: #5A452E;
+color: white;
+padding: 5%;
+}
+
+.tab-pane{
+background-color: #f6ebdb;
+}
+
+/* 카페 정보 */
+.cf-info{
+height: 500px;
+border: 3px solid #ada397;
+border-radius: 5vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    background-color: #F3EFEB;
+}
+
+.cf-title{
+font-family: 'NEXON Lv1 Gothic OTF Bold';
+font-size: 40px;
+margin: 0px;
+}
+
+/* 신고하기 버튼 */
+.bullhornBtn{
+    background-color: transparent;
+    border: 0;
+    cursor: pointer;
+}
+
+.fa-bullhorn{
+font-size: 2vw;
+float: right;
+color: #810B0B;
+}
+.fa-bullhorn:hover{
+    color: #4B654A;
+}
+
+.cf-table td{
+padding: 1%;
+}
+
+.cafeTB{
+    margin: 0 auto;
+}
+
+
+/* 버튼 */
+.btnDiv{
+margin-top: 5%;
+text-align: center;
+cursor: pointer;
+}
+
+.btnCafe{
+    background-color: transparent;
+    border: 0;
+}
+
+#menuBtn{
+    padding: 2% 15%;
+    background-color: #CDC2AF;
+}
+
+#menuBtn:hover{
+    background-color: #ada397;
+    color: white;
+}
+
+#heartBtn{
+    padding: 2% 3%;
+    background-color: #F3D798;
+}
+
+#heartBtn i{
+    color: #5A452E;
+}
+
+#heartBtn:hover i{
+    color: #810B0B;
+}
+
+/* Modal */
+
+.modal-header{
+    background-color: #4B654A;
+    }
+    
+    .logoimg{
+        width : 30px; 
+        height: 30px;
+        }
+
+    .sorry-text{
+    text-align: center; 
+    padding: 5vh;
+    }
+    
+    .rp_reason_table{
+    width : 100%;
+    }
+    
+    .evidence{
+    width: 100%; 
+    line-height: 15vh;
+    }
+    
+    .ihateyou{
+    width: 100%; 
+    line-height: 15vh;
+    }
+    
+    .alert-text{
+    color:rgb(170, 42, 42); 
+    font-size: 12px;
+    }
+    
+    .modal-footer{
+    background-color: #4B654A;
+    }
+/* 후기 */
+.review-content{
+    background-color: #f6ebdb;
+    padding: 3% 7%;
+    height: 90vh;
+}
+.fa-user-circle, .fa-exclamation-triangle{
+    font-size: 2vw;
+}
+/* 회원 신고 */
+#userReport{
+    background-color: transparent;
+    border: 0;
+}
+.fa-exclamation-triangle:hover{
+    color: #4B654A;
+}
+/* 별점 */
+.fa-star, .fa-star-half-o, .fa-star-o{
+    color: #E5BD62;
+    font-size: 2vw;
+}
+.fa-exclamation-triangle{
+    color: #810B0B;
+}
+/* 리뷰 이미지 */
+#reviewImg{
+    width: 500px;
+    height: 500px;
+}
+#rv-content{
+    width: 500px;
+    height: 500px;
+    border: 3px solid #5a462f;
+    border-radius: 5vw;
+
+}
+#rv-pre{
+    white-space: pre;
+    font-size: 20px;
+    float: left;
+}
+#reviewLeft{
+    float: left;
+}
+#btnFloat{
+    float: right;
+    display: block;
+    margin: auto 0;
+}
+.rBtn{
+    background-color: transparent;
+    border: 0;
+    font-size: 2vw;
+    color: #e3a259;
+}
+#upBtn:hover{
+    color: #810B0B;
+}
+
+#downBtn:hover{
+    color: #4B654A;
+}
+
+/* Q & A */
+.qa-content{
+    padding: 3%;
+}
+
+.writeBtn{
+    float: right;
+    margin-right: 2%;
+}
+
+#wBtn{
+    background-color: #4B654A;
+    color: white;
+    border-radius: 10vw;
+    padding: 10% 30%;
+    border: white;
+}
+
+#qaTitle{
+    color: black;
+    text-decoration: none;
+    text-align: center;
+
+    display: block;
+}
+
+.qaTable{
+    /* background-color: white; */
+    width: 100%;
+    margin-top: 3%;
+}
+/* 아코디언 */
+.accordionMenu{
+    padding-top: 5%;
+}
+.accordion-button:not(.collapsed) {
+    color: #060b11;
+    background-color: #e1d7ca;
+}
+
+
