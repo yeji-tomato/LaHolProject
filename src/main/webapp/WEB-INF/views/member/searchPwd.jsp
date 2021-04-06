@@ -4,11 +4,22 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="${ contextPath }/resources/css/common/fonts.css" type="text/css">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-    <title>LaHol - SIGN IN</title>
+<title>LaHol - Search PWD</title>
     <style>
+        @font-face {
+            font-family: 'ELAND_Nice_M';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts-20-12@1.0/ELAND_Nice_M.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        html {
+            height: 100%;
+        }
+
         body {
+            height: 100%;
             padding: 0px;
             margin: 0 auto;
             line-height: 1;
@@ -52,6 +63,7 @@
 
         .wrapper {
             width: 100%;
+            height: 100%;
             margin: auto;
         }
 
@@ -76,21 +88,27 @@
             text-align: center;
         }
 
+        .footer {
+            padding-bottom: 52px;
+        }
+
+        #userName,
         #userId,
-        #userPwd {
+        #userEmail {
             display: block;
             margin: 0 auto 10px;
-            padding: 20px 18px;
+            padding : 20px 18px;
             width: 280px;
             height: 14px;
             border: 1px solid #e7e7e7;
-
+            
             transition: border 0.3s;
         }
 
+        #userName:focus,
         #userId:focus,
-        #userPwd:focus {
-            border: 1px solid #5A452E;
+        #userEmail:focus {
+            border : 1px solid #5A452E;
             outline: none;
         }
 
@@ -114,8 +132,8 @@
             line-height: 56px;
         }
 
-        .login_area span {
-            display: inline-block;
+        .login_area span{
+            display : inline-block;
             padding-top: 4px;
             position: relative;
         }
@@ -129,11 +147,11 @@
             width: 40px;
             height: 1px;
             background: #dadada;
-            content: "";
+            content : "";
         }
 
         .login_header span {
-            font-family: 'NEXON Lv1 Gothic OTF';
+            font-family: 'ELAND_Nice_M';
         }
 
         .login_header span b {
@@ -173,7 +191,7 @@
             height: 14px;
             text-align: center;
             line-height: 14px;
-            border-left: 1px solid #a1a1a1;
+            border-left : 1px solid #a1a1a1;
         }
 
         ul.list li:first-child {
@@ -182,11 +200,11 @@
 
         ul.list li a {
             text-decoration: none;
-            color: #6f6f6f;
+            color : #6f6f6f;
         }
 
         ul.list li a:hover {
-            color: #343434;
+            color : #343434;
         }
 
         #goMain {
@@ -202,38 +220,28 @@
             transition: background-color 0.3s, border-color 0.3s;
         }
 
-
-        @keyframes main_shake {
-
-            10%,
-            90% {
-                transform: translate3d(0, -1px, 0);
-            }
-
-            30%,
-            70% {
-                transform: translate3d(0, 2px, 0);
-            }
-
-            50% {
-                transform: translate3d(0, -3px, 0);
-            }
+        
+        @keyframes main_shake{
+            10%, 90%{transform:translate3d(0, -1px, 0);}
+            30%, 70%{transform:translate3d(0, 2px, 0);}
+            50%{transform:translate3d(0, -3px, 0);}
         }
-
+        
         #goMain:hover {
             background-color: #344633;
             border-color: #344633;
             animation: main_shake 0.5s;
         }
 
-        @media only screen and (max-height : 912px) {
+        @media only screen and (max-height : 978px) {
             .bg, #cover_1, #cover {
-                height : 912px;
+                height : 978px;
             }
         }
     </style>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Serif+Pro:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
-
 <body>
     <div id="cover_1"></div>
     <div class="bg" id="bg1"></div>
@@ -243,24 +251,25 @@
             <div class="login_area">
                 <div class="login_header">
                     <div class="login_logo">
-                        <img src="${ contextPath }/resources/img/common/logo-lahol2.png">
+                        <img src="../resources/images/img_common/logo-lahol2.png">
                     </div>
                     <span>
-                        <b>LaHol</b> SIGN IN
+                        <b>LaHol</b> Search PWD
                     </span>
 
                 </div>
-                <form method="POST" id="login_form" action="">
+                <form method="POST" id="idSearch_form" action="">
 
+                    <input type="text" id="userName" name="userName" placeholder="이름" onkeydown="onKeyDown();">
                     <input type="text" id="userId" name="userId" placeholder="아이디" onkeydown="onKeyDown();">
-                    <input type="password" id="userPwd" name="userPwd" placeholder="비밀번호" onkeydown="onKeyDown();">
-                    <button type="button" class="login_ok" onclick="onSubmit();">로그인</button>
+                    <input type="email" id="userEmail" name="userEmail" placeholder="이메일" onkeydown="onKeyDown();">
+                    <button type="button" class="login_ok" onclick="onSubmit();">비밀번호 찾기</button>
 
                 </form>
 
                 <ul class="list">
                     <li>
-                        <a href="${ contextPath }/views/member/signUp_main.jsp">회원가입</a>
+                        <a href="joinMember.html">회원가입</a>
                     </li>
                     <li>
                         <a href="idSearch.html">아이디 찾기</a>
@@ -277,17 +286,23 @@
         </div>
     </div>
     <script>
-
         function onKeyDown() {
-            if (event.keyCode == 13) {
+            if(event.keyCode == 13) {
                 event.preventDefault();
                 onSubmit();
             }
         }
 
         function onSubmit() {
+            var userName = document.getElementById("userName");
             var userId = document.getElementById("userId");
-            var userPwd = document.getElementById("userPwd");
+            var userEmail = document.getElementById("userEmail");
+
+            if (userName.value == "") {
+                alert('이름을 입력해주세요.');
+                userName.focus();
+                return;
+            }
 
             if (userId.value == "") {
                 alert('아이디를 입력해주세요.');
@@ -295,9 +310,13 @@
                 return;
             }
 
-            if (userPwd.value == "") {
-                alert('비밀번호를 입력해주세요');
-                userPwd.focus();
+            if (userEmail.value == "") {
+                alert('이메일을 입력해주세요.');
+                userEmail.focus();
+                return;
+            }
+
+            if(!chk(/^[가-힣]{2,}$/, userName, "이름을 한글로 두 글자 이상 입력해주세요.")) {
                 return;
             }
 
@@ -305,11 +324,7 @@
                 return;
             }
 
-            if(!chk(/(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[^a-zA-Z0-9]).{8,}$/, userPwd, "비밀번호를 다시 입력해주세요.")) { // 특수문자,숫자,영대소문자 포함 8자 이상
-                return;
-            }
-
-            $("#login_form").submit();
+            $("#pwdSearch_form").submit();
         }
 
         // 정규 표현식, 검사할 함수
