@@ -12,13 +12,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class HereController {
 	
-private static final Logger logger = LoggerFactory.getLogger(HereController.class);
+	private static final Logger logger = LoggerFactory.getLogger(HereController.class);
 	
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
 	@RequestMapping(value = "/cafe/here", method = RequestMethod.GET)
-	public String search(Locale locale, Model model) {
+	public String Here(Locale locale, Model model) {
 		
 		
 		return "cafe/user/here";

@@ -31,7 +31,7 @@ scope="application"/>
                 </ul>
             </div>
             <div class="logoArea">
-            	<a href="${ contextPath }">
+            	<a href="${ contextPath }" class="logoA">
                 	<img src="${ contextPath }/resources/img/common/logo-lahol2.png">
                 </a>
             </div>

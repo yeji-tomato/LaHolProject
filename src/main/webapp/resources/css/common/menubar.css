@@ -73,14 +73,17 @@ transition: all 0.5s linear;
 }
 
 .logoArea {
-width : 10%;
+ width : 10%;
 min-width: 130px;
 height: 100%;
 text-align: center;
 margin : 0;
 display: flex;
 align-items: center;
+padding-left: 4%
 }
+
+
 
 .logoArea img {
 width : 80px;

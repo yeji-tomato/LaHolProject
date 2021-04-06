@@ -5,8 +5,16 @@
 <head>
 <meta charset="UTF-8">
 <title>매장</title>
+<link rel="stylesheet" href="${ contextPath }/resources/css/cafe/user/here.css">
+<!-- pickadate -->
+<link rel="stylesheet" href="${ contextPath }/resources/css/cafe/user/pickadate/default.css">
+<link rel="stylesheet" href="${ contextPath }/resources/css/cafe/user/pickadate/default.date.css">
 </head>
 <body>
+
+	<!-- menubar -->
+	<jsp:include page="/WEB-INF/views/common/menubarBG.jsp"/>
+
 	<div class="page-cafe">
         <div>
             <h1 id="cafeName">LaHol 카페</h1>
@@ -52,7 +60,7 @@
                     <thead>
                         <tr>
                         <td>
-                            <i class="fa fa-coffee hT" aria-hidden="true"></i>
+                            <i class="fa fa-coffee hT" id="htIcon" aria-hidden="true"></i>
                             <h1 class="hT" id="hereTitle">매장</h1>
                             <hr style="width:100%">
                         </td>
@@ -126,9 +134,9 @@
 </div>
 
     <!-- pickadate.js  -->
-    <script src="../../../common/pickadate/picker.js"></script>
-    <script src="../../../common/pickadate/picker.date.js"></script>
-    <script src="../../../common/pickadate/legacy.js"></script>        
+    <%@include file="./pickadate/picker.jsp" %>
+    <%@include file="./pickadate/picker.date.jsp" %>
+    <%@include file="./pickadate/legacy.jsp" %>       
     <script>
         $('.datepicker').pickadate();
     </script>
@@ -166,5 +174,10 @@
             location.href='../detail/detail.html';
         });
     </script>
+    
+    <!-- footer -->
+	<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
+    
+    
 </body>
 </html>
