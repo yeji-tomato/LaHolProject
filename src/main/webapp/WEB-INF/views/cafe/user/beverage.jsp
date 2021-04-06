@@ -7,6 +7,6 @@
 <title>음료 선택 페이지</title>
 </head>
 <body>
-	
+	<h1>데모만들기</h1>
 </body>
 </html>
