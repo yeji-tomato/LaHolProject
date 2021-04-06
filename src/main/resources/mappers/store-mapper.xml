@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="storeMapper">
+	<resultMap id="storeResultSet" type="Store">
+		<id property="PR_CODE" column="PR_CODE"/>
+		<result property="ST_CATAGORY" column="ST_CATAGORY"/>
+		<result property="PR_NAME" column="PR_NAME"/>
+		<result property="PR_IF" column="PR_IF"/>
+		<result property="PR_EVENT" column="PR_EVENT"/>
+		<result property="ORIGIN" column="ORIGIN"/>
+		<result property="PR_PRICE" column="PR_PRICE"/>
+		<result property="SUBSCRIPTIONS" column="SUBSCRIPTIONS"/>
+		<result property="STORE_PHOTO1" column="STORE_PHOTO1"/>
+		<result property="STORE_PHOTO2" column="STORE_PHOTO2"/>
+		<result property="STORE_PHOTO3" column="STORE_PHOTO3"/>
+		<result property="DY_COMPANY" column="DY_COMPANY"/>
+		<result property="PR_INF" column="PR_INF"/>
+		<result property="SERVICE_CENTER" column="SERVICE_CENTER"/>
+		<result property="PR_DATE" column="PR_DATE"/>
+		<result property="PR_NOTICE" column="PR_NOTICE"/> 
+		<result property="PR_STATUS" column="PR_STATUS"/>
+		<result property="C_CODE" column="C_CODE"/>	
+		
+	</resultMap>
+	
+	<!-- 
+PR_CODE	VARCHAR2(30 BYTE)	No		1	제품코드
+ST_CATAGORY	VARCHAR2(100 BYTE)	No		2	스토어카케고리
+PR_NAME	VARCHAR2(100 BYTE)	No		3	제품명
+PR_IF	VARCHAR2(1000 BYTE)	No		4	제품소개
+PR_EVENT	VARCHAR2(100 BYTE)	Yes		5	이벤트소개
+ORIGIN	VARCHAR2(100 BYTE)	No		6	원산지
+PR_PRICE	VARCHAR2(100 BYTE)	No		7	가격
+SUBSCRIPTIONS	VARCHAR2(2 BYTE)	No		8	구독여부
+STORE_PHOTO1	VARCHAR2(100 BYTE)	Yes		9	대표이미지
+STORE_PHOTO2	VARCHAR2(100 BYTE)	Yes		10	추가이미지
+STORE_PHOTO3	VARCHAR2(100 BYTE)	Yes		11	추아이미지2
+DY_COMPANY	VARCHAR2(100 BYTE)	No		12	택배사
+PR_INF	VARCHAR2(800 BYTE)	No		13	제품기능
+SERVICE_CENTER	VARCHAR2(100 BYTE)	Yes		14	고객센터
+PR_DATE	DATE	No	"SYSDATE	"	15	등록일
+PR_NOTICE	VARCHAR2(1000 BYTE)	Yes		16	유의사항
+PR_STATUS	VARCHAR2(2 BYTE)	Yes	"'N'	"	17	블라인드여부
+C_CODE	VARCHAR2(30 BYTE)	No		18	카페코드
+ -->
+	
+	<select id="selectListCount" resultType="_int">
+		SELECT 
+		       COUNT(*)
+		  FROM
+		       PRODUCT
+		 WHERE
+		       PR_STATUS = 'Y'
+	</select> 
+	
+	<select id="selectList" resultMap="storeResultSet">
+		SELECT
+		       PR_CODE
+		     , ST_CATAGORY
+		     , PR_NAME
+		     , PR_IF
+		     , PR_EVENT
+		     , ORIGIN
+		     , PR_PRICE
+		     , SUBSCRIPTIONS
+		     , STORE_PHOTO1
+		     , STORE_PHOTO2
+		     , STORE_PHOTO3
+		     , DY_COMPANY
+		     , PR_INF
+		     , SERVICE_CENTER
+		     , PR_DATE
+	         , PR_NOTICE 
+      		 , PR_STATUS
+      		 , C_CODE
+		          
+		  FROM
+		       PRODUCT
+		 WHERE
+		       PR_STATUS = 'Y'
+	  ORDER BY
+	           PR_CODE DESC
+	</select>
+	
+	 
+</mapper>

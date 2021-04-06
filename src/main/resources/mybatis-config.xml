@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC 
+"-//mybatis.org//DTD Config 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<settings>
+		<!-- 만약에 null로 데이터가 전달 되었다면 빈칸이 아닌 NULL로 인식 -->
+		<setting name="jdbcTypeForNull" value="NULL"/>
+		<!-- 데이터베이스로의 응답을 얼마나 오래 기다릴지 판단하는 타임 아웃 설정 -->
+		<setting name="defaultStatementTimeout" value="25"/>	
+	</settings>
+	
+	<!-- typeAliases -->
+	<typeAliases> 
+		<!-- 스토어  -->
+		<typeAlias type="com.kh.lahol.store.model.vo.Store" alias="Store"/>
+ 
+	</typeAliases>
+	
+	<!-- mappers -->
+	<mappers> 
+	
+		<!-- 스토어 mapper  -->
+		<mapper resource="mappers/store-mapper.xml"/> 
+	</mappers>
+</configuration>
+
+
+
