@@ -4,10 +4,21 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>MainPage</title>
+<title>LaHol</title>
 </head>
 <body>
+	<!-- menubar -->
 	<jsp:include page="/WEB-INF/views/common/menubar.jsp"/>
-</body>  
-<h2>왜 안되죠</h2>
+	<!-- carousel -->
+	<jsp:include page="/WEB-INF/views/main/carousel.jsp"/>
+	<!-- 광고부분 -->
+	<jsp:include page="/WEB-INF/views/main/ad.jsp"/>
+	<!-- 원두성향테스트 -->
+	<jsp:include page="/WEB-INF/views/main/mainct.jsp"/>
+	<!-- 세번째 영역 -->
+	<jsp:include page="/WEB-INF/views/main/third-section.jsp"/>
+	<!-- footer -->
+	<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
+	
+</body> 
 </html> 

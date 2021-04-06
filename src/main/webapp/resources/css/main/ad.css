@@ -1,0 +1,87 @@
+@charset "UTF-8";
+
+/* 넥슨 고딕 Bold */
+@font-face {
+    font-family: 'NEXON Lv1 Gothic OTF Bold';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF Bold.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* 광고부분 */
+.box{
+    margin-top: -20%;
+    background-color: #f6ebdb;
+    height: 100vh;
+
+}
+.cir{
+    /* position: absolute; */
+    left: 0;
+    width: 60vw;
+    margin-left: -9vw;
+    margin-top: -20vh;
+}
+.center{
+    /* position: absolute; */
+    /* width: 50%; */
+    z-index: 50; 
+    margin-top: -50%;
+    /* height: 100vh; */
+    /* background-color: #4B654A; */
+}
+
+.titlearea{
+	font-family: 'NEXON Lv1 Gothic OTF Bold';
+    font-size: 100px;
+    margin: 100px;
+    /* margin-top: 250px; */
+    margin-bottom: 0px;
+    color: white;
+    /* z-index: 10%; */
+}
+.textarea{
+	font-family: 'NEXON Lv1 Gothic OTF Bold';
+    font-size: 50px;
+    margin: 100px;
+    /* margin-top: 0px; */
+    color: #CDC2AF;
+}
+.adSlider{
+    margin-top: -25%;
+    float: right;
+    width: 50%;
+}
+.carousel-cell {
+    width: 66%;
+    height: 400px;
+    margin-right: 10px;
+    background: #8C8;
+    border-radius: 5px;
+    
+    /* counter-increment: gallery-cell; */
+    }
+
+/* cell number */
+.carousel-cell:before {
+display: block;
+text-align: center;
+/* content: counter(gallery-cell); */
+line-height: 400px;
+font-size: 80px;
+color: white;
+}
+
+/* 광고 미디어쿼리 */
+@media (min-width: 1400px) {
+.cir {
+    margin-top: 10%;
+}
+}
+
+@media (min-width: 2000px) {
+.adSlider {
+    padding-top: 10%;
+}
+}
+

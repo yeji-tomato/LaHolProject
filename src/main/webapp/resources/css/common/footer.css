@@ -1,0 +1,127 @@
+@charset "UTF-8";
+
+/* 넥슨 고딕 Bold */
+@font-face {
+    font-family: 'NEXON Lv1 Gothic OTF Bold';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF Bold.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+ /* Footer(푸터) */
+#btFooter {
+position: absolute;
+background:#4B654A;
+width: 100%;
+height: 60vh;
+ font-family: 'NEXON Lv1 Gothic OTF Bold';
+}
+
+#footeralign{
+    margin-left: 11%;
+}
+
+.name{
+position: absolute;
+left: 0%;
+right: 43.76%;
+top: 1%;
+bottom: 18.6%; 
+margin-top: 5%;
+}
+#aa{ 
+font-style: normal;
+font-weight: normal;
+font-size: 4rem;
+color: white;
+padding-left: 3%;
+padding-top: 3%;
+}
+
+.de{
+position: absolute;
+width: 107px;
+height: 40px;
+
+font-style: normal;
+font-weight: normal;
+font-size: 50px;
+line-height: 19px;
+display: flex;
+align-items: flex-end;
+
+color: #FFFFFF;
+}
+/* 이미지 아이콘 위치*/
+#Monitor{    
+width: 32px;
+height: 32px;
+}
+
+#Phone{
+width: 32px;
+height: 32px; 
+}
+
+.devImg > img{
+position: absolute;
+left: 5%;
+width: 32px;
+height: 32px;
+}
+
+#a{
+font-size: 1rem; 
+margin-left: 10%;
+color: white;  
+line-height: 20px;
+}
+
+#devTool{
+    font-size: 1rem;
+    width: 100vw;
+    font-style: normal;
+    font-weight: normal;
+    
+}
+
+.de{
+    top: 0px;
+    margin-left: 150%;
+    margin-top: 30px;
+    text-align: left;
+}
+
+.container{
+    margin: 0px;
+    margin-top: 5%;
+    padding-left: 5%;
+}
+footer ul li {
+list-style: none;
+display: block;
+}
+footer ul  {
+padding-left: 0;
+}
+
+footer ul  li{
+text-decoration: none;
+color: rgb(255, 255, 255);
+text-decoration:none;
+padding-top: 10%;
+}
+
+footer #li li{
+    margin-top: -10%;
+    margin-left: -20%;
+}
+
+footer tr td{
+    padding-top: 10%;
+}
+
+#la{
+    margin-top: -3%;
+}
