@@ -1,0 +1,129 @@
+@charset "UTF-8";
+
+/* 넥슨 고딕 Bold */
+@font-face {
+    font-family: 'NEXON Lv1 Gothic OTF Bold';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF Bold.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+ 
+
+*{
+    font-family: 'NEXON Lv1 Gothic OTF Bold';
+}
+
+.page-cafe{
+    padding-top: 15%;
+    padding-bottom : 15%;
+}
+
+#cafeName{
+    margin-left: 8%;
+}
+
+/* 캐로셀 */
+#caroselLeft img{
+width: 500px;
+height: 500px;
+}
+
+/* 카페 정보 */
+.cf-info{
+height: 500px;
+border: 3px solid #ada397;
+border-radius: 5vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    background-color: white;
+}
+
+.cf-title{
+font-family: 'ELAND_Nice_M';
+font-size: 40px;
+margin: 0px;
+}
+
+.cf-table{
+    width: 100%;
+}
+
+.cf-table td{
+/* padding: 1%; */
+padding-left: 10%;
+padding-right: 10%;
+}
+
+.cafeTB{
+    /* margin: 0 auto; */
+    width: 100%;
+}
+
+
+/* 버튼 */
+.btnDiv{
+margin-top: 5%;
+text-align: center;
+}
+
+.btnCafe{
+    background-color: transparent;
+    border: 0;
+    padding: 2% 5%;
+    border-radius: 1vw;
+}
+
+#confirm{
+    background-color: #4B654A;
+    color: white;
+    cursor: pointer;
+}
+
+#cancelBtn{
+    background-color: #810B0B;
+    color: white;
+    cursor: pointer;
+}
+
+#cancelBtn:hover{
+    background-color: #c9a89b;
+    color: black;
+}
+
+
+/* here 내용 */
+.here-content{
+    background-color: #f6ebdb;
+    padding: 3% 7%;
+    height: 90vh;
+    margin-top: 5%;
+}
+
+.hT{
+    float: left;
+}
+
+#htIcon{
+	font-size: 2vw;
+    color: #935039;
+    margin-top: 2%;
+}
+
+#hereTitle{
+    margin-left: 5%;
+    margin-top: 1%;
+}
+
+
+
+.tdTogo{
+    padding-top: 2%;
+    padding-bottom: 2%;
+}
+
+.datepicker, .timeSelect{
+    width: 100%;
+    padding: 2%;
+    border-radius: 2vw;
+}
