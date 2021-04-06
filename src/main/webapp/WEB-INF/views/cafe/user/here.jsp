@@ -119,10 +119,10 @@
                         MENU
                     </button> -->
                     <!-- <input class="modal-ck" type="checkbox" id="modal-ck" name="modal-ck"/> -->
-                    <button class="btnCafe" id="confirm">
+                    <button class="btnCafe" id="confirm" onclick="location.href='${ contextPath }/cafe/beverage'">
                         확인
                     </button>	
-                    <button class="btnCafe" id="cancelBtn"  onclick="location.href='${ contextPath }/cafe/detail'">
+                    <button class="btnCafe" id="cancelBtn"  onclick="goBack()">
                         취소
                     </button>
                     </div>    
@@ -161,7 +161,11 @@
             }else{
                 $(".numBox").val(minusNum);
             }
-        })
+        });
+        
+        function goBack() { 
+    	window.history.back(); 
+    }
 
     </script>
     

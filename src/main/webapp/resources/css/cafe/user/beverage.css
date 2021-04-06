@@ -1,0 +1,261 @@
+@charset "UTF-8";
+
+
+@font-face {
+    font-family: 'NEXON Lv1 Gothic OTF Bold';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF Bold.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}  
+
+*{
+    font-family: 'NEXON Lv1 Gothic OTF Bold';
+}
+
+/* content */
+.beverage-content{
+    width: 100%;
+    padding: 5%;
+    margin-top: 5%;
+}
+
+.bTable{
+    margin-top: 3%;
+}
+
+.bTbody td{
+    padding: 1%;
+}
+
+.berCate{
+    background-color: #F3EFEB;
+    width: 100%;
+}
+
+.berCate h1{
+    margin-top: 1%;
+    margin-left: 2%;
+}
+
+/* card */
+#cardShape{
+    width: 15rem;
+    height: 20rem;
+    border: 1px solid #96877D;
+}
+#cardShape img{
+    width: 15rem;
+    height: 13rem;
+}
+/* 모달 */
+#coffee-icon{
+    font-size: 2vw;
+    color: #F3D798;
+    display: block;
+    margin: 0 auto;
+}
+#close-icon{
+    background-color: transparent;
+    border: white;
+}
+#close-icon:hover{
+    color: #810B0B;
+}
+
+#text-bev{
+    display: block;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+.bev-ul{
+    list-style: none;
+    text-align: center;
+}
+/* 모달 + -버튼  */
+#pmBtn{
+    background-color: #e3a259;
+    border: 0;
+    color: white;
+}
+
+#pmBtn:hover{
+    background-color: #5a462f;
+    color:#f0ebe5;
+}
+
+/* 용량 버튼 */
+.hi{
+    /* background-color: #5a462f; */
+    text-align: center;
+    border-radius: 1vw;
+    padding: 5%;
+}
+
+#hot{
+    border: 3px solid #810B0B;
+}
+
+#hot:hover{
+    background-color: #810B0B;
+    color: white;
+}
+
+#hot.select{
+    background-color: #810B0B;
+    color: white;
+}
+
+#ice{
+    border: 3px solid #0b0d81;
+}
+
+#ice:hover{
+    background-color: #0b0d81;
+    color: white;
+}
+
+#ice.select{
+    background-color: #0b0d81;
+    color: white;
+}
+
+/* 용량 버튼 */
+.cap{
+    text-align: center;
+    border-radius: 1vw;
+    padding: 5%;
+    border: 3px solid #f0c21b;
+}
+
+#grande{
+    height: 10vh;
+}
+
+#venti{
+    height: 20vh;
+}
+
+.cap.select{
+    background-color: #f0c21b;
+    color: black;
+}
+
+/* 컵 버튼 */
+.cup{
+    text-align: center;
+    border-radius: 1vw;
+    padding: 5%;
+    border: 3px solid #5a462f;
+    height: 10vh;
+}
+
+.cup.select{
+    background-color: #5a462f;
+    color: white;
+}
+
+/* 모달 확인 취소 버튼 */
+#confirmBtn{
+    background-color: #4B654A;
+    color: white;
+}
+#confirmBtn:hover{
+    background-color: #739473;
+    color: black;
+}
+#cancelBtn{
+    background-color: #810B0B;
+    color: white;
+}
+#cancelBtn:hover{
+    background-color: #c9a89c;
+    color: black;
+}
+
+/* 장바구니 */
+.cart{
+    visibility: hidden;
+    opacity: 0;
+    width: 100%;
+    z-index: 90;
+    border-radius: 1vw;
+    height: 50vh;
+    position: fixed; 
+    bottom: 0; 
+    border: 5px solid #f0c21b;
+    background-color: white;
+    /* padding-bottom: 10%; */
+}
+
+.cart.cartAdd{
+    opacity: 1;
+    visibility: visible;
+}
+
+.cartTable{
+    padding: 2%;
+}
+#cfIcon{
+    font-size: 5vh;
+}
+.cTitle{
+    float: left;
+    padding-left: 1%;
+}
+
+/* 장바구니 카드 */
+#cardCart{
+    /* border: 0; */
+    text-align: center;
+    width: 12vw;
+}
+#cardCart img{
+    width: 12vw;
+    height: 15vh;
+}
+
+/* 장바구니 버튼 */
+.cartBtn{
+    float: right;
+}
+
+#card{
+    background-color: #4B654A;
+    border: 0;
+    border-radius: 2vw;
+    padding: 1vh 2vw;
+}
+
+.fa-credit-card-alt{
+    color: white;
+}
+
+#cart{
+    background-color: #935039;
+    border: 0;
+    border-radius: 2vw;
+    padding: 1vh 2vw;
+}
+
+#cart i{
+    color: white;
+}
+
+#card:hover{
+    background-color: #e3a259;
+    color: black;
+}
+#cart:hover{
+    background-color: #c9a89b;
+    color: black;
+}
+
+.cartCloseBtn{
+	background-color : transparent;
+	border:0;
+}
+
+.cartCloseBtn:hover{
+	background-color : #810B0B;
+	color: white;
+}
