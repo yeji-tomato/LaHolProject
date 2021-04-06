@@ -5,11 +5,13 @@
 <head>
 <meta charset="UTF-8">
 <title>음료 선택 페이지</title>
+<!-- beverage css -->
+<link rel="stylesheet" href="${ contextPath }/resources/css/cafe/user/beverage.css">
 </head>
 <body>
 	
 	<!-- menubar -->
-	<jsp:include page="/WEB-INF/views/common/menubar.jsp"/>
+	<jsp:include page="/WEB-INF/views/common/menubarBG.jsp"/>
 	
 	<!-- 음료  -->
     <div class="beverage-content">
@@ -333,6 +335,17 @@
     <!-- 장바구니 -->
     <div class="cart">
         <div class="cartTable">
+        <button style="float:right;" class="cartCloseBtn">
+			<i class="fa fa-times" aria-hidden="true"></i>
+		</button>
+		<script>
+		$(function() {
+            $(".cartCloseBtn").click(function(e) {
+                e.preventDefault();
+                $(".cart").removeClass("cartAdd");
+            });
+            });
+		</script>
     <table>
         <thead>
             <tr style="width: 100%;">

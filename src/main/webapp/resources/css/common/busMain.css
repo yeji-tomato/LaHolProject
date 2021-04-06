@@ -1,0 +1,395 @@
+@charset "UTF-8";
+
+/* 넥슨 고딕 Bold */
+@font-face {
+    font-family: 'NEXON Lv1 Gothic OTF Bold';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF Bold.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.swiper-container {
+	min-height: 100%;
+	cursor: pointer;
+	padding-top: 3%;
+	padding-bottom: 5%;
+	font-family: 'NEXON Lv1 Gothic OTF Bold';
+}
+
+@media screen and (min-width:1240px) {
+	.swiper-slide {
+		left: 7vw;
+		padding-top: 2%
+	}
+}
+
+@media screen and (min-width:1280px) {
+	.swiper-slide {
+		left: 9vw;
+		padding-top: 2%
+	}
+}
+
+@media screen and (min-width:1366px) {
+	.swiper-slide {
+		left: 14vw;
+	}
+}
+
+@media screen and (min-width:1440px) {
+	.swiper-slide {
+		left: 16vw;
+		padding-top: 5%
+	}
+}
+
+@media screen and (min-width:1600px) {
+	.swiper-slide {
+		left: 22vw
+	}
+}
+
+@media screen and (min-width:1680px) {
+	.swiper-slide {
+		left: 22.5vw
+	}
+}
+
+@media screen and (min-width:1920px) {
+	.swiper-slide {
+		left: 28vw
+	}
+}
+
+@media screen and (min-width:2560px) {
+	.swiper-slide {
+		left: 36vw
+	}
+}
+
+.card {
+	position: relative;
+	width: 100%;
+	max-width: 1147px;
+	height: 100%;
+	max-height: 775px;
+	border-radius: 17px;
+	box-shadow: 0 30px 160px 0 rgba(0, 0, 0, .3), 0 40px 77px 0 rgba(0, 0, 0, .1);
+	-ms-flex-positive: 0;
+	flex-grow: 0;
+	-ms-flex-negative: 1;
+	flex-shrink: 1;
+	-ms-flex-preferred-size: auto;
+	flex-basis: auto;
+	z-index: 5;
+}
+
+@media screen and (min-width:320px) {
+	.card {
+		width: 100vw;
+		height: 100vh;
+		border-radius: 0;
+		box-shadow: none
+	}
+}
+
+@media screen and (min-width:768px) {
+	.card {
+		max-height: none
+	}
+}
+
+@media screen and (min-width:1024px) {
+	.card {
+		width: 100%;
+		height: 100%;
+		max-height: 775px;
+		box-shadow: 0 30px 160px 0 rgba(0, 0, 0, .3), 0 40px 77px 0 rgba(0, 0, 0, .1)
+	}
+}
+
+.card__header {
+	height: 50px;
+	padding-top: 55px;
+	padding-right: 57px;
+	padding-left: 57px;
+	z-index: 5;
+}
+
+@media screen and (min-width:320px) {
+	.card__header {
+		padding-top: 10px;
+		padding-right: 15px;
+		padding-left: 15px
+	}
+}
+
+@media screen and (min-width:1024px) {
+	.card__header {
+		padding-top: 55px;
+		padding-right: 57px;
+		padding-left: 57px
+	}
+}
+
+.card__body {
+	display: -ms-flexbox;
+	display: flex;
+	-ms-flex-direction: column;
+	flex-direction: column;
+	padding: 100px 57px 60px;
+	transition: all .7s ease-in-out
+}
+
+@media screen and (min-width:320px) {
+	.card__body {
+		padding-top: 20.5vh;
+		padding-right: 15px;
+		padding-left: 15px
+	}
+}
+
+@media screen and (min-width:360px) {
+	.card__body {
+		padding-top: 30vh
+	}
+}
+
+@media screen and (min-width:375px) {
+	.card__body {
+		padding-top: 35vh
+	}
+}
+
+@media screen and (min-width:768px) {
+	.card__body {
+		padding-top: 40vh
+	}
+}
+
+@media screen and (min-width:1024px) {
+	.card__body {
+		padding-top: 200px;
+		padding-right: 50px;
+		padding-left: 50px
+	}
+}
+
+@media screen and (min-width:320px) {
+	.card__body--faded {
+		transition: all .5s ease-in-out;
+		opacity: .2
+	}
+}
+
+@media screen and (min-width:1240px) {
+	.card__body--faded {
+		opacity: 1
+	}
+}
+
+.card__image {
+	position: absolute;
+	z-index: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+
+.container {
+	display: -ms-flexbox;
+	display: flex;
+	/* background: linear-gradient(135deg, #e45661, #e96fb3 66%, #ec7ad6); */
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	-ms-flex-align: center;
+	align-items: center;
+	-ms-flex-pack: center;
+	justify-content: center;
+}
+
+.card-title {
+	margin: 0;
+	padding: 0;
+	color: #E5BD62;
+	font-size: 90px;
+	text-rendering: optimizeLegibility;
+	z-index: 5;
+}
+
+@media screen and (min-width:320px) {
+	.card-title {
+		font-size: 75px
+	}
+}
+
+@media screen and (min-width:768px) {
+	.card-title {
+		font-size: 90px
+	}
+}
+
+@media screen and (min-width:1024px) {
+	.card-title {
+		font-size: 90px
+	}
+}
+
+.card-meta {
+	display: -ms-flexbox;
+	display: flex;
+	-ms-flex-direction: row;
+	flex-direction: row;
+	margin-top: 60px;
+	-ms-flex-wrap: nowrap;
+	flex-wrap: nowrap;
+	-ms-flex-pack: justify;
+	justify-content: space-between;
+	z-index: 5;
+}
+
+@media screen and (min-width:320px) {
+	.card-meta {
+		margin-top: 2vh
+	}
+}
+
+@media screen and (min-width:768px) {
+	.card-meta {
+		margin-top: 50px;
+		margin-bottom: 20px
+	}
+}
+
+@media screen and (min-width:1024px) {
+	.card-meta {
+		margin-top: 60px
+	}
+}
+
+.card-meta__line {
+	width: 100%;
+	height: 0;
+	padding-bottom: 10px;
+	border-bottom: 2px solid hsla(0, 0%, 100%, .4);
+}
+
+@media screen and (min-width:320px) {
+	.card-meta__line {
+		display: none
+	}
+}
+
+@media screen and (min-width:768px) {
+	.card-meta__line {
+		display: block;
+		width: 100%
+	}
+}
+
+@media screen and (min-width:1024px) {
+	.card-meta__line {
+		width: 100%
+	}
+}
+
+@media screen and (min-width:1240px) {
+	.card-meta__line {
+		width: 100%
+	}
+}
+
+.card-tags {
+	display: -ms-flexbox;
+	display: flex;
+	overflow: hidden;
+	-ms-flex-direction: row;
+	flex-direction: row;
+	-ms-flex-wrap: nowrap;
+	flex-wrap: nowrap;
+	-ms-flex-pack: justify;
+	justify-content: space-between;
+	z-index: 5;
+}
+
+@media screen and (min-width:320px) {
+	.card-tags {
+		margin-top: 15px;
+		-ms-flex-wrap: wrap;
+		flex-wrap: wrap;
+		-ms-flex-pack: start;
+		justify-content: flex-start
+	}
+}
+
+@media screen and (min-width:768px) {
+	.card-tags {
+		margin-top: 0
+	}
+}
+
+@media screen and (min-width:1024px) {
+	.card-tags {
+		margin-top: 0;
+		-ms-flex-wrap: nowrap;
+		flex-wrap: nowrap;
+		-ms-flex-pack: justify;
+		justify-content: space-between
+	}
+}
+
+.card-tags__item {
+	margin-top: 50px;
+	margin-right: 10px;
+	padding: 20px 45px;
+	transition: all .5s ease-in-out;
+	text-decoration: none;
+	text-transform: uppercase;
+	letter-spacing: 3px;
+	color: #5A452E;
+	background-color: rgba(255, 255, 255, 0.541);
+	border: 1px solid rgba(255, 255, 255, 0.4);
+	border-radius: 10px;
+	font-size: 20px;
+	font-weight: lighter;
+	text-rendering: optimizeLegibility
+}
+
+.card-tags__item:hover{
+	color: white;
+}
+
+@media screen and (min-width:320px) {
+	.card-tags__item {
+		margin-top: 2.5vh;
+		padding: 10px 25px;
+		opacity: .8;
+		font-size: 12px
+	}
+}
+
+@media screen and (min-width:768px) {
+	.card-tags__item {
+		margin-top: 20px;
+		padding: 15px 35px;
+		opacity: 1;
+		font-size: 17px
+	}
+}
+
+@media screen and (min-width:1024px) {
+	.card-tags__item {
+		margin-top: 50px;
+		padding: 20px 35px;
+		opacity: 1;
+		font-size: 22px
+	}
+}
+
+.card-tags__item:hover {
+	transition: all .2s ease-in-out;
+	border: 1px solid hsla(0, 0%, 100%, .5);
+	background: hsla(0, 0%, 100%, .1)
+}

@@ -119,10 +119,10 @@
                         MENU
                     </button> -->
                     <!-- <input class="modal-ck" type="checkbox" id="modal-ck" name="modal-ck"/> -->
-                    <button class="btnCafe" id="confirm">
+                    <button class="btnCafe" id="confirm" onclick="location.href='${ contextPath }/cafe/beverage'">
                         확인
                     </button>	
-                    <button class="btnCafe" id="cancelBtn">
+                    <button class="btnCafe" id="cancelBtn"  onclick="goBack()">
                         취소
                     </button>
                     </div>    
@@ -161,18 +161,12 @@
             }else{
                 $(".numBox").val(minusNum);
             }
-        })
-
-        // 버튼 선택 
-        // const here = document.getElementById("ForHere");
-        // here.addEventListener("click", function(){
-        //     location.href='../here/here.html';
-        // });
-
-        const cancel = document.getElementById("cancelBtn");
-        cancel.addEventListener("click", function(){
-            location.href='../detail/detail.html';
         });
+        
+        function goBack() { 
+    	window.history.back(); 
+    }
+
     </script>
     
     <!-- footer -->
