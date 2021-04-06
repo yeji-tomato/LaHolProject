@@ -103,7 +103,7 @@
                 <button class="btnCafe" id="confirm">
                     확인
                 </button>	
-                <button class="btnCafe" id="cancelBtn">
+                <button class="btnCafe" id="cancelBtn" onclick="location.href='${ contextPath }/cafe/detail'">
                     취소
                 </button>
                 </div>    
@@ -143,17 +143,6 @@
             $(".numBox").val(minusNum);
         }
     })
-
-    // 버튼 선택 
-    // const here = document.getElementById("ForHere");
-    // here.addEventListener("click", function(){
-    //     location.href='../here/here.html';
-    // });
-
-    const cancel = document.getElementById("cancelBtn");
-    cancel.addEventListener("click", function(){
-        location.href='../detail/detail.html';
-    });
 </script>
 
 	<!-- footer -->
