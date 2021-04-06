@@ -34,7 +34,7 @@
 			<div class="circle clusterPieces"></div>
 
 			<div class="owlHorned clusterPieces">
-                <img src="./resources/images/img_main/rose_with_coffee.png" />
+                <img src="${ contextPath }/resources/img/main/rose_with_coffee.png" />
 			</div>
 
 			<img
@@ -60,7 +60,7 @@
 			/>
 
 			<div class="clusterPieces owlBurrowing">
-                <img src="./resources/images/img_main/latte_in_a_cup.jpg" />
+                <img src="${ contextPath }/resources/img/main/latte_in_a_cup.jpg" />
 			</div>
 
 			<img

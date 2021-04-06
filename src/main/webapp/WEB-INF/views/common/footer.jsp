@@ -8,6 +8,8 @@
 <!-- menubar css -->
 <!-- <link rel="stylesheet" href="<c:url value="/resources/menubar.css"/>"> -->
 <link rel="stylesheet" href="${ contextPath }/resources/css/common/footer.css" type="text/css">
+<!--푸터 bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
 </head>
 <body>
 	<!-- Footer(푸터) -->
@@ -16,7 +18,7 @@
         <div class="name">
         
         <div id="a">   
-        <img id="la" src="./resources/images/img_common/whiteLogo.png" style="float: left;  width: 100px;">
+        <img id="la" src="${ contextPath }/resources/img/common/whiteLogo.png" style="float: left;  width: 100px;">
         <a id="aa">LaHol</a>
         <div class="container">
             <div class="row">
@@ -34,19 +36,20 @@
                         <th colspan="2"><h6>Futuer Developer</h6></th>
                         <tr>
                             <td>
-                                <img id="Monitor"  src="./resources/images/img_common/footerIMG/Monitor.jpg" >
+                                <img id="Monitor"  src="${ contextPath }/resources/img/common/footer/Monitor.jpg" >
                             </td>
                             <td>
-                                Digital Content Convergence
-                                Application SW Engineer Training Course (5)
+                                &nbsp;Digital Content Convergence
+                                &nbsp;Application SW Engineer Training 
+                                &nbsp;Course (5)
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <img id="Phone"  src="./resources/images/img_common/footerIMG/PhoneCall.jpg" > 
+                                <img id="Phone"  src="${ contextPath }/resources/img/common/footer/PhoneCall.jpg" > 
                             </td>
                             <td>
-                                +97 (90) 97 92 96
+                                &nbsp;+97 (90) 97 92 96
                             </td>
                         </tr>
                         <tr>
@@ -64,10 +67,10 @@
             <p id="devTool">Development tools</p>
 
             <div class="devImg">
-                <img id="html" src="./resources/images/img_common/footerIMG/PhoneCall.jpg">      
-                <img id="javascript" src="./resources/images/img_common/footerIMG/js.jpg" style="margin-left: 50px;" >      
-                <img id="googledrive " src="./resources/images/img_common/footerIMG/gogle.png" style="margin-left: 100px;">  
-                <img id="visualstudio" src="./resources/images/img_common/footerIMG/vs.png" style="margin-left: 150px;">          
+                <img id="html" src="${ contextPath }/resources/img/common/footer/PhoneCall.jpg">      
+                <img id="javascript" src="${ contextPath }/resources/img/common/footer/js.jpg" style="margin-left: 50px;" >      
+                <img id="googledrive " src="${ contextPath }/resources/img/common/footer/gogle.png" style="margin-left: 100px;">  
+                <img id="visualstudio" src="${ contextPath }/resources/img/common/footer/vs.png" style="margin-left: 150px;">          
             </div>
         </div>
 

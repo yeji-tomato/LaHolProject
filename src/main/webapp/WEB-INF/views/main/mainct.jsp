@@ -47,7 +47,7 @@
             <img class="img-2" src="https://images.unsplash.com/photo-1590006192944-7d9e7e8efd84?ixid=MXwxMjA3fDB8MHxzZWFyY2h8N3x8bW9uZXklMjBjb2ZmZWV8ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60">
             </label>
             <div class="content content-2">
-            <span>play Ground</span>
+            <span>PLAY GROUND</span>
             <div class="title">게임을 통해서 할인을 받으세요!</div>
             <button>할인쿠폰 받으러 가기 →</button>
             </div>
