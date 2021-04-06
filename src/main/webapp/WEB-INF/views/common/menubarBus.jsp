@@ -11,13 +11,15 @@ scope="application"/>
 <title>menubar</title>
 <!-- menubar css -->
 <!-- <link rel="stylesheet" href="<c:url value="/resources/menubar.css"/>"> -->
-<link rel="stylesheet" href="${ contextPath }/resources/css/common/menubar.css" type="text/css">
+<link rel="stylesheet" href="${ contextPath }/resources/css/common/menubarBus.css" type="text/css">
 <!-- bootstrap css -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
 <!-- bootstrap js -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
 <!-- 아이콘 cdn -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<!-- JQuery cdn -->
+
 </head>
 <body>
 	<nav id="nav">
@@ -26,12 +28,11 @@ scope="application"/>
                 <ul>
                     <li><a href="#">STORE</a></li>
                     <li><a href="#">CLASS</a></li>
-                    <li><a href="${ contextPath }/cafe/user">CAFE</a></li>
-                    <li><a href="#">PLAY GROUND</a></li>
+                    <li><a href="#">CAFE</a></li>
                 </ul>
             </div>
             <div class="logoArea">
-            	<a href="${ contextPath }/bus/main" class="logoA">
+            	<a href="${ contextPath }">
                 	<img src="${ contextPath }/resources/img/common/logo-lahol2.png">
                 </a>
             </div>
