@@ -28,7 +28,7 @@ scope="application"/>
                 <ul>
                     <li><a href="#">STORE</a></li>
                     <li><a href="#">CLASS</a></li>
-                    <li><a href="#">CAFE</a></li>
+                    <li><a href="${ contextPath }/cafe/home">CAFE</a></li>
                 </ul>
             </div>
             <div class="logoArea">
