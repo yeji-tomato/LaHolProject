@@ -8,10 +8,10 @@
 <!-- beverage css -->
 <link rel="stylesheet" href="${ contextPath }/resources/css/cafe/user/beverage.css">
 </head>
-<body>
+<body style="background: #f0ebe5;">
 	
 	<!-- menubar -->
-	<jsp:include page="/WEB-INF/views/common/menubarBG.jsp"/>
+	<jsp:include page="/WEB-INF/views/common/menubar.jsp"/>
 	
 	<!-- 음료  -->
     <div class="beverage-content">

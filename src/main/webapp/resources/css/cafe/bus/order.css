@@ -1,6 +1,5 @@
 @charset "UTF-8";
 
-/* 이랜드 나이스체 */
 @font-face {
     font-family: 'NEXON Lv1 Gothic OTF Bold';
     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF Bold.woff') format('woff');
@@ -186,4 +185,22 @@
 #page-color:hover{
     background-color: #e3a259;
     color: white;
+}
+
+
+@media screen and (max-width:1280px) {
+	.order_table {
+    padding: 0%;
+	}
+	
+	h2{
+		padding-top: 5%;
+		padding-left: 5%;
+	}
+
+}
+
+@media screen and (min-width:1920px) {
+
+
 }

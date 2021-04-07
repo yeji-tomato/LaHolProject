@@ -1,0 +1,153 @@
+@charset "UTF-8";
+
+body{
+            margin: 0;
+            padding: 0;
+}
+
+.cafe-sidemenubar{
+    width: 100%;
+    height: auto; 
+    padding-top: 10%;
+}
+
+#cf{
+    margin-top: 1%;
+    margin-left: 5%;
+    width: 80vw;
+    height: 120vh;
+    border-radius: 30px;
+    -webkit-box-shadow: 0px 14px 32px 0px rgba(0, 0, 0, 0.15);
+    -moz-box-shadow: 0px 14px 32px 0px rgba(0, 0, 0, 0.15);
+    box-shadow: 0px 14px 32px 0px rgba(0, 0, 0, 0.15);
+}
+.col-cf{
+    float: left;
+}
+/* 음료 등록 폼 */
+#coffee-write-form{
+    padding: 3%;
+}
+#pencilIcon{
+    float: right;
+    font-size: 2vw;
+    color: #4B654A;
+}
+#pencilIcon:hover{
+    color: #e3a259;
+}
+#cardContent{
+    list-style:none;
+    padding-left:0px;
+}
+#coffeeBtn{
+    background-color: #5A452E;
+    color: white;
+}
+#coffeeBtn:hover{
+    background-color: #CDC2AF;
+    color: black;
+}
+/* 모달 */
+#coffee-icon{
+    font-size: 2vw;
+    color: #F3D798;
+    display: block;
+    margin: 0 auto;
+}
+#close-icon{
+    background-color: transparent;
+    border: white;
+}
+#close-icon:hover{
+    color: #810B0B;
+}
+.coffee-title{
+    color: #e3a259;
+}
+.modalForm{
+    margin-bottom: 5%;
+}
+.radioModal{
+    margin-left: 3%;
+}
+#beverageImg{
+    border: 1px solid #5A452E;
+    width: 260px;
+    height: 230px;
+    background-image: url('../../../../resources/images/cafe/ceoImgBg.png');
+    /* background-repeat:no-repeat;
+    Background-size: cover */
+}
+#text, #number{
+    width: 100%;
+    padding: 1%;
+    border-radius: 10vw;
+    border: 1px solid #5A452E;
+}
+.minus{
+    background-color: #e3a259;
+    color: white;
+    border: 0;
+    border-radius: 1vw;
+}
+.minus:hover{
+    background-color: #f1d1ac;
+    color: #5a462f;
+}
+.plus{
+    background-color: #935039;
+    color: white;
+    border: 0;
+    border-radius: 1vw;
+}
+.plus:hover{
+    background-color: #c9a89c;
+    color: #5a462f;
+}
+/* 모달 버튼 */
+#addBtn{
+    background-color: #4B654A;
+    color: white;
+}
+#addBtn:hover{
+    background-color: #739473;
+    color: black;
+}
+#cancelBtn{
+    background-color: #810B0B;
+    color: white;
+}
+#cancelBtn:hover{
+    background-color: #c9a89c;
+    color: black;
+}
+
+.coffee-container{
+	height: 140vh;
+}
+
+
+@media screen and (max-width:1280px) {
+
+	#cf {
+    width: 75vw;
+    height: 80vh;
+	}
+	
+	.coffee-container{
+	height: 90vh;
+	}
+
+}
+
+@media screen and (min-width:1920px) {
+
+		#cf {
+    height: 80vh;
+	}
+	
+	.coffee-container{
+	height: 90vh;
+	}
+}

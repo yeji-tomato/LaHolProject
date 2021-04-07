@@ -108,7 +108,7 @@
                                     카페를 등록해주세요!</p>
                             </div>
                         <div class="cafe-btn">
-                            <button type="button">자세히 보러가기 →</button>
+                            <button type="button" id="dtBtn">자세히 보러가기 →</button>
                         </div>
                         </div>
                     </div>
