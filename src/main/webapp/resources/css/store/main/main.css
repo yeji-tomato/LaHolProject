@@ -683,13 +683,13 @@ ul {
             color: white; 
         }
         #ifb:hover{
-            color: #16e75c90;
+            color: #810B0B;
             opacity: 0.8;
             cursor: pointer;
         }
 
         .product:hover {
-            color: #937cf790;
+            color: #F3D798;
             opacity: 0.8;
             cursor: pointer;
         }
@@ -727,7 +727,7 @@ ul {
         }
 
         .ca>button:hover{
-            color: #937cf790;
+            color: #810B0B;
             opacity: 0.8;
             cursor: pointer;
         }

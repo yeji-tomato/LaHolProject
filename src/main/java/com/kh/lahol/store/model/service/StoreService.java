@@ -3,6 +3,7 @@ package com.kh.lahol.store.model.service;
 import java.util.List;
 
 import com.kh.lahol.store.model.vo.PageInfo;
+import com.kh.lahol.store.model.vo.Search;
 import com.kh.lahol.store.model.vo.Store;
 
 public interface StoreService {
@@ -25,6 +26,11 @@ public interface StoreService {
 	//6. 게시글 삭제
 	
 	public int deleteStore(int PR_CODE);
+
+	//7. 게시글 검색
+	public List<Store> searchList(  Search search, PageInfo pi);
+
+	public int selectSearchCount(Search search);
 
 
 	

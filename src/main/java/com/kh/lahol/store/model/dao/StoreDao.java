@@ -3,6 +3,7 @@ package com.kh.lahol.store.model.dao;
 import java.util.List;
 
 import com.kh.lahol.store.model.vo.PageInfo;
+import com.kh.lahol.store.model.vo.Search;
 import com.kh.lahol.store.model.vo.Store;
 
 public interface StoreDao {
@@ -22,5 +23,9 @@ public interface StoreDao {
 	public int updateStore(Store s);
 	
 	public int deleteStore(int PR_CODE);
+
+	public List<Store> searchList(Search search, PageInfo pi);
+
+	public int selectSearchCount(Search search);
 	
 }

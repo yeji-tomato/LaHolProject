@@ -14,6 +14,7 @@
 	<typeAliases> 
 		<!-- 스토어  -->
 		<typeAlias type="com.kh.lahol.store.model.vo.Store" alias="Store"/>
+		<typeAlias type="com.kh.lahol.store.model.vo.Search" alias="Search"/>
  
 	</typeAliases>
 	
