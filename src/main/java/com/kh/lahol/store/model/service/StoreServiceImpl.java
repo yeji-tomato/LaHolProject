@@ -24,6 +24,12 @@ public class StoreServiceImpl implements StoreService {
 		 
 		return sDao.selectList(pi);
 	}
+	
+	@Override
+	public List<Store> selectList2(PageInfo pi2) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 	@Override
 	public int insertStore(Store s) { 
@@ -47,5 +53,7 @@ public class StoreServiceImpl implements StoreService {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+
 
 }

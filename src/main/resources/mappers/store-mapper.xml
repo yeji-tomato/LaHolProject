@@ -84,5 +84,34 @@ C_CODE	VARCHAR2(30 BYTE)	No		18	카페코드
 	           PR_CODE DESC
 	</select>
 	
+	<select id="selectList2" resultMap="storeResultSet">
+		SELECT
+		       PR_CODE
+		     , ST_CATAGORY
+		     , PR_NAME
+		     , PR_IF
+		     , PR_EVENT
+		     , ORIGIN
+		     , PR_PRICE
+		     , SUBSCRIPTIONS
+		     , STORE_PHOTO1
+		     , STORE_PHOTO2
+		     , STORE_PHOTO3
+		     , DY_COMPANY
+		     , PR_INF
+		     , SERVICE_CENTER
+		     , PR_DATE
+	         , PR_NOTICE 
+      		 , PR_STATUS
+      		 , C_CODE
+		          
+		  FROM
+		       PRODUCT
+		 WHERE
+		       PR_STATUS = 'Y'
+	  ORDER BY
+	           PR_CODE DESC
+	</select>
+	
 	 
 </mapper>

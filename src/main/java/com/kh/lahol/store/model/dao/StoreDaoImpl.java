@@ -16,6 +16,7 @@ public class StoreDaoImpl implements StoreDao{
 	private SqlSessionTemplate sqlSession;
 	
 	
+	
 	@Override
 	public int selectListCount() { 
 		return sqlSession.selectOne("storeMapper.selectListCount");
@@ -26,6 +27,13 @@ public class StoreDaoImpl implements StoreDao{
 		int offset =(pi.getCurrentPage() -1) *pi.getStoreLimit(); 
 		RowBounds rowBounds = new RowBounds(offset,pi.getStoreLimit());
 		return sqlSession.selectList("storeMapper.selectList", null, rowBounds);
+	}
+	
+	@Override
+	public List<Store> selectList2(PageInfo pi2) {
+		int offset =(pi2.getCurrentPage() -1) *pi2.getStoreLimit(); 
+		RowBounds rowBounds = new RowBounds(offset,pi2.getStoreLimit());
+		return sqlSession.selectList("storeMapper.selectList2", null, rowBounds);
 	}
 
 	@Override
@@ -52,5 +60,7 @@ public class StoreDaoImpl implements StoreDao{
 	public int deleteStore(int PR_CODE) { 
 		return 0;
 	}
+
+	
 
 }
