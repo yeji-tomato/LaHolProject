@@ -21,7 +21,7 @@ public class BMainController {
 	public String Home(Locale locale, Model model) {
 		
 		
-		return "cafe/bus/home";
+		return "cafe/bus/busHome";
 	}
 	
 	@RequestMapping(value = "/cafe/order", method = RequestMethod.GET)

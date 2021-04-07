@@ -5,8 +5,11 @@
 <head>
 <meta charset="UTF-8">
 <title>예약 확인</title>
-<!-- search css -->
+<!-- res css -->
 <link rel="stylesheet" href="${ contextPath }/resources/css/cafe/bus/res.css">
+<link rel="stylesheet" href="${ contextPath }/resources/css/cafe/bus/sideMenu.css" type="text/css">
+<!-- calendar CDN -->
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.5.1/main.min.js"></script>
 </head>
 <body>
 
@@ -34,7 +37,7 @@
                     </div>
                     <p class="menu-text">주문 내역</p>
             </li>
-            <li class="side-item active">
+            <li class="side-item active" id="cafeRes">
                     <div class="side-icon">
                         <svg xmlns="http://www.w3.org/2000/svg" data-name="Layer 1" viewBox="0 0 24 24">
                             <path d="M12,19a1,1,0,1,0-1-1A1,1,0,0,0,12,19Zm5,0a1,1,0,1,0-1-1A1,1,0,0,0,17,19Zm0-4a1,1,0,1,0-1-1A1,1,0,0,0,17,15Zm-5,0a1,1,0,1,0-1-1A1,1,0,0,0,12,15ZM19,3H18V2a1,1,0,0,0-2,0V3H8V2A1,1,0,0,0,6,2V3H5A3,3,0,0,0,2,6V20a3,3,0,0,0,3,3H19a3,3,0,0,0,3-3V6A3,3,0,0,0,19,3Zm1,17a1,1,0,0,1-1,1H5a1,1,0,0,1-1-1V11H20ZM20,9H4V6A1,1,0,0,1,5,5H6V6A1,1,0,0,0,8,6V5h8V6a1,1,0,0,0,2,0V5h1a1,1,0,0,1,1,1ZM7,15a1,1,0,1,0-1-1A1,1,0,0,0,7,15Zm0,4a1,1,0,1,0-1-1A1,1,0,0,0,7,19Z"/>
@@ -60,44 +63,9 @@
             </li>
         </ul>
         </div>
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-        <script>
-            $(function() {
-            $(".side-item").click(function(e) {
-                e.preventDefault();
-                $(".side-item").removeClass("active");
-                $(this).addClass("active");
-            });
-            });
-
-            // cafe sidemenubar 페이지 이동
-
-            // home
-            const cafeHome = document.getElementById("cafeHome");
-            cafeHome.addEventListener("click", function() {
-                location.href='../main/main.html';
-            });
-
-             // 주문 내역
-            const cafeOrd = document.getElementById("cafeOrd");
-            cafeOrd.addEventListener("click", function(){
-                location.href='../order/order.html';
-            });
-
-            // 카페 등록
-            const cafeWri = document.getElementById("cafeWri");
-            cafeWri.addEventListener("click", function(){
-                location.href='../write/write.html';
-            });
-            
-            // 카페 확인
-            const cafeCon= document.getElementById("cafeCon");
-            cafeCon.addEventListener("click", function() {
-                location.href='../confirm/confirm.html';
-            });
-        </script>
+        <%@include file="./sideMenu.jsp" %>
     </div>
-    <div class="res-container">
+    <div class="res-container" style="height: 150vh">
         <div id="pd" class="col-cf">
             <!-- 캘린더 -->
             <div id="cf-calendar">

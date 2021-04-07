@@ -17,7 +17,7 @@
     <div class="cafe-sidemenubar">
         <div id="side" class="col col-cf">
         <ul class="side-menu">
-            <li class="side-item active">
+            <li class="side-item active" id="cafeHome">
                     <div class="side-icon">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                             <path   d="M18 12H19.9248C20.8933 12 21.2962 10.7609 20.513 10.1913L12.5881 4.42778C12.2375 4.17276 11.7625 4.17276 11.4118 4.42778L3.48699 10.1913C2.70374 10.7609 3.10668 12 4.07516 12H5.99998V19C5.99998 19.5523 6.44769 20 6.99998 20H9.99998V14H14V20H17C17.5523 20 18 19.5523 18 19V12Z"/>
@@ -58,44 +58,8 @@
                     <p class="menu-text">카페 확인</p>
             </li>
         </ul>
-        </div>
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-        <script>
-            $(function() {
-            $(".side-item").click(function(e) {
-                e.preventDefault();
-                $(".side-item").removeClass("active");
-                $(this).addClass("active");
-            });
-            });
-
-            // cafe sidemenubar 페이지 이동
-
-            // 주문 내역
-            const cafeOrd = document.getElementById("cafeOrd");
-            cafeOrd.addEventListener("click", function(){
-                location.href='../order/order.html';
-            });
-
-
-            // 예약 내역
-            const cafeRes= document.getElementById("cafeRes");
-            cafeRes.addEventListener("click", function() {
-                location.href='../reservation/reservation.html';
-            });
-
-            // 카페 등록
-            const cafeWri = document.getElementById("cafeWri");
-            cafeWri.addEventListener("click", function(){
-                location.href='../write/write.html';
-            });
-
-            // 카페 확인
-            const cafeCon= document.getElementById("cafeCon");
-            cafeCon.addEventListener("click", function() {
-                location.href='../confirm/confirm.html';
-            });
-        </script>
+        </div>  	
+		<%@include file="./sideMenu.jsp" %>
     
     <div class="container">
         <div class="row row-cols-2" id="cf-row">

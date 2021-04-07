@@ -11,6 +11,17 @@
     font-family: 'NEXON Lv1 Gothic OTF Bold';
 }
 
+body{
+            margin: 0;
+            padding: 0;
+  }
+
+  .cafe-sidemenubar{
+      width: 100%;
+      height: auto; 
+      padding-top: 10%;
+  }
+
 
 #pd{
     /* padding-top: 20%; */

@@ -16,7 +16,7 @@
 <body>
 
 	<!-- menubar -->
-	<jsp:include page="/WEB-INF/views/common/menubarBG.jsp"/>
+	<jsp:include page="/WEB-INF/views/common/menubar.jsp"/>
 
 	<div class="container" id="detailContainer">
         <div class="row">
@@ -508,6 +508,7 @@
 			</table>
 		</div>
 		</div>
+	</div>
 	</div>
 	
 	<!-- footer -->

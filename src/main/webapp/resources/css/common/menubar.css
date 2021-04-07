@@ -98,7 +98,6 @@ width : 45vw;
 
 .loginArea .infoArea {
 width : 60%;
-min-width: 400px;
 }
 
 .loginArea .loginMenu {
@@ -136,3 +135,12 @@ transition: all 0.5s linear;
 #nav.active{
 	background: #CDC2AF;
 }
+
+/* 진주님 미디어 쿼리 */
+@media all and (min-width:900px) and (max-width:1423px)
+ {     
+  .loginArea .infoArea {
+		width : 50%;
+		min-width: 300px;
+	}
+}   

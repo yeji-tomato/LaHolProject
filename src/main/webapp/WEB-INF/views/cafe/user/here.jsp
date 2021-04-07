@@ -13,8 +13,8 @@
 <body>
 
 	<!-- menubar -->
-	<jsp:include page="/WEB-INF/views/common/menubarBG.jsp"/>
-
+	<jsp:include page="/WEB-INF/views/common/menubar.jsp"/>
+	
 	<div class="page-cafe">
         <div>
             <h1 id="cafeName">LaHol 카페</h1>

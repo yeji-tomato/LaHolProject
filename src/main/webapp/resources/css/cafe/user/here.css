@@ -13,6 +13,10 @@
     font-family: 'NEXON Lv1 Gothic OTF Bold';
 }
 
+body{
+	background: #CDC2AF;
+}
+
 .page-cafe{
     padding-top: 15%;
     padding-bottom : 15%;

@@ -13,7 +13,7 @@
 <body>
 
 	<!-- menubar -->
-	<jsp:include page="/WEB-INF/views/common/menubarBG.jsp"/>
+	<jsp:include page="/WEB-INF/views/common/menubar.jsp"/>
 
 	<div class="page-cafe">
     <div>
@@ -154,7 +154,7 @@
 </script>
 
 	<!-- footer -->
-	<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
+	<jsp:include page="/WEB-INF/views/common/footer2.jsp"/>
 
 </body>
 </html>
