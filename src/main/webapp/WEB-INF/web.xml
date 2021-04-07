@@ -14,7 +14,10 @@
 	<!-- The definition of the Root Spring Container shared by all Servlets and Filters -->
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
-		<param-value>/WEB-INF/spring/root-context.xml</param-value>
+		<param-value>
+		/WEB-INF/spring/root-context.xml
+		/WEB-INF/spring/spring-security.xml
+		</param-value>
 	</context-param>
 	
 	<!-- Creates the Spring Container shared by all Servlets and Filters -->
@@ -37,5 +40,30 @@
 		<servlet-name>appServlet</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
+
+	<!-- 한글 깨짐 방지 인코딩 필터 설정 -->
+	<!-- 우리가 직접 필터를 만들어서 등록해도 되지만, 스프링에서 인코딩용 필터를 제공하고 있기 때문에
+	     web.xml에 필터로 등록만 하고 사용하면 된다 -->
+	<filter>
+		<!-- filter-name은 원하는 대로 지정 -->
+		<filter-name>encodingFilter</filter-name>
+		<!-- filter-class는 filter로 사용할 클래스 풀 네임(패키지 포함) -->
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<init-param>
+			<!-- encoding 값을 UTF-8로 지정 -->
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+		<init-param>
+			<!-- 응답 데이터 문자셋 설정도 함께 -->
+			<param-name>forceEncoding</param-name>
+			<param-value>true</param-value>
+		</init-param>
+	</filter>
+	<!-- 어떤 요청에 대해서 위에서 등록한 필터를 사용할 것인지 -->
+	<filter-mapping>
+		<filter-name>encodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
 
 </web-app>

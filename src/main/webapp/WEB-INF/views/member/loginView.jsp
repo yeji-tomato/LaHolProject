@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,7 +28,7 @@
         }
 
         #bg1 {
-            background: url("../resources/images/bg1.jpg");
+            background: url("${ contextPath }/resources/img/member/bg1.jpg");
             background-size: cover;
             background-repeat: no-repeat;
             background-attachment: fixed;
@@ -69,6 +70,8 @@
             min-height: 516px;
             background: #fff;
             border: 1px solid #5A452E;
+            
+            font-family: 'NEXON Lv1 Gothic OTF';
         }
 
         p {
@@ -84,6 +87,7 @@
             width: 280px;
             height: 14px;
             border: 1px solid #e7e7e7;
+            font-family: 'NEXON Lv1 Gothic OTF';
 
             transition: border 0.3s;
         }
@@ -148,6 +152,7 @@
             background: #4B654A;
             border: 1px solid #4B654A;
             font-size: 16px;
+            font-family: 'NEXON Lv1 Gothic OTF';
             color: #fff;
             cursor: pointer;
             transition: background-color 0.3s, border-color 0.3s;
@@ -199,6 +204,7 @@
             font-size: 12px;
             color: #fff;
             cursor: pointer;
+            font-family: 'NEXON Lv1 Gothic OTF';
             transition: background-color 0.3s, border-color 0.3s;
         }
 
@@ -235,6 +241,12 @@
 </head>
 
 <body>
+	<c:if test="${ !empty msg }">
+		<script>
+			alert('${msg}');
+		</script>
+		<c:remove var="msg"/>
+	</c:if>
     <div id="cover_1"></div>
     <div class="bg" id="bg1"></div>
     <div id="cover"></div>
@@ -260,7 +272,7 @@
 
                 <ul class="list">
                     <li>
-                        <a href="${ contextPath }/views/member/signUp_main.jsp">회원가입</a>
+                        <a href="${ contextPath }/member/signUpView">회원가입</a>
                     </li>
                     <li>
                         <a href="idSearch.html">아이디 찾기</a>
@@ -271,7 +283,7 @@
                 </ul>
                 <span></span>
                 <div class="returnMain">
-                    <button type="button" id="goMain" onclick="history.back();">메인으로</button>
+                    <button type="button" id="goMain" onclick="location.href='${ contextPath }'">메인으로</button>
                 </div>
             </div>
         </div>

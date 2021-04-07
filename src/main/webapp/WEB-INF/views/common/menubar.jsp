@@ -41,8 +41,8 @@ scope="application"/>
                 </div>
                 <div class="loginMenu">
                     <ul>
-                        <li><a href="#">SIGN IN</a></li>
-                        <li><a href="#">SIGN UP</a></li>
+                        <li><a href="${ contextPath }/member/loginView">SIGN IN</a></li>
+                        <li><a href="${ contextPath }/member/signUpView">SIGN UP</a></li>
                     </ul>
                 </div>
             </div>
