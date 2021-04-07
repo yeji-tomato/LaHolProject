@@ -5,16 +5,10 @@
 <head>
 <meta charset="UTF-8">
 <title>후기 등록</title>
-    <link rel="stylesheet" href="../resources/css/reset.css">
+    <link rel="stylesheet" href="${ contextPath }/resources/css/common/reset.css">
+    <link rel="stylesheet" href="${ contextPath }/resources/css/common/fonts.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <style>
-        @font-face {
-            font-family: 'ELAND_Nice_M';
-            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts-20-12@1.0/ELAND_Nice_M.woff') format('woff');
-            font-weight: normal;
-            font-style: normal;
-        }
-
         body {
             width : 500px;
             height: 600px;
@@ -42,7 +36,7 @@
         }
 
         .review-title .title-text {
-            font-family: 'ELAND_Nice_M';
+            font-family: 'NEXON Lv1 Gothic OTF';
             margin-left: 10px;
             color : #fff;
         }
@@ -71,7 +65,7 @@
             margin-left: 0px;
             margin-bottom: 5px;
 
-            font-family: 'ELAND_Nice_M';
+            font-family: 'NEXON Lv1 Gothic OTF';
         }
 
         .content-text-div {
@@ -83,7 +77,7 @@
         }
 
         .content-subTitle {
-            font-family: 'ELAND_Nice_M';
+            font-family: 'NEXON Lv1 Gothic OTF';
             font-size: 1.2em;
         }
 
@@ -142,17 +136,17 @@
             cursor: pointer;
         }
         .star_left{
-            background: url(../resources/images/star.png) no-repeat 0 0; 
+            background: url(${contextPath}/resources/img/mypage/star.png) no-repeat 0 0; 
             background-size: 40px; 
             margin-right: -3px;
         }
         .star_right{
-            background: url(../resources/images/star.png) no-repeat -20px 0; 
+            background: url(${contextPath}/resources/img/mypage/star.png) no-repeat -20px 0; 
             background-size: 40px; 
             margin-left: -3px;
         }
         .star.on{
-            background-image: url(../resources/images/star-on.png);
+            background-image: url(${contextPath}/resources/img/mypage/star-on.png);
         }
 
         .review-text {
@@ -188,7 +182,7 @@
             background : #4B654A;
             color : #fff;
 
-            font-family: 'ELAND_Nice_M';
+            font-family: 'NEXON Lv1 Gothic OTF';
 
             cursor: pointer;
             transition: all 0.3s;
@@ -208,7 +202,7 @@
 <body>
     <div class="review-title">
         <div class="review-title-logo">
-            <img src="../resources/images/img_common/logo-lahol2.png">
+            <img src="${ contextPath }/resources/img/common/logo-lahol2.png">
             <p class="title-text">LaHol</p>
         </div>
         <div class="review-right-text">
