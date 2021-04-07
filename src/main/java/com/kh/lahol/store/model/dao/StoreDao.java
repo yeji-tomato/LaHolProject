@@ -11,6 +11,8 @@ public interface StoreDao {
 	
 	public List<Store> selectList(PageInfo pi);
 	
+	public List<Store> selectList2(PageInfo pi2);
+	
 	public int insertStore(Store s);
 	
 	public int updateReadCount(int PR_CODE);

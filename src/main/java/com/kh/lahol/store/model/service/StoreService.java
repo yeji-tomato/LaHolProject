@@ -12,6 +12,8 @@ public interface StoreService {
 	//2. 페이징 처리 된 게시글 목록 조회
 	public List<Store> selectList(PageInfo pi);
 	
+	public List<Store> selectList2(PageInfo pi2);
+	
 	//3.게시글 작성
 	public int insertStore(Store s);
 	//4. 디테일 뷰
@@ -23,6 +25,8 @@ public interface StoreService {
 	//6. 게시글 삭제
 	
 	public int deleteStore(int PR_CODE);
+
+
 	
 	
 	

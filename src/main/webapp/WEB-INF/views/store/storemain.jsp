@@ -31,6 +31,51 @@
 			
 			<div class="store1"  > 
 			
+			
+				<!-- 서치 -->
+            <main>
+                <div class="search-container">
+                    <div class="search-box">
+                        <div class="search-icon"><i class="fa fa-search search-icon"></i></div>
+                        <form action="" class="search-form">
+                            <input type="text" placeholder="Search" id="search" autocomplete="off">
+                        </form>
+                        <svg class="search-border" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:a="http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/" x="0px" y="0px" viewBox="0 0 671 111" style="enable-background:new 0 0 671 111;"
+                            xml:space="preserve">
+                        <path class="border" d="M335.5,108.5h-280c-29.3,0-53-23.7-53-53v0c0-29.3,23.7-53,53-53h280"/>
+                        <path class="border" d="M335.5,108.5h280c29.3,0,53-23.7,53-53v0c0-29.3-23.7-53-53-53h-280"/>
+                        </svg>
+                        <div class="go-icon"><i class="fa fa-arrow-right"></i></div>
+                    </div>
+                </div>
+            </main>
+            <script>
+            $(document).ready(function(){
+                    $("#search").focus(function() {
+                    $(".search-box").addClass("border-searching");
+                    $(".search-icon").addClass("si-rotate");
+                    });
+                    $("#search").blur(function() {
+                    $(".search-box").removeClass("border-searching");
+                    $(".search-icon").removeClass("si-rotate");
+                    });
+                    $("#search").keyup(function() {
+                        if($(this).val().length > 0) {
+                        $(".go-icon").addClass("go-in");
+                        }
+                        else {
+                        $(".go-icon").removeClass("go-in");
+                        }
+                    });
+                    $(".go-icon").click(function(){
+                    $(".search-form").submit();
+                    });
+                });
+            </script>
+			
+			
+			
+			
                 <div  class="cat">
                         <div class="ca">
                             <div id="category" style="color:white;  text-align: center;  "> category</div>
@@ -42,7 +87,7 @@
       
                   <hr>
 				 
-                <div id="view"> 
+                <div id="view" style="height:auto"> 
                     <br>
                     <div  class="pp" style="float: left;">
                    
@@ -58,10 +103,45 @@
                             </optgroup>
                         </select> 
                     </div>
+                  
+                    
+                    
 						<!-- 인기 상품  -->	
-					<div> 
+					<c:forEach var="s" items="${ list2 }">
+	                    <div class="product" onclick="selectStore(${s.PR_CODE});"  > 
+	                        <div class="scale" > 
+	                            <img  src="${ contextPath }/resources/img/store/STUDY.PNG" width="350px" height="300px " >  
+	                        </div>    
+	                        <div class="if" style="float:left; width: 350px;  ">
+	                        <center>
+	                        <h4 >${ s.PR_NAME }</h4>
+	                            <h5 style="color: #96877D"> ${ s.PR_PRICE }</h5>
+	                            <h6 style="color: #96877D">${ s.ORIGIN }</h6> 
+	                        </center>
+	                        </div>
+	                        <button  id="ifb">바로구매 <i class="fa fa-credit-card-alt" aria-hidden="true"></i></button>  
+	                    </div> 
+                    
+             
+					</c:forEach>
+	
+                
+                
+                </div>
+                
+                
+               <hr style=" margin-top: 530px;   ">
+      
+                <div id="view2"   >
+                    <br>
+                    <h4>   &nbsp;&nbsp;&nbsp;일반상품</h4>
+              				<div> 
+				
+					
+					
+					
 					<c:forEach var="s" items="${ list }">
-                    <div class="product"  > 
+                    <div class="product"  onclick="selectStore(${s.PR_CODE});"  > 
                         <div class="scale" > 
                             <img  src="${ contextPath }/resources/img/store/STUDY.PNG" width="350px" height="300px " >  
                         </div>    
@@ -124,23 +204,29 @@
                 
                 </div>
                  
-                 <div id="bu" style="width:60%;  height: 50px;   float:left;">
-                    <button id="management" style="margin-top: 0px;float:left;margin-left: 1300px;" onClick="location.href='store2.html'"  > 스토어 관리 </button>   
-                 
-                </div>
+		                 <div id="bu" style="width:60%;  height: 50px;   float:left;">
+		                    <button id="management" style="margin-top: 0px;float:left;margin-left: 1300px;"  onClick="location.href=' ${ contextPath }/store/list2'" >  스토어 관리  </button>   
+		                 
+		                </div>
                  
              
                 </div>
-                </div>
                  
-                
-                 
+          		  </div> 
+            
           
-            </div> 
                  
             
     	
     </section>
+    
+    <script>
+		function selectStore(PR_CODE){
+			location.href='${contextPath}/store/storedetail?PR_CODE=' + PR_CODE + '&page=${ pi.currentPage }';
+			// => 상세 페이지 접근 시 기존 page 값도 파라미터로 전달
+		}
+	</script>
+	
  
  
 		 
