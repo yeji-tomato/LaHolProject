@@ -4,20 +4,20 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>카페 확인</title>
-<link rel="stylesheet" href="${ contextPath }/resources/css/cafe/bus/confirm.css" type="text/css">
+<title>카페 home</title>
+<link rel="stylesheet" href="${ contextPath }/resources/css/cafe/bus/home.css" type="text/css">
 <link rel="stylesheet" href="${ contextPath }/resources/css/cafe/bus/sideMenu.css" type="text/css">
 </head>
 <body>
-
+	
 	<!-- 사업자 menubar -->
 	<jsp:include page="/WEB-INF/views/common/menubarBus.jsp"/>
 	
 	<!-- 카페 사이드 메뉴 바 -->
     <div class="cafe-sidemenubar">
-        <div id="side" class="col-cf">
+        <div id="side" class="col col-cf">
         <ul class="side-menu">
-            <li class="side-item" id="cafeHome"> 
+            <li class="side-item active">
                     <div class="side-icon">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                             <path   d="M18 12H19.9248C20.8933 12 21.2962 10.7609 20.513 10.1913L12.5881 4.42778C12.2375 4.17276 11.7625 4.17276 11.4118 4.42778L3.48699 10.1913C2.70374 10.7609 3.10668 12 4.07516 12H5.99998V19C5.99998 19.5523 6.44769 20 6.99998 20H9.99998V14H14V20H17C17.5523 20 18 19.5523 18 19V12Z"/>
@@ -34,7 +34,7 @@
                     <p class="menu-text">주문 내역</p>
             </li>
             <li class="side-item" id="cafeRes">
-                    <div class="side-icon" id="cafeRes">
+                    <div class="side-icon">
                         <svg xmlns="http://www.w3.org/2000/svg" data-name="Layer 1" viewBox="0 0 24 24">
                             <path d="M12,19a1,1,0,1,0-1-1A1,1,0,0,0,12,19Zm5,0a1,1,0,1,0-1-1A1,1,0,0,0,17,19Zm0-4a1,1,0,1,0-1-1A1,1,0,0,0,17,15Zm-5,0a1,1,0,1,0-1-1A1,1,0,0,0,12,15ZM19,3H18V2a1,1,0,0,0-2,0V3H8V2A1,1,0,0,0,6,2V3H5A3,3,0,0,0,2,6V20a3,3,0,0,0,3,3H19a3,3,0,0,0,3-3V6A3,3,0,0,0,19,3Zm1,17a1,1,0,0,1-1,1H5a1,1,0,0,1-1-1V11H20ZM20,9H4V6A1,1,0,0,1,5,5H6V6A1,1,0,0,0,8,6V5h8V6a1,1,0,0,0,2,0V5h1a1,1,0,0,1,1,1ZM7,15a1,1,0,1,0-1-1A1,1,0,0,0,7,15Zm0,4a1,1,0,1,0-1-1A1,1,0,0,0,7,19Z"/>
                         </svg>
@@ -49,7 +49,7 @@
                     </div>
                     <p class="menu-text">카페 등록</p>
             </li>
-            <li class="side-item active">
+            <li class="side-item" id="cafeCon">
                     <div class="side-icon">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                             <path  fill-rule="evenodd" d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22ZM15.5355 8.46447C15.9261 8.07394 16.5592 8.07394 16.9498 8.46447C17.3403 8.85499 17.3403 9.48816 16.9498 9.87868L11.2966 15.5318L11.2929 15.5355C11.1919 15.6365 11.0747 15.7114 10.9496 15.7602C10.7724 15.8292 10.5795 15.8459 10.3948 15.8101C10.2057 15.7735 10.0251 15.682 9.87868 15.5355L9.87489 15.5317L7.05028 12.7071C6.65975 12.3166 6.65975 11.6834 7.05028 11.2929C7.4408 10.9024 8.07397 10.9024 8.46449 11.2929L10.5858 13.4142L15.5355 8.46447Z" clip-rule="evenodd"/>
@@ -71,17 +71,12 @@
 
             // cafe sidemenubar 페이지 이동
 
-            // home
-            const cafeHome = document.getElementById("cafeHome");
-            cafeHome.addEventListener("click", function() {
-                location.href='../main/main.html';
-            });
-
             // 주문 내역
             const cafeOrd = document.getElementById("cafeOrd");
             cafeOrd.addEventListener("click", function(){
                 location.href='../order/order.html';
             });
+
 
             // 예약 내역
             const cafeRes= document.getElementById("cafeRes");
@@ -95,99 +90,107 @@
                 location.href='../write/write.html';
             });
 
-
+            // 카페 확인
+            const cafeCon= document.getElementById("cafeCon");
+            cafeCon.addEventListener("click", function() {
+                location.href='../confirm/confirm.html';
+            });
         </script>
-    </div>
-    <div class="res-container">
-        <div id="pd" class="col-cf">
-            <div class="con_table">
-                <h2>카페 확인</h2>
-                    <table class="table" id="confirm-table">
-                        <thead>
-                        <tr> 
-                            <td scope="col">#</td>
-                            <td scope="col">카페명</td>
-                            <td scope="col">위치</td>
-                            <td scope="col">운영시간</td>
-                            <td scope="col">상세설명</td>
-                            <td scope="col">커피메뉴</td>
-                            <td scope="col">삭제하기</td>
-                        </tr>
-                        </thead>
-                        <tbody id="tbody">
-                            <tr>
-                                <td>1</td>
-                                <td>카페 1호점</td>
-                                <td>경기도 용인시 기흥구 동백 10로 62 103번길</td>
-                                <td>AM 10:00 - PM 11:00</td>
-                                <td class="grad" id="updateDetail">
-                                    <button id="detailBtn" class="btn-icon">
-                                        <i class="fa fa-sign-in" aria-hidden="true"></i>
-                                    </button>
-                                </td>
-                                <td class="grad" id="coffeeMenu">
-                                    <button id="coffeeBtn" class="btn-icon">
-                                        <i class="fa fa-coffee" aria-hidden="true"></i>
-                                    </button>
-                                </td>
-                                <td class="grad">
-                                    <button id="deleteBtn" class="btn-icon">
-                                        <i class="fa fa-trash" aria-hidden="true"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>카페 2호점</td>
-                                <td>경기도 용인시 기흥구 동백 10로 62 103번길</td>
-                                <td>AM 10:00 - PM 11:00</td>
-                                <td class="grad" id="updateDetail">
-                                    <button id="detailBtn" class="btn-icon">
-                                        <i class="fa fa-sign-in" aria-hidden="true"></i>
-                                    </button>
-                                </td>
-                                <td class="grad">
-                                    <button id="coffeeBtn" class="btn-icon">
-                                        <i class="fa fa-coffee" aria-hidden="true"></i>
-                                    </button>
-                                </td>
-                                <td class="grad">
-                                    <button id="deleteBtn" class="btn-icon">
-                                        <i class="fa fa-trash" aria-hidden="true"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                            
-                    </tbody>
+    
+    <div class="container">
+        <div class="row row-cols-2" id="cf-row">
+            <!-- 주문 -->
+            <div class="col col-cf" id="order">
+                <table class="order-cf">
+                <thead>
+                    <tr>
+                        <th colspan="4" id="order-status">주문 상태</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td colspan="2">신규주문</td>
+                        <td class="nu" style="text-align: right;">0</td>
+                        <td>건</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">제조 전</td>
+                        <td class="nu" style="text-align: right;">0</td>
+                        <td>건</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">제조 중</td>
+                        <td class="nu" style="text-align: right;">0</td>
+                        <td>건</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">제조 완료</td>
+                        <td class="nu" style="text-align: right;">0</td>
+                        <td>건</td>
+                    </tr>
+                </tbody>
                 </table>
-                <script>
-                    // 상세 설명
-                    const cafeDetail = document.getElementById("updateDetail");
-                    cafeDetail.addEventListener("click", function(){
-                        location.href="./update/detail.html";
-                    });
-
-                    // 커피 메뉴
-                    const coffeeMenu = document.getElementById("coffeeMenu");
-                    coffeeMenu.addEventListener("click", function(){
-                        location.href="./update/cofupd.html"
-                    });
-                </script>
-        </div>        
- 
-
+            </div>
+            <div class="col col-cf" id="my-cafe">
+                <a>
+                    <div class="wrapper" id="cafe-my-wrapper">
+                        <div class="cafe-img">
+                            <img src="https://i.pinimg.com/564x/e5/7e/5a/e57e5aecc658ba0b205a807d965f9e85.jpg">
+                        </div>
+                        <div class="cafe-info">
+                            <div class="cafe-text">
+                                <h1>CAFE</h1>
+                                <p>등록된 카페가 아직 존재하지 않습니다! <br>
+                                    카페를 등록해주세요!</p>
+                            </div>
+                        <div class="cafe-btn">
+                            <button type="button">자세히 보러가기 →</button>
+                        </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col col-cf" id="answer">
+                <div class="ans_table">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th colspan="6" id="answer-status">미답변 문의(Q&A)</th>
+                                <th class="delete">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#810B0B" viewBox="0 0 24 24">
+                                        <path fill="#810B0B" d="M15 3C15.5523 3 16 3.44772 16 4L18 4C18.5523 4 19 4.44772 19 5C19 5.55229 18.5523 6 18 6L6 6C5.44772 6 5 5.55228 5 5C5 4.44772 5.44772 4 6 4L8 4C8 3.44772 8.44772 3 9 3H15Z"/>
+                                        <path fill="#810B0B" fill-rule="evenodd" d="M6 7H18V19C18 20.1046 17.1046 21 16 21H8C6.89543 21 6 20.1046 6 19V7ZM9.5 9C9.22386 9 9 9.22386 9 9.5V18.5C9 18.7761 9.22386 19 9.5 19C9.77614 19 10 18.7761 10 18.5V9.5C10 9.22386 9.77614 9 9.5 9ZM14.5 9C14.2239 9 14 9.22386 14 9.5V18.5C14 18.7761 14.2239 19 14.5 19C14.7761 19 15 18.7761 15 18.5V9.5C15 9.22386 14.7761 9 14.5 9Z" clip-rule="evenodd"/>
+                                    </svg>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <th><input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked></th>
+                            <th>1</th>
+                            <td>답변 대기</td>
+                            <td>카페 프라푸치노는 다시 안나오나요?</td>
+                            <td>dd****</td>
+                            <td>2020-12-25</td>
+                            <td>
+                                <button id="detail" onclick="detail()">
+                                    <svg xmlns="http://www.w3.org/2000/svg" height="48" viewBox="0 0 48 48" width="48">
+                                        <path d="M0 0h48v48h-48z" fill="none"/>
+                                        <path d="M24 8l-2.83 2.83 11.17 11.17h-24.34v4h24.34l-11.17 11.17 2.83 2.83 16-16z"/>
+                                    </svg>
+                                </button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
-    <script>
-        $(function() {
-        $(".grad").click(function(e) {
-            e.preventDefault();
-            $(".grad").removeClass("active");
-            $(this).addClass("active");
-        });
-    });
-    </script>
+    </div>
     
     <!-- footer -->
-	<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
+	<jsp:include page="/WEB-INF/views/common/footer2.jsp"/>
+    
 </body>
 </html>

@@ -1,0 +1,166 @@
+@charset "UTF-8";
+
+body{
+            margin: 0;
+            padding: 0;
+        }
+
+.cafe-sidemenubar{
+    width: 100%;
+    height: auto; 
+    padding-top: 10%;
+}
+
+.col-cf{
+    float: left;
+}
+#cf-row{
+    /* margin: 4%; */
+    padding-top: 3%;
+    padding-bottom: 5%;
+}
+/* 주문 */
+#order{
+    width: 35vw;
+    /* height: 40vh; */
+    height: 300px;
+    margin-left: 7%;
+    border-radius: 30px;
+    background-color: #5a462fb9;
+}
+#order-status{
+    border-bottom: 2px solid #ad8c65;
+    font-size: large;
+}
+.order-cf{
+    width: 100%;
+}
+.order-cf td, th{
+    padding: 1vw;
+    text-align: left;
+    color: white;
+}
+
+/* 나의 카페 */
+#cafe-my-wrapper {
+    height: 300px;
+    width: 654px;
+    /* margin: 50px auto; */
+    margin-left: 1%;
+    border-radius: 30px;
+    -webkit-box-shadow: 0px 14px 32px 0px rgba(0, 0, 0, 0.15);
+    -moz-box-shadow: 0px 14px 32px 0px rgba(0, 0, 0, 0.15);
+    box-shadow: 0px 14px 32px 0px rgba(0, 0, 0, 0.15);
+}
+
+.cafe-img {
+    float: left;
+    height: 200px;
+    width: 300px;
+}
+
+.cafe-img img {
+    border-radius: 30px 0 0 30px;
+    height: 300px;
+    width: 300px;
+}
+
+.cafe-info {
+    float: left;
+    height: 300px;
+    width: 327px;
+    border-radius: 0 30px 10px 30px;
+    background-color: #ffffff;
+}
+
+.cafe-text {
+    height: 210px;
+    width: 327px;
+    padding-top: 3%;
+}
+
+.cafe-text h1 {
+    margin: 10px 0 0 20px;
+    /* padding-top: 1%; */
+    font-size: 34px;
+    color: #474747;
+}
+
+
+.cafe-text p {
+    height: 125px;
+    /* margin: 0 0 0 38px; */
+    margin: 30px 20px;
+    color: #8d8d8d;
+    line-height: 1.7em;
+    font-size: 15px;
+    font-weight: lighter;
+    overflow: hidden;
+}
+
+.cafe-btn {
+    height: 103px;
+    width: 327px;
+    margin-top: 17px;
+    position: relative;
+}
+
+.cafe-btn button {
+    float: right;
+    display: inline-block;
+    height: 50px;
+    width: 176px;
+    margin: 0 40px 0 16px;
+    font-family: 'ELAND_Nice_M';
+    box-sizing: border-box;
+    border: transparent;
+    border-radius: 60px;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    color: #000000;
+    background-color: #f1d1ac;
+    cursor: pointer;
+    outline: none;
+}
+
+.cafe-btn button:hover {
+    background-color: #e3a259;
+}
+
+/* Q&A 답변 */
+#answer{
+    background-color: #ccafa38a; 
+    /* width: 50vw; */
+    /* height: 40vh; */
+    width: 78vw;
+    height: 300px;
+    border-radius: 30px;
+    margin-left: 7%;
+    margin-top: 1%;
+}
+#cb{
+    background-color: #E5BD62;
+}
+.ans_table{
+    width: 100%;
+}
+.table{
+    width: 100%;
+}
+.ans_table td, .ans_table th{
+    padding: 1vw;
+    text-align: left;
+    color: rgb(0, 0, 0);
+}
+#detail{
+    background-color: #ccafa38a;
+    border: white;
+}
+#detail svg{
+    width: 24px;
+    height: 24px;
+}
+.delete{
+    float: right;
+}

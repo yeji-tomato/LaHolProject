@@ -5,20 +5,14 @@
 <head>
 <meta charset="UTF-8">
 <title>카페 등록 페이지</title>
-    <style>
-        body{
-            margin: 0;
-            padding: 0;
-        }
-
-        .write-container{
-            width: 100%;
-            height: auto; 
-            padding-top: 10%;
-        }
-    </style>
+<link rel="stylesheet" href="${ contextPath }/resources/css/cafe/bus/write.css" type="text/css">
+<link rel="stylesheet" href="${ contextPath }/resources/css/cafe/bus/sideMenu.css" type="text/css">
 </head>
 <body>
+
+	<!-- 사업자 menubar -->
+	<jsp:include page="/WEB-INF/views/common/menubarBus.jsp"/>
+	
 	<!-- 카페 사이드 메뉴 바 -->
     <div class="write-container">
         <div id="side" class="col-cf">
@@ -301,5 +295,9 @@
         </div>
         
     </div>
+    
+    <!-- footer -->
+	<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
+    
 </body>
 </html>
