@@ -5,16 +5,10 @@
 <head>
 <meta charset="UTF-8">
 <title>LaHol - Sign Up</title>
-    <link href="../resources/css/reset.css" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" href="${ contextPath }/resources/css/common/fonts.css" type="text/css">
+    <link href="${ contextPath }/resources/css/common/reset.css" rel="stylesheet" type="text/css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <style>
-        @font-face {
-            font-family: 'ELAND_Nice_M';
-            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts-20-12@1.0/ELAND_Nice_M.woff') format('woff');
-            font-weight: normal;
-            font-style: normal;
-        }
-
         html {
             width: 100%;
             height: 100%;
@@ -65,7 +59,7 @@
             color : #5A452E;
             font-weight: 400;
             position: relative;
-            font-family: 'ELAND_Nice_M';
+            font-family: 'NEXON Lv1 Gothic OTF';
         }
 
         .titleDiv > h1::before {
@@ -182,18 +176,16 @@
         }
 
     </style>
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Source+Serif+Pro:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="contentWrapper">
         <div class="logoDiv">
-            <a href="#"><img src="../resources/images/img_common/logo-lahol2.png"></a>   <!-- 메인 화면으로 이동 연결 -->
+            <a href="${ contextPath }"><img src="${ contextPath }/resources/img/common/logo-lahol2.png"></a>   <!-- 메인 화면으로 이동 연결 -->
         </div>
         <div class="titleDiv">
             <h1><b>LaHol</b> SIGN UP</h1>
         </div>
-        <form id="joinForm" method="POST" action="">
+        <form id="joinForm" method="POST" action="${ contextPath }/member/insert">
             <div class="joinDiv">
                 <div class="idDiv">
                     <h3 class="subTitle2">아이디</h3>
@@ -249,10 +241,10 @@
         </form>
     </div>
     <!-- jQuery와 Postcodify를 로딩한다 -->
-    <!-- <script src="//d1p7wdleee1q2z.cloudfront.net/post/search.min.js"></script> -->
+    <script src="//d1p7wdleee1q2z.cloudfront.net/post/search.min.js"></script>
 
     <!-- "검색" 단추를 누르면 팝업 레이어가 열리도록 설정한다 -->
-    <!-- <script> $(function() { $("#postcodify_search_button").postcodifyPopUp(); }); </script> -->
+    <script> $(function() { $("#postcodify_search_button").postcodifyPopUp(); }); </script>
     <script>
         function onKeyDown() {
             if (event.keyCode == 13) {

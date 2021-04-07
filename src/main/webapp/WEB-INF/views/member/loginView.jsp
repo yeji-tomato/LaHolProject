@@ -27,7 +27,7 @@
         }
 
         #bg1 {
-            background: url("../resources/images/bg1.jpg");
+            background: url("${ contextPath }/resources/img/member/bg1.jpg");
             background-size: cover;
             background-repeat: no-repeat;
             background-attachment: fixed;
@@ -250,7 +250,7 @@
                     </span>
 
                 </div>
-                <form method="POST" id="login_form" action="">
+                <form method="POST" id="login_form" action="${ contextPath }/member/login">
 
                     <input type="text" id="userId" name="userId" placeholder="아이디" onkeydown="onKeyDown();">
                     <input type="password" id="userPwd" name="userPwd" placeholder="비밀번호" onkeydown="onKeyDown();">
@@ -260,18 +260,18 @@
 
                 <ul class="list">
                     <li>
-                        <a href="${ contextPath }/views/member/signUp_main.jsp">회원가입</a>
+                        <a href="${ contextPath }/member/signUp">회원가입</a>
                     </li>
                     <li>
-                        <a href="idSearch.html">아이디 찾기</a>
+                        <a href="${ contextPath }/member/idSearch">아이디 찾기</a>
                     </li>
                     <li>
-                        <a href="pwdSearch.html">비밀번호 찾기</a>
+                        <a href="${ contextPath }/member/pwdSearch">비밀번호 찾기</a>
                     </li>
                 </ul>
                 <span></span>
                 <div class="returnMain">
-                    <button type="button" id="goMain" onclick="history.back();">메인으로</button>
+                    <button type="button" id="goMain" onclick="${ contextPath }">메인으로</button>
                 </div>
             </div>
         </div>

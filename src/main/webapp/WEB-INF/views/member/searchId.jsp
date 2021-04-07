@@ -4,16 +4,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<link rel="stylesheet" href="${ contextPath }/resources/css/common/fonts.css" type="text/css">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <title>LaHol - Search ID</title>
     <style>
-        @font-face {
-            font-family: 'ELAND_Nice_M';
-            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts-20-12@1.0/ELAND_Nice_M.woff') format('woff');
-            font-weight: normal;
-            font-style: normal;
-        }
-        
         html {
             height: 100%;
         }
@@ -38,7 +32,7 @@
         }
 
         #bg1 {
-            background: url("../resources/images/bg1.jpg");
+            background: url("${ contextPath }/resources/img/member/bg1.jpg");
             background-size: cover;
             background-repeat: no-repeat;
             background-attachment: fixed;
@@ -151,7 +145,7 @@
         }
 
         .login_header span {
-            font-family: 'ELAND_Nice_M';
+            font-family: 'NEXON Lv1 Gothic OTF';
         }
 
         .login_header span b {
@@ -239,8 +233,6 @@
             }
         }
     </style>
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Source+Serif+Pro:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 <body>
     <div id="cover_1"></div>
@@ -251,14 +243,14 @@
             <div class="login_area">
                 <div class="login_header">
                     <div class="login_logo">
-                        <img src="../resources/images/img_common/logo-lahol2.png">
+                        <img src="${ contextPath }/resources/img/common/logo-lahol2.png">
                     </div>
                     <span>
                         <b>LaHol</b> Search ID
                     </span>
 
                 </div>
-                <form method="POST" id="idSearch_form" action="">
+                <form method="POST" id="idSearch_form" action="${ contextPath }/member/searchId">
 
                     <input type="text" id="userName" name="userName" placeholder="이름" onkeydown="onKeyDown();">
                     <input type="text" id="userPNo" name="userPNo" placeholder="생년월일[000000(6자리) 입력]" onkeydown="onKeyDown();">
@@ -269,18 +261,18 @@
 
                 <ul class="list">
                     <li>
-                        <a href="joinMember.html">회원가입</a>
+                        <a href="${ contextPath }/member/signUp">회원가입</a>
                     </li>
                     <li>
-                        <a href="idSearch.html">아이디 찾기</a>
+                        <a href="${ contextPath }/member/idSearch">아이디 찾기</a>
                     </li>
                     <li>
-                        <a href="pwdSearch.html">비밀번호 찾기</a>
+                        <a href="${ contextPath }/member/pwdSearch">비밀번호 찾기</a>
                     </li>
                 </ul>
                 <span></span>
                 <div class="returnMain">
-                    <button type="button" id="goMain" onclick="history.back();">메인으로</button>
+                    <button type="button" id="goMain" onclick="${ contextPath }">메인으로</button>
                 </div>
             </div>
         </div>
