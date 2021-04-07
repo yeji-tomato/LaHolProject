@@ -127,20 +127,16 @@
                     // 상세 설명
                     const cafeDetail = document.getElementById("updateDetail");
                     cafeDetail.addEventListener("click", function(){
-                        location.href="./update/detail.html";
+                        location.href="${ contextPath }/cafe/upCafe";
                     });
 
                     // 커피 메뉴
                     const coffeeMenu = document.getElementById("coffeeMenu");
                     coffeeMenu.addEventListener("click", function(){
-                        location.href="./update/cofupd.html"
+                        location.href="${ contextPath }/cafe/upCoffee";
                     });
                 </script>
         </div>
-        
-    
-        
-
     </div>
     <script>
         $(function() {

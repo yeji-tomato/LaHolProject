@@ -26,12 +26,12 @@
                             <div style=" margin-top: 40px;margin-left: 30px; ">
                             <a style="font-size: 35px;"> Lahol </a>
                                 <div style=" margin-top: 50px;">
-                                    <ul>
-                                        <li>  Ye Ji Lee</li>
-                                        <li>  Youn Jae Lee</li>
-                                        <li>  Dayoon Choi </li>
-                                        <li>  Wan Sik Kim </li>
-                                        <li>  Jin Ju Baek </li>
+                                    <ul class="ftUl">
+                                        <li class="ftli">  Ye Ji Lee</li>
+                                        <li class="ftli">  Youn Jae Lee</li>
+                                        <li class="ftli">  Dayoon Choi </li>
+                                        <li class="ftli">  Wan Sik Kim </li>
+                                        <li class="ftli">  Jin Ju Baek </li>
                                     </ul>
                                 </div>
                             </div>  

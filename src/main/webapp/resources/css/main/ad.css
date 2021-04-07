@@ -85,3 +85,28 @@ color: white;
 }
 }
 
+@media all and (min-width:1280px) and (max-width:1500px) {
+.cir{
+	padding-top: 10%;
+}
+.adSlider{
+	margin-top : -35%;
+}
+}
+
+@media (min-width: 1920px) {
+	.cir{
+		padding-top: 0%;
+	}
+	.titlearea{
+		margin : 200px;
+	}
+	.textarea{
+		margin: 200px;
+		margin-top : -5%;
+	}
+	.adSlider{
+		margin-top : -25%;
+	}
+}
+

@@ -1,5 +1,22 @@
 @charset "UTF-8";
 
+/* 넥슨 고딕 Bold */
+@font-face {
+    font-family: 'NEXON Lv1 Gothic OTF Bold';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF Bold.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+*{
+	font-family: 'NEXON Lv1 Gothic OTF Bold';
+}
+
+
+#dtBtn{
+	font-family: 'NEXON Lv1 Gothic OTF Bold';	
+}
+
 body{
             margin: 0;
             padding: 0;
@@ -163,4 +180,26 @@ body{
 }
 .delete{
     float: right;
+}
+
+@media screen and (max-width:1280px) {
+	
+	.cafe-my-wrapper{
+		width: 630px;
+	}
+	#answer{
+		width: 200vw;
+	}
+}
+
+@media screen and (min-width:1920px) {
+	
+	#cf-row{
+		width: 85vw;
+		margin-left: -10%;
+	}
+	
+	.cafe-my-wrapper{
+		width: 100%;
+	}
 }

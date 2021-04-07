@@ -65,7 +65,7 @@
         </div>
         <%@include file="./sideMenu.jsp" %>
     </div>
-    <div class="res-container" style="height: 150vh">
+    <div class="res-container">
         <div id="pd" class="col-cf">
             <!-- 캘린더 -->
             <div id="cf-calendar">

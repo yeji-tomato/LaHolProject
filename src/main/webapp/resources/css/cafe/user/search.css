@@ -188,14 +188,18 @@ h1{
 }
 #ct-cf{
     text-align: center;
+    padding: 0;
 }
 #cardShape{
-    width: 15rem;
+    width: 20rem;
     height: 20rem;
     border: 1px solid #96877D;
 }
+.col{
+	padding-bottom: 3%;
+}
 #cardShape img{
-    width: 15rem;
+    width: 20rem;
     height: 13rem;
 }
 /* 페이징 바 */
@@ -215,4 +219,14 @@ h1{
 #page-color:hover{
     background-color: #e3a259;
     color: white;
+}
+
+@media (min-width: 1280px) {
+	#cardShape{
+		width: 17rem;
+	}
+	
+	#cardShape img{
+    width: 17rem;
+	}
 }

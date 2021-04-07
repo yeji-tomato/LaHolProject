@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="${ contextPath }/resources/css/cafe/user/pickadate/default.css">
 <link rel="stylesheet" href="${ contextPath }/resources/css/cafe/user/pickadate/default.date.css">
 </head>
-<body>
+<body style="background: #f0ebe5;">
 
 	<!-- menubar -->
 	<jsp:include page="/WEB-INF/views/common/menubar.jsp"/>
@@ -18,7 +18,6 @@
 	<div class="page-cafe">
         <div>
             <h1 id="cafeName">LaHol 카페</h1>
-            <hr>
         </div>
     <div class="container">
         <div class="row">

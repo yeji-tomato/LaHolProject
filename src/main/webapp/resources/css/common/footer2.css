@@ -93,12 +93,12 @@ height: 350px;
     margin-left: 60%;
     color: white;
 }
-ul{ 
+.ftUl{ 
     list-style:none;
      padding-left:0px;  
 }
 
-li{
+.ftli{
     margin-bottom: 10%;
 }
  /*div 크기조정 */

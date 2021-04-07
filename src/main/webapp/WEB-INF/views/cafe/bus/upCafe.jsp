@@ -4,12 +4,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>카페 등록 페이지</title>
-<link rel="stylesheet" href="${ contextPath }/resources/css/cafe/bus/write.css" type="text/css">
+<title>카페 수정</title>
 <link rel="stylesheet" href="${ contextPath }/resources/css/cafe/bus/sideMenu.css" type="text/css">
+<link rel="stylesheet" href="${ contextPath }/resources/css/cafe/bus/upCafe.css" type="text/css">
 </head>
 <body>
-
 	<!-- 사업자 menubar -->
 	<jsp:include page="/WEB-INF/views/common/menubarBus.jsp"/>
 	
@@ -74,7 +73,7 @@
                         <div class="row" id="divRow">
                             <div class="col">
                                 <h3 class="write-title">카페명</h3>
-                                <input type="text" id="text" class="cateTit"  name="cafeName" placeholder="카페명으로 노출될 문구를 작성해주세요.(ex. 커피한잔)"/>
+                                <input type="text" id="text" class="cateTit"  name="cafeName" placeholder="카페명으로 노출될 문구를 작성해주세요.(ex. 커피한잔)" value="딸기나라"/>
                             </div>
                             <div class="col writeSpan">
                                 <!-- 운영시간 -->
@@ -84,13 +83,13 @@
                                     시작시간
                                 </div>
                                 <div class="col-4">
-                                    <input type="time" id="text" value="xxx" min="yyy" max="zzz">
+                                    <input type="time" id="text" value="10:00" min="yyy" max="zzz">
                                 </div>
                                 <div class="col-2">
                                     종료시간
                                 </div>
                                 <div class="col-4">
-                                    <input type="time" id="text" value="xxx" min="yyy" max="zzz">
+                                    <input type="time" id="text" value="22:00" min="yyy" max="zzz">
                                 </div>
                                 </div>
                             </div>
@@ -101,16 +100,24 @@
                         <h3 class="write-title">카페사진</h3>
                         <p style="color: #CDC2AF;">대표사진 한 장은 필수로 입력해야 합니다. 최대 4장까지 사진 입력이 가능합니다.</p>
                         <div class="col">
-                            <div id="thumbnail1" class="thumbnail"></div>
+                            <div id="thumbnail1" class="thumbnail">
+                                <img src="https://i.pinimg.com/564x/dd/05/f0/dd05f0c1aea3848bd7cda3c4530f4b82.jpg" style="width: 260px; height:230px" >
+                            </div>
                         </div>
                         <div class="col">
-                            <div id="thumbnail2" class="thumbnail"></div>
+                            <div id="thumbnail2" class="thumbnail">
+                                <img src="https://i.pinimg.com/564x/5d/29/89/5d2989b2cd070f88e24a4aff2f4d9bd0.jpg" style="width: 260px; height:230px" >
+                            </div>
                         </div>
                         <div class="col">
-                            <div id="thumbnail3" class="thumbnail"></div>
+                            <div id="thumbnail3" class="thumbnail">
+                                <img src="https://i.pinimg.com/564x/ef/03/03/ef0303b50e04ef0242b6429da17c8ab1.jpg" style="width: 260px; height:230px" >
+                            </div>
                         </div>
                         <div class="col">
-                            <div id="thumbnail4" class="thumbnail"></div>
+                            <div id="thumbnail4" class="thumbnail">
+                                <img src="https://i.pinimg.com/564x/44/a7/4a/44a74a40039f7e99b75b2d1492b63d1f.jpg" style="width: 260px; height:230px" >
+                            </div>
                         </div>
                         
                         <div id="files">
@@ -165,14 +172,14 @@
                                 <div class="row">
                                     <p style="color: #CDC2AF;">도로명 주소</p>
                                     <div class="col-8">
-                                        <input type="text" id="text" class="cateTit" id="ad"  name="cafeName"/>
+                                        <input type="text" id="text" class="cateTit" id="ad"  name="cafeName" value="경기도 용인시"/>
                                     </div>
                                     <div class="col-4">
                                         <button id="cafeAddBtn">주소 검색</button>
                                     </div>
                                     <div class="col-10">
                                         <p style="color: #CDC2AF; margin-top: 1%;">상세 주소</p>
-                                        <input type="text" id="text" class="cateTit" id="ad"  name="cafeName"/>
+                                        <input type="text" id="text" class="cateTit" id="ad"  name="cafeName" value="딸기나라 딸기마을"/>
                                     </div>
                                 </div>
                             </div>
@@ -192,7 +199,7 @@
                                     <div class="col-8">
                                         <select name="wifi" id="select">
                                         <option selected disabled>와이파이</option>
-                                        <option value="와이파이 있음">와이파이 있음</option>
+                                        <option value="와이파이 있음" selected>와이파이 있음</option>
                                         <option value="와이파이 없음">와이파이 없음</option>
                                     </select>
                                     </div>
@@ -205,7 +212,7 @@
                                     <div class="col-8">
                                         <select name="toilet" id="select">
                                         <option selected disabled>화장실</option>
-                                        <option value="남/녀 구분 화장실">남/녀 구분 화장실</option>
+                                        <option value="남/녀 구분 화장실" selected>남/녀 구분 화장실</option>
                                         <option value="공용 화장실">공용 화장실</option>
                                     </select>
                                     </div>
@@ -219,7 +226,7 @@
                                         <select name="car" id="select">
                                         <option selected disabled>주차장</option>
                                         <option value="주차장 있음">주차장 있음</option>
-                                        <option value="주차장 없음">주차장 없음</option>
+                                        <option value="주차장 없음" selected>주차장 없음</option>
                                     </select>
                                     </div>
                                 </div>
@@ -227,7 +234,7 @@
                             <div class="col-8">
                                 <!-- 메세지 -->
                                 <h3 class="write-title">메세지</h3>
-                                <textarea id="ta"></textarea>
+                                <textarea id="ta">안녕하세요 딸기가 아주 싱싱한 딸기나라입니다.</textarea>
                                 <div id="ta_cnt" style="float: right;">(0 / 100)</div>
                             <script>
                                 $(document).ready(function() {
@@ -245,7 +252,7 @@
                         </div>
                         
                         <div class="writeBtn">
-                            <a href="${ contextPath }/cafe/coffee" class="btn btn-sm animated-button thar-three">
+                            <a href="${ contextPath }/cafe/upCoffee" class="btn btn-sm animated-button thar-three">
                                 <i class="fa fa-long-arrow-right" aria-hidden="true"></i> &nbsp; 음료 입력
                             </a>
                         </div>
@@ -258,10 +265,8 @@
         </div>
         
     </div>
-    </div>
-    
+        
     <!-- footer -->
 	<jsp:include page="/WEB-INF/views/common/footer2.jsp"/>
-    
 </body>
 </html>
