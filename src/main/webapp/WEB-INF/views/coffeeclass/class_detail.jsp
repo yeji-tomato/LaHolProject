@@ -22,7 +22,6 @@
     
 </head>
 <body>
-    style="background-color:#f6ebdb;"
    	<!-- menubar -->
 	<jsp:include page="/WEB-INF/views/common/menubar.jsp" />
    
