@@ -13,8 +13,12 @@
     font-family: 'NEXON Lv1 Gothic OTF Bold';
 }
 
+body{
+	background: #CDC2AF;
+}
+
 #detailContainer{
-	 padding-top: 7%;
+	padding-top: 10%;
 	
 }
 

@@ -55,11 +55,9 @@ height: 350px;
  { 
      
   .one{  
-    width: 1350px;
     height: 350px;
-
      }
-    }     
+}     
 
 
 
@@ -85,7 +83,7 @@ height: 350px;
 }
 .name{   
     width: 50%;
-    height: 350px;
+    height: 300px;
     margin-left: 50%;
     color: white;
 }
