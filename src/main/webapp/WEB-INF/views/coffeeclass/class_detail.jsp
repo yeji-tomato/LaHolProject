@@ -9,8 +9,8 @@
     <title>ClassDetail</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">  
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <!-- css추가 -->
     <link rel="stylesheet" href="${ contextPath }/resources/css/coffeeclass/classdetail.css">
-    
     <!-- bootstrap css -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
     <!-- bootstrap js -->
@@ -25,7 +25,7 @@
    	<!-- menubar -->
 	<jsp:include page="/WEB-INF/views/common/menubar.jsp" />
    
-    <div class="container" style="margin-top: 17vh;">
+    <div class="container" style="margin-top: 20vh;">
         <div class="row">
             <!--왼쪽-->
             <div class="col">
@@ -81,7 +81,7 @@
                           <div class="info">
                           <p>카페이름 : 빅토리아 블랑 </p>
                           <p>카페 위치 : 서울시 마포구 연남동  </p>
-                          <a href = "../cafe/user/detail/detail.html">☕카페보러가기</a>
+                          <a href = "${ ContextPath }/cafe/user/here">☕카페보러가기</a>
                           </div>
                       
                           </div>
@@ -138,14 +138,21 @@
                     </tbody>
                   </table>
                   <div class="btnDiv" id = "classupdate">
-                    <button type="button" class="btn" id = "register-btn" onclick="location.href='${ contextPath }/coffeeclass/updateclass'">
-                          클래스 정보수정
-                      <i class="fa fa-wrench" aria-hidden="true"></i>
-                    </button>                     
-                        <!-- Button trigger modal -->
-                      <button type="button" class="btn btn-primary" id = "cart-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                          클래스 삭제
-                      <i class="fa fa-trash" aria-hidden="true"></i> 
+                    
+                    <button type="button" class="btn" id = "register-btn">
+                      수강신청
+                      <i class="fa fa-credit-card-alt" aria-hidden="true"></i>
+                    </button>
+                    <button type="button" class="btn" id = "cart-btn">
+                      장바구니
+                      <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                    </button>
+                    <button style="border:transparent; background-color:transparent;">
+                    <div class="report" style="margin-bottom: 3vh;">
+                      <i class="fa fa-bullhorn" aria-hidden="true" id="reportclass" data-bs-toggle="modal" data-bs-target="#exampleModal"></i>
+                    </div>
+                  </button>
+                   
                     </div>     
                    
               </div>
@@ -182,8 +189,6 @@
       </div>
     </div>
   </div>
-
-
 
     <!-- <div> -->
       <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -238,8 +243,8 @@
               
         </div>
         <!-- 후기 -->
-        <div class="tab-pane fade" id="review" role="tabpanel" aria-labelledby="review-tab" style="background-color: blueviolet;">
-          <div style="background-color: blueviolet; padding-top: 3vh;">
+        <div class="tab-pane fade" id="review" role="tabpanel" aria-labelledby="review-tab">
+          <div style="padding-top: 3vh;">
           <div class="clcomment">
             <table>
               <tr>
@@ -255,8 +260,10 @@
                 <td>
                 <td>
                   2020.04.20
-                <td>
-                  <button class = "iconbtn"><img src = "../../LaHolFront/resources/images/class/report.png"  class="iconbtn">
+                <td>								
+                  <button class = "iconbtn" style="border : 0px; background-color: transparent;">
+                  <img src = "${ contextPath }/resources/img/coffeeclass/report.png"  class="iconbtn" 
+                  style="width : 30px; height : 30px;">
                 </button>
               </td>
               </tr>
@@ -285,7 +292,10 @@
                 <td>
                   2020.04.20
                 <td>
-                  <button class = "iconbtn"><img src = "../../LaHolFront/resources/images/class/report.png"  class="iconbtn">
+                   <button class = "iconbtn" style="border : 0px; background-color: transparent;"
+                   onclick="${ ContextPath }/lahol/coffeeclass/updateclass">
+                  <img src = "${ contextPath }/resources/img/coffeeclass/report.png"  class="iconbtn" 
+                  style="width : 30px; height : 30px;">
                 </button>
               </td>
               </tr>
