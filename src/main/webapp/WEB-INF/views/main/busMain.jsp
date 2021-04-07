@@ -59,11 +59,11 @@
                 <div class="card-meta__line"></div>
               </div>
               <div class="card-tags">
-                <a href="#" target="_blank" class="card-tags__item">WRITE</a>
-                <a href="#" target="_blank" class="card-tags__item">CONFIRM</a>
-                <a href="#" target="_blank" class="card-tags__item">UPDATE</a>
-                <a href="#" target="_blank" class="card-tags__item">DELETE</a>
+                <a href="${ ContextPath }/lahol/coffeeclass/busmain" target="_blank" class="card-tags__item">CLASSMAIN</a>
+                <a href="#" target="_blank" class="card-tags__item">MYCLASS</a>
+                <a href="${ ContextPath }/lahol/coffeeclass/createclass" target="_blank" class="card-tags__item">CREATE</a>
                 <a href="#" target="_blank" class="card-tags__item">Q&A</a>
+                <a href="#" target="_blank" class="card-tags__item">COMMENTS</a>
               </div>
             </div><img src="https://images.unsplash.com/photo-1522726336270-3a0053210f06?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=634&q=80" alt="" class="card__image">
           </div>

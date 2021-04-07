@@ -451,6 +451,13 @@
       left:0;
 
       }
+      
+ /*후기*/
+ #iconbtn{
+ width : 30px;
+ height : 30px;
+ }
+ 
 
 /*Q&A*/
 .qa-content{
