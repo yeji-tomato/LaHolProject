@@ -9,4 +9,6 @@ public interface MemberDao {
 	public Member selectMember(String userId);
 
 	public int insertnMember(Member m);
+
+	public Member selectMemberByNickname(String nickname);
 }

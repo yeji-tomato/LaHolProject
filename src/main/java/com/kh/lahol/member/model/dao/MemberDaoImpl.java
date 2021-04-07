@@ -49,4 +49,9 @@ public class MemberDaoImpl implements MemberDao{
 		
 	}
 
+	@Override
+	public Member selectMemberByNickname(String nickname) {
+		return sqlSession.selectOne("memberMapper.selectMemberByNickname", nickname);
+	}
+
 }

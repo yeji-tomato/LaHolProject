@@ -27,4 +27,9 @@ public class MemberServiceImpl implements MemberService{
 		return mDao.insertnMember(m);
 	}
 
+	@Override
+	public Member selectMemberByNickname(String nickname) {
+		return mDao.selectMemberByNickname(nickname);
+	}
+
 }

@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.lahol.member.model.service.MemberService;
+import com.kh.lahol.member.model.vo.M_Normal;
 import com.kh.lahol.member.model.vo.Member;
 
 @Controller
@@ -71,11 +72,32 @@ public class MemberController {
 		}
 	}
 	
+	@PostMapping("/nickCheck")
+	public void nickCheck(String nickname, HttpServletResponse response) {
+		try {
+			PrintWriter out = response.getWriter();
+			
+			Member m = mService.selectMemberByNickname(nickname);
+			
+			System.out.println(m);
+			
+			if(m != null) {
+				out.write("fail");
+			} else {
+				out.write("success");
+			}
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	@PostMapping("/nsignUp")
-	public String insertnMember(@ModelAttribute Member m,
+	public String insertnMember(@ModelAttribute M_Normal m,
 					            @RequestParam("address") String address,
 					            @RequestParam("address1") String address1,
 					            @RequestParam("address2") String address2,
+					            @RequestParam("nickname") String nickname,
 					            Model model,
 					            RedirectAttributes rd) {
 		
@@ -86,6 +108,7 @@ public class MemberController {
 		m.setPwd(encPwd);
 		
 		m.setGrade("N");
+		m.setNickname(nickname);
 		
 		int result = mService.insertnMember(m);
 		

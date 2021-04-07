@@ -148,12 +148,26 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 		       ID
 		     , BLIND
 		     , ISPOSTABLE
+		     , NICKNAME
 		  )
 		VALUES
 		(
 		       #{id}
 		     , DEFAULT
 		     , DEFAULT
+		     , #{nickname}
 		)
 	</insert>
+	
+	<select id="selectMemberByNickname" parameterType="string" resultMap="nmemberResultSet">
+		SELECT
+			   ID
+			 , BLIND
+		     , ISPOSTABLE
+		     , NICKNAME
+		  FROM
+		       M_NORMAL
+		 WHERE
+		       NICKNAME = #{nickname}
+	</select>
 </mapper>

@@ -11,4 +11,7 @@ public interface MemberService {
 
 	// 일반회원가입
 	public int insertnMember(Member m);
+
+	// 닉네임 중복확인
+	public Member selectMemberByNickname(String nickname);
 }

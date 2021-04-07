@@ -26,7 +26,7 @@
         .contentWrapper {
             margin: 80px auto;
             width: 600px;
-            min-height: 1210px;
+            min-height: 1310px;
             border: 3px solid #F3D798;
             border-radius: 10px;
             background : #fff;
@@ -92,12 +92,14 @@
         }
 
         #id,
+        #nickname,
         #address {
             width: 430px;
         }
 
         #chkDuplicate,
-        .searchAddress {
+        .searchAddress,
+        #nickChkDuplicate {
             width: 130px;
             height: 50px;
             vertical-align: middle;
@@ -204,7 +206,11 @@
                     <h3 class="subTitle2">아이디</h3>
                     <input type="text" id="id" name="id" maxlength="12" placeholder="아이디를 입력하세요">
                     <button type="button" id="chkDuplicate">중복확인</button><br>
-                    <span class="chkSpan" id="chkId">※ 영소문자/숫자 6~12자리(특수문자 불가)</span>
+                    <span class="chkSpan" id="chkId">※ 영소문자/숫자 6~12자리(특수문자 불가)</span><br>
+                    <h3 class="subTitle2">닉네임</h3>
+                    <input type="text" id="nickname" name="nickname" maxlength="8" placeholder="닉네임을 입력하세요">
+                    <button type="button" id="nickChkDuplicate">중복확인</button><br>
+                    <span class="chkSpan" id="chkNick">※ 한글 2~8자리</span>
                 </div>
                 <br clear="both">
                 <div class="pwdDiv">
@@ -260,6 +266,7 @@
     <script> $(function() { $("#postcodify_search_button").postcodifyPopUp(); }); </script>
     <script>
    		var isUsable = false;
+   		var isUsableNick = false;
     	$(function(){
    			var chkId = document.getElementById("chkId");
     		$("#chkDuplicate").on('click', function(){
@@ -325,6 +332,72 @@
                 	});
                 }
     		});
+    		
+    		var chkNick = document.getElementById("chkNick");
+    		$("#nickChkDuplicate").on('click', function(){
+    			var nickname = document.getElementById("nickname");
+    			if (nickname.value == "") {
+    				Swal.fire({
+    					title : '닉네임을 입력해주세요.',
+    					icon : 'warning'
+    				});
+    				nickname.focus();
+                    return;
+                }
+    			
+    			if(!chk(/^[가-힣]{2,8}$/, nickname, "닉네임을 다시 입력해주세요.")) {
+    				chkNick.innerHTML = "닉네임 입력이 잘못 되었습니다.(한글 2~8자리)";
+    				chkNick.style.color = "red";
+    				nickname.focus();
+                } else {
+                	$.ajax({
+                		url : "nickCheck",
+                		type : "post",
+                		data : {nickname : nickname.value},
+                		success : function(data) {
+                			if(data == "fail") {
+                				Swal.fire({
+                					title : '사용할 수 없는 닉네임 입니다.',
+                					icon : 'warning'
+                				});
+                				chkNick.innerHTML = "사용할 수 없는 아이디 입니다.";
+                				chkNick.style.color = "red";
+                				nickname.focus();
+                			} else {
+                				Swal.fire({
+                					title : '사용 가능한 닉네임 입니다.',
+                					text : "사용 하시겠습니까?",
+                					icon : 'warning',
+                					showCancelButton : true,
+                					confirmButtonColor : '#4B654A',
+                					cancelButtonColor : '#d33',
+                					confirmButtonText : '사용',
+                					cancelButtonText : '취소'
+                				}).then(function(result) {
+                					if(result.isConfirmed) {
+                						Swal.fire({
+                							title : '닉네임을 사용합니다.',
+                							icon : 'success'
+                						})
+                						nickname.setAttribute('readonly', true);
+                						chkNick.innerHTML = "사용 가능한 아이디 입니다.";
+                						chkNick.style.color = "green";
+                						isUsableNick = true;
+                					} else {
+                						nickname.removeAttribute('readonly');
+                						isUsableNick = false;
+                						nickname.focus();
+                					}
+                				});
+                			}
+                		},
+                		error : function(e) {
+                			console.log(e);
+                		}
+                	});
+                }
+    		});
+    		
     	});
     
         function onKeyDown() {
@@ -334,15 +407,16 @@
             }
         }
 
+        var userId = document.getElementById("id");
+        var chkId = document.getElementById("chkId");
+        var userPwd = document.getElementById("pwd");
+        var userPwd2 = document.getElementById("pwd2");
+        var nickname = document.getElementById("nickname");
+        var chkPwd = document.getElementById("chkPwd");
+        var userName = document.getElementById("name");
+        var birthYear = document.getElementById("birthYear");
+        var birthday = document.getElementById("birthday");
         function onSubmit() {
-            var userId = document.getElementById("id");
-            var chkId = document.getElementById("chkId");
-            var userPwd = document.getElementById("pwd");
-            var userPwd2 = document.getElementById("pwd2");
-            var chkPwd = document.getElementById("chkPwd");
-            var userName = document.getElementById("name");
-            var birthYear = document.getElementById("birthYear");
-            var birthday = document.getElementById("birthday");
 
             if (userId.value == "") {
             	Swal.fire({
@@ -359,6 +433,24 @@
 					icon : 'warning'
 				});
                 userId.focus();
+                return;
+            }
+            
+            if (nickname.value == "") {
+				Swal.fire({
+					title : '닉네임을 입력해주세요.',
+					icon : 'warning'
+				});
+				nickname.focus();
+                return;
+            }
+            
+            if(!isUsableNick) {
+            	Swal.fire({
+					title : '닉네임 중복확인을 해주세요!',
+					icon : 'warning'
+				});
+            	nickname.focus();
                 return;
             }
 
