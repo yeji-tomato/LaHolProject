@@ -18,7 +18,7 @@
 	<!-- 세번째 영역 -->
 	<jsp:include page="/WEB-INF/views/main/third-section.jsp"/>
 	<!-- footer -->
-	<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
+	<jsp:include page="/WEB-INF/views/common/footer2.jsp"/>
 	
 </body> 
 </html> 
