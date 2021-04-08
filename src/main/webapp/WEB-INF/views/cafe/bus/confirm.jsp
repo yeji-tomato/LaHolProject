@@ -13,7 +13,8 @@
 	<!-- 사업자 menubar -->
 	<jsp:include page="/WEB-INF/views/common/menubarBus.jsp"/>
 	
-	<!-- 카페 사이드 메뉴 바 -->
+    
+    <!-- 카페 사이드 메뉴 바 -->
     <div class="cafe-sidemenubar">
         <div id="side" class="col-cf">
         <ul class="side-menu">
@@ -49,7 +50,7 @@
                     </div>
                     <p class="menu-text">카페 등록</p>
             </li>
-            <li class="side-item active">
+            <li class="side-item active" id="cafeCon">
                     <div class="side-icon">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                             <path  fill-rule="evenodd" d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22ZM15.5355 8.46447C15.9261 8.07394 16.5592 8.07394 16.9498 8.46447C17.3403 8.85499 17.3403 9.48816 16.9498 9.87868L11.2966 15.5318L11.2929 15.5355C11.1919 15.6365 11.0747 15.7114 10.9496 15.7602C10.7724 15.8292 10.5795 15.8459 10.3948 15.8101C10.2057 15.7735 10.0251 15.682 9.87868 15.5355L9.87489 15.5317L7.05028 12.7071C6.65975 12.3166 6.65975 11.6834 7.05028 11.2929C7.4408 10.9024 8.07397 10.9024 8.46449 11.2929L10.5858 13.4142L15.5355 8.46447Z" clip-rule="evenodd"/>
@@ -59,46 +60,8 @@
             </li>
         </ul>
         </div>
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-        <script>
-            $(function() {
-            $(".side-item").click(function(e) {
-                e.preventDefault();
-                $(".side-item").removeClass("active");
-                $(this).addClass("active");
-            });
-            });
-
-            // cafe sidemenubar 페이지 이동
-
-            // home
-            const cafeHome = document.getElementById("cafeHome");
-            cafeHome.addEventListener("click", function() {
-                location.href='../main/main.html';
-            });
-
-            // 주문 내역
-            const cafeOrd = document.getElementById("cafeOrd");
-            cafeOrd.addEventListener("click", function(){
-                location.href='../order/order.html';
-            });
-
-            // 예약 내역
-            const cafeRes= document.getElementById("cafeRes");
-            cafeRes.addEventListener("click", function() {
-                location.href='../reservation/reservation.html';
-            });
-
-            // 카페 등록
-            const cafeWri = document.getElementById("cafeWri");
-            cafeWri.addEventListener("click", function(){
-                location.href='../write/write.html';
-            });
-
-
-        </script>
-    </div>
-    <div class="res-container">
+        <%@include file="./sideMenu.jsp" %>
+    <div class="res-container" style="height: 100vh">
         <div id="pd" class="col-cf">
             <div class="con_table">
                 <h2>카페 확인</h2>
@@ -164,18 +127,16 @@
                     // 상세 설명
                     const cafeDetail = document.getElementById("updateDetail");
                     cafeDetail.addEventListener("click", function(){
-                        location.href="./update/detail.html";
+                        location.href="${ contextPath }/cafe/upCafe";
                     });
 
                     // 커피 메뉴
                     const coffeeMenu = document.getElementById("coffeeMenu");
                     coffeeMenu.addEventListener("click", function(){
-                        location.href="./update/cofupd.html"
+                        location.href="${ contextPath }/cafe/upCoffee";
                     });
                 </script>
-        </div>        
- 
-
+        </div>
     </div>
     <script>
         $(function() {
@@ -186,8 +147,10 @@
         });
     });
     </script>
+    </div>
+    </div>
     
     <!-- footer -->
-	<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
+	<jsp:include page="/WEB-INF/views/common/footer2.jsp"/>
 </body>
 </html>

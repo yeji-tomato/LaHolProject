@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="memberMapper">
+	<resultMap id="memberResultSet" type="Member">
+		<id property="id" column="ID"/>
+		<result property="pwd" column="PWD"/>
+		<result property="email" column="EMAIL"/>
+		<result property="name" column="NAME"/>
+		<result property="phone" column="PHONE"/>
+		<result property="addr" column="ADDR"/>
+		<result property="enDate" column="ENDATE"/>
+		<result property="moDate" column="MODATE"/>
+		<result property="isActive" column="ISACTIVE"/>
+		<result property="grade" column="GRADE"/>
+	</resultMap>
+	<resultMap id="nmemberResultSet" type="Member_N">
+		<id property="id" column="ID"/>
+		<result property="pwd" column="PWD"/>
+		<result property="email" column="EMAIL"/>
+		<result property="name" column="NAME"/>
+		<result property="phone" column="PHONE"/>
+		<result property="addr" column="ADDR"/>
+		<result property="enDate" column="ENDATE"/>
+		<result property="moDate" column="MODATE"/>
+		<result property="isActive" column="ISACTIVE"/>
+		<result property="grade" column="GRADE"/>
+		<result property="blind" column="BLIND"/>
+		<result property="isPostable" column="ISPOSTABLE"/>
+		<result property="nickname" column="NICKNAME"/>
+	</resultMap>
+	<resultMap id="pmemberResultSet" type="Member_P">
+		<id property="id" column="ID"/>
+		<result property="pwd" column="PWD"/>
+		<result property="email" column="EMAIL"/>
+		<result property="name" column="NAME"/>
+		<result property="phone" column="PHONE"/>
+		<result property="addr" column="ADDR"/>
+		<result property="enDate" column="ENDATE"/>
+		<result property="moDate" column="MODATE"/>
+		<result property="isActive" column="ISACTIVE"/>
+		<result property="grade" column="GRADE"/>
+		<result property="openDate" column="OPENDATE"/>
+		<result property="warned" column="WARNED"/>
+	</resultMap>
+	<select id="selectMemberById" parameterType="string" resultMap="memberResultSet">
+		SELECT
+		       ID
+		     , PWD
+		     , EMAIL
+		     , NAME
+		     , PHONE
+		     , ADDR
+		     , ENDATE
+		     , MODATE
+		     , ISACTIVE
+		     , GRADE
+		  FROM
+		       MEMBER M
+		 WHERE
+		       ID = #{userId}
+	</select>
+	<select id="selectNormalMember" parameterType="string" resultMap="nmemberResultSet">
+		SELECT
+		       M.ID
+		     , PWD
+		     , EMAIL
+		     , NAME
+		     , PHONE
+		     , ADDR
+		     , ENDATE
+		     , MODATE
+		     , ISACTIVE
+		     , GRADE
+		     , BLIND
+		     , ISPOSTABLE
+		     , NICKNAME
+		  FROM
+		       MEMBER M
+	 LEFT JOIN
+	           M_NORMAL N ON(M.ID = N.ID)
+	     WHERE
+		       M.ID = #{userId}
+	</select>
+	<select id="selectPartnerMember" parameterType="string" resultMap="pmemberResultSet">
+		SELECT
+		       M.ID
+		     , PWD
+		     , EMAIL
+		     , NAME
+		     , PHONE
+		     , ADDR
+		     , ENDATE
+		     , MODATE
+		     , ISACTIVE
+		     , GRADE
+		     , OPENDATE
+		     , WARNED
+		  FROM
+		       MEMBER M
+	 LEFT JOIN
+	           M_PARTNER P ON(M.ID = P.ID)
+	     WHERE
+		       M.ID = #{userId}
+	</select>
+	<insert id="insertMember" parameterType="Member">
+		INSERT
+		  INTO
+		       MEMBER
+		  (
+		       ID
+		     , PWD
+		     , EMAIL
+		     , NAME
+		     , PHONE
+		     , ADDR
+		     , ENDATE
+		     , MODATE
+		     , ISACTIVE
+		     , GRADE
+		  )
+		VALUES
+		(
+		       #{id}
+		     , #{pwd}
+		     , #{email}
+		     , #{name}
+		     , #{phone}
+		     , #{addr}
+		     , SYSDATE
+		     , SYSDATE
+		     , DEFAULT
+		     , #{grade}
+		)  
+	</insert>
+	<insert id="insertnMember2" parameterType="Member">
+		INSERT
+		  INTO
+		       M_NORMAL
+		  (
+		       ID
+		     , BLIND
+		     , ISPOSTABLE
+		     , NICKNAME
+		  )
+		VALUES
+		(
+		       #{id}
+		     , DEFAULT
+		     , DEFAULT
+		     , #{nickname}
+		)
+	</insert>
+	
+	<select id="selectMemberByNickname" parameterType="string" resultMap="nmemberResultSet">
+		SELECT
+			   ID
+			 , BLIND
+		     , ISPOSTABLE
+		     , NICKNAME
+		  FROM
+		       M_NORMAL
+		 WHERE
+		       NICKNAME = #{nickname}
+	</select>
+	
+	<insert id="insertpMember" parameterType="Member">
+		INSERT
+		  INTO
+		       M_PARTNER
+		  (
+		       ID
+		     , OPENDATE
+		     , WARNED
+		  )
+		VALUES
+		(
+		       #{id}
+		     , SYSDATE
+		     , DEFAULT
+		)
+	</insert>
+	<insert id="insertCafe" parameterType="M_Cafe">
+		INSERT
+		  INTO
+		       CAFE
+		  (
+		       C_CODE
+		     , C_NAME
+		     , C_OWNER
+		     , C_NUMBER
+		     , C_ADDRESS
+		     , C_STATUS
+		     , C_LA
+		     , C_LO
+		     , ID
+		  )
+		VALUES
+		(
+		       'CA' || CA.NEXTVAL
+		     , #{c_name}
+		     , #{c_owner}
+		     , #{c_number}
+		     , #{c_address}
+		     , DEFAULT
+		     , #{c_la}
+		     , #{c_lo}
+		     , #{id}
+		)
+	</insert>
+</mapper>

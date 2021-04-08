@@ -26,12 +26,12 @@
                             <div style=" margin-top: 40px;margin-left: 30px; ">
                             <a style="font-size: 35px;"> Lahol </a>
                                 <div style=" margin-top: 50px;">
-                                    <ul>
-                                        <li><a href="${ contextPath }/playground/testResult">Ye Ji Lee</a></li>
-                                        <li><a href="${ contextPath }/admin/user/normalList">Youn Jae Lee</a></li>
-                                        <li><a href="#">Dayoon Choi</a></li>
-                                        <li><a href="#">Wan Sik Kim</a></li>
-                                        <li><a href="#">Jin Ju Baek</a></li>
+                                    <ul class="ftUl">
+                                        <li class="ftli"><a href="${ contextPath }/playground/testResult">Ye Ji Lee</a></li>
+                                        <li class="ftli"><a href="${ contextPath }/admin/user/normalList">Youn Jae Lee</a></li>
+                                        <li class="ftli"><a href="#">Dayoon Choi</a></li>
+                                        <li class="ftli">  Wan Sik Kim </li>
+                                        <li class="ftli">  Jin Ju Baek </li>
                                     </ul>
                                 </div>
                             </div>  

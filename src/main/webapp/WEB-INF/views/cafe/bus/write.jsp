@@ -41,7 +41,7 @@
                     </div>
                     <p class="menu-text">예약 내역</p>
             </li>
-            <li class="side-item active">
+            <li class="side-item active" id="cafeWri">
                     <div class="side-icon">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                             <path  d="M17.864 3.60051C17.4735 3.20999 16.8403 3.20999 16.4498 3.60051L15.0356 5.01472 19.2782 9.25736 20.6924 7.84315C21.0829 7.45263 21.0829 6.81946 20.6924 6.42894L17.864 3.60051zM17.864 10.6716L13.6213 6.42894 4.72185 15.3284C4.53431 15.516 4.42896 15.7703 4.42896 16.0355L4.42896 18.864C4.42895 19.4163 4.87667 19.864 5.42896 19.864H8.25738C8.5226 19.864 8.77695 19.7586 8.96449 19.5711L17.864 10.6716z"/>
@@ -59,45 +59,8 @@
             </li>
         </ul>
         </div>
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-        <script>
-            $(function() {
-            $(".side-item").click(function(e) {
-                e.preventDefault();
-                $(".side-item").removeClass("active");
-                $(this).addClass("active");
-            });
-            });
-
-
-            // cafe sidemenubar 페이지 이동
-
-            // home
-            const cafeHome = document.getElementById("cafeHome");
-            cafeHome.addEventListener("click", function() {
-                location.href='../main/main.html';
-            });
-
-             // 주문 내역
-            const cafeOrd = document.getElementById("cafeOrd");
-            cafeOrd.addEventListener("click", function(){
-                location.href='../order/order.html';
-            });
-
-            // 예약 내역
-            const cafeRes= document.getElementById("cafeRes");
-            cafeRes.addEventListener("click", function() {
-                location.href='../reservation/reservation.html';
-            });
-
-            // 카페 확인
-            const cafeCon= document.getElementById("cafeCon");
-            cafeCon.addEventListener("click", function() {
-                location.href='../confirm/confirm.html';
-            });
-
-        </script>
-    </div>
+        <%@include file="./sideMenu.jsp" %>
+    
     <div class="cf-container">
         <div id="cf" class="col-cf">
             <!-- 카페 등록 폼 -->
@@ -282,7 +245,7 @@
                         </div>
                         
                         <div class="writeBtn">
-                            <a href="./coffee.html" class="btn btn-sm animated-button thar-three">
+                            <a href="${ contextPath }/cafe/coffee" class="btn btn-sm animated-button thar-three">
                                 <i class="fa fa-long-arrow-right" aria-hidden="true"></i> &nbsp; 음료 입력
                             </a>
                         </div>
@@ -295,9 +258,10 @@
         </div>
         
     </div>
+    </div>
     
     <!-- footer -->
-	<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
+	<jsp:include page="/WEB-INF/views/common/footer2.jsp"/>
     
 </body>
 </html>

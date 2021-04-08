@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.lahol.store.model.vo.PageInfo;
+import com.kh.lahol.store.model.vo.Search;
 import com.kh.lahol.store.model.vo.Store;
 
 @Repository
@@ -61,6 +62,22 @@ public class StoreDaoImpl implements StoreDao{
 		return 0;
 	}
 
+	@Override
+	public int selectSearchCount(Search search) {
+		return sqlSession.selectOne("storeMapper.selectSearchCount",  search );
+	}
+
+
+	 
+	 
+	@Override
+	public List<Store> searchList(Search search, PageInfo pi) {
+		int offset =(pi.getCurrentPage() -1) *pi.getStoreLimit(); 
+		RowBounds rowBounds = new RowBounds(offset,pi.getStoreLimit());
+		return sqlSession.selectList("storeMapper.searchList",  search, rowBounds );
+	}
+
+	
 	
 
 }

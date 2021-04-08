@@ -11,11 +11,6 @@ public class CoffeClassController {
 		return "coffeeclass/class_main";
 	}
 	
-	@GetMapping("/coffeeclass/classdetail")
-	public String classdetail() {
-		return "coffeeclass/class_detail";
-	}
-	
 	@GetMapping("/coffeeclass/busmain")
 	public String busmain() {
 		return "coffeeclass/bus_classmain";
@@ -25,18 +20,7 @@ public class CoffeClassController {
 	public String busdetail() {
 		return "coffeeclass/bus_classdetail";
 	}
-	
-	@GetMapping("/coffeeclass/buscreate")
-	public String createclass() {
-		return "coffeeclass/bus_create";
-	}
-	
-	@GetMapping("/coffeeclass/busupdate")
-	public String updateclass() {
-		return "coffeeclass/bus_classupdate";
-	}
 
-	
 	
 
 }

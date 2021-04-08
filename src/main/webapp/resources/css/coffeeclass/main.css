@@ -1,0 +1,360 @@
+@charset "UTF-8";
+
+/* 넥슨 고딕 Bold */
+@font-face {
+    font-family: 'NEXON Lv1 Gothic OTF Bold';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF Bold.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+*{
+    font-family: 'NEXON Lv1 Gothic OTF Bold';
+}
+
+#container, #row{
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+.headSearch{
+    height: 70vh;
+    background-image: url("https://images.unsplash.com/photo-1507226983735-a838615193b0?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80");
+    background-size: cover;
+
+}
+.cafe-title{
+    color: white;
+    font-size: 6rem;
+    display: block;
+    text-align: center;
+    padding-top: 30vh;
+    font-family: 'NEXON Lv1 Gothic OTF Bold';
+}
+
+#parallelogram {
+	width: 50vw;
+	height: 100vh;
+	-webkit-transform: skew(20deg);
+	-moz-transform: skew(20deg);
+	-o-transform: skew(20deg);
+	background: #935039;
+}
+/* 검색 */
+    .search-container {
+    /* position: relative; */
+    margin: calc(5px + 2vh + 2vw) auto 0 auto;
+    padding: 0;
+    width: 100%;
+    max-width: 840px;
+    }
+    .search-box {
+    position: relative;
+    width: 100%;
+    max-width: 360px;
+    height: 60px;
+    border-radius: 120px;
+    margin: 0 auto;
+    }
+    .search-icon, .go-icon {
+    position: absolute;
+    top: 0;
+    height: 60px;
+    width: 86px;
+    line-height: 61px;
+    text-align: center;
+    }
+    .search-icon {
+    left: 0;
+    margin-left: 1%;
+    pointer-events: none;
+    font-size: 1.22em;
+    will-change: transform;
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+    -moz-transform: rotate(-45deg);
+    -o-transform: rotate(-45deg);
+    transform-origin: center center;
+    -webkit-transform-origin: center center;
+    -moz-transform-origin: center center;
+    -o-transform-origin: center center;
+    transition: transform 400ms 220ms cubic-bezier(0.190, 1.000, 0.220, 1.000);
+    -webkit-transition: transform 400ms 220ms cubic-bezier(0.190, 1.000, 0.220, 1.000);
+    -moz-transition: transform 400ms 220ms cubic-bezier(0.190, 1.000, 0.220, 1.000);
+    -o-transition: transform 400ms 220ms cubic-bezier(0.190, 1.000, 0.220, 1.000);
+    }
+    .si-rotate {
+    transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    }
+    .go-icon {
+    right: 0;
+    pointer-events: none;
+    font-size: 1.38em;
+    will-change: opacity;
+    cursor: default;
+    opacity: 0;
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    transition: opacity 190ms ease-out, transform 260ms cubic-bezier(0.190, 1.000, 0.220, 1.000);
+    -webkit-transition: opacity 190ms ease-out, transform 260ms cubic-bezier(0.190, 1.000, 0.220, 1.000);
+    -moz-transition: opacity 190ms ease-out, transform 260ms cubic-bezier(0.190, 1.000, 0.220, 1.000);
+    -o-transition: opacity 190ms ease-out, transform 260ms cubic-bezier(0.190, 1.000, 0.220, 1.000);
+    }
+    .go-in {
+    opacity: 1;
+    pointer-events: all;
+    cursor: pointer;
+    transform: rotate(0);
+    -webkit-transform: rotate(0);
+    -moz-transform: rotate(0);
+    -o-transform: rotate(0);
+    transition: opacity 190ms ease-out, transform 260ms 20ms cubic-bezier(0.190, 1.000, 0.220, 1.000);
+    -webkit-transition: opacity 190ms ease-out, transform 260ms 20ms cubic-bezier(0.190, 1.000, 0.220, 1.000);
+    -moz-transition: opacity 190ms ease-out, transform 260ms 20ms cubic-bezier(0.190, 1.000, 0.220, 1.000);
+    -o-transition: opacity 190ms ease-out, transform 260ms 20ms cubic-bezier(0.190, 1.000, 0.220, 1.000);
+    }
+    .search-border {
+    display: block;
+    width: 100%;
+    max-width: 360px;
+    height: 60px;
+    }
+    .border {
+    fill: none;
+    stroke: #000000;
+    stroke-width: 5;
+    stroke-miterlimit: 10;
+    }
+    .border {
+    stroke-dasharray: 740;
+    stroke-dashoffset: 0;
+    transition: stroke-dashoffset 400ms cubic-bezier(0.600, 0.040, 0.735, 0.990);
+    -webkit-transition: stroke-dashoffset 400ms cubic-bezier(0.600, 0.040, 0.735, 0.990);
+    -moz-transition: stroke-dashoffset 400ms cubic-bezier(0.600, 0.040, 0.735, 0.990);
+    -o-transition: stroke-dashoffset 400ms cubic-bezier(0.600, 0.040, 0.735, 0.990);
+    }
+    .border-searching .border {
+    stroke-dasharray: 740;
+    stroke-dashoffset: 459;
+    transition: stroke-dashoffset 650ms cubic-bezier(0.755, 0.150, 0.205, 1.000);
+    -webkit-transition: stroke-dashoffset 650ms cubic-bezier(0.755, 0.150, 0.205, 1.000);
+    -moz-transition: stroke-dashoffset 650ms cubic-bezier(0.755, 0.150, 0.205, 1.000);
+    -o-transition: stroke-dashoffset 650ms cubic-bezier(0.755, 0.150, 0.205, 1.000);
+    }
+    #search {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 120px;
+    border: none;
+    background: rgba(255,255,255,0);
+    padding: 0 68px 0 68px;
+    color: #000000;
+    font-size: 1.32em;
+    font-weight: 400;
+    letter-spacing: -0.015em;
+    outline: none;
+    }
+    #search::-webkit-input-placeholder {color: #000000;}
+    #search::-moz-placeholder {color: #000000;}
+    #search:-ms-input-placeholder {color: #000000;}
+    #search:-moz-placeholder {color: #000000;}
+    #search::-moz-selection {color: #000000; background: rgba(0,0,0,0.25);}
+    #search::selection {color: #FFFFFF; background: rgba(0,0,0,0.25);}
+    
+/* 카페 컨텐츠 내용 */
+.content-cafe-sc{
+    margin-top: 5%;
+}
+
+h1{
+	font-family: 'NEXON Lv1 Gothic OTF Bold';
+}
+
+#card-body{
+	font-family: 'NEXON Lv1 Gothic OTF Bold';
+}
+
+
+#rowP{
+    padding-top: 3%;
+}
+#ct-cf{
+    text-align: center;
+}
+#cardShape{
+    width: 15rem;
+    height: 20rem;
+    border: 1px solid #96877D;
+}
+#cardShape img{
+    width: 15rem;
+    height: 13rem;
+}
+/* 페이징 바 */
+.cafe-order-page{
+    margin-top: 5%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#page-color{
+    color: #5A452E;
+}
+#page-color:active{
+    background-color: #e3a259;
+    color: white;
+}
+#page-color:hover{
+    background-color: #e3a259;
+    color: white;
+}
+
+/*클래스 한정*/
+.container{
+    margin: auto;
+    max-width: 1300px;
+}
+
+.row{
+    display : flex;
+    align-items: center;
+    flex-wrap: wrap;
+    
+}
+
+
+.classes{
+    margin: auto;
+    padding-left : 30px;
+    padding-right: 30px;
+}
+
+.classes h2{
+    margin: 80px;
+    text-align: center;
+    position: relative;
+    line-height: 60px;
+}
+
+.classes h2::after{
+    content : '';
+    background-color: rgb(194, 182, 160);
+    width: 80px;
+    height: 3px;
+    border-radius: 2px;
+    position: absolute;
+    bottom : 0;
+    left : 50%;
+    transform: translateX(-50%);    
+}
+
+.col{
+    flex-basis : 20px;
+    padding: 10px;
+    min-width: 20%;
+    min-height: 500px;
+    margin-bottom : 50px;
+    transition: transform 0.5s;
+}
+
+.col img{
+    width : 100%;
+}
+
+.rating .fa{
+    color : rgb(170, 113, 29);
+}
+
+.col:hover{
+    transform: translateY(-15px);
+}
+
+.input{
+    width : 380px;
+    height : 38px;
+    border-radius: 30px;
+}
+
+:root{
+    --clr-primary: #ee6352;
+    --clr-body: #333;
+    --clr-bg:#ddd;
+}
+
+.search_box{
+    padding : 60px;
+    padding-top: 100px;
+    top: 600%;
+    left : 20%;
+    height: 30px;
+    text-align: center;
+}
+
+#submitbtn{
+    cursor: pointer;
+    border: 0;
+    background : 0;
+    border-radius: 50%;
+}
+
+.filter{
+    text-align: center; 
+    font-size : 16px; 
+}
+
+.filter select{
+    border: 0;
+    margin : 15px;
+}
+
+
+#filterbtn {
+    background-color: transparent;
+    line-height: 35px;
+    border:0px;
+}
+
+ #filterbtn i:hover {
+position :relative;
+left : 20%;
+transition: all 0.15s linear 0.2s;
+color : orange;
+} 
+
+.card-img-top{
+width : 30vh;
+height : 45vh;
+}
+
+/*클래스 개설 버튼*/
+.create-btn {
+	box-shadow: 0px 6px 0px -10px #1c1b18;
+	background-color:#eae0c2;
+	border-radius:25px;
+	border:0.5px blanchedalmond;
+	cursor:pointer;
+	color:rgb(12, 39, 7);
+	font-family:Arial;
+	font-size:14px;
+	font-weight:bold;
+	padding:14px 49px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #ffffff;
+    }
+.create-btn:hover {
+    border : rgb(124, 79, 11) solid;
+    color: rgb(12, 39, 7);
+
+}
+.create-btn:active {
+    position:relative;
+    top:1px;
+}

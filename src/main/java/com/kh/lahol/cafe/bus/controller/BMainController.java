@@ -21,7 +21,7 @@ public class BMainController {
 	public String Home(Locale locale, Model model) {
 		
 		
-		return "cafe/bus/home";
+		return "cafe/bus/busHome";
 	}
 	
 	@RequestMapping(value = "/cafe/order", method = RequestMethod.GET)
@@ -54,7 +54,26 @@ public class BMainController {
 		return "cafe/bus/confirm";
 	}
 	
+	@RequestMapping(value = "/cafe/upCafe", method = RequestMethod.GET)
+	public String upCafe(Locale locale, Model model) {
+		
+		
+		return "cafe/bus/upCafe";
+	}
 	
+	@RequestMapping(value = "/cafe/upCoffee", method = RequestMethod.GET)
+	public String upCoffee(Locale locale, Model model) {
+		
+		
+		return "cafe/bus/upCoffee";
+	}
+	
+	@RequestMapping(value = "/cafe/coffee", method = RequestMethod.GET)
+	public String coffee(Locale locale, Model model) {
+		
+		
+		return "cafe/bus/coffee";
+	}
 	
 
 }

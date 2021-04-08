@@ -12,11 +12,16 @@
 <link rel="stylesheet" href="${ contextPath }/resources/css/cafe/user/choose.css">
 <!-- 아이콘 css -->
 <script src="https://kit.fontawesome.com/2ada8d19a4.js" crossorigin="anonymous"></script>
+<style>
+	body{
+	background: #CDC2AF;
+}
+</style>
 </head>
-<body>
+<body style="background: #f0ebe5;">
 
 	<!-- menubar -->
-	<jsp:include page="/WEB-INF/views/common/menubarBG.jsp"/>
+	<jsp:include page="/WEB-INF/views/common/menubar.jsp"/>
 
 	<div class="container" id="detailContainer">
         <div class="row">
@@ -509,8 +514,9 @@
 		</div>
 		</div>
 	</div>
+	</div>
 	
-	<!-- footer -->
+	 <!-- footer -->
 	<jsp:include page="/WEB-INF/views/common/footer2.jsp"/>
 	
 </body>

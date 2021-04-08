@@ -14,6 +14,18 @@
 	<typeAliases> 
 		<!-- 스토어  -->
 		<typeAlias type="com.kh.lahol.store.model.vo.Store" alias="Store"/>
+
+		<!-- 일반회원 -->
+		<typeAlias type="com.kh.lahol.member.model.vo.M_Normal" alias="Member_N"/>
+		<!-- 사업자회원 -->
+		<typeAlias type="com.kh.lahol.member.model.vo.M_Partner" alias="Member_P"/>
+		<!-- 관리자 -->
+		<typeAlias type="com.kh.lahol.member.model.vo.Member" alias="Member"/>
+		<!-- 회원가입 시 Cafe -->
+		<typeAlias type="com.kh.lahol.member.model.vo.Cafe" alias="M_Cafe"/>
+
+		<typeAlias type="com.kh.lahol.store.model.vo.Search" alias="Search"/>
+
  
 	</typeAliases>
 	
@@ -21,7 +33,9 @@
 	<mappers> 
 	
 		<!-- 스토어 mapper  -->
-		<mapper resource="mappers/store-mapper.xml"/> 
+		<mapper resource="mappers/store-mapper.xml"/>
+		<!-- member-mapper -->
+		<mapper resource="mappers/member-mapper.xml"/>
 	</mappers>
 </configuration>
 

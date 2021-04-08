@@ -28,6 +28,10 @@
 		left: 9vw;
 		padding-top: 2%
 	}
+	
+	.swiper-container {
+	padding-top: 10%;
+}
 }
 
 @media screen and (min-width:1366px) {
