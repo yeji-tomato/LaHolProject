@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -67,7 +68,7 @@
             <div class="cafe-write-form">
             <h2>카페 등록</h2>
             <hr>
-            <form>
+            <form action="${ contextPath }/cafe/insert" id="writeBusForm" method="post" enctype="multipart/form-data">
                 <div class="container">
                     <div class="writeArea">
                         <!-- 카페명 -->
@@ -251,9 +252,10 @@
                         </div>
                         
                     </div>
+                    </form>
                 </div>
                 <div>
-            </form>
+            
             </div>
         </div>
         
