@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.lahol.member.model.dao.MemberDao;
+import com.kh.lahol.member.model.vo.Cafe;
+import com.kh.lahol.member.model.vo.M_Partner;
 import com.kh.lahol.member.model.vo.Member;
 
 @Service
@@ -30,6 +32,22 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public Member selectMemberByNickname(String nickname) {
 		return mDao.selectMemberByNickname(nickname);
+	}
+
+	@Override
+	public int insertpMember(M_Partner m) {
+		int result = mDao.insertpMember(m);
+		
+		if(result > 0) {
+			return mDao.insertpMember2(m);
+		} else {
+			return 0;
+		}
+	}
+
+	@Override
+	public int insertCafe(Cafe c) {
+		return mDao.insertCafe(c);
 	}
 
 }

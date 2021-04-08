@@ -4,6 +4,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.kh.lahol.member.model.vo.Cafe;
+import com.kh.lahol.member.model.vo.M_Partner;
 import com.kh.lahol.member.model.vo.Member;
 
 @Repository
@@ -38,7 +40,7 @@ public class MemberDaoImpl implements MemberDao{
 
 	@Override
 	public int insertnMember(Member m) {
-		int result = sqlSession.insert("memberMapper.insertnMember", m);
+		int result = sqlSession.insert("memberMapper.insertMember", m);
 		
 		if(result > 0) {
 			int result1 = sqlSession.insert("memberMapper.insertnMember2", m);
@@ -52,6 +54,23 @@ public class MemberDaoImpl implements MemberDao{
 	@Override
 	public Member selectMemberByNickname(String nickname) {
 		return sqlSession.selectOne("memberMapper.selectMemberByNickname", nickname);
+	}
+
+	// MEMBER TABLE INSERT
+	@Override
+	public int insertpMember(M_Partner m) {
+		return sqlSession.insert("memberMapper.insertMember", m);
+	}
+	
+	// M_PARTNER TABLE INSERT
+	@Override
+	public int insertpMember2(M_Partner m) {
+		return sqlSession.insert("memberMapper.insertpMember", m);
+	}
+
+	@Override
+	public int insertCafe(Cafe c) {
+		return sqlSession.insert("memberMapper.insertCafe", c);
 	}
 
 }

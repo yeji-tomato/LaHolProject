@@ -14,11 +14,6 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 		<result property="moDate" column="MODATE"/>
 		<result property="isActive" column="ISACTIVE"/>
 		<result property="grade" column="GRADE"/>
-		<result property="blind" column="BLIND"/>
-		<result property="isPostable" column="ISPOSTABLE"/>
-		<result property="nickname" column="NICKNAME"/>
-		<result property="openDate" column="OPENDATE"/>
-		<result property="warned" column="WARNED"/>
 	</resultMap>
 	<resultMap id="nmemberResultSet" type="Member_N">
 		<id property="id" column="ID"/>
@@ -100,9 +95,8 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 		     , MODATE
 		     , ISACTIVE
 		     , GRADE
-		     , BLIND
-		     , ISPOSTABLE
-		     , NICKNAME
+		     , OPENDATE
+		     , WARNED
 		  FROM
 		       MEMBER M
 	 LEFT JOIN
@@ -110,7 +104,7 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 	     WHERE
 		       M.ID = #{userId}
 	</select>
-	<insert id="insertnMember" parameterType="Member">
+	<insert id="insertMember" parameterType="Member">
 		INSERT
 		  INTO
 		       MEMBER
@@ -170,4 +164,49 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 		 WHERE
 		       NICKNAME = #{nickname}
 	</select>
+	
+	<insert id="insertpMember" parameterType="Member">
+		INSERT
+		  INTO
+		       M_PARTNER
+		  (
+		       ID
+		     , OPENDATE
+		     , WARNED
+		  )
+		VALUES
+		(
+		       #{id}
+		     , SYSDATE
+		     , DEFAULT
+		)
+	</insert>
+	<insert id="insertCafe" parameterType="M_Cafe">
+		INSERT
+		  INTO
+		       CAFE
+		  (
+		       C_CODE
+		     , C_NAME
+		     , C_OWNER
+		     , C_NUMBER
+		     , C_ADDRESS
+		     , C_STATUS
+		     , C_LA
+		     , C_LO
+		     , ID
+		  )
+		VALUES
+		(
+		       'CA' || CA.NEXTVAL
+		     , #{c_name}
+		     , #{c_owner}
+		     , #{c_number}
+		     , #{c_address}
+		     , DEFAULT
+		     , #{c_la}
+		     , #{c_lo}
+		     , #{id}
+		)
+	</insert>
 </mapper>
