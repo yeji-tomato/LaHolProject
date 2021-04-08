@@ -1,0 +1,83 @@
+@charset "UTF-8";
+
+@font-face {
+    font-family: 'NEXON Lv1 Gothic OTF Bold';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF Bold.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}  
+
+*{
+    font-family: 'NEXON Lv1 Gothic OTF Bold';
+}
+
+body{
+            margin: 0;
+            padding: 0;
+  }
+
+  .cafe-sidemenubar{
+      width: 100%;
+      height: auto; 
+      padding-top: 10%;
+  }
+
+
+#pd{
+    /* padding-top: 20%; */
+    font-family: 'NEXON Lv1 Gothic OTF Bold';
+    margin-top: 3%;
+    margin-left: 5%;
+    width: 80vw;
+    height: 80vh;
+    border-radius: 30px;
+    -webkit-box-shadow: 0px 14px 32px 0px rgba(0, 0, 0, 0.15);
+    -moz-box-shadow: 0px 14px 32px 0px rgba(0, 0, 0, 0.15);
+    box-shadow: 0px 14px 32px 0px rgba(0, 0, 0, 0.15);
+}
+#confirm-table td{
+    text-align: center;
+}
+.col-cf{
+    float: left;
+}
+.con_table thead{
+    font-size: 20px;
+}
+.con_table{
+    padding: 5%;
+}
+.btn-icon{
+    border-color: transparent;
+    background-color: transparent;
+    display: block;
+    margin: 0 auto;
+}
+.fa-sign-in{
+    color: #4B654A;
+}
+.fa-coffee{
+    color: #5A452E;
+}
+.fa-trash{
+    color: #810B0B;
+}
+.grad{
+    border-radius: 50px;
+    padding: 10%;
+    background-image: linear-gradient(to left,
+    transparent,
+    transparent 50%,
+    #F3D798 50%,
+    #f1d1ac);
+    background-position: 100% 0;
+    background-size: 200% 100%;
+    transition: all .25s ease-in;
+}
+.grad:hover{
+    cursor: pointer;
+    background-position: 0 0;
+}
+.grad.active{
+    background: linear-gradient(147deg,  #F3D798  0%, #f1d1ac  74%);
+}

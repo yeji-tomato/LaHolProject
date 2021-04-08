@@ -14,10 +14,9 @@
 }
 
 #detailContainer{
-	 padding-top: 7%;
+	padding-top: 10%;
 	
 }
-
 
 
 /* 캐로셀 */
@@ -42,9 +41,11 @@ margin-left: 40%;
 
 #home-tab.active, #review-tab.active, #qa-tab.active{
 background-color: #E5BD62;
-color: white;
+border-color : transparent;
 }
-
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active{
+	border-color: transparent;
+}
 #home-tab, #review-tab, #qa-tab{
 background-color: #5A452E;
 color: white;
@@ -52,7 +53,7 @@ padding: 5%;
 }
 
 .tab-pane{
-background-color: #f6ebdb;
+background-color: #e4d4cd;
 }
 
 /* 카페 정보 */
@@ -63,7 +64,7 @@ border-radius: 5vw;
     display: flex;
     flex-direction: column;
     justify-content: center; 
-    background-color: #F3EFEB;
+    background-color: white;
 }
 
 .cf-title{
@@ -172,9 +173,10 @@ cursor: pointer;
     }
 /* 후기 */
 .review-content{
-    background-color: #f6ebdb;
     padding: 3% 7%;
     height: 90vh;
+    background: #e4d4cd;
+    
 }
 .fa-user-circle, .fa-exclamation-triangle{
     font-size: 2vw;
@@ -205,6 +207,7 @@ cursor: pointer;
     height: 500px;
     border: 3px solid #5a462f;
     border-radius: 5vw;
+    background-color : white;
 
 }
 #rv-pre{
@@ -274,4 +277,26 @@ cursor: pointer;
     background-color: #e1d7ca;
 }
 
+@media (min-width: 1920px){
+	.review-content{
+		height: 70vh;
+	}
+	
+	.modal-wrap{
+		max-height : 40vh
+	}
+}
 
+@media (max-width: 1280px){
+	#ForHere, #ToGo{
+		height : 40vh
+	}
+	
+}
+
+@media (min-width: 1920px){
+	#ForHere, #ToGo{
+		height : 45vh
+	}
+	
+}

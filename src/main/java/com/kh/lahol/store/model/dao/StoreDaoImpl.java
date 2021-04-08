@@ -8,12 +8,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.lahol.store.model.vo.PageInfo;
+import com.kh.lahol.store.model.vo.Search;
 import com.kh.lahol.store.model.vo.Store;
 
 @Repository
 public class StoreDaoImpl implements StoreDao{
 	@Autowired
 	private SqlSessionTemplate sqlSession;
+	
 	
 	
 	@Override
@@ -26,6 +28,13 @@ public class StoreDaoImpl implements StoreDao{
 		int offset =(pi.getCurrentPage() -1) *pi.getStoreLimit(); 
 		RowBounds rowBounds = new RowBounds(offset,pi.getStoreLimit());
 		return sqlSession.selectList("storeMapper.selectList", null, rowBounds);
+	}
+	
+	@Override
+	public List<Store> selectList2(PageInfo pi2) {
+		int offset =(pi2.getCurrentPage() -1) *pi2.getStoreLimit(); 
+		RowBounds rowBounds = new RowBounds(offset,pi2.getStoreLimit());
+		return sqlSession.selectList("storeMapper.selectList2", null, rowBounds);
 	}
 
 	@Override
@@ -52,5 +61,23 @@ public class StoreDaoImpl implements StoreDao{
 	public int deleteStore(int PR_CODE) { 
 		return 0;
 	}
+
+	@Override
+	public int selectSearchCount(Search search) {
+		return sqlSession.selectOne("storeMapper.selectSearchCount",  search );
+	}
+
+
+	 
+	 
+	@Override
+	public List<Store> searchList(Search search, PageInfo pi) {
+		int offset =(pi.getCurrentPage() -1) *pi.getStoreLimit(); 
+		RowBounds rowBounds = new RowBounds(offset,pi.getStoreLimit());
+		return sqlSession.selectList("storeMapper.searchList",  search, rowBounds );
+	}
+
+	
+	
 
 }

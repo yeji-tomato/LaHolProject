@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.lahol.store.model.dao.StoreDao;
 import com.kh.lahol.store.model.vo.PageInfo;
+import com.kh.lahol.store.model.vo.Search;
 import com.kh.lahol.store.model.vo.Store;
 
 @Service
@@ -23,6 +24,12 @@ public class StoreServiceImpl implements StoreService {
 	public List<Store> selectList(PageInfo pi) {
 		 
 		return sDao.selectList(pi);
+	}
+	
+	@Override
+	public List<Store> selectList2(PageInfo pi2) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
@@ -47,5 +54,23 @@ public class StoreServiceImpl implements StoreService {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+	 
+	 
+ 
+
+ 
+
+	@Override
+	public int selectSearchCount(Search search) {
+		return sDao.selectSearchCount(search);
+	}
+
+	@Override
+	public List<Store> searchList(Search search, PageInfo pi) {
+		return sDao.searchList(search , pi);
+	}
+
+
 
 }

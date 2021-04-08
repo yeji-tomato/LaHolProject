@@ -1,0 +1,206 @@
+@charset "UTF-8";
+
+@font-face {
+    font-family: 'NEXON Lv1 Gothic OTF Bold';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF Bold.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}  
+
+*{
+    font-family: 'NEXON Lv1 Gothic OTF Bold';
+}
+
+ body{
+     margin: 0;
+     padding: 0;
+ }
+
+ .cafe-sidemenubar{
+     width: 100%;
+     height: auto; 
+     padding-top: 10%;
+ }
+
+
+#od{
+    /* padding-top: 20%; */
+    margin-top: 2%;
+    margin-left: 5%;
+    width: 80vw;
+    height: 90vh;
+    border-radius: 30px;
+    -webkit-box-shadow: 0px 14px 32px 0px rgba(0, 0, 0, 0.15);
+    -moz-box-shadow: 0px 14px 32px 0px rgba(0, 0, 0, 0.15);
+    box-shadow: 0px 14px 32px 0px rgba(0, 0, 0, 0.15);
+}
+.col-cf{
+    float: left;
+}
+.order_table{
+    padding: 5%;
+}
+.btnOrd{
+    background-color:transparent;
+    border: 0;
+    border-radius: 30px;
+}
+.arrowBtn{
+    color: #e3a259;
+}
+.arrowBtn:hover{
+    background-color: #f6ebdb;
+    color: #4B654A;
+}
+#tbody tr:hover{
+    background: linear-gradient(147deg,  #F3D798  0%, #f1d1ac  74%);
+}
+.dropdown-menu{
+    width: 5vw;
+}
+.check{
+    text-align: center;
+    margin: 3%;
+}
+#cofBef{
+    border: 2px #810B0B solid;
+}
+#cofBef:hover{
+    background-color: #810B0B;
+    color: white;
+}
+#cofIng{
+    border: 2px #E5BD62 solid;
+}
+#cofIng:hover{
+    background-color: #E5BD62;
+}
+#cofFin{
+    border: 2px #4B654A solid;
+}
+#cofFin:hover{
+    background-color: #4B654A;
+    color: white;
+}
+#statusCf{
+    list-style:none;
+}
+/* 모달 */
+.mod{
+    text-align: center;
+}
+.mod:hover{
+    color:#4B654A;
+}
+    .modal-wrapper {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    /* position:sticky; */
+    top: 0; 
+    left: 0;
+    background: rgba(0, 0, 0, 0.404);
+    visibility: hidden;
+    opacity: 0;
+    transition: all 0.25s ease-in-out;
+    }
+    
+    .modal-wrapper.open {
+    opacity: 1;
+    visibility: visible;
+    }
+    
+    .modalCafe {
+    width: 60vw;
+    height: 70vh;
+    display: block;
+    margin: 0 auto;
+    margin-top: 12%;
+    /* margin: 50% 0 0 -300px; */
+    /* top: 50%;  */
+    /* left: 50%; */
+    background: #fff;
+    transition: all 0.5s ease-in-out;
+    text-align: center;
+    }
+    
+    .modal-wrapper.open .modal {
+    margin-top: -200px;
+    opacity: 1;
+    }
+    
+    .headModal { 
+    width: 100%;
+    height: 7vh;
+    padding: 4%;
+    }
+
+    .headerM{
+        float: left;
+    }
+
+    .headerM{
+        color:#4B654A;
+    }
+
+    #closeIcon:hover{
+        color: #810B0B;
+    }
+    
+    .mod-close {
+    font-size: 28px;
+    /* display: block; */
+    float: right;
+    color: #4B654A;
+    }
+
+    .card-tit{
+        width: 100%;
+    }
+    
+    .contentMod {
+    padding: 1%;
+    }
+
+    .card-table{
+        width: 100%;
+    }
+
+
+    #cardImg img{
+        width: 10vw;
+        height: 23vh;
+    }
+
+    .redCard{
+        color: #810B0B;
+    }
+/* 페이징 바 */
+.cafe-order-page{
+    display:inline-block
+}
+#page-color{
+    color: #4B654A;
+}
+#page-color:hover{
+    background-color: #e3a259;
+    color: white;
+}
+
+
+@media screen and (max-width:1280px) {
+	.order_table {
+    padding: 0%;
+	}
+	
+	h2{
+		padding-top: 5%;
+		padding-left: 5%;
+	}
+
+}
+
+@media screen and (min-width:1920px) {
+
+
+}

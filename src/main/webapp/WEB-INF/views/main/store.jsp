@@ -17,13 +17,13 @@
 <link rel="stylesheet" href="${ contextPath }/resources/css/main/carousel.css" type="text/css">
 <!-- <link rel="stylesheet" href="<c:url value="/resources/menubar.css"/>"> -->
 <!-- 슬라이드바 -->
-<section>
+<section   style="height:650px;">
     <div class="swiper-container slideshow">
 
         <div class="swiper-wrapper">
     
             <div class="swiper-slide slide">
-            <div class="slide-image" style="background-image: url(https://images.unsplash.com/photo-1570222094114-d054a817e56b?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1080&q=80)"></div>
+            <div class="slide-image" style="background-image: url(https://images.unsplash.com/photo-1473187983305-f615310e7daa?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80)"  ></div>
             <span class="slide-title"id="spanTitle" >coffee</span>    
             </div>
             <script src="https://cdn.jsdelivr.net/npm/typeit@7.0.4/dist/typeit.min.js"></script>

@@ -55,6 +55,25 @@ C_CODE	VARCHAR2(30 BYTE)	No		18	카페코드
 		       PR_STATUS = 'Y'
 	</select> 
 	
+	
+	
+	<select id="selectSearchCount" resultType="_int" parameterType="Search" >
+	<bind name="sv" value="'%' + _parameter.getSearchValue() + '%'"/>
+		SELECT 
+		       COUNT(*)
+		  FROM
+		       PRODUCT
+	   
+		   	<where>
+			   
+		   AND
+			   PR_NAME LIKE #{sv}
+				 
+				 
+		</where>
+	</select> 
+	
+	
 	<select id="selectList" resultMap="storeResultSet">
 		SELECT
 		       PR_CODE
@@ -83,6 +102,72 @@ C_CODE	VARCHAR2(30 BYTE)	No		18	카페코드
 	  ORDER BY
 	           PR_CODE DESC
 	</select>
+	
+	<select id="selectList2" resultMap="storeResultSet">
+		SELECT
+		       PR_CODE
+		     , ST_CATAGORY
+		     , PR_NAME
+		     , PR_IF
+		     , PR_EVENT
+		     , ORIGIN
+		     , PR_PRICE
+		     , SUBSCRIPTIONS
+		     , STORE_PHOTO1
+		     , STORE_PHOTO2
+		     , STORE_PHOTO3
+		     , DY_COMPANY
+		     , PR_INF
+		     , SERVICE_CENTER
+		     , PR_DATE
+	         , PR_NOTICE 
+      		 , PR_STATUS
+      		 , C_CODE
+		          
+		  FROM
+		       PRODUCT
+		 WHERE
+		       PR_STATUS = 'Y'
+		   
+	  ORDER BY
+	           PR_CODE DESC
+	</select>
+	
+ 
+	<select id="searchList" parameterType="Search" resultMap="storeResultSet">
+		<bind name="sv" value="'%' + _parameter.getSearchValue() + '%'"/>
+		SELECT
+		       PR_CODE
+		     , ST_CATAGORY
+		     , PR_NAME
+		     , PR_IF
+		     , PR_EVENT
+		     , ORIGIN
+		     , PR_PRICE
+		     , SUBSCRIPTIONS
+		     , STORE_PHOTO1
+		     , STORE_PHOTO2
+		     , STORE_PHOTO3
+		     , DY_COMPANY
+		     , PR_INF
+		     , SERVICE_CENTER
+		     , PR_DATE
+	         , PR_NOTICE 
+      		 , PR_STATUS
+      		 , C_CODE
+		          
+		  FROM
+		       PRODUCT
+		<where>
+			   
+		   AND
+			   PR_NAME LIKE #{sv}
+				 
+				 
+		</where>
+		ORDER BY PR_CODE DESC
+	</select>
+	
 	
 	 
 </mapper>

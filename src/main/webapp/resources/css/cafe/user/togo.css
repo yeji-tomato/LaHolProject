@@ -7,15 +7,18 @@
     font-weight: normal;
     font-style: normal;
 }
- 
+
+body{
+	background: #CDC2AF;
+}
 
 *{
     font-family: 'NEXON Lv1 Gothic OTF Bold';
 }
 
 .page-cafe{
-    padding-top: 15%;
-    padding-bottom : 15%;
+    padding-top: 10%;
+    padding-bottom : 10%;
 }
 
 #cafeName{

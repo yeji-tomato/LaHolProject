@@ -25,7 +25,7 @@ scope="application"/>
             <div class="mainMenu">
                 <ul>
                     <li><a href="${ contextPath }/store/list">STORE</a></li>
-                    <li><a href="#">CLASS</a></li>
+                    <li><a href="${ contextPath }/coffeeclass">CLASS</a></li>
                     <li><a href="${ contextPath }/cafe/user">CAFE</a></li>
                     <li><a href="#">PLAY GROUND</a></li>
                 </ul>

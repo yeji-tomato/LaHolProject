@@ -64,7 +64,6 @@
         .wrapper * {
             font-family: 'NEXON Lv1 Gothic OTF';
         }
-
         .login_wrapper {
             padding: 246px 0;
             margin: auto;

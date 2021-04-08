@@ -74,7 +74,7 @@
     <section class="content-cafe-sc">
         <h1 style="color: gray; margin-left: 7%;">경기도 용인시</h1>
         <div class="container" id="ct-cf">
-            <div class="row" id="rowP">
+            <div class="row row-cols-4" id="rowP">
             <div class="col">
                 <div class="card" id="cardShape">
                     <img src="https://i.pinimg.com/236x/30/24/e3/3024e301ca4b56581f771a47cdd7b6ad.jpg" class="card-img-top" alt="...">
@@ -120,110 +120,94 @@
                     </div>
                 </div>
             </div>
+            <div class="col">
+                <div class="card" id="cardShape">
+                    <img src="https://i.pinimg.com/564x/1b/20/89/1b20894e6fbfaacc5f351d8440fe71ad.jpg" class="card-img-top" alt="...">
+                    <div class="card-body" id="card-body">
+                        <h3 class="card-text">LaHol cafe2</h3>
+                        <p style="color: #96877D">경기도 용인시 기흥구 주소주소주소</p>
+                    </div>
+                </div>
             </div>
-
-            <div class="row" id="rowP">
-                <div class="col">
-                    <div class="card" id="cardShape">
-                        <img src="https://i.pinimg.com/236x/30/24/e3/3024e301ca4b56581f771a47cdd7b6ad.jpg" class="card-img-top" alt="...">
-                        <div class="card-body" id="card-body">
-                            <h3 class="card-text">LaHol cafe1</h3>
-                            <p style="color: #96877D">경기도 용인시 기흥구</p>
-                        </div>
+            <div class="col">
+                <div class="card" id="cardShape">
+                    <img src="https://i.pinimg.com/564x/1b/20/89/1b20894e6fbfaacc5f351d8440fe71ad.jpg" class="card-img-top" alt="...">
+                    <div class="card-body" id="card-body">
+                        <h3 class="card-text">LaHol cafe2</h3>
+                        <p style="color: #96877D">경기도 용인시 기흥구 주소주소주소</p>
                     </div>
                 </div>
-                <div class="col">
-                    <div class="card" id="cardShape">
-                        <img src="https://i.pinimg.com/564x/90/7d/2d/907d2d977d74946eac5833c8ba24aded.jpg" class="card-img-top" alt="...">
-                        <div class="card-body" id="card-body">
-                            <h3 class="card-text">LaHol cafe2</h3>
-                            <p style="color: #96877D">경기도 용인시 기흥구 주소주소주소</p>
-                        </div>
+            </div>
+            <div class="col">
+                <div class="card" id="cardShape">
+                    <img src="https://i.pinimg.com/564x/1b/20/89/1b20894e6fbfaacc5f351d8440fe71ad.jpg" class="card-img-top" alt="...">
+                    <div class="card-body" id="card-body">
+                        <h3 class="card-text">LaHol cafe2</h3>
+                        <p style="color: #96877D">경기도 용인시 기흥구 주소주소주소</p>
                     </div>
                 </div>
-                <div class="col">
-                    <div class="card" id="cardShape">
-                        <img src="https://i.pinimg.com/564x/06/f3/e5/06f3e5fcdccade436982e460b356bfeb.jpg" class="card-img-top" alt="...">
-                        <div class="card-body" id="card-body">
-                            <h3 class="card-text">LaHol cafe2</h3>
-                            <p style="color: #96877D">경기도 용인시 기흥구 주소주소주소</p>
-                        </div>
+            </div>
+            <div class="col">
+                <div class="card" id="cardShape">
+                    <img src="https://i.pinimg.com/564x/1b/20/89/1b20894e6fbfaacc5f351d8440fe71ad.jpg" class="card-img-top" alt="...">
+                    <div class="card-body" id="card-body">
+                        <h3 class="card-text">LaHol cafe2</h3>
+                        <p style="color: #96877D">경기도 용인시 기흥구 주소주소주소</p>
                     </div>
                 </div>
-                <div class="col">
-                    <div class="card" id="cardShape">
-                        <img src="https://i.pinimg.com/564x/67/06/44/670644f324b16048540e0c144e391183.jpg" class="card-img-top" alt="...">
-                        <div class="card-body" id="card-body">
-                            <h3 class="card-text">LaHol cafe2</h3>
-                            <p style="color: #96877D">경기도 용인시 기흥구 주소주소주소</p>
-                        </div>
+            </div>
+            <div class="col">
+                <div class="card" id="cardShape">
+                    <img src="https://i.pinimg.com/564x/1b/20/89/1b20894e6fbfaacc5f351d8440fe71ad.jpg" class="card-img-top" alt="...">
+                    <div class="card-body" id="card-body">
+                        <h3 class="card-text">LaHol cafe2</h3>
+                        <p style="color: #96877D">경기도 용인시 기흥구 주소주소주소</p>
                     </div>
                 </div>
-                <div class="col">
-                    <div class="card" id="cardShape">
-                        <img src="https://i.pinimg.com/564x/1b/20/89/1b20894e6fbfaacc5f351d8440fe71ad.jpg" class="card-img-top" alt="...">
-                        <div class="card-body" id="card-body">
-                            <h3 class="card-text">LaHol cafe2</h3>
-                            <p style="color: #96877D">경기도 용인시 기흥구 주소주소주소</p>
-                        </div>
+            </div>
+            <div class="col">
+                <div class="card" id="cardShape">
+                    <img src="https://i.pinimg.com/564x/1b/20/89/1b20894e6fbfaacc5f351d8440fe71ad.jpg" class="card-img-top" alt="...">
+                    <div class="card-body" id="card-body">
+                        <h3 class="card-text">LaHol cafe2</h3>
+                        <p style="color: #96877D">경기도 용인시 기흥구 주소주소주소</p>
                     </div>
                 </div>
+            </div>
+            <div class="col">
+                <div class="card" id="cardShape">
+                    <img src="https://i.pinimg.com/564x/1b/20/89/1b20894e6fbfaacc5f351d8440fe71ad.jpg" class="card-img-top" alt="...">
+                    <div class="card-body" id="card-body">
+                        <h3 class="card-text">LaHol cafe2</h3>
+                        <p style="color: #96877D">경기도 용인시 기흥구 주소주소주소</p>
+                    </div>
                 </div>
-
-            
-                <div class="row" id="rowP">
-                    <div class="col">
-                        <div class="card" id="cardShape">
-                            <img src="https://i.pinimg.com/236x/30/24/e3/3024e301ca4b56581f771a47cdd7b6ad.jpg" class="card-img-top" alt="...">
-                            <div class="card-body" id="card-body">
-                                <h3 class="card-text">LaHol cafe1</h3>
-                                <p style="color: #96877D">경기도 용인시 기흥구</p>
-                            </div>
-                        </div>
+            </div>
+            <div class="col">
+                <div class="card" id="cardShape">
+                    <img src="https://i.pinimg.com/564x/1b/20/89/1b20894e6fbfaacc5f351d8440fe71ad.jpg" class="card-img-top" alt="...">
+                    <div class="card-body" id="card-body">
+                        <h3 class="card-text">LaHol cafe2</h3>
+                        <p style="color: #96877D">경기도 용인시 기흥구 주소주소주소</p>
                     </div>
-                    <div class="col">
-                        <div class="card" id="cardShape">
-                            <img src="https://i.pinimg.com/564x/90/7d/2d/907d2d977d74946eac5833c8ba24aded.jpg" class="card-img-top" alt="...">
-                            <div class="card-body" id="card-body">
-                                <h3 class="card-text">LaHol cafe2</h3>
-                                <p style="color: #96877D">경기도 용인시 기흥구 주소주소주소</p>
-                            </div>
-                        </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card" id="cardShape">
+                    <img src="https://i.pinimg.com/564x/1b/20/89/1b20894e6fbfaacc5f351d8440fe71ad.jpg" class="card-img-top" alt="...">
+                    <div class="card-body" id="card-body">
+                        <h3 class="card-text">LaHol cafe2</h3>
+                        <p style="color: #96877D">경기도 용인시 기흥구 주소주소주소</p>
                     </div>
-                    <div class="col">
-                        <div class="card" id="cardShape">
-                            <img src="https://i.pinimg.com/564x/06/f3/e5/06f3e5fcdccade436982e460b356bfeb.jpg" class="card-img-top" alt="...">
-                            <div class="card-body" id="card-body">
-                                <h3 class="card-text">LaHol cafe2</h3>
-                                <p style="color: #96877D">경기도 용인시 기흥구 주소주소주소</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card" id="cardShape">
-                            <img src="https://i.pinimg.com/564x/67/06/44/670644f324b16048540e0c144e391183.jpg" class="card-img-top" alt="...">
-                            <div class="card-body" id="card-body">
-                                <h3 class="card-text">LaHol cafe2</h3>
-                                <p style="color: #96877D">경기도 용인시 기흥구 주소주소주소</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card" id="cardShape">
-                            <img src="https://i.pinimg.com/564x/1b/20/89/1b20894e6fbfaacc5f351d8440fe71ad.jpg" class="card-img-top" alt="...">
-                            <div class="card-body" id="card-body">
-                                <h3 class="card-text">LaHol cafe2</h3>
-                                <p style="color: #96877D">경기도 용인시 기흥구 주소주소주소</p>
-                            </div>
-                        </div>
-                    </div>
-                    </div>
-                    <script>
-                        const detail = document.getElementById("cardShape");
-                        detail.addEventListener("click", function(){
-                            location.href='${ contextPath }/cafe/detail';
-                        });
-                    </script>
+                </div>
+            </div>
+            </div>
+            <script>
+                const detail = document.getElementById("cardShape");
+                detail.addEventListener("click", function(){
+                    location.href='${ contextPath }/cafe/detail';
+                });
+            </script>
         </div>
         <!-- 페이징 바 -->
         <div aria-label="Page navigation" class="cafe-order-page">
@@ -247,6 +231,6 @@
     </section>
     
     <!-- footer -->
-	<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
+	<jsp:include page="/WEB-INF/views/common/footer2.jsp"/>
 </body>
 </html>

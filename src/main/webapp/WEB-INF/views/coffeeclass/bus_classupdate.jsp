@@ -7,7 +7,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FixClassInfo</title>
-    <link rel="stylesheet" href="bus_create.css">
+    <link rel="stylesheet"
+	href="${ contextPath }/resources/css/coffeeclass/editclass.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
     <!--부트스트랩 css-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
@@ -15,286 +16,21 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
     <!--아이콘-->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <style>
-        /* 이랜드 나이스체 */
-        @font-face {
-            font-family: 'ELAND_Nice_M';
-            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts-20-12@1.0/ELAND_Nice_M.woff') format('woff');
-            font-weight: normal;
-            font-style: normal;
-        }   
-
-        *{
-            font-family: 'ELAND_Nice_M';
-        }
-
-        body{
-            background-color: #f6ebdb;
-        }
-        
-        .banner{
-            width : 100%;
-            height: 80vh;
-            background-image: url(../resources/images/class/121212.png);
-            background-repeat: no-repeat;
-            background-size: cover;
-            text-align: center;
-            vertical-align: middle;
-        }
-
-        .intro{
-            color : #e3a259;
-            text-align: center;
-            padding: 20px;
-            font-family: 'ELAND_Nice_M';
-        }
-
-        #intro-sub{
-            color: #f1d1ac;
-        }
-        
-        .classabout{
-            text-align: center;
-        }
-
-        #createform{
-            text-align: center;
-        }
-
-        .classdes{
-            width : 680px;
-        }
-
-        .answer{
-            width : 300px;
-            height: 30px;
-        }
-
-
-        .btnarea{
-            margin-top: 5%;
-            margin-bottom: 5%;
-            text-align: center;
-        }
-
-        .classdate{
-            width : 150px;
-            text-align: left;
-        }
-
-        #tbColor{
-            background-color: rgba(255, 255, 255, 0.781);
-            border-radius: 30vw;
-            padding-top: 5%;
-            margin-top: 2%;
-            padding-bottom: 3%;
-        }
-
-        #clTable{
-            margin-left: auto;
-            margin-right: auto;
-            /* margin-top: 10%; */
-        }
-
-        #clTable td{
-            padding-top: 1%;
-            /* padding-left: 7%;
-            padding-right: 7%; */
-        }
-
-        #clTable input[type=text]{
-            border-radius: 1vw;
-            border-color: #d8d4d070;
-        }
-
-        /* 버튼 색깔 */
-        #register{
-            color: white;
-            background-color: #e3a259;
-        }
-        #register:hover{
-            color: black;
-            background-color: #f1d1ac;
-        }
-        #cancel{
-            color: white;
-            background-color: #f0c21b;
-        }
-        #cancel:hover{
-            color: black;
-            background-color: #f8e18d;
-        }
-          /* 네비부분 */
-          nav{
-            background-color: transparent;
-            position: fixed;
-            z-index: 99;
-            width: 100%;
-            padding: 30px 10px;
-        }
-
-        .menuWrapper {
-            display: flex;
-            margin : 0;
-            padding : 0;
-            z-index: 10;
-            border-bottom: 1.5px solid white;
-            height: 80px;
-            align-items: flex-start;
-        }
-
-        .menuWrapper > * {
-            display: flex;
-            text-align: center;
-            box-sizing: border-box;
-        }
-
-        .menuWrapper .mainMenu {
-            width : 43vw;
-            min-width : 600px;
-            max-width : 50vw;
-        }
-
-        .mainMenu ul,
-        .loginArea .loginMenu ul {
-            padding: 0;
-            margin : 0;
-            display: flex;
-            align-items: flex-start;
-            vertical-align: middle;
-        }
-        .mainMenu ul li {
-            align-self: flex-start;
-            list-style: none;
-            text-align: center;
-            padding : 38px;
-            line-height: 1px;
-        }
-
-        .mainMenu a {
-            text-decoration: none;
-            color : white;
-            transition: all 0.5s linear;
-        }
-
-        .mainMenu a:hover {
-            /* color : #F3D798; */
-            color : #4B654A;
-            transition: all 0.5s linear;
-        }
-
-        .logoArea {
-            width : 10%;
-            min-width: 130px;
-            height: 100%;
-            text-align: center;
-            margin : 0;
-            display: flex;
-            align-items: center;
-        }
-
-        .logoArea img {
-            width : 80px;
-            height: 60px;
-            margin : auto;
-            display: block;
-        }
-
-        .loginArea {
-            width : 45vw;
-        }
-
-        .loginArea .infoArea {
-            width : 60%;
-            /* min-width: 400px; */
-        }
-
-        .loginArea .loginMenu {
-            width: 40%;
-            min-width: 200px;
-            float: right;
-            text-align: right;
-        }
-
-        .loginArea .loginMenu ul {
-            display: flex;
-            justify-content: flex-end;
-        }
-
-        .loginArea .loginMenu ul li {
-            list-style-type: none;
-            text-align: center;
-            padding : 38px 15px;
-            line-height: 1px;
-        }
-
-        .loginArea .loginMenu ul li a {
-            text-decoration: none;
-            color : white;
-            transition: all 0.5s linear;
-        }
-
-        .loginArea .loginMenu a:hover {
-            /* color : #F3D798; */
-            color : #4B654A;
-            transition: all 0.5s linear;
-        }
-
-        nav.active{
-            background: #CDC2AF;
-        }
-
-
-
-
-    </style>
+   
 </head>
 <body>
 
-    <!-- menubar -->
-    <nav style=" background-color: #CDC2AF;" id="nav">
-        <div class="menuWrapper">
-            <div class="mainMenu">
-                <ul>
-                    <li><a href="#">STORE</a></li>
-                    <li><a href="">CLASS</a></li>
-                    <li><a href="#">CAFE</a></li>
-                    <li><a href="#">PLAY GROUND</a></li>
-                </ul>
-            </div>
-            <div class="logoArea">
-                <img src="../resources/images/img_common/logo-lahol2.png">
-            </div>
-            <div class="loginArea">
-                <div class="infoArea">
-    
-                </div>
-                <div class="loginMenu">
-                    <ul>
-                        <li><a href="#">SIGN IN</a></li>
-                        <li><a href="#">SIGN UP</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <script>
-            $(window).on("scroll", function() {
-            if($(window).scrollTop() > 50) {
-                $("nav").addClass("active");
-            } else {
-                $("nav").removeClass("active");
-            }
-        });
-        </script>
-    </nav>
+   	<!-- menubar -->
+	<jsp:include page="/WEB-INF/views/common/menubar.jsp" />
+	
+	
     <div class="banner">
         <h1 style="padding-top: 18vh;">클래스 수정하기</h1>
     </div>
     <div>
         
         <!--입력란-->
-        <div id="tbColor">
+        <div id="tbColor" style="margin:0; background-color:#f0d7af;">
 
         <div id="createform">
            
@@ -525,5 +261,8 @@
         }
     </script>
 </script>
+
+<!-- footer -->
+	<jsp:include page="/WEB-INF/views/common/footer2.jsp"/>
 </body>
 </html>

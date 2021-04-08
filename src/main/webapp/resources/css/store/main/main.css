@@ -683,13 +683,13 @@ ul {
             color: white; 
         }
         #ifb:hover{
-            color: #16e75c90;
+            color: #810B0B;
             opacity: 0.8;
             cursor: pointer;
         }
 
         .product:hover {
-            color: #937cf790;
+            color: #F3D798;
             opacity: 0.8;
             cursor: pointer;
         }
@@ -727,7 +727,7 @@ ul {
         }
 
         .ca>button:hover{
-            color: #937cf790;
+            color: #810B0B;
             opacity: 0.8;
             cursor: pointer;
         }
@@ -766,5 +766,47 @@ ul {
 			
 		}
 
+ /*수정 삭제 */
+        #ifs{
+            position: absolute; 
+            margin-left: -80px;
+            margin-top: 15px; 
+            width: 80px;
+            height: 25px;
+            background-color: #F3D798;
+            color: white; 
+        }
+        #ifs:hover{
+            color: #16e75c90;
+            opacity: 0.8;
+            cursor: pointer;
+        }
+        #ifd{
+            position: absolute; 
+            margin-left: -80px;
+            margin-top: 45px; 
+            width: 80px;
+            height: 25px;
+            background-color: #F3D798;
+            color: white; 
+        }
+        #ifd:hover{
+            color: #9e2e1290;
+            opacity: 0.8;
+            cursor: pointer;
+        }
+        #pr{
+            width: 100px;
+            height: 40px;
+            background-color: #F3D798;
+            color: white; 
+            margin-left: 93%;
+        }
+        #pr:hover{
+            color: #ff340190;
+            opacity: 0.8;
+            cursor: pointer;
+        }
+         /*수정 삭제 */
  
  

@@ -262,7 +262,7 @@
                     </span>
 
                 </div>
-                <form method="POST" id="login_form" action="">
+                <form method="POST" id="login_form" action="${ contextPath }/member/login">
 
                     <input type="text" id="userId" name="userId" placeholder="아이디" onkeydown="onKeyDown();">
                     <input type="password" id="userPwd" name="userPwd" placeholder="비밀번호" onkeydown="onKeyDown();">
@@ -275,10 +275,10 @@
                         <a href="${ contextPath }/member/signUpView">회원가입</a>
                     </li>
                     <li>
-                        <a href="idSearch.html">아이디 찾기</a>
+                        <a href="${ contextPath }/member/idSearch">아이디 찾기</a>
                     </li>
                     <li>
-                        <a href="pwdSearch.html">비밀번호 찾기</a>
+                        <a href="${ contextPath }/member/pwdSearch">비밀번호 찾기</a>
                     </li>
                 </ul>
                 <span></span>

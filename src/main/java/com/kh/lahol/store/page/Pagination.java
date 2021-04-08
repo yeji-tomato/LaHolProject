@@ -7,7 +7,7 @@ public class Pagination {
 		PageInfo pi = null; 
 		
 		int pageLimit = 10;	  
-		int StoreLimit = 12; // 3개 인기 상품 9개 일반 상품
+		int StoreLimit = 9; // 3개 인기 상품 9개 일반 상품
 		
 		int maxPage = (int)Math.ceil((double)listCount / StoreLimit);
 		int startPage = (currentPage - 1) / pageLimit * pageLimit + 1;
