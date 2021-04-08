@@ -27,11 +27,11 @@
                             <a style="font-size: 35px;"> Lahol </a>
                                 <div style=" margin-top: 50px;">
                                     <ul>
-                                        <li>  Ye Ji Lee</li>
-                                        <li>  Youn Jae Lee</li>
-                                        <li>  Dayoon Choi </li>
-                                        <li>  Wan Sik Kim </li>
-                                        <li>  Jin Ju Baek </li>
+                                        <li><a href="${ contextPath }/playground/testResult">Ye Ji Lee</a></li>
+                                        <li><a href="${ contextPath }/admin/user/normalList">Youn Jae Lee</a></li>
+                                        <li><a href="#">Dayoon Choi</a></li>
+                                        <li><a href="#">Wan Sik Kim</a></li>
+                                        <li><a href="#">Jin Ju Baek</a></li>
                                     </ul>
                                 </div>
                             </div>  
