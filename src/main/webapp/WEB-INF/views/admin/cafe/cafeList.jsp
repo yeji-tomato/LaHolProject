@@ -378,10 +378,12 @@
 			</section>
 		</div>
 		<script>
-		// 예지 메인 카테고리 색상 변경
 		$(function() {
 		    // 서브카테고리 기본 숨김처리
 		    $('.sub-category').hide();
+		    $('#cafe-category').addClass('active');
+		    $('#cafe-category').siblings().find('li').show();
+		    $('.sub-category:eq(2)').addClass('active');
 
 		    $('.big-category').click(function(){
 		        var currentContent = $(this).siblings().find('li');

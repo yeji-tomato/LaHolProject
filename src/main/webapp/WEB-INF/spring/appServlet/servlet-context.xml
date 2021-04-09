@@ -23,6 +23,7 @@
 	
 	<context:component-scan base-package="com.kh.lahol" />
 	
-	
+	<!-- 인터셉터 등록 -->
+
 	
 </beans:beans>

@@ -418,6 +418,10 @@ body {
     transition: opacity 1s;
 }
 
+.sub-category:hover #a-text {
+    color: var(--category-sel);
+}
+
 /* 데이터테이블 */
 .zg-body {
     padding: 1.5vw;

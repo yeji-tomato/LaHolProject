@@ -3,6 +3,9 @@ package com.kh.lahol.admin.controller;
 import java.util.List;
 import java.util.Locale;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,7 +20,6 @@ import com.kh.lahol.admin.model.dao.service.AdminService;
 
 
 @Controller
-
 public class AdminController {
 
 //	@Autowired
@@ -70,5 +72,12 @@ public class AdminController {
 	public String reportPartner(Locale locale, Model model) {
 		return "admin/report/partner";
 	}
+	
+	// 임시 !! 에러페이지 
+	@RequestMapping("/common/error")
+	public String error(Locale locale, Model model) {
+		return "common/error";
+	}
+	
 	
 }
