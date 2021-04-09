@@ -34,7 +34,7 @@
 		                <div class="search-container">
 		                    <div class="search-box">
 		                        <div class="search-icon"><i class="fa fa-search search-icon"></i></div>
-		                       <form action="${ contextPath }/store/search" method="get" class="search-form" name="searchCondition" value="title" >
+		                       <form action="${ contextPath }/store/search" method="get" class="search-form"  >
 		                       		 <c:if test="${ param.searchCondition == 'title' }"> 
 		                            <input type="search" name="searchValue" value="${ param.searchValue }" placeholder="Search" id="search" autocomplete="off">
 		                            </c:if>
@@ -51,6 +51,7 @@
 		                       
 		                    </div>
 		                </div>
+		                
 		             
 		            <script>
 		            $(document).ready(function(){
@@ -78,7 +79,7 @@
 			
 		
 	                 <div class="cat">
-	                 <form action="${ contextPath }/store/search" method="get"  >
+	                 <form action="${ contextPath }/store/search" method="get"  ><input name="searchCondition" value="category" style="width:0px; ,height:0px;height: 0px;padding-left: 0px;padding-bottom: 0px;border-right-width: 0px;border-left-width: 0px;border-bottom-width: 0px;padding-top: 0px;padding-right: 0px;border-top-width: 0px;">
 	                        <div class="ca">
 	                            <div id="category" style="color:white;  text-align: center;" > category</div>
 	                            <button name="searchValue"  value="이벤트" >이벤트</button><button name="searchValue"  value="식품">식품</button><button name="searchValue"  value="머신">커피머신</button><button name="searchValue"  value="식기류">식기류</button><button   name="searchValue" value="텀블러" >텀블러</button><button name="searchValue"  value="커피">커피</button><button name="searchValue"  value="접시">접시</button><button name="searchValue"  value="굿즈">굿즈</button><button name="searchValue"  value="기타">기타</button><button name="searchValue"  value="원두">원두</button>      
@@ -164,7 +165,7 @@
 					</c:if>
 						
 					<c:if test="${param.searchValue ne null}" >
-						<c:set var="loc" value="/store/search" scope="page"/>
+							<c:set var="loc" value="/store/search?searchCondition=${ param.searchCondition }&searchValue=${ param.searchValue}" scope="page"/> 
 					</c:if>
 					
 	                <table style="margin-left:40%;">
@@ -175,11 +176,11 @@
 								[이전] &nbsp;
 							</c:if>
 							<c:if test="${ pi.currentPage > 1 }">
-								<c:url var="before" value="${ loc}">
+								<c:url var="before" value="${ loc }">
 									<c:param name="page" value="${ pi.currentPage -1 }" />
 									<c:if test="${param.searchValue ne null} }">
-										<c:param name="searchCondition" value="${param.searchCondition} }"/>
-										<c:param name="searchValue" value="${param.searchValue} }"/>
+										<c:param name="searchCondition" value="${ param.searchCondition }  "/>
+										<c:param name="searchValue" value="${ param.searchValue}  "/>
 									</c:if>
 								</c:url>
 								<a href="${ before }">[이전]</a> &nbsp;
@@ -195,8 +196,8 @@
 									<c:url var="pagination" value="${ loc}">
 										<c:param name="page" value="${ p }"/>
 										 <c:if test="${param.searchValue ne null} }">
-												<c:param name="searchCondition" value="${param.searchCondition} }"/>
-												<c:param name="searchValue" value="${param.searchValue} }"/>
+												<c:param name="searchCondition" value="${ param.searchCondition}  "/>
+												<c:param name="searchValue" value="${ param.searchValue}  "/>
 									     </c:if>
 									</c:url>
 									<a href="${ pagination }">${ p }</a> &nbsp;
@@ -212,8 +213,8 @@
 								<c:url var="after" value="${ loc}">
 									<c:param name="page" value="${ pi.currentPage + 1 }" />
 									<c:if test="${param.searchValue ne null} }">
-												<c:param name="searchCondition" value="${param.searchCondition} }"/>
-												<c:param name="searchValue" value="${param.searchValue} }"/>
+												<c:param name="searchCondition" value="${param.searchCondition} "/>
+												<c:param name="searchValue" value="${param.searchValue} "/>
 									     </c:if>
 								</c:url>
 								<a href="${ after }">[다음]</a>
@@ -222,12 +223,12 @@
 						</tr>
 	                </table> 
                 </div>
-                 
+                 <c:if test="${ !empty sessionScope.loginUser }">
 		                 <div id="bu" style="width:60%;  height: 50px;   float:left;">
-		                    <button id="management" style="margin-top: 0px;float:left;margin-left: 1300px;"  onClick="location.href=' ${ contextPath }/store/list2'" >  스토어 관리  </button>   
+		                    <button id="management" style="margin-top: 0px;float:left;margin-left: 1300px;"   onClick="location.href=' ${ contextPath }/store/list2'" >  스토어 관리  </button>   
 		                  
 		                </div>
-                 
+                 </c:if>
              
                  
                 

@@ -57,33 +57,36 @@ C_CODE	VARCHAR2(30 BYTE)	No		18	카페코드
 	</select> 
 	
 	
+
 	
-	<select id="selectSearchCount" resultType="_int" parameterType="Search" >
-	<bind name="sv" value="'%' + _parameter.getSearchValue() + '%'"/>
+	<select id="selectSearchCount"  parameterType="Search" resultType="_int"  >
+	  <bind name="sv" value="'%' + _parameter.getSearchValue() + '%'"/>  
+	 
 		SELECT 
 		       COUNT(*)
 		  FROM
 		       PRODUCT
-	   
-		   	<where>
-			 <choose>				   
+	   <where> 
+			<choose>
 				<when test="searchCondition == 'title'">
-				 PR_NAME LIKE #{sv}
-				</when>
-				<when test="searchCondition == 'category'">
-				 ST_CATAGORY LIKE #{sv}
-				</when> 
-				<otherwise>
 				AND 
-				ST_CATAGORY LIKE #{sv}
+					PR_NAME LIKE #{sv}
+				</when>
+				 
+				<when test="searchCondition == 'category'">
+				AND 
+					ST_CATAGORY LIKE #{sv}
+				</when>
+				<otherwise>
+				 
 				</otherwise>
-			</choose> 
+			</choose>
 		</where>
 	</select> 
 	
 	
 	<select id="selectList" resultMap="storeResultSet">
-		SELECT
+		 SELECT
 		       PR_CODE
 		     , ST_CATAGORY
 		     , PR_NAME
@@ -106,8 +109,9 @@ C_CODE	VARCHAR2(30 BYTE)	No		18	카페코드
 		          
 		  FROM
 		       PRODUCT
+               JOIN CAFE USING(C_CODE)  
 		 WHERE
-		       PR_STATUS = 'Y'
+		       PR_STATUS = 'Y' 
 	  ORDER BY
 	           PR_CODE DESC
 	</select>
@@ -150,9 +154,52 @@ C_CODE	VARCHAR2(30 BYTE)	No		18	카페코드
 		 	  
 	</select>
 	
+	<!-- 나의 페이지 조회 -->
+	<select id="myselectList" resultMap="storeResultSet">
+	 SELECT	
+		       PR_CODE
+		     , ST_CATAGORY
+		     , PR_NAME
+		     , PR_IF
+		     , PR_EVENT
+		     , ORIGIN
+		     , PR_PRICE
+		     , SUBSCRIPTIONS
+		     , STORE_PHOTO1
+		     , STORE_PHOTO2
+		     , STORE_PHOTO3
+		     , DY_COMPANY
+		     , PR_INF
+		     , SERVICE_CENTER
+		     , PR_DATE
+	         , PR_NOTICE 
+      		 , PR_STATUS
+      		 , C_CODE
+      		 , SCOUNT
+		          
+		  FROM
+		       PRODUCT
+               JOIN CAFE USING(C_CODE)  
+		 WHERE
+		       ID = #{id}
+	  ORDER BY
+	           PR_CODE DESC  
+	</select>
+	
+	 <!-- 내가 쓴글 카운트 -->
+	<select id="mySearchCount" resultType="_int"  > 
+		SELECT 
+		       COUNT(*)
+		  FROM
+		       PRODUCT
+		       JOIN CAFE USING(C_CODE)  
+		 WHERE
+		        ID = #{id}
+	</select> 
+	 
  
-	<select id="searchList" parameterType="Search" resultMap="storeResultSet">
-		<bind name="sv" value="'%' + _parameter.getSearchValue() + '%'"/>
+	<select id="searchList"   parameterType="Search" resultMap="storeResultSet">
+	  <bind name="sv" value="'%' + _parameter.getSearchValue() + '%'"/>  
 		SELECT
 		       PR_CODE
 		     , ST_CATAGORY
@@ -182,19 +229,22 @@ C_CODE	VARCHAR2(30 BYTE)	No		18	카페코드
 		      ORDER BY
 		                PR_CODE  
 		       )		
-		<where>  
-		   <choose>				   
+		<where>
+			 
+			<choose>
 				<when test="searchCondition == 'title'">
-				 PR_NAME LIKE #{sv}
-				</when>
-				<when test="searchCondition == 'category'">
-				 ST_CATAGORY LIKE #{sv}
-				</when> 
-				<otherwise>
 				AND 
-				ST_CATAGORY LIKE #{sv}
+					PR_NAME LIKE #{sv}
+				</when>
+				 
+				<when test="searchCondition == 'category'">
+				AND 
+					ST_CATAGORY LIKE #{sv}
+				</when>
+				<otherwise>
+				 
 				</otherwise>
-			</choose> 
+			</choose>
 		</where>
 		 
 	</select>
