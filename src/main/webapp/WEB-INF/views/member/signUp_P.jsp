@@ -215,13 +215,20 @@
             background-clip: padding-box;
             width : 210px;
         }
+        
+        .swal2-confirm,
+        .swal2-cancel,
+        .swal2-html-container,
+        .swal2-title {
+        	font-family: 'NEXON Lv1 Gothic OTF';
+        }
 
     </style>
 </head>
 <body>
 	<c:if test="${ !empty msg }">
 		<script>
-			alert('${msg}');
+			Swal.fire('${msg}');
 		</script>
 		<c:remove var="msg"/>
 	</c:if>
@@ -234,6 +241,8 @@
         </div>
         <form id="joinForm" method="POST" action="${ contextPath }/member/psignUp">
             <div class="joinDiv">
+            <input type="hidden" id="c_la" name="c_la">
+            <input type="hidden" id="c_lo" name="c_lo">
                 <div class="idDiv">
                     <h3 class="subTitle2">아이디</h3>
                     <input type="text" id="userId" name="id" maxlength="12" placeholder="아이디를 입력하세요">
@@ -308,8 +317,6 @@
                     <input type="text" id="cAddress1" name="cAddress1" class="postcodify_address" placeholder="우편번호 검색" readonly>
                     <h3 class="subTitle2">상세주소</h3>
                     <input type="text" id="cAddress2" name="cAddress2" class="postcodify_details" placeholder="상세주소를 입력하세요">
-                    <input type="hidden" id="c_la" name="c_la">
-                    <input type="hidden" id="c_lo" name="c_lo">
                 </div>
                 <button type="button" id="submitBtn" onclick="onSubmit();">회원 가입</button>
             </div>
@@ -344,6 +351,21 @@
     			$("#postcodify_search_button2").trigger('click');
     		});
         });
+    </script>
+    <script>
+	 // 위도(y, la), 경도(x, lo) 값 저장
+	 	$(".joinDiv").on('mouseover', function(){
+	 		if($("#cAddress1").val() != "") {
+				var geocoder = new kakao.maps.services.Geocoder();
+			  	var cAddress1 = document.getElementById("cAddress1").value;
+			  	geocoder.addressSearch(cAddress1, function(result, status) {
+			  		if(status == kakao.maps.services.Status.OK) {
+			  			$("#c_la").val(result[0].y);
+			  			$("#c_lo").val(result[0].x);
+			  		}
+			  	});
+	 		}
+	 	});
     </script>
     <script>
     	var isUsable = false;
@@ -436,26 +458,8 @@
         var cNumber3 = document.getElementById("cNumber3");
         
         function onSubmit() {
-        	// 위도(y, la), 경도(x, lo) 값 저장
-        	var geocoder = new kakao.maps.services.Geocoder();
-        	var la = document.getElementById("c_la");
-        	var lo = document.getElementById("c_lo");
-        	
-  	    	var cAddress1 = document.getElementById("cAddress1").value;
-  	    	geocoder.addressSearch(cAddress1, function(result, status) {
-  	    		if(status == kakao.maps.services.Status.OK) {
-  	    			la.value = result[0].y;
-  	    			lo.value = result[0].x;
-  	    			console.log(la.value);
-  	    			console.log(lo.value);
-  	    			console.log(result[0].y);
-  	    			console.log(result[0].x);
-  	    			console.log(typeof(la.value));
-  	    			console.log(typeof(result[0].y));
-  	    		}
-  	    	});
-			
-        	// 유효성 검사 시작
+
+  	    	// 유효성 검사 시작
         	if (userId.value == "") {
             	Swal.fire({
 					title : '아이디를 입력해주세요.',
@@ -598,8 +602,12 @@
             if(!chk(/^[0-9]{1,}$/, birthday, "생년월일을 다시 입력해주세요.")) {
                 return;
             }
+            
+            if(!chk(/^[가-힣]{2,}$/, c_owner, "사업자명을 한글로 두글자 이상 입력해주세요.")) {
+                return;
+            }
 
-            // $("#joinForm").submit();
+            $("#joinForm").submit();
         }
 
         // 정규 표현식, 검사할 함수

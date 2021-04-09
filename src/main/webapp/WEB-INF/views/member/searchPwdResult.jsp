@@ -60,6 +60,10 @@
             height: 100%;
             margin: auto;
         }
+        
+        .wrapper * {
+        	font-family: 'NEXON Lv1 Gothic OTF';
+        }
 
         .login_wrapper {
             padding: 196px 0;
@@ -251,7 +255,7 @@
             <div class="login_area">
                 <div class="login_header">
                     <div class="login_logo">
-                        <img src="../resources/images/img_common/logo-lahol2.png">
+                        <img src="${ contextPath }/resources/img/common/logo-lahol2.png">
                     </div>
                     <span>
                         <b id="userIdTab">OOO님</b>의 비밀번호 <!-- 아이디로 보여주기 -->
@@ -262,22 +266,22 @@
                     <p>abcdefg</p>
 
                 </div>
-                <button type="button" class="okBtn" onclick="location.href='loginView.html'">확인</button> <!-- 로그인 화면으로 -->
-                <button type="button" class="okBtn" onclick="location.href='temporaryPwd.html'">임시비밀번호 발급</button>
+                <button type="button" class="okBtn" onclick="location.href='${ contextPath }/member/loginView'">확인</button> <!-- 로그인 화면으로 -->
+                <button type="button" class="okBtn" onclick="location.href='#'">임시비밀번호 발급</button>
                 <ul class="list">
                     <li>
-                        <a href="joinMember.html">회원가입</a>
+                        <a href="${ contextPath }/member/signUpView">회원가입</a>
                     </li>
                     <li>
-                        <a href="idSearch.html">아이디 찾기</a>
+                        <a href="${ contextPath }/member/idSearch">아이디 찾기</a>
                     </li>
                     <li>
-                        <a href="pwdSearch.html">비밀번호 찾기</a>
+                        <a href="${ contextPath }/member/pwdSearch">비밀번호 찾기</a>
                     </li>
                 </ul>
                 <span></span>
                 <div class="returnMain">
-                    <button type="button" id="goMain" onclick="history.back();">메인으로</button>
+                    <button type="button" id="goMain" onclick="location.href='${contextPath}'">메인으로</button>
                 </div>
             </div>
         </div>

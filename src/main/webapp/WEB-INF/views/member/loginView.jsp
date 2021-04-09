@@ -7,6 +7,8 @@
 <meta charset="UTF-8">
 <link rel="stylesheet" href="${ contextPath }/resources/css/common/fonts.css" type="text/css">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+	<!-- sweetalert -->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <title>LaHol - SIGN IN</title>
     <style>
         body {
@@ -237,13 +239,20 @@
                 height : 912px;
             }
         }
+        
+        .swal2-confirm,
+        .swal2-cancel,
+        .swal2-html-container,
+        .swal2-title {
+        	font-family: 'NEXON Lv1 Gothic OTF';
+        }
     </style>
 </head>
 
 <body>
 	<c:if test="${ !empty msg }">
 		<script>
-			alert('${msg}');
+			Swal.fire('${msg}');
 		</script>
 		<c:remove var="msg"/>
 	</c:if>
@@ -264,8 +273,8 @@
                 </div>
                 <form method="POST" id="login_form" action="${ contextPath }/member/login">
 
-                    <input type="text" id="userId" name="userId" placeholder="아이디" onkeydown="onKeyDown();">
-                    <input type="password" id="userPwd" name="userPwd" placeholder="비밀번호" onkeydown="onKeyDown();">
+                    <input type="text" id="userId" name="id" placeholder="아이디" onkeydown="onKeyDown();">
+                    <input type="password" id="userPwd" name="pwd" placeholder="비밀번호" onkeydown="onKeyDown();">
                     <button type="button" class="login_ok" onclick="onSubmit();">로그인</button>
 
                 </form>
@@ -302,13 +311,19 @@
             var userPwd = document.getElementById("userPwd");
 
             if (userId.value == "") {
-                alert('아이디를 입력해주세요.');
+            	Swal.fire({
+					title : '아이디를 입력해주세요.',
+					icon : 'warning'
+				});
                 userId.focus();
                 return;
             }
 
             if (userPwd.value == "") {
-                alert('비밀번호를 입력해주세요');
+            	Swal.fire({
+					title : '비밀번호를 입력해주세요.',
+					icon : 'warning'
+				});
                 userPwd.focus();
                 return;
             }
@@ -330,7 +345,10 @@
             if (reg.test(e.value)) {
                 return true;
             }
-            alert(msg);
+            Swal.fire({
+				title : msg,
+				icon : 'warning'
+			});
             e.value = "";
             e.focus();
             return false;
