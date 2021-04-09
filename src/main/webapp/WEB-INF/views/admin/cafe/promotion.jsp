@@ -358,6 +358,9 @@
 		$(function() {
 		    // 서브카테고리 기본 숨김처리
 		    $('.sub-category').hide();
+		    $('#cafe-category').addClass('active');
+		    $('#cafe-category').siblings().find('li').show();
+		    $('.sub-category:eq(3)').addClass('active');
 
 		    $('.big-category').click(function(){
 		        var currentContent = $(this).siblings().find('li');

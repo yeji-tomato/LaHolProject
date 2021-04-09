@@ -58,7 +58,7 @@
 		var aType = {
 		    typeName : 'A',
 		    productList : [
-		        { productName: 'Queen City', productImg: '{ contextPath }/resources/img/playground/creamy1.png'},
+		        { productName: 'Queen City', productImg: '${ contextPath }/resources/img/playground/creamy1.png'},
 		        { productName: 'Gayo River', productImg: '../../../resources/img/playground/creamy2.png'},
 		        { productName: 'Peru Sabancaya', productImg: '../../../resources/img/playground/creamy3.png'},
 		    ],

@@ -360,6 +360,9 @@
 		$(function() {
 		    // 서브카테고리 기본 숨김처리
 		    $('.sub-category').hide();
+		    $('#report-category').addClass('active');
+		    $('#report-category').siblings().find('li').show();
+		    $('.sub-category:eq(4)').addClass('active');
 
 		    $('.big-category').click(function(){
 		        var currentContent = $(this).siblings().find('li');

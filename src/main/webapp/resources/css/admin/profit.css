@@ -411,7 +411,9 @@ body {
     transition: opacity 1s;
 }
 
-
+.sub-category:hover #a-text {
+    color: var(--category-sel);
+}
 
 
 

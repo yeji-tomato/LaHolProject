@@ -393,6 +393,9 @@
 		$(function() {
 		    // 서브카테고리 기본 숨김처리
 		    $('.sub-category').hide();
+		    $('#user-category').addClass('active');
+		    $('#user-category').siblings().find('li').show();
+		    $('.sub-category:eq(1)').addClass('active');
 
 		    $('.big-category').click(function(){
 		        var currentContent = $(this).siblings().find('li');

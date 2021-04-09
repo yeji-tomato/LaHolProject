@@ -383,6 +383,9 @@ body {
     transition: opacity 1s;
 }
 
+.sub-category:hover #a-text {
+    color: var(--category-sel);
+}
 
 /* 데이터 테이블 */
 zing-grid {
