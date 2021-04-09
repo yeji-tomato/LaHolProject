@@ -6,11 +6,11 @@
 <meta charset="UTF-8">
 <title>마이페이지</title>
     <!-- menubar css -->
-    <link rel="stylesheet" href="../common/menubar.css">
+    <link rel="stylesheet" href="${ contextPath }/resources/css/common/menubar.css">
     <!-- side menubar css -->
-    <link rel="stylesheet" href="../common/business/menu/menu.css">
+    <link rel="stylesheet" href="${ contextPath }/resources/css/common/menu.css">
     <!-- footer css -->
-    <link rel="stylesheet" href="../common/footer.css">
+    <link rel="stylesheet" href="${ contextPath }/resources/css/common/footer.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     
     <style>

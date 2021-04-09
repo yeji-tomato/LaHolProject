@@ -27,6 +27,9 @@ config.properties
 # Locally stored "Eclipse launch configurations"
 *.launch
 
+# JDT-specific (Eclipse Java Development Tools)     
+.classpath
+
 # PyDev specific (Python IDE for Eclipse)
 *.pydevproject
 

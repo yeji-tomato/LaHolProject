@@ -60,6 +60,10 @@
             height: 100%;
             margin: auto;
         }
+        
+        .wrapper * {
+        	font-family: 'NEXON Lv1 Gothic OTF';
+        }
 
         .login_wrapper {
             padding: 196px 0;
@@ -265,7 +269,7 @@
                 <button type="button" class="login_ok" onclick="location.href='${contextPath}/member/loginView'">확인</button> <!-- 로그인 화면으로 -->
                 <ul class="list">
                     <li>
-                        <a href="${ contextPath }/member/signUp">회원가입</a>
+                        <a href="${ contextPath }/member/signUpView">회원가입</a>
                     </li>
                     <li>
                         <a href="${ contextPath }/member/idSearch">아이디 찾기</a>

@@ -1,0 +1,127 @@
+@charset "UTF-8";
+body {
+    height: 80vh;
+    margin: 5%;
+    background-color: #4B654A ;
+}
+
+
+#whole-container {
+    height: 80vh;
+    display: flex;
+}
+
+/* 𖤐왼쪽 영역 */
+#left-area {
+    height: auto;
+    flex: 3.3;
+    display: flex;
+    flex-direction: column;
+}
+
+#title-container {
+    flex: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#title {
+    font-family: 'yg-jalnan';
+    color: white;
+    font-size: 8vh;
+}
+
+#product-container {
+    flex: 5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#product-list {
+    border-radius: 20px;
+    background-color: #3f553e;
+    width: 50vw;
+    height: 40vh;
+    display: flex;
+}
+
+.product-box {
+    flex: 1;
+    width: 33%;
+    margin: 3%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.product-img {
+    margin-top: 10%;
+    flex: 4;
+    width: 60%;
+    height: auto;
+}
+
+.product-name {
+    margin-top: 11%;
+    flex: 1;
+    font-family: 'NEXON Lv1 Gothic OTF';
+    font-size: 2.5vh;
+    color: white;
+    vertical-align: middle;
+}
+
+#desc-container {
+    flex: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#desc {
+    font-family: 'NEXON Lv1 Gothic OTF';
+    font-size: 3vh;
+    line-height: 170%;
+    color: white;
+    width: 50vw;
+}
+
+/* 𖤐오른쪽 영역 */
+#right-area {
+    height: auto;
+    flex: 1.7;
+    display: flex;
+    flex-direction: column;
+}
+
+#beanbag-container {
+    flex: 6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#beanbag {
+    height: 80%;
+    width: 80%;
+}
+
+#retry-container {
+
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+#retry {
+    width: 30%;
+    height: 30%;
+    font-family: 'NEXON Lv1 Gothic OTF';
+    font-size: 3vh;
+    color: white;
+    text-decoration: none;
+    margin-bottom: 10%;
+}
