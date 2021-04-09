@@ -14,6 +14,4 @@ import lombok.ToString;
 public class Search {
 	private String searchCondition;
 	private String searchValue; 
-	
-	 
 }

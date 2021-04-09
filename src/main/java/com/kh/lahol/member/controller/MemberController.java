@@ -3,7 +3,9 @@ package com.kh.lahol.member.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.lahol.member.model.service.MemberService;
@@ -138,6 +141,7 @@ public class MemberController {
 					            @RequestParam("cAddress2") String cAddress2,
 					            @RequestParam("c_la") String c_la,
 					            @RequestParam("c_lo") String c_lo,
+					            HttpServletRequest request,
 					            Model model,
 					            RedirectAttributes rd) {
 		m.setAddr(address + "," + address1 + "," + address2);
@@ -151,30 +155,80 @@ public class MemberController {
 		c.setC_address(cAddress + "," + cAddress1 + "," + cAddress2);
 		c.setC_number(cNumber1 + "-" + cNumber2 + "-" + cNumber3);
 		System.out.println(c);
-		c.setC_la(c_la);
-		c.setC_lo(c_lo);
-		System.out.println(c);
 		
-		int result1 = mService.insertpMember(m);
-		
-		if(result1 > 0) {
-			if(!c.getC_name().equals("")) {
-				int result2 = mService.insertCafe(c);
-				
-				if(result2 > 0) {
+		if(c_la.equals("")) {
+			model.addAttribute("msg", "주소 정보 호출에 실패하였습니다.");
+			return "member/signUp_P";
+		} else {
+			int result1 = mService.insertpMember(m);
+			
+			if(result1 > 0) {
+				if(!c.getC_name().equals("")) {
+					int result2 = mService.insertCafe(c);
+					
+					if(result2 > 0) {
+						rd.addFlashAttribute("msg", "회원 가입이 완료 되었습니다. 로그인 해주세요.");
+						return "redirect:/member/loginView";
+					} else {
+						model.addAttribute("msg", "회원가입에 실패하였습니다.");
+						return "member/signUp_P";
+					}
+				} else {
 					rd.addFlashAttribute("msg", "회원 가입이 완료 되었습니다. 로그인 해주세요.");
 					return "redirect:/member/loginView";
-				} else {
-					model.addAttribute("msg", "회원가입에 실패하였습니다.");
-					return "member/signUp_P";
 				}
 			} else {
-				rd.addFlashAttribute("msg", "회원 가입이 완료 되었습니다. 로그인 해주세요.");
-				return "redirect:/member/loginView";
+				model.addAttribute("msg", "회원가입에 실패하였습니다.");
+				return "member/signUp_P";
 			}
+		}
+		
+	}
+	
+	@PostMapping("/login")
+	public String memberLogin(@ModelAttribute Member m,
+			                  Model model) {
+		Member loginUser = mService.selectMember(m.getId());
+		
+		if(loginUser != null && bcryptPasswordEncoder.matches(m.getPwd(), loginUser.getPwd())) {
+			model.addAttribute("loginUser", loginUser);
+			System.out.println(loginUser);
+			return "redirect:/";
 		} else {
-			model.addAttribute("msg", "회원가입에 실패하였습니다.");
-			return "member/signUp_P";
+			model.addAttribute("msg", "로그인에 실패하였습니다.");
+			return "member/loginView";
 		}
 	}
+	
+	@GetMapping("/logout")
+	public String logout(SessionStatus status) {
+		status.setComplete();
+		return "redirect:/";
+	}
+	
+	@GetMapping("/mypageView")
+	public String mypageView(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		
+		Member m = (Member)session.getAttribute("loginUser");
+		
+		if(m.getGrade().equals("N")) {
+			return "mypage/normal/mypage";
+		} else if(m.getGrade().equals("P")) {
+			return "mypage/partner/p-mypage";
+		} else {
+			return "redirect:/";
+		}
+	}
+	
+	@GetMapping("/idSearch")
+	public String idSearchView() {
+		return "member/searchId";
+	}
+	
+	@GetMapping("/pwdSearch")
+	public String pwdSearchView() {
+		return "member/searchPwd";
+	}
+	
 }
