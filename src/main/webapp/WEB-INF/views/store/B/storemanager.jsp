@@ -12,7 +12,7 @@
 <!-- 폰트 모음 CSS-->
 <link rel="stylesheet" href="../common/fonts/fonts.css" />
 <!-- 스토어 css -->
-<link rel="stylesheet" href="${ contextPath }/resources/css/store/main/main.css">
+<link rel="stylesheet" href="${ contextPath }/resources/css/store/main/main.css?aa">
 </head>
 <style>  
 	 
@@ -31,7 +31,10 @@
 			
 			<div class="store1"  > 
 			
-		 
+		 		<button id="createB"     onClick="location.href=' ${ contextPath }/store/create'" > 제품등록 </button> 
+		 		<button id="createB"     onClick="location.href=' ${ contextPath }/ / '" > 판매현황 </button>   
+		 		<button id="createB"     onClick="location.href=' ${ contextPath }/ / '" > 배송현황 </button>
+		 		<button id="createB"     onClick="location.href=' ${ contextPath }/ / '" > 사업자  </button>      
       
                 <hr>
 				 
@@ -42,20 +45,16 @@
                      </div>
                     <div class="fi" style="margin-left:20px">
                     	  
-                        <select id="filter"  style="margin-top: 0px;margin-left: 5px;">  
                         
-                            <optgroup label="필터" >
-                                <option value="높은순">높은순</option>
-                                <option value="낮은순">낮은순</option>
-                                <option value="인기순">인기순</option> 
-                            </optgroup>
-                        </select> 
+                        
+                              
+                      
                     </div> 
                 </div>
                 
                 
            	  <br>
-                    <h4>   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;판매상품</h4>
+                    <h4>   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 판매중인 상품</h4>
               				<div> 
                 <div id="view2"   >
                     
