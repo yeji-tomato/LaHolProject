@@ -73,4 +73,11 @@ public class AdminController {
 		return "admin/report/partner";
 	}
 	
+	// 임시 !! 에러페이지 
+	@RequestMapping("/common/error")
+	public String error(Locale locale, Model model) {
+		return "common/error";
+	}
+	
+	
 }
