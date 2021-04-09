@@ -31,50 +31,35 @@ public class StoreDaoImpl implements StoreDao{
 	}
 	
 	@Override
-	public List<Store> selectList2(PageInfo pi2) {
-		int offset =(pi2.getCurrentPage() -1) *pi2.getStoreLimit(); 
-		RowBounds rowBounds = new RowBounds(offset,pi2.getStoreLimit());
-		return sqlSession.selectList("storeMapper.selectList2", null, rowBounds);
+	public List<Store> selectList2(PageInfo pi2) { 
+		return sqlSession.selectList("storeMapper.selectList2", null  );
 	}
 
-	@Override
-	public int insertStore(Store s) { 
-		return 0;
-	}
-
-	@Override
-	public int updateReadCount(int PR_CODE) { 
-		return 0;
-	}
-
-	@Override
-	public int selectStore(int PR_CODE) { 
-		return 0;
-	}
-
-	@Override
-	public int updateStore(Store s) { 
-		return 0;
-	}
-
-	@Override
-	public int deleteStore(int PR_CODE) { 
-		return 0;
-	}
+	 
 
 	@Override
 	public int selectSearchCount(Search search) {
 		return sqlSession.selectOne("storeMapper.selectSearchCount",  search );
 	}
-
-
-	 
-	 
+  
 	@Override
 	public List<Store> searchList(Search search, PageInfo pi) {
 		int offset =(pi.getCurrentPage() -1) *pi.getStoreLimit(); 
 		RowBounds rowBounds = new RowBounds(offset,pi.getStoreLimit());
 		return sqlSession.selectList("storeMapper.searchList",  search, rowBounds );
+	}
+
+	 
+
+	@Override
+	public Store selectStore(int PR_CODE) {
+		return sqlSession.selectOne("storeMapper.selectStore", PR_CODE );
+	}
+
+	@Override
+	public int updateReadCount(int PR_CODE) {
+		return sqlSession.update("storeMapper.updateReadCount",PR_CODE );
+		
 	}
 
 	

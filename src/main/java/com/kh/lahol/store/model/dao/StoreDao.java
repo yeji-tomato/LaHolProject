@@ -14,18 +14,13 @@ public interface StoreDao {
 	
 	public List<Store> selectList2(PageInfo pi2);
 	
-	public int insertStore(Store s);
-	
-	public int updateReadCount(int PR_CODE);
-	
-	public int selectStore(int PR_CODE);
-	
-	public int updateStore(Store s);
-	
-	public int deleteStore(int PR_CODE);
-
+	  
 	public List<Store> searchList(Search search, PageInfo pi);
 
 	public int selectSearchCount(Search search);
+
+	public Store selectStore(int PR_CODE);
+
+	public int updateReadCount(int PR_CODE);
 	
 }

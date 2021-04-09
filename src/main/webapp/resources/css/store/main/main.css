@@ -777,7 +777,7 @@ ul {
             color: white; 
         }
         #ifs:hover{
-            color: #16e75c90;
+            color: #9e2e1290;
             opacity: 0.8;
             cursor: pointer;
         }
@@ -791,7 +791,7 @@ ul {
             color: white; 
         }
         #ifd:hover{
-            color: #9e2e1290;
+            color: red;
             opacity: 0.8;
             cursor: pointer;
         }
@@ -809,4 +809,8 @@ ul {
         }
          /*수정 삭제 */
  
+ 		#createB{
+ 			width: 100px;
+            height: 35px;
+ 		}
  
