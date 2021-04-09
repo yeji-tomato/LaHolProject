@@ -22,6 +22,7 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 		<result property="PR_NOTICE" column="PR_NOTICE"/> 
 		<result property="PR_STATUS" column="PR_STATUS"/>
 		<result property="C_CODE" column="C_CODE"/>	
+		<result property="SCOUNT" column="SCOUNT"/>	
 		
 	</resultMap>
 	
@@ -65,11 +66,18 @@ C_CODE	VARCHAR2(30 BYTE)	No		18	카페코드
 		       PRODUCT
 	   
 		   	<where>
-			   
-		   AND
-			   PR_NAME LIKE #{sv}
-				 
-				 
+			 <choose>				   
+				<when test="searchCondition == 'title'">
+				 PR_NAME LIKE #{sv}
+				</when>
+				<when test="searchCondition == 'category'">
+				 ST_CATAGORY LIKE #{sv}
+				</when> 
+				<otherwise>
+				AND 
+				ST_CATAGORY LIKE #{sv}
+				</otherwise>
+			</choose> 
 		</where>
 	</select> 
 	
@@ -94,6 +102,7 @@ C_CODE	VARCHAR2(30 BYTE)	No		18	카페코드
 	         , PR_NOTICE 
       		 , PR_STATUS
       		 , C_CODE
+      		 , SCOUNT
 		          
 		  FROM
 		       PRODUCT
@@ -103,8 +112,9 @@ C_CODE	VARCHAR2(30 BYTE)	No		18	카페코드
 	           PR_CODE DESC
 	</select>
 	
+	<!--  추천상품 리스트 (조회수루 적용) -->
 	<select id="selectList2" resultMap="storeResultSet">
-		SELECT
+				SELECT
 		       PR_CODE
 		     , ST_CATAGORY
 		     , PR_NAME
@@ -123,14 +133,21 @@ C_CODE	VARCHAR2(30 BYTE)	No		18	카페코드
 	         , PR_NOTICE 
       		 , PR_STATUS
       		 , C_CODE
+      		 , SCOUNT
 		          
 		  FROM
-		       PRODUCT
+		       (SELECT
+		               *
+		          FROM
+		               PRODUCT
+		         WHERE
+		               PR_STATUS = 'Y'
+		      ORDER BY
+		                SCOUNT DESC 
+		       )		
 		 WHERE
-		       PR_STATUS = 'Y'
-		   
-	  ORDER BY
-	           PR_CODE DESC
+		 	    ROWNUM <![CDATA[<=]]> 3
+		 	  
 	</select>
 	
  
@@ -154,20 +171,72 @@ C_CODE	VARCHAR2(30 BYTE)	No		18	카페코드
 		     , PR_DATE
 	         , PR_NOTICE 
       		 , PR_STATUS
+      		 , SCOUNT 
+		  FROM
+		        (SELECT
+		               *
+		          FROM
+		               PRODUCT
+		         WHERE
+		               PR_STATUS = 'Y'
+		      ORDER BY
+		                PR_CODE  
+		       )		
+		<where>  
+		   <choose>				   
+				<when test="searchCondition == 'title'">
+				 PR_NAME LIKE #{sv}
+				</when>
+				<when test="searchCondition == 'category'">
+				 ST_CATAGORY LIKE #{sv}
+				</when> 
+				<otherwise>
+				AND 
+				ST_CATAGORY LIKE #{sv}
+				</otherwise>
+			</choose> 
+		</where>
+		 
+	</select>
+	
+	<select id="selectStore" parameterType="_int" resultMap="storeResultSet">
+		SELECT
+		       PR_CODE
+		     , ST_CATAGORY
+		     , PR_NAME
+		     , PR_IF
+		     , PR_EVENT
+		     , ORIGIN
+		     , PR_PRICE
+		     , SUBSCRIPTIONS
+		     , STORE_PHOTO1
+		     , STORE_PHOTO2
+		     , STORE_PHOTO3
+		     , DY_COMPANY
+		     , PR_INF
+		     , SERVICE_CENTER
+		     , PR_DATE
+	         , PR_NOTICE 
+      		 , PR_STATUS
       		 , C_CODE
+      		 , SCOUNT
 		          
 		  FROM
 		       PRODUCT
-		<where>
-			   
-		   AND
-			   PR_NAME LIKE #{sv}
-				 
-				 
-		</where>
-		ORDER BY PR_CODE DESC
+		 WHERE
+		 	   PR_CODE = #{PR_CODE}
+		 AND
+		       PR_STATUS = 'Y' 
 	</select>
 	
-	
+	<!--  조회수 증가시켜 조회수많은 제품 추천상품 등록 -->
+	<update id="updateReadCount" parameterType="_int">
+		UPDATE
+		        PRODUCT
+		   SET
+		       SCOUNT = SCOUNT + 1
+		 WHERE
+		       PR_CODE = #{PR_CODE}
+	</update>
 	 
 </mapper>
