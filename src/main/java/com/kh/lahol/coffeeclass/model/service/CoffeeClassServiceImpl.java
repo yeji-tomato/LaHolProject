@@ -3,11 +3,13 @@ package com.kh.lahol.coffeeclass.model.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.kh.lahol.coffeeclass.model.dao.CoffeeClassDao;
 import com.kh.lahol.coffeeclass.model.vo.CoffeeClass;
 import com.kh.lahol.coffeeclass.model.vo.PageInfo;
 
+@Service
 public class CoffeeClassServiceImpl implements CoffeeClassSerivce{
 	@Autowired
 	private CoffeeClassDao clDao;
@@ -20,8 +22,7 @@ public class CoffeeClassServiceImpl implements CoffeeClassSerivce{
 
 	@Override
 	public List<CoffeeClass> selectList(PageInfo pi) {
-		// TODO Auto-generated method stub
-		return null;
+		return clDao.selectList(pi);
 	}
 
 	@Override

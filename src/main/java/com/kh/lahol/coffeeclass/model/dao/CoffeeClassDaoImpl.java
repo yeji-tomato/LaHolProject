@@ -2,6 +2,7 @@ package com.kh.lahol.coffeeclass.model.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -21,8 +22,10 @@ public class CoffeeClassDaoImpl implements CoffeeClassDao{
 
 	@Override
 	public List<CoffeeClass> selectList(PageInfo pi) {
-		// TODO Auto-generated method stub
-		return null;
+		int offset = (pi.getCurrentPage() - 1)* pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		
+		return sqlSession.selectList("clMapper.selectList", null, rowBounds);
 	}
 
 	@Override

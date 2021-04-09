@@ -33,10 +33,10 @@
 
      
      <!-- 클래스 개설 버튼 -->
-     
      <div style="margin-top: 80px; text-align: center;">
      	<a href="${ contextPath }/coffeeclass/createclass" class="create-btn" id = "createclass">클래스 개설하기</a>
      </div>
+     
 
      <hr style="margin-top: 5%;">
      

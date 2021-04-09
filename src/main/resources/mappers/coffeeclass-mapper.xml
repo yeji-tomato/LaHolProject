@@ -3,7 +3,22 @@
 PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="clMapper">
-
+	<resultMap type="CoffeeClass" id="clResultSet" >
+		<id property="classNo" column="CLASS_NO"/>
+		<result property="cafeNo" column="C_CODE"/>
+		<result property="className" column="CL_NAME"/>
+		<result property="classDes" column="CL_DES"/>
+		<result property="trName" column="TR_NAME"/>
+		<result property="trIntro" column="TR_INTRO"/>
+		<result property="classCurri" column="CL_CURI"/>
+		<result property="studentMax" column="CL_MAX"/>
+		<result property="classDate" column="CL_DATE"/>
+		<result property="classLoca" column="CL_LOCA"/>
+		<result property="clPrice" column="CL_PRICE"/>
+		<result property="blind" column="BLIND"/>
+		<result property="status" column="CL_STATUS"/>
+	</resultMap>
+		
 	<!-- 메인페이지 불러오기 -->
 	<select id="selectListCount" resultType="_int">
 		SELECT
@@ -11,7 +26,31 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 		  FROM 
 		  		COFFEECLASS
 		 WHERE
-		 		STATUS='Y'
+		 		CL_STATUS='Y'
+	</select>
+	
+	<select id="selectList" resultMap="clResultSet">
+		SELECT 
+				  CLASS_NO
+				, C_CODE
+				, CL_NAME
+				, CL_DES
+				, TR_NAME
+				, TR_INTRO
+				, CL_CURI
+				, CL_MAX
+				, CL_DATE
+				, CL_LOCA
+				, CL_PRICE
+				, BLIND
+				, CL_STATUS
+		 FROM 
+				COFFEECLASS
+		WHERE	
+				CL_STATUS='Y'
+	 ORDER BY
+				CLASS_NO DESC
+
 	</select>
 	
 	 

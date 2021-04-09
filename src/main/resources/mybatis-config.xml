@@ -16,7 +16,8 @@
 		<typeAlias type="com.kh.lahol.store.model.vo.Store" alias="Store"/>
 		<typeAlias type="com.kh.lahol.store.model.vo.Search" alias="Search"/>
 		<!-- 클래스 -->
- 		<typeAlias type="com.kh.lahol.coffeeclass.model.vo.CoffeeClass" alias="CofeeClass"/>
+ 		<typeAlias type="com.kh.lahol.coffeeclass.model.vo.CoffeeClass" alias="CoffeeClass"/>
+ 		
 	</typeAliases>
 	
 	<!-- mappers -->
