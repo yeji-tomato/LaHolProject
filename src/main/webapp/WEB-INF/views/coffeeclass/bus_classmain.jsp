@@ -40,7 +40,7 @@
 
      <hr style="margin-top: 5%;">
      
-      <!-- 서치 -->
+      <!-- 검색부분 -->
             <main>
                 <div class="search-container">
                     <div class="search-box">

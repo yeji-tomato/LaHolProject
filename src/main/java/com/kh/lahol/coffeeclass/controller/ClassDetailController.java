@@ -11,4 +11,10 @@ public class ClassDetailController {
 		return "coffeeclass/class_detail";
 	}
 
+	
+	@GetMapping("/coffeeclass/busdetail")
+	public String busdetail() {
+		return "coffeeclass/bus_classdetail";
+	}
+
 }
