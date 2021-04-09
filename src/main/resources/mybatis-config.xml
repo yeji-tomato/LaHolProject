@@ -26,6 +26,9 @@
 
 		<typeAlias type="com.kh.lahol.store.model.vo.Search" alias="Search"/>
 
+		<!-- Yeji_Cafe -->
+		<!-- 매장 예약 -->
+		<typeAlias type="com.kh.lahol.cafe.user.model.vo.CafeRes" alias="CafeRes"/>
  
 	</typeAliases>
 	
@@ -36,6 +39,8 @@
 		<mapper resource="mappers/store-mapper.xml"/>
 		<!-- member-mapper -->
 		<mapper resource="mappers/member-mapper.xml"/>
+		<!-- Cafe mapper -->
+		<mapper resource="mappers/cafe-mapper.xml"/>
 	</mappers>
 </configuration>
 

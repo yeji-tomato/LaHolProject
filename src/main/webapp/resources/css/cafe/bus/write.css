@@ -37,7 +37,7 @@ body{
     color: #E5BD62;
 }
 
-#text, #select{
+#text, .ad, #select{
     width: 100%;
     padding: 1%;
     border-radius: 10vw;

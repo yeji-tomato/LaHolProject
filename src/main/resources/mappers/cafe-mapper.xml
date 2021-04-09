@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cafeMapper">
+	<resultMap id="cafeResResultSet" type="CafeRes">
+		<id property="caResNo" column="C_RES"/>
+		<result property="caResType" column="C_RES_TYPE"/>
+		<result property="caResDate" column="C_RES_DATE"/>
+		<result property="caResPer" column="C_RES_PER"/>
+		<result property="caNo" column="C_CODE"/>
+		<result property="userId" column="ID"/>
+		<result property="caResIng" column="C_RES_ING"/>
+		<result property="caResHereTime" column="C_HERETIME"/>	
+		<result property="caResGoTime" column="C_GOTIME"/>		
+	</resultMap>
+	
+	<insert id="insertHereRes" parameterType="CafeRes">
+	INSERT
+	INTO CARES
+	(
+		C_RES,
+        C_RES_TYPE,
+        C_RES_DATE,
+        C_RES_PER,
+        C_CODE,
+        ID,
+        C_RES_ING,
+        C_HERETIME,
+        C_GOTIME
+	)
+	VALUES
+    (
+        'CARES' || CA_RES.NEXTVAL,
+        '매장',
+        #{caResDate},
+        #{caResPer},
+        'CA5',
+        'user01',
+        DEFAULT,
+        #{caResHereTime},
+        NULL
+    )
+	</insert>
+	
+	<insert id="insertTogoRes" parameterType="CafeRes">
+	INSERT
+	INTO CARES
+	(
+		C_RES,
+        C_RES_TYPE,
+        C_RES_DATE,
+        C_RES_PER,
+        C_CODE,
+        ID,
+        C_RES_ING,
+        C_HERETIME,
+        C_GOTIME
+	)
+	VALUES
+    (
+        'CARES' || CA_RES.NEXTVAL,
+        '포장',
+        #{caResDate},
+        #{caResPer},
+        'CA5',
+        'user01',
+        DEFAULT,
+        NULL,
+        #{caResGoTime}
+    )
+	</insert>
+	
+	
+	 
+</mapper>
