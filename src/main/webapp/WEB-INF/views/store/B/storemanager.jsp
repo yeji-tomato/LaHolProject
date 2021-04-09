@@ -44,11 +44,7 @@
                    
                      </div>
                     <div class="fi" style="margin-left:20px">
-                    	  
-                        
-                        
-                              
-                      
+                    	   
                     </div> 
                 </div>
                 
@@ -57,84 +53,82 @@
                     <h4>   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 판매중인 상품</h4>
               				<div> 
                 <div id="view2"   >
-                    
-				 
-					<c:forEach var="s" items="${ list }">
-				 
-                    <div class="product"  onclick="selectStore(${s.PR_CODE});"  > 
-                        <div class="scale" > 
-                            <img  src="${ contextPath }/resources/img/store/STUDY.PNG" width="350px" height="300px " >  
-                        </div>    
-                        <div class="if" style="float:left; witdh: 50px;">
-                        <center>
-                        <h4 >${ s.PR_NAME }</h4>
-                            <h5 style="color: #96877D"> ${ s.PR_PRICE }</h5>
-                            <h6 style="color: #96877D">${ s.ORIGIN }</h6> 
-                        </center>
-                        </div>
-                        <button  id="ifs" onClick="location.href='modification.html'">수정</button>  
-                        <button  id="ifd">삭제</button>  
-                    </div> 
-                    
-             
-					</c:forEach>
-					           
-                <div class="paing" style="float: right;position: relative;left: -50%;width: 100%;left: 0px;right: 0px;" >
-                <table style="margin-left:40%;">
-                <tr>
-					<td colspan="6">
-					<!-- [이전] -->
-					<c:if test="${ pi.currentPage <= 1 }">
-						[이전] &nbsp;
-					</c:if>
-					<c:if test="${ pi.currentPage > 1 }">
-						<c:url var="before" value="/store/list2">
-							<c:param name="page" value="${ pi.currentPage -1 }" />
-						</c:url>
-						<a href="${ before }">[이전]</a> &nbsp;
-					</c:if>
-					<!-- 페이지 숫자 -->
-					<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
-						<c:if test="${ p eq pi.currentPage }">
-							<font color="red" size="4"><b>[${ p }]</b></font> &nbsp;
-						</c:if>
-						<c:if test="${ p ne pi.currentPage }">
-							<c:url var="pagination" value="/store/list2">
-								<c:param name="page" value="${ p }"/>
-							</c:url>
-							<a href="${ pagination }">${ p }</a> &nbsp;
-						</c:if>
-					</c:forEach>
-					<!-- [다음] -->
-					<c:if test="${ pi.currentPage >= pi.maxPage }">
-						[다음]
-					</c:if>
-					<c:if test="${ pi.currentPage < pi.maxPage }">
-						<c:url var="after" value="/board/list2">
-							<c:param name="page" value="${ pi.currentPage + 1 }" />
-						</c:url>
-						<a href="${ after }">[다음]</a>
-					</c:if>
-					</td> 
-				</tr>
-                </table>
                 
-                </div>
+                 <c:forEach var="s" items="${ list }">  
+				 
+						  
+	                    <div class="product"  onclick="selectStore(${s.PR_CODE});"  > 
+	                        <div class="scale" > 
+	                            <img  src="${ contextPath }/resources/img/store/${ s.STORE_PHOTO1 }" width="350px" height="300px " >  
+	                        </div>    
+	                        <div class="if" style="float:left; witdh: 50px;">
+	                        <center>
+	                        <h4 >${ s.PR_NAME }</h4>
+	                            <h5 style="color: #96877D"> ${ s.PR_PRICE }</h5>
+	                            <h6 style="color: #96877D">${ s.ORIGIN }</h6> 
+	                        </center>
+	                        </div>
+	                        <button  id="ifs" onClick="location.href='modification.html'">수정</button>  
+	                        <button  id="ifd">삭제</button>  
+	                    </div> 
+	                     
+	                    </c:forEach>
+	                    
+						
+					  
+		                <div class="paing" style="float: right;position: relative;left: -50%;width: 100%;left: 0px;right: 0px;" >
+		                <table style="margin-left:40%;">
+		                <tr>
+							<td colspan="6">
+							<!-- [이전] -->
+							<c:if test="${ pi.currentPage <= 1 }">
+								[이전] &nbsp;
+							</c:if>
+							<c:if test="${ pi.currentPage > 1 }">
+								<c:url var="before" value="/store/list2">
+									<c:param name="page" value="${ pi.currentPage -1 }" />
+								</c:url>
+								<a href="${ before }">[이전]</a> &nbsp;
+							</c:if>
+							<!-- 페이지 숫자 -->
+							<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+								<c:if test="${ p eq pi.currentPage }">
+									<font color="red" size="4"><b>[${ p }]</b></font> &nbsp;
+								</c:if>
+								<c:if test="${ p ne pi.currentPage }">
+									<c:url var="pagination" value="/store/list2">
+										<c:param name="page" value="${ p }"/>
+									</c:url>
+									<a href="${ pagination }">${ p }</a> &nbsp;
+								</c:if>
+							</c:forEach>
+							<!-- [다음] -->
+							<c:if test="${ pi.currentPage >= pi.maxPage }">
+								[다음]
+							</c:if>
+							<c:if test="${ pi.currentPage < pi.maxPage }">
+								<c:url var="after" value="/board/list2">
+									<c:param name="page" value="${ pi.currentPage + 1 }" />
+								</c:url>
+								<a href="${ after }">[다음]</a>
+							</c:if>
+							</td> 
+						</tr>
+		                </table>
+                  
+		                </div> 
+				             <div id="bu" style="width:60%;  height: 50px;   float:left;">
+				              <button id="management" style="margin-top: 0px;float:left;margin-left: 1300px;"    onClick="location.href=' ${ contextPath }/store/list'" >  스토어 메인 </button>   
+				              </div> 
+              		   </div>
                  
-		                 <div id="bu" style="width:60%;  height: 50px;   float:left;">
-		                    <button id="management" style="margin-top: 0px;float:left;margin-left: 1300px;"    onClick="location.href=' ${ contextPath }/store/list'" >  스토어 메인 </button>   
-		                 
-		        </div>
                  
-             
-                </div>
                  
-          		  </div> 
-            
-          
-                 
-            
-    	
+                  
+          		  </div>  
+            </div>	
+         
+    	</div>
     </section>
     
     <script>
