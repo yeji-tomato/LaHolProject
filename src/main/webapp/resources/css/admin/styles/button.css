@@ -1,0 +1,81 @@
+@charset "UTF-8";
+/* CSS 변수 */
+:root {
+    --blue-btn : #6274c4;
+    --red-btn : #b93333;
+    --gray-btn : #bbbaba;
+}
+
+
+.blue {
+    appearance: none;
+    background-color: transparent;
+    border: 2px solid var(--blue-btn);
+    border-radius: 2.5vh;
+    color: var(--blue-btn);
+    cursor: pointer;
+    display: flex;
+    align-self: center;
+    line-height: 1;
+    padding: 0.6vw 1.5vw;
+    margin: 1.5vh;
+    text-decoration: none;
+    text-align: center;
+    outline: none;
+}
+
+.red {
+    appearance: none;
+    background-color: transparent;
+    border: 2px solid var(--red-btn);
+    border-radius: 2.5vh;
+    color: var(--red-btn);
+    cursor: pointer;
+    display: flex;
+    align-self: center;
+    line-height: 1;
+    padding: 0.6vw 1.5vw;
+    margin: 1.5vh;
+    text-decoration: none;
+    text-align: center;
+    outline: none;
+}
+
+.gray {
+    appearance: none;
+    background-color: transparent;
+    border: 2px solid var(--gray-btn);
+    border-radius: 2.5vh;
+    color: var(--gray-btn);
+    cursor: pointer;
+    display: flex;
+    align-self: center;
+    line-height: 1;
+    padding: 0.6vw 1.5vw;
+    margin: 1.5vh;
+    text-decoration: none;
+    text-align: center;
+    outline: none;
+}
+
+.red:hover,
+.blue:hover,
+.gray:hover {
+    color: #fff;
+    outline: 0;
+}
+.btn-style {
+    transition: box-shadow 300ms ease-in-out, color 300ms ease-in-out;
+}
+
+.red:hover {
+    box-shadow: 0 0 40px 40px var(--red-btn) inset;
+}
+
+.blue:hover {
+    box-shadow: 0 0 40px 40px var(--blue-btn) inset;
+}
+
+.gray:hover {
+    box-shadow: 0 0 40px 40px var(--gray-btn) inset;
+}

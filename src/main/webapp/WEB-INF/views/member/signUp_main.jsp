@@ -61,6 +61,9 @@
             margin: auto;
         }
 
+        .wrapper * {
+            font-family: 'NEXON Lv1 Gothic OTF';
+        }
         .login_wrapper {
             padding: 246px 0;
             margin: auto;
@@ -113,10 +116,6 @@
             height: 1px;
             background: #dadada;
             content: "";
-        }
-
-        .login_header span {
-            font-family: 'NEXON Lv1 Gothic OTF';
         }
 
         .login_header span b {
@@ -174,7 +173,7 @@
         }
 
         .sign-div svg {
-            fill : #F3D798;
+            fill : #fff;
         }
 
         #goMain {
@@ -231,7 +230,7 @@
             <div class="login_area">
                 <div class="login_header">
                     <div class="login_logo">
-                        <img src="${ contextPath }/resources/img/common/logo-lahol2.png">
+                        <img src="${contextPath}/resources/img/common/logo-lahol2.png">
                     </div>
                     <span>
                         <b>LaHol</b> SIGN IN
@@ -254,7 +253,7 @@
                 </div>
                 <span></span>
                 <div class="returnMain">
-                    <button type="button" id="goMain" onclick="${ contextPath }">메인으로</button>
+                    <button type="button" id="goMain" onclick="location.href='${contextPath}'">메인으로</button>
                 </div>
             </div>
         </div>

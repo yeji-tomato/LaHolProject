@@ -1,11 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="${ contextPath }/resources/css/common/fonts.css" type="text/css">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+	<!-- sweetalert -->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <title>LaHol - SIGN IN</title>
     <style>
         body {
@@ -69,6 +72,8 @@
             min-height: 516px;
             background: #fff;
             border: 1px solid #5A452E;
+            
+            font-family: 'NEXON Lv1 Gothic OTF';
         }
 
         p {
@@ -84,6 +89,7 @@
             width: 280px;
             height: 14px;
             border: 1px solid #e7e7e7;
+            font-family: 'NEXON Lv1 Gothic OTF';
 
             transition: border 0.3s;
         }
@@ -148,6 +154,7 @@
             background: #4B654A;
             border: 1px solid #4B654A;
             font-size: 16px;
+            font-family: 'NEXON Lv1 Gothic OTF';
             color: #fff;
             cursor: pointer;
             transition: background-color 0.3s, border-color 0.3s;
@@ -199,6 +206,7 @@
             font-size: 12px;
             color: #fff;
             cursor: pointer;
+            font-family: 'NEXON Lv1 Gothic OTF';
             transition: background-color 0.3s, border-color 0.3s;
         }
 
@@ -231,10 +239,23 @@
                 height : 912px;
             }
         }
+        
+        .swal2-confirm,
+        .swal2-cancel,
+        .swal2-html-container,
+        .swal2-title {
+        	font-family: 'NEXON Lv1 Gothic OTF';
+        }
     </style>
 </head>
 
 <body>
+	<c:if test="${ !empty msg }">
+		<script>
+			Swal.fire('${msg}');
+		</script>
+		<c:remove var="msg"/>
+	</c:if>
     <div id="cover_1"></div>
     <div class="bg" id="bg1"></div>
     <div id="cover"></div>
@@ -252,15 +273,15 @@
                 </div>
                 <form method="POST" id="login_form" action="${ contextPath }/member/login">
 
-                    <input type="text" id="userId" name="userId" placeholder="아이디" onkeydown="onKeyDown();">
-                    <input type="password" id="userPwd" name="userPwd" placeholder="비밀번호" onkeydown="onKeyDown();">
+                    <input type="text" id="userId" name="id" placeholder="아이디" onkeydown="onKeyDown();">
+                    <input type="password" id="userPwd" name="pwd" placeholder="비밀번호" onkeydown="onKeyDown();">
                     <button type="button" class="login_ok" onclick="onSubmit();">로그인</button>
 
                 </form>
 
                 <ul class="list">
                     <li>
-                        <a href="${ contextPath }/member/signUp">회원가입</a>
+                        <a href="${ contextPath }/member/signUpView">회원가입</a>
                     </li>
                     <li>
                         <a href="${ contextPath }/member/idSearch">아이디 찾기</a>
@@ -271,7 +292,7 @@
                 </ul>
                 <span></span>
                 <div class="returnMain">
-                    <button type="button" id="goMain" onclick="${ contextPath }">메인으로</button>
+                    <button type="button" id="goMain" onclick="location.href='${ contextPath }'">메인으로</button>
                 </div>
             </div>
         </div>
@@ -290,13 +311,19 @@
             var userPwd = document.getElementById("userPwd");
 
             if (userId.value == "") {
-                alert('아이디를 입력해주세요.');
+            	Swal.fire({
+					title : '아이디를 입력해주세요.',
+					icon : 'warning'
+				});
                 userId.focus();
                 return;
             }
 
             if (userPwd.value == "") {
-                alert('비밀번호를 입력해주세요');
+            	Swal.fire({
+					title : '비밀번호를 입력해주세요.',
+					icon : 'warning'
+				});
                 userPwd.focus();
                 return;
             }
@@ -318,7 +345,10 @@
             if (reg.test(e.value)) {
                 return true;
             }
-            alert(msg);
+            Swal.fire({
+				title : msg,
+				icon : 'warning'
+			});
             e.value = "";
             e.focus();
             return false;
