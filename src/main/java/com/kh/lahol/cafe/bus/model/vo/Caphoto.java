@@ -17,7 +17,6 @@ public class Caphoto {
 	private String caINo;
 	private String caIName;
 	private String caIchName;
-	private String caIPath;
 	private String caIType;
-	private String caIcode;	
+	private String caCode;	
 }

@@ -23,12 +23,17 @@ public class Cafe {
 	private String caLa;
 	private String caLo;
 	private String caId;
-	private Date caStartTime;
+	private String caStartTime;
 	private String wifi;
 	private String toilet;
 	private String parking;
 	private String message;
-	private Number resPer;
-	private Date caEndTime;
+	private String caEndTime;
+	private String mainPhoto;
+	private String photo1;
+	private String photo2;
+	private String photo3;
+	
+	
 
 }

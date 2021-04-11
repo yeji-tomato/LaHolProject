@@ -119,7 +119,14 @@ a.animated-button.thar-three:before {
 	transition: all 0.4s cubic-bezier(0.42, 0, 0.58, 1);
 }
 .cf-container{
-	height: 160vh;	
+	height: 180vh;	
+}
+
+#map{
+	width:500px;
+	height:200px;
+	margin-top:10px;
+	display:none
 }
 
 @media screen and (max-width:1280px) {
@@ -128,7 +135,11 @@ a.animated-button.thar-three:before {
 	}
 	
 	.cf-container{
-		height: 150vh;	
+		height: 160vh;	
+	}
+	
+	#map{
+		width:400px;
 	}
 
 }
@@ -136,6 +147,10 @@ a.animated-button.thar-three:before {
 @media screen and (min-width:1920px) {
 	.cf-container{
 		height: 130vh;	
+	}
+	
+	#map{
+		width:600px;
 	}
 
 }

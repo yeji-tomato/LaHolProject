@@ -68,7 +68,7 @@
             <div class="cafe-write-form">
             <h2>카페 등록</h2>
             <hr>
-            <form action="${ contextPath }/cafe/biz/insert" id="writeBusForm" method="POST">
+            <form action="${ contextPath }/cafe/biz/insert" id="uploadForm" method="post" enctype="multipart/form-data">
                 <div class="container">
                     <div class="writeArea">
                         <!-- 카페명 -->
@@ -162,7 +162,7 @@
                         <!-- 카페 주소 -->
                         <div class="row" id="divRow">
                             <h3 class="write-title">카페 주소</h3>
-                            <div class="col-8">
+                            <div class="col-6">
                                 <div class="row">
                                     <p style="color: #CDC2AF;">도로명 주소</p>
                                     <div class="col-8">
@@ -180,11 +180,11 @@
                                 </div>
                             </div>
                             <!-- 위도 -->
-							<input type="hidden" id="la" name="la">
+							<input type="hidden" id="la" name="caLa">
 							<!-- 경도 -->
-							<input type="hidden" id="lo" name="lo">
+							<input type="hidden" id="lo" name="caLo">
                             <div class="col-4">
-                                <div id="map" style="width:300px;height:300px;margin-top:10px;display:none"></div>
+                                <div id="map"></div>
                             </div>
                         </div>
                         
@@ -281,7 +281,7 @@
                                         <i class="fa fa-car" aria-hidden="true"></i>
                                     </div>
                                     <div class="col-8">
-                                        <select name="car" id="select">
+                                        <select name="parking" id="select">
                                         <option selected disabled>주차장</option>
                                         <option value="주차장 있음">주차장 있음</option>
                                         <option value="주차장 없음">주차장 없음</option>
@@ -292,7 +292,7 @@
                             <div class="col-8">
                                 <!-- 메세지 -->
                                 <h3 class="write-title">메세지</h3>
-                                <textarea id="ta"></textarea>
+                                <textarea id="ta" name="message"></textarea>
                                 <div id="ta_cnt" style="float: right;">(0 / 100)</div>
                             <script>
                                 $(document).ready(function() {
@@ -308,23 +308,44 @@
                             </script>
                             </div>
                         </div>
-                        </form>
-                        <div class="writeBtn" type="submit">
-                        <button>
-                            <%-- <a href="${ contextPath }/cafe/coffee" class="btn btn-sm animated-button thar-three"> --%>
-                                <i class="fa fa-long-arrow-right" aria-hidden="true"></i> &nbsp; 음료 입력
-                            <!-- </a> -->
-                        </button>
+                        <div class="writeBtn">
+                            <a class="btn btn-sm animated-button thar-three" id="writeBtn">
+                                <i class="fa fa-long-arrow-right" aria-hidden="true"></i> 
+                                &nbsp; 
+                                <input type="submit" value="음료 입력"/>
+                            </a>
                         </div>
                         
                     </div>
-           
+           			</form>
                 </div>
                 <div>
             
             </div>
         </div>
+        <script>
+        	/* $(function(){
+        		$("#writeBtn").on("click", function(){
+        			
+        			var form = new FormData(document.getElementById('uploadForm'));
+        			
+        			
+           			$.ajax({
+        				url : "${ contextPath }/cafe/biz/insert",
+        				data : form,
+        				type: "POST",
+        				success : function(data){
+        					alert("카페 등록이 성공적으로 되었습니다!");
+        					location.href='${ contextPath }/bus/coffee';
+        				},
+        				error : function(e){
+        					console.log(e);
+        				}
+        			});
+        		});
+        	}); */
         
+        </script>
     </div>
     </div>
     
