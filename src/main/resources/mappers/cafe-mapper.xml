@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cafeMapper">
+	<resultMap id="cafeResultSet" type="Cafe">
+		<id property="caCode" column="C_CODE"/>
+		<result property="caName" column="C_NAME"/>
+		<result property="caOwner" column="C_OWNER"/>
+		<result property="caNumber" column="C_NUMBER"/>
+		<result property="caAddress" column="C_ADDRESS"/>
+		<result property="caStatus" column="C_STATUS"/>
+		<result property="caLa" column="C_LA"/>
+		<result property="caLo" column="C_LO"/>
+		<result property="caId" column="ID"/>	
+		<result property="caStartTime" column="STARTTIME"/>
+		<result property="wifi" column="C_WIFI"/>
+		<result property="toilet" column="C_TOILET"/>
+		<result property="parking" column="C_PARKING"/>
+		<result property="message" column="C_MESSAGE"/>
+		<result property="caEndTime" column="ENDTIME"/>
+		<result property="mainPhoto" column="MAINPHOTO"/>
+		<result property="photo1" column="PHOTO1"/>
+		<result property="photo2" column="PHOTO2"/>
+		<result property="photo3" column="PHOTO3"/>
+	</resultMap>
+	
+<!-- 	<resultMap id="cafePhotoResultSet" type="Caphoto">
+		<id property="caINo" column="C_INO"/>
+		<result property="caIName" column="C_INAME"/>
+		<result property="caIchName" column="C_ICHNAME"/>
+		<result property="caIType" column="C_ITYPE"/>
+		<result property="caCode" column="C_CODE"/>
+	</resultMap> -->
+
+
+	<resultMap id="cafeResResultSet" type="CafeRes">
+		<id property="caResNo" column="C_RES"/>
+		<result property="caResType" column="C_RES_TYPE"/>
+		<result property="caResDate" column="C_RES_DATE"/>
+		<result property="caResPer" column="C_RES_PER"/>
+		<result property="caNo" column="C_CODE"/>
+		<result property="userId" column="ID"/>
+		<result property="caResIng" column="C_RES_ING"/>
+		<result property="caResHereTime" column="C_HERETIME"/>	
+		<result property="caResGoTime" column="C_GOTIME"/>		
+	</resultMap>
+	
+	<!-- 카페 정보 입력 -->
+	<insert id="insertCafeInfo" parameterType="Cafe">
+	INSERT
+	INTO CAFE
+	(
+		C_CODE,
+        C_NAME,
+        C_OWNER,
+        C_NUMBER,
+        C_ADDRESS,
+        C_STATUS,
+        C_LA,
+        C_LO,
+        ID,
+        STARTTIME,
+        C_WIFI,
+        C_TOILET,
+        C_PARKING,
+        C_MESSAGE,
+        ENDTIME,
+        MAINPHOTO,
+        PHOTO1,
+        PHOTO2,
+        PHOTO3
+	)
+	VALUES
+	(
+        'CA' || CA.NEXTVAL,
+        #{caName},
+        '최준',
+        '111-22-3333',
+        #{caAddress},
+        DEFAULT,
+        #{caLa},
+        #{caLo},
+        'ADMIN',
+        #{caStartTime},
+        #{wifi},
+        #{toilet},
+        #{parking},
+        #{message},
+        #{caEndTime},
+        #{mainPhoto},
+        #{photo1},
+        #{photo2},
+        #{photo3}
+	)
+	</insert>
+	
+	<!-- 카페 사진 입력 -->	
+	<!-- <update id="insertCafePhotoInfo" parameterType="java.util.List">
+	INSERT    	
+	INTO CAPHOTO
+	(
+		C_INO,
+		C_INAME,
+		C_ICHNAME,
+		C_ITYPE,
+		C_CODE
+	)
+	SELECT 'CAI' || CAI.NEXTVAL
+	, A*
+	,'CA' || CA.CURRVAL
+	FROM(
+	<foreach collection="list" item="item" separator="UNION ALL">
+	SELECT
+		#{item.caIName},
+		#{item.caIchName},
+		#{item.caIType} 
+	FROM DUAL
+	</foreach>) A
+	</update> -->
+	
+	<!-- 카페 매장 예약 -->
+	<insert id="insertHereRes" parameterType="CafeRes">
+	INSERT
+	INTO CARES
+	(
+		C_RES,
+        C_RES_TYPE,
+        C_RES_DATE,
+        C_RES_PER,
+        C_CODE,
+        ID,
+        C_RES_ING,
+        C_HERETIME,
+        C_GOTIME
+	)
+	VALUES
+    (
+        'CARES' || CA_RES.NEXTVAL,
+        '매장',
+        #{caResDate},
+        #{caResPer},
+        'CA5',
+        'user01',
+        DEFAULT,
+        #{caResHereTime},
+        NULL
+    )
+	</insert>
+	
+	<!-- 카페 포장 예약 -->
+	<insert id="insertTogoRes" parameterType="CafeRes">
+	INSERT
+	INTO CARES
+	(
+		C_RES,
+        C_RES_TYPE,
+        C_RES_DATE,
+        C_RES_PER,
+        C_CODE,
+        ID,
+        C_RES_ING,
+        C_HERETIME,
+        C_GOTIME
+	)
+	VALUES
+    (
+        'CARES' || CA_RES.NEXTVAL,
+        '포장',
+        #{caResDate},
+        #{caResPer},
+        'CA5',
+        'user01',
+        DEFAULT,
+        NULL,
+        #{caResGoTime}
+    )
+	</insert>
+	
+	
+	 
+</mapper>

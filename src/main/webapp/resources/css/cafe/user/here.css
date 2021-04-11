@@ -84,6 +84,12 @@ text-align: center;
     cursor: pointer;
 }
 
+#confirm:hover{
+    background-color: #749973;
+    color: black;
+    cursor: pointer;
+}
+
 #cancelBtn{
     background-color: #810B0B;
     color: white;

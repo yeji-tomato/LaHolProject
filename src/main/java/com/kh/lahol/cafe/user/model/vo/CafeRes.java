@@ -2,6 +2,8 @@ package com.kh.lahol.cafe.user.model.vo;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,14 +15,16 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class Res {
+public class CafeRes {
 	private String caResNo;
 	private String caResType;
+	@DateTimeFormat(pattern="YY/MM/DD")
 	private Date caResDate;
-	private Date caResStaTime;
-	private Number caResPer;
+	private int caResPer;
 	private String caNo;
 	private String userId;
-	private String caResEndTime;
+	private String caResIng;
+	private String caResHereTime;
+	private String caResGoTime;
 
 }
