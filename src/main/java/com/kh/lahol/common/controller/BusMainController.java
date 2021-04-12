@@ -23,5 +23,11 @@ private static final Logger logger = LoggerFactory.getLogger(BusMainController.c
 		
 		return "main/busMain";
 	}
+	
+	// 에러페이지 
+	@RequestMapping("/common/error")
+	public String error(Locale locale, Model model) {
+		return "common/error";
+	}
 
 }

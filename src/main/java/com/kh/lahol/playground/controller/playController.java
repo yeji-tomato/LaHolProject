@@ -23,7 +23,7 @@ public class playController {
 	}
 	
 	// 플레이그라운드 원두테스트 결과
-	@RequestMapping("/playground/testResult")
+	@RequestMapping("/playground/")
 	public String beanTestResult(Locale locale, Model model) {
 		return "playground/testResult";
 	}

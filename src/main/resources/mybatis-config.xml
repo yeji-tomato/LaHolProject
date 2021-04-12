@@ -14,7 +14,6 @@
 	<typeAliases> 
 		<!-- 스토어  -->
 		<typeAlias type="com.kh.lahol.store.model.vo.Store" alias="Store"/>
-
 		<!-- 일반회원 -->
 		<typeAlias type="com.kh.lahol.member.model.vo.M_Normal" alias="Member_N"/>
 		<!-- 사업자회원 -->
@@ -25,7 +24,6 @@
 		<typeAlias type="com.kh.lahol.member.model.vo.Cafe" alias="M_Cafe"/>
 
 		<typeAlias type="com.kh.lahol.store.model.vo.Search" alias="Search"/>
-
  
 	</typeAliases>
 	
@@ -36,6 +34,8 @@
 		<mapper resource="mappers/store-mapper.xml"/>
 		<!-- member-mapper -->
 		<mapper resource="mappers/member-mapper.xml"/>
+		<!-- admin-mapper -->
+		<mapper resource="mappers/admin-mapper.xml"/>
 	</mappers>
 </configuration>
 

@@ -13,9 +13,9 @@ public class Member {
 	private Date moDate;
 	private String isActive;
 	private String grade;
-	
-	public Member () {}
 
+	Member(){}
+	
 	public Member(String id, String pwd, String email, String name, String phone, String addr, Date enDate, Date moDate,
 			String isActive, String grade) {
 		super();
@@ -30,6 +30,27 @@ public class Member {
 		this.isActive = isActive;
 		this.grade = grade;
 	}
+	
+	public Member(String id, String name, String phone, String email, String isActive) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.phone = phone;
+		this.email = email;
+		this.isActive = isActive;
+	}
+
+	public Member(String id, String email, String name, String phone, String isActive, String grade) {
+		super();
+		this.id = id;
+		this.email = email;
+		this.name = name;
+		this.phone = phone;
+		this.isActive = isActive;
+		this.grade = grade;
+	}
+
+
 
 	public String getId() {
 		return id;
