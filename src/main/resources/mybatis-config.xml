@@ -22,8 +22,10 @@
 		<typeAlias type="com.kh.lahol.member.model.vo.Member" alias="Member"/>
 		<!-- 회원가입 시 Cafe -->
 		<typeAlias type="com.kh.lahol.member.model.vo.Cafe" alias="M_Cafe"/>
-
 		<typeAlias type="com.kh.lahol.store.model.vo.Search" alias="Search"/>
+
+		<!-- 클래스 -->
+ 		<typeAlias type="com.kh.lahol.coffeeclass.model.vo.CoffeeClass" alias="CoffeeClass"/>
 
 
 		<!-- Yeji_Cafe -->
@@ -37,10 +39,11 @@
 	
 	<!-- mappers -->
 	<mappers> 
-	
-		<!-- 스토어 mapper  -->
-		<mapper resource="mappers/store-mapper.xml"/>
-		<!-- member-mapper -->
+		<!-- 스토어 mapper -->
+		<mapper resource="mappers/store-mapper.xml"/> 
+		<!-- 클래스 mapper -->
+		<mapper resource="mappers/coffeeclass-mapper.xml"/> 
+		<!-- 멤버 mapper -->
 		<mapper resource="mappers/member-mapper.xml"/>
 
 		<!-- admin-mapper -->

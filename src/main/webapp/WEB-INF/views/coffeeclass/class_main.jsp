@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,6 +9,8 @@
 
 <!-- search css -->
 <link rel="stylesheet" href="${ contextPath }/resources/css/coffeeclass/main.css">
+<!-- icon css -->
+<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
 
 </head>
 <body>
@@ -30,55 +33,40 @@
                     loop: true
                     }).go();
             </script>           
-            <!-- 서치 -->
-            <main>
-                <div class="search-container">
-                    <div class="search-box">
-                        <div class="search-icon"><i class="fa fa-search search-icon"></i></div>
-                        <form action="" class="search-form">
-                            <input type="text" placeholder="Search" id="search" autocomplete="off" style="margin-left: 18px;">
-                        </form>
-                        <svg class="search-border" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:a="http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/" x="0px" y="0px" viewBox="0 0 671 111" style="enable-background:new 0 0 671 111;"
-                            xml:space="preserve">
-                        <path class="border" d="M335.5,108.5h-280c-29.3,0-53-23.7-53-53v0c0-29.3,23.7-53,53-53h280"/>
-                        <path class="border" d="M335.5,108.5h280c29.3,0,53-23.7,53-53v0c0-29.3-23.7-53-53-53h-280"/>
-                        </svg>
-                        <div class="go-icon"><i class="fa fa-arrow-right"></i></div>
-                    </div>
-                </div>
-            </main>
-            <script>
-            $(document).ready(function(){
-                    $("#search").focus(function() {
-                    $(".search-box").addClass("border-searching");
-                    $(".search-icon").addClass("si-rotate");
-                    });
-                    $("#search").blur(function() {
-                    $(".search-box").removeClass("border-searching");
-                    $(".search-icon").removeClass("si-rotate");
-                    });
-                    $("#search").keyup(function() {
-                        if($(this).val().length > 0) {
-                        $(".go-icon").addClass("go-in");
-                        }
-                        else {
-                        $(".go-icon").removeClass("go-in");
-                        }
-                    });
-                    $(".go-icon").click(function(){
-                    $(".search-form").submit();
-                    });
-                });
-            </script>
-    </section>
+      <!-- 서치 -->
+        <main>
+			<div id="searchArea">
+				<input id="searchValue" placeholder="에티오피아 커피유학생과 수업하고싶다면?"
+				type="search">
+				<button onclick="searchClass()" class="searchBtn">
+					<i class="fa fa-search" aria-hidden="true"></i>
+				</button>
+			</div>
+		</main>
+			
+		<script>
+		    function(searchClass){
+		    	var searchValue = $("#searchValue").val();
+		    	location.href="${ ContextPath}/coffeeclass/search?searchValue" + searchValue;
+		    	
+		    }
+		
+		</script>
+	</section>
     
+  <%--     <!-- 클래스 개설 버튼 -->
+     <c:if test="${ loginUser.id eq ='ADMIN' }">
+     <div style="margin-top: 80px; text-align: center;">
+     	<a href="${ contextPath }/coffeeclass/createclass" class="create-btn" id = "createclass">클래스 개설하기</a>
+     </div>
+     </c:if> --%>
     
     
     <hr style="margin-top: 5%;">
     <!-- 정렬 방식 -->
     <section class="class-content-sc">
     
-    <!-- 필터 -->
+    <!-- 필터 검색 -->
     <div class="filter">
          <select class = "place">
              <option value="">지역</option>
@@ -100,14 +88,24 @@
     <!-- 클래스 정렬 -->
      <div class="classes">
       <h2>마이 클래스</h2>
-      <div class="row">
+      <div class="row">				<!-- 키값 -->
+      	  <c:forEach var="cl" items="${ list }">
+      	  	  <div class="col" id="classdetail">
+              	<img src="${ contextPath }/resources/img/coffeeclass/classphoto/class2.jpg" class ="card-img-top" onclick="">
+              	<h4>${ cl.className }</h4>
+         	  	<p>${ cl.clPrice }</p>
+         	  	<!-- 별점 -->
+         	  </div>
+      	  </c:forEach>
+      	  
+      	  
           <div class="col" id="classdetail">
               <img src="${ contextPath }/resources/img/coffeeclass/classphoto/class1.jpg" class ="card-img-top" onclick="">
               <h4>드립커피 고수되기</h4>
               <p>45000원</p>
               <div class="rating">
               <i class="fa fa-star"></i>
-              <i class="fa fa-star-half"></i>
+			  <i class="fa fa-star"></i>
               </div>
           </div>
           <div class="col" id="classdetail">
@@ -134,7 +132,18 @@
           </div>
 
       </div>
-  </div>
+			<nav aria-label="Page navigation example">
+				<ul class="pagination d-flex justify-content-center">
+					<li class="page-item"><a class="page-link" href="#">Previous</a></li>
+					<li class="page-item"><a class="page-link" href="#">1</a></li>
+					<li class="page-item"><a class="page-link" href="#">2</a></li>
+					<li class="page-item"><a class="page-link" href="#">3</a></li>
+					<li class="page-item"><a class="page-link" href="#">Next</a></li>
+				</ul>
+			</nav>
+		</div>
+  
+  
   <div class="small-container classes">
       <h2>진행중인 클래스</h2>
       <div class="row">
@@ -193,6 +202,15 @@
               </div>
           </div>
       </div>
+      <nav aria-label="Page navigation example">
+				<ul class="pagination d-flex justify-content-center">
+					<li class="page-item"><a class="page-link" href="#">Previous</a></li>
+					<li class="page-item"><a class="page-link" href="#">1</a></li>
+					<li class="page-item"><a class="page-link" href="#">2</a></li>
+					<li class="page-item"><a class="page-link" href="#">3</a></li>
+					<li class="page-item"><a class="page-link" href="#">Next</a></li>
+				</ul>
+			</nav>
   </div>
   <div class="classes">
       <h2>진행예정 / 종료된 클래스</h2>
@@ -240,6 +258,15 @@
               </div>
           </div>
       </div>
+      <nav aria-label="Page navigation example">
+				<ul class="pagination d-flex justify-content-center">
+					<li class="page-item"><a class="page-link" href="#">Previous</a></li>
+					<li class="page-item"><a class="page-link" href="#">1</a></li>
+					<li class="page-item"><a class="page-link" href="#">2</a></li>
+					<li class="page-item"><a class="page-link" href="#">3</a></li>
+					<li class="page-item"><a class="page-link" href="#">Next</a></li>
+				</ul>
+			</nav>
   </div>
 
 	<!-- 상세페이지 이동 -->

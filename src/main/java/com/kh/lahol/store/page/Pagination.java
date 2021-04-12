@@ -19,7 +19,7 @@ public class Pagination {
 		}
 		
 		pi = new PageInfo(currentPage,  listCount, pageLimit, maxPage, startPage, endPage, StoreLimit);
-		
+
 		return pi;
 	}
 }

@@ -140,14 +140,17 @@
                     </tbody>
                   </table>
                   <div class="btnDiv">
-                    <button type="button" class="btn" id = "register-btn" onclick="${ ContextPath }/lahol/coffeeclass/updateclass">
+                  	<c:if test="${ m.name eq cl.trName }">
+                    <button type="button" class= "btn" id = "register-btn" onclick="location.href='${ ContextPath }/coffeeclass/updateclass?classNo=${ cl.classNo }&page=${ param.page }'">
                       클래스 정보수정
                       <i class="fa fa-wrench" aria-hidden="true"></i>
                     </button>                     
                         <!-- Button trigger modal -->
-                      <button type="button" class="btn btn-primary" id = "cart-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                      <button type="button" class="btn btn-primary" id="cart-btn" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="location.href='${ contextPath}/coffeeclass/delete?classNo=${ cl.classNo }'">
                           클래스 삭제
                       <i class="fa fa-trash" aria-hidden="true"></i> 
+                      </button>
+                      </c:if>
                     </div>     
                    
               </div>
@@ -245,9 +248,10 @@
                 </td>
                 <td>
                   작성일자|
-                <td>
+                </td>
                 <td>
                   2020.04.20
+                </td>
                 <td>
                   <button class = "iconbtn">
                   <img src = "../../LaHolFront/resources/images/class/report.png"  class="iconbtn">
