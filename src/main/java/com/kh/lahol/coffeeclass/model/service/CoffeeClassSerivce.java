@@ -17,13 +17,14 @@ public interface CoffeeClassSerivce {
 	public int insertClass(CoffeeClass cl);
 	
 	// 4. 클래스 상세정보 보기
-	public CoffeeClass selectCoffeeClass(int clid);
+	public CoffeeClass selectCoffeeClass(String classNo, boolean b);
 	
 	// 5. 클래스 수정하기 
 	public int updateClass(CoffeeClass cl);
 	
 	// 6. 클래스 삭제하기 
-	public int deleteClass(int clid);
+	public int deleteClass(int classNo);
+
 
 	
 }

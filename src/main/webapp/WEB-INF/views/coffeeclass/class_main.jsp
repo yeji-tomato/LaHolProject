@@ -54,12 +54,12 @@
 		</script>
 	</section>
     
-      <!-- 클래스 개설 버튼 -->
-     <c:if test="${ !empty admin}">
+  <%--     <!-- 클래스 개설 버튼 -->
+     <c:if test="${ loginUser.id eq ='ADMIN' }">
      <div style="margin-top: 80px; text-align: center;">
      	<a href="${ contextPath }/coffeeclass/createclass" class="create-btn" id = "createclass">클래스 개설하기</a>
      </div>
-     </c:if>
+     </c:if> --%>
     
     
     <hr style="margin-top: 5%;">
@@ -95,9 +95,10 @@
               	<h4>${ cl.className }</h4>
          	  	<p>${ cl.clPrice }</p>
          	  	<!-- 별점 -->
-				 
          	  </div>
       	  </c:forEach>
+      	  
+      	  
           <div class="col" id="classdetail">
               <img src="${ contextPath }/resources/img/coffeeclass/classphoto/class1.jpg" class ="card-img-top" onclick="">
               <h4>드립커피 고수되기</h4>

@@ -27,26 +27,26 @@ public class CoffeeClassServiceImpl implements CoffeeClassSerivce{
 
 	@Override
 	public int insertClass(CoffeeClass cl) {
-		// TODO Auto-generated method stub
-		return 0;
+		System.out.println("service : " + cl);
+		return clDao.insertClass(cl);
 	}
 
 	@Override
-	public CoffeeClass selectCoffeeClass(int clid) {
-		// TODO Auto-generated method stub
-		return null;
+	public CoffeeClass selectCoffeeClass(String classNo, boolean b) {
+		return clDao.selectCoffeeClass(classNo);
 	}
+
 
 	@Override
 	public int updateClass(CoffeeClass cl) {
+		return clDao.updateClass(cl);
+	}
+
+	@Override
+	public int deleteClass(int classNo) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
-	@Override
-	public int deleteClass(int clid) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
 
 }

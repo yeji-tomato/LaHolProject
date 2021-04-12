@@ -5,21 +5,29 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 <mapper namespace="clMapper">
 	<resultMap type="CoffeeClass" id="clResultSet" >
 		<id property="classNo" column="CLASS_NO"/>
+		<result property="busNo" column="BUS_NO"/>
 		<result property="cafeNo" column="C_CODE"/>
 		<result property="className" column="CL_NAME"/>
+		<result property="clShortDes" column="CL_SHORTDES"/>
 		<result property="classDes" column="CL_DES"/>
 		<result property="trName" column="TR_NAME"/>
 		<result property="trIntro" column="TR_INTRO"/>
 		<result property="classCurri" column="CL_CURI"/>
 		<result property="studentMax" column="CL_MAX"/>
 		<result property="classDate" column="CL_DATE"/>
+		<result property="classTime" column="CL_TIME"/>
 		<result property="classLoca" column="CL_LOCA"/>
 		<result property="clPrice" column="CL_PRICE"/>
+		<result property="classLvl" column="CL_LEVEL"/>
+		<result property="runtime" column="CL_RUNTIME"/>
 		<result property="blind" column="BLIND"/>
 		<result property="status" column="CL_STATUS"/>
+		<result property="clThumbnail" column="CL_THUMBNAIL"/>
+		<result property="trPhoto" column="TR_PHOTO"/>
+		<result property="clPhoto" column="CLASS_PHOTO"/>
 	</resultMap>
 		
-	<!-- 메인페이지 불러오기 -->
+	<!-- 조회수증가-->
 	<select id="selectListCount" resultType="_int">
 		SELECT
 				COUNT(*)
@@ -28,7 +36,7 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 		 WHERE
 		 		CL_STATUS='Y'
 	</select>
-	
+	<!-- 메인페이지 불러오기 -->
 	<select id="selectList" resultMap="clResultSet">
 		SELECT 
 				  CLASS_NO
@@ -44,14 +52,107 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 				, CL_PRICE
 				, BLIND
 				, CL_STATUS
+				, BUS_NO
+				, CL_SHORTDES
+				, CL_TIME
+				, CL_LEVEL
+				, CL_RUNTIME
+				, CL_THUMBNAIL
+				, TR_PHOTO
+				, CLASS_PHOTO
 		 FROM 
 				COFFEECLASS
 		WHERE	
 				CL_STATUS='Y'
 	 ORDER BY
 				CLASS_NO DESC
-
 	</select>
+	<insert id="insertClass" parameterType="CoffeeClass">	<!-- insert라 리턴타입없음 -->
+	   INSERT
+	   	 INTO	COFFEECLASS
+	   	 (
+				  CLASS_NO
+				, C_CODE
+				, CL_NAME
+				, CL_DES
+				, TR_NAME
+				, TR_INTRO
+				, CL_CURI
+				, CL_MAX
+				, CL_DATE
+				, CL_LOCA
+				, CL_PRICE
+				, BLIND
+				, CL_STATUS
+				, BUS_NO
+				, CL_SHORTDES
+				, CL_TIME
+				, CL_LEVEL
+				, CL_RUNTIME
+				, CL_THUMBNAIL
+				, TR_PHOTO
+				, CLASS_PHOTO
+	   	 )
+	    VALUES
+	    (
+	    		  CL.NEXTVAL
+	    		, #{cafeNo}
+	    		, #{className}
+	    		, #{classDes}
+	    		, #{trName}
+	    		, #{trIntro}
+	    		, #{classCurri}
+	    		, #{studentMax}
+	    		, #{classDate}
+	    		, #{classLoca}
+	    		, #{clPrice}
+	    		, DEFAULT
+	    		, DEFAULT
+	    		, #{busNo}
+	    		, #{clShortDes}
+	    		, #{classTime}
+	    		, #{classLvl}
+	    		, #{clRuntime} 
+	    		, #{clThumbnail}
+	    		, #{trPhoto}
+	    		, #{clPhoto}
+	    )
+
+	</insert>
+	<!-- 상세보기 -->
+	<select id="selectClass" parameterType="_int" resultMap="clResultSet">
+	SELECT 
+				  CLASS_NO
+				, C_CODE
+				, CL_NAME
+				, CL_DES
+				, TR_NAME
+				, TR_INTRO
+				, CL_CURI
+				, CL_MAX
+				, CL_DATE
+				, CL_LOCA
+				, CL_PRICE
+				, BLIND
+				, CL_STATUS
+				, BUS_NO
+				, CL_SHORTDES
+				, CL_TIME
+				, CL_LEVEL
+				, CL_RUNTIME
+		 FROM 
+				COFFEECLASS
+		WHERE	
+				CLASS_NO = #{classNo}
+		  AND	CL_STATUS='Y'
+	 ORDER BY
+				CLASS_NO DESC
+	</select>
+	<update id = "updateClass" parameterType="CoffeeClass">
+	   UPDATE
+	   			
+	
+	</update>
 	
 	 
 </mapper>

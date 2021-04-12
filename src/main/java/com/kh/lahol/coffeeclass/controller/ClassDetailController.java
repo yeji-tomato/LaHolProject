@@ -6,15 +6,5 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class ClassDetailController {
 	
-	@GetMapping("/coffeeclass/classdetail")
-	public String classdetail() {
-		return "coffeeclass/class_detail";
-	}
-
-	
-	@GetMapping("/coffeeclass/busdetail")
-	public String busdetail() {
-		return "coffeeclass/bus_classdetail";
-	}
 
 }

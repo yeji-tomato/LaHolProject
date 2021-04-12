@@ -25,5 +25,13 @@
 		<constructor-arg ref="sqlSession"/>
 	</bean>
 	
+	<!-- 파일업로드를 위한 Bean등록 -->
+	<!-- MulitpartResolver -->
+	<bean id="multipartResolver"
+	class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name = "maxUploadSize" value = "100000000"/>
+		<property name = "maxInMemorySize" value = "100000000"/>
+	</bean>
+	
 		
 </beans>

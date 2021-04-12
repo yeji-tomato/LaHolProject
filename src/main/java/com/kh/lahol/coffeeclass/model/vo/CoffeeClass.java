@@ -17,8 +17,10 @@ import lombok.ToString;
 public class CoffeeClass{
 	
 	private String classNo;
+	private String busNo;
 	private String cafeNo;
 	private String className;
+	private String clShortDes;
 	private String classDes;
 	private String trName;
 	private String trIntro;
@@ -27,9 +29,15 @@ public class CoffeeClass{
 	private Date classDate;
 	private String classLoca;
 	private String clPrice;
+	private String classLvl;
+	private int runtime;
 	private String blind;
 	private String status;
-	
+	private String classTime;
+	private String clRuntime;
+	private String clThumbnail;
+	private String trPhoto;
+	private String clPhoto;
 	
 
 }

@@ -30,20 +30,18 @@ public class CoffeeClassDaoImpl implements CoffeeClassDao{
 
 	@Override
 	public int insertClass(CoffeeClass cl) {
-		// TODO Auto-generated method stub
-		return 0;
+		System.out.println("dao : " + cl);
+		return sqlSession.insert("clMapper.insertClass", cl);
 	}
 
 	@Override
-	public CoffeeClass selectCoffeeClass(int clid) {
-		// TODO Auto-generated method stub
-		return null;
+	public CoffeeClass selectCoffeeClass(String classNo) {
+		return sqlSession.selectOne("clMapper.selectClass", classNo);
 	}
 
 	@Override
 	public int updateClass(CoffeeClass cl) {
-		// TODO Auto-generated method stub
-		return 0;
+		return sqlSession.update("clMapper.updateClass", cl);
 	}
 
 	@Override
@@ -51,5 +49,6 @@ public class CoffeeClassDaoImpl implements CoffeeClassDao{
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
 
 }
