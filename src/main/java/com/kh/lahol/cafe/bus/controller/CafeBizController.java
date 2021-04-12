@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -21,10 +22,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.lahol.cafe.bus.model.service.CafeBizService;
 import com.kh.lahol.cafe.bus.model.vo.Cafe;
 import com.kh.lahol.cafe.bus.model.vo.Caphoto;
+import com.kh.lahol.cafe.user.model.exception.CafeException;
 import com.kh.lahol.cafe.user.model.service.CafeService;
 import com.kh.lahol.cafe.user.model.vo.CafeRes;
 
@@ -44,7 +47,7 @@ public class CafeBizController {
 								@RequestParam(name="imgfile4") MultipartFile file3,
 								@RequestParam(name="cafeAddress1") String cafeAddress1,
 								@RequestParam(name="cafeAddress2") String cafeAddress2,
-								HttpServletRequest request) {
+								HttpServletRequest request) throws CafeException {
 		
 		c.setCaAddress(cafeAddress1 + "," + cafeAddress2);
 		
@@ -90,12 +93,11 @@ public class CafeBizController {
 		int result = caBizService.insertCafeInfo(c);
 		
 		if(result > 0) {
-			
+			return "cafe/bus/confirm";
 		}else {
-			
+			throw new CafeException("카페 정보 등록에 실패하였습니다.");
 		}
 		
-		return null;
 		
 	}
 	
@@ -127,6 +129,34 @@ public class CafeBizController {
 	   }
 	
 	
+	@GetMapping("/confirm")
+	public ModelAndView cafeList(ModelAndView mv) {
+		List<Cafe> Cafelist = caBizService.selectCafeList();
+		
+		if(Cafelist != null) {
+			mv.addObject("Cafelist", Cafelist);
+			mv.setViewName("cafe/bus/confirm");
+		}else {
+			mv.addObject("msg", "해당하는 카페 조회에 실패하였습니다.");
+			mv.setViewName("common/error");
+		}
+		
+		return mv;
+	}
 	
+	@GetMapping("/caDetail")
+	public String caDetail(@RequestParam String caCode,
+							Model model) {
+		Cafe ca = caBizService.selectCafeInfo(caCode);
+		
+		if(ca != null) {
+			model.addAttribute("Cafe", ca);
+			return "cafe/bus/upCafe";
+		}else {
+			model.addAttribute("msg", "등록된 카페 보기에 실패하였습니다.");
+			return "common/error";
+		}
+		
+	}
 
 }

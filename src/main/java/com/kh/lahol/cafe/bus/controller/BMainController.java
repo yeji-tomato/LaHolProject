@@ -47,12 +47,12 @@ public class BMainController {
 	}
 	
 	
-	@RequestMapping(value = "/cafe/confirm", method = RequestMethod.GET)
-	public String confirm(Locale locale, Model model) {
-		
-		
-		return "cafe/bus/confirm";
-	}
+//	@RequestMapping(value = "/cafe/confirm", method = RequestMethod.GET)
+//	public String confirm(Locale locale, Model model) {
+//		
+//		
+//		return "cafe/bus/confirm";
+//	}
 	
 	@RequestMapping(value = "/cafe/upCafe", method = RequestMethod.GET)
 	public String upCafe(Locale locale, Model model) {

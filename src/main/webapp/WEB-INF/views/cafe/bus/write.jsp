@@ -69,6 +69,7 @@
             <h2>카페 등록</h2>
             <hr>
             <form action="${ contextPath }/cafe/biz/insert" id="uploadForm" method="post" enctype="multipart/form-data">
+                <input type="text" name="caId" value="${ loginUser.id }">
                 <div class="container">
                     <div class="writeArea">
                         <!-- 카페명 -->
@@ -312,7 +313,7 @@
                             <a class="btn btn-sm animated-button thar-three" id="writeBtn">
                                 <i class="fa fa-long-arrow-right" aria-hidden="true"></i> 
                                 &nbsp; 
-                                <input type="submit" value="음료 입력"/>
+                                <input type="submit" value="음료 입력" class="subBtn"/>
                             </a>
                         </div>
                         

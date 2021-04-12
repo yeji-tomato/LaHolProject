@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -78,17 +79,18 @@
                         </tr>
                         </thead>
                         <tbody id="tbody">
-                            <tr>
-                                <td>1</td>
-                                <td>카페 1호점</td>
-                                <td>경기도 용인시 기흥구 동백 10로 62 103번길</td>
-                                <td>AM 10:00 - PM 11:00</td>
-                                <td class="grad" id="updateDetail">
+                        <c:forEach var="ca" items="${ Cafelist }">
+                        <tr>
+                                <td>${ ca.caCode }</td>
+                                <td>${ ca.caName }</td>
+                                <td>${ ca.caAddress }</td>
+                                <td>${ ca.caStartTime } - ${ ca.caEndTime }</td>
+                                <td class="grad" id="updateDetail" onclick="location.href='${ contextPath }/cafe/biz/caDetail?caCode=${ ca.caCode }'">
                                     <button id="detailBtn" class="btn-icon">
                                         <i class="fa fa-sign-in" aria-hidden="true"></i>
                                     </button>
                                 </td>
-                                <td class="grad" id="coffeeMenu">
+                                <td class="grad" id="coffeeMenu" onclick="location.href='${ contextPath }/cafe/biz/upCoffee?caCode=${ ca.caCode }'">
                                     <button id="coffeeBtn" class="btn-icon">
                                         <i class="fa fa-coffee" aria-hidden="true"></i>
                                     </button>
@@ -99,43 +101,9 @@
                                     </button>
                                 </td>
                             </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>카페 2호점</td>
-                                <td>경기도 용인시 기흥구 동백 10로 62 103번길</td>
-                                <td>AM 10:00 - PM 11:00</td>
-                                <td class="grad" id="updateDetail">
-                                    <button id="detailBtn" class="btn-icon">
-                                        <i class="fa fa-sign-in" aria-hidden="true"></i>
-                                    </button>
-                                </td>
-                                <td class="grad">
-                                    <button id="coffeeBtn" class="btn-icon">
-                                        <i class="fa fa-coffee" aria-hidden="true"></i>
-                                    </button>
-                                </td>
-                                <td class="grad">
-                                    <button id="deleteBtn" class="btn-icon">
-                                        <i class="fa fa-trash" aria-hidden="true"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                            
+                        </c:forEach>
                     </tbody>
                 </table>
-                <script>
-                    // 상세 설명
-                    const cafeDetail = document.getElementById("updateDetail");
-                    cafeDetail.addEventListener("click", function(){
-                        location.href="${ contextPath }/cafe/upCafe";
-                    });
-
-                    // 커피 메뉴
-                    const coffeeMenu = document.getElementById("coffeeMenu");
-                    coffeeMenu.addEventListener("click", function(){
-                        location.href="${ contextPath }/cafe/upCoffee";
-                    });
-                </script>
         </div>
     </div>
     <script>
