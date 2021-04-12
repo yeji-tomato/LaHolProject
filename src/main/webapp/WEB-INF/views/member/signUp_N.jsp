@@ -247,10 +247,10 @@
                     <input type="tel" id="phone" name="phone" maxlength="11" placeholder="핸드폰 번호(-제외)를 입력하세요">
 
                     <h3 class="subTitle2">우편번호</h3>
-                    <input type="text" id="address" name="address" class="postcodify_postcode5" placeholder="우편번호 검색">
+                    <input type="text" id="address" name="address" class="postcodify_postcode5" placeholder="우편번호 검색" readonly>
                     <button type="button" id="postcodify_search_button" class="searchAddress">검색</button><br>
                     <h3 class="subTitle2">도로명주소</h3>
-                    <input type="text" id="address1" name="address1" class="postcodify_address" placeholder="우편번호 검색">
+                    <input type="text" id="address1" name="address1" class="postcodify_address" placeholder="우편번호 검색" readonly>
                     <h3 class="subTitle2">상세주소</h3>
                     <input type="text" name="address2" class="postcodify_details" placeholder="상세주소를 입력하세요">
                 </div>

@@ -19,4 +19,11 @@ public interface MemberDao {
 	public int insertpMember2(M_Partner m);
 
 	public int insertCafe(Cafe c);
+
+	public Member idSearch(Member m);
+
+	public Member pwdSearch(Member m);
+
+	public int updatePwd(Member m);
+
 }
