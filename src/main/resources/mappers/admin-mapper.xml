@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="adminMapper">
+	<select id="selectNormalList" resultType="Member_N">
+		SELECT
+		       M.ID
+		     , NICKNAME
+		     , NAME
+		     , PHONE
+		     , EMAIL
+		     , BLIND
+		     , CASE ISACTIVE WHEN 'Y%' THEN '../../resources/img/admin/icon/active.svg'
+                             WHEN 'N' THEN '../../resources/img/admin/icon/inactive.svg'
+                             ELSE '../../resources/img/admin/icon/active.svg'
+               END AS ISACTIVE
+		  FROM
+		       MEMBER M
+	 LEFT JOIN
+	           M_NORMAL N ON(M.ID = N.ID)
+	     WHERE
+	     	   GRADE = 'N'
+	</select>
+</mapper>

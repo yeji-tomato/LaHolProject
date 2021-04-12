@@ -68,14 +68,14 @@
             <div class="cafe-write-form">
             <h2>카페 등록</h2>
             <hr>
-            <form action="${ contextPath }/cafe/insert" id="writeBusForm" method="post" enctype="multipart/form-data">
+            <form action="${ contextPath }/cafe/biz/insert" id="uploadForm" method="post" enctype="multipart/form-data">
                 <div class="container">
                     <div class="writeArea">
                         <!-- 카페명 -->
                         <div class="row" id="divRow">
                             <div class="col">
                                 <h3 class="write-title">카페명</h3>
-                                <input type="text" id="text" class="cateTit"  name="cafeName" placeholder="카페명으로 노출될 문구를 작성해주세요.(ex. 커피한잔)"/>
+                                <input type="text" id="text" class="cateTit"  name="caName" placeholder="카페명으로 노출될 문구를 작성해주세요.(ex. 커피한잔)"/>
                             </div>
                             <div class="col writeSpan">
                                 <!-- 운영시간 -->
@@ -85,13 +85,13 @@
                                     시작시간
                                 </div>
                                 <div class="col-4">
-                                    <input type="time" id="text" value="xxx" min="yyy" max="zzz">
+                                    <input type="time" id="text" value="xxx" min="yyy" max="zzz" name="caStartTime">
                                 </div>
                                 <div class="col-2">
                                     종료시간
                                 </div>
                                 <div class="col-4">
-                                    <input type="time" id="text" value="xxx" min="yyy" max="zzz">
+                                    <input type="time" id="text" value="xxx" min="yyy" max="zzz" name="caEndTime">
                                 </div>
                                 </div>
                             </div>
@@ -162,25 +162,89 @@
                         <!-- 카페 주소 -->
                         <div class="row" id="divRow">
                             <h3 class="write-title">카페 주소</h3>
-                            <div class="col-8">
+                            <div class="col-6">
                                 <div class="row">
                                     <p style="color: #CDC2AF;">도로명 주소</p>
                                     <div class="col-8">
-                                        <input type="text" id="text" class="cateTit" id="ad"  name="cafeName"/>
+                                        <!-- <input type="text" id="text" class="cateTit" id="ad"  name="cafeAddress1"   id="sample5_address" class="postcodify address"/> -->
+                                        <input type="text" id="sample5_address" class="cateTit ad" placeholder="주소" name="cafeAddress1" readonly >
                                     </div>
                                     <div class="col-4">
-                                        <button id="cafeAddBtn">주소 검색</button>
+                                        <!-- <input type="button" id="cafeAddBtn" id="postcodify_search_button" onclick="sample5_execDaumPostcode()" value="주소 검색"> -->
+                                        <input type="button" onclick="sample5_execDaumPostcode()" id="cafeAddBtn" value="주소 검색">
                                     </div>
                                     <div class="col-10">
                                         <p style="color: #CDC2AF; margin-top: 1%;">상세 주소</p>
-                                        <input type="text" id="text" class="cateTit" id="ad"  name="cafeName"/>
+                                        <input type="text" id="text" class="cateTit" id="ad"  name="cafeAddress2" placeholder="상세주소"/>
                                     </div>
                                 </div>
                             </div>
+                            <!-- 위도 -->
+							<input type="hidden" id="la" name="caLa">
+							<!-- 경도 -->
+							<input type="hidden" id="lo" name="caLo">
                             <div class="col-4">
-                                <!-- 주소 지도 표시 되는 곳 -->
+                                <div id="map"></div>
                             </div>
                         </div>
+                        
+                        <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+						<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=3400cb260ccc2b8ecfb54e177422380a&libraries=services&libraries=services"></script>
+						<script>
+						    var mapContainer = document.getElementById('map'), // 지도를 표시할 div
+						        mapOption = {
+						            center: new daum.maps.LatLng(37.537187, 127.005476), // 지도의 중심좌표
+						            level: 5 // 지도의 확대 레벨
+						        };
+						
+						    //지도를 미리 생성
+						    var map = new daum.maps.Map(mapContainer, mapOption);
+						    //주소-좌표 변환 객체를 생성
+						    var geocoder = new daum.maps.services.Geocoder();
+						    //마커를 미리 생성
+						    var marker = new daum.maps.Marker({
+						        position: new daum.maps.LatLng(37.537187, 127.005476),
+						        map: map
+						    });
+						
+						
+						    function sample5_execDaumPostcode() {
+						        new daum.Postcode({
+						            oncomplete: function(data) {
+						                var addr = data.address; // 최종 주소 변수
+						
+						                // 주소 정보를 해당 필드에 넣는다.
+						                document.getElementById("sample5_address").value = addr;
+						                // 주소로 상세 정보를 검색
+						                geocoder.addressSearch(data.address, function(results, status) {
+						                    // 정상적으로 검색이 완료됐으면
+						                    if (status === daum.maps.services.Status.OK) {
+						
+						                        var result = results[0]; //첫번째 결과의 값을 활용
+						
+						                        // 해당 주소에 대한 좌표를 받아서
+						                        var coords = new daum.maps.LatLng(result.y, result.x);
+						                     	// 위도 경도 input에 넣기
+												var la = result.y;
+												var lo = result.x;
+												document.getElementById("la").value = la;
+												document.getElementById("lo").value = lo;
+												console.log(la);
+						                        // 지도를 보여준다.
+						                        mapContainer.style.display = "block";
+						                        map.relayout();
+						                        // 지도 중심을 변경한다.
+						                        map.setCenter(coords);
+						                        // 마커를 결과값으로 받은 위치로 옮긴다.
+						                        marker.setPosition(coords)
+						                    }
+						                });
+						            }
+						        }).open();
+						    }
+						</script>
+			
+                        
                         <!-- 편의사항 -->
                         <div class="row" id="divRow">
                             <div class="col-3">
@@ -217,7 +281,7 @@
                                         <i class="fa fa-car" aria-hidden="true"></i>
                                     </div>
                                     <div class="col-8">
-                                        <select name="car" id="select">
+                                        <select name="parking" id="select">
                                         <option selected disabled>주차장</option>
                                         <option value="주차장 있음">주차장 있음</option>
                                         <option value="주차장 없음">주차장 없음</option>
@@ -228,7 +292,7 @@
                             <div class="col-8">
                                 <!-- 메세지 -->
                                 <h3 class="write-title">메세지</h3>
-                                <textarea id="ta"></textarea>
+                                <textarea id="ta" name="message"></textarea>
                                 <div id="ta_cnt" style="float: right;">(0 / 100)</div>
                             <script>
                                 $(document).ready(function() {
@@ -244,21 +308,44 @@
                             </script>
                             </div>
                         </div>
-                        
                         <div class="writeBtn">
-                            <a href="${ contextPath }/cafe/coffee" class="btn btn-sm animated-button thar-three">
-                                <i class="fa fa-long-arrow-right" aria-hidden="true"></i> &nbsp; 음료 입력
+                            <a class="btn btn-sm animated-button thar-three" id="writeBtn">
+                                <i class="fa fa-long-arrow-right" aria-hidden="true"></i> 
+                                &nbsp; 
+                                <input type="submit" value="음료 입력"/>
                             </a>
                         </div>
                         
                     </div>
-                    </form>
+           			</form>
                 </div>
                 <div>
             
             </div>
         </div>
+        <script>
+        	/* $(function(){
+        		$("#writeBtn").on("click", function(){
+        			
+        			var form = new FormData(document.getElementById('uploadForm'));
+        			
+        			
+           			$.ajax({
+        				url : "${ contextPath }/cafe/biz/insert",
+        				data : form,
+        				type: "POST",
+        				success : function(data){
+        					alert("카페 등록이 성공적으로 되었습니다!");
+        					location.href='${ contextPath }/bus/coffee';
+        				},
+        				error : function(e){
+        					console.log(e);
+        				}
+        			});
+        		});
+        	}); */
         
+        </script>
     </div>
     </div>
     

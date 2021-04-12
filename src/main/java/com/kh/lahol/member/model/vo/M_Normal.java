@@ -16,6 +16,14 @@ public class M_Normal extends Member {
 		this.isPostable = isPostable;
 		this.nickname = nickname;
 	}
+	
+	public M_Normal(String id, String name, String phone, String email, String isActive, String nickname, int blind) {
+		super(id, name, phone, email, isActive);
+		this.nickname = nickname;
+		this.blind = blind;
+	}
+	
+	
 
 	public int getBlind() {
 		return blind;

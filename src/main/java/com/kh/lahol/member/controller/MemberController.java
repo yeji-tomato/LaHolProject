@@ -231,4 +231,64 @@ public class MemberController {
 		return "member/searchPwd";
 	}
 	
+	@PostMapping("/searchId")
+	public String searchId(@ModelAttribute Member m,
+			               Model model) {
+		Member searchMember = mService.idSearch(m);
+		if(searchMember != null) {
+			model.addAttribute("searchMember", searchMember);
+			return "member/searchIdResult";
+		} else {
+			model.addAttribute("msg", "아이디를 찾을 수 없습니다.");
+			return "member/searchId";
+		}
+	}
+	
+	@PostMapping("/searchPwd")
+	public String searchPwd(@ModelAttribute Member m,
+			                Model model) {
+		Member searchMember = mService.pwdSearch(m);
+		if(searchMember != null) {
+			model.addAttribute("searchMember", searchMember);
+			return "member/searchPwdResult";
+		} else {
+			model.addAttribute("msg", "비밀번호를 찾을 수 없습니다.");
+			return "member/searchPwd";
+		}
+	}
+	
+	@PostMapping("/tempPwd")
+	public void tempPwd(@ModelAttribute Member m,
+			            HttpServletResponse response) {
+		try {
+			PrintWriter out = response.getWriter();
+			
+			String[] pwdArr = "1,2,3,4,5,6,7,8,9,0,a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z".split(",");
+			String tempPwd = "";
+			
+			for(int i = 0; i < 8; i++) {
+				tempPwd += pwdArr[(int) Math.floor(Math.random() * pwdArr.length)];
+			}
+			
+			System.out.println(tempPwd);
+			
+			String encPwd = bcryptPasswordEncoder.encode(tempPwd);
+			m.setPwd(encPwd);
+			
+			// 임시비밀번호 update
+			int result = mService.updatePwd(m);
+			
+			if(result > 0) {
+				String emailResult = mService.sendEmail(m, "tempPwd", tempPwd);
+				out.print(emailResult);
+			} else {
+				out.print("임시비밀번호 발급에 실패하였습니다.");
+			}
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		
+	}
 }

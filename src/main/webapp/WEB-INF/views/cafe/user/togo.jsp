@@ -66,7 +66,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <form>
+                    
                     <tr>
                         <td colspan="2" class="tdName"><h4>날짜</h4></td>
                     </tr>
@@ -75,7 +75,7 @@
                             <input
                             id="date"
                             class="datepicker"
-                            name="date"
+                            name="caResDate"
                             type="text"
                             autofocuss
                             value="DD MONTH, YYYY">
@@ -86,11 +86,9 @@
                     </tr>
                     <tr>
                         <td class="tdTogo">
-                            <input type="time" id="text" value="xxx" min="yyy" max="zzz" class="timeSelect">
+                            <input type="time" id="text" value="xxx" min="yyy" max="zzz" class="timeSelect" name="caResGoTime">
                         </td>
                     </tr>
-
-                </form>
                 </tbody>
                 </table>
             </div>
@@ -99,7 +97,7 @@
                     MENU
                 </button> -->
                 <!-- <input class="modal-ck" type="checkbox" id="modal-ck" name="modal-ck"/> -->
-                <button class="btnCafe" id="confirm" onclick="location.href='${ contextPath }/cafe/beverage'">
+                <button class="btnCafe" id="confirm">
                     확인
                 </button>	
                 <button class="btnCafe" id="cancelBtn" onclick="goBack()">
@@ -119,37 +117,43 @@
  <%@include file="./pickadate/legacy.jsp" %>      
 <script>
     $('.datepicker').pickadate();
+    console.log($(".timeSelect").val());
 </script>
 <script>
-    $(".add").click(function(){
-        var num = $(".numBox").val();
-        var plusNum = Number(num)+1;
-
-        if(plusNum >= 11){
-            $(".numBox").val(num);
-        }else{
-            $(".numBox").val(plusNum);
-        }
-    });
-
-    $(".sub").click(function(){
-        var num = $(".numBox").val();
-        var minusNum = Number(num)-1;
-
-        if(minusNum <= 0){
-            $(".numBox").val(num);
-        }else{
-            $(".numBox").val(minusNum);
-        }
-    });
-  
-    
+     
     function goBack() { 
     	window.history.back(); 
     }
     
     
     
+</script>
+<script>
+	$(function(){
+		
+		$("#confirm").on("click", function(){
+			
+			const Date = $("#date").val();
+			const  caResTime = $(".timeSelect").val();
+			
+			$.ajax({
+				url:"${ contextPath }/cafe/togo/insert",
+				type : "post",
+				data : {
+					caDate : Date,
+					caResTime : caResTime
+				},
+				success : function(data){
+					alert("포장 예약이 완료 되었습니다!");
+					location.href='${ contextPath }/cafe/beverage';
+				},
+				error : function(e){
+					console.log(e);
+				}
+			});
+		});
+	});
+
 </script>
 
 	<!-- footer -->

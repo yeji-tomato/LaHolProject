@@ -59,33 +59,33 @@
 		    typeName : 'A',
 		    productList : [
 		        { productName: 'Queen City', productImg: '${ contextPath }/resources/img/playground/creamy1.png'},
-		        { productName: 'Gayo River', productImg: '../../../resources/img/playground/creamy2.png'},
-		        { productName: 'Peru Sabancaya', productImg: '../../../resources/img/playground/creamy3.png'},
+		        { productName: 'Gayo River', productImg: '${ contextPath }/resources/img/playground/creamy2.png'},
+		        { productName: 'Peru Sabancaya', productImg: '${ contextPath }/resources/img/playground/creamy3.png'},
 		    ],
 		    typeDesc : '남미에서 주로 생산되며 산미가 강하지않고 부드러워 자꾸 찾게되는 프리미엄 크리미 원두입니다.',
-		    beanImg : '../../../resources/beanA.png'
+		    beanImg : '${ contextPath }/resources/img/playground/beanA.png'
 		};
 
 		var bType = {
 		    'typeName' : 'B',
 		    'productList' : [
-		        { 'productName': 'Bisto Blend', 'productImg': '../resources/dark1.png'},
-		        { 'productName': 'French Roast', 'productImg': '../resources/dark2.png'},
-		        { 'productName': 'Guatemala Fnv', 'productImg': '../resources/dark3.png'},
+		        { 'productName': 'Bisto Blend', 'productImg': '${ contextPath }/resources/img/playground/dark1.png'},
+		        { 'productName': 'French Roast', 'productImg': '${ contextPath }/resources/img/playground/dark2.png'},
+		        { 'productName': 'Guatemala Fnv', 'productImg': '${ contextPath }/resources/img/playground/dark3.png'},
 		    ],
 		    'typeDesc' : '엄선한 원두를 원두이탈리안 로스트라고도 불리는 다크로스팅을 거쳐 풀 바디감과 풍부한 맛과 향이 특징입니다',
-		    'beanImg' : '../resources/beanB.png'
+		    'beanImg' : '${ contextPath }/resources/img/playground/beanB.png'
 		};
 
 		var cType = {
 		    'typeName' : 'C',
 		    'productList' : [
-		        { 'productName': 'Espresso', 'productImg': '../resources/sugary1.png'},
-		        { 'productName': 'Caffe Del Sol', 'productImg': '../resources/sugary2.png'},
-		        { 'productName': 'Caffe Luna', 'productImg': '../resources/sugary3.png'},
+		        { 'productName': 'Espresso', 'productImg': '${ contextPath }/resources/img/playground/sugary1.png'},
+		        { 'productName': 'Caffe Del Sol', 'productImg': '${ contextPath }/resources/img/playground/sugary2.png'},
+		        { 'productName': 'Caffe Luna', 'productImg': '${ contextPath }/resources/img/playground/sugary3.png'},
 		    ],
 		    'typeDesc' : '브라질 남부에서 주로 생산되는 밀크 초콜릿과 카라멜의 부드러운 향이 캐슈넛을 지탱해 주는 중독성이 강한 원두입니다',
-		    'beanImg' : '../resources/beanC.png'
+		    'beanImg' : '${ contextPath }/resources/img/playground/beanC.png'
 		};
 
 		// 타입 리스트

@@ -73,4 +73,19 @@ public class MemberDaoImpl implements MemberDao{
 		return sqlSession.insert("memberMapper.insertCafe", c);
 	}
 
+	@Override
+	public Member idSearch(Member m) {
+		return sqlSession.selectOne("memberMapper.idSearch", m);
+	}
+
+	@Override
+	public Member pwdSearch(Member m) {
+		return sqlSession.selectOne("memberMapper.pwdSearch", m);
+	}
+
+	@Override
+	public int updatePwd(Member m) {
+		return sqlSession.update("memberMapper.updatePwd", m);
+	}
+
 }

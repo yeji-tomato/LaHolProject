@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -247,6 +248,12 @@
     </style>
 </head>
 <body>
+	<c:if test="${ !empty msg }">
+		<script>
+			Swal.fire('${msg}');
+		</script>
+		<c:remove var="msg"/>
+	</c:if>
     <div id="cover_1"></div>
     <div class="bg" id="bg1"></div>
     <div id="cover"></div>
@@ -284,7 +291,7 @@
                 </ul>
                 <span></span>
                 <div class="returnMain">
-                    <button type="button" id="goMain" onclick="${ contextPath }">메인으로</button>
+                    <button type="button" id="goMain" onclick="location.href='${ contextPath }'">메인으로</button>
                 </div>
             </div>
         </div>
@@ -312,13 +319,19 @@
             }
 
             if(userPNo.value == "") {
-                alert('생년월일을 입력해주세요.');
+            	Swal.fire({
+					title : '핸드폰번호를 입력해주세요.',
+					icon : 'warning'
+				});
                 userPNo.focus();
                 return;
             }
 
             if(userEmail.value == "") {
-                alert('이메일을 입력해주세요.');
+            	Swal.fire({
+					title : '이메일을 입력해주세요.',
+					icon : 'warning'
+				});
                 userEmail.focus();
                 return;
             }
@@ -327,7 +340,7 @@
                 return;
             }
 
-            if(!chk(/^[\d]{6}$/, userPNo, "생년월일을 다시 입력해주세요.")) {
+            if(!chk(/^[\d]{11}$/, userPNo, "핸드폰번호를 다시 입력해주세요.")) {
                 return;
             }
 
@@ -340,7 +353,10 @@
             if(reg.test(e.value)) {
                 return true;
             }
-            alert(msg);
+            Swal.fire({
+				title : msg,
+				icon : 'warning'
+			});
             e.value = "";
             e.focus();
             return false;

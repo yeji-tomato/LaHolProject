@@ -22,4 +22,17 @@ public interface MemberService {
 
 	// 사업자 회원가입 시 카페 정보 입력
 	public int insertCafe(Cafe c);
+
+	// 아이디 찾기
+	public Member idSearch(Member m);
+
+	// 비밀번호 찾기
+	public Member pwdSearch(Member m);
+
+	// 임시비밀번호 발급
+	public int updatePwd(Member m);
+
+	// 이메일 발송
+	public String sendEmail(Member m, String div, String tempPwd);
+
 }
