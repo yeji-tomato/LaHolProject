@@ -1,11 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="${ contextPath }/resources/css/common/fonts.css" type="text/css">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <title>LaHol - Search ID</title>
     <style>
         html {
@@ -59,6 +61,10 @@
             width: 100%;
             height: 100%;
             margin: auto;
+        }
+        
+        .wrapper * {
+        	font-family: 'NEXON Lv1 Gothic OTF';
         }
 
         .login_wrapper {
@@ -232,9 +238,22 @@
                 height : 978px;
             }
         }
+        
+        .swal2-confirm,
+        .swal2-cancel,
+        .swal2-html-container,
+        .swal2-title {
+        	font-family: 'NEXON Lv1 Gothic OTF';
+        }
     </style>
 </head>
 <body>
+	<c:if test="${ !empty msg }">
+		<script>
+			Swal.fire('${msg}');
+		</script>
+		<c:remove var="msg"/>
+	</c:if>
     <div id="cover_1"></div>
     <div class="bg" id="bg1"></div>
     <div id="cover"></div>
@@ -252,16 +271,16 @@
                 </div>
                 <form method="POST" id="idSearch_form" action="${ contextPath }/member/searchId">
 
-                    <input type="text" id="userName" name="userName" placeholder="이름" onkeydown="onKeyDown();">
-                    <input type="text" id="userPNo" name="userPNo" placeholder="생년월일[000000(6자리) 입력]" onkeydown="onKeyDown();">
-                    <input type="email" id="userEmail" name="userEmail" placeholder="이메일" onkeydown="onKeyDown();">
+                    <input type="text" id="userName" name="name" placeholder="이름" onkeydown="onKeyDown();">
+                    <input type="text" id="userPNo" name="phone" placeholder="핸드폰번호('-'제외)" maxlength="11" onkeydown="onKeyDown();">
+                    <input type="email" id="userEmail" name="email" placeholder="이메일" onkeydown="onKeyDown();">
                     <button type="button" class="login_ok" onclick="onSubmit();">아이디 찾기</button>
 
                 </form>
 
                 <ul class="list">
                     <li>
-                        <a href="${ contextPath }/member/signUp">회원가입</a>
+                        <a href="${ contextPath }/member/signUpView">회원가입</a>
                     </li>
                     <li>
                         <a href="${ contextPath }/member/idSearch">아이디 찾기</a>
@@ -272,7 +291,7 @@
                 </ul>
                 <span></span>
                 <div class="returnMain">
-                    <button type="button" id="goMain" onclick="${ contextPath }">메인으로</button>
+                    <button type="button" id="goMain" onclick="location.href='${ contextPath }'">메인으로</button>
                 </div>
             </div>
         </div>
@@ -291,19 +310,28 @@
             var userEmail = document.getElementById("userEmail");
 
             if(userName.value == "") {
-                alert('이름을 입력해주세요.');
+            	Swal.fire({
+					title : '이름을 입력해주세요.',
+					icon : 'warning'
+				});
                 userName.focus();
                 return;
             }
 
             if(userPNo.value == "") {
-                alert('생년월일을 입력해주세요.');
+            	Swal.fire({
+					title : '핸드폰번호를 입력해주세요.',
+					icon : 'warning'
+				});
                 userPNo.focus();
                 return;
             }
 
             if(userEmail.value == "") {
-                alert('이메일을 입력해주세요.');
+            	Swal.fire({
+					title : '이메일을 입력해주세요.',
+					icon : 'warning'
+				});
                 userEmail.focus();
                 return;
             }
@@ -312,7 +340,7 @@
                 return;
             }
 
-            if(!chk(/^[\d]{6}$/, userPNo, "생년월일을 다시 입력해주세요.")) {
+            if(!chk(/^[\d]{11}$/, userPNo, "핸드폰번호를 다시 입력해주세요.")) {
                 return;
             }
 
@@ -325,7 +353,10 @@
             if(reg.test(e.value)) {
                 return true;
             }
-            alert(msg);
+            Swal.fire({
+				title : msg,
+				icon : 'warning'
+			});
             e.value = "";
             e.focus();
             return false;

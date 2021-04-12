@@ -189,7 +189,7 @@
 <body>
 	<c:if test="${ !empty msg }">
 		<script>
-			alert('${msg}');
+			Swal.fire('${msg}');
 		</script>
 		<c:remove var="msg"/>
 	</c:if>
@@ -247,10 +247,10 @@
                     <input type="tel" id="phone" name="phone" maxlength="11" placeholder="핸드폰 번호(-제외)를 입력하세요">
 
                     <h3 class="subTitle2">우편번호</h3>
-                    <input type="text" id="address" name="address" class="postcodify_postcode5" placeholder="우편번호 검색">
+                    <input type="text" id="address" name="address" class="postcodify_postcode5" placeholder="우편번호 검색" readonly>
                     <button type="button" id="postcodify_search_button" class="searchAddress">검색</button><br>
                     <h3 class="subTitle2">도로명주소</h3>
-                    <input type="text" name="address1" class="postcodify_address" placeholder="우편번호 검색">
+                    <input type="text" id="address1" name="address1" class="postcodify_address" placeholder="우편번호 검색" readonly>
                     <h3 class="subTitle2">상세주소</h3>
                     <input type="text" name="address2" class="postcodify_details" placeholder="상세주소를 입력하세요">
                 </div>
@@ -263,7 +263,15 @@
     <script src="//d1p7wdleee1q2z.cloudfront.net/post/search.min.js"></script>
 
     <!-- "검색" 단추를 누르면 팝업 레이어가 열리도록 설정한다 -->
-    <script> $(function() { $("#postcodify_search_button").postcodifyPopUp(); }); </script>
+    <script>
+    	$(function() { $("#postcodify_search_button").postcodifyPopUp(); });
+    	$("#address").click(function(){
+			$("#postcodify_search_button").trigger('click');
+		});
+		$("#address1").click(function(){
+			$("#postcodify_search_button").trigger('click');
+		});	
+   	</script>
     <script>
    		var isUsable = false;
    		var isUsableNick = false;
@@ -471,6 +479,15 @@
                 userPwd2.focus();
                 return;
             }
+            
+            if(userPwd.value != userPwd2.value) {
+            	Swal.fire({
+					title : '비밀번호가 일치하지 않습니다.',
+					icon : 'warning'
+				});
+                userPwd2.focus();
+                return;
+            }
 
             if (userName.value == "") {
             	Swal.fire({
@@ -488,6 +505,22 @@
 				});
                 birthday.value = "";
                 birthday.focus();
+                return;
+            }
+            
+            if($("#address").val() == "") {
+            	Swal.fire({
+					title : '주소를 입력해주세요.',
+					icon : 'warning'
+				});
+                return;
+            }
+            
+            if($("#address1").val() == "") {
+            	Swal.fire({
+					title : '주소를 입력해주세요.',
+					icon : 'warning'
+				});
                 return;
             }
 

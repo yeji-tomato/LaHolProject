@@ -34,17 +34,24 @@
 		                <div class="search-container">
 		                    <div class="search-box">
 		                        <div class="search-icon"><i class="fa fa-search search-icon"></i></div>
-		                        <form action="${ contextPath }/store/search" method="get" class="search-form">
+		                       <form action="${ contextPath }/store/search" method="get" class="search-form"  >
+		                       		 <c:if test="${ param.searchCondition == 'title' }"> 
 		                            <input type="search" name="searchValue" value="${ param.searchValue }" placeholder="Search" id="search" autocomplete="off">
+		                            </c:if>
+		                             <c:if test="${ param.searchCondition != 'title' }"> 
+		                            <input type="search" name="searchValue"   placeholder="Search" id="search" autocomplete="off">
+		                            </c:if> 
+		                             <button class="go-icon" name="searchCondition" value="title" type="submit"><i class="fa fa-arrow-right"></i></button>
 		                        </form>
 		                        <svg class="search-border" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:a="http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/" x="0px" y="0px" viewBox="0 0 671 111" style="enable-background:new 0 0 671 111;"
 		                            xml:space="preserve">
 		                        <path class="border" d="M335.5,108.5h-280c-29.3,0-53-23.7-53-53v0c0-29.3,23.7-53,53-53h280"/>
 		                        <path class="border" d="M335.5,108.5h280c29.3,0,53-23.7,53-53v0c0-29.3-23.7-53-53-53h-280"/>
 		                        </svg>
-		                        <div class="go-icon"><i class="fa fa-arrow-right"></i></div>
+		                       
 		                    </div>
 		                </div>
+		                
 		             
 		            <script>
 		            $(document).ready(function(){
@@ -64,21 +71,21 @@
 		                        $(".go-icon").removeClass("go-in");
 		                        }
 		                    });
-		                    $(".go-icon").click(function(){
-		                    $(".search-form").submit();
-		                    });
+		                  
 		                });
 		            </script>
 			
 			
 			
-			
-	                <div class="cat">
+		
+	                 <div class="cat">
+	                 <form action="${ contextPath }/store/search" method="get"  ><input name="searchCondition" value="category" style="width:0px; ,height:0px;height: 0px;padding-left: 0px;padding-bottom: 0px;border-right-width: 0px;border-left-width: 0px;border-bottom-width: 0px;padding-top: 0px;padding-right: 0px;border-top-width: 0px;">
 	                        <div class="ca">
-	                            <div id="category" style="color:white;  text-align: center;  "> category</div>
-	                            <button>전체</button><button>식품</button><button>커피머신</button><button>식기류</button><button>텀블러</button><button>커피</button><button>접시</button><button>굿즈</button><button>기타</button><button>d</button>      
+	                            <div id="category" style="color:white;  text-align: center;" > category</div>
+	                            <button name="searchValue"  value="이벤트" >이벤트</button><button name="searchValue"  value="식품">식품</button><button name="searchValue"  value="머신">커피머신</button><button name="searchValue"  value="식기류">식기류</button><button   name="searchValue" value="텀블러" >텀블러</button><button name="searchValue"  value="커피">커피</button><button name="searchValue"  value="접시">접시</button><button name="searchValue"  value="굿즈">굿즈</button><button name="searchValue"  value="기타">기타</button><button name="searchValue"  value="원두">원두</button>      
 	 
 	                        </div> 
+	                     </form>
 	                </div>
 
       
@@ -108,13 +115,13 @@
 					<c:forEach var="s" items="${ list2 }">
 	                    <div class="product" onclick="selectStore(${s.PR_CODE});"  > 
 	                        <div class="scale" > 
-	                            <img  src="${ contextPath }/resources/img/store/STUDY.PNG" width="350px" height="300px" >  
+	                            <img  src="${ contextPath }/resources/img/store/${ s.STORE_PHOTO1 }" width="350px" height="300px" >  
 	                        </div>    
 	                        <div class="if" style="float:left; width: 350px;  ">
 	                        <center>
 	                        <h4 ><a style="color:red;"><인기></a>${ s.PR_NAME }</h4>
-	                            <h5 style="color: #96877D"> ${ s.PR_PRICE }</h5>
-	                            <h6 style="color: #96877D">${ s.ORIGIN }</h6> 
+	                            <h5 style="color: #810B0B"> ${ s.PR_PRICE }</h5>
+	                            <h6 style="color:#935039 ">#${ s.ORIGIN } <a style="color:#96877D "> #${ s.ST_CATAGORY} </a></h6> 
 	                        </center>
 	                        </div>
 	                        <button  id="ifb">바로구매 <i class="fa fa-credit-card-alt" aria-hidden="true"></i></button>  
@@ -137,13 +144,13 @@
 					<c:forEach var="s" items="${ list }">
                     <div class="product"  onclick="selectStore(${s.PR_CODE});"  > 
                         <div class="scale" > 
-                            <img  src="${ contextPath }/resources/img/store/STUDY.PNG" width="350px" height="300px " >  
+                            <img  src="${ contextPath }/resources/img/store/${ s.STORE_PHOTO1 }" width="350px" height="300px " >  
                         </div>    
                         <div class="if" style="float:left; width: 350px;  ">
                         <center>
                         <h4 >${ s.PR_NAME }</h4>
-                            <h5 style="color: #96877D"> ${ s.PR_PRICE }</h5>
-                            <h6 style="color: #96877D">${ s.ORIGIN }</h6> 
+                            <h5 style="color: #810B0B"> ${ s.PR_PRICE }</h5>
+                            <h6 style="color:#935039 ">#${ s.ORIGIN } <a style="color:#96877D "> #${ s.ST_CATAGORY} </a></h6> 
                         </center>
                         </div>
                         <button  id="ifb">바로구매 <i class="fa fa-credit-card-alt" aria-hidden="true"></i></button>  
@@ -153,6 +160,14 @@
 					</c:forEach>
 					           
                 <div class="paing" style="float: right;position: relative;left: -50%;width: 100%;left: 0px;right: 0px;" >
+	                <c:if test="${param.searchValue eq null }">
+						<c:set var="loc" value="/store/list" scope="page"/>
+					</c:if>
+						
+					<c:if test="${param.searchValue ne null}" >
+							<c:set var="loc" value="/store/search?searchCondition=${ param.searchCondition }&searchValue=${ param.searchValue}" scope="page"/> 
+					</c:if>
+					
 	                <table style="margin-left:40%;">
 		                <tr>
 							<td colspan="6">
@@ -161,30 +176,46 @@
 								[이전] &nbsp;
 							</c:if>
 							<c:if test="${ pi.currentPage > 1 }">
-								<c:url var="before" value="/store/list">
+								<c:url var="before" value="${ loc }">
 									<c:param name="page" value="${ pi.currentPage -1 }" />
+									<c:if test="${param.searchValue ne null} }">
+										<c:param name="searchCondition" value="${ param.searchCondition }  "/>
+										<c:param name="searchValue" value="${ param.searchValue}  "/>
+									</c:if>
 								</c:url>
 								<a href="${ before }">[이전]</a> &nbsp;
 							</c:if>
+							
+							
 							<!-- 페이지 숫자 -->
 							<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
 								<c:if test="${ p eq pi.currentPage }">
 									<font color="red" size="4"><b>[${ p }]</b></font> &nbsp;
 								</c:if>
 								<c:if test="${ p ne pi.currentPage }">
-									<c:url var="pagination" value="/store/list">
+									<c:url var="pagination" value="${ loc}">
 										<c:param name="page" value="${ p }"/>
+										 <c:if test="${param.searchValue ne null} }">
+												<c:param name="searchCondition" value="${ param.searchCondition}  "/>
+												<c:param name="searchValue" value="${ param.searchValue}  "/>
+									     </c:if>
 									</c:url>
 									<a href="${ pagination }">${ p }</a> &nbsp;
 								</c:if>
 							</c:forEach>
+							
+							
 							<!-- [다음] -->
 							<c:if test="${ pi.currentPage >= pi.maxPage }">
 								[다음]
 							</c:if>
 							<c:if test="${ pi.currentPage < pi.maxPage }">
-								<c:url var="after" value="/board/list">
+								<c:url var="after" value="${ loc}">
 									<c:param name="page" value="${ pi.currentPage + 1 }" />
+									<c:if test="${param.searchValue ne null} }">
+												<c:param name="searchCondition" value="${param.searchCondition} "/>
+												<c:param name="searchValue" value="${param.searchValue} "/>
+									     </c:if>
 								</c:url>
 								<a href="${ after }">[다음]</a>
 							</c:if>
@@ -192,12 +223,12 @@
 						</tr>
 	                </table> 
                 </div>
-                 
+                 <c:if test="${ !empty sessionScope.loginUser }">
 		                 <div id="bu" style="width:60%;  height: 50px;   float:left;">
-		                    <button id="management" style="margin-top: 0px;float:left;margin-left: 1300px;"  onClick="location.href=' ${ contextPath }/store/list2'" >  스토어 관리  </button>   
+		                    <button id="management" style="margin-top: 0px;float:left;margin-left: 1300px;"   onClick="location.href=' ${ contextPath }/store/list2'" >  스토어 관리  </button>   
 		                  
 		                </div>
-                 
+                 </c:if>
              
                  
                 

@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -59,6 +61,10 @@
             width: 100%;
             height: 100%;
             margin: auto;
+        }
+        
+        .wrapper * {
+        	font-family: 'NEXON Lv1 Gothic OTF';
         }
 
         .login_wrapper {
@@ -254,18 +260,20 @@
                         <img src="${ contextPath }/resources/img/common/logo-lahol2.png">
                     </div>
                     <span>
-                        <b id="userNameTab">OOO님</b>의 아이디
+                        <b id="userNameTab">${ searchMember.name }님</b>의 아이디
                     </span>
 
                 </div>
                 <div class="confirmIdDiv">
-                    <p>abcdefg</p>
+                <c:set var="id" value="${ searchMember.id }"/>
+                <c:set var="idLength" value="${ fn:length(id) - 3 }"/>
+                    <p>${ fn:substring(id, 0, idLength) }***</p>
 
                 </div>
                 <button type="button" class="login_ok" onclick="location.href='${contextPath}/member/loginView'">확인</button> <!-- 로그인 화면으로 -->
                 <ul class="list">
                     <li>
-                        <a href="${ contextPath }/member/signUp">회원가입</a>
+                        <a href="${ contextPath }/member/signUpView">회원가입</a>
                     </li>
                     <li>
                         <a href="${ contextPath }/member/idSearch">아이디 찾기</a>
@@ -276,7 +284,7 @@
                 </ul>
                 <span></span>
                 <div class="returnMain">
-                    <button type="button" id="goMain" onclick="${ contextPath }">메인으로</button>
+                    <button type="button" id="goMain" onclick="location.href='${ contextPath }'">메인으로</button>
                 </div>
             </div>
         </div>

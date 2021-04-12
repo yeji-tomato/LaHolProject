@@ -1,11 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="${ contextPath }/resources/css/common/fonts.css" type="text/css">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <title>LaHol - Search PWD</title>
     <style>
         html {
@@ -59,6 +62,10 @@
             width: 100%;
             height: 100%;
             margin: auto;
+        }
+        
+        .wrapper * {
+        	font-family: 'NEXON Lv1 Gothic OTF';
         }
 
         .login_wrapper {
@@ -240,6 +247,13 @@
                 height : 936px;
             }
         }
+        
+        .swal2-confirm,
+        .swal2-cancel,
+        .swal2-html-container,
+        .swal2-title {
+        	font-family: 'NEXON Lv1 Gothic OTF';
+        }
     </style>
 </head>
 <body>
@@ -251,36 +265,63 @@
             <div class="login_area">
                 <div class="login_header">
                     <div class="login_logo">
-                        <img src="../resources/images/img_common/logo-lahol2.png">
+                        <img src="${ contextPath }/resources/img/common/logo-lahol2.png">
                     </div>
                     <span>
-                        <b id="userIdTab">OOO님</b>의 비밀번호 <!-- 아이디로 보여주기 -->
+                        <b id="userIdTab">${ searchMember.id }님</b>의 비밀번호 <!-- 아이디로 보여주기 -->
                     </span>
 
                 </div>
                 <div class="confirmIdDiv">
-                    <p>abcdefg</p>
+                    <p>임시비밀번호를 발급받아 이용하세요.</p>
 
                 </div>
-                <button type="button" class="okBtn" onclick="location.href='loginView.html'">확인</button> <!-- 로그인 화면으로 -->
-                <button type="button" class="okBtn" onclick="location.href='temporaryPwd.html'">임시비밀번호 발급</button>
+                <button type="button" class="okBtn" onclick="location.href='${ contextPath }/member/loginView'">로그인</button> <!-- 로그인 화면으로 -->
+                <input type="hidden" id="memId" value="${ searchMember.id }">
+                <input type="hidden" id="memEmail" value="${ searchMember.email }">
+                <button type="button" id="tempPwdBtn" class="okBtn">임시비밀번호 발급</button>
                 <ul class="list">
                     <li>
-                        <a href="joinMember.html">회원가입</a>
+                        <a href="${ contextPath }/member/signUpView">회원가입</a>
                     </li>
                     <li>
-                        <a href="idSearch.html">아이디 찾기</a>
+                        <a href="${ contextPath }/member/idSearch">아이디 찾기</a>
                     </li>
                     <li>
-                        <a href="pwdSearch.html">비밀번호 찾기</a>
+                        <a href="${ contextPath }/member/pwdSearch">비밀번호 찾기</a>
                     </li>
                 </ul>
                 <span></span>
                 <div class="returnMain">
-                    <button type="button" id="goMain" onclick="history.back();">메인으로</button>
+                    <button type="button" id="goMain" onclick="location.href='${contextPath}'">메인으로</button>
                 </div>
             </div>
         </div>
     </div>
+    <script>
+    	$(function() {
+    		var userId = $("#memId").val();
+    		var userEmail = $("#memEmail").val();
+    		$("#tempPwdBtn").on('click', function() {
+    			$.ajax({
+    				url : "tempPwd",
+    				type : "POST",
+    				data : {
+    					id : userId,
+    					email : userEmail
+    				},
+    				success : function(data){
+    					Swal.fire({
+							title : data,
+							icon : 'success'
+						})
+    				},
+    				error : function(e) {
+    					console.log(e);
+    				}
+    			});
+    		});
+    	});
+    </script>
 </body>
 </html>

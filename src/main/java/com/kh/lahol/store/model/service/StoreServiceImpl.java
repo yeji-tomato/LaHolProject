@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.lahol.store.model.dao.StoreDao;
 import com.kh.lahol.store.model.vo.PageInfo;
-import com.kh.lahol.store.model.vo.Search;
+import com.kh.lahol.store.model.vo.Search; 
 import com.kh.lahol.store.model.vo.Store;
 
 @Service
@@ -15,6 +15,7 @@ public class StoreServiceImpl implements StoreService {
 	@Autowired
 	private StoreDao sDao;
 	
+	//게시글수 카운트 
 	@Override
 	public int selectListCount() { 
 		return sDao.selectListCount();
@@ -28,36 +29,8 @@ public class StoreServiceImpl implements StoreService {
 	
 	@Override
 	public List<Store> selectList2(PageInfo pi2) {
-		// TODO Auto-generated method stub
-		return null;
+		return sDao.selectList2(pi2);
 	}
-
-	@Override
-	public int insertStore(Store s) { 
-		return 0;
-	}
-
-	@Override
-	public Store selectStore(int PR_CODE, boolean falg) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public int updateStore(Store s) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int deleteStore(int PR_CODE) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	 
-	 
- 
 
  
 
@@ -71,6 +44,27 @@ public class StoreServiceImpl implements StoreService {
 		return sDao.searchList(search , pi);
 	}
 
+ 
+	@Override
+	public Store selectStore(int PR_CODE, boolean falg) {
+		
+		 if(falg) sDao.updateReadCount(PR_CODE);
+		 return sDao.selectStore(PR_CODE);
+	}
+	
+	//스토어 관리 
+	@Override
+	public List<Store> myselectList(PageInfo pi, String id) {
+		return sDao.myselectList(pi,id);
+		 
+	}
+	//스토어 내가쓴 글 카운트 
+	@Override
+	public int mySearchCount(String id) { 
+		return sDao.mySearchCount(id);
+	}
+
+ 
 
 
 }

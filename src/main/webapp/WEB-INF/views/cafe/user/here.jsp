@@ -66,7 +66,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <form>
+                        
                         <tr>
                             <td colspan="2" class="tdName"><h4>날짜</h4></td>
                         </tr>
@@ -75,7 +75,7 @@
                                 <input
                                 id="date"
                                 class="datepicker"
-                                name="date"
+                                name="caResDate"
                                 type="text"
                                 autofocuss
                                 value="DD MONTH, YYYY">
@@ -86,7 +86,7 @@
                         </tr>
                         <tr>
                             <td class="tdHere">
-                                <select class="timeSelect">
+                                <select class="timeSelect" name="caResHereTime">
                                     <option disabled selected>예약은 2시간만 이용가능합니다.</option>
                                     <option>10:00 - 12:00</option>
                                     <option>12:00 - 14:00</option>
@@ -104,12 +104,12 @@
                             <td class="tdHere">
                                 <fieldset data-quantity class="person">
                                     <button type="button" title="Down" class="sub">Down</button>
-                                    <input type="number" class="numBox" min="1" max="10" readonly>
+                                    <input type="number" name="caResPer" class="numBox" min="1" max="10" readonly>
                                     <button type="button" title="Up" class="add">Up</button>
                                 </fieldset>
                             </td>
                         </tr>
-                    </form>
+   
                     </tbody>
                     </table>
                 </div>
@@ -118,7 +118,7 @@
                         MENU
                     </button> -->
                     <!-- <input class="modal-ck" type="checkbox" id="modal-ck" name="modal-ck"/> -->
-                    <button class="btnCafe" id="confirm" onclick="location.href='${ contextPath }/cafe/beverage'">
+                    <button class="btnCafe" id="confirm">
                         확인
                     </button>	
                     <button class="btnCafe" id="cancelBtn"  onclick="goBack()">
@@ -131,7 +131,7 @@
 
     </div>
 </div>
-
+<script href="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
     <!-- pickadate.js  -->
     <%@include file="./pickadate/picker.jsp" %>
     <%@include file="./pickadate/picker.date.jsp" %>
@@ -143,12 +143,13 @@
         $(".add").click(function(){
             var num = $(".numBox").val();
             var plusNum = Number(num)+1;
-
+            
             if(plusNum >= 11){
                 $(".numBox").val(num);
             }else{
                 $(".numBox").val(plusNum);
             }
+            
         });
 
         $(".sub").click(function(){
@@ -166,6 +167,39 @@
     	window.history.back(); 
     }
 
+    </script>
+    
+
+    <!-- ajax post 보내기 -->
+    <script type="text/javascript">
+    	$(function(){
+    		
+    		$("#confirm").on("click", function(){
+    			
+    			const Date = $("#date").val();
+        		var caResHereTime = $("select[name=caResHereTime] option:selected").text();
+        		var caResPer = $(".numBox").val();
+        		
+    			$.ajax({
+    				url:"${ contextPath }/cafe/here/insert",
+    				type : "post",
+    				data : {
+    					caDate : Date,
+    					caResHereTime : caResHereTime,
+    					caResPer : caResPer
+    				},
+    				success : function(data){
+    					alert("매장 예약이 완료 되었습니다!");
+    					location.href='${ contextPath }/cafe/beverage';
+    				},
+    				error : function(e){
+    					console.log(e);
+    				}
+    			});
+    		});
+    	});
+    
+    
     </script>
     
     <!-- footer -->
