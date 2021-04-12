@@ -33,6 +33,6 @@ public interface MemberService {
 	public int updatePwd(Member m);
 
 	// 이메일 발송
-	public String sendEmail(Member m, String div);
+	public String sendEmail(Member m, String div, String tempPwd);
 
 }

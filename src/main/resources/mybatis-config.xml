@@ -43,6 +43,8 @@
 		<mapper resource="mappers/member-mapper.xml"/>
 		<!-- Cafe mapper -->
 		<mapper resource="mappers/cafe-mapper.xml"/>
+		<!-- nMypage mapper -->
+		<mapper resource="mappers/mypage-mapper.xml"/>
 	</mappers>
 </configuration>
 

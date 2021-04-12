@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>마이페이지-회원 탈퇴</title>
+<title>마이페이지-관심 목록</title>
     <!-- menubar css -->
     <link rel="stylesheet" href="${ contextPath }/resources/css/common/menubar.css">
     <!-- side menubar css -->
@@ -53,64 +53,74 @@
             margin-top : 30px;
             justify-content: flex-start;
             width : 90%;
-            height : 90%;
             flex-direction: column;
-
-            background : rgba(243, 215, 152, 0.6);
-            border-radius: 20px;
         }
 
-        .content-title {
-            display: flex;
-            justify-content: center;
-            align-items: flex-end;
-            height: 30%;
+        .content-div .content-header {
+            text-align: left;
+            margin-bottom: 30px;
         }
 
-        .input-div {
-            display: flex;
-            height: 30%;
-            justify-content: center;
-        }
-
-        .input-div form {
-            margin : auto;
-            display: flex;
-            justify-content: center;
-            align-content: center;
-        }
-
-        .input-div span {
-            margin : 15px;
-            margin-left: 0;
-        }
-
-        .input-div input {
+        .content-div .content-header select {
+            width : 150px;
+            height: 40px;
+            margin-bottom: 10px;
             outline: none;
-            border : 1px solid #c7c7c7;
-            padding : 10px;
-
-            transition : border 0.3s;
         }
 
-        .input-div input:focus {
-            border: 1px solid #4B654A;
-            transition: border 0.3s;
-        }
-
-        .delete-btn {
+        .content-div .content-header input[type=submit] {
+            width : 100px;
             outline: none;
-            border : none;
-            width : 120px;
-            height : 40px;
-
-            background: #4B654A;
             color : #fff;
+            background: #4B654A;
+            border : none;
         }
 
-        #cancel-btn {
-            background: #e7e7e7;
-            color : #000000;
+        .content-table {
+            min-height: 550px;
+        }
+
+        .content-div #list-table {
+            text-align: center;
+            border-collapse: collapse;
+            border-top : 2px solid #5A452E;
+            border-bottom : 2px solid #5A452E;
+        }
+
+        .content-div #list-table td {
+            padding : 10px;
+        }
+
+        .content-div #list-table tr:not(:first-child) {
+            height: 50px;
+        }
+
+        .content-div #list-table tr:first-child {
+            background: #5A452E;
+            border-bottom: 2px solid #5A452E;
+            color : white;
+
+            height: 30px !important;
+        }
+
+        .content-div #list-table tr:first-child td:nth-child(1) {
+            width : 100px;
+        }
+
+        .content-div #list-table tr:first-child td:nth-child(2) {
+            width : 200px;
+        }
+
+        .content-div #list-table tr:first-child td:nth-child(3) {
+            width : 500px;
+        }
+
+        .content-div #list-table tr:first-child td:nth-child(4) {
+            width : 200px;
+        }
+
+        .content-div #list-table tr:first-child td:nth-child(5) {
+            width : 300px;
         }
 
     </style>
@@ -175,7 +185,7 @@
         <script>
             $(function() {
                 $(".side-item").removeClass("active");
-                $(".side-item:nth-child(6)").addClass("active");
+                $(".side-item:nth-child(5)").addClass("active");
 
             $(".side-item").click(function(e) {
                     e.preventDefault();
@@ -190,23 +200,40 @@
         <div id="mp" class="col-mp">
             <!-- 이부분에 내용 작성 -->
             <div class="content-div">
-                <div class="content-title">
-                    <h3>회원 탈퇴</h3>
-                </div>
-                <div class="input-div">
+                <div class="content-header">
                     <form>
-                        <h3>정말 탈퇴 하시겠습니까?</h3>
+                        <select id="pay-category">
+                            <option value="">전체</option>
+                            <option value="cReservation">카페예약</option>
+                            <option value="class">클래스</option>
+                            <option value="coffee">원두</option>
+                            <option value="store">스토어</option>
+                        </select>
                     </form>
                 </div>
-                <div class="btn-div">
-                    <button class="delete-btn" id="ok-btn">탈퇴</button>
-                    <button class="delete-btn" id="cancel-btn" onclick="location.href='${contextPath}/mypage/homeView'">취소</button>
+                <div class="content-table">
+                    <table id="list-table">
+                        <tr>
+                            <td>번호</td>
+                            <td>카테고리</td>
+                            <td>물품명</td>
+                            <td>판매자</td>
+                            <td>등록일</td>
+                        </tr>
+                        <tr>
+                            <td>aa</td>
+                        </tr>
+                    </table>
+                </div>
+                <!-- 페이징 추가 해야 함 -->
+                <div class="paging-div">
+                    페이징
                 </div>
             </div>
         </div>
         
     </div>
-	<!-- footer -->
+    <!-- footer -->
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 </body>
 </html>
