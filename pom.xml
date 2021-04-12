@@ -244,7 +244,13 @@
 		    <version>0.2.7</version>
 		</dependency>
 		 
-		
+		<!-- 이메일 발송 -->
+		<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-email -->
+		<dependency>
+		    <groupId>org.apache.commons</groupId>
+		    <artifactId>commons-email</artifactId>
+		    <version>1.5</version>
+		</dependency>
 		     
 	</dependencies>
 	

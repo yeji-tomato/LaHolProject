@@ -1,11 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="${ contextPath }/resources/css/common/fonts.css" type="text/css">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <title>LaHol - Search PWD</title>
     <style>
         html {
@@ -244,6 +247,13 @@
                 height : 936px;
             }
         }
+        
+        .swal2-confirm,
+        .swal2-cancel,
+        .swal2-html-container,
+        .swal2-title {
+        	font-family: 'NEXON Lv1 Gothic OTF';
+        }
     </style>
 </head>
 <body>
@@ -258,16 +268,18 @@
                         <img src="${ contextPath }/resources/img/common/logo-lahol2.png">
                     </div>
                     <span>
-                        <b id="userIdTab">OOO님</b>의 비밀번호 <!-- 아이디로 보여주기 -->
+                        <b id="userIdTab">${ searchMember.id }님</b>의 비밀번호 <!-- 아이디로 보여주기 -->
                     </span>
 
                 </div>
                 <div class="confirmIdDiv">
-                    <p>abcdefg</p>
+                    <p>임시비밀번호를 발급받아 이용하세요.</p>
 
                 </div>
-                <button type="button" class="okBtn" onclick="location.href='${ contextPath }/member/loginView'">확인</button> <!-- 로그인 화면으로 -->
-                <button type="button" class="okBtn" onclick="location.href='#'">임시비밀번호 발급</button>
+                <button type="button" class="okBtn" onclick="location.href='${ contextPath }/member/loginView'">로그인</button> <!-- 로그인 화면으로 -->
+                <input type="hidden" id="memId" value="${ searchMember.id }">
+                <input type="hidden" id="memEmail" value="${ searchMember.email }">
+                <button type="button" id="tempPwdBtn" class="okBtn">임시비밀번호 발급</button>
                 <ul class="list">
                     <li>
                         <a href="${ contextPath }/member/signUpView">회원가입</a>
@@ -286,5 +298,30 @@
             </div>
         </div>
     </div>
+    <script>
+    	$(function() {
+    		var userId = $("#memId").val();
+    		var userEmail = $("#memEmail").val();
+    		$("#tempPwdBtn").on('click', function() {
+    			$.ajax({
+    				url : "tempPwd",
+    				type : "POST",
+    				data : {
+    					id : userId,
+    					email : userEmail
+    				},
+    				success : function(data){
+    					Swal.fire({
+							title : data,
+							icon : 'success'
+						})
+    				},
+    				error : function(e) {
+    					console.log(e);
+    				}
+    			});
+    		});
+    	});
+    </script>
 </body>
 </html>
