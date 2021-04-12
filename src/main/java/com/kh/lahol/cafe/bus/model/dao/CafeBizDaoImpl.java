@@ -1,6 +1,7 @@
 package com.kh.lahol.cafe.bus.model.dao;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,16 @@ public class CafeBizDaoImpl implements CafeBizDao{
 	@Override
 	public int insertCafeInfo(Cafe c) {
 		return sqlSession.insert("cafeMapper.insertCafeInfo", c);
+	}
+
+	@Override
+	public List<Cafe> selectCafeList() {
+		return sqlSession.selectList("cafeMapper.selectCafeList");
+	}
+
+	@Override
+	public Cafe selectCafeInfo(String caCode) {
+		return sqlSession.selectOne("cafeMapper.selectCafeInfo", caCode);
 	}
 
 	/*

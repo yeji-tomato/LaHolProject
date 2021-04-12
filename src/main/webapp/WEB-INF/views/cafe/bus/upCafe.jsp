@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -73,7 +74,7 @@
                         <div class="row" id="divRow">
                             <div class="col">
                                 <h3 class="write-title">카페명</h3>
-                                <input type="text" id="text" class="cateTit"  name="cafeName" placeholder="카페명으로 노출될 문구를 작성해주세요.(ex. 커피한잔)" value="딸기나라"/>
+                                <input type="text" id="text" class="cateTit"  name="cafeName" placeholder="카페명으로 노출될 문구를 작성해주세요.(ex. 커피한잔)" value="${ Cafe.caName }"/>
                             </div>
                             <div class="col writeSpan">
                                 <!-- 운영시간 -->
@@ -83,13 +84,13 @@
                                     시작시간
                                 </div>
                                 <div class="col-4">
-                                    <input type="time" id="text" value="10:00" min="yyy" max="zzz">
+                                    <input type="time" id="text" value="${ Cafe.caStartTime }" min="yyy" max="zzz">
                                 </div>
                                 <div class="col-2">
                                     종료시간
                                 </div>
                                 <div class="col-4">
-                                    <input type="time" id="text" value="22:00" min="yyy" max="zzz">
+                                    <input type="time" id="text" value="${ Cafe.caEndTime }" min="yyy" max="zzz">
                                 </div>
                                 </div>
                             </div>
@@ -101,22 +102,22 @@
                         <p style="color: #CDC2AF;">대표사진 한 장은 필수로 입력해야 합니다. 최대 4장까지 사진 입력이 가능합니다.</p>
                         <div class="col">
                             <div id="thumbnail1" class="thumbnail">
-                                <img src="https://i.pinimg.com/564x/dd/05/f0/dd05f0c1aea3848bd7cda3c4530f4b82.jpg" style="width: 260px; height:230px" >
+                                <img src="${ contextPath }/resources/nuploadFiles/cafeImg/${ Cafe.mainPhoto }" style="width: 260px; height:230px" >
                             </div>
                         </div>
                         <div class="col">
                             <div id="thumbnail2" class="thumbnail">
-                                <img src="https://i.pinimg.com/564x/5d/29/89/5d2989b2cd070f88e24a4aff2f4d9bd0.jpg" style="width: 260px; height:230px" >
+                                <img src="${ contextPath }/resources/nuploadFiles/cafeImg/${ Cafe.photo1 }" style="width: 260px; height:230px" >
                             </div>
                         </div>
                         <div class="col">
                             <div id="thumbnail3" class="thumbnail">
-                                <img src="https://i.pinimg.com/564x/ef/03/03/ef0303b50e04ef0242b6429da17c8ab1.jpg" style="width: 260px; height:230px" >
+                                <img src="${ contextPath }/resources/nuploadFiles/cafeImg/${ Cafe.photo2 }" style="width: 260px; height:230px" >
                             </div>
                         </div>
                         <div class="col">
                             <div id="thumbnail4" class="thumbnail">
-                                <img src="https://i.pinimg.com/564x/44/a7/4a/44a74a40039f7e99b75b2d1492b63d1f.jpg" style="width: 260px; height:230px" >
+                                <img src="${ contextPath }/resources/nuploadFiles/cafeImg/${ Cafe.photo3 }" style="width: 260px; height:230px" >
                             </div>
                         </div>
                         
@@ -169,17 +170,28 @@
                         <div class="row" id="divRow">
                             <h3 class="write-title">카페 주소</h3>
                             <div class="col-8">
+                            <c:forTokens var="addr" items="${ Cafe.caAddress }" delims="," varStatus="status">
+                            <c:if test="${ status.index eq 0 }">
+                            	<c:set var="addr1" value="${ addr }"/>
+                            </c:if>
+                            <c:if test="${ status.index eq 1 }">
+                            	<c:set var="addr2" value="${ addr }"/>
+                            </c:if>
+                            <c:if test="${ status.index eq 2 }">
+                            	<c:set var="addr3" value="${ addr }"/>
+                            </c:if>
+                            </c:forTokens>
                                 <div class="row">
                                     <p style="color: #CDC2AF;">도로명 주소</p>
                                     <div class="col-8">
-                                        <input type="text" id="text" class="cateTit" id="ad"  name="cafeName" value="경기도 용인시"/>
+                                        <input type="text" id="text" class="cateTit" id="ad"  name="cafeName" value="${ addr1 }"/>
                                     </div>
                                     <div class="col-4">
                                         <button id="cafeAddBtn">주소 검색</button>
                                     </div>
                                     <div class="col-10">
                                         <p style="color: #CDC2AF; margin-top: 1%;">상세 주소</p>
-                                        <input type="text" id="text" class="cateTit" id="ad"  name="cafeName" value="딸기나라 딸기마을"/>
+                                        <input type="text" id="text" class="cateTit" id="ad"  name="cafeName" value="${ addr2 }"/>
                                     </div>
                                 </div>
                             </div>
@@ -198,9 +210,9 @@
                                     </div>
                                     <div class="col-8">
                                         <select name="wifi" id="select">
-                                        <option selected disabled>와이파이</option>
-                                        <option value="와이파이 있음" selected>와이파이 있음</option>
-                                        <option value="와이파이 없음">와이파이 없음</option>
+                                        <option disabled>와이파이</option>
+                                        <option value="와이파이 있음" <c:if test="${Cafe.wifi eq '와이파이 있음'}">selected</c:if>>와이파이 있음</option>
+                                        <option value="와이파이 없음" <c:if test="${Cafe.wifi eq '와이파이 없음'}">selected</c:if>>와이파이 없음</option>
                                     </select>
                                     </div>
                                 </div>
@@ -211,9 +223,9 @@
                                     </div>
                                     <div class="col-8">
                                         <select name="toilet" id="select">
-                                        <option selected disabled>화장실</option>
-                                        <option value="남/녀 구분 화장실" selected>남/녀 구분 화장실</option>
-                                        <option value="공용 화장실">공용 화장실</option>
+                                        <option disabled>화장실</option>
+                                        <option value="남/녀 구분 화장실" <c:if test="${Cafe.toilet eq '남/녀 구분 화장실'}">selected</c:if>>남/녀 구분 화장실</option>
+                                        <option value="공용 화장실" <c:if test="${Cafe.toilet eq '공용 화장실'}">selected</c:if>>공용 화장실</option>
                                     </select>
                                     </div>
                                 </div>
@@ -224,9 +236,9 @@
                                     </div>
                                     <div class="col-8">
                                         <select name="car" id="select">
-                                        <option selected disabled>주차장</option>
-                                        <option value="주차장 있음">주차장 있음</option>
-                                        <option value="주차장 없음" selected>주차장 없음</option>
+                                        <option disabled>주차장</option>
+                                        <option value="주차장 있음" <c:if test="${Cafe.parking eq '주차장 있음'}">selected</c:if>>주차장 있음</option>
+                                        <option value="주차장 없음" <c:if test="${Cafe.parking eq '주차장 없음'}">selected</c:if>>주차장 없음</option>
                                     </select>
                                     </div>
                                 </div>
@@ -234,7 +246,7 @@
                             <div class="col-8">
                                 <!-- 메세지 -->
                                 <h3 class="write-title">메세지</h3>
-                                <textarea id="ta">안녕하세요 딸기가 아주 싱싱한 딸기나라입니다.</textarea>
+                                <textarea id="ta">${ Cafe.message }</textarea>
                                 <div id="ta_cnt" style="float: right;">(0 / 100)</div>
                             <script>
                                 $(document).ready(function() {
@@ -253,7 +265,7 @@
                         
                         <div class="writeBtn">
                             <a href="${ contextPath }/cafe/upCoffee" class="btn btn-sm animated-button thar-three">
-                                <i class="fa fa-long-arrow-right" aria-hidden="true"></i> &nbsp; 음료 입력
+                                <i class="fa fa-long-arrow-right" aria-hidden="true"></i> &nbsp; 수정하기
                             </a>
                         </div>
                         

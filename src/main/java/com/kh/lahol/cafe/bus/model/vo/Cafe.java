@@ -33,7 +33,6 @@ public class Cafe {
 	private String photo1;
 	private String photo2;
 	private String photo3;
-	
-	
+
 
 }

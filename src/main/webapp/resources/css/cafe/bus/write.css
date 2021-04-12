@@ -122,6 +122,16 @@ a.animated-button.thar-three:before {
 	height: 180vh;	
 }
 
+.subBtn{
+	background-color: transparent;
+	border: 0;
+}
+
+
+#writeBtn:hover input{
+	color : white;
+}
+
 #map{
 	width:500px;
 	height:200px;
