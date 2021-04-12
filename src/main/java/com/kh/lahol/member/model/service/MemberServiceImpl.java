@@ -68,7 +68,7 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public String sendEmail(Member m, String div) {
+	public String sendEmail(Member m, String div, String tempPwd) {
 		String charSet = "utf-8";
 		String hostSMTP = "smtp.naver.com";
 		String hostSMTPid = "arkphong1@naver.com";
@@ -88,7 +88,7 @@ public class MemberServiceImpl implements MemberService{
 			msg += "<tr>";
 			msg += "<td style=\"font-family: sans-serif; font-size: 14px; vertical-align: top;\">";
 			msg += "<p style=\"font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;\">안녕하세요, laHol 임시 비밀번호 안내입니다.</p>\r\n" + 
-					"                        <p style=\"font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;\">" + m.getId() + "님의 임시비밀번호는 " + m.getPwd() + "입니다.</p>";
+					"                        <p style=\"font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;\">" + m.getId() + "님의 임시비밀번호는 <b>" + tempPwd + "</b>입니다.</p>";
 			msg += "<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" class=\"btn btn-primary\" style=\"border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%; box-sizing: border-box;\">\r\n" + 
 					"                          <tbody>\r\n" + 
 					"                            <tr>\r\n" + 

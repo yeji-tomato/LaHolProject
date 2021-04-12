@@ -284,7 +284,7 @@
                 </ul>
                 <span></span>
                 <div class="returnMain">
-                    <button type="button" id="goMain" onclick="${ contextPath }">메인으로</button>
+                    <button type="button" id="goMain" onclick="location.href='${ contextPath }'">메인으로</button>
                 </div>
             </div>
         </div>

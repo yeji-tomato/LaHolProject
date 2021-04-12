@@ -271,12 +271,15 @@ public class MemberController {
 			}
 			
 			System.out.println(tempPwd);
+			
+			String encPwd = bcryptPasswordEncoder.encode(tempPwd);
+			m.setPwd(encPwd);
+			
 			// 임시비밀번호 update
-			m.setPwd(tempPwd);
 			int result = mService.updatePwd(m);
 			
 			if(result > 0) {
-				String emailResult = mService.sendEmail(m, "tempPwd");
+				String emailResult = mService.sendEmail(m, "tempPwd", tempPwd);
 				out.print(emailResult);
 			} else {
 				out.print("임시비밀번호 발급에 실패하였습니다.");

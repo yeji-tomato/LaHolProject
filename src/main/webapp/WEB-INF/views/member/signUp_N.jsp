@@ -479,6 +479,15 @@
                 userPwd2.focus();
                 return;
             }
+            
+            if(userPwd.value != userPwd2.value) {
+            	Swal.fire({
+					title : '비밀번호가 일치하지 않습니다.',
+					icon : 'warning'
+				});
+                userPwd2.focus();
+                return;
+            }
 
             if (userName.value == "") {
             	Swal.fire({
