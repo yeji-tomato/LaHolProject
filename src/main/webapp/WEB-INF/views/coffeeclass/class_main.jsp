@@ -45,7 +45,7 @@
 		</main>
 			
 		<script>
-		    function(searchClass){
+		    function searchClass(){
 		    	var searchValue = $("#searchValue").val();
 		    	location.href="${ ContextPath}/coffeeclass/search?searchValue" + searchValue;
 		    	
@@ -90,10 +90,10 @@
       <h2>마이 클래스</h2>
       <div class="row">				<!-- 키값 -->
       	  <c:forEach var="cl" items="${ list }">
-      	  	  <div class="col" id="classdetail">
-              	<img src="${ contextPath }/resources/img/coffeeclass/classphoto/class2.jpg" class ="card-img-top" onclick="">
+      	  	  <div class="col" id="classdetail" onclick="selectClass('${cl.classNo}');">
+              	<img src="${ contextPath }/resources/img/coffeeclass/classphoto/class2.png" class ="card-img-top" onclick="">
               	<h4>${ cl.className }</h4>
-         	  	<p>${ cl.clPrice }</p>
+         	  	<p>${ cl.clPrice }원</p>
          	  	<!-- 별점 -->
          	  </div>
       	  </c:forEach>
@@ -270,12 +270,19 @@
   </div>
 
 	<!-- 상세페이지 이동 -->
-	<script>
+	<!-- <script>
        const detail = document.getElementById("classdetail");
        detail.addEventListener("click", function(){
            location.href='${ contextPath }/coffeeclass/classdetail';
        });
+  	</script> -->
+  	<script>
+  		function selectClass(classNo){
+  			location.href='${contextPath}/coffeeclass/classdetail?classNo='+classNo;
+  		}
   	</script>
+  	
+  	
 
     </section>
     
