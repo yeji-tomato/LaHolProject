@@ -46,8 +46,7 @@ public class CafeBizServiceImpl implements CafeBizService{
 
 	@Override
 	public List<Coffee> selectCoffeeList(String caCode) {
-		// TODO Auto-generated method stub
-		return null;
+		return caBizDao.selectCoffeeList(caCode);
 	}
 
 	/*

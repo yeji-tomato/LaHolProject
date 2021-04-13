@@ -190,14 +190,14 @@
                                 <div class="row">
                                     <p style="color: #CDC2AF;">도로명 주소</p>
                                     <div class="col-8">
-                                        <input type="text" id="sample5_address" class="cateTit ad" id="ad"  name="cafeAddress1" value="${ addr1 }"/>
+                                        <input type="text" id="sample5_address" class="cateTit ad" id="ad"  name="cafeAddress1" value="${ addr2 }"/>
                                     </div>
                                     <div class="col-4">
                                         <input type="button" onclick="sample5_execDaumPostcode()" id="cafeAddBtn" value="주소 검색">
                                     </div>
                                     <div class="col-10">
                                         <p style="color: #CDC2AF; margin-top: 1%;">상세 주소</p>
-                                        <input type="text" id="text" class="cateTit" id="ad"  name="cafeAddress2" value="${ addr2 }"/>
+                                        <input type="text" id="text" class="cateTit" id="ad"  name="cafeAddress2" value="${ addr3 }"/>
                                     </div>
                                 </div>
                             </div>

@@ -20,5 +20,5 @@ public class Coffee {
 	private String cfName;
 	private int cfPrice;
 	private int cfCount;
-	private String caCode;	
+	private String caNo;	
 }

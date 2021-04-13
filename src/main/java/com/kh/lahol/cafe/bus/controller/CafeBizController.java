@@ -51,7 +51,7 @@ public class CafeBizController {
 								@RequestParam(name="cafeAddress2") String cafeAddress2,
 								HttpServletRequest request) throws CafeException {
 		
-		c.setCaAddress(cafeAddress1 + "," + cafeAddress2);
+		c.setCaAddress("우편번호"+ "," + cafeAddress1 + "," + cafeAddress2);
 		
 		 
 		 if(!mainfile.getOriginalFilename().equals("")) {
@@ -245,6 +245,28 @@ public class CafeBizController {
 		}else {
 			throw new CafeException("카페 정보 수정에 실패하였습니다.");
 		}
+	}
+	
+	@GetMapping("/upCoffee")
+	public ModelAndView coffeeSelect(ModelAndView mv, @RequestParam String caCode) {
+		
+		System.out.println(caCode + "caCode");
+		
+		List<Coffee> Coffeelist = caBizService.selectCoffeeList(caCode);
+		
+		/*
+		 * List<Cafe> Cafelist = caBizService.selectCafeList();
+		 * 
+		 * if(Cafelist != null) { mv.addObject("Cafelist", Cafelist);
+		 * mv.setViewName("cafe/bus/confirm"); }else { mv.addObject("msg",
+		 * "해당하는 카페 조회에 실패하였습니다."); mv.setViewName("common/error"); }
+		 */
+		
+		mv.addObject("Coffeelist", Coffeelist);
+		mv.setViewName("cafe/bus/upCoffee");
+		
+		return mv;
+		
 	}
 	
 	

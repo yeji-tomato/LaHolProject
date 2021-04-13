@@ -76,7 +76,9 @@
                 </div>
                 <!-- 음료 상품 -->
                 <div class="row row-cols-4">
-                    <!-- <div class="col">
+                <c:when test="${!empty Coffeelist}">
+                <c:forEach var="co" items="${ Coffeelist }">	
+                    <div class="col">
                         <div class="card" style="width: 18rem;">
                             <img src="https://image.istarbucks.co.kr/upload/store/skuimg/2021/02/[9200000001635]_20210225092236748.jpg" class="card-img-top" alt="음료사진">
                             <div class="card-body">
@@ -90,8 +92,10 @@
                                 <a href="#" class="btn" id="coffeeBtn" data-bs-toggle="modal" data-bs-target="#staticBackdropUpdate">자세히보기</a>
                             </div>
                         </div>
-                    </div> -->
-                    등록된 상품이 없습니다.
+                    </div>
+                    </c:forEach>
+                    </c:when>
+                    등록된 음료가 존재하지 않습니다!
                 </div>
                 </div>
                 <!-- Modal -->

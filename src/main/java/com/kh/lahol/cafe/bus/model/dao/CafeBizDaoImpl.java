@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.lahol.cafe.bus.model.vo.Cafe;
 import com.kh.lahol.cafe.bus.model.vo.Caphoto;
+import com.kh.lahol.cafe.bus.model.vo.Coffee;
 
 @Repository
 public class CafeBizDaoImpl implements CafeBizDao{
@@ -33,6 +34,11 @@ public class CafeBizDaoImpl implements CafeBizDao{
 	@Override
 	public int updateCafeInfo(Cafe c) {
 		return sqlSession.update("cafeMapper.updateCafeInfo", c);
+	}
+
+	@Override
+	public List<Coffee> selectCoffeeList(String caCode) {
+		return sqlSession.selectList("cafeMapper.selectCoffeeList", caCode);
 	}
 
 	/*
