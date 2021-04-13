@@ -192,8 +192,11 @@ public class MemberController {
 		
 		if(loginUser != null && bcryptPasswordEncoder.matches(m.getPwd(), loginUser.getPwd())) {
 			model.addAttribute("loginUser", loginUser);
-			System.out.println(loginUser);
-			return "redirect:/";
+			if(loginUser.getGrade().equals("P")) {
+				return "redirect:/home";
+			} else {
+				return "redirect:/";
+			}
 		} else {
 			model.addAttribute("msg", "로그인에 실패하였습니다.");
 			return "member/loginView";

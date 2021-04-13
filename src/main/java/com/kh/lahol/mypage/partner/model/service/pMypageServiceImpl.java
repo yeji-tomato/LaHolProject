@@ -1,20 +1,15 @@
-package com.kh.lahol.mypage.normal.model.service;
+package com.kh.lahol.mypage.partner.model.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.lahol.member.model.vo.Member;
-import com.kh.lahol.mypage.normal.model.dao.nMypageDao;
+import com.kh.lahol.mypage.partner.model.dao.pMypageDao;
 
 @Service
-public class nMypageServiceImpl implements nMypageService{
+public class pMypageServiceImpl implements pMypageService{
 	@Autowired
-	private nMypageDao nDao;
-
-	@Override
-	public int updateMember(Member m) {
-		return nDao.updateMember(m);
-	}
+	private pMypageDao pDao;
 
 	@Override
 	public Member selectMember(Member m) {
@@ -28,12 +23,17 @@ public class nMypageServiceImpl implements nMypageService{
 			query = "mypageMapper.selectMemberById";
 		}
 			
-		return nDao.selectMember(m, query);
+		return pDao.selectMember(m, query);
 	}
 
 	@Override
 	public int deleteMember(String id) {
-		return nDao.deleteMember(id);
+		return pDao.deleteMember(id);
+	}
+
+	@Override
+	public int updateMember(Member m) {
+		return pDao.updateMember(m);
 	}
 
 }

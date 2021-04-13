@@ -23,7 +23,7 @@ public class MemberDaoImpl implements MemberDao{
 		Member m = sqlSession.selectOne("memberMapper.selectMemberById", userId);
 		String query = "";
 		
-		if(m != null) {
+		if(m != null && m.getIsActive().equals("Y")) {
 			if(m.getGrade().equals("N")) {
 				query = "memberMapper.selectNormalMember";
 			} else if(m.getGrade().equals("P")) {

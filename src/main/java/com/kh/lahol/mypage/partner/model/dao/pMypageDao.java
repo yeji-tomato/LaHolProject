@@ -1,13 +1,13 @@
-package com.kh.lahol.mypage.normal.model.dao;
+package com.kh.lahol.mypage.partner.model.dao;
 
 import com.kh.lahol.member.model.vo.Member;
 
-public interface nMypageDao {
-
-	int updateMember(Member m);
+public interface pMypageDao {
 
 	Member selectMember(Member m, String query);
 
 	int deleteMember(String id);
+
+	int updateMember(Member m);
 
 }
