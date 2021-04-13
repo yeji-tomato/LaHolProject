@@ -11,7 +11,7 @@
 .swiper-container {
 	min-height: 100%;
 	cursor: pointer;
-	padding-top: 3%;
+	padding-top: -5%;
 	padding-bottom: 5%;
 	font-family: 'NEXON Lv1 Gothic OTF Bold';
 }
@@ -30,7 +30,7 @@
 	}
 	
 	.swiper-container {
-	padding-top: 10%;
+	padding-top: 5%;
 }
 }
 

@@ -10,7 +10,7 @@
 </head>
 <body>
 	<!-- menubar -->
-	<jsp:include page="/WEB-INF/views/common/menubarBus.jsp"/>
+	<jsp:include page="/WEB-INF/views/common/menubar.jsp"/>
 	
 	
 	<div class="swiper-container">
