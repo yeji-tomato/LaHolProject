@@ -23,7 +23,7 @@ scope="application"/>
         display : flex;
         justify-content : flex-end;
         align-items : center;
-        color : #fff;
+        color : #F3D798;
     }
 
     .infoArea p {
@@ -31,7 +31,7 @@ scope="application"/>
     }
 
     .infoArea svg {
-        fill : #fff;
+        fill : #F3D798;
         width : 20px;
         height : 20px;
     }
