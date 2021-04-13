@@ -14,6 +14,8 @@ public interface CafeBizDao {
 
 	public Cafe selectCafeInfo(String caCode);
 
+	public int updateCafeInfo(Cafe c);
+
 	//public int insetCafeInfoPhoto(ArrayList<Caphoto> photoList);
 	
 	

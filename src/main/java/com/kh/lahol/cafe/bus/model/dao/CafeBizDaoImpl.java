@@ -30,6 +30,11 @@ public class CafeBizDaoImpl implements CafeBizDao{
 		return sqlSession.selectOne("cafeMapper.selectCafeInfo", caCode);
 	}
 
+	@Override
+	public int updateCafeInfo(Cafe c) {
+		return sqlSession.update("cafeMapper.updateCafeInfo", c);
+	}
+
 	/*
 	 * @Override public int insetCafeInfoPhoto(ArrayList<Caphoto> photoList) {
 	 * System.out.println("photoListDao : " + photoList); return

@@ -139,6 +139,7 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 		    PHOTO3
 		FROM CAFE
 		WHERE ID = 'ADMIN'
+		AND C_STATUS = 'Y'
 		ORDER BY C_CODE DESC
 	</select>
 	
@@ -165,6 +166,29 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 		WHERE 
 			C_CODE = #{caCode}
 	</select>
+	
+	<update id="updateCafeInfo" parameterType="Cafe">
+	UPDATE
+		CAFE
+	SET
+		C_NAME = #{caName},
+	    C_ADDRESS = #{caAddress},
+	    C_LA = #{caLa},
+	    C_LO = #{caLo},
+	    STARTTIME = #{caStartTime},
+	    C_WIFI = #{wifi},
+	    C_TOILET= #{toilet},
+	    C_PARKING = #{parking},
+	    C_MESSAGE = #{message},
+	    ENDTIME = #{caEndTime},
+	    MAINPHOTO = #{mainPhoto},
+	    PHOTO1 = #{photo1},
+	    PHOTO2 = #{photo2},
+	    PHOTO3 = #{photo3}
+	WHERE
+		C_CODE = #{caCode}
+	</update>
+	
 	
 	<!-- 카페 매장 예약 -->
 	<insert id="insertHereRes" parameterType="CafeRes">

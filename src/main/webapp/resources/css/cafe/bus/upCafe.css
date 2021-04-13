@@ -37,7 +37,7 @@ body{
     color: #E5BD62;
 }
 
-#text, #select{
+#text, .ad, #select{
     width: 100%;
     padding: 1%;
     border-radius: 10vw;
@@ -121,6 +121,16 @@ a.animated-button.thar-three:before {
 .cf-container{
 	height: 160vh;	
 }
+
+.subBtn{
+	background-color: transparent;
+	border: 0;
+}
+
+#writeBtn:hover input{
+	color : white;
+}
+
 
 @media screen and (max-width:1280px) {
 	.thumbnail{

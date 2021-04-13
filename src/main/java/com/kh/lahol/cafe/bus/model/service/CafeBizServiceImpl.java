@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.kh.lahol.cafe.bus.model.dao.CafeBizDao;
 import com.kh.lahol.cafe.bus.model.vo.Cafe;
 import com.kh.lahol.cafe.bus.model.vo.Caphoto;
+import com.kh.lahol.cafe.bus.model.vo.Coffee;
 import com.kh.lahol.cafe.user.model.dao.CafeDao;
 
 @Service
@@ -28,8 +29,7 @@ public class CafeBizServiceImpl implements CafeBizService{
 
 	@Override
 	public int updateCafeInfo(Cafe c) {
-		// TODO Auto-generated method stub
-		return 0;
+		return caBizDao.updateCafeInfo(c);
 	}
 
 	@Override
@@ -42,6 +42,12 @@ public class CafeBizServiceImpl implements CafeBizService{
 	public Cafe selectCafeInfo(String caCode) {
 		
 		return caBizDao.selectCafeInfo(caCode);
+	}
+
+	@Override
+	public List<Coffee> selectCoffeeList(String caCode) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	/*
