@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+ 
 <!DOCTYPE html>
 <html>
 <head>
@@ -54,11 +55,9 @@
               				<div> 
                 <div id="view2"   >
                 
-                 <c:forEach var="s" items="${ list }">  
-				 
-						  
-	                    <div class="product"  onclick="selectStore(${s.PR_CODE});"  > 
-	                        <div class="scale" > 
+                 <c:forEach var="s" items="${ list }">   
+	                    <div class="product"    > 
+	 		                 <div class="scale"  onclick="selectStore(${s.PR_CODE});"> 
 	                            <img  src="${ contextPath }/resources/img/store/${ s.STORE_PHOTO1 }" width="350px" height="300px " >  
 	                        </div>    
 	                        <div class="if" style="float:left; witdh: 50px;">
@@ -68,8 +67,8 @@
 	                            <h6 style="color: #96877D">${ s.ORIGIN }</h6> 
 	                        </center>
 	                        </div>
-	                        <button  id="ifs" onClick="location.href='modification.html'">수정</button>  
-	                        <button  id="ifd">삭제</button>  
+	                        <button  id="ifs"  >수정</button>  
+	                        <button type="submit" id="ifd" onclick="location.href='${ contextPath }/store/delete?PR_CODE=${ s.PR_CODE }'">삭제</button>  
 	                    </div> 
 	                     
 	                    </c:forEach>

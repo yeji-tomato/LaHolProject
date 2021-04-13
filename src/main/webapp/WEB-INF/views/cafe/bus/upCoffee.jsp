@@ -75,26 +75,36 @@
                     <hr>
                 </div>
                 <!-- 음료 상품 -->
+                
                 <div class="row row-cols-4">
                     <div class="col">
+                    <c:forEach var="co" items="${ Coffeelist }">	
+                	<c:choose>
+                	<c:when test="${!empty co}">
                         <div class="card" style="width: 18rem;">
                             <img src="https://image.istarbucks.co.kr/upload/store/skuimg/2021/02/[9200000001635]_20210225092236748.jpg" class="card-img-top" alt="음료사진">
                             <div class="card-body">
-                                <h5 class="card-title">콜드 브루 플로트</h5>
+                                <h5 class="card-title">${ co.cfName }</h5>
                                 <p class="card-text">
                                     <ul id="cardContent">
-                                        <li>4500원</li>
-                                        <li>수량 : 10개</li>
+                                        <li>${ co.cfPrice }</li>
+                                        <li>${ co.cfCount }</li>
                                     </ul>
                                 </p>
                                 <a href="#" class="btn" id="coffeeBtn" data-bs-toggle="modal" data-bs-target="#staticBackdropUpdate">자세히보기</a>
                             </div>
                         </div>
+                        </c:when>
+                		<c:otherwise>등록된 음료 정보가 존재하지 않습니다.</c:otherwise>
+                		</c:choose>
+                		</c:forEach>
                     </div>
                 </div>
+                
                 </div>
                 <!-- Modal -->
                 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <form action="" method="post" enctype="multipart/form-data">
                     <div class="modal-dialog modal-dialog-scrollable">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -104,13 +114,12 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <!-- <form> -->
                             <div class="modalForm category">
                                 <h5 class="coffee-title">카테고리</h5> 
-                                <input type="radio" name="category" value="COFFEE" class="radioModal">COFFEE
-                                <input type="radio" name="category" value="BEVERAGE" class="radioModal">BEVERAGE
-                                <input type="radio" name="category" value="DESSERT" class="radioModal">DESSERT
-                                <input type="radio" name="category" value="SET MENU" class="radioModal">SET MENU
+                                <input type="radio" name="cfCategory" value="COFFEE" class="radioModal">COFFEE
+                                <input type="radio" name="cfCategory" value="BEVERAGE" class="radioModal">BEVERAGE
+                                <input type="radio" name="cfCategory" value="DESSERT" class="radioModal">DESSERT
+                                <input type="radio" name="cfCategory" value="SET MENU" class="radioModal">SET MENU
                             </div>
                             <div class="modalForm img">
                                 <h5 class="coffee-title">음료 대표 사진</h5> 
@@ -198,12 +207,14 @@
                     
                     </div>
                     </div>
+                    </form>
                 </div>
 
                 <!-- 수정하기 모달 -->
                 <!-- Modal -->
                 <div class="modal fade" id="staticBackdropUpdate" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-scrollable">
+                    <form >
                     <div class="modal-content">
                         <div class="modal-header">
                             <i class="fa fa-coffee" id="coffee-icon" aria-hidden="true"></i>
@@ -212,7 +223,7 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <!-- <form> -->
+                           	
                             <div class="modalForm category">
                                 <h5 class="coffee-title">카테고리</h5> 
                                 <input type="radio" name="category" value="COFFEE" class="radioModal" checked>COFFEE
@@ -222,20 +233,14 @@
                             </div>
                             <div class="modalForm img">
                                 <h5 class="coffee-title">음료 대표 사진</h5> 
-                                <div id="beverageImg" class="beverageImgUp">
-                                    <img src="https://image.istarbucks.co.kr/upload/store/skuimg/2021/02/[9200000001635]_20210225092236748.jpg" style="width: 260px; height: 230px;">
-                                </div>
-                                <div id="filesd">
-                                    <input type="file" id="imgBevUp" name="imgBev" onchange="preview(this)">
+                                <div id="beverageImg" class="beverageImg"></div>
+                                <div id="files">
+                                    <input type="file" id="imgBev" name="imgBev" onchange="preview(this)">
                                 </div>
                                 <script>
                                     // 내용 작성 부분의 공간을 클릭할 때 파일 첨부 창이 뜨도록 설정하는 함수
                                     $(function () {
-                                        $("#filesd").hide();
-
-                                        $("#beverageImgUp").click(function () {
-                                            $("#imgBevUp").click();
-                                        });
+                                        $("#files").hide();
                                     });
 
                                     function preview(value) {
@@ -252,7 +257,7 @@
 
                                             // 파일 읽기가 다 완료되었을 때 실행되는 메소드
                                             reader.onload = function (e) {
-                                                $("#beverageImgUp").html("<img src='" + reader.result + "' width='260px' height='230px'>");
+                                                $("#beverageImg").html("<img src='" + reader.result + "' width='260px' height='230px'>");
                                             }
                                         }
                                     }
@@ -299,19 +304,20 @@
                                     });
                                 </script>
                             </div>
-                        <!-- </form> -->
+                        
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn" id="addBtn">추가</button>
                             <button type="button" class="btn" id="cancelBtn" data-bs-dismiss="modal">취소</button>
                         </div>
-                    
+                        </div>
+                    	</form>
                     </div>
                     </div>
                 </div>
             </div>
         </div>    
-    </div>
+
         
         
         <!-- footer -->

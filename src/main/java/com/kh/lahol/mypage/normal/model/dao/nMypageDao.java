@@ -8,4 +8,6 @@ public interface nMypageDao {
 
 	Member selectMember(Member m, String query);
 
+	int deleteMember(String id);
+
 }

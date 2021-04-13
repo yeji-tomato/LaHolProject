@@ -76,27 +76,34 @@
                 </div>
                 <!-- 음료 상품 -->
                 <div class="row row-cols-4">
-                    <!-- <div class="col">
+                    <div class="col">
+                    <c:forEach var="co" items="${ Coffeelist }">	
+                	<c:choose>
+                	<c:when test="${!empty co}">
                         <div class="card" style="width: 18rem;">
                             <img src="https://image.istarbucks.co.kr/upload/store/skuimg/2021/02/[9200000001635]_20210225092236748.jpg" class="card-img-top" alt="음료사진">
                             <div class="card-body">
-                                <h5 class="card-title">콜드 브루 플로트</h5>
+                                <h5 class="card-title">${ co.cfName }</h5>
                                 <p class="card-text">
                                     <ul id="cardContent">
-                                        <li>4500원</li>
-                                        <li>수량 : 10개</li>
+                                        <li>${ co.cfPrice }</li>
+                                        <li>${ co.cfCount }</li>
                                     </ul>
                                 </p>
                                 <a href="#" class="btn" id="coffeeBtn" data-bs-toggle="modal" data-bs-target="#staticBackdropUpdate">자세히보기</a>
                             </div>
                         </div>
-                    </div> -->
-                    등록된 상품이 없습니다.
+                        </c:when>
+                		<c:otherwise>등록된 음료 정보가 존재하지 않습니다.</c:otherwise>
+                		</c:choose>
+                		</c:forEach>
+                    </div>
                 </div>
                 </div>
                 <!-- Modal -->
                 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-scrollable">
+                    <form action="${ contextPath }/cafe/biz/coffee/insert" id="uploadForm" method="post" enctype="multipart/form-data">
                     <div class="modal-content">
                         <div class="modal-header">
                             <i class="fa fa-coffee" id="coffee-icon" aria-hidden="true"></i>
@@ -105,13 +112,13 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <form>
+                            
                             <div class="modalForm category">
                                 <h5 class="coffee-title">카테고리</h5> 
-                                <input type="radio" name="category" value="COFFEE" class="radioModal">COFFEE
-                                <input type="radio" name="category" value="BEVERAGE" class="radioModal">BEVERAGE
-                                <input type="radio" name="category" value="DESSERT" class="radioModal">DESSERT
-                                <input type="radio" name="category" value="SET MENU" class="radioModal">SET MENU
+                                <input type="radio" name="cfCategory" value="COFFEE" class="radioModal">COFFEE
+                                <input type="radio" name="cfCategory" value="BEVERAGE" class="radioModal">BEVERAGE
+                                <input type="radio" name="cfCategory" value="DESSERT" class="radioModal">DESSERT
+                                <input type="radio" name="cfCategory" value="SET MENU" class="radioModal">SET MENU
                             </div>
                             <div class="modalForm img">
                                 <h5 class="coffee-title">음료 대표 사진</h5> 
@@ -151,19 +158,19 @@
                             </div>
                             <div class="modalForm BeverageName">
                                 <h5 class="coffee-title">음료명</h5>
-                                <input type="text" id="text"  name="coffeeName" placeholder="음료명으로 노출될 문구를 작성해주세요.(ex. 아메리카노)"/>
+                                <input type="text" id="text"  name="cfName" placeholder="음료명으로 노출될 문구를 작성해주세요.(ex. 아메리카노)"/>
                             </div>
                             <div class="modalForm price">
                                 <h5 class="coffee-title">판매가</h5>
                                 
-                                <input type="number"  min='1000' max='10000' step='100' id="number">
+                                <input type="number"  min='1000' max='10000' step='100' id="number" name="cfPrice">
                             </div>
                             <div class="modalForm BeverageCount">
                                 <h5 class="coffee-title">재고수량</h5>
                                 <button class="minus" type="button">
                                     <i class="fa fa-minus" aria-hidden="true"></i>
                                 </button>
-                                <input type="number" class="numBox" min="1" max="100" readonly>
+                                <input type="number" class="numBox" min="1" max="100" readonly name="cfCount">
                                 <button class="plus" type="button">
                                     <i class="fa fa-plus" aria-hidden="true"></i>
                                 </button>
@@ -191,14 +198,14 @@
                                     })
                                 </script>
                             </div>
-                        </form>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn" id="confirmBtn">추가</button>
+                            <input type="submit" value="추가" class="btn" id="confirmBtn"/>
                             <button type="button" class="btn" id="cancelBtn" data-bs-dismiss="modal">취소</button>
                         </div>
+                        </div>
+                    </form>
                     
-                    </div>
                     </div>
                 </div>
             </div>

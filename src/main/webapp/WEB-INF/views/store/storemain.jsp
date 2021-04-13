@@ -223,7 +223,7 @@
 						</tr>
 	                </table> 
                 </div>
-                 <c:if test="${ !empty sessionScope.loginUser }">
+                 <c:if test="${ loginUser.grade eq 'P'  }"> 
 		                 <div id="bu" style="width:60%;  height: 50px;   float:left;">
 		                    <button id="management" style="margin-top: 0px;float:left;margin-left: 1300px;"   onClick="location.href=' ${ contextPath }/store/list2'" >  스토어 관리  </button>   
 		                  

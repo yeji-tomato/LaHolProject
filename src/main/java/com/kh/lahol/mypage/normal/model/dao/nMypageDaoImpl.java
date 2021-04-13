@@ -21,4 +21,9 @@ public class nMypageDaoImpl implements nMypageDao{
 		return sqlSession.selectOne(query, m);
 	}
 
+	@Override
+	public int deleteMember(String id) {
+		return sqlSession.update("mypageMapper.deleteMember", id);
+	}
+
 }

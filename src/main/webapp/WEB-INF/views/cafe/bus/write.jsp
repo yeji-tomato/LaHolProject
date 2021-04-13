@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
-<head>
+<head> 
 <meta charset="UTF-8">
 <title>카페 등록 페이지</title>
 <link rel="stylesheet" href="${ contextPath }/resources/css/cafe/bus/write.css" type="text/css">
@@ -11,10 +11,10 @@
 </head>
 <body>
 
-	<!-- 사업자 menubar -->
-	<jsp:include page="/WEB-INF/views/common/menubarBus.jsp"/>
-	
-	<!-- 카페 사이드 메뉴 바 -->
+   <!-- 사업자 menubar -->
+   <jsp:include page="/WEB-INF/views/common/menubarBus.jsp"/>
+   
+   <!-- 카페 사이드 메뉴 바 -->
     <div class="write-container">
         <div id="side" class="col-cf">
         <ul class="side-menu">
@@ -177,74 +177,74 @@
                                     <div class="col-10">
                                         <p style="color: #CDC2AF; margin-top: 1%;">상세 주소</p>
                                         <input type="text" id="text" class="cateTit" id="ad"  name="cafeAddress2" placeholder="상세주소"/>
-                                    </div>
+                                    </div> 
                                 </div>
                             </div>
                             <!-- 위도 -->
-							<input type="hidden" id="la" name="caLa">
-							<!-- 경도 -->
-							<input type="hidden" id="lo" name="caLo">
+                     <input type="hidden" id="la" name="caLa">
+                     <!-- 경도 -->
+                     <input type="hidden" id="lo" name="caLo">
                             <div class="col-4">
                                 <div id="map"></div>
                             </div>
                         </div>
                         
                         <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-						<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=3400cb260ccc2b8ecfb54e177422380a&libraries=services&libraries=services"></script>
-						<script>
-						    var mapContainer = document.getElementById('map'), // 지도를 표시할 div
-						        mapOption = {
-						            center: new daum.maps.LatLng(37.537187, 127.005476), // 지도의 중심좌표
-						            level: 5 // 지도의 확대 레벨
-						        };
-						
-						    //지도를 미리 생성
-						    var map = new daum.maps.Map(mapContainer, mapOption);
-						    //주소-좌표 변환 객체를 생성
-						    var geocoder = new daum.maps.services.Geocoder();
-						    //마커를 미리 생성
-						    var marker = new daum.maps.Marker({
-						        position: new daum.maps.LatLng(37.537187, 127.005476),
-						        map: map
-						    });
-						
-						
-						    function sample5_execDaumPostcode() {
-						        new daum.Postcode({
-						            oncomplete: function(data) {
-						                var addr = data.address; // 최종 주소 변수
-						
-						                // 주소 정보를 해당 필드에 넣는다.
-						                document.getElementById("sample5_address").value = addr;
-						                // 주소로 상세 정보를 검색
-						                geocoder.addressSearch(data.address, function(results, status) {
-						                    // 정상적으로 검색이 완료됐으면
-						                    if (status === daum.maps.services.Status.OK) {
-						
-						                        var result = results[0]; //첫번째 결과의 값을 활용
-						
-						                        // 해당 주소에 대한 좌표를 받아서
-						                        var coords = new daum.maps.LatLng(result.y, result.x);
-						                     	// 위도 경도 input에 넣기
-												var la = result.y;
-												var lo = result.x;
-												document.getElementById("la").value = la;
-												document.getElementById("lo").value = lo;
-												console.log(la);
-						                        // 지도를 보여준다.
-						                        mapContainer.style.display = "block";
-						                        map.relayout();
-						                        // 지도 중심을 변경한다.
-						                        map.setCenter(coords);
-						                        // 마커를 결과값으로 받은 위치로 옮긴다.
-						                        marker.setPosition(coords)
-						                    }
-						                });
-						            }
-						        }).open();
-						    }
-						</script>
-			
+                  <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=3400cb260ccc2b8ecfb54e177422380a&libraries=services&libraries=services"></script>
+                  <script>
+                      var mapContainer = document.getElementById('map'), // 지도를 표시할 div
+                          mapOption = {
+                              center: new daum.maps.LatLng(37.537187, 127.005476), // 지도의 중심좌표
+                              level: 5 // 지도의 확대 레벨
+                          };
+                  
+                      //지도를 미리 생성
+                      var map = new daum.maps.Map(mapContainer, mapOption);
+                      //주소-좌표 변환 객체를 생성
+                      var geocoder = new daum.maps.services.Geocoder();
+                      //마커를 미리 생성
+                      var marker = new daum.maps.Marker({
+                          position: new daum.maps.LatLng(37.537187, 127.005476),
+                          map: map
+                      });
+                  
+                  
+                      function sample5_execDaumPostcode() {
+                          new daum.Postcode({
+                              oncomplete: function(data) {
+                                  var addr = data.address; // 최종 주소 변수
+                  
+                                  // 주소 정보를 해당 필드에 넣는다.
+                                  document.getElementById("sample5_address").value = addr;
+                                  // 주소로 상세 정보를 검색
+                                  geocoder.addressSearch(data.address, function(results, status) {
+                                      // 정상적으로 검색이 완료됐으면
+                                      if (status === daum.maps.services.Status.OK) {
+                  
+                                          var result = results[0]; //첫번째 결과의 값을 활용
+                  
+                                          // 해당 주소에 대한 좌표를 받아서
+                                          var coords = new daum.maps.LatLng(result.y, result.x);
+                                          // 위도 경도 input에 넣기
+                                    var la = result.y;
+                                    var lo = result.x;
+                                    document.getElementById("la").value = la;
+                                    document.getElementById("lo").value = lo;
+                                    console.log(la);
+                                          // 지도를 보여준다.
+                                          mapContainer.style.display = "block";
+                                          map.relayout();
+                                          // 지도 중심을 변경한다.
+                                          map.setCenter(coords);
+                                          // 마커를 결과값으로 받은 위치로 옮긴다.
+                                          marker.setPosition(coords)
+                                      }
+                                  });
+                              }
+                          }).open();
+                      }
+                  </script>
+         
                         
                         <!-- 편의사항 -->
                         <div class="row" id="divRow">
@@ -318,40 +318,40 @@
                         </div>
                         
                     </div>
-           			</form>
+                    </form>
                 </div>
                 <div>
             
             </div>
         </div>
         <script>
-        	/* $(function(){
-        		$("#writeBtn").on("click", function(){
-        			
-        			var form = new FormData(document.getElementById('uploadForm'));
-        			
-        			
-           			$.ajax({
-        				url : "${ contextPath }/cafe/biz/insert",
-        				data : form,
-        				type: "POST",
-        				success : function(data){
-        					alert("카페 등록이 성공적으로 되었습니다!");
-        					location.href='${ contextPath }/bus/coffee';
-        				},
-        				error : function(e){
-        					console.log(e);
-        				}
-        			});
-        		});
-        	}); */
+           /* $(function(){
+              $("#writeBtn").on("click", function(){
+                 
+                 var form = new FormData(document.getElementById('uploadForm'));
+                 
+                 
+                    $.ajax({
+                    url : "${ contextPath }/cafe/biz/insert",
+                    data : form,
+                    type: "POST",
+                    success : function(data){
+                       alert("카페 등록이 성공적으로 되었습니다!");
+                       location.href='${ contextPath }/bus/coffee';
+                    },
+                    error : function(e){
+                       console.log(e);
+                    }
+                 });
+              });
+           }); */
         
         </script>
     </div>
     </div>
     
     <!-- footer -->
-	<jsp:include page="/WEB-INF/views/common/footer2.jsp"/>
+   <jsp:include page="/WEB-INF/views/common/footer2.jsp"/>
     
 </body>
 </html>

@@ -117,4 +117,12 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 	     WHERE
 		       M.ID = #{id}
 	</select>
+	<update id="deleteMember" parameterType="string">
+		UPDATE
+		       MEMBER
+		   SET
+		       ISACTIVE = 'N'
+		 WHERE
+		       ID = #{id}
+	</update>
 </mapper>

@@ -31,4 +31,9 @@ public class nMypageServiceImpl implements nMypageService{
 		return nDao.selectMember(m, query);
 	}
 
+	@Override
+	public int deleteMember(String id) {
+		return nDao.deleteMember(id);
+	}
+
 }

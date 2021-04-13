@@ -8,4 +8,6 @@ public interface nMypageService {
 
 	Member selectMember(Member m);
 
+	int deleteMember(String id);
+
 }

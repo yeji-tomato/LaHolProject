@@ -364,18 +364,25 @@
 	                                 </div> 
 	                        </div>
 	                        <div class="tab-pane fade" id="de" role="tabpanel" aria-labelledby="de-tab" >
-	                            <img src="../resources/images/store/배송정보.jpg" style="  margin-left: 35px; ">
+	                        <!--  작성한 택배사에 맞는 택배사 정보 출력 -->
+	                        <c:if  test="${ s.DY_COMPANY == '로젠' }">  
+	                            <img  src="${ contextPath }/resources/img/store/배송정보.jpg" style="  margin-left: 35px; ">
+	                        </c:if>
+	                         
+	                         
+	                           
 	                        </div>
 	                       
 	                    </div>
 	                  </div>
-	
-	
+						 
+		
 	
 				 
 	                
 			</div>
 	 
 		</section>
+			 
 </body>
 </html>

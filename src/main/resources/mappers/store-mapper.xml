@@ -25,6 +25,7 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 		<result property="SCOUNT" column="SCOUNT"/>	
 		
 	</resultMap>
+ 
 	
 	<!-- 
 PR_CODE	VARCHAR2(30 BYTE)	No		1	제품코드
@@ -71,11 +72,15 @@ C_CODE	VARCHAR2(30 BYTE)	No		18	카페코드
 				<when test="searchCondition == 'title'">
 				AND 
 					PR_NAME LIKE #{sv}
+				AND 
+					PR_STATUS = 'Y'
 				</when>
 				 
 				<when test="searchCondition == 'category'">
 				AND 
 					ST_CATAGORY LIKE #{sv}
+				AND 
+					PR_STATUS = 'Y'
 				</when>
 				<otherwise>
 				 
@@ -182,6 +187,8 @@ C_CODE	VARCHAR2(30 BYTE)	No		18	카페코드
                JOIN CAFE USING(C_CODE)  
 		 WHERE
 		       ID = #{id}
+		   AND 
+				PR_STATUS = 'Y'
 	  ORDER BY
 	           PR_CODE DESC  
 	</select>
@@ -195,6 +202,8 @@ C_CODE	VARCHAR2(30 BYTE)	No		18	카페코드
 		       JOIN CAFE USING(C_CODE)  
 		 WHERE
 		        ID = #{id}
+		    AND 
+				PR_STATUS = 'Y'
 	</select> 
 	 
  
@@ -235,11 +244,15 @@ C_CODE	VARCHAR2(30 BYTE)	No		18	카페코드
 				<when test="searchCondition == 'title'">
 				AND 
 					PR_NAME LIKE #{sv}
+				AND 
+					PR_STATUS = 'Y'
 				</when>
 				 
 				<when test="searchCondition == 'category'">
 				AND 
 					ST_CATAGORY LIKE #{sv}
+				AND 
+					PR_STATUS = 'Y'
 				</when>
 				<otherwise>
 				 
@@ -288,5 +301,72 @@ C_CODE	VARCHAR2(30 BYTE)	No		18	카페코드
 		 WHERE
 		       PR_CODE = #{PR_CODE}
 	</update>
+	
+	
+	
+	<insert id="insertStore" parameterType="string">
+		INSERT
+		INTO PRODUCT
+		(
+		       PR_CODE
+		     , ST_CATAGORY
+		     , PR_NAME
+		     , PR_IF
+		     , PR_EVENT
+		     , ORIGIN
+		     , PR_PRICE
+		     , SUBSCRIPTIONS
+		     , STORE_PHOTO1
+		     , STORE_PHOTO2
+		     , STORE_PHOTO3
+		     , DY_COMPANY
+		     , PR_INF
+		     , SERVICE_CENTER
+		     , PR_DATE
+	         , PR_NOTICE 
+      		 , PR_STATUS
+      		 , C_CODE
+      		 , SCOUNT
+		          
+		 	)
+		VALUES
+		(
+			STA.NEXTVAL
+			,#{ST_CATAGORY}
+			,#{PR_NAME}
+			,#{PR_IF}
+			,#{PR_EVENT}
+			,#{ORIGIN}
+			,#{PR_PRICE}
+			,#{SUBSCRIPTIONS}
+			,#{STORE_PHOTO1}
+			,#{STORE_PHOTO2}
+			,#{STORE_PHOTO3}
+			,#{DY_COMPANY}
+			,#{PR_INF}
+			,#{SERVICE_CENTER}
+			, SYSDATE
+			,#{PR_NOTICE }
+			, 'Y'
+			, 'CA1'
+			, 0
+			
+			
+		)
+	
+	</insert>
+	
+	
+	
+	 <update id="deleteStore" parameterType="_int">
+		UPDATE 
+		       PRODUCT
+		   SET 
+		       PR_STATUS = 'N'
+		 WHERE 
+		      PR_CODE = #{PR_CODE}
+	</update>
+	
+	
 	 
 </mapper>

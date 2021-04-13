@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.kh.lahol.cafe.bus.model.vo.Cafe;
 import com.kh.lahol.cafe.bus.model.vo.Caphoto;
+import com.kh.lahol.cafe.bus.model.vo.Coffee;
 
 public interface CafeBizService {
 	// 카페 정보 insert
@@ -22,6 +23,9 @@ public interface CafeBizService {
 	// 카페 시퀀스 번호를 통한 조회
 	public Cafe selectCafeInfo(String caCode);
 	
+	// 카페 시퀀스를 통한 커피 조회
+	public List<Coffee> selectCoffeeList(String caCode);
+
 	
 
 }

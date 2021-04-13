@@ -29,6 +29,11 @@ public interface StoreService {
 	//4. 디테일 뷰
 	public Store selectStore(int pR_CODE, boolean falg);
 	
+	//게시글작성
+	public int insertStore(Store s );
+
+	public int deleteStore(int pR_CODE);
+	
 
 	
 

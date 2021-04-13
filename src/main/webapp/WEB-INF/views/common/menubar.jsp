@@ -23,7 +23,7 @@ scope="application"/>
         display : flex;
         justify-content : flex-end;
         align-items : center;
-        color : #fff;
+        color : #4B654A;
     }
 
     .infoArea p {
@@ -31,7 +31,7 @@ scope="application"/>
     }
 
     .infoArea svg {
-        fill : #fff;
+        fill : #4B654A;
         width : 20px;
         height : 20px;
     }
@@ -44,9 +44,26 @@ scope="application"/>
 		</script>
 		<c:remove var="msg"/>
 	</c:if>
+	<!-- 사업자로 로그인 되었을 경우 -->
 	<nav id="nav">
         <div class="menuWrapper">
+        <c:choose>
+        <c:when test="${ loginUser.grade eq 'P'}">
             <div class="mainMenu">
+                <ul>
+                    <li><a href="${ contextPath }">STORE</a></li>
+                    <li><a href="${ contextPath }">CLASS</a></li>
+                    <li><a href="${ contextPath }/cafe/home">CAFE</a></li>
+                </ul>
+            </div>
+            <div class="logoArea">
+            	<a href="${ contextPath }/bus/main" class="logoA">
+                	<img src="${ contextPath }/resources/img/common/logo-lahol2.png">
+                </a>
+            </div>
+         </c:when>
+         <c:otherwise>
+         	<div class="mainMenu">
                 <ul>
                     <li><a href="${ contextPath }/store/list">STORE</a></li>
                     <li><a href="${ contextPath }/coffeeclass">CLASS</a></li>
@@ -55,10 +72,12 @@ scope="application"/>
                 </ul>
             </div>
             <div class="logoArea">
-            	<a href="${ contextPath }/bus/main" class="logoA">
+            	<a href="${ contextPath }" class="logoA">
                 	<img src="${ contextPath }/resources/img/common/logo-lahol2.png">
                 </a>
             </div>
+            </c:otherwise>
+         </c:choose>
             <div class="loginArea">
                 <div class="infoArea">
 					<c:if test="${ !empty sessionScope.loginUser }">

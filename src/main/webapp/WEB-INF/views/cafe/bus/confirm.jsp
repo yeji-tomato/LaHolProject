@@ -90,7 +90,7 @@
                                         <i class="fa fa-sign-in" aria-hidden="true"></i>
                                     </button>
                                 </td>
-                                <td class="grad" id="coffeeMenu" onclick="location.href='${ contextPath }/cafe/biz/upCoffee?caCode=${ ca.caCode }'">
+                                <td class="grad" id="coffeeMenu" onclick="location.href='${ contextPath }/cafe/biz/Coffee?caCode=${ ca.caCode }'">
                                     <button id="coffeeBtn" class="btn-icon">
                                         <i class="fa fa-coffee" aria-hidden="true"></i>
                                     </button>
