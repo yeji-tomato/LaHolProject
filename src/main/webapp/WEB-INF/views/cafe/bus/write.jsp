@@ -177,7 +177,7 @@
                                     <div class="col-10">
                                         <p style="color: #CDC2AF; margin-top: 1%;">상세 주소</p>
                                         <input type="text" id="text" class="cateTit" id="ad"  name="cafeAddress2" placeholder="상세주소"/>
-                                    </div>
+                                    </div> 
                                 </div>
                             </div>
                             <!-- 위도 -->
