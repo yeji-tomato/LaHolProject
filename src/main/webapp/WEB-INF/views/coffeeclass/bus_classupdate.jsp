@@ -40,7 +40,7 @@
 				<table id="clTable" style="white;">
 					<tr id="clTr">
 						<td>클래스명</td>
-						<td class="answer"><input type="text" class="classdes" name="classNo" value ="${ className }" required></td>
+						<td class="answer"><input type="text" class="classdes" name="classNo" value ="${ cl.className }" required></td>
 					</tr>
 					<tr>
 						<td>사업자번호</td>

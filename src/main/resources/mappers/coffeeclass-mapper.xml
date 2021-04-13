@@ -95,7 +95,7 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 	   	 )
 	    VALUES
 	    (
-	    		  CL.NEXTVAL
+	    		  'CL' || CL.NEXTVAL
 	    		, #{cafeNo}
 	    		, #{className}
 	    		, #{classDes}
@@ -119,8 +119,9 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 	    )
 
 	</insert>
-	<!-- 상세보기 -->
-	<select id="selectClass" parameterType="_int" resultMap="clResultSet">
+	<!-- 클래스 상세 불러오기 -->
+	<!-- parameterType="_String"를 넣어야하나? 이게 맞나? -->
+	<select id="selectClass" resultMap="clResultSet">
 	SELECT 
 				  CLASS_NO
 				, C_CODE
@@ -144,7 +145,6 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 				COFFEECLASS
 		WHERE	
 				CLASS_NO = #{classNo}
-		  AND	CL_STATUS='Y'
 	 ORDER BY
 				CLASS_NO DESC
 	</select>

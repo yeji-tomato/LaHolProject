@@ -145,7 +145,7 @@
 					<tr>
 						<td>클래스 커리큘럼</td>
 						<td class="answer"><input type="textarea" style="height: 200px;"
-							class="classdes" name="classCurri"></td>
+							class="classdes" name="classCurri" placeholder="10:00-11:00 커피와 함께하는 커피의 역사 -휴식10분- 11:10-12:00 현대 커피브랜드의 가치"></td>
 					</tr>
 
 					<tr>
@@ -226,11 +226,12 @@
 
 					<tr>
 						<td>수업 난이도</td>
-						<td class="answer" style="text-align: left;" name="classLvl"><select>
+						<td class="answer" style="text-align: left;">
+						<select name="classLvl">
 								<option>난이도 선택</option>
-								<option>상</option>
-								<option>중</option>
-								<option>하</option>
+								<option value = "상"></option>
+								<option value = "중"></option>
+								<option value = "하"></option>
 						</select></td>
 					</tr>
 

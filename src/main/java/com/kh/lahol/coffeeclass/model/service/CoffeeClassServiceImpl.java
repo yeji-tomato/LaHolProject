@@ -32,7 +32,7 @@ public class CoffeeClassServiceImpl implements CoffeeClassSerivce{
 	}
 
 	@Override
-	public CoffeeClass selectCoffeeClass(String classNo, boolean b) {
+	public CoffeeClass selectCoffeeClass(String classNo) {
 		return clDao.selectCoffeeClass(classNo);
 	}
 
