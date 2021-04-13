@@ -23,19 +23,19 @@
         <div class="swiper-wrapper">
     
             <div class="swiper-slide slide">
-            <div style="position:absolute; background-color:rgba(0, 0, 0, 0.3); z-index:10; height:100%; width:100% "></div>
+            <div style="position:absolute; background-color:rgba(0, 0, 0, 0.25); z-index:10; height:100%; width:100% "></div>
             <div class="slide-image" style="background-image: url(https://images.unsplash.com/photo-1570222094114-d054a817e56b?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1080&q=80)"></div>
             <span class="slide-title">STORE</span>
             </div>
         
             <div class="swiper-slide slide">
-            <div style="position:absolute; background-color:rgba(0, 0, 0, 0.3); z-index:10; height:100%; width:100% "></div>
+            <div style="position:absolute; background-color:rgba(0, 0, 0, 0.25); z-index:10; height:100%; width:100% "></div>
             <div class="slide-image" style="background-image: url(https://images.unsplash.com/photo-1513267048331-5611cad62e41?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1050&q=80)"></div>
             <span class="slide-title">CLASS</span>
             </div>
         
             <div class="swiper-slide slide">
-            <div style="position:absolute; background-color:rgba(0, 0, 0, 0.3); z-index:10; height:100%; width:100% "></div>
+            <div style="position:absolute; background-color:rgba(0, 0, 0, 0.25); z-index:10; height:100%; width:100% "></div>
             <div class="slide-image" style="background-image: url(https://images.unsplash.com/photo-1504113888839-1c8eb50233d3?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1015&q=80)"></div>
             <span class="slide-title">CAFE</span>
             </div>
