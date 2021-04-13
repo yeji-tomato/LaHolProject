@@ -25,6 +25,9 @@ public interface CafeBizService {
 	
 	// 카페 시퀀스를 통한 커피 조회
 	public List<Coffee> selectCoffeeList(String caCode);
+	
+	// 카페 등록을 하기 위한 select
+	public Cafe caWriteSelect(String caId);
 
 	
 

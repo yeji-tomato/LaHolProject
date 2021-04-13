@@ -41,6 +41,22 @@ public class CafeBizController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(CafeBizController.class);
 	
+	@GetMapping("/write")
+	public String caWriteSelect(@RequestParam String caId,
+							Model model) {
+		Cafe ca = caBizService.caWriteSelect(caId);
+		
+		if(ca != null) {
+			model.addAttribute("Cafe", ca);
+			return "cafe/bus/write";
+		}else {
+			model.addAttribute("msg", "카페 보기에 실패하였습니다.");
+			return "common/error";
+		}
+		
+	}
+	
+	
 	@PostMapping("/insert")
 	public String insertCafeInfo(@ModelAttribute Cafe c,
 								@RequestParam(name="imgfile1") MultipartFile mainfile,

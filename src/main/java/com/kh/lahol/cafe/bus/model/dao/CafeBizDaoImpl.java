@@ -41,6 +41,11 @@ public class CafeBizDaoImpl implements CafeBizDao{
 		return sqlSession.selectList("cafeMapper.selectCoffeeList", caCode);
 	}
 
+	@Override
+	public Cafe caWriteSelect(String caId) {
+		return sqlSession.selectOne("cafeMapper.selectCafeWrite", caId);
+	}
+
 	/*
 	 * @Override public int insetCafeInfoPhoto(ArrayList<Caphoto> photoList) {
 	 * System.out.println("photoListDao : " + photoList); return
