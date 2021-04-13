@@ -97,7 +97,7 @@
                                 </div>
                             </div>
                             </div>
-                    </div>
+                    </div> 
                     <!-- 카페 사진 -->
                     <div class="row" id="divRow">
                         <h3 class="write-title">카페사진</h3>
