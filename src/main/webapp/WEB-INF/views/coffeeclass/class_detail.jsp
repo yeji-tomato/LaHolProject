@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -62,25 +63,24 @@
                     <thead>
                       <tr>
                         <td colspan="3">
-                          <pre class="cl-title">르꼬르동블루 교수가 알려주는 레몬디저트</pre>
+                          <pre class="cl-title">${ coffeeclass.className }</pre>
                         </td>
                       </tr>
                     </thead>
                     <tbody>
                       <tr>
-                        <td>주최카페</td>
-                        <td colspan="2">Viktoria Blanc</td>
+                        <td>주최카페</td> <!-- cafeNo를 통해 이름 불러오기 -->
+                        <td colspan="2">${ coffeeclass.cafeNo }</td>
                       </tr>
                       <tr>
-                        <td>연계 카페명
-                        </td>
-                        <td>Viktoria Blanc 
+                        <td>연계 카페명</td> <!-- cafeNo를 통해 이름 불러오기 -->
+                        <td> ${ coffeeclass.cafeNo }</td>
                         <!--마우스 오버시 등장하는 정보-->              
                         <div class="help-tip" style="float:right;">
                     
                           <div class="info">
-                          <p>카페이름 : 빅토리아 블랑 </p>
-                          <p>카페 위치 : 서울시 마포구 연남동  </p>
+                          <p>카페이름 : ${ coffeeclass.cafeNo } </p> <!-- cafeNo를 통해 이름 불러오기 -->
+                          <p>카페 위치 :  ${ coffeeclass.cafeNo }   </p> <!-- cafeNo를 통해  -->
                           <a href = "${ ContextPath }/cafe/user/here">☕카페보러가기</a>
                           </div>
                       
@@ -102,8 +102,8 @@
                         </td>
                         <td>
                           <ul style="border-left: 2px solid black;">
-                            <li>난이도</li>
-                            <li>소요시간</li>
+                            <li>${ coffeeclass.classLvl }</li>
+                            <li>${ coffeeclass.clRuntime }</li>
                           </ul>
                         </td>
                       </tr>
@@ -111,7 +111,7 @@
                         <td>날짜</td>
                         <td colspan="2">
                           <select style="width: 80%;">
-                            <option value="" class = "selectdate">날짜</option>
+                            <option value="" class = "selectdate">날짜</option> <!-- 어레이리스트로 묶기 -->
                             <option value="" class = "selectdate">2020-03-24 수</option>
                             <option value="" class = "selectdate">2020-03-25 목</option>
                             <option value="" class = "selectdate">2020-03-26 금</option>
@@ -147,6 +147,8 @@
                       장바구니
                       <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                     </button>
+                    
+                     <!--클래스 신고-->                    
                     <button style="border:transparent; background-color:transparent;">
                     <div class="report" style="margin-bottom: 3vh;">
                       <i class="fa fa-bullhorn" aria-hidden="true" id="reportclass" data-bs-toggle="modal" data-bs-target="#exampleModal"></i>
@@ -160,35 +162,76 @@
     </div>
   </div>
   
-  <!-- 삭제 -->
-	<script>
-      const updateclass = document.getElementById("classupdate");
-      detail.addEventListener("click", function(){
-          location.href='${ contextPath }/coffeeclass/udpateclass';
-      });
- 	</script>
  
   
-  <!-- 삭제 확인 모달 -->
-  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">클래스 삭제 알림</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body" style="text-align: center;">
-          <클래스명>을 정말 삭제하시겠습니까? <br><br>
-          삭제하실 경우
-          <br> 등록된 정보와 회원들의 후기도 함께 삭제되며, 복구가 어렵습니다. <br>
-        </div>
-        <div class="modal-footer">
-          <button type="button" id = "delete-modal-1" class="btn btn-primary">위 내용을 확인했으며 클래스를 삭제하겠습니다</button>
-          <button type="button" id = "delete-modal-2" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-        </div>
-      </div>
-    </div>
-  </div>
+ 	 <!-- Modal -->
+	<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header" style="background-color: #4B654A;">
+			<h5 class="modal-title" id="exampleModalLabel" style="color: white;">
+				<img src="../../resources/images/img_common/logo.png" style="width : 30px; height: 30px;">
+				클래스신고
+			</h5>
+			<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+			<h5  style="text-align: center; padding: 5vh;">페이지 사용에 불편을 드려 죄송합니다. <br> 신고가 접수되면 3일내로 처리됩니다. </h5>
+				<table style="width: 100%;">
+					
+					<tr>
+						<td>신고 클래스</td>
+						<td aria-readonly="true">${ coffeeclass.className }</td>
+					</tr>
+					<tr>
+						<td>신고사유</td>
+						<td>
+							<select>
+								<option>
+									--신고사유선택--
+								</option>
+								<option>
+									강사의 부적절한 언어 및 행위
+								</option>
+								<option>
+									강사 허위자격(실력의심)
+								</option>
+								<option>
+									강의 중 상품강매
+								</option>
+								<option>
+									기타
+								</option>
+							</select>
+					</td>
+					</tr>
+					<tr>
+						<td>사유 상세 설명</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<textarea style="width: 100%; line-height: 15vh;"></textarea>
+						</td>
+					</tr>
+				</table>
+				<p>
+					<br>
+					<p class="alert-text" style="color:rgb(170, 42, 42); font-size: 12px;">
+					허위신고일 경우, 신고자의 활동이 제한될 수 있으니 신중하게 신고해주세요. 
+					</p>
+				</p>
+				
+				</div>
+				<div class="modal-footer"  style="background-color: #4B654A;">
+				<button type="button" class="btn btn-danger">신고</button>
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+				</div>
+			</table>
+		</div>
+		</div>
+	</div>
+  
+  
 
     <!-- <div> -->
       <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -207,6 +250,8 @@
         </li>
         </ul>
         <div class="tab-content" id="myTabContent">
+        
+        
           <!-- 상세 정보 -->
         <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                 <!-- Product description section 1-->
@@ -216,8 +261,8 @@
                     <!--설명-->
                     <div class="col-lg-4 col-md-6 offset-lg-1 py-4 order-md-1">
                     <h2 class="h3 mb-4 pb-2">클래스 소개</h2>
-                    <h6 class="fs-base mb-3">클래스 한 줄 소개 : 내가 잘 참 잘 가르칩니다.</h6>
-                    <p class="fs-sm text-muted pb-2">클래스 소개 상세 : 제 수업은 어디가서 돈 주고 들을 수 없는 수업이에요. 하지만 이번 한번만 돈내고 듣게 해드릴겁니다. </p>
+                    <h6 class="fs-base mb-3">${ coffeeclass.clShortDes }</h6>
+                    <p class="fs-sm text-muted pb-2">${ coffeeclass.classDes }</p>
                     </div>
                 </div>
               <!-- Product description section 2-->
@@ -225,8 +270,7 @@
                 <div class="col-lg-5 col-md-6 offset-lg-1"><img class="d-block rounded-3" src="${ contextPath }/resources/img/coffeeclass/classphoto/class10.jpg" alt="Map"></div>
                 <div class="col-lg-4 col-md-6 offset-lg-1 py-4">
                 <h2 class="h3 mb-4 pb-2">클래스 커리큘럼</h2>
-                <h6 class="fs-base mb-3">Factory information</h6>
-                <p class="fs-sm text-muted pb-md-2"> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.</p>
+                <p class="fs-sm text-muted pb-md-2"> ${ coffeeclass.classCurri }</p>
                 </div>
               </div>
               <!-- Product description section 1-->
@@ -235,16 +279,18 @@
                 <div class="col-lg-5 col-md-6 offset-lg-1 order-md-2"><img class="d-block rounded-3" src="${ contextPath }/resources/img/coffeeclass/classphoto/class1.jpg" alt="Image"></div>
                 <!--설명-->
                 <div class="col-lg-4 col-md-6 offset-lg-1 py-4 order-md-1">
-                <h2 class="h3 mb-4 pb-2">클래스 소개</h2>
-                <h6 class="fs-base mb-3">클래스 한 줄 소개</h6>
-                <p class="fs-sm text-muted pb-2">클래스 소개 상세 : Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Duis aute irure dolor in reprehenderit.</p>
+                <h2 class="h3 mb-4 pb-2">강사 소개</h2>
+                <h6 class="fs-base mb-3">${ coffeeclass.trName }</h6>
+                <p class="fs-sm text-muted pb-2">${ coffeeclass.trIntro }</p>
                 </div>
             </div>
               
         </div>
-        <!-- 후기 -->
-        <div class="tab-pane fade" id="review" role="tabpanel" aria-labelledby="review-tab">
-          <div style="padding-top: 3vh;">
+        
+        
+         <!-- 후기 -->
+        <div class="tab-pane fade" id="review" role="tabpanel" aria-labelledby="review-tab" style="background-color: blueviolet;">
+          <div style="background-color: blueviolet; padding-top: 3vh;">
           <div class="clcomment">
             <table>
               <tr>
@@ -257,13 +303,13 @@
                 </td>
                 <td>
                   작성일자|
-                <td>
+                </td>
                 <td>
                   2020.04.20
-                <td>								
-                  <button class = "iconbtn" style="border : 0px; background-color: transparent;">
-                  <img src = "${ contextPath }/resources/img/coffeeclass/report.png"  class="iconbtn" 
-                  style="width : 30px; height : 30px;">
+                </td>
+                <td>
+                  <button class = "iconbtn">
+                  <img src = "../../LaHolFront/resources/images/class/report.png"  class="iconbtn">
                 </button>
               </td>
               </tr>
@@ -292,10 +338,8 @@
                 <td>
                   2020.04.20
                 <td>
-                   <button class = "iconbtn" style="border : 0px; background-color: transparent;"
-                   onclick="${ ContextPath }/lahol/coffeeclass/updateclass">
-                  <img src = "${ contextPath }/resources/img/coffeeclass/report.png"  class="iconbtn" 
-                  style="width : 30px; height : 30px;">
+                  <button class = "iconbtn btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" >
+                  <img src = "../../LaHolFront/resources/images/class/report.png"  class="iconbtn">
                 </button>
               </td>
               </tr>
@@ -303,13 +347,15 @@
                 <td>dayoon1004</td>
               </tr>
               <tr>
-                <td>아 진짜 별로에요 ㅡㅡ 선생님이 갓 바리스타 되셨는지 제가 묻는거 대답 하나도 못하시고.. </td>
+                <td>아 진짜 별로에요 묻는거 대답 하나도 못하시고.. </td>
               </tr>
             </tbody>
             </table>
         </div>
       </div>
-        </div>
+     </div>
+        
+        
         <!-- Q&A -->
         <div class="tab-pane fade" id="qa" role="tabpanel" aria-labelledby="qa-tab">
           <div class="qa-content">

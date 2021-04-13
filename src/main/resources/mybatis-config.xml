@@ -14,7 +14,6 @@
 	<typeAliases> 
 		<!-- 스토어  -->
 		<typeAlias type="com.kh.lahol.store.model.vo.Store" alias="Store"/>
-
 		<!-- 일반회원 -->
 		<typeAlias type="com.kh.lahol.member.model.vo.M_Normal" alias="Member_N"/>
 		<!-- 사업자회원 -->
@@ -23,26 +22,38 @@
 		<typeAlias type="com.kh.lahol.member.model.vo.Member" alias="Member"/>
 		<!-- 회원가입 시 Cafe -->
 		<typeAlias type="com.kh.lahol.member.model.vo.Cafe" alias="M_Cafe"/>
-
 		<typeAlias type="com.kh.lahol.store.model.vo.Search" alias="Search"/>
+
+		<!-- 클래스 -->
+ 		<typeAlias type="com.kh.lahol.coffeeclass.model.vo.CoffeeClass" alias="CoffeeClass"/>
+
 
 		<!-- Yeji_Cafe -->
 		<typeAlias type="com.kh.lahol.cafe.bus.model.vo.Cafe" alias="Cafe"/>
 		<typeAlias type="com.kh.lahol.cafe.bus.model.vo.Caphoto" alias="Caphoto"/>
 		<!-- 매장 예약 -->
 		<typeAlias type="com.kh.lahol.cafe.user.model.vo.CafeRes" alias="CafeRes"/>
+
  
 	</typeAliases>
 	
 	<!-- mappers -->
 	<mappers> 
-	
-		<!-- 스토어 mapper  -->
-		<mapper resource="mappers/store-mapper.xml"/>
-		<!-- member-mapper -->
+		<!-- 스토어 mapper -->
+		<mapper resource="mappers/store-mapper.xml"/> 
+		<!-- 클래스 mapper -->
+		<mapper resource="mappers/coffeeclass-mapper.xml"/> 
+		<!-- 멤버 mapper -->
 		<mapper resource="mappers/member-mapper.xml"/>
+
+		<!-- admin-mapper -->
+		<mapper resource="mappers/admin-mapper.xml"/>
+
 		<!-- Cafe mapper -->
 		<mapper resource="mappers/cafe-mapper.xml"/>
+		<!-- nMypage mapper -->
+		<mapper resource="mappers/mypage-mapper.xml"/>
+
 	</mappers>
 </configuration>
 

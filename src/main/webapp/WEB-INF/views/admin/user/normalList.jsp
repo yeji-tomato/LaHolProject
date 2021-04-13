@@ -214,7 +214,7 @@
 					</div>
 				</div>
 				<div id="contents-section">
-					<zing-grid
+					<zing-grid id="dataTable"
 						caption="일반 회원"
 						sort
 						search
@@ -222,197 +222,21 @@
 						page-size="10"
 						page-size-options="5, 10"
 						viewport-stop
-						data='[
-						{
-						  "ID" : "sample1",
-						  "nickname" : "올드희",
-						  "name": "김영희",
-						  "phone": "010-1234-5678",
-						  "email": "sample1@gmail.com",
-						  "coupon": "3",
-						  "blind": "1",
-						  "status": "${ contextPath }/resources/img/admin/icon/active.svg"
-						},
-						{
-						  "ID" : "sample2",
-						  "nickname" : "짱구친구",
-						  "name": "김철수",
-						  "phone": "010-5555-1111",
-						  "email": "sample2@gmail.com",
-						  "coupon": "2",
-						  "blind": "2",
-						  "status": "${ contextPath }/resources/img/admin/icon/active.svg"
-						},
-							{
-						  "ID" : "sample3",
-						  "nickname" : "왈왈",
-						  "name": "바둑이",
-						  "phone": "010-7777-7878",
-						  "email": "sample3@gmail.com",
-						  "coupon": "1",
-						  "blind": "4",
-						  "status": "${ contextPath }/resources/img/admin/icon/inactive.svg"
-						},
-						{
-						  "ID" : "sample4",
-						  "nickname" : "진주쓰",
-						  "name": "백진주",
-						  "phone": "010-1010-2020",
-						  "email": "sample4@gmail.com",
-						  "coupon": "2",
-						  "blind": "5",
-						  "status": "${ contextPath }/resources/img/admin/icon/inactive.svg"
-						},
-						{
-						  "ID" : "sample5",
-						  "nickname" : "다윤쓰",
-						  "name": "최다윤",
-						  "phone": "010-1122-2233",
-						  "email": "sample5@gmail.com",
-						  "coupon": "3",
-						  "blind": "0",
-						  "status": "${ contextPath }/resources/img/admin/icon/active.svg"
-						},
-							{
-						  "ID" : "sample6",
-						  "nickname" : "윤재쓰",
-						  "name": "이윤재",
-						  "phone": "010-2233-3344",
-						  "email": "sample6@gmail.com",
-						  "coupon": "1",
-						  "blind": "0",
-						  "status": "${ contextPath }/resources/img/admin/icon/active.svg"
-						},
-							{
-						  "ID" : "sample7",
-						  "nickname" : "완식쓰",
-						  "name": "김완식",
-						  "phone": "010-3344-5566",
-						  "email": "sample7@gmail.com",
-						  "coupon": "2",
-						  "blind": "0",
-						  "status": "${ contextPath }/resources/img/admin/icon/active.svg"
-						},
-							{
-						  "ID" : "sample8",
-						  "nickname" : "예지쓰",
-						  "name": "이예지",
-						  "phone": "010-8899-9900",
-						  "email": "sample8@gmail.com",
-						  "coupon": "2",
-						  "blind": "0",
-						  "status": "${ contextPath }/resources/img/admin/icon/active.svg"
-						},
-							{
-						  "ID" : "sample9",
-						  "nickname" : "별림쓰",
-						  "name": "우별림",
-						  "phone": "010-1010-5050",
-						  "email": "sample9@gmail.com",
-						  "coupon": "1",
-						  "blind": "0",
-						  "status": "${ contextPath }/resources/img/admin/icon/active.svg"
-						},
-						{
-						  "ID" : "sample10",
-						  "nickname" : "길동쓰",
-						  "name": "홍길동",
-						  "phone": "010-1111-5050",
-						  "email": "sample10@gmail.com",
-						  "coupon": "2",
-						  "blind": "0",
-						  "status": "${ contextPath }/resources/img/admin/icon/active.svg"
-						},
-						{
-						  "ID" : "sample11",
-						  "nickname" : "젠틀맨임당",
-						  "name": "신사임당",
-						  "phone": "010-1111-5050",
-						  "email": "sample11@gmail.com",
-						  "coupon": "2",
-						  "blind": "0",
-						  "status": "${ contextPath }/resources/img/admin/icon/active.svg"
-						},
-						{
-						  "ID" : "sample12",
-						  "nickname" : "할아버지",
-						  "name": "김단군",
-						  "phone": "010-1234-5050",
-						  "email": "sample12@gmail.com",
-						  "coupon": "3",
-						  "blind": "0",
-						  "status": "${ contextPath }/resources/img/admin/icon/active.svg"
-						},
-						{
-						  "ID" : "sample13",
-						  "nickname" : "계란",
-						  "name": "박혁거세",
-						  "phone": "010-1111-1234",
-						  "email": "sample13@gmail.com",
-						  "coupon": "1",
-						  "blind": "0",
-						  "status": "${ contextPath }/resources/img/admin/icon/active.svg"
-						},
-						{
-						  "ID" : "sample13",
-						  "nickname" : "발해는나의것",
-						  "name": "대조영",
-						  "phone": "010-1234-1234",
-						  "email": "sample13@gmail.com",
-						  "coupon": "1",
-						  "blind": "0",
-						  "status": "${ contextPath }/resources/img/admin/icon/inactive.svg"
-						},
-						{
-						  "ID" : "sample14",
-						  "nickname" : "녹두밭그남자",
-						  "name": "전봉준",
-						  "phone": "010-9090-1234",
-						  "email": "sample14@gmail.com",
-						  "coupon": "1",
-						  "blind": "0",
-						  "status": "${ contextPath }/resources/img/admin/icon/active.svg"
-						},
-						{
-						  "ID" : "sample15",
-						  "nickname" : "영실LAB",
-						  "name": "장영실",
-						  "phone": "010-9090-1234",
-						  "email": "sample15@gmail.com",
-						  "coupon": "2",
-						  "blind": "0",
-						  "status": "${ contextPath }/resources/img/admin/icon/active.svg"
-						},
-						{
-						  "ID" : "sample16",
-						  "nickname" : "삼일천하",
-						  "name": "김옥균",
-						  "phone": "010-9990-1234",
-						  "email": "sample16@gmail.com",
-						  "coupon": "1",
-						  "blind": "0",
-						  "status": "${ contextPath }/resources/img/admin/icon/inactive.svg"
-						}
-					  ]'
+						data=''
 					>
 						<zg-colgroup>
-							<zg-column index="ID" header="ID"></zg-column>
+							<zg-column index="id" header="ID"></zg-column>
 							<zg-column index="nickname" header="닉네임"></zg-column>
 							<zg-column index="name" header="이름"></zg-column>
 							<zg-column index="phone" header="연락처"></zg-column>
 							<zg-column index="email" header="이메일"></zg-column>
-							<zg-column
-								index="coupon"
-								header="쿠폰"
-								search="disabled"
-							></zg-column>
 							<zg-column
 								index="blind"
 								header="블라인드"
 								search="disabled"
 							></zg-column>
 							<zg-column
-								index="status"
+								index="isActive"
 								header="상태"
 								type="image"
 								type-image-alt="불러오기 실패"
@@ -449,7 +273,8 @@
 		        $(this).addClass("active");
 		    });
 		});
-
+		
+		
 		/* 다크모드 스위치 위 텍스트 토글*/
 		$(".toggle").click(function (e) {
 		    $(this).toggleClass("toggle-on");
@@ -464,7 +289,25 @@
 		    } else {
 		        $('body').attr('data-theme', 'dark');
 		    }
-		};
+		};	
+		
+		
+		$(function(){
+			
+			const dataTable = $('#dataTable');
+			$.ajax({
+				url: "${ pageContext.request.contextPath }/admin/user/test",
+				dataType: "json",
+				type: "get",
+				success: function(data){
+					dataTable.attr('data', JSON.stringify(data)).trigger("create");
+				},
+				error: function(e){
+					console.log(e);
+				}
+			});		
+	});
 		</script>
+		<script src="${ contextPath }/resources/js/admin/darkMode.js }"></script>
 	</body>
 </html>

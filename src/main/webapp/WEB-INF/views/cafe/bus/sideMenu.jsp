@@ -53,7 +53,7 @@ $(function() {
 	//카페 확인
 	const cafeCon= document.getElementById("cafeCon");
 	cafeCon.addEventListener("click", function() {
-	 location.href='${ contextPath }/cafe/confirm';
+	 location.href='${ contextPath }/cafe/biz/confirm';
 	});
 </script>
 </body>
