@@ -123,9 +123,10 @@
                         <td>시간</td>
                         <td colspan="2">
                           <select style="width: 80%;">
-                            <option value="" class = "selecttime">시간</option>
-                            <option value="" class = "selecttime">09:00 - 11:00</option>
-                            <option value="" class = "selecttime">13:00 - 15:00</option>
+                            <option value="" class = "selecttime" disabled="disabled" selected>시간</option>
+                          	<c:forEach var="time" items="#{ classTimes }">
+                           		<option class = "selecttime" name="classTime" value="${ time }">${ time }</option>
+                        	</c:forEach>
                         </select>          
                         </td>
                       </tr>
@@ -155,6 +156,20 @@
                     </div>
                   </button>
                    
+                    </div> 
+                    
+                     <div class="btnDiv">
+                    <button type="button" class= "btn" id = "register-btn"
+                     onclick="location.href='${ ContextPath }/coffeeclass/updateclass?classNo=${ coffeeclass.classNo }'">
+                      클래스 정보수정
+                      <i class="fa fa-wrench" aria-hidden="true"></i>
+                    </button>                     
+                        <!-- Button trigger modal -->
+                      <button type="button" class="btn btn-primary" id="cart-btn" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                       onclick="location.href='${ contextPath}/coffeeclass/delete?classNo=${ coffeeclass.classNo }'">
+                          클래스 삭제
+                      <i class="fa fa-trash" aria-hidden="true"></i> 
+                      </button>
                     </div>     
                    
               </div>

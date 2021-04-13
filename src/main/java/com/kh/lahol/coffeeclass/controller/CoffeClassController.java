@@ -25,6 +25,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kh.lahol.cafe.bus.model.service.CafeBizService;
+import com.kh.lahol.cafe.bus.model.vo.Cafe;
 import com.kh.lahol.coffeeclass.model.exception.CoffeeClassException;
 import com.kh.lahol.coffeeclass.model.service.CoffeeClassSerivce;
 import com.kh.lahol.coffeeclass.model.vo.CoffeeClass;
@@ -36,6 +38,8 @@ public class CoffeClassController {
 
 	@Autowired
 	private CoffeeClassSerivce clService;
+	@Autowired
+	private CafeBizService cafeService;
 
 	// 사용자 메인페이지
 
@@ -64,7 +68,15 @@ public class CoffeClassController {
 	
 	// 클래스 개설 페이지로 이동
 	@GetMapping("/coffeeclass/createclass")
-	public String createclass() {
+	public String createclass(Model model) {
+		/*
+		 * Cafe cafe = new Cafe(); cafe.setCaName("만랩커피");
+		 */
+		Cafe cafe = cafeService.selectCafeInfo("CA21");
+		// User loginUser = session.getAttribute("loginUSer(키값)") 을 통해서 controller에서 가지고 나온다  
+		// selectMyCafe라는 메소드 만들고, 
+		// Cafe mycafe = cafeService.selectMyCafe(loginUser);
+		model.addAttribute("mycafe", cafe);
 		return "coffeeclass/bus_create";
 	}
 	
@@ -81,7 +93,7 @@ public class CoffeClassController {
 		// 주소 세팅
 		cl.setClassLoca(classlocation1 + classlocation2);
 		
-		
+		// 사진 넘겨주기
 		 if(!file1.getOriginalFilename().equals("")) {
 	            // 파일 저장 메소드 별도로 작성 - 리네임명 리턴
 	            String renameFileName = saveFile(file1, (HttpServletRequest) request);
@@ -158,20 +170,32 @@ public class CoffeClassController {
      }
 	
 	
-	// 클래스 수정 페이지
+	// 클래스 수정 페이지로 이동
 	@GetMapping("/coffeeclass/updateclass")
-	public String updateClass() {
+	public String updateClass(@RequestParam String classNo, Model model) {
 		
+		CoffeeClass cl = clService.updateClass(classNo);
+		model.addAttribute("coffeeclass", cl);
 		
-		return "";
+		return "coffeeclass/bus_classupdate";
 		
 	}
+	
+	// 클래스 수정
+	@PostMapping("/coffeeclass/updateclass/update")
+	public String update(@ModelAttribute CoffeeClass cl) {
+		
+		return "";
+	}
+	
+	
 	
 	
 	// 사업자 클래스 상세 페이지
 	  @GetMapping("/coffeeclass/busdetail") 
 	  public String busdetail() {
-		  return "coffeeclass/bus_classdetail"; }
+		  return "coffeeclass/bus_classdetail"; 
+		  }
 	  
 	  
 	// 클래스 상세페이지
@@ -181,8 +205,13 @@ public class CoffeClassController {
 		  
 		  CoffeeClass cl = clService.selectCoffeeClass(classNo);
 		  
-		  if(cl != null) {	    //모델에 추가할 이름
+		  if(cl != null) {	    //키값 : 뷰에서 보여질 변수명, 밸류: 컨트롤러에서 실제 쓰이는 변수명
 			  model.addAttribute("coffeeclass", cl);
+				/*
+				 * String classTimeStr= cl.getClassTime(); String[] classTimeArr =
+				 * classTimeStr.split(",");
+				 */ 
+			  model.addAttribute("classTimes", cl.bringTimes());
 			  return "coffeeclass/class_detail";
 		  } else {
 			  model.addAttribute("errorMsg", "클래스를 불러오는데 실패했습니다.");
@@ -192,6 +221,30 @@ public class CoffeClassController {
 	  }
 	 
 	
+	  // 클래스 수정페이지
+		  // 클래스 수정
+		/*
+		 * @GetMapping("/coffeeclass/updateclass") public String updateclass(Model
+		 * model, String classNo) {
+		 * 
+		 * CoffeeClass cl = clService.selectCoffeeClass(classNo, false); // CoffeeClass
+		 * 객체 리턴, false는 조회수에 대한 내용 model.addAttribute("cl", cl); return
+		 * "coffeeclass/bus_classupdate"; }
+		 * 
+		 * 
+		 * // 클래스 수정 요청
+		 * 
+		 * @PostMapping("/update") public String classUpdate(CoffeeClass c,
+		 * 
+		 * @RequestParam(value="updlaodFile") MultipartFile file, HttpServletRequest
+		 * request) {
+		 * 
+		 * // 새로 업로드 된 파일이 있다면=> 기존 파일 삭제 , 업데이트 된 사진 새로 저장
+		 * 
+		 * 
+		 * return ""; }
+		 */
+	  
 
 	/*
 	 * // 클래스 상세 페이지
@@ -271,26 +324,9 @@ public class CoffeClassController {
 	 * 
 	 * }
 	 * 
-	 * // 클래스 수정
+
 	 * 
-	 * @GetMapping("/coffeeclass/updateclass") public String updateclass(Model
-	 * model, String classNo) {
-	 * 
-	 * CoffeeClass cl = clService.selectCoffeeClass(classNo, false); // CoffeeClass
-	 * 객체 리턴, false는 조회수에 대한 내용 model.addAttribute("cl", cl); return
-	 * "coffeeclass/bus_classupdate"; }
-	 * 
-	 * // 클래스 수정 요청
-	 * 
-	 * @PostMapping("/update") public String classUpdate(CoffeeClass c,
-	 * 
-	 * @RequestParam(value="updlaodFile") MultipartFile file, HttpServletRequest
-	 * request) {
-	 * 
-	 * // 새로 업로드 된 파일이 있다면=> 기존 파일 삭제 , 업데이트 된 사진 새로 저장
-	 * 
-	 * 
-	 * return ""; }
+	
 	 */
 	
 

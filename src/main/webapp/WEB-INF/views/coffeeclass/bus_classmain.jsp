@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -111,15 +112,15 @@
      <div class="classes">
       <h2>마이 클래스</h2>
       <div class="row">
-          <div class="col" id="classdetail">
-              <img src="${ contextPath }/resources/img/coffeeclass/classphoto/class1.jpg" class ="card-img-top" onclick="">
-              <h4>드립커피 고수되기</h4>
-              <p>45000원</p>
-              <div class="rating">
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star-half"></i>
-              </div>
-          </div>
+          <c:forEach var="cl" items="${ list }">
+      	  	  <div class="col" id="classdetail" onclick="selectClass('${cl.classNo}');">
+              	<img src="${ contextPath }/resources/img/coffeeclass/classphoto/class2.png" class ="card-img-top" onclick="">
+              	<h4>${ cl.className }</h4>
+         	  	<p>${ cl.clPrice }원</p>
+         	  	<!-- 별점 -->
+         	  </div>
+      	  </c:forEach>
+      	  
           <div class="col" id="classdetail">
               <img src="${ contextPath }/resources/img/coffeeclass/classphoto/class9.jpg" class ="card-img-top" onclick="location.href='bus_classdetail.html'">
               <h4>신라호텔 수석 바리스타가 알려주는 좋은원두</h4>
@@ -148,17 +149,15 @@
   <div class="small-container classes">
       <h2>진행중인 클래스</h2>
       <div class="row">
-          <div class="col">
-              <img src="${ contextPath }/resources/img/coffeeclass/classphoto/class2.png" class ="card-img-top" onclick="location.href='classdetail.html'">
-              <h4>클래스이름</h4>
-              <p>가격</p>
-              <div class="rating">
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star-half"></i>
-              
-              </div>
-          </div>
+          <div class="row">				<!-- 키값 -->
+      	  <c:forEach var="cl" items="${ list }">
+      	  	  <div class="col" id="classdetail" onclick="selectClass('${cl.classNo}');">
+              	<img src="${ contextPath }/resources/img/coffeeclass/classphoto/class2.png" class ="card-img-top" onclick="">
+              	<h4>${ cl.className }</h4>
+         	  	<p>${ cl.clPrice }원</p>
+         	  	<!-- 별점 -->
+         	  </div>
+      	  </c:forEach>
           <div class="col">
               <img src="${ contextPath }/resources/img/coffeeclass/classphoto/class10.jpg" class ="card-img-top" onclick="location.href='classdetail.html'">
               <h4>클래스이름</h4>
@@ -253,14 +252,17 @@
   </div>
     </section>
     
-    <!-- 상세페이지 이동 -->
-	<script>
-       const detail = document.getElementById("classdetail");
-       detail.addEventListener("click", function(){
-           location.href='${ contextPath }/coffeeclass/classdetail';
-       });
+  <!--   <script>
+  		function selectClass(classNo){
+  			location.href='${contextPath}/coffeeclass/classdetail?classNo='+classNo;
+  		}
   	</script>
-  	
+  	 -->
+
+	<script>
+	
+	
+	</script>
 
     
    <!-- footer -->

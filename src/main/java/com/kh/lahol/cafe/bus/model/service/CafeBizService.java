@@ -22,5 +22,6 @@ public interface CafeBizService {
 	// 카페 시퀀스 번호를 통한 조회
 	public Cafe selectCafeInfo(String caCode);
 	
+	
 
 }

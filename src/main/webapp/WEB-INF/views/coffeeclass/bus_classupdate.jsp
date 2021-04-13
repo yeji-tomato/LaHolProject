@@ -40,15 +40,15 @@
 				<table id="clTable" style="white;">
 					<tr id="clTr">
 						<td>클래스명</td>
-						<td class="answer"><input type="text" class="classdes" name="classNo" value ="${ cl.className }" required></td>
+						<td class="answer"><input type="text" class="classdes" name="classNo" value ="${ coffeeclass.className }" required></td>
 					</tr>
 					<tr>
 						<td>사업자번호</td>
-						<td class="answer"><input type="text" class="classdes" name = "busNo" value = "${ cl.busNo }" required></td>
+						<td class="answer"><input type="text" class="classdes" name = "busNo" value = "${ coffeeclass.busNo }" required></td>
 					</tr>
 					<tr>
 						<td>강사명</td>
-						<td class="answer"><input type="text" class="classdes" name="trName" value = "#{ cl.trName }" required></td>
+						<td class="answer"><input type="text" class="classdes" name="trName" value = "#{ coffeeclass.trName }" required></td>
 					</tr>
 					<tr>
 						<td>강사사진</td>
@@ -58,8 +58,8 @@
 					<c:if test="${ !empty cl.originalFileName }">
 					<tr>
 						<td>현재 업로드된 사진</td>
-						<td class="answer"><a href="${ contextPath }/coffeeclass/download?classNo=${ cl.className }">
-						${ cl.originalFileName }
+						<td class="answer"><a href="${ contextPath }/coffeeclass/download?classNo=${ coffeeclass.className }">
+						${ coffeeclass.originalFileName }
 						</a></td>
 					</tr>
 					</c:if>
@@ -71,7 +71,7 @@
 					<tr>
 						<td>강사소개</td>
 						<td class="answer"><input type="text" style="height: 200px;"
-							class="classdes" name="trIntro" value = "${ cl.trIntro }"></td>
+							class="classdes" name="trIntro" value = "${ coffeeclass.trIntro }"></td>
 					</tr>
 
 					<tr>
@@ -120,44 +120,32 @@
 
 					<tr>
 						<td>클래스 한 줄 소개</td>
-						<td class="answer"><input type="text" class="classdes" name="clShortDes" value="${ cl.clShortDes }"></td>
+						<td class="answer"><input type="text" class="classdes" name="clShortDes" value="${ coffeeclass.clShortDes }"></td>
 					</tr>
 
 					<tr>
 						<td>클래스 상세 소개</td>
 						<td class="answer"><input type="textarea"
-							style="line-height: 200px;" class="classdes" name="classDes"></td>
+							style="line-height: 200px;" class="classdes" name="classDes" value="${ coffeeclass.classDes }"></td>
 					</tr>
 
 					<tr>
 						<td>클래스 커리큘럼</td>
 						<td class="answer"><input type="textarea" style="height: 200px;"
-							class="classdes" name="classCurri"></td>
+							class="classdes" name="classCurri" value="${ coffeeclass.classCurri }"></td>
 					</tr>
 
+					<tr>
 					<tr>
 						<td>클래스 대표 이미지</td>
-						<td class="answer"><input type="file" class="classdes"></td>
-					</tr>
-
-					<tr>
-						<td>클래스 이미지 2장 필수</td>
-						<td class="answer"><input type="file" value=""
-							name="upload[]" multiple class="classdes"></td>
-					</tr>
-
-					<!-- <tr>
-						왼쪽으로 옮기고 싶음
-						<td>강의 시작일</td>
-						<td class="answer" style="text-align: left;"><input
-							type="date" class="classdate start" class="classdes"></td>
+						<td class="answer"><input type="file" class="classdes" name="imgfile2"></td>
 					</tr>
 					<tr>
-						왼쪽으로 옮기고 싶음
-						<td>강의 종료일</td>
-						<td class="answer" style="text-align: left;"><input
-							type="date" class="classdate end classdes"></td>
-					</tr> -->
+						<td>클래스 기타이미지</td>
+						<td class="answer"><input type="file" class="classdes" name="imgfile3"></td>
+					</tr>
+
+
 					<tr>
 						
 						<td>강의 날짜</td>

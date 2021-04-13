@@ -40,4 +40,7 @@ public class CoffeeClass{
 	private String clPhoto;
 	
 
+	public String[] bringTimes() {
+		return classTime.split(","); // "10:00-11:00,11:00-12:00,13:00-14:00" >> // [A, B, C]
+	}
 }
