@@ -19,6 +19,8 @@ public interface CafeBizDao {
 
 	public List<Coffee> selectCoffeeList(String caCode);
 
+	public Cafe caWriteSelect(String caId);
+
 	//public int insetCafeInfoPhoto(ArrayList<Caphoto> photoList);
 	
 	

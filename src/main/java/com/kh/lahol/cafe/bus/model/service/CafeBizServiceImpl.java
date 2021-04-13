@@ -49,11 +49,11 @@ public class CafeBizServiceImpl implements CafeBizService{
 		return caBizDao.selectCoffeeList(caCode);
 	}
 
-	/*
-	 * @Override public int insertCafeInfoPhoto(ArrayList<Caphoto> photoList) {
-	 * System.out.println("photoListService : " + photoList); return
-	 * caBizDao.insetCafeInfoPhoto(photoList); }
-	 */
+	@Override
+	public Cafe caWriteSelect(String caId) {
+		return caBizDao.caWriteSelect(caId);
+	}
+
 
 	
 	

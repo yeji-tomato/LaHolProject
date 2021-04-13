@@ -58,6 +58,11 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 		<result property="caResGoTime" column="C_GOTIME"/>		
 	</resultMap>
 	
+	<!-- 입력을 위한 카페 정보 가져오기 -->
+	<select id="selectCafeWrite" parameterType="Cafe">
+	
+	</select>
+	
 	<!-- 카페 정보 입력 -->
 	<insert id="insertCafeInfo" parameterType="Cafe">
 	INSERT
@@ -93,7 +98,7 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
         DEFAULT,
         #{caLa},
         #{caLo},
-        'ADMIN',
+        #{caId},
         #{caStartTime},
         #{wifi},
         #{toilet},

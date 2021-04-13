@@ -12,7 +12,7 @@
 <body>
 
    <!-- 사업자 menubar -->
-   <jsp:include page="/WEB-INF/views/common/menubarBus.jsp"/>
+   <jsp:include page="/WEB-INF/views/common/menubar.jsp"/>
    
    <!-- 카페 사이드 메뉴 바 -->
     <div class="write-container">
@@ -69,7 +69,7 @@
             <h2>카페 등록</h2>
             <hr>
             <form action="${ contextPath }/cafe/biz/insert" id="uploadForm" method="post" enctype="multipart/form-data">
-                <input type="text" name="caId" value="${ loginUser.id }">
+                <input type="hidden" name="caId" value="${ loginUser.id }">
                 <div class="container">
                     <div class="writeArea">
                         <!-- 카페명 -->

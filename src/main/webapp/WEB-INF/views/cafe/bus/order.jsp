@@ -11,7 +11,7 @@
 <body>
 
 	<!-- 사업자 menubar -->
-	<jsp:include page="/WEB-INF/views/common/menubarBus.jsp"/>
+	<jsp:include page="/WEB-INF/views/common/menubar.jsp"/>
 
 <!-- 카페 사이드 메뉴 바 -->
 <div class="cafe-sidemenubar">
