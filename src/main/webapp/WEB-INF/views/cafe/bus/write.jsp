@@ -68,7 +68,7 @@
             <div class="cafe-write-form">
             <h2>카페 등록</h2>
             <hr>
-            <form action="${ contextPath }/cafe/biz/insert" id="uploadForm" method="post" enctype="multipart/form-data">
+            <form action="${ contextPath }/cafe/biz/insert" id="uploadForm" method="post" enctype="multipart/form-data"> 
                 <div class="container">
                     <div class="writeArea">
                         <!-- 카페명 -->

@@ -42,16 +42,18 @@ public class StoreDaoImpl implements StoreDao{
 		return sqlSession.selectList("storeMapper.myselectList",  id , rowBounds);
 	} 
 	//내가 쓴 게시글 카운트
+	 
 	@Override
-	public int mySearchCount(String id) {
+	public int mySearchCount(String id ) {
 		return sqlSession.selectOne("storeMapper.mySearchCount",  id);
 	}
+
 
 
 	
 	@Override
 	public int selectSearchCount(Search search) {
-		return sqlSession.selectOne("storeMapper.selectSearchCount",    search );
+		return sqlSession.selectOne("storeMapper.selectSearchCount",  search );
 	}
   
 	//검색용 페이징 처리 
@@ -75,7 +77,16 @@ public class StoreDaoImpl implements StoreDao{
 		return sqlSession.update("storeMapper.updateReadCount",PR_CODE );
 		
 	}
-
+	 
+	
+	@Override
+	public int insertStore(Store s) {
+		return sqlSession.insert("storeMapper.insertStore",  s ); 
+	}
+	@Override
+	public int deleteStore(int PR_CODE) {
+		return sqlSession.update("storeMapper.deleteStore", PR_CODE);
+	}
 
 
 	
