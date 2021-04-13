@@ -247,28 +247,52 @@ public class CafeBizController {
 		}
 	}
 	
-	@GetMapping("/upCoffee")
+	@GetMapping("/Coffee")
 	public ModelAndView coffeeSelect(ModelAndView mv, @RequestParam String caCode) {
 		
 		System.out.println(caCode + "caCode");
 		
 		List<Coffee> Coffeelist = caBizService.selectCoffeeList(caCode);
 		
-		/*
-		 * List<Cafe> Cafelist = caBizService.selectCafeList();
-		 * 
-		 * if(Cafelist != null) { mv.addObject("Cafelist", Cafelist);
-		 * mv.setViewName("cafe/bus/confirm"); }else { mv.addObject("msg",
-		 * "해당하는 카페 조회에 실패하였습니다."); mv.setViewName("common/error"); }
-		 */
 		
 		mv.addObject("Coffeelist", Coffeelist);
-		mv.setViewName("cafe/bus/upCoffee");
+		mv.setViewName("cafe/bus/coffee");
 		
 		return mv;
 		
 	}
 	
-	
+	@PostMapping("/coffee/insert")
+	public String insertCoffee(@ModelAttribute Coffee co,
+								@RequestParam(name="imgfile1") MultipartFile mainfile,
+								HttpServletRequest request) throws CafeException {
+		
+		 
+		 if(!mainfile.getOriginalFilename().equals("")) {
+				// 파일 저장 메소드 별도로 작성 - 리네임명 리턴
+				String renameFileName = saveFile(mainfile, request);
+				
+				// DB에 저장하기 위한 파일명 세팅
+				if(renameFileName != null) {
+					/* co.setMainPhoto(renameFileName); */
+				}
+
+			}
+		 
+		 	
+		
+		System.out.println("카페사진 : "+ co);
+		
+		return null;
+		
+		/*
+		 * int result = caBizService.insertCafeInfo(c);
+		 * 
+		 * if(result > 0) { return "cafe/bus/confirm"; }else { throw new
+		 * CafeException("카페 정보 등록에 실패하였습니다."); }
+		 */
+		
+		
+	}
 
 }
