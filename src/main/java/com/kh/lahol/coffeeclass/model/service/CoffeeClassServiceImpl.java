@@ -15,7 +15,7 @@ public class CoffeeClassServiceImpl implements CoffeeClassSerivce{
 	private CoffeeClassDao clDao;
 
 	// 조회
-	@Override
+	@Override    
 	public int selectListCount() {
 		return clDao.selectListCount();
 	}
@@ -37,16 +37,23 @@ public class CoffeeClassServiceImpl implements CoffeeClassSerivce{
 	}
 
 
-	@Override
-	public int updateClass(CoffeeClass cl) {
-		return clDao.updateClass(cl);
-	}
+	/*
+	 * @Override public int updateClass(CoffeeClass cl) { return
+	 * clDao.updateClass(cl); }
+	 */
 
+	@Override
+	public CoffeeClass updateClass(String classNo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
 	@Override
 	public int deleteClass(int classNo) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
 
 
 }

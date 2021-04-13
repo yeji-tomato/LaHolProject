@@ -28,7 +28,7 @@
 	<!-- menubar -->
 	<jsp:include page="/WEB-INF/views/common/menubar.jsp" />
 
-  <div class="container" style="margin-top : 20vh;">
+  <div class="container" style="margin-top : 20vh;">  
         <div class="row">
             <!--왼쪽-->
             <div class="col">

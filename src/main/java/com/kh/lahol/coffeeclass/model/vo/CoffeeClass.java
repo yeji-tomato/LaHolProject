@@ -1,5 +1,5 @@
 package com.kh.lahol.coffeeclass.model.vo;
-
+  
 import java.sql.Date;
 
 import lombok.AllArgsConstructor;

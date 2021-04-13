@@ -79,7 +79,7 @@ public class CoffeClassController {
 		model.addAttribute("mycafe", cafe);
 		return "coffeeclass/bus_create";
 	}
-	
+	    
 	// 클래스 개설
 	@PostMapping("/coffeeclass/createclass/insert")
 	public String classInsert(@ModelAttribute CoffeeClass cl, 
