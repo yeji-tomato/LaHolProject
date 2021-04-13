@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CreateClass</title>
+<title>CreateClass</title>  
 <!-- css연결 -->
 <link rel="stylesheet"
 	href="${ contextPath }/resources/css/coffeeclass/editclass.css">
@@ -92,11 +92,11 @@
 						<!--검색으로 select-->
 						<td>주최카페</td>
 						<td class="answer">
-							<button type="button" class="btn btn-outline-secondary"
+						<!-- 	<button type="button" class="btn btn-outline-secondary"
 								name = "cafeNo" 
 								data-bs-toggle="modal" data-bs-target="#exampleModal"
-								style="float: left;">등록된 카페검색</button> <input type="text"
-							id="linkedcafe" value="KH카페" readonly>
+								style="float: left;">등록된 카페검색</button>  -->
+								<input type="text" id="linkedcafe" value="${ mycafe.caName }" readonly>
 						</td>
 					</tr>
 
@@ -156,19 +156,8 @@
 						<td>클래스 기타이미지</td>
 						<td class="answer"><input type="file" class="classdes" name="imgfile3"></td>
 					</tr>
-
-					<!-- <tr>
-						왼쪽으로 옮기고 싶음
-						<td>강의 시작일</td>
-						<td class="answer" style="text-align: left;"><input
-							type="date" class="classdate start" class="classdes"></td>
-					</tr>
-					<tr>
-						왼쪽으로 옮기고 싶음
-						<td>강의 종료일</td>
-						<td class="answer" style="text-align: left;"><input
-							type="date" class="classdate end classdes"></td>
-					</tr> -->
+					
+					
 					<tr>
 						
 						<td>강의 날짜</td>
@@ -178,11 +167,11 @@
 					
 					<tr>
 						<td>강의 시간</td>
-						<td class="answer"><input type="text"
-							placeholder="하루 최대 3타임 운영가능" class="classdes" name="classTime"> <input
-							type="text" placeholder="예시 ) 10:00 - 12:00" class="classdes">
-							<input type="text" placeholder="예시 ) 19:00 - 21:00"
-							class="classdes"></td>
+						<td class="answer">
+						<input type="text" placeholder="하루 최대 3타임 운영가능" class="classdes" name="classTime"> 
+						<input type="text" placeholder="예시 ) 10:00 - 12:00" class="classdes" name="classTime">
+						<input type="text" placeholder="예시 ) 19:00 - 21:00" class="classdes" name="classTime">
+						</td>
 					</tr>
 
 					<tr>

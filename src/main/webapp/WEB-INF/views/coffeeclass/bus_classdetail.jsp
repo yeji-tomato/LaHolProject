@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,7 +28,7 @@
 	<!-- menubar -->
 	<jsp:include page="/WEB-INF/views/common/menubar.jsp" />
 
-  <div class="container" style="margin-top : 20vh;">
+  <div class="container" style="margin-top : 20vh;">  
         <div class="row">
             <!--왼쪽-->
             <div class="col">
@@ -140,17 +141,18 @@
                     </tbody>
                   </table>
                   <div class="btnDiv">
-                  	<c:if test="${ m.name eq cl.trName }">
-                    <button type="button" class= "btn" id = "register-btn" onclick="location.href='${ ContextPath }/coffeeclass/updateclass?classNo=${ cl.classNo }&page=${ param.page }'">
+                  <%-- 	<c:if test="${ m.name eq cl.trName }"></c:if> --%>
+                    <button type="button" class= "btn" id = "register-btn"
+                     onclick="location.href='${ ContextPath }/coffeeclass/updateclass?classNo=${ coffeeclass.classNo }'">
                       클래스 정보수정
                       <i class="fa fa-wrench" aria-hidden="true"></i>
                     </button>                     
                         <!-- Button trigger modal -->
-                      <button type="button" class="btn btn-primary" id="cart-btn" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="location.href='${ contextPath}/coffeeclass/delete?classNo=${ cl.classNo }'">
+                      <button type="button" class="btn btn-primary" id="cart-btn" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                       onclick="location.href='${ contextPath}/coffeeclass/delete?classNo=${ coffeeclass.classNo }'">
                           클래스 삭제
                       <i class="fa fa-trash" aria-hidden="true"></i> 
                       </button>
-                      </c:if>
                     </div>     
                    
               </div>
@@ -463,7 +465,9 @@
          trHtml.remove(); //tr 테그 삭제
          
      });
+     
  </script>
+
        
 
         </div>

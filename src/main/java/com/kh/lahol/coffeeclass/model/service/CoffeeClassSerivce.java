@@ -20,10 +20,11 @@ public interface CoffeeClassSerivce {
 	public CoffeeClass selectCoffeeClass(String classNo);
 	
 	// 5. 클래스 수정하기 
-	public int updateClass(CoffeeClass cl);
+	public CoffeeClass updateClass(String classNo);
 	
 	// 6. 클래스 삭제하기 
 	public int deleteClass(int classNo);
+
 
 
 
