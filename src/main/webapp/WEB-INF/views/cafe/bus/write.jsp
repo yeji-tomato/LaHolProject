@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
-<head>
+<head> 
 <meta charset="UTF-8">
 <title>카페 등록 페이지</title>
 <link rel="stylesheet" href="${ contextPath }/resources/css/cafe/bus/write.css" type="text/css">
