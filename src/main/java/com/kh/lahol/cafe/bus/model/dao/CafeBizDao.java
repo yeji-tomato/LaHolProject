@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.kh.lahol.cafe.bus.model.vo.Cafe;
 import com.kh.lahol.cafe.bus.model.vo.Caphoto;
+import com.kh.lahol.cafe.bus.model.vo.Coffee;
 
 public interface CafeBizDao {
 	// 카페 정보 insert
@@ -13,6 +14,10 @@ public interface CafeBizDao {
 	public List<Cafe> selectCafeList();
 
 	public Cafe selectCafeInfo(String caCode);
+
+	public int updateCafeInfo(Cafe c);
+
+	public List<Coffee> selectCoffeeList(String caCode);
 
 	//public int insetCafeInfoPhoto(ArrayList<Caphoto> photoList);
 	

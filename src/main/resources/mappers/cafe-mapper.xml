@@ -25,6 +25,18 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 		<result property="photo3" column="PHOTO3"/>
 	</resultMap>
 	
+	<resultMap id="coffeeResultSet" type="Coffee">
+		<id property="cfNo" column="CF_NO"/>
+		<result property="cfCategory" column="CF_CATEGORY"/>
+		<result property="cfIname" column="CF_INAME"/>
+		<result property="cfIchname" column="CF_ICHNAME"/>
+		<result property="chIpath" column="CF_IPATH"/>
+		<result property="cfName" column="CF_NAME"/>
+		<result property="cfPrice" column="CF_PRICE"/>
+		<result property="cfCount" column="CF_COUNT"/>	
+		<result property="caNo" column="C_CODE"/>		
+	</resultMap>
+	
 <!-- 	<resultMap id="cafePhotoResultSet" type="Caphoto">
 		<id property="caINo" column="C_INO"/>
 		<result property="caIName" column="C_INAME"/>
@@ -139,6 +151,7 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 		    PHOTO3
 		FROM CAFE
 		WHERE ID = 'ADMIN'
+		AND C_STATUS = 'Y'
 		ORDER BY C_CODE DESC
 	</select>
 	
@@ -164,6 +177,47 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 			CAFE
 		WHERE 
 			C_CODE = #{caCode}
+	</select>
+	
+	<update id="updateCafeInfo" parameterType="Cafe">
+	UPDATE
+		CAFE
+	SET
+		C_NAME = #{caName},
+	    C_ADDRESS = #{caAddress},
+	    C_LA = #{caLa},
+	    C_LO = #{caLo},
+	    STARTTIME = #{caStartTime},
+	    C_WIFI = #{wifi},
+	    C_TOILET= #{toilet},
+	    C_PARKING = #{parking},
+	    C_MESSAGE = #{message},
+	    ENDTIME = #{caEndTime},
+	    MAINPHOTO = #{mainPhoto},
+	    PHOTO1 = #{photo1},
+	    PHOTO2 = #{photo2},
+	    PHOTO3 = #{photo3}
+	WHERE
+		C_CODE = #{caCode}
+	</update>
+	
+	<select id="selectCoffeeList" resultMap="coffeeResultSet">
+		SELECT
+    	CF_NO,
+	    CF_CATEGORY,
+	    CF_INAME,
+	    CF_ICHNAME,
+	    CF_IPATH,
+	    CF_NAME,
+	    CF_PRICE,
+	    CF_COUNT,
+	    CO.C_CODE
+	FROM COFFEE CO
+	FULL OUTER JOIN CAFE CA
+	ON CO.C_CODE = CA.C_CODE
+	WHERE 
+				CA.C_CODE = #{caCode}
+	ORDER BY CF_NO DESC
 	</select>
 	
 	<!-- 카페 매장 예약 -->
