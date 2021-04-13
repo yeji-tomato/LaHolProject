@@ -11,13 +11,18 @@
     <link rel="stylesheet" href="${ contextPath }/resources/css/mypage/sideMenu.css">
     <!-- footer css -->
     <link rel="stylesheet" href="${ contextPath }/resources/css/common/footer.css">
+    <link rel="stylesheet" href="${ contextPath }/resources/css/common/fonts.css" type="text/css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-    
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <style>
         body{
             margin: 0;
             padding: 0;
         }
+        
+        #nav {
+    		background-color : #CDC2AF !important;
+    	}
 
         .mypage-container{
             width: 100%;
@@ -25,13 +30,16 @@
             padding-top: 10%;
         }
 
+		.mp-container {
+			height : 900px;
+		}
 
         #mp{
             display: flex;
             margin-top: 1%;
             margin-left: 5%;
             width: 80vw;
-            height: 80vh;
+            height: 800px;
             justify-content: center;
             text-align: center;
             border-radius: 30px;
@@ -111,6 +119,13 @@
         #cancel-btn {
             background: #e7e7e7;
             color : #000000;
+        }
+        
+        .swal2-confirm,
+        .swal2-cancel,
+        .swal2-html-container,
+        .swal2-title {
+        	font-family: 'NEXON Lv1 Gothic OTF';
         }
     </style>
 </head>
@@ -193,19 +208,36 @@
                     <h3>회원 탈퇴</h3>
                 </div>
                 <div class="input-div">
-                    <form method="POST" action="${ contextPath }/member/login">
+                    <form id="checkDelete" method="POST" action="${ contextPath }/nMypage/checkDelete">
                         <span class="content-title">비밀번호</span>
                         <input type="password" id="pwd" name="pwd">
+                        <input type="hidden" id="id" name="id" value="${ sessionScope.loginUser.id }">
+                        <input type="hidden" id="grade" name="grade" value="${ sessionScope.loginUser.grade }">
                     </form>
                 </div>
                 <div class="btn-div">
-                    <button class="delete-btn" id="ok-btn">확인</button>
-                    <button class="delete-btn" id="cancel-btn">취소</button>
+                    <button class="delete-btn" id="ok-btn" onclick="onSubmit();">확인</button>
+                    <button class="delete-btn" id="cancel-btn" onclick="location.href='${contextPath}/nMypage/homeView'">취소</button>
                 </div>
             </div>
         </div>
         
     </div>
+    <script>
+    	var pwd = document.getElementById("pwd");
+    	function onSubmit() {
+    		if(pwd.value == "") {
+            	Swal.fire({
+					title : '비밀번호를 입력해주세요.',
+					icon : 'warning'
+				});
+                pwd.focus();
+                return;
+			}
+    		
+    		$("#checkDelete").submit();
+    	}
+    </script>
     <!-- footer -->
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 </body>

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.lahol.member.model.vo.Member;
@@ -82,6 +83,36 @@ public class nMypageController {
 		} else {
 			model.addAttribute("msg", "회원정보 수정에 실패하였습니다.");
 			return "mypage/normal/updateMember";
+		}
+	}
+	
+	@PostMapping("/checkDelete")
+	public String checkDelete(@ModelAttribute Member m,
+			                  Model model) {
+		Member member = nService.selectMember(m);
+		
+		if(member != null && bcryptPasswordEncoder.matches(m.getPwd(), member.getPwd())) {
+			return "mypage/normal/confirmDeleteMember";
+		} else {
+			model.addAttribute("msg", "비밀번호가 일치 하지 않습니다.");
+			return "mypage/normal/deleteMember";
+		}
+	}
+	
+	@PostMapping("/delete")
+	public String deleteMember(@RequestParam("id") String id,
+			                   Model model,
+			                   SessionStatus status,
+			                   RedirectAttributes rd) {
+		int result = nService.deleteMember(id);
+		
+		if(result > 0) {
+			status.setComplete();
+			rd.addFlashAttribute("msg", "정상적으로 탈퇴 되었습니다.");
+			return "redirect:/";
+		} else {
+			model.addAttribute("msg", "회원 탈퇴에 실패하였습니다.");
+			return "mypage/normal/deleteMember";
 		}
 	}
 }

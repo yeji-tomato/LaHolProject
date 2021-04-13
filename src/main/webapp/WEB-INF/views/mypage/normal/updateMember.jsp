@@ -264,20 +264,20 @@
                                     <td><span class="sub-title">이름</span></td>
                                     <td><input type="text" id="name" name="name" value="${ sessionScope.loginUser.name }"></td>
                                     <td><span class="sub-title">주소</span></td>
-                                    <td><input type="text" id="address1" name="address1" placeholder="우편번호" value="${ addr[0] }" readonly></td>
+                                    <td><input type="text" id="address1" name="address1" class="postcodify_postcode5" placeholder="우편번호" value="${ addr[0] }" readonly></td>
                                     <td><button type="button" class="btn-small" id="postcodify_search_button">검색</button></td>
                                 </tr>
                                 <tr>
                                     <td><span class="sub-title">비밀번호</span></td>
                                     <td><input type="password" id="pwd" name="pwd"></td>
                                     <td></td>
-                                    <td colspan="2"><input type="text" id="address2" name="address2" placeholder="도로명주소" value="${ addr[1] }" readonly></td>
+                                    <td colspan="2"><input type="text" id="address2" name="address2" class="postcodify_address" placeholder="도로명주소" value="${ addr[1] }" readonly></td>
                                 </tr>
                                 <tr>
                                     <td><span class="sub-title">비밀번호 확인</span></td>
                                     <td><input type="password" id="pwd2" name="pwd2"></td>
                                     <td></td>
-                                    <td colspan="2"><input type="text" id="address3" name="address3" placeholder="상세 주소" value="${ addr[2] }"></td>
+                                    <td colspan="2"><input type="text" id="address3" name="address3" placeholder="상세 주소" class="postcodify_details" value="${ addr[2] }"></td>
                                 </tr>
                                 <tr>
                                     <td><span class="sub-title">이메일</span></td>
@@ -329,14 +329,12 @@
 			}
 			
 			if(pwd.value != pwd2.value) {
-				if(pwd.value != pwd2.value) {
-	            	Swal.fire({
-						title : '비밀번호가 일치하지 않습니다.',
-						icon : 'warning'
-					});
-	                pwd2.focus();
-	                return;
-	            }
+            	Swal.fire({
+					title : '비밀번호가 일치하지 않습니다.',
+					icon : 'warning'
+				});
+                pwd2.focus();
+                return;
 			}
 			
 			if(!chk(/(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[^a-zA-Z0-9]).{8,}$/, pwd, "비밀번호를 다시 입력해주세요.")) { // 특수문자,숫자,영대소문자 포함 8자 이상

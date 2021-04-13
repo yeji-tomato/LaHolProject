@@ -11,7 +11,9 @@
     <link rel="stylesheet" href="${ contextPath }/resources/css/mypage/sideMenu.css">
     <!-- footer css -->
     <link rel="stylesheet" href="${ contextPath }/resources/css/common/footer.css">
+    <link rel="stylesheet" href="${ contextPath }/resources/css/common/fonts.css" type="text/css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     
     <style>
         body{
@@ -19,19 +21,26 @@
             padding: 0;
         }
 
+        #nav {
+    		background-color : #CDC2AF !important;
+    	}
+
         .mypage-container{
             width: 100%;
             height: auto; 
             padding-top: 10%;
         }
 
+		.mp-container {
+			height : 900px;
+		}
 
         #mp{
             display: flex;
             margin-top: 1%;
             margin-left: 5%;
             width: 80vw;
-            height: 80vh;
+            height: 800px;
             justify-content: center;
             text-align: center;
             border-radius: 30px;
@@ -111,6 +120,13 @@
         #cancel-btn {
             background: #e7e7e7;
             color : #000000;
+        }
+        
+        .swal2-confirm,
+        .swal2-cancel,
+        .swal2-html-container,
+        .swal2-title {
+        	font-family: 'NEXON Lv1 Gothic OTF';
         }
 
     </style>
@@ -194,13 +210,14 @@
                     <h3>회원 탈퇴</h3>
                 </div>
                 <div class="input-div">
-                    <form>
-                        <h3>정말 탈퇴 하시겠습니까?</h3>
-                    </form>
+	               	<form id="delete_form" method="POST" action="${ contextPath }/nMypage/delete">
+	                    <h3>정말 탈퇴 하시겠습니까?</h3>
+	                    <input type="hidden" name="id" value="${ sessionScope.loginUser.id }">
+	               	</form>
                 </div>
                 <div class="btn-div">
                     <button class="delete-btn" id="ok-btn">탈퇴</button>
-                    <button class="delete-btn" id="cancel-btn" onclick="location.href='${contextPath}/mypage/homeView'">취소</button>
+                    <button type="button" class="delete-btn" id="cancel-btn" onclick="location.href='${contextPath}/nMypage/homeView'">취소</button>
                 </div>
             </div>
         </div>
@@ -208,5 +225,10 @@
     </div>
 	<!-- footer -->
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
+	<script>
+		$("#ok-btn").click(function(){
+			$("#delete_form").submit();
+		});
+	</script>
 </body>
 </html>

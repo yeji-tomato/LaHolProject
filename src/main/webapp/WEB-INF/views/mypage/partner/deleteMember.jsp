@@ -4,21 +4,25 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>마이페이지-광고 신청</title>
+<title>마이페이지-회원 탈퇴</title>
     <!-- menubar css -->
     <link rel="stylesheet" href="${ contextPath }/resources/css/common/menubar.css">
     <!-- side menubar css -->
     <link rel="stylesheet" href="${ contextPath }/resources/css/mypage/sideMenu.css">
     <!-- footer css -->
     <link rel="stylesheet" href="${ contextPath }/resources/css/common/footer.css">
+    <link rel="stylesheet" href="${ contextPath }/resources/css/common/fonts.css" type="text/css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-    
     <style>
         body{
             margin: 0;
             padding: 0;
         }
+        
+        #nav {
+    		background-color : #CDC2AF !important;
+    	}
 
         .mypage-container{
             width: 100%;
@@ -26,13 +30,16 @@
             padding-top: 10%;
         }
 
+		.mp-container {
+			height : 900px;
+		}
 
         #mp{
             display: flex;
             margin-top: 1%;
             margin-left: 5%;
             width: 80vw;
-            height: 80vh;
+            height: 800px;
             justify-content: center;
             text-align: center;
             border-radius: 30px;
@@ -64,95 +71,21 @@
         .content-title {
             display: flex;
             justify-content: center;
-            align-items: center;
-            height: 10%;
-            margin-top: 20px;
+            align-items: flex-end;
+            height: 30%;
         }
 
         .input-div {
             display: flex;
-            height: 60%;
+            height: 30%;
             justify-content: center;
-            align-items: center;
         }
 
         .input-div form {
+            margin : auto;
             display: flex;
             justify-content: center;
-        }
-
-        .input-div .pay-period {
-            display: flex;
-            flex-direction: column;
-            border : 1px solid #4B654A;
-            border-radius: 15px;
-            background : #4B654A;
-            width : 10vw;
-            height: 22vh;
-            color : #fff;
-
-            margin : 5px;
-
-            padding : 10px;
-
-            transition: all 0.5s;
-        }
-
-        .pay-period .period-text {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 70%;
-        }
-
-        .pay-period .period-text .period-sub {
-            align-self: flex-end;
-        }
-
-        .pay-period .period-price {
-            margin : 0;
-            font-size: 1.4em;
-        }
-
-        @media only screen and (max-width : 1400px) {
-            .pay-period .period-price {
-                font-size: 1em;
-            }
-        }
-
-        .pay-period .period-sub {
-            font-size: 11px;
-            margin : 0;
-            padding : 0;
-        }
-
-        .pay-period .period-btn-div {
-            display: flex;
-            margin-top: 10px;
-            justify-content: center;
-        }
-
-        .pay-period .period-btn-div .period-btn {
-            width : 5vw;
-            border: none;
-            outline: none;
-
-            background: #F3D798;
-        }
-
-        .pay-period:hover {
-            transform: translate(-5px, -5px);
-
-            transition: all 0.5s;
-        }
-
-        .period-result {
-            height: 15%;
-        }
-
-        .period-result input:disabled {
-            background: #fff;
+            align-content: center;
         }
 
         .input-div span {
@@ -160,16 +93,10 @@
             margin-left: 0;
         }
 
-        .url-text {
-            font-size : 11px;
-            margin : 0;
-        }
-
         .input-div input {
             outline: none;
             border : 1px solid #c7c7c7;
             padding : 10px;
-            width : 400px;
 
             transition : border 0.3s;
         }
@@ -193,17 +120,14 @@
             background: #e7e7e7;
             color : #000000;
         }
-
-        .content-div input[type="text"] {
-            width : 400px;
-            height: 50px;
-            padding : 15px;
-            font-size: 13px;
-            margin : 0;
-            margin-bottom: 10px;
-            border : 1px solid #e7e7e7;
+        
+        .swal2-confirm,
+        .swal2-cancel,
+        .swal2-html-container,
+        .swal2-title {
+        	font-family: 'NEXON Lv1 Gothic OTF';
         }
-
+        
         .modal2,
         .modal3 {
             display: none; /* Hidden by default */
@@ -259,7 +183,6 @@
 
             margin : 10px;
         }
-
     </style>
 </head>
 <body>
@@ -322,7 +245,7 @@
         <script>
             $(function() {
                 $(".side-item").removeClass("active");
-                $(".side-item:nth-child(4)").addClass("active");
+                $(".side-item:nth-child(6)").addClass("active");
 
             $(".side-item").click(function(e) {
                     e.preventDefault();
@@ -338,64 +261,18 @@
             <!-- 이부분에 내용 작성 -->
             <div class="content-div">
                 <div class="content-title">
-                    <h3>결제 기간 선택</h3>
+                    <h3>회원 탈퇴</h3>
                 </div>
                 <div class="input-div">
-                    <form>
-                        <div class="pay-period period-1">
-                            <div class="period-title-div">
-                                <p class="period-title">1주</p>
-                            </div>
-                            <div class="period-text">
-                                <p class="period-price">300,000원</p>
-                            </div>
-                            <div class="period-btn-div">
-                                <button class="period-btn">선택</button>
-                            </div>
-                        </div>
-                        <div class="pay-period period-2">
-                            <div class="period-title-div">
-                                <p class="period-title">2주</p>
-                            </div>
-                            <div class="period-text">
-                                <p class="period-price">540,000원</p>
-                                <p class="period-sub">(10% D.C)</p>
-                            </div>
-                            <div class="period-btn-div">
-                                <button class="period-btn">선택</button>
-                            </div>
-                        </div>
-                        <div class="pay-period period-3">
-                            <div class="period-title-div">
-                                <p class="period-title">3주</p>
-                            </div>
-                            <div class="period-text">
-                                <p class="period-price">720,000원</p>
-                                <p class="period-sub">(20% D.C)</p>
-                            </div>
-                            <div class="period-btn-div">
-                                <button class="period-btn">선택</button>
-                            </div>
-                        </div>
-                        <div class="pay-period period-4">
-                            <div class="period-title-div">
-                                <p class="period-title">4주</p>
-                            </div>
-                            <div class="period-text">
-                                <p class="period-price">840,000원</p>
-                                <p class="period-sub">(30% D.C)</p>
-                            </div>
-                            <div class="period-btn-div">
-                                <button class="period-btn">선택</button>
-                            </div>
-                        </div>
+                    <form id="checkDelete" method="POST" action="${ contextPath }/pMypage/checkDelete">
+                        <span class="content-title">비밀번호</span>
+                        <input type="password" id="pwd" name="pwd">
+                        <input type="hidden" id="id" name="id" value="${ sessionScope.loginUser.id }">
+                        <input type="hidden" id="grade" name="grade" value="${ sessionScope.loginUser.grade }">
                     </form>
                 </div>
-                <div class="period-result">
-                    <input type="text" class="period-result-text" disabled>
-                </div>
                 <div class="btn-div">
-                    <button class="delete-btn" id="ok-btn">다음</button>
+                    <button class="delete-btn" id="ok-btn" onclick="onSubmit();">확인</button>
                     <button class="delete-btn" id="cancel-btn" onclick="location.href='${contextPath}/pMypage/homeView'">취소</button>
                 </div>
             </div>
@@ -462,6 +339,21 @@
                 modal2.style.display = "none";
             }
         }
+    </script>
+    <script>
+    	var pwd = document.getElementById("pwd");
+    	function onSubmit() {
+    		if(pwd.value == "") {
+            	Swal.fire({
+					title : '비밀번호를 입력해주세요.',
+					icon : 'warning'
+				});
+                pwd.focus();
+                return;
+			}
+    		
+    		$("#checkDelete").submit();
+    	}
     </script>
     <!-- footer -->
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
