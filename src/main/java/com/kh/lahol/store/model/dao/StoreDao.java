@@ -26,5 +26,9 @@ public interface StoreDao {
 	public List<Store> myselectList(PageInfo pi, String id);
 
 	public int mySearchCount(String id);
+
+	public int insertStore(Store s );
+
+	public int deleteStore(int PR_CODE);
 	
 }

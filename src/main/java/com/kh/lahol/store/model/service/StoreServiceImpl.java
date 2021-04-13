@@ -27,18 +27,20 @@ public class StoreServiceImpl implements StoreService {
 		return sDao.selectList(pi);
 	}
 	
+	//인기순
 	@Override
 	public List<Store> selectList2(PageInfo pi2) {
 		return sDao.selectList2(pi2);
 	}
 
  
-
+	//검색 게시글 카운트
 	@Override
 	public int selectSearchCount(Search search) {
 		return sDao.selectSearchCount(search);
 	}
-
+	
+	//검색 게시글
 	@Override
 	public List<Store> searchList(Search search, PageInfo pi) {
 		return sDao.searchList(search , pi);
@@ -59,10 +61,25 @@ public class StoreServiceImpl implements StoreService {
 		 
 	}
 	//스토어 내가쓴 글 카운트 
+	 
 	@Override
-	public int mySearchCount(String id) { 
-		return sDao.mySearchCount(id);
+	public int mySearchCount(String id ) {
+		return sDao.mySearchCount(id );
 	}
+	
+	//게시글작성
+	 
+	@Override
+	public int insertStore(Store s ) { 
+		return sDao.insertStore(s );
+	}
+
+	@Override
+	public int deleteStore(int PR_CODE) {
+		 return sDao.deleteStore(PR_CODE);
+	}
+
+
 
  
 
