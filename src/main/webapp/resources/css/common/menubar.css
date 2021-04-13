@@ -11,11 +11,12 @@
 /* 네비부분 */
 #nav{
 	font-family: 'NEXON Lv1 Gothic OTF Bold';
-    background-color: transparent;
+    /* background-color:  rgba(0, 0, 0, 0.3); */
+    background-color:  transparant; 
     position: fixed;
     z-index: 99;
     width: 100%;
-    padding: 30px 10px;
+    padding: 20px 10px;
     top: 0px;
 }
 
@@ -25,7 +26,7 @@ display: flex;
 margin : 0;
 padding : 0;
 z-index: 10;
-border-bottom: 1.5px solid white;
+border-bottom: 2px solid #F3D798;
 height: 80px;
 align-items: flex-start;
 }
@@ -62,7 +63,7 @@ vertical-align: middle;
 
 .mainMenu a {
 text-decoration: none;
-color : #5a462f;
+color : #F3D798;
 transition: all 0.5s linear;
 }
 
@@ -122,7 +123,7 @@ justify-content: flex-end;
 
 .loginArea .loginMenu ul li a {
 text-decoration: none;
-color : #5a462f;
+color : #F3D798;
 transition: all 0.5s linear;
 }
 
@@ -133,7 +134,7 @@ transition: all 0.5s linear;
 }
 
 #nav.active{
-	background: #CDC2AF;
+	background: white;
 }
 
 /* 진주님 미디어 쿼리 */
