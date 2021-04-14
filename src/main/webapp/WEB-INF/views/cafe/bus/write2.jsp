@@ -68,15 +68,15 @@
             <div class="cafe-write-form">
             <h2>카페 등록</h2>
             <hr>
-            <form action="${ contextPath }/cafe/biz/update" id="uploadForm" method="post" enctype="multipart/form-data">
-               <input type="hidden" name="caCode" value="${ Cafe.caCode }">
+            <form action="${ contextPath }/cafe/biz/insert" id="uploadForm" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="caId" value="${ loginUser.id }">
                 <div class="container">
                     <div class="writeArea">
                         <!-- 카페명 -->
                         <div class="row" id="divRow">
                             <div class="col">
                                 <h3 class="write-title">카페명</h3>
-                                <input type="text" id="text" class="cateTit"  name="caName" placeholder="카페명으로 노출될 문구를 작성해주세요.(ex. 커피한잔)" value="${ Cafe.caName }"/>
+                                <input type="text" id="text" class="cateTit"  name="caName" placeholder="카페명으로 노출될 문구를 작성해주세요.(ex. 커피한잔)" value=${ Cafe.caName }/>
                             </div>
                             <div class="col writeSpan">
                                 <!-- 운영시간 -->
@@ -120,11 +120,6 @@
                             <input type="file" id="imgfile2" name="imgfile2" onchange="preview(this, 2)">
                             <input type="file" id="imgfile3" name="imgfile3" onchange="preview(this, 3)">
                             <input type="file" id="imgfile4" name="imgfile4" onchange="preview(this, 4)">
-                            
-                            <input type="hidden" name="mainPhoto" value="${ Cafe.mainPhoto }">
-                            <input type="hidden" name="photo1" value="${ Cafe.photo1 }">
-                            <input type="hidden" name="photo2" value="${ Cafe.photo2 }">
-                            <input type="hidden" name="photo3" value="${ Cafe.photo3 }">
                         </div>
                         </div>
                         <script>
@@ -169,22 +164,11 @@
                         <div class="row" id="divRow">
                             <h3 class="write-title">카페 주소</h3>
                             <div class="col-6">
-                            <c:forTokens var="addr" items="${ Cafe.caAddress }" delims="," varStatus="status">
-                            <c:if test="${ status.index eq 0 }">
-                            	<c:set var="addr1" value="${ addr }"/>
-                            </c:if>
-                            <c:if test="${ status.index eq 1 }">
-                            	<c:set var="addr2" value="${ addr }"/>
-                            </c:if>
-                            <c:if test="${ status.index eq 2 }">
-                            	<c:set var="addr3" value="${ addr }"/>
-                            </c:if>
-                            </c:forTokens>
                                 <div class="row">
                                     <p style="color: #CDC2AF;">도로명 주소</p>
                                     <div class="col-8">
                                         <!-- <input type="text" id="text" class="cateTit" id="ad"  name="cafeAddress1"   id="sample5_address" class="postcodify address"/> -->
-                                        <input type="text" id="sample5_address" class="cateTit ad" placeholder="주소" name="cafeAddress1" readonly value="${ addr2 }">
+                                        <input type="text" id="sample5_address" class="cateTit ad" placeholder="주소" name="cafeAddress1" readonly >
                                     </div>
                                     <div class="col-4">
                                         <!-- <input type="button" id="cafeAddBtn" id="postcodify_search_button" onclick="sample5_execDaumPostcode()" value="주소 검색"> -->
@@ -192,14 +176,14 @@
                                     </div>
                                     <div class="col-10">
                                         <p style="color: #CDC2AF; margin-top: 1%;">상세 주소</p>
-                                        <input type="text" id="text" class="cateTit" id="ad"  name="cafeAddress2" placeholder="상세주소" value="${ addr3 }"/>
+                                        <input type="text" id="text" class="cateTit" id="ad"  name="cafeAddress2" placeholder="상세주소"/>
                                     </div> 
                                 </div>
                             </div>
                             <!-- 위도 -->
-                     <input type="hidden" id="la" name="caLa" value=${ Cafe.caLo }>
+                     <input type="hidden" id="la" name="caLa">
                      <!-- 경도 -->
-                     <input type="hidden" id="lo" name="caLo" value=${ Cafe.caLa }>
+                     <input type="hidden" id="lo" name="caLo">
                             <div class="col-4">
                                 <div id="map"></div>
                             </div>

@@ -47,7 +47,7 @@ $(function() {
 	//카페 등록
 	const cafeWri = document.getElementById("cafeWri");
 	cafeWri.addEventListener("click", function(){
-	 location.href='${ contextPath }/cafe/write';
+	 location.href='${ contextPath }/cafe/biz/write';
 	});
 	
 	//카페 확인

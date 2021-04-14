@@ -23,8 +23,8 @@ public class CafeBizServiceImpl implements CafeBizService{
 	}
 
 	@Override
-	public List<Cafe> selectCafeList() {
-		return caBizDao.selectCafeList();
+	public List<Cafe> selectCafeList(String Id) {
+		return caBizDao.selectCafeList(Id);
 	}
 
 	@Override
@@ -50,8 +50,13 @@ public class CafeBizServiceImpl implements CafeBizService{
 	}
 
 	@Override
-	public Cafe caWriteSelect(String caId) {
-		return caBizDao.caWriteSelect(caId);
+	public Cafe caWriteSelect(String Id) {
+		return caBizDao.caWriteSelect(Id);
+	}
+
+	@Override
+	public int insertCoffee() {
+		return caBizDao.insertCoffee();
 	}
 
 
