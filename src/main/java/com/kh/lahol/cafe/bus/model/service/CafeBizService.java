@@ -12,7 +12,7 @@ public interface CafeBizService {
 	public int insertCafeInfo(Cafe c);
 
 	// 카페 정보 목록 조회
-	List<Cafe> selectCafeList();
+	List<Cafe> selectCafeList(String Id);
 	
 	// 카페 정보 수정
 	int updateCafeInfo(Cafe c);
@@ -27,7 +27,10 @@ public interface CafeBizService {
 	public List<Coffee> selectCoffeeList(String caCode);
 	
 	// 카페 등록을 하기 위한 select
-	public Cafe caWriteSelect(String caId);
+	public Cafe caWriteSelect(String Id);
+	
+	// 음료 정보 insert
+	public int insertCoffee();
 
 	
 

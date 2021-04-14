@@ -11,7 +11,7 @@ public interface CafeBizDao {
 	// 카페 정보 insert
 	public int insertCafeInfo(Cafe c);
 	
-	public List<Cafe> selectCafeList();
+	public List<Cafe> selectCafeList(String Id);
 
 	public Cafe selectCafeInfo(String caCode);
 
@@ -19,7 +19,9 @@ public interface CafeBizDao {
 
 	public List<Coffee> selectCoffeeList(String caCode);
 
-	public Cafe caWriteSelect(String caId);
+	public Cafe caWriteSelect(String Id);
+
+	public int insertCoffee();
 
 	//public int insetCafeInfoPhoto(ArrayList<Caphoto> photoList);
 	

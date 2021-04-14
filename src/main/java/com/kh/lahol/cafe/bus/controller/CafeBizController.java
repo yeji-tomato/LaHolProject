@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -22,6 +23,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -32,9 +35,11 @@ import com.kh.lahol.cafe.bus.model.vo.Coffee;
 import com.kh.lahol.cafe.user.model.exception.CafeException;
 import com.kh.lahol.cafe.user.model.service.CafeService;
 import com.kh.lahol.cafe.user.model.vo.CafeRes;
+import com.kh.lahol.member.model.vo.Member;
 
 @Controller
 @RequestMapping("/cafe/biz")
+/* @SessionAttributes({"loginUser"}) */
 public class CafeBizController {
 	
 	@Autowired private CafeBizService caBizService;
@@ -42,18 +47,22 @@ public class CafeBizController {
 	private static final Logger logger = LoggerFactory.getLogger(CafeBizController.class);
 	
 	@GetMapping("/write")
-	public String caWriteSelect(@RequestParam String caId,
-							Model model) {
-		Cafe ca = caBizService.caWriteSelect(caId);
+	public String caWriteSelect(Model model, @SessionAttribute("loginUser") Member m) {
 		
-		if(ca != null) {
-			model.addAttribute("Cafe", ca);
-			return "cafe/bus/write";
-		}else {
-			model.addAttribute("msg", "카페 보기에 실패하였습니다.");
-			return "common/error";
-		}
-		
+		String Id = m.getId();
+		System.out.println("Id : "+ Id);
+		  Cafe ca = caBizService.caWriteSelect(Id);
+		  
+		  System.out.println(ca);
+		  
+		  if(ca != null) { 
+			  model.addAttribute("Cafe", ca); 
+			  return "cafe/bus/write";
+		  }else { 
+			  model.addAttribute("msg", "카페 보기에 실패하였습니다."); 
+			  return "common/error";
+		  }
+		 
 	}
 	
 	
@@ -148,8 +157,10 @@ public class CafeBizController {
 	
 	
 	@GetMapping("/confirm")
-	public ModelAndView cafeList(ModelAndView mv) {
-		List<Cafe> Cafelist = caBizService.selectCafeList();
+	public ModelAndView cafeList(ModelAndView mv, @SessionAttribute("loginUser") Member m) {
+		
+		String Id = m.getId();
+		List<Cafe> Cafelist = caBizService.selectCafeList(Id);
 		
 		if(Cafelist != null) {
 			mv.addObject("Cafelist", Cafelist);
@@ -280,35 +291,66 @@ public class CafeBizController {
 	
 	@PostMapping("/coffee/insert")
 	public String insertCoffee(@ModelAttribute Coffee co,
-								@RequestParam(name="imgfile1") MultipartFile mainfile,
+								@RequestParam(name="imgBev") MultipartFile cfIname,
 								HttpServletRequest request) throws CafeException {
 		
 		 
-		 if(!mainfile.getOriginalFilename().equals("")) {
+		 if(!cfIname.getOriginalFilename().equals("")) {
 				// 파일 저장 메소드 별도로 작성 - 리네임명 리턴
-				String renameFileName = saveFile(mainfile, request);
+				String renameCoffeeFileName = saveFile(cfIname, request);
 				
 				// DB에 저장하기 위한 파일명 세팅
-				if(renameFileName != null) {
-					/* co.setMainPhoto(renameFileName); */
+				if(renameCoffeeFileName != null) {
+					co.setCfIchname(renameCoffeeFileName);
+					co.setCfIname(cfIname.getOriginalFilename());
+					co.setChIpath("\\nuploadFiles\\coffeeImg");
 				}
 
 			}
 		 
 		 	
 		
-		System.out.println("카페사진 : "+ co);
+		System.out.println("음료 정보 : "+ co);
 		
-		return null;
 		
-		/*
-		 * int result = caBizService.insertCafeInfo(c);
-		 * 
-		 * if(result > 0) { return "cafe/bus/confirm"; }else { throw new
-		 * CafeException("카페 정보 등록에 실패하였습니다."); }
-		 */
+		
+		 int result = caBizService.insertCoffee();
+		  
+		if(result > 0) { 
+			return "cafe/bus/confirm"; }
+		else { 
+			throw new CafeException("카페 정보 등록에 실패하였습니다."); }
+		
 		
 		
 	}
+	
+	
+	public String saveFileCoffee(MultipartFile file, HttpServletRequest request) {
+	      String root = request.getSession().getServletContext().getRealPath("resources");
+	      String savePath = root + "\\nuploadFiles\\coffeeImg";
+	      File folder = new File(savePath); // 메모리상에서 객체 파일 만들기 
+	      if(!folder.exists()) {
+	    	  folder.mkdir(); // -> 해당 경로가 존재하지 않는다면 디렉토리 생성
+	      }
+	      
+	      // 파일명 리네임 규칙 "년월일시분초_랜덤값.확장자"
+	      SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+	      String originalFileName = file.getOriginalFilename();
+	      String renameCoffeeFileName = sdf.format(new Date()) + "_"
+	                     + (int)(Math.random() * 100000)
+	                     + originalFileName.substring(originalFileName.lastIndexOf("."));
+	      
+	      String renamePath = folder + "\\" + renameCoffeeFileName; // 저장하고자하는 경로 + 파일명
+	      
+	      try {
+	         file.transferTo(new File(renamePath));
+	         // => 업로드 된 파일 (MultipartFile) 이 rename명으로 서버에 저장
+	      } catch (IllegalStateException | IOException e) {
+	         System.out.println("파일 업로드 에러 : " + e.getMessage());
+	      }
+	      
+	      return renameCoffeeFileName;
+	   }
 
 }

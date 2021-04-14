@@ -22,8 +22,8 @@ public class CafeBizDaoImpl implements CafeBizDao{
 	}
 
 	@Override
-	public List<Cafe> selectCafeList() {
-		return sqlSession.selectList("cafeMapper.selectCafeList");
+	public List<Cafe> selectCafeList(String Id) {
+		return sqlSession.selectList("cafeMapper.selectCafeList", Id);
 	}
 
 	@Override
@@ -42,8 +42,13 @@ public class CafeBizDaoImpl implements CafeBizDao{
 	}
 
 	@Override
-	public Cafe caWriteSelect(String caId) {
-		return sqlSession.selectOne("cafeMapper.selectCafeWrite", caId);
+	public Cafe caWriteSelect(String Id) {
+		return sqlSession.selectOne("cafeMapper.selectCafeWrite", Id);
+	}
+
+	@Override
+	public int insertCoffee() {
+		return sqlSession.insert("cafeMapper.insertCoffee", c);
 	}
 
 	/*

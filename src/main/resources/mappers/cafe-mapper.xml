@@ -59,8 +59,19 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 	</resultMap>
 	
 	<!-- 입력을 위한 카페 정보 가져오기 -->
-	<select id="selectCafeWrite" parameterType="Cafe">
-	
+	<select id="selectCafeWrite" resultMap="cafeResultSet">
+	SELECT	
+		C_CODE,
+        C_NAME,
+        C_OWNER,
+        C_NUMBER,
+        C_ADDRESS,
+        C_STATUS,
+        C_LA,
+        C_LO,
+        ID
+    FROM CAFE
+    WHERE ID = #{Id}
 	</select>
 	
 	<!-- 카페 정보 입력 -->
@@ -112,29 +123,6 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 	)
 	</insert>
 	
-	<!-- 카페 사진 입력 -->	
-	<!-- <update id="insertCafePhotoInfo" parameterType="java.util.List">
-	INSERT    	
-	INTO CAPHOTO
-	(
-		C_INO,
-		C_INAME,
-		C_ICHNAME,
-		C_ITYPE,
-		C_CODE
-	)
-	SELECT 'CAI' || CAI.NEXTVAL
-	, A*
-	,'CA' || CA.CURRVAL
-	FROM(
-	<foreach collection="list" item="item" separator="UNION ALL">
-	SELECT
-		#{item.caIName},
-		#{item.caIchName},
-		#{item.caIType} 
-	FROM DUAL
-	</foreach>) A
-	</update> -->
 	
 	<select id="selectCafeList" resultMap="cafeResultSet">
 		SELECT
@@ -155,7 +143,7 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 		    PHOTO2,
 		    PHOTO3
 		FROM CAFE
-		WHERE ID = 'ADMIN'
+		WHERE ID = #{Id}
 		AND C_STATUS = 'Y'
 		ORDER BY C_CODE DESC
 	</select>
