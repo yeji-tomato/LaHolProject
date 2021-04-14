@@ -79,6 +79,11 @@ public class StoreServiceImpl implements StoreService {
 		 return sDao.deleteStore(PR_CODE);
 	}
 
+	@Override
+	public int updateStore(Store s) {
+		return sDao.updateStore(s);
+	}
+
 
 
  

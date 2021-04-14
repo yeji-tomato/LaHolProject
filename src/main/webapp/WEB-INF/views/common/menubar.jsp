@@ -51,7 +51,7 @@ scope="application"/>
         <c:when test="${ loginUser.grade eq 'P'}">
             <div class="mainMenu">
                 <ul>
-                    <li><a href="${ contextPath }">STORE</a></li>
+                    <li><a href="${ contextPath }/store/list2">STORE</a></li>
                     <li><a href="${ contextPath }/coffeeclass">CLASS</a></li>
                     <li><a href="${ contextPath }/cafe/home">CAFE</a></li>
                 </ul>

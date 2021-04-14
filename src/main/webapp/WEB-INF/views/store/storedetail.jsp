@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -123,7 +124,7 @@
 	                    
 					<div class="rvt"
 						style="top: 10px;left: 550px;width: 422px;height: 402px;">
-						<span><a style="font-size: 25px;  margin-left: 150px;" > 상품명<p style="margin-left:40%;"> </p></a>
+						<span><a style="font-size: 25px;  margin-left: 150px;" >  ${s.PR_NAME }<p style="margin-left:40%;"> </p></a>
 	                        &nbsp <i class="fa fa-bullhorn" aria-hidden="true" style="font-size: 15px; color: rgb(190, 130, 51); "> <a>  ※지금 행사 ~~</a></i>
 					     </span>
 						<table id="info">
@@ -219,7 +220,7 @@
 	                                    <!--사진-->
 	                                    <div class="col-lg-5 col-md-6 offset-lg-1 order-md-2" style="
 	                                    margin-left: 0px;
-	                                "><img class="d-block rounded-3"  src="${ contextPath }/resources/img/store/${ s.STORE_PHOTO1 }" alt="Image"></div>
+	                                "><img class="d-block rounded-3"  src="${ contextPath }/resources/img/store/${ s.STORE_PHOTO1 }"  style="width: 600px; height:auto; "alt="Image"></div>
 	                                    <!--설명-->
 	                                    <div class="col-lg-4 col-md-6 offset-lg-1 py-4 order-md-1">
 	                                    <h2 class="h3 mb-4 pb-2">제품명</h2>
@@ -229,7 +230,7 @@
 	                                </div>
 	                                <!-- Product description section 2-->
 	                                <div class="row align-items-center py-4 py-lg-5">
-	                                <div class="col-lg-5 col-md-6 offset-lg-1"><img class="d-block rounded-3"  src="${ contextPath }/resources/img/store/${ s.STORE_PHOTO2 }" alt="Map"></div>
+	                                <div class="col-lg-5 col-md-6 offset-lg-1"><img class="d-block rounded-3"  src="${ contextPath }/resources/img/store/${ s.STORE_PHOTO2 }"  style="width: 550px;"alt="Map"></div>
 	                                <div class="col-lg-4 col-md-6 offset-lg-1 py-4">
 	                                <h2 class="h3 mb-4 pb-2">제품 기능</h2>
 	                                <h6 class="fs-base mb-3">기능 설명</h6>
@@ -241,7 +242,7 @@
 	                                <!--사진-->
 	                                <div class="col-lg-5 col-md-6 offset-lg-1 order-md-2" style="
 	                                margin-left: 0px;
-	                            "><img class="d-block rounded-3"  src="${ contextPath }/resources/img/store/${ s.STORE_PHOTO1 }" alt="Image"></div>
+	                            "><img class="d-block rounded-3"  src="${ contextPath }/resources/img/store/${ s.STORE_PHOTO3 }"   style="width: 550px;"alt="Image"></div>
 	                                <!--설명-->
 	                                <div class="col-lg-4 col-md-6 offset-lg-1 py-4 order-md-1">
 	                                <h2 class="h3 mb-4 pb-2">제품 유의사항</h2>
@@ -366,6 +367,15 @@
 	                        <div class="tab-pane fade" id="de" role="tabpanel" aria-labelledby="de-tab" >
 	                        <!--  작성한 택배사에 맞는 택배사 정보 출력 -->
 	                        <c:if  test="${ s.DY_COMPANY == '로젠' }">  
+	                            <img  src="${ contextPath }/resources/img/store/배송정보.jpg" style="  margin-left: 35px; ">
+	                        </c:if>
+	                          <c:if  test="${ s.DY_COMPANY == '한진' }">  
+	                            <img  src="${ contextPath }/resources/img/store/배송정보.jpg" style="  margin-left: 35px; ">
+	                        </c:if>
+	                          <c:if  test="${ s.DY_COMPANY == 'cj' }">  
+	                            <img  src="${ contextPath }/resources/img/store/배송정보.jpg" style="  margin-left: 35px; ">
+	                        </c:if>
+	                          <c:if  test="${ s.DY_COMPANY == '쿠팡' }">  
 	                            <img  src="${ contextPath }/resources/img/store/배송정보.jpg" style="  margin-left: 35px; ">
 	                        </c:if>
 	                         

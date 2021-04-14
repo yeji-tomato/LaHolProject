@@ -11,6 +11,7 @@ import java.util.Date;
 import java.util.Enumeration;
 import java.util.List;
 
+import javax.servlet.ServletRequest;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -137,6 +138,13 @@ public class StoreController {
 								HttpServletRequest request, HttpSession session 
 			                 ) {
 		
+		Member loginUser = (Member)session.getAttribute("loginUser"); 
+		 //Cafe loginUser2 = (Cafe)session.getAttribute("loginUser");
+		 
+			  String code = loginUser.getId();
+			  
+			  s.setC_CODE(code);
+			 
 		 
 		//Cafe c = (Cafe)session.getAttribute("loginUser");
 	    //String ccode = c.getCaCode();
@@ -313,6 +321,99 @@ public class StoreController {
 		
 		
 	}
+	
+	@GetMapping("updatepage")
+	public String updatepageView(Model model, int PR_CODE) {
+		Store s  = sService.selectStore(PR_CODE, false); 
+		model.addAttribute("s", s);
+		return "store/B/storeupdate";
+	}
+	
+	// 게시글 수정
+		@PostMapping("/update")
+		public String storeUpdate(Store s,  
+								 	@RequestParam MultipartFile mainfile,
+									@RequestParam MultipartFile file1,
+									@RequestParam MultipartFile file2,    HttpServletRequest request, ServletRequest multiRequest) throws IOException {
+			
+		  
+			
+			String main = multiRequest.getParameter("mainfile"); // 이미지 변경 안하려면 기존 이미지 히든값으로  불러옴
+			String fi1  = multiRequest.getParameter("file1"); 
+			String fi2 = multiRequest.getParameter("file2"); 
+			System.out.println("기존 이미지 "+main); //기존이미지 잘 나오나?
+			
+			if(main != null) {  
+				String fileSystemNames = main;
+				
+				 
+				if(fileSystemNames != null) {
+					s.setSTORE_PHOTO1(fileSystemNames); 
+				};
+			}
+			
+			
+		 	if(!mainfile.getOriginalFilename().equals("")) {
+				String fileSystemNames = saveFile(mainfile, request);
+				
+				 
+				if(fileSystemNames != null) {
+					s.setSTORE_PHOTO1(fileSystemNames); 
+				}
+			} 
+		 	
+		 	
+		 	
+			if(fi1 != null) {  
+				String fileSystemNames = fi1;
+				
+				 
+				if(fileSystemNames != null) {
+					s.setSTORE_PHOTO2(fileSystemNames); 
+				};
+			}
+			
+		 	
+		 
+		   if(!file1.getOriginalFilename().equals("")) {
+			   String fileSystemNames = saveFile(file1, request);
+		  
+			   if(fileSystemNames != null) {
+			   s.setSTORE_PHOTO2(fileSystemNames);
+			   }
+			 }
+		  
+		   
+			if(fi2 != null) {  
+				String fileSystemNames = fi2;
+				
+				 
+				if(fileSystemNames != null) {
+					s.setSTORE_PHOTO3(fileSystemNames); 
+				};
+			}
+		   
+		  if(!file2.getOriginalFilename().equals("")) {
+			  String fileSystemNames =  saveFile(file2, request);
+		  
+		  if(fileSystemNames != null) {
+		  s.setSTORE_PHOTO3(fileSystemNames);
+		  	} 
+		  }
+		 
+			
+			int result = sService.updateStore(s);
+ 
+			 
+			if (result > 0) {            
+				return  "redirect:/store/storedetail?PR_CODE="+s.getPR_CODE();
+			} else {
+				 
+			}
+			
+			 
+			return  "redirect:/store/storedetail?PR_CODE="+s.getPR_CODE();
+		}
 	
 	@GetMapping("/delete")
 	public String StoreDelete(int PR_CODE, HttpServletRequest request) {

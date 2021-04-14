@@ -79,13 +79,22 @@ public class StoreDaoImpl implements StoreDao{
 	}
 	 
 	
+	//제품 등록
 	@Override
 	public int insertStore(Store s) {
 		return sqlSession.insert("storeMapper.insertStore",  s ); 
 	}
+	
+	//제품  삭제(상태 안보이게)
 	@Override
 	public int deleteStore(int PR_CODE) {
 		return sqlSession.update("storeMapper.deleteStore", PR_CODE);
+	}
+	
+	//제품  수정
+	@Override
+	public int updateStore(Store s) {
+		return sqlSession.update("storeMapper.updateStore", s);
 	}
 
 
