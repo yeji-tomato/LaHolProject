@@ -92,43 +92,9 @@
 						<!--검색으로 select-->
 						<td>주최카페</td>
 						<td class="answer">
-						<!-- 	<button type="button" class="btn btn-outline-secondary"
-								name = "cafeNo" 
-								data-bs-toggle="modal" data-bs-target="#exampleModal"
-								style="float: left;">등록된 카페검색</button>  -->
 								<input type="text" id="linkedcafe" value="${ mycafe.caName }" readonly>
 						</td>
 					</tr>
-
-					<!-- Modal -->
-					<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-						<div class="modal-dialog">
-							<div class="modal-content">
-								<div class="modal-header">
-									<h5 class="modal-title" id="exampleModalLabel">카페연동하기</h5>
-									<button type="button" class="btn-close" data-bs-dismiss="modal"
-										aria-label="Close"></button>
-								</div>
-								<div>
-									<h6 style="margin: 3vh;">어느 카페에서 진행하는 클래스인가요?</h6>
-									<input type="text">
-									<button style="background-color: transparent; border: 0;">
-										<i class="fa fa-search" id="submitbtn" aria-hidden="true"
-											aria-label="submit search"></i>
-									</button>
-									<br>
-									<br> <input type="text"
-										style="border: transparent; background-color: transparent;"
-										readonly>
-								</div>
-								<div class="modal-footer">
-									<button type="button" class="btn btn-primary">확인</button>
-									<button type="button" class="btn btn-secondary"
-										data-bs-dismiss="modal">닫기</button>
-								</div>
-							</div>
-						</div>
-					</div>
 
 
 					<tr>
@@ -180,7 +146,7 @@
 						<label>주소입력란</label>
 						<input type="text" class="classdes" name="classLoca1">
 						<label>상세주소</label>
-						<input type="text" class="classdes" name="classLoca2" placeholder="거주건물명/동/호/수">
+						<input type="text" class="classdes" name="classLoca2">
 						</td>
 					</tr>
 

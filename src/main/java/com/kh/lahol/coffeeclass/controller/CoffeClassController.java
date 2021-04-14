@@ -42,7 +42,6 @@ public class CoffeClassController {
 	private CafeBizService cafeService;
 
 	// 사용자 메인페이지
-
 	@GetMapping("/coffeeclass")
 	public ModelAndView coffeeClassList(ModelAndView mv,
 			@RequestParam(value = "page", required = false, defaultValue = "1") int currentPage) { // 메뉴바 클릭시 파라미터가 따로
@@ -167,35 +166,7 @@ public class CoffeClassController {
 
         
         return renameFileName;
-     }
-	
-	
-	// 클래스 수정 페이지로 이동
-	@GetMapping("/coffeeclass/updateclass")
-	public String updateClass(@RequestParam String classNo, Model model) {
-		
-		CoffeeClass cl = clService.updateClass(classNo);
-		model.addAttribute("coffeeclass", cl);
-		
-		return "coffeeclass/bus_classupdate";
-		
-	}
-	
-	// 클래스 수정
-	@PostMapping("/coffeeclass/updateclass/update")
-	public String update(@ModelAttribute CoffeeClass cl) {
-		
-		return "";
-	}
-	
-	
-	
-	
-	// 사업자 클래스 상세 페이지
-	  @GetMapping("/coffeeclass/busdetail") 
-	  public String busdetail() {
-		  return "coffeeclass/bus_classdetail"; 
-		  }
+	}	
 	  
 	  
 	// 클래스 상세페이지
@@ -208,8 +179,9 @@ public class CoffeClassController {
 		  if(cl != null) {	    //키값 : 뷰에서 보여질 변수명, 밸류: 컨트롤러에서 실제 쓰이는 변수명
 			  model.addAttribute("coffeeclass", cl);
 				/*
-				 * String classTimeStr= cl.getClassTime(); String[] classTimeArr =
-				 * classTimeStr.split(",");
+				 * String classTimeStr= cl.getClassTime(); 
+				 * String[] classTimeArr = classTimeStr.split(",");
+				 * >> 객체안에 메소드로 넣어버림
 				 */ 
 			  model.addAttribute("classTimes", cl.bringTimes());
 			  return "coffeeclass/class_detail";
@@ -220,6 +192,140 @@ public class CoffeClassController {
 		  
 	  }
 	 
+	  
+	  // 사업자 클래스 상세 페이지
+	  @GetMapping("/coffeeclass/busdetail") 
+	  public String busdetail() {
+		  return "coffeeclass/bus_classdetail"; 
+	  }
+	  
+	  
+	  // 클래스 수정 페이지로 이동
+	  @GetMapping("/coffeeclass/updateclass")
+	  public String updateClass(@RequestParam String classNo, Model model) {
+		 
+		  CoffeeClass cl = clService.bringClassInfo(classNo);
+		  
+		  System.out.println(classNo);
+		  
+		                // view에서 보여질 변수명, 컨트롤러 변수명
+		  model.addAttribute("coffeeclass", cl);
+		  // 주소 잘라서 가져오기
+		  model.addAttribute("clAddresses", cl.bringAddress());
+		  // 강의 시간 잘라서 가져오기
+		  model.addAttribute("classTimes", cl.bringTimes());
+		
+		  return "coffeeclass/bus_classupdate";
+		
+	  }
+	
+
+	  // 클래스 수정
+	  @PostMapping("/coffeeclass/updateclass/update")
+	  public String update(@ModelAttribute CoffeeClass cl,
+						   @RequestParam(name="imgfile1") MultipartFile file1,
+						   @RequestParam(name="imgfile2") MultipartFile file2,
+						   @RequestParam(name="imgfile3") MultipartFile file3,
+						   @RequestParam(name="classLoca1") String classlocation1,
+						   @RequestParam(name="classLoca2") String classlocation2,
+						   HttpServletRequest request) {
+		  
+		// 주소 세팅
+			cl.setClassLoca(classlocation1 + " " + classlocation2);
+			
+			if(!file1.getOriginalFilename().equals("")) {
+				// 파일 저장 메소드 별도로 작성 - 리네임명 리턴
+				if(cl.getTrPhoto() != null) {
+					deleteFile(cl.getTrPhoto(), request);
+				}
+				
+				String renameFileName = saveFile(file1, request);
+				
+				if(renameFileName != null) {
+					cl.setTrPhoto(renameFileName);
+				}
+			}
+			
+			if(!file2.getOriginalFilename().equals("")) {
+				// 파일 저장 메소드 별도로 작성 - 리네임명 리턴
+				if(cl.getClThumbnail() != null) {
+					deleteFile(cl.getClThumbnail(), request);
+				}
+				
+				String renameFileName = saveFile(file2, request);
+				
+				if(renameFileName != null) {
+					cl.setClThumbnail(renameFileName);
+				}
+			}
+			
+			if(!file3.getOriginalFilename().equals("")) {
+				// 파일 저장 메소드 별도로 작성 - 리네임명 리턴
+				if(cl.getClPhoto() != null) {
+					deleteFile(cl.getClPhoto(), request);
+				}
+				
+				String renameFileName = saveFile(file3, request);
+				
+				if(renameFileName != null) {
+					cl.setClPhoto(renameFileName);
+				}
+			}	
+
+			  int result = clService.updateClass(cl);
+			  
+			  if(result > 0) { return "redirect:/coffeeclass"; }
+			  else { 
+				  throw new CoffeeClassException("수정실패"); 
+				  }
+			
+	  }
+	  
+	  // 등록한 파일 삭제
+	  @PostMapping("coffeeclass/deleteClass")
+	  public String deleteFile(String filePath, HttpServletRequest request) {
+		  
+		  String root = request.getSession().getServletContext().getRealPath("resources");
+		  
+		  File deleteFile = new File(root + filePath);
+		  
+		  if(deleteFile.exists())
+			  deleteFile.delete();
+		  
+		  return "";
+	  }
+
+	  // 클래스 삭제
+	  @GetMapping("/delete")
+	  public String DeleteClass(String classNo, HttpServletRequest request) {
+		  // 파일을 지우기 위해 classNo로 클래스 조회
+		  CoffeeClass cl = clService.selectCoffeeClass(classNo);
+		  int result = clService.deleteClass(classNo);
+		  
+		  // 해당 공지사항에 첨부파일이 존재했을 경우
+		  if(cl.getClPhoto() != null) {
+			  deleteFile(cl.getClPhoto(), request);
+		  }
+		  
+		  if(cl.getClThumbnail() != null) {
+			  deleteFile(cl.getClThumbnail(), request);
+		  }
+		  
+		  if(cl.getTrPhoto() != null) {
+			  deleteFile(cl.getTrPhoto(), request);			  
+		  }
+		  
+		  return "";
+	  }
+		
+	  
+		  
+	  
+	  
+	  
+	  
+	  
+	  
 	
 	  // 클래스 수정페이지
 		  // 클래스 수정

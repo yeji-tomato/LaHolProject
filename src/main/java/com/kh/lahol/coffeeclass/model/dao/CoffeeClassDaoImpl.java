@@ -28,6 +28,7 @@ public class CoffeeClassDaoImpl implements CoffeeClassDao{
 		return sqlSession.selectList("clMapper.selectList", null, rowBounds);
 	}
 
+	// 클래스 수정 페이지 불러오기
 	@Override
 	public int insertClass(CoffeeClass cl) {
 		System.out.println("dao : " + cl);
@@ -39,16 +40,24 @@ public class CoffeeClassDaoImpl implements CoffeeClassDao{
 		return sqlSession.selectOne("clMapper.selectClass", classNo);
 	}
 
+	// 수정 페이지 접근
+	@Override
+	public CoffeeClass bringClassInfo(String classNo) {
+		return sqlSession.selectOne("clMapper.bringClass", classNo);
+	}
+	
+	// 수정
 	@Override
 	public int updateClass(CoffeeClass cl) {
 		return sqlSession.update("clMapper.updateClass", cl);
 	}
 
+	// 삭제
 	@Override
-	public int deleteClass(int clid) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int deleteClass(String classNo) {
+		return sqlSession.delete("clMapper.deleteClass", classNo);
 	}
+
 
 
 }
