@@ -1,5 +1,10 @@
 package com.kh.lahol.mypage.partner.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -133,14 +138,62 @@ public class pMypageController {
 	@PostMapping("/adDate")
 	public String adDate(@RequestParam("day") String day, Model model) {
 		model.addAttribute("day", day);
+		System.out.println(day);
 		return "mypage/partner/adImageUpload";
 	}
 	
 	@PostMapping("/adImage")
-	public String adImage(Ad ad,
+	public String adImage(@ModelAttribute Ad ad,
 			              @RequestParam(value="banner-img") MultipartFile file,
-			              HttpServletRequest request) {
+			              @RequestParam("day") String day,
+			              HttpServletRequest request,
+			              Model model) {
+		if(!file.getOriginalFilename().equals("")) {
+			String renameFileName = saveFile(file, request);
+			String root = request.getSession().getServletContext().getRealPath("resources");
+			String savePath = root + "\\muploadFiles\\banner";
+			ad.setImage(savePath + "\\" + renameFileName);
+			ad.setRename_image(renameFileName);
+			model.addAttribute("day", day);
+			model.addAttribute("ad", ad);
+			return "mypage/partner/adURL";
+		} else {
+			model.addAttribute("msg", "이미지 업로드에 실패하였습니다.");
+			return "mypage/partner/adImageUpload";
+		}
+	}
+	
+	public String saveFile(MultipartFile file, HttpServletRequest request) {
+		String root = request.getSession().getServletContext().getRealPath("resources");
+		String savePath = root + "\\muploadFiles\\banner";
+		File folder = new File(savePath);
+		if(!folder.exists()) {
+			folder.mkdirs();
+		}
 		
-		return "";
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+		String originalFileName = file.getOriginalFilename();
+		String renameFileName = sdf.format(new Date()) + "_"
+				              + (int)(Math.random() * 100000)
+				              + originalFileName.substring(originalFileName.lastIndexOf("."));
+		
+		String renamePath = folder + "\\" + renameFileName;
+		
+		try {
+			file.transferTo(new File(renamePath));
+		} catch (IllegalStateException | IOException e) {
+			System.out.println("파일 업로드 에러 : " + e.getMessage());
+		}
+		
+		return renameFileName;
+	}
+	
+	@PostMapping("/adUrl")
+	public String adUrl(@ModelAttribute Ad ad,
+			            @RequestParam("day") String day,
+			            Model model) {
+		model.addAttribute("day", day);
+		model.addAttribute("ad", ad);
+		return "mypage/partner/adPayView";
 	}
 }

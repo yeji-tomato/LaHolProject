@@ -25,14 +25,17 @@
             height: auto; 
             padding-top: 10%;
         }
-
+        
+        .mp-container {
+        	height : 900px;
+        }
 
         #mp{
             display: flex;
             margin-top: 1%;
             margin-left: 5%;
             width: 80vw;
-            height: 80vh;
+            height: 800px;
             justify-content: center;
             text-align: center;
             border-radius: 30px;
@@ -153,6 +156,7 @@
 
         .period-result input:disabled {
             background: #fff;
+            text-align : center;
         }
 
         .input-div span {
@@ -350,7 +354,7 @@
                                 <p class="period-price">300,000원</p>
                             </div>
                             <div class="period-btn-div">
-                                <button class="period-btn">선택</button>
+                                <button type="button" class="period-btn">선택</button>
                             </div>
                         </div>
                         <div class="pay-period period-2">
@@ -362,7 +366,7 @@
                                 <p class="period-sub">(10% D.C)</p>
                             </div>
                             <div class="period-btn-div">
-                                <button class="period-btn">선택</button>
+                                <button type="button" class="period-btn">선택</button>
                             </div>
                         </div>
                         <div class="pay-period period-3">
@@ -374,7 +378,7 @@
                                 <p class="period-sub">(20% D.C)</p>
                             </div>
                             <div class="period-btn-div">
-                                <button class="period-btn">선택</button>
+                                <button type="button" class="period-btn">선택</button>
                             </div>
                         </div>
                         <div class="pay-period period-4">
@@ -386,9 +390,16 @@
                                 <p class="period-sub">(30% D.C)</p>
                             </div>
                             <div class="period-btn-div">
-                                <button class="period-btn">선택</button>
+                                <button type="button" class="period-btn">선택</button>
                             </div>
                         </div>
+                        <input type="hidden" name="day" value="${ day }">
+                        <input type="hidden" name="origin_image" value="${ ad.origin_image }">
+                        <input type="hidden" name="rename_image" value="${ ad.rename_image }">
+                        <input type="hidden" name="image" value="${ ad.image }">
+                        <input type="hidden" name="url" value="${ ad.url }">
+                        <input type="hidden" id="bn_code" name="bn_code">
+                        <input type="hidden" id="duration" name="duration">
                     </form>
                 </div>
                 <div class="period-result">
@@ -400,8 +411,33 @@
                 </div>
             </div>
         </div>
-        
     </div>
+    <script>
+    	$(".period-btn").click(function(){
+    		var result = 0;
+    		var bn_code = "";
+    		var period = $(this).parent().parent();
+            if(period.hasClass("period-1")) {
+                result = 7;
+                bn_code = "B1";
+            } else if(period.hasClass("period-2")){
+                result = 14;
+                bn_code = "B2";
+            } else if(period.hasClass("period-3")){
+            	result = 21;
+            	bn_code = "B3";
+            } else if(period.hasClass("period-4")) {
+            	result = 28;
+            	bn_code = "B4";
+            } else {
+            	result = 0;
+            }
+            
+            $("#bn_code").val(bn_code);
+            $("#duration").val(duration);
+            $(".period-result-text").val("${ day }부터 " + result + "일 로 선택하셨습니다.");
+    	});
+    </script>
     <div id="menuModal" class="modal2">
         <div class="modal-content2">
             <span class="modal-close2">&times;</span>
