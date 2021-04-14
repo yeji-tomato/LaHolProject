@@ -19,12 +19,13 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 		<result property="classLoca" column="CL_LOCA"/>
 		<result property="clPrice" column="CL_PRICE"/>
 		<result property="classLvl" column="CL_LEVEL"/>
-		<result property="runtime" column="CL_RUNTIME"/>
+		<result property="clRuntime" column="CL_RUNTIME"/>
 		<result property="blind" column="BLIND"/>
 		<result property="status" column="CL_STATUS"/>
 		<result property="clThumbnail" column="CL_THUMBNAIL"/>
 		<result property="trPhoto" column="TR_PHOTO"/>
 		<result property="clPhoto" column="CLASS_PHOTO"/>
+		<result property="clWriter" column="CL_WRITER"/>
 	</resultMap>
 		
 	<!-- 조회수증가-->
@@ -60,6 +61,7 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 				, CL_THUMBNAIL
 				, TR_PHOTO
 				, CLASS_PHOTO
+				, CL_WRITER
 		 FROM 
 				COFFEECLASS
 		WHERE	
@@ -92,6 +94,7 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 				, CL_THUMBNAIL
 				, TR_PHOTO
 				, CLASS_PHOTO
+				, CL_WRITER
 	   	 )
 	    VALUES
 	    (
@@ -116,6 +119,7 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 	    		, #{clThumbnail}
 	    		, #{trPhoto}
 	    		, #{clPhoto}
+	    		, #{clWriter}
 	    )
 
 	</insert>
@@ -141,6 +145,41 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 				, CL_TIME
 				, CL_LEVEL
 				, CL_RUNTIME
+				, CL_THUMBNAIL
+				, TR_PHOTO
+				, CLASS_PHOTO
+				, CL_WRITER
+		 FROM 
+				COFFEECLASS
+		WHERE	
+				CLASS_NO = #{classNo}
+	 ORDER BY
+				CLASS_NO DESC
+	</select>
+	<select id = "bringClass" resultMap="clResultSet">
+		SELECT 
+				  CLASS_NO
+				, C_CODE
+				, CL_NAME
+				, CL_DES
+				, TR_NAME
+				, TR_INTRO
+				, CL_CURI
+				, CL_MAX
+				, CL_DATE
+				, CL_LOCA
+				, CL_PRICE
+				, BLIND
+				, CL_STATUS
+				, BUS_NO
+				, CL_SHORTDES
+				, CL_TIME
+				, CL_LEVEL
+				, CL_RUNTIME
+				, CL_THUMBNAIL
+				, TR_PHOTO
+				, CLASS_PHOTO
+				, CL_WRITER
 		 FROM 
 				COFFEECLASS
 		WHERE	
@@ -149,10 +188,35 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 				CLASS_NO DESC
 	</select>
 	<update id = "updateClass" parameterType="CoffeeClass">
-	   UPDATE
-	   			
-	
+	    UPDATE  
+	   			COFFEECLASS
+	       SET	
+				  CL_NAME = #{className}
+				, CL_DES  = #{classDes}
+				, TR_NAME = #{trName}
+				, TR_INTRO= #{trIntro}
+				, CL_CURI = #{classCurri}
+				, CL_MAX  = #{studentMax}
+				, CL_DATE = #{classDate}
+				, CL_LOCA = #{classLoca}
+				, CL_PRICE= #{clPrice}
+				, CL_SHORTDES = #{clShortDes}
+				, CL_TIME = #{classTime}
+				, CL_LEVEL= #{classLvl}
+				, CL_RUNTIME = #{clRuntime}
+				, CL_THUMBNAIL = #{clThumbnail}
+				, TR_PHOTO = #{trPhoto}
+				, CLASS_PHOTO = #{clPhoto}
+		 WHERE
+		 		CLASS_NO = #{classNo}
 	</update>
+	<delete id="deleteClass" parameterType="String">
+	     DELETE 
+	       FROM 
+	     		COFFEECLASS
+	      WHERE 
+	      		CLASSNO = #{classNo} 	
+	</delete>
 	
 	 
 </mapper>

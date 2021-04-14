@@ -36,11 +36,14 @@
 				<div class="content-header">
                 </pre>
 				</div>
-				<form action = "${ contextPath }/coffeeclass/updateclass" id="wrtieForm" method="post" enctype="multipart/form-data">
+				<form action = "${ contextPath }/coffeeclass/updateclass/update" id="wrtieForm" method="post" enctype="multipart/form-data">
 				<table id="clTable" style="white;">
+					<!-- classNo hidden으로 가지고 가기 -->
+					<input type="hidden" name="classNo" value="${coffeeclass.classNo}"/> 
+				
 					<tr id="clTr">
 						<td>클래스명</td>
-						<td class="answer"><input type="text" class="classdes" name="classNo" value ="${ coffeeclass.className }" required></td>
+						<td class="answer"><input type="text" class="classdes" name="className" value ="${ coffeeclass.className }" required></td>
 					</tr>
 					<tr>
 						<td>사업자번호</td>
@@ -48,21 +51,13 @@
 					</tr>
 					<tr>
 						<td>강사명</td>
-						<td class="answer"><input type="text" class="classdes" name="trName" value = "#{ coffeeclass.trName }" required></td>
+						<td class="answer"><input type="text" class="classdes" name="trName" value = "${ coffeeclass.trName }" required></td>
 					</tr>
 					<tr>
 						<td>강사사진</td>
-						<td class="answer"><input type="file" class="classdes" required>
+						<td class="answer"><input type="file" class="classdes" name="imgfile1" value = "${ coffeeclass.trPhoto }"required>
 						</td>
 					</tr>
-					<c:if test="${ !empty cl.originalFileName }">
-					<tr>
-						<td>현재 업로드된 사진</td>
-						<td class="answer"><a href="${ contextPath }/coffeeclass/download?classNo=${ coffeeclass.className }">
-						${ coffeeclass.originalFileName }
-						</a></td>
-					</tr>
-					</c:if>
 					<tr>
 						<td></td>
 						<td><p style="font-size: 11px; float: left;">*얼굴 공개를 원하시지
@@ -74,49 +69,12 @@
 							class="classdes" name="trIntro" value = "${ coffeeclass.trIntro }"></td>
 					</tr>
 
-					<tr>
-						<!--검색으로 select-->
+				<tr>
 						<td>주최카페</td>
 						<td class="answer">
-							<button type="button" class="btn btn-outline-secondary"
-								name = "cafeNo" 
-								data-bs-toggle="modal" data-bs-target="#exampleModal"
-								style="float: left;">등록된 카페검색</button> <input type="text"
-							id="linkedcafe" value="KH카페" readonly>
+								<input type="text" id="linkedcafe" value="${ mycafe.caName }" readonly>
 						</td>
 					</tr>
-
-					<!-- Modal -->
-					<div class="modal fade" id="exampleModal" tabindex="-1"
-						aria-labelledby="exampleModalLabel" aria-hidden="true">
-						<div class="modal-dialog">
-							<div class="modal-content">
-								<div class="modal-header">
-									<h5 class="modal-title" id="exampleModalLabel">카페연동하기</h5>
-									<button type="button" class="btn-close" data-bs-dismiss="modal"
-										aria-label="Close"></button>
-								</div>
-								<div>
-									<h6 style="margin: 3vh;">어느 카페에서 진행하는 클래스인가요?</h6>
-									<input type="text">
-									<button style="background-color: transparent; border: 0;">
-										<i class="fa fa-search" id="submitbtn" aria-hidden="true"
-											aria-label="submit search"></i>
-									</button>
-									<br>
-									<br> <input type="text"
-										style="border: transparent; background-color: transparent;"
-										readonly>
-								</div>
-								<div class="modal-footer">
-									<button type="button" class="btn btn-primary">확인</button>
-									<button type="button" class="btn btn-secondary"
-										data-bs-dismiss="modal">닫기</button>
-								</div>
-							</div>
-						</div>
-					</div>
-
 
 					<tr>
 						<td>클래스 한 줄 소개</td>
@@ -138,44 +96,43 @@
 					<tr>
 					<tr>
 						<td>클래스 대표 이미지</td>
-						<td class="answer"><input type="file" class="classdes" name="imgfile2"></td>
+						<td class="answer"><input type="file" class="classdes" name="imgfile2" value="${ coffeeclass.clThumbnail }"></td>
 					</tr>
 					<tr>
 						<td>클래스 기타이미지</td>
-						<td class="answer"><input type="file" class="classdes" name="imgfile3"></td>
+						<td class="answer"><input type="file" class="classdes" name="imgfile3" value="${ coffeeclass.clPhoto }"></td>
 					</tr>
 
 
 					<tr>
-						
 						<td>강의 날짜</td>
 						<td class="answer" style="text-align: left;"><input
-							type="date" class="classdate end classdes" name="classDate"></td>
+							type="date" class="classdate end classdes" name="classDate" value="${ coffeeclass.classDate }"></td>
 					</tr>
 					
 					<tr>
 						<td>강의 시간</td>
-						<td class="answer"><input type="text"
-							placeholder="하루 최대 3타임 운영가능" class="classdes" name="classTime"> <input
-							type="text" placeholder="예시 ) 10:00 - 12:00" class="classdes">
-							<input type="text" placeholder="예시 ) 19:00 - 21:00"
-							class="classdes"></td>
+						<td class="answer">
+						<input type="text" class="classdes" name="classTime" value = "${ classTimes[0] }"> 
+						<input type="text" class="classdes" name="classTime" value = "${ classTimes[1] }">
+						<input type="text" class="classdes" name="classTime" value = "${ classTimes[2] }">
+						</td>
 					</tr>
-
-					<tr>
-						<td>강의 장소</td>
-						<td class="address"><input type="text" id="sample4_postcode"
-							placeholder="우편번호" class="classdes"> <input type="button"
-							onclick="sample4_execDaumPostcode()" value="우편번호 찾기"
-							class="classdes" id="postcode-btn"><br> <input
-							type="text" id="sample4_roadAddress" placeholder="도로명주소"
-							size="60" class="classdes"><br> <input type="hidden"
-							id="sample4_jibunAddress" placeholder="지번주소" size="60"
-							class="classdes"> <span id="guide"
-							style="color: #999; display: none"></span> <input type="text"
-							id="sample4_detailAddress" placeholder="상세주소" size="60"
-							class="classdes" name="classLoca"><br></td>
-					</tr>
+					
+			        <tr>    
+			            <tr>
+			            <td>강의장소</td>
+			            </tr>
+			            <tr  class="address">
+			                <td>주소</td>
+			                <td><input type="text" class="classdes" name="classLoca1" value = "${ clAddresses[0] }"></td> 			           
+			            </tr>
+			            <tr  class="address">
+			                <td>상세주소</td>
+			                <td><input type="text" class="classdes" name="classLoca2" value = "${ clAddresses[1] }"></td> 
+			            </tr>
+			        </tr>  
+					
 
 					<!-- <tr>
             <h4>우편번호</h4>
@@ -196,43 +153,55 @@
 
 					<tr>
 						<td>수강생 정원</td>
-						<td class="answer"><input type="number" min="1" max="4" name="studentMax"
-							class="classdes" placeholder="거리두기 방침으로 인해 최대인원이 4명으로 제한됩니다"></td>
+						<td class="answer">
+						<input type="number" min="1" max="4" name="studentMax" class="classdes" value="${ coffeeclass.studentMax }">
+						</td>
 					</tr>
 
 					<tr>
 						<td>희망 수강료</td>
-						<td class="answer"><input type="text" class="classdes" name="clPrice"></td>
+						<td class="answer"><input type="text" class="classdes" name="clPrice" value="${ coffeeclass.clPrice }"></td>
 						<td>원</td>
 					</tr>
 
 					<tr>
 						<td>수업 난이도</td>
-						<td class="answer" style="text-align: left;" name="classLvl"><select>
+						<td class="answer" style="text-align: left;">
+						<select name="classLvl">
 								<option>난이도 선택</option>
-								<option>상</option>
-								<option>중</option>
-								<option>중</option>
+								<option value = "상" <c:if test="${ coffeeclass.classLvl eq '상' }"> selected </c:if>> 상</option>
+								<option value = "중" <c:if test="${ coffeeclass.classLvl eq '중' }"> selected </c:if>> 중</option>
+								<option value = "하" <c:if test="${ coffeeclass.classLvl eq '하' }"> selected </c:if>> 하</option>
 						</select></td>
 					</tr>
 
 					<tr>
 						<td>소요시간</td>
-						<td class="answer"><input type="text"
-							placeholder="분 단위로 입력해주세요" class="classdes" name="clRuntime"></td>
+						<td class="answer"><input type="text" class="classdes" name="clRuntime" value="${ coffeeclass.clRuntime }"></td>
 						<td>분</td>
 					</tr>
-				</table>
+					<tr>
+						<td>클래스 개설자ID</td>
+							<td class="answer" > 
+								<!-- 밸류 바꾸기 : value = "${ loginUser.id }"   -->
+								<input type="text" class="classdes" name="clWriter" value="partner02" value = "${ coffeeclass.clWriter }" style="border: 0px; background-color:transparent;" readonly></td> 
+					</tr>
+				</table>				
+			<div id="files">
+				<input type="hidden" name="imgfile1" value="${ coffeeclass.clThumbnail }">
+                <input type="hidden" name="imgfile2" value="${ coffeeclass.trPhoto }">
+                <input type="hidden" name="imgfile3" value="${ coffeeclass.clPhoto }">
+			</div>
+			
+			<div class="btnarea">
+				<button type="submit" class="btn" id="register">승인요청</button>
+				&nbsp;
+				<button type="button" class="btn" id="cancel" onclick="history.back()">등록취소</button>
+			</div>
 				</form>
 			</div>
 
 
-			<div class="btnarea">
-				<button type="button" class="btn" id="register">승인요청</button>
-				&nbsp;
-				<button type="button" class="btn" id="cancel"
-					onclick="history.back()">등록취소</button>
-			</div>
 		</div>
 	</div>
 
