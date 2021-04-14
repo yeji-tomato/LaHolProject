@@ -38,9 +38,14 @@ public class CoffeeClass{
 	private String clThumbnail;
 	private String trPhoto;
 	private String clPhoto;
+	private String clWriter;
 	
 
 	public String[] bringTimes() {
-		return classTime.split(","); // "10:00-11:00,11:00-12:00,13:00-14:00" >> // [A, B, C]
+		return classTime.split(","); // "10:00-11:00,11:00-12:00,13:00-14:00" >> [A, B, C]
+	}
+	
+	public String[] bringAddress() {
+		return classLoca.split(","); // "강남구 서초동, 현대아파트 112동 901호" >> [강남구 서초동, 현대]
 	}
 }

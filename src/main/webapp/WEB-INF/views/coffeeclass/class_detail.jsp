@@ -35,13 +35,13 @@
             <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
               <div class="carousel-inner" id="caroselLeft">
                 <div class="carousel-item active" data-bs-interval="10000">
-                  <img src="${ contextPath }/resources/img/coffeeclass/classphoto/class7.jpg" class="d-block w-100" alt="...">
+                  <img src="${ contextPath }/resources/nuploadFiles/classImg/${ coffeeclass.clPhoto }" class="d-block w-100" alt="...">
                 </div>
                 <div class="carousel-item" data-bs-interval="2000">
-                  <img src="https://images.unsplash.com/photo-1442512595331-e89e73853f31?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80" class="d-block w-100" alt="...">
+                  <img src="${ contextPath }/resources/nuploadFiles/classImg/${ coffeeclass.clPhoto }" alt="...">
                 </div>
                 <div class="carousel-item">
-                  <img src="https://images.unsplash.com/photo-1511537190424-bbbab87ac5eb?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80" class="d-block w-100" alt="...">
+                  <img src="${ contextPath }/resources/nuploadFiles/classImg/${ coffeeclass.trPhoto }" alt="...">
                 </div>
               </div>
               <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
@@ -111,11 +111,8 @@
                         <td>날짜</td>
                         <td colspan="2">
                           <select style="width: 80%;">
-                            <option value="" class = "selectdate">날짜</option> <!-- 어레이리스트로 묶기 -->
-                            <option value="" class = "selectdate">2020-03-24 수</option>
-                            <option value="" class = "selectdate">2020-03-25 목</option>
-                            <option value="" class = "selectdate">2020-03-26 금</option>
-                            <option value="" class = "selectdate">2020-03-26 토</option>
+                            <option value="" class = "selectdate" disabled ="disabled" selected>날짜</option> 
+                            <option value="" class = "selectdate">"${ coffeeclass.classDate }"</option>
                           </select>          
                         </td>
                       </tr>
@@ -160,7 +157,7 @@
                     
                      <div class="btnDiv">
                     <button type="button" class= "btn" id = "register-btn"
-                     onclick="location.href='${ ContextPath }/coffeeclass/updateclass?classNo=${ coffeeclass.classNo }'">
+                     onclick="location.href='${ contextPath }/coffeeclass/updateclass?classNo=${ coffeeclass.classNo }'">
                       클래스 정보수정
                       <i class="fa fa-wrench" aria-hidden="true"></i>
                     </button>                     
@@ -272,7 +269,7 @@
                 <!-- Product description section 1-->
                 <div class="row align-items-center py-md-3">
                     <!--사진-->
-                    <div class="col-lg-5 col-md-6 offset-lg-1 order-md-2"><img class="d-block rounded-3" src="${ contextPath }/resources/img/coffeeclass/classphoto/class2.png" alt="Image"></div>
+                    <div class="col-lg-5 col-md-6 offset-lg-1 order-md-2"><img class="d-block rounded-3" src="${ contextPath }/resources/nuploadFiles/classImg/${ coffeeclass.clThumbnail }" alt="Image"></div>
                     <!--설명-->
                     <div class="col-lg-4 col-md-6 offset-lg-1 py-4 order-md-1">
                     <h2 class="h3 mb-4 pb-2">클래스 소개</h2>
@@ -282,7 +279,7 @@
                 </div>
               <!-- Product description section 2-->
               <div class="row align-items-center py-4 py-lg-5">
-                <div class="col-lg-5 col-md-6 offset-lg-1"><img class="d-block rounded-3" src="${ contextPath }/resources/img/coffeeclass/classphoto/class10.jpg" alt="Map"></div>
+                <div class="col-lg-5 col-md-6 offset-lg-1"><img class="d-block rounded-3" src="${ contextPath }/resources/nuploadFiles/classImg/${ coffeeclass.clPhoto} " alt="Map"></div>
                 <div class="col-lg-4 col-md-6 offset-lg-1 py-4">
                 <h2 class="h3 mb-4 pb-2">클래스 커리큘럼</h2>
                 <p class="fs-sm text-muted pb-md-2"> ${ coffeeclass.classCurri }</p>
@@ -291,7 +288,7 @@
               <!-- Product description section 1-->
               <div class="row align-items-center py-md-3">
                 <!--사진-->
-                <div class="col-lg-5 col-md-6 offset-lg-1 order-md-2"><img class="d-block rounded-3" src="${ contextPath }/resources/img/coffeeclass/classphoto/class1.jpg" alt="Image"></div>
+                <div class="col-lg-5 col-md-6 offset-lg-1 order-md-2"><img class="d-block rounded-3" src="${ contextPath }/resources/nuploadFiles/classImg/${ coffeeclass.trPhoto}" alt="Image"></div>
                 <!--설명-->
                 <div class="col-lg-4 col-md-6 offset-lg-1 py-4 order-md-1">
                 <h2 class="h3 mb-4 pb-2">강사 소개</h2>

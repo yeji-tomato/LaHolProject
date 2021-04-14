@@ -20,39 +20,43 @@ public class CoffeeClassServiceImpl implements CoffeeClassSerivce{
 		return clDao.selectListCount();
 	}
 
+	// 페이징
 	@Override
 	public List<CoffeeClass> selectList(PageInfo pi) {
 		return clDao.selectList(pi);
 	}
 
+	// 페이지 등록
 	@Override
 	public int insertClass(CoffeeClass cl) {
 		System.out.println("service : " + cl);
 		return clDao.insertClass(cl);
 	}
 
+	// 상세 페이지 조회
 	@Override
 	public CoffeeClass selectCoffeeClass(String classNo) {
 		return clDao.selectCoffeeClass(classNo);
 	}
-
-
-	/*
-	 * @Override public int updateClass(CoffeeClass cl) { return
-	 * clDao.updateClass(cl); }
-	 */
-
+	
+	// 수정페이지 조회
 	@Override
-	public CoffeeClass updateClass(String classNo) {
-		// TODO Auto-generated method stub
-		return null;
+	public CoffeeClass bringClassInfo(String classNo) {
+		return clDao.bringClassInfo(classNo);
+	}
+
+	// 수정
+	@Override
+	public int updateClass(CoffeeClass cl) {
+		return clDao.updateClass(cl);
 	}
 	
+	// 삭제
 	@Override
-	public int deleteClass(int classNo) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int deleteClass(String classNo) {
+		return clDao.deleteClass(classNo);
 	}
+
 
 
 

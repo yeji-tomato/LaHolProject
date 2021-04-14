@@ -19,11 +19,16 @@ public interface CoffeeClassSerivce {
 	// 4. 클래스 상세정보 보기
 	public CoffeeClass selectCoffeeClass(String classNo);
 	
-	// 5. 클래스 수정하기 
-	public CoffeeClass updateClass(String classNo);
+	// 5. 클래스 수정페이지 불러오기
+	public CoffeeClass bringClassInfo(String classNo);
+	
+	// 6. 클래스 수정하기 
+	public int updateClass(CoffeeClass cl);
 	
 	// 6. 클래스 삭제하기 
-	public int deleteClass(int classNo);
+	public int deleteClass(String classNo);
+	
+	
 
 
 

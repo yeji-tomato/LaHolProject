@@ -123,12 +123,13 @@
                         </td>
                       </tr>
                       <tr>
-                        <td>시간</td>
+                         <td>시간</td>
                         <td colspan="2">
                           <select style="width: 80%;">
-                            <option value="" class = "selecttime">시간</option>
-                            <option value="" class = "selecttime">09:00 - 11:00</option>
-                            <option value="" class = "selecttime">13:00 - 15:00</option>
+                            <option value="" class = "selecttime" disabled="disabled" selected>시간</option>
+                          	<c:forEach var="time" items="#{ classTimes }">
+                           		<option class = "selecttime" name="classTime" value="${ time }">${ time }</option>
+                        	</c:forEach>
                         </select>          
                         </td>
                       </tr>
