@@ -348,15 +348,36 @@ C_CODE	VARCHAR2(30 BYTE)	No		18	카페코드
 			, SYSDATE
 			,#{PR_NOTICE }
 			, 'Y'
-			, 'CA1'
-			, 0
-			
-			
+			, (SELECT C_CODE
+					FROM
+   				 CAFE
+ 				WHERE
+   				 ID= #{C_CODE})
+			, 0 
 		)
 	
 	</insert>
 	
-	
+	<update id="updateStore" parameterType="Store">
+		UPDATE 
+		       PRODUCT
+		   SET    
+		       ST_CATAGORY = #{ ST_CATAGORY }
+		     , PR_NAME = #{ PR_NAME }
+		     , PR_IF = #{ PR_IF  }
+		     , PR_EVENT = #{ PR_EVENT }
+		     , ORIGIN = #{ ORIGIN }
+		     , PR_PRICE = #{ PR_PRICE } 
+		     , STORE_PHOTO1 = #{ STORE_PHOTO1 }
+		     , STORE_PHOTO2 = #{ STORE_PHOTO2 }
+		     , STORE_PHOTO3 = #{ STORE_PHOTO3 }
+		     , DY_COMPANY = #{ DY_COMPANY }
+		     , PR_INF = #{ PR_INF }
+		     , SERVICE_CENTER = #{ SERVICE_CENTER } 
+	         , PR_NOTICE = #{ PR_NOTICE }
+		 WHERE 
+		       PR_CODE = #{ PR_CODE }
+	</update>
 	
 	 <update id="deleteStore" parameterType="_int">
 		UPDATE 

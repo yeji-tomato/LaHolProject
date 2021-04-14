@@ -30,5 +30,7 @@ public interface StoreDao {
 	public int insertStore(Store s );
 
 	public int deleteStore(int PR_CODE);
+
+	public int updateStore(Store s);
 	
 }

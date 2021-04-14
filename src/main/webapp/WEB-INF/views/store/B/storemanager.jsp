@@ -67,7 +67,7 @@
 	                            <h6 style="color: #96877D">${ s.ORIGIN }</h6> 
 	                        </center>
 	                        </div>
-	                        <button  id="ifs"  >수정</button>  
+	                        <button  id="ifs" onclick="location.href='${ contextPath }/store/updatepage?PR_CODE=${ s.PR_CODE }'" >수정</button>   
 	                        <button type="submit" id="ifd" onclick="location.href='${ contextPath }/store/delete?PR_CODE=${ s.PR_CODE }'">삭제</button>  
 	                    </div> 
 	                     

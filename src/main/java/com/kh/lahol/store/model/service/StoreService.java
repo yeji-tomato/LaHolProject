@@ -33,6 +33,8 @@ public interface StoreService {
 	public int insertStore(Store s );
 
 	public int deleteStore(int pR_CODE);
+
+	public int updateStore(Store s);
 	
 
 	
