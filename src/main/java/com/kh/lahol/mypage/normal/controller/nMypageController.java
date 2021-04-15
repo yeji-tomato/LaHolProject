@@ -1,5 +1,10 @@
 package com.kh.lahol.mypage.normal.controller;
 
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -14,7 +19,10 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.lahol.member.model.vo.Member;
+import com.kh.lahol.mypage.common.PageInfo;
+import com.kh.lahol.mypage.common.Pagination;
 import com.kh.lahol.mypage.normal.model.service.nMypageService;
+import com.kh.lahol.mypage.normal.model.vo.Coupon;
 
 @Controller
 @RequestMapping("/nMypage")
@@ -42,7 +50,24 @@ public class nMypageController {
 	}
 	
 	@GetMapping("/couponView")
-	public String couponView() {
+	public String couponView(Model model,
+			                 @RequestParam(value="page", required=false, defaultValue="1") int currentPage,
+			                 HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		Member loginUser = (Member)session.getAttribute("loginUser");
+		String id = loginUser.getId();
+		
+		int couponCount = nService.selectCouponCount(id);
+		
+		if(couponCount > 0) {
+			PageInfo pi = Pagination.getPageInfo(currentPage, couponCount);
+			List<Coupon> list = nService.selectCouponList(id, pi);
+			model.addAttribute("list", list);
+			model.addAttribute("pi", pi);
+		} else {
+			model.addAttribute("coupon", "보유한 쿠폰이 없습니다.");
+		}
+		
 		return "mypage/normal/couponList";
 	}
 	

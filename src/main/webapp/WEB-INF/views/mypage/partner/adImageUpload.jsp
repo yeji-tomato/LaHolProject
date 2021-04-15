@@ -26,10 +26,6 @@
             padding-top: 10%;
         }
 
-		#nav {
-    		background-color : #CDC2AF !important;
-    	}
-        
         .mp-container {
         	height : 900px;
         }
@@ -302,7 +298,7 @@
                         <label for="banner-img">배너 이미지 선택</label>
                         <input type="text" id="banner-name" name="origin_image" disabled value="파일명">
                         <input type="file" id="banner-img" name="banner-img">
-                        <input type="hidden" id="day" name="applyDate" value="${ day }">
+                        <input type="hidden" id="day" name="day" value="${ day }">
                     </form>
                     <div class="img-preview-div">
                         <img id="img-preview">

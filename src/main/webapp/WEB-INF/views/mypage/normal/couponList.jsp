@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,13 +26,16 @@
             padding-top: 10%;
         }
 
+		.mp-container {
+			height : 900px;
+		}
 
         #mp{
             display: flex;
             margin-top: 1%;
             margin-left: 5%;
             width: 80vw;
-            height: 80vh;
+            height: 800px;
             justify-content: center;
             text-align: center;
             border-radius: 30px;
@@ -64,7 +68,9 @@
         }
 
         .content-table {
-            min-height: 65vh;
+            min-height: 640px;
+            display : flex;
+            justify-content: center;
         }
 
         .content-div #list-table {
@@ -117,6 +123,36 @@
         .content-div #list-table tr:first-child td:nth-child(7) {
             width : 150px;
         }
+        
+        .btn-ba,
+        .btn-p {
+        	width : 30px;
+        	height : 30px;
+        }
+        
+        .btn-ba {
+        	background : #4B654A;
+        	border : none;
+        	color : #fff;
+        	border-radius : 5px;
+        	
+        	transition : all 0.3s;
+        }
+        
+        .btn-ba:hover {
+        	background : #5A452E;
+        	
+        	transition : all 0.3s;
+        }
+        
+        .btn-p {
+        	border : none;
+        	background : transparent;
+        }
+        
+        .btn-p:disabled {
+        	color : #E5BD62;
+        }
 
     </style>
 </head>
@@ -159,14 +195,6 @@
                         </div>
                         <p class="menu-text">My 쿠폰</p>
                 </li>
-                <li class="side-item" onclick="location.href='${contextPath}/nMypage/interestView'">
-                        <div class="side-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                <path  fill-rule="evenodd" d="M15 5H18C19.1046 5 20 5.89543 20 7V19C20 20.1046 19.1046 21 18 21H6C4.89543 21 4 20.1046 4 19V7C4 5.89543 4.89543 5 6 5H9C9 3.34315 10.3431 2 12 2C13.6569 2 15 3.34315 15 5ZM13 5C13 5.55228 12.5523 6 12 6C11.4477 6 11 5.55228 11 5C11 4.44772 11.4477 4 12 4C12.5523 4 13 4.44772 13 5ZM6 9C6 8.44772 6.44772 8 7 8H17C17.5523 8 18 8.44772 18 9C18 9.55228 17.5523 10 17 10H7C6.44772 10 6 9.55228 6 9ZM7 12C6.44772 12 6 12.4477 6 13C6 13.5523 6.44772 14 7 14H17C17.5523 14 18 13.5523 18 13C18 12.4477 17.5523 12 17 12H7ZM7 16C6.44772 16 6 16.4477 6 17C6 17.5523 6.44772 18 7 18H10C10.5523 18 11 17.5523 11 17C11 16.4477 10.5523 16 10 16H7Z" clip-rule="evenodd"/>
-                            </svg>
-                        </div>
-                        <p class="menu-text">관심 목록</p>
-                </li>
                 <li class="side-item" onclick="location.href='${contextPath}/nMypage/deleteView'">
                         <div class="side-icon">
                             <svg xmlns="http://www.w3.org/2000/svg" data-name="Layer 1" viewBox="0 0 29 29">
@@ -205,18 +233,65 @@
                             <td>쿠폰명</td>
                             <td>발급경로</td>
                             <td>한도</td>
+                            <td>발급일</td>
                             <td>사용기한</td>
-                            <td>갯수</td>
                             <td>상태</td>
                         </tr>
-                        <tr>
-                            <td>aa</td>
-                        </tr>
+                        <c:if test="${ !empty list }">
+                        <c:forEach var="c" items="${ list }">
+	                        <tr>
+	                            <td>${ c.coupon_code }</td>
+	                            <td>${ c.coupon_name }</td>
+	                            <td>${ c.issuedBy }</td>
+	                            <td>${ c.limit }</td>
+	                            <td>${ c.issueDate }</td>
+	                            <td>${ c.expDate }</td>
+	                            <td>${ c.isUsed }</td>
+	                        </tr>
+                        </c:forEach>
+                        </c:if>
+                        <c:if test="${ empty list }">
+                        	<tr>
+                        		<td colspan="7">${ coupon }</td>
+                        	</tr>
+                        </c:if>
                     </table>
                 </div>
                 <!-- 페이징 추가 해야 함 -->
                 <div class="paging-div">
-                    페이징
+                	<!-- 이전 -->
+                	<c:if test="${ pi.currentPage <= 1 }">
+                		<button class="btn-ba" disabled> &lt; </button>
+                	</c:if>
+                	<c:if test="${ pi.currentPage > 1 }">
+                		<c:url var="before" value="/nMypage/couponView">
+                			<c:param name="page" value="${ pi.currentPage - 1 }"/>
+                		</c:url>
+                		<button class="btn-ba" onclick="location.href='${ before }'"> &lt;</button>
+                	</c:if>
+                	<!-- 페이지 숫자 -->
+                	<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+                		<c:if test="${ p eq pi.currentPage }">
+                			<button class="btn-p" disabled>${ p }</button>
+                		</c:if>
+                		<c:if test="${ p ne pi.currentPage }">
+                			<c:url var="pagination" value="/nMypage/couponView">
+                				<c:param name="page" value="${ p }"/>
+                			</c:url>
+               				<button class="btn-p" onclick="location.href='${ pagination }'">${ p }</button>
+                		</c:if>
+                	</c:forEach>
+                	<!-- 다음 -->
+                	<c:if test="${ pi.currentPage >= pi.maxPage }">
+						<button class="btn-ba" disabled> &gt; </button>
+					</c:if>
+					<c:if test="${ pi.currentPage < pi.maxPage }">
+						<c:url var="after" value="/nMypage/couponView">
+							<c:param name="page" value="${ pi.currentPage + 1 }"/>
+						</c:url>
+						<button class="btn-ba" onclick="location.href='${ after }'"> &gt;</button>
+					</c:if>
+                	
                 </div>
             </div>
         </div>

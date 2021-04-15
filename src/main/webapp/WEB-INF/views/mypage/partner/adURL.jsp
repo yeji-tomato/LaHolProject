@@ -25,14 +25,17 @@
             height: auto; 
             padding-top: 10%;
         }
-
+        
+        .mp-container {
+        	height : 900px;
+        }
 
         #mp{
             display: flex;
             margin-top: 1%;
             margin-left: 5%;
             width: 80vw;
-            height: 80vh;
+            height: 800px;
             justify-content: center;
             text-align: center;
             border-radius: 30px;
@@ -269,8 +272,12 @@
                     <h3>연결 요청 URL</h3>
                 </div>
                 <div class="input-div">
-                    <form>
-                        <input type="text" id="bannerUrl" name="bannerUrl" placeholder="URL 작성">
+                    <form id="url_form" method="POST" action="${ contextPath }/pMypage/adUrl">
+                        <input type="text" id="bannerUrl" name="url" placeholder="URL 작성">
+                        <input type="hidden" name="day" value="${ day }">
+                        <input type="hidden" name="origin_image" value="${ ad.origin_image }">
+                        <input type="hidden" name="rename_image" value="${ ad.rename_image }">
+                        <input type="hidden" name="image" value="${ ad.image }">
                         <p class="url-text">※배너 클릭 시, 이동하길 희망하는 URL을 작성해주세요.</p>
                         <p class="url-text">※빈 칸으로 넘길 시, 배너 클릭 시 연결되는 페이지가 없습니다.</p>
                     </form>
@@ -281,8 +288,12 @@
                 </div>
             </div>
         </div>
-        
     </div>
+    <script>
+    	$("#ok-btn").click(function() {
+    		$("#url_form").submit();
+    	});
+    </script>
     <div id="menuModal" class="modal2">
         <div class="modal-content2">
             <span class="modal-close2">&times;</span>

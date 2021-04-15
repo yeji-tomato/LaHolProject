@@ -32,10 +32,6 @@
             padding-top: 10%;
         }
         
-        #nav {
-    		background-color : #CDC2AF !important;
-    	}
-        
         .mp-container {
         	height : 900px;
         }
@@ -288,7 +284,7 @@
     </div>
     <script>
     	$("#selectDate").click(function() {
-    		var year = $(".datepicker--nav-title i").html().substring(2,);
+    		var year = $(".datepicker--nav-title i").html().substring(2);
     		var month = $(".datepicker--nav-title").text().substring(0, 2);
     		var day = $("#selectDate .-selected-").html();
     		
