@@ -44,6 +44,16 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 		<result property="openDate" column="OPENDATE"/>
 		<result property="warned" column="WARNED"/>
 	</resultMap>
+	<resultMap id="couponResultSet" type="M_Coupon">
+		<id property="coupon_code" column="COUPON_CODE"/>
+		<result property="id" column="ID"/>
+		<result property="coupon_name" column="COUPON_NAME"/>
+		<result property="limit" column="LIMIT"/>
+		<result property="issuedBy" column="ISSUEDBY"/>
+		<result property="issueDate" column="ISSUEDATE"/>
+		<result property="expDate" column="EXPDATE"/>
+		<result property="isUsed" column="ISUSED"/>
+	</resultMap>
 	<update id="updateMember" parameterType="Member">
 		UPDATE
 		       MEMBER
@@ -125,4 +135,27 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 		 WHERE
 		       ID = #{id}
 	</update>
+	<select id="selectCouponCount" parameterType="string" resultType="_int">
+		SELECT
+		       COUNT(*)
+		  FROM
+		       COUPON
+		 WHERE
+		       ID = #{id}
+	</select>
+	<select id="selectCouponList" parameterType="string" resultMap="couponResultSet">
+		SELECT
+		       COUPON_CODE
+		     , ID
+		     , COUPON_NAME
+		     , LIMIT
+		     , ISSUEDBY
+		     , ISSUEDATE
+		     , EXPDATE
+		     , ISUSED
+		  FROM
+		       COUPON
+		 WHERE
+		       ID = #{id}
+	</select>
 </mapper>
