@@ -26,7 +26,7 @@ public interface CoffeeClassSerivce {
 	public int updateClass(CoffeeClass cl);
 	
 	// 6. 클래스 삭제하기 
-	public int deleteClass(String classNo);
+	public int deleteClass(CoffeeClass cl);
 	
 	
 

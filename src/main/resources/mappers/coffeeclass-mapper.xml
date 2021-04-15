@@ -210,13 +210,15 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 		 WHERE
 		 		CLASS_NO = #{classNo}
 	</update>
-	<delete id="deleteClass" parameterType="String">
-	     DELETE 
-	       FROM 
-	     		COFFEECLASS
-	      WHERE 
-	      		CLASSNO = #{classNo} 	
-	</delete>
+	<update id ="deleteClass" parameterType="CoffeeClass">
+	 	UPDATE  
+	   			COFFEECLASS
+	       SET	
+	       		CL_STATUS = 'D'
+	     WHERE
+	     		CLASS_NO = #{classNo}
+	
+	</update>
 	
 	 
 </mapper>

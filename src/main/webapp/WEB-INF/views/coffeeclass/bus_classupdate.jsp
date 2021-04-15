@@ -194,7 +194,7 @@
 			</div>
 			
 			<div class="btnarea">
-				<button type="submit" class="btn" id="register">승인요청</button>
+				<button type="submit" class="btn" id="register">수정하기</button>
 				&nbsp;
 				<button type="button" class="btn" id="cancel" onclick="history.back()">등록취소</button>
 			</div>

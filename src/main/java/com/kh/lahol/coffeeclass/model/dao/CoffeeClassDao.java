@@ -26,7 +26,7 @@ public interface CoffeeClassDao {
 		public int updateClass(CoffeeClass cl);
 		
 		// 7. 클래스 삭제하기 
-		public int deleteClass(String classNo);
+		public int deleteClass(CoffeeClass cl);
 
 		
 		

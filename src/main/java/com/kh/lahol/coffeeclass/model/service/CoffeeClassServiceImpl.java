@@ -51,10 +51,10 @@ public class CoffeeClassServiceImpl implements CoffeeClassSerivce{
 		return clDao.updateClass(cl);
 	}
 	
-	// 삭제
+	// 삭제 (status D로 변경)
 	@Override
-	public int deleteClass(String classNo) {
-		return clDao.deleteClass(classNo);
+	public int deleteClass(CoffeeClass cl) {
+		return clDao.deleteClass(cl);
 	}
 
 
