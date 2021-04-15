@@ -23,12 +23,12 @@ public class ReportController {
 		return "";
 	}
 	
-	@PostMapping("")
+	@PostMapping("/coffeeclass/cafereport")
 	public String cafeReport() {
 		return "";
 	}
 	
-	@PostMapping("")
+	@PostMapping("/coffeeclass/storereport")
 	public String storeReport() {
 		return "";
 	}

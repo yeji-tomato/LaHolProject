@@ -54,8 +54,8 @@ public class CoffeeClassDaoImpl implements CoffeeClassDao{
 
 	// 삭제
 	@Override
-	public int deleteClass(String classNo) {
-		return sqlSession.delete("clMapper.deleteClass", classNo);
+	public int deleteClass(CoffeeClass cl) {
+		return sqlSession.delete("clMapper.deleteClass", cl);
 	}
 
 
