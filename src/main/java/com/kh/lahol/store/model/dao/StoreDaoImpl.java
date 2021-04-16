@@ -10,6 +10,8 @@ import org.springframework.stereotype.Repository;
 import com.kh.lahol.store.model.vo.PageInfo;
 import com.kh.lahol.store.model.vo.Search; 
 import com.kh.lahol.store.model.vo.Store;
+import com.kh.lahol.store.model.vo.storeA;
+import com.kh.lahol.store.model.vo.storeQ;
 
 @Repository
 public class StoreDaoImpl implements StoreDao{
@@ -96,6 +98,37 @@ public class StoreDaoImpl implements StoreDao{
 	public int updateStore(Store s) {
 		return sqlSession.update("storeMapper.updateStore", s);
 	}
+	
+	//제품 질문 리스트
+	@Override
+	public List<storeQ> QsearchList(Search sq, PageInfo pi) {
+		int offset =(pi.getCurrentPage() -1) *pi.getStoreLimit(); 
+		RowBounds rowBounds = new RowBounds(offset,pi.getStoreLimit());
+		return sqlSession.selectList("storeMapper.QsearchList",  sq ,  rowBounds );
+	}
+	
+	//제품 답변등록
+	  
+	@Override
+	public int insertAnser(storeA s) {
+		return sqlSession.insert("storeMapper.insertAnser",  s); 
+	}
+	//답변 리스트 
+	@Override
+	public List<storeA> AsearchList(Search sc, PageInfo pi) {
+		int offset =(pi.getCurrentPage() -1) *pi.getStoreLimit(); 
+		RowBounds rowBounds = new RowBounds(offset,pi.getStoreLimit());
+		return sqlSession.selectList("storeMapper.AsearchList",  sc   ,  rowBounds);
+	}
+	
+	
+ 
+	//질문등록
+	@Override
+	public int insertQuestion(storeQ q) {
+		return sqlSession.insert("storeMapper.insertQuestion",  q); 
+	}
+	
 
 
 	

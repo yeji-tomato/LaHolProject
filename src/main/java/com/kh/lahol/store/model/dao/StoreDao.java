@@ -5,6 +5,8 @@ import java.util.List;
 import com.kh.lahol.store.model.vo.PageInfo;
 import com.kh.lahol.store.model.vo.Search; 
 import com.kh.lahol.store.model.vo.Store;
+import com.kh.lahol.store.model.vo.storeA;
+import com.kh.lahol.store.model.vo.storeQ;
 
 public interface StoreDao {
 
@@ -32,5 +34,16 @@ public interface StoreDao {
 	public int deleteStore(int PR_CODE);
 
 	public int updateStore(Store s);
+
+	public List<storeQ> QsearchList(Search sc, PageInfo pi);
+
+	public int insertAnser(storeA s);
+
+	public List<storeA> AsearchList(Search sc, PageInfo pi);
+
+	public int insertQuestion(storeQ q);
+
+ 
+	 
 	
 }
