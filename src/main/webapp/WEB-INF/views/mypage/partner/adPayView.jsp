@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,6 +15,8 @@
     <link rel="stylesheet" href="${ contextPath }/resources/css/common/footer.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <!-- iamport -->
+    <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
     
     <style>
         body{
@@ -263,7 +267,13 @@
 
             margin : 10px;
         }
-
+		
+		.swal2-confirm,
+        .swal2-cancel,
+        .swal2-html-container,
+        .swal2-title {
+        	font-family: 'NEXON Lv1 Gothic OTF';
+        }
     </style>
 </head>
 <body>
@@ -345,7 +355,7 @@
                     <h3>결제 기간 선택</h3>
                 </div>
                 <div class="input-div">
-                    <form>
+                    <form id="ad_form" method="POST" action="${ contextPath }/pMypage/adPay">
                         <div class="pay-period period-1">
                             <div class="period-title-div">
                                 <p class="period-title">1주</p>
@@ -398,45 +408,125 @@
                         <input type="hidden" name="rename_image" value="${ ad.rename_image }">
                         <input type="hidden" name="image" value="${ ad.image }">
                         <input type="hidden" name="url" value="${ ad.url }">
+                        <input type="hidden" name="id" value="${ sessionScope.loginUser.id }">
                         <input type="hidden" id="bn_code" name="bn_code">
                         <input type="hidden" id="duration" name="duration">
+                        <input type="hidden" id="price" name="price">
+                        <input type="hidden" id="bn_name" name="bn_name">
                     </form>
                 </div>
                 <div class="period-result">
                     <input type="text" class="period-result-text" disabled>
                 </div>
                 <div class="btn-div">
-                    <button class="delete-btn" id="ok-btn">다음</button>
+                    <button class="delete-btn" id="ok-btn" onclick="onSubmit();">다음</button>
                     <button class="delete-btn" id="cancel-btn" onclick="location.href='${contextPath}/pMypage/homeView'">취소</button>
                 </div>
             </div>
         </div>
     </div>
+    <c:set var="addr" value="${ fn:split(sessionScope.loginUser.addr, ',') }"/>
     <script>
+    	/* $(function(){
+    		var IMP = window.IMP;
+    		IMP.init('imp95013192');
+    	}); */
+    	var bn_name = "";
+    	
     	$(".period-btn").click(function(){
     		var result = 0;
     		var bn_code = "";
+    		var price = 0;
     		var period = $(this).parent().parent();
             if(period.hasClass("period-1")) {
                 result = 7;
                 bn_code = "B1";
+                price = 300000;
             } else if(period.hasClass("period-2")){
                 result = 14;
                 bn_code = "B2";
+                price = 540000;
             } else if(period.hasClass("period-3")){
             	result = 21;
             	bn_code = "B3";
+            	price = 720000;
             } else if(period.hasClass("period-4")) {
             	result = 28;
             	bn_code = "B4";
+            	price = 840000;
             } else {
             	result = 0;
             }
             
+            bn_name = bn_code + " | " + result + "일간";
+            
             $("#bn_code").val(bn_code);
-            $("#duration").val(duration);
+            $("#duration").val(result);
+            $("#price").val(price);
+            $("#bn_name").val(bn_name);
             $(".period-result-text").val("${ day }부터 " + result + "일 로 선택하셨습니다.");
     	});
+    	
+    	function onSubmit() {
+    		var IMP = window.IMP;
+    		IMP.init('imp95013192');
+	    	var bn_code = document.getElementById("bn_code");
+	    	var duration = document.getElementById("duration");
+    		if(bn_code.value == "") {
+    			Swal.fire({
+    				title : "결제 상품을 선택해주세요!",
+    				icon : 'warning'
+    			});
+    			return;
+    		}
+    		
+    		if(duration.value == "") {
+    			Swal.fire({
+    				title : "결제 상품을 선택해주세요!",
+    				icon : 'warning'
+    			});
+    			return;
+    		}
+    		
+    		IMP.request_pay({
+    			pg : 'html5_inicis',
+    			pay_method : 'card',
+    			merchant_uid : 'merchant_' + new Date().getTime(),
+    			name : bn_name,
+    			amount : 100,
+    			buyer_email : '${ sessionScope.loginUser.email }',
+    			buyer_name : '${ sessionScope.loginUser.name }',
+    			buyer_tel : '${ sessionScope.loginUser.phone }',
+    			buyer_addr : '${ addr[1] }' + '${ addr[2] }',
+    			buyer_postcode : '${ addr[0] }'
+    		}, function(rsp) {
+    			if(rsp.success) {
+    				var msg = "결제가 완료되었습니다.<br>";
+    				// msg += '고유 ID : ' + rsp.imp_uid + "<br>";
+    				// msg += '상점 거래 ID : ' + rsp.merchant_uid + "<br>";
+    				// msg += '결제 금액 : ' + rsp.paid_amount + "<br>";
+    				msg += '카드 승인번호 : ' + rsp.apply_num;
+    				
+    				Swal.fire({
+    					title : msg,
+    					icon : 'success'
+    				}).then(function(result){
+    					if(result.isConfirmed) {
+		    				$("#ad_form").submit();
+    					}
+    				});
+    				
+    			} else {
+    				var msg = '결제에 실패하였습니다.';
+    				msg += '[에러내용]<br>' + rsp.error_msg;
+    				
+    				Swal.fire({
+    					title : msg,
+    					icon : 'warning'
+    				});
+    			}
+    		});
+    	}
     </script>
     <div id="menuModal" class="modal2">
         <div class="modal-content2">

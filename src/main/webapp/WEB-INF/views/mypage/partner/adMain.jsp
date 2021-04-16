@@ -12,13 +12,13 @@
     <link rel="stylesheet" href="${ contextPath }/resources/css/mypage/sideMenu.css">
     <!-- footer css -->
     <link rel="stylesheet" href="${ contextPath }/resources/css/common/footer.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script> -->
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <!-- datepicker -->
     <link href="${ contextPath }/resources/css/common/datepicker.min.css" rel="stylesheet" type="text/css" media="all">
     <!-- Air datepicker css -->
-    <script src="<c:url value="/resources/js/mypage/datepicker.js"/>"></script> <!-- Air datepicker js -->
-    <script src="<c:url value="/resources/js/mypage/datepicker.ko.js"/>"></script> <!-- 달력 한글 추가를 위해 커스텀 -->
+    <%-- <script src="https://cdnjs.cloudflare.com/ajax/libs/air-datepicker/2.2.3/js/datepicker.min.js" integrity="sha512-sM9DpZQXHGs+rFjJYXE1OcuCviEgaXoQIvgsH7nejZB64A09lKeTU4nrs/K6YxFs6f+9FF2awNeJTkaLuplBhg==" crossorigin="anonymous"></script>
+    <script src="<c:url value="/resources/js/mypage/datepicker.ko.js"/>"></script> --%> <!-- 달력 한글 추가를 위해 커스텀 -->
     
     <style>
         body{
@@ -192,6 +192,9 @@
 <body>
 	<!-- menubar -->
 	<jsp:include page="/WEB-INF/views/common/menubar.jsp"/>
+    <!-- Air datepicker css -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/air-datepicker/2.2.3/js/datepicker.min.js" integrity="sha512-sM9DpZQXHGs+rFjJYXE1OcuCviEgaXoQIvgsH7nejZB64A09lKeTU4nrs/K6YxFs6f+9FF2awNeJTkaLuplBhg==" crossorigin="anonymous"></script>
+    <script src="<c:url value="/resources/js/mypage/datepicker.ko.js"/>"></script> <!-- 달력 한글 추가를 위해 커스텀 -->
     <!-- 카페 사이드 메뉴 바 -->
     <div class="mypage-container">
         <div id="side" class="col-mp">
@@ -269,7 +272,7 @@
                 </div>
                 <div class="input-div">
                     <form id="date_form" method="POST" action="${contextPath}/pMypage/adDate">
-                    	<div id="selectDate" class="datepicker-here" data-language="ko"></div>
+                    	<div id="selectDate" id="datepicker" class="datepicker-here"></div>
                         <!-- <input type="text" id="datepicker" class="datepicker-here" data-language="ko"> -->
                         <input type="text" id="startDate">
                         <input type="hidden" id="day" name="day">
@@ -288,7 +291,9 @@
     		var month = $(".datepicker--nav-title").text().substring(0, 2);
     		var day = $("#selectDate .-selected-").html();
     		
-    		$("#startDate").val(year +"년 " + month + "월 " + day + "일을 선택하셨습니다.");
+    		if(day != undefined) {
+	    		$("#startDate").val(year +"년 " + month + "월 " + day + "일을 선택하셨습니다.");
+    		}
     		
     		if(day < 10) {
     			day = "0" + day;
@@ -363,11 +368,12 @@
             }
         }
     </script>
-    <!-- <script>
-        $("#datepicker").datepicker({
-    	    language: 'ko'
-        }); 
-    </script> -->
+    <script>
+   		$(".datepicker-here").datepicker({
+   			language : 'ko',
+   			minDate : new Date()
+    	});
+    </script>
     <!-- footer -->
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 </body>

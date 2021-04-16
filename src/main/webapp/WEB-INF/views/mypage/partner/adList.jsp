@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,13 +27,16 @@
             padding-top: 10%;
         }
 
-
+		.mp-container {
+			height : 900px;
+		}
+		
         #mp{
             display: flex;
             margin-top: 1%;
             margin-left: 5%;
             width: 80vw;
-            height: 80vh;
+            height: 800px;
             justify-content: center;
             text-align: center;
             border-radius: 30px;
@@ -262,9 +266,11 @@
                             <td>신청일자</td>
                             <td>진행상태</td>
                         </tr>
+                        <c:if test="${ list ne null }">
                         <tr> <!-- 신청자 수 클릭 시 신청자 명단으로, 미답변 문의 클릭 시, 미답변 리스트 출력 -->
-                            <td>aa</td>
+                            <td>${ list.ad_code }</td>
                         </tr>
+                        </c:if>
                     </table>
                 </div>
                 <!-- 페이징 추가 해야 함 -->

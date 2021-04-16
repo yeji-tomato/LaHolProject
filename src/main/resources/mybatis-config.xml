@@ -37,7 +37,10 @@
 		
 		<!-- 마이페이지 쿠폰 -->
 		<typeAlias type="com.kh.lahol.mypage.normal.model.vo.Coupon" alias="M_Coupon"/>
- 
+		<!-- Ad -->
+ 		<typeAlias type="com.kh.lahol.mypage.partner.model.vo.Ad" alias="Ad"/>
+ 		<!-- Ad 신청 시 payment -->
+ 		<typeAlias type="com.kh.lahol.mypage.partner.model.vo.Payment" alias="M_Payment"/>
 	</typeAliases>
 	
 	<!-- mappers -->

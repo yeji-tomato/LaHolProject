@@ -153,7 +153,13 @@
         .btn-p:disabled {
         	color : #E5BD62;
         }
-
+		
+		.swal2-confirm,
+        .swal2-cancel,
+        .swal2-html-container,
+        .swal2-title {
+        	font-family: 'NEXON Lv1 Gothic OTF';
+        }
     </style>
 </head>
 <body>
