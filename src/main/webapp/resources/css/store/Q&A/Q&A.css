@@ -1,0 +1,114 @@
+@charset "UTF-8";
+
+/* 넥슨 고딕 Bold */
+@font-face {
+    font-family: 'NEXON Lv1 Gothic OTF Bold';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF Bold.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+*{
+    font-family: 'NEXON Lv1 Gothic OTF Bold';
+}
+ 
+ 
+
+#con1_title h1 {
+	text-align: center;
+	margin-top: 25px;
+}
+
+.h1_title {
+	margin-top: 50px;
+	text-align: center;
+	font-size: 24px; 
+}
+
+.line {
+	width:100%; 
+}
+
+#none {
+	display: none;
+}
+ 
+.recruit {
+	width: 100%;
+	border: none;
+}
+
+.recruit td {
+	padding-left: 10px;
+	border-top: 2px solid #9e9e9e5b;
+	border-bottom: none;
+	border-left: none; 
+}
+
+.hide {
+	display: none;
+}
+
+ 
+ .show1 { 
+	height: 50px;  
+	font-size: 18px;  
+	
+}
+ 
+ .show1 td{
+ 	width: 150px; 
+ }
+
+   
+.question td { 
+	height: 50px;  
+	
+	}
+	
+	 #tb_title {
+            width: 10%;
+            padding-left: 2%;
+        }
+	
+    #tb_content {
+            width:55%;
+            
+        }
+        #tb_author {
+            width:15%;
+            height: 50px;  
+        }
+        #tb_date {
+            width:20%;
+        }
+      #tb_a{
+    width:30%;
+      
+      }
+ 
+ #aa{
+  width: 52px;
+    height: 24px;
+    padding-bottom: 0px;
+    padding-top: 0px;
+    padding-left: 0px;
+    padding-right: 0px;
+ 
+ 
+ 
+ }
+
+ 
+ 
+/* 페이징바 영역 */
+ 
+ 
+ 
+ 
+ 
+ 
+ /*모달*/
+ 
+ 
+ 
