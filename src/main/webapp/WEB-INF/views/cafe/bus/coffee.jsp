@@ -7,6 +7,7 @@
 <title>음료 등록</title>
 <link rel="stylesheet" href="${ contextPath }/resources/css/cafe/bus/coffee.css" type="text/css">
 <link rel="stylesheet" href="${ contextPath }/resources/css/cafe/bus/sideMenu.css" type="text/css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 </head>
 <body>
 	<!-- 사업자 menubar -->
@@ -76,33 +77,70 @@
                 </div>
                 <!-- 음료 상품 -->
                 <div class="row row-cols-4">
-                    <div class="col">
                     <c:forEach var="co" items="${ Coffeelist }">	
                 	<c:choose>
                 	<c:when test="${!empty co}">
+                	<div class="col">
                         <div class="card" style="width: 18rem;">
-                            <img src="https://image.istarbucks.co.kr/upload/store/skuimg/2021/02/[9200000001635]_20210225092236748.jpg" class="card-img-top" alt="음료사진">
+                            <img src="${ contextPath }/resources/nuploadFiles/cafeImg/${ co.cfIchname }" class="card-img-top" alt="음료사진" style="height: 30vh;">
                             <div class="card-body">
                                 <h5 class="card-title">${ co.cfName }</h5>
                                 <p class="card-text">
                                     <ul id="cardContent">
-                                        <li>${ co.cfPrice }</li>
-                                        <li>${ co.cfCount }</li>
+                                        <li>${ co.cfPrice }원</li>
+                                        <li>수량 : ${ co.cfCount }</li>
                                     </ul>
                                 </p>
-                                <a href="#" class="btn" id="coffeeBtn" data-bs-toggle="modal" data-bs-target="#staticBackdropUpdate">자세히보기</a>
+                                <a href="${ contextPath }/cafe/biz/cfDetail?cfNo=${ co.cfNo }" class="btn" id="coffeeBtn" >
+                                	수정하기
+                                </a>
+                                <button class="btn" id="coffeeBtn" onclick="deleteCoffee('${ co.cfNo }')">삭제하기</button>
+                               <script>
+	                   function deleteCoffee(cfNo){
+	               		Swal.fire({
+	               		  title: '커피 정보를 <br> 삭제하시겠습니까???',
+	               		  text: "삭제하시면 다시 복구시킬 수 없습니다.",
+	               		  icon: 'warning',
+	               		  showCancelButton: true,
+	               		  confirmButtonColor: '#3085d6',
+	               		  cancelButtonColor: '#d33',
+	               		  confirmButtonText: '삭제',
+	               		  cancelButtonText: '취소'
+	               		}).then((result) => {
+	               			  if (result.value) {
+	               	              //"삭제" 버튼을 눌렀을 때 작업할 내용을 이곳에 넣어주면 된다.
+	               	              $.ajax({
+	               	            	  url:"${ contextPath }/cafe/biz/coffee/delete",
+	               	            	  type: "get",
+	               	            	  data : {
+	               	            		  cfNo : cfNo
+	               	            	  },
+	               	            	  success : function(data){
+	               	        
+	               	            	 	location.href='${ contextPath }/cafe/biz/Coffee?caCode=${ co.caNo }';
+	               	            	  },
+	               	            	  error : function(e){
+	               	    					console.log(e);
+	               	    				}
+	               	              });
+	               			  };
+	               		})
+	               	}
+	            	</script>
                             </div>
+                        </div>
                         </div>
                         </c:when>
                 		<c:otherwise>등록된 음료 정보가 존재하지 않습니다.</c:otherwise>
                 		</c:choose>
                 		</c:forEach>
-                    </div>
+                     
                 </div>
                 </div>
                 
             </div>
             <jsp:include page="/WEB-INF/views/cafe/bus/coffeeInsert.jsp"/>
+
     </div>
     
     <!-- footer -->

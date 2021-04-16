@@ -208,7 +208,7 @@ public class CafeBizController {
 								@RequestParam(name="cafeAddress1") String cafeAddress1,
 								@RequestParam(name="cafeAddress2") String cafeAddress2,
 								HttpServletRequest request) throws CafeException {
-		c.setCaAddress(cafeAddress1 + "," + cafeAddress2);
+		c.setCaAddress("우편번호" + "," + cafeAddress1 + "," + cafeAddress2);
 		 
 		 if(!mainfile.getOriginalFilename().equals("")) {
 				// 파일 저장 메소드 별도로 작성 - 리네임명 리턴
@@ -277,7 +277,7 @@ public class CafeBizController {
 	@GetMapping("/Coffee")
 	public ModelAndView coffeeSelect(ModelAndView mv, @RequestParam String caCode) {
 		
-		System.out.println(caCode + "caCode");
+		// System.out.println(caCode + "caCode");
 		
 		List<Coffee> Coffeelist = caBizService.selectCoffeeList(caCode);
 		
@@ -292,65 +292,139 @@ public class CafeBizController {
 	@PostMapping("/coffee/insert")
 	public String insertCoffee(@ModelAttribute Coffee co,
 								@RequestParam(name="imgBev") MultipartFile cfIname,
+								@RequestParam(name="caNo") String caNo,
 								HttpServletRequest request) throws CafeException {
 		
 		 
 		 if(!cfIname.getOriginalFilename().equals("")) {
 				// 파일 저장 메소드 별도로 작성 - 리네임명 리턴
-				String renameCoffeeFileName = saveFile(cfIname, request);
+				String renameFileName = saveFile(cfIname, request);
 				
 				// DB에 저장하기 위한 파일명 세팅
-				if(renameCoffeeFileName != null) {
-					co.setCfIchname(renameCoffeeFileName);
+				if(renameFileName != null) {
+					co.setCfIchname(renameFileName);
 					co.setCfIname(cfIname.getOriginalFilename());
-					co.setChIpath("\\nuploadFiles\\coffeeImg");
+					co.setChIpath("\\nuploadFiles\\cafeImg");
 				}
 
 			}
 		 
 		 	
-		
+		System.out.println("인서트 시 카페 코드" + caNo);
 		System.out.println("음료 정보 : "+ co);
 		
 		
 		
-		 int result = caBizService.insertCoffee();
+		 int result = caBizService.insertCoffee(co);
 		  
 		if(result > 0) { 
-			return "cafe/bus/confirm"; }
+			return "redirect:/cafe/biz/Coffee?caCode="+ caNo;
+			/* return "cafe/bus/coffee"; */
+		}
 		else { 
-			throw new CafeException("카페 정보 등록에 실패하였습니다."); }
+			throw new CafeException("카페 정보 등록에 실패하였습니다."); 
+			}
 		
 		
 		
 	}
 	
 	
-	public String saveFileCoffee(MultipartFile file, HttpServletRequest request) {
-	      String root = request.getSession().getServletContext().getRealPath("resources");
-	      String savePath = root + "\\nuploadFiles\\coffeeImg";
-	      File folder = new File(savePath); // 메모리상에서 객체 파일 만들기 
-	      if(!folder.exists()) {
-	    	  folder.mkdir(); // -> 해당 경로가 존재하지 않는다면 디렉토리 생성
-	      }
-	      
-	      // 파일명 리네임 규칙 "년월일시분초_랜덤값.확장자"
-	      SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
-	      String originalFileName = file.getOriginalFilename();
-	      String renameCoffeeFileName = sdf.format(new Date()) + "_"
-	                     + (int)(Math.random() * 100000)
-	                     + originalFileName.substring(originalFileName.lastIndexOf("."));
-	      
-	      String renamePath = folder + "\\" + renameCoffeeFileName; // 저장하고자하는 경로 + 파일명
-	      
-	      try {
-	         file.transferTo(new File(renamePath));
-	         // => 업로드 된 파일 (MultipartFile) 이 rename명으로 서버에 저장
-	      } catch (IllegalStateException | IOException e) {
-	         System.out.println("파일 업로드 에러 : " + e.getMessage());
-	      }
-	      
-	      return renameCoffeeFileName;
-	   }
+	// 커피 수정을 위한 상세 조회
+	@GetMapping("/cfDetail")
+	public String cfDetail(@RequestParam String cfNo,
+							Model model) {
+		
+		System.out.println("cfNo : "+ cfNo);
+		
+		 Coffee co = caBizService.selectCoffeeInfo(cfNo);
+		 
+		  if(co != null) { 
+			  model.addAttribute("Coffee", co); 
+			  return "cafe/bus/upCoffee";
+		  }else { 
+			  model.addAttribute("msg", "등록된 카페 보기에 실패하였습니다."); 
+			  return "common/error"; 
+		}
+			
+	}
+	
+	
+	@PostMapping("/coffee/update")
+	public String updateCoffeeInfo(@ModelAttribute Coffee co,
+								@RequestParam(name="imgBev") MultipartFile photofile,
+								HttpServletRequest request) throws CafeException {
+		
+		String caNo = co.getCaNo();
+		
+		 if(!photofile.getOriginalFilename().equals("")) {
+				// 파일 저장 메소드 별도로 작성 - 리네임명 리턴
+			if(co.getCfIchname() != null) {
+				deleteFile(co.getCfIchname(), request);
+			}
+			
+			String renameFileName = saveFile(photofile, request);
+			
+			if(renameFileName != null) {
+				co.setCfIchname(renameFileName);
+				co.setCfIname(photofile.getOriginalFilename());
+				co.setChIpath("\\nuploadFiles\\cafeImg");
+			}	
+		 }
+		 
+		System.out.println("수정 커피 메뉴 : "+ co);
+		 
+		int result = caBizService.updateCoffeeInfo(co);
+		
+		if(result > 0) {
+			return "redirect:/cafe/biz/Coffee?caCode="+ caNo;
+		}else {
+			throw new CafeException("카페 정보 수정에 실패하였습니다.");
+		}
+
+	}
+	
+	@GetMapping("/delete")
+	public String cafeDelete(String caCode, HttpServletRequest request) throws CafeException {
+		System.out.println("삭제 카페 코드: "+ caCode);
+		
+		int result = caBizService.cafeDelete(caCode);
+		
+		
+		if (result > 0) {
+			return "redirect:/cafe/biz/write";
+		} else {
+			throw new CafeException("커피 삭제에 실패하였습니다.");
+		}
+		
+		
+	}
+	
+	@GetMapping("/coffee/delete")
+	public String coffeeDelete(String cfNo, HttpServletRequest request) throws CafeException {
+		System.out.println("삭제 커피 코드 : "+ cfNo);
+		
+		Coffee co = caBizService.selectCoffeeInfo(cfNo);
+		
+		String caNo = co.getCaNo();
+		System.out.println("삭제 케페" + caNo);
+		int result = caBizService.coffeeDelete(cfNo);
+		
+		// 해당 공지사항에 첨부 파일이 존재 했을 경우
+		if(co.getCfIchname() != null) {
+			deleteFile(co.getCfIchname(), request);
+		}
+		
+		if (result > 0) {
+			return "redirect:/cafe/biz/Coffee?caCode="+ caNo;
+		} else {
+			throw new CafeException("커피 삭제에 실패하였습니다.");
+		}
+		
+		
+	}
+	
+	
+	
 
 }

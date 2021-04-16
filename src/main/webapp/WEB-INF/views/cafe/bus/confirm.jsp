@@ -8,12 +8,14 @@
 <title>카페 확인</title>
 <link rel="stylesheet" href="${ contextPath }/resources/css/cafe/bus/confirm.css" type="text/css">
 <link rel="stylesheet" href="${ contextPath }/resources/css/cafe/bus/sideMenu.css" type="text/css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 </head>
 <body>
 
 	<!-- 사업자 menubar -->
 	<jsp:include page="/WEB-INF/views/common/menubar.jsp"/>
 	
+	<c:forEach var="ca" items="${ Cafelist }">
     
     <!-- 카페 사이드 메뉴 바 -->
     <div class="cafe-sidemenubar">
@@ -79,11 +81,21 @@
                         </tr>
                         </thead>
                         <tbody id="tbody">
-                        <c:forEach var="ca" items="${ Cafelist }">
                         <tr>
                                 <td>${ ca.caCode }</td>
                                 <td>${ ca.caName }</td>
-                                <td>${ ca.caAddress }</td>
+                                <c:forTokens var="addr" items="${ ca.caAddress }" delims="," varStatus="status">
+	                            <c:if test="${ status.index eq 0 }">
+	                            	<c:set var="addr1" value="${ addr }"/>
+	                            </c:if>
+	                            <c:if test="${ status.index eq 1 }">
+	                            	<c:set var="addr2" value="${ addr }"/>
+	                            </c:if>
+	                            <c:if test="${ status.index eq 2 }">
+	                            	<c:set var="addr3" value="${ addr }"/>
+	                            </c:if>
+	                            </c:forTokens>
+                                <td>${ addr2 } ${ addr3 }</td>
                                 <td>${ ca.caStartTime } - ${ ca.caEndTime }</td>
                                 <td class="grad" id="updateDetail" onclick="location.href='${ contextPath }/cafe/biz/caDetail?caCode=${ ca.caCode }'">
                                     <button id="detailBtn" class="btn-icon">
@@ -96,12 +108,45 @@
                                     </button>
                                 </td>
                                 <td class="grad">
-                                    <button id="deleteBtn" class="btn-icon">
+                                    <button id="deleteBtn" class="btn-icon" onclick="deleteBoard()">
                                         <i class="fa fa-trash" aria-hidden="true"></i>
                                     </button>
                                 </td>
                             </tr>
-                        </c:forEach>
+                            <script>
+                            function deleteBoard(){
+                        		Swal.fire({
+                        		  title: '카페를 삭제하시겠습니까???',
+                        		  text: "삭제하시면 다시 복구시킬 수 없습니다.",
+                        		  icon: 'warning',
+                        		  showCancelButton: true,
+                        		  confirmButtonColor: '#3085d6',
+                        		  cancelButtonColor: '#d33',
+                        		  confirmButtonText: '삭제',
+                        		  cancelButtonText: '취소'
+                        		}).then((result) => {
+                      			  if (result.value) {
+                    	              //"삭제" 버튼을 눌렀을 때 작업할 내용을 이곳에 넣어주면 된다. 
+                    	              
+                    	              $.ajax({
+                    	            	  url:"${ contextPath }/cafe/biz/delete",
+                    	            	  type: "get",
+                    	            	  data : {
+                    	            		  caCode : '${ca.caCode}'
+                    	            	  },
+                    	            	  success : function(data){
+                    	            		 
+                    	    				  location.href='${ contextPath }/cafe/biz/write';
+                    	            	  },
+                    	            	  error : function(e){
+                    	    					console.log(e);
+                    	    				}
+                    	              });
+                    			  };
+                    		});
+                        	}  
+                            </script>
+                       
                     </tbody>
                 </table>
         </div>
@@ -113,11 +158,12 @@
             $(".grad").removeClass("active");
             $(this).addClass("active");
         });
-    });
+    });  
+   
     </script>
     </div>
     </div>
-    
+     </c:forEach>
     <!-- footer -->
 	<jsp:include page="/WEB-INF/views/common/footer2.jsp"/>
 </body>
