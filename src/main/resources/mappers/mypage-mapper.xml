@@ -236,4 +236,31 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 		     , NULL
 		)
 	</insert>
+	<select id="adListCount" parameterType="string">
+		SELECT
+		       COUNT(*)
+		  FROM
+		       AD
+		 WHERE
+		       ID = #{id}
+	</select>
+	<select id="selectAdList" parameterType="string" resultMap="adResultSet">
+		SELECT
+		       AD_CODE
+		     , APPLYDATE
+		     , POSTDATE
+		     , DURATION
+		     , ORIGIN_IMAGE
+		     , RENAME_IMAGE
+		     , IMAGE
+		     , URL
+		     , AD_STATUS
+		     , AD_REJECT
+		     , ID
+		     , BN_CODE
+		  FROM
+		       AD
+		 WHERE
+		       ID = #{id}
+	</select>
 </mapper>

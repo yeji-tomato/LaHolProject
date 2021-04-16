@@ -1,10 +1,14 @@
 package com.kh.lahol.mypage.partner.model.dao;
 
+import java.util.List;
+
+import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.lahol.member.model.vo.Member;
+import com.kh.lahol.mypage.common.PageInfo;
 import com.kh.lahol.mypage.partner.model.vo.Ad;
 import com.kh.lahol.mypage.partner.model.vo.Payment;
 
@@ -36,5 +40,17 @@ public class pMypageDaoImpl implements pMypageDao{
 	@Override
 	public int insertPayment(Payment pay) {
 		return sqlSession.insert("mypageMapper.insertPayment", pay);
+	}
+
+	@Override
+	public int adListCount(String id) {
+		return sqlSession.selectOne("mypageMapper.adListCount", id);
+	}
+
+	@Override
+	public List<Ad> selectAdList(String id, PageInfo pi) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return sqlSession.selectList("mypageMapper.selectAdList", id, rowBounds);
 	}
 }

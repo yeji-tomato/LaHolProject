@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -22,6 +23,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.lahol.member.model.vo.Member;
+import com.kh.lahol.mypage.common.PageInfo;
+import com.kh.lahol.mypage.common.Pagination;
 import com.kh.lahol.mypage.partner.model.service.pMypageService;
 import com.kh.lahol.mypage.partner.model.vo.Ad;
 import com.kh.lahol.mypage.partner.model.vo.Payment;
@@ -72,7 +75,21 @@ public class pMypageController {
 	}
 	
 	@GetMapping("/adListView")
-	public String adListView() {
+	public String adListView(Model model,
+			                 @RequestParam(value="page", required=false, defaultValue="1") int currentPage,
+			                 HttpServletRequest request) {
+		String id = ((Member)request.getSession().getAttribute("loginUser")).getId();
+		
+		int adListCount = pService.adListCount(id);
+		
+		if(adListCount > 0) {
+			PageInfo pi = Pagination.getPageInfo(currentPage, adListCount);
+			List<Ad> list = pService.selectAdList(id, pi);
+			model.addAttribute("list", list);
+			model.addAttribute("pi", pi);
+		} else {
+			model.addAttribute("ad", "광고를 신청한 내역이 없습니다");
+		}
 		return "mypage/partner/adList";
 	}
 	
