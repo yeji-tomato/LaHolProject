@@ -58,6 +58,18 @@ public class CoffeeClassDaoImpl implements CoffeeClassDao{
 		return sqlSession.delete("clMapper.deleteClass", cl);
 	}
 
+	// 클래스 신고
+	@Override
+	public int reportClass(CoffeeClass cl) {
+		return sqlSession.insert("clMapper.reportClass", cl);
+	}
+
+	// 클래스 댓글 신고
+	@Override
+	public int reportClComment(CoffeeClass cl) {
+		return sqlSession.insert("clMapper.reportClComment", cl);
+	}
+
 
 
 }

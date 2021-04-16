@@ -16,6 +16,7 @@ import lombok.ToString;
 @ToString
 public class CoffeeClass{
 	
+	// coffeeclass정보
 	private String classNo;
 	private String busNo;
 	private String cafeNo;
@@ -39,6 +40,11 @@ public class CoffeeClass{
 	private String trPhoto;
 	private String clPhoto;
 	private String clWriter;
+	
+	// report정보
+	private String rpReason;
+	private String rpDeets;
+	
 	
 
 	public String[] bringTimes() {

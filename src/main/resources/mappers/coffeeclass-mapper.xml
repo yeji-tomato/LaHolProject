@@ -26,6 +26,8 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 		<result property="trPhoto" column="TR_PHOTO"/>
 		<result property="clPhoto" column="CLASS_PHOTO"/>
 		<result property="clWriter" column="CL_WRITER"/>
+		<result property="rpReason" column="REPORT_TYPE"/>
+		<result property="rpDeets" column="REPORT_REASON"/>
 	</resultMap>
 		
 	<!-- 조회수증가-->
@@ -219,6 +221,29 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 	     		CLASS_NO = #{classNo}
 	
 	</update>
+	<insert id = "reportClass" parameterType="CoffeeClass">
+		INSERT
+	      INTO    REPORT
+	     (
+				    REPORT_NO
+				  , REPORT_TYPE
+				  , REPORT_REASON
+				  , ISWARNED
+				  , ISCHECKED
+				  , REPORTER_ID
+				  , ITEM_CODE
+	   	 )
+	    VALUES
+	    (
+	    		    'CL' || CL_REPORT_SEQ.NEXTVAL
+	    		  , #{rpReason}
+	    		  , #{rpDeets}
+	    		  , DEFAULT
+	    		  , DEFAULT 	
+	    		  , 'user01'
+	    		  , #{classNo}
+	    )
+	  </insert>
 	
 	 
 </mapper>

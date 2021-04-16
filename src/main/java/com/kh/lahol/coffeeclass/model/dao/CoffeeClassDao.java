@@ -19,14 +19,20 @@ public interface CoffeeClassDao {
 		// 4. 클래스 상세정보 보기
 		public CoffeeClass selectCoffeeClass(String classNo);
 		
-		// 6. 클래스 수정페이지 불러오기
+		// 5. 클래스 수정페이지 불러오기
 		public CoffeeClass bringClassInfo(String classNo);
 		
-		// 5. 클래스 수정하기 
+		// 6. 클래스 수정하기 
 		public int updateClass(CoffeeClass cl);
 		
 		// 7. 클래스 삭제하기 
 		public int deleteClass(CoffeeClass cl);
+
+		// 8. 클래스 신고하기
+		public int reportClass(CoffeeClass cl);
+
+		// 9. 클래스 댓글 신고하기
+		public int reportClComment(CoffeeClass cl);
 
 		
 		

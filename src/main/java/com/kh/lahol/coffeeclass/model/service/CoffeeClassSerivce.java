@@ -25,11 +25,14 @@ public interface CoffeeClassSerivce {
 	// 6. 클래스 수정하기 
 	public int updateClass(CoffeeClass cl);
 	
-	// 6. 클래스 삭제하기 
+	// 7. 클래스 삭제하기 
 	public int deleteClass(CoffeeClass cl);
-	
-	
 
+	// 8. 클래스 신고하기
+	public int reportClass(CoffeeClass cl);
+	
+	// 9. 클래스 댓글 신고하기
+	public int reportClComment(CoffeeClass cl);
 
 
 

@@ -171,7 +171,7 @@ public class CoffeClassController {
 	}	
 	  
 	  
-	// 클래스 상세페이지
+	  // 클래스 상세페이지
 	  @GetMapping("/coffeeclass/classdetail")	// coffeeclass라는 타입을 저장을 해서 forwarding하는거라 model객체 필요
 	  public String classdetail(@RequestParam String classNo,
 			  					Model model) {
@@ -192,8 +192,24 @@ public class CoffeClassController {
 			  return "common/error";
 		  }
 		  
-	  }
-	 
+	    }
+	  
+	  	// 클래스 신고
+		@PostMapping("/coffeeclass/classreport")
+		public String classReport(@ModelAttribute CoffeeClass cl) {
+				
+		int result = clService.reportClass(cl);
+				
+		System.out.println("컨트롤러 : " + cl);
+				
+		if(result > 0) {
+			return "coffeeclass/class_detail";
+		} else {	
+			return "common/error";
+		}
+				
+		}
+	
 	  
 	  // 사업자 커피클래스 메인 페이지
 	  @GetMapping("/coffeeclass/busmain")

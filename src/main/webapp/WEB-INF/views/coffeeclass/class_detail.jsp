@@ -35,7 +35,7 @@
             <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
               <div class="carousel-inner" id="caroselLeft">
                 <div class="carousel-item active" data-bs-interval="10000">
-                  <img src="${ contextPath }/resources/nuploadFiles/classImg/${ coffeeclass.clPhoto }" class="d-block w-100" alt="...">
+                  <img src="${ contextPath }/resources/nuploadFiles/classImg/${ coffeeclass.clThumbnail }" class="d-block w-100" alt="...">
                 </div>
                 <div class="carousel-item" data-bs-interval="2000">
                   <img src="${ contextPath }/resources/nuploadFiles/classImg/${ coffeeclass.clPhoto }" alt="...">
@@ -186,6 +186,7 @@
 				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
+				
 				<h5 class="sorry-text"> 삭제 유의사항 </h5> 
 	            <h6>클래스 삭제 시 업로드하신 클래스의 내용과 함께 댓글과 질의응답 </h6>
 	            	<h6 style="color:red"> 모두 삭제되며 복구가 어렵습니다. </h6>
@@ -224,8 +225,9 @@
 				</div>
 				<div class="modal-body">
 				<h5  style="text-align: center; padding: 5vh;">페이지 사용에 불편을 드려 죄송합니다. <br> 신고가 접수되면 3일내로 처리됩니다. </h5>
-					<table style="width: 100%;">
-						
+					<form action = "${ contextPath }/coffeeclass/classreport" method="post">
+					<td><input name ="classNo" type="hidden" value="${ coffeeclass.classNo }"></td>
+					<table style="width: 100%;">					
 						<tr>
 							<td>신고 클래스</td>
 							<td aria-readonly="true">${ coffeeclass.className }</td>
@@ -233,8 +235,8 @@
 						<tr>
 							<td>신고사유</td>
 							<td>
-								<select>
-									<option>
+								<select name="rpReason">
+									<option disabled="disabled" selected>
 										--신고사유선택--
 									</option>
 									<option>
@@ -250,30 +252,27 @@
 										기타
 									</option>
 								</select>
-						</td>
+							</td>
 						</tr>
 						<tr>
 							<td>사유 상세 설명</td>
 						</tr>
 						<tr>
 							<td colspan="2">
-								<textarea style="width: 100%; line-height: 15vh;"></textarea>
+								<textarea name="rpDeets" style="width: 100%; line-height: 15vh;"></textarea>
 							</td>
 						</tr>
 					</table>
-					<p>
 						<br>
 						<p class="alert-text" style="color:rgb(170, 42, 42); font-size: 12px;">
 						허위신고일 경우, 신고자의 활동이 제한될 수 있으니 신중하게 신고해주세요. 
-						</p>
-					</p>
-					
-					</div>
+						</p>					
 					<div class="modal-footer"  style="background-color: #4B654A;">
-					<button type="button" class="btn btn-danger">신고</button>
+					<button type="submit" class="btn btn-danger">신고</button>
 					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
 					</div>
-				</table>
+					</form>
+					</div>
 			</div>
 			</div>
 		</div>
