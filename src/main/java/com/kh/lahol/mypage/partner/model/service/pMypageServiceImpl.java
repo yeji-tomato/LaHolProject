@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service;
 
 import com.kh.lahol.member.model.vo.Member;
 import com.kh.lahol.mypage.partner.model.dao.pMypageDao;
+import com.kh.lahol.mypage.partner.model.vo.Ad;
+import com.kh.lahol.mypage.partner.model.vo.Payment;
 
 @Service
 public class pMypageServiceImpl implements pMypageService{
@@ -34,6 +36,16 @@ public class pMypageServiceImpl implements pMypageService{
 	@Override
 	public int updateMember(Member m) {
 		return pDao.updateMember(m);
+	}
+
+	@Override
+	public int insertAd(Ad ad) {
+		return pDao.insertAd(ad);
+	}
+
+	@Override
+	public int insertPayment(Payment pay) {
+		return pDao.insertPayment(pay);
 	}
 
 }

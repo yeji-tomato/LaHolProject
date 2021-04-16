@@ -54,6 +54,20 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 		<result property="expDate" column="EXPDATE"/>
 		<result property="isUsed" column="ISUSED"/>
 	</resultMap>
+	<resultMap id="adResultSet" type="Ad">
+		<id property="ad_code" column="AD_CODE"/>
+		<result property="applyDate" column="APPLYDATE"/>
+		<result property="postDate" column="POSTDATE"/>
+		<result property="duration" column="DURATION"/>
+		<result property="origin_image" column="ORIGIN_IMAGE"/>
+		<result property="rename_image" column="RENAME_IMAGE"/>
+		<result property="image" column="IMAGE"/>
+		<result property="url" column="URL"/>
+		<result property="ad_status" column="AD_STATUS"/>
+		<result property="ad_reject" column="AD_REJECT"/>
+		<result property="id" column="ID"/>
+		<result property="bn_code" column="BN_CODE"/>
+	</resultMap>
 	<update id="updateMember" parameterType="Member">
 		UPDATE
 		       MEMBER
@@ -158,4 +172,68 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 		 WHERE
 		       ID = #{id}
 	</select>
+	<insert id="insertAd" parameterType="Ad">
+		INSERT
+		  INTO
+		       AD
+		  (
+		       AD_CODE
+		     , APPLYDATE
+		     , POSTDATE
+		     , DURATION
+		     , ORIGIN_IMAGE
+		     , RENAME_IMAGE
+		     , IMAGE
+		     , URL
+		     , AD_STATUS
+		     , ID
+		     , BN_CODE
+		  )
+		VALUES
+		(
+		       SEQ_AD.NEXTVAL
+		     , TO_DATE(#{ad_reject}, 'yy/mm/dd')
+		     , NULL
+		     , #{duration}
+		     , #{origin_image}
+		     , #{rename_image}
+		     , #{image}
+		     , #{url}
+		     , DEFAULT
+		     , #{id}
+		     , #{bn_code}
+		)
+	</insert>
+	<insert id="insertPayment" parameterType="M_Payment">
+		INSERT
+		  INTO
+		       PAYMENT
+		  (
+		       PAY_NO
+		     , PAY_ITEM
+		     , PAY_PRICE
+		     , SUBSCRIBE
+		     , PAY_DATE
+		     , ID
+		     , CAFE_RES
+		     , AD_CODE
+		     , PURCHASE_NUMBER
+		     , SUBSCRIBE_CODE
+		     , CL_PAY_NO
+		  )
+		VALUES
+		(
+		       'AD' || PAY.NEXTVAL
+		     , #{pay_item}
+		     , #{pay_price}
+		     , NULL
+		     , SYSDATE
+		     , #{id}
+		     , NULL
+		     , #{ad_code}
+		     , NULL
+		     , NULL
+		     , NULL
+		)
+	</insert>
 </mapper>

@@ -24,6 +24,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.kh.lahol.member.model.vo.Member;
 import com.kh.lahol.mypage.partner.model.service.pMypageService;
 import com.kh.lahol.mypage.partner.model.vo.Ad;
+import com.kh.lahol.mypage.partner.model.vo.Payment;
 
 @Controller
 @RequestMapping("/pMypage")
@@ -138,7 +139,6 @@ public class pMypageController {
 	@PostMapping("/adDate")
 	public String adDate(@RequestParam("day") String day, Model model) {
 		model.addAttribute("day", day);
-		System.out.println(day);
 		return "mypage/partner/adImageUpload";
 	}
 	
@@ -150,9 +150,10 @@ public class pMypageController {
 			              Model model) {
 		if(!file.getOriginalFilename().equals("")) {
 			String renameFileName = saveFile(file, request);
-			String root = request.getSession().getServletContext().getRealPath("resources");
-			String savePath = root + "\\muploadFiles\\banner";
-			ad.setImage(savePath + "\\" + renameFileName);
+			String root = request.getSession().getServletContext().getContextPath();
+			String savePath = root + "/resources/muploadFiles/banner";
+			ad.setOrigin_image(file.getOriginalFilename());
+			ad.setImage(savePath + "/" + renameFileName);
 			ad.setRename_image(renameFileName);
 			model.addAttribute("day", day);
 			model.addAttribute("ad", ad);
@@ -195,5 +196,38 @@ public class pMypageController {
 		model.addAttribute("day", day);
 		model.addAttribute("ad", ad);
 		return "mypage/partner/adPayView";
+	}
+	
+	@PostMapping("/adPay")
+	public String adPay(@ModelAttribute Ad ad,
+			            @RequestParam("day") String day,
+			            @RequestParam("price") String price,
+			            @RequestParam("bn_name") String bn_name,
+			            Model model,
+			            HttpServletRequest request){
+		// day는 applyDate이지만, 자료형을 맞추기위해 임시로 담아 sql문에서 TO_DATE로 처리
+		ad.setAd_reject(day);
+		int result = pService.insertAd(ad);
+		
+		String id = ((Member)request.getSession().getAttribute("loginUser")).getId();
+		
+		if(result > 0) {
+			Payment pay = new Payment();
+			pay.setPay_price(price);
+			pay.setPay_item(bn_name);
+			pay.setAd_code(ad.getAd_code());
+			pay.setId(id);
+			int result2 = pService.insertPayment(pay);
+			if(result2 > 0) {
+				return "mypage/partner/adResult";
+			} else {
+				model.addAttribute("msg", "결제 내역 등록에 실패하였습니다.");
+				return "mypage/partner/adMain";
+			}
+		} else {
+			model.addAttribute("msg", "배너 신청 등록에 실패했습니다.");
+			return "mypage/partner/adMain";
+		}
+		
 	}
 }
