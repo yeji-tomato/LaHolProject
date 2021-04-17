@@ -30,15 +30,21 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.kh.lahol.cafe.bus.model.vo.Cafe;
 import com.kh.lahol.common.model.vo.MyFileRenamePolicy;
 import com.kh.lahol.member.model.vo.M_Partner;
 import com.kh.lahol.member.model.vo.Member;
+//import com.kh.lahol.store.model.service.QService;
 import com.kh.lahol.store.model.service.StoreService;
 import com.kh.lahol.store.model.vo.PageInfo;
 import com.kh.lahol.store.model.vo.Search;
 import com.kh.lahol.store.model.vo.Store;
+import com.kh.lahol.store.model.vo.storeA;
+import com.kh.lahol.store.model.vo.storeQ;
 import com.kh.lahol.store.page.Pagination;
 import com.kh.lahol.store.page.Pagination2;
 import com.oreilly.servlet.MultipartRequest;
@@ -51,6 +57,8 @@ import com.oreilly.servlet.multipart.FileRenamePolicy;
 public class StoreController {
 	@Autowired
 	private StoreService sService;
+	
+  
 	// 상품 리스트 페이지
 	@GetMapping("/list")
 	public ModelAndView storeList(ModelAndView mv,HttpServletRequest request,
@@ -66,6 +74,10 @@ public class StoreController {
 		//추천 게시글 용
 		List<Store> list2 = sService.selectList2(pi2);
 		 
+		
+		
+		
+		
 		if(list !=null) {
 			mv.addObject("list", list);
 			mv.addObject("pi", pi);
@@ -128,7 +140,7 @@ public class StoreController {
 		System.out.println("글쓸대 넘어가나"+loginUser3 );
 	 
 		return "store/B/storect";
-	}
+	} 
 	
 	@PostMapping("/insert")
 	public String StoreInsert(@ModelAttribute Cafe c,@ModelAttribute Store s, 
@@ -244,6 +256,9 @@ public class StoreController {
 		 
 		List<Store> searchList = sService.searchList(sc,pi); 
 		List<Store> list2 = sService.selectList2(pi2);
+		
+		
+		
 	
 		if(searchList !=null) {
 			mv.addObject("list", searchList);
@@ -263,8 +278,8 @@ public class StoreController {
 	}
 	
 	@GetMapping("/storedetail")
-	public String storeDetail(int PR_CODE,  HttpServletRequest request,
-			  HttpServletResponse response,
+	public String storeDetail(int PR_CODE, String QnA_NO,  HttpServletRequest request,
+			  HttpServletResponse response, @RequestParam(value="page" , required=false, defaultValue="1")int currentPage ,
 			  Model model) {
 		boolean flagslist = false; 
 		boolean flagPR = false; 
@@ -301,16 +316,56 @@ public class StoreController {
 						e.printStackTrace();
 					}
 					
-					
+				
+		//제품 Q 리스트 
 		
+				String condition = request.getParameter("searchCondition");
+				String value = request.getParameter("PR_CODE");
+				
+				
+				 Search sc = new Search();
+				
+				 sc.setSearchCondition(condition);
+				 sc.setSearchValue(value);
+				 
+				 System.err.println("질분 제품번호  " + PR_CODE);
+				 System.err.println("q리스트 " + sc);
+			 
+				  
+				 int listCount = sService.selectSearchCount(sc);  
+				 PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 		 
+			
+			 
+			
+			
+			 List<storeQ> QsearchList = sService.QsearchList(sc,pi); 
+		
+			
+			//제품A 리스트
+			 
+			 
+			 
+			 
+			 List<storeA> Alist = sService.AsearchList(sc,pi); 
+			
+			
+			 System.out.println("답변 리스트 나오나?"+ Alist);
+	 
+			 
+			
+			// 제품 정보 
+			 
 		
 			Store s = sService.selectStore(PR_CODE, !flagPR);
 		
-		 
+			
+			 
 			 
 			if(s != null) {
 				model.addAttribute("s", s); 
+				model.addAttribute("QsearchList", QsearchList); 
+				model.addAttribute("Alist", Alist); 
 				return "store/storedetail";
 			} else {
 				return "store/storedetail";
@@ -321,13 +376,107 @@ public class StoreController {
 		
 		
 	}
+	//질문등록
+	@PostMapping("/question")
+	public String questionView(@ModelAttribute storeQ q , Model model,HttpServletRequest request,   int PR_CODE, HttpSession session ) {
+		
+		 
+		Member loginUser = (Member)session.getAttribute("loginUser");
+		
+		
+		String id =loginUser.getId();
+		
+		
+		 System.out.println("제품 번호넘어와라"+PR_CODE); 
+		 String qn = request.getParameter("PR_CODE");
+		 
+		 q.setPR_CODE(qn);
+		 q.setId(id);
+		 
+		 System.out.println("제품번호 질문자 아이디 넘어오나?" + qn+ id);
+		 
+		 int result = sService.insertQuestion(q);
+		 
+		 
+		 
+		 
+		 
+		 
+		 
+		 if(result > 0) {
+				 
+			 return "redirect:/store/storedetail?PR_CODE="+PR_CODE;
+			} else {
+			 return "redirect:/store/storedetail?PR_CODE="+PR_CODE; // 나중에 에러 페이지연결
+			}
+		  
+	}
 	
+	 
+	//질문 답변  
+	@PostMapping("/anser")
+	public String anserView(@ModelAttribute storeA s, Model model,HttpServletRequest request, int qnaNo , int PR_CODE, HttpSession session) {
+		
+	 
+		Member loginUser = (Member)session.getAttribute("loginUser");
+		
+		
+		String id =loginUser.getId();
+		
+		 
+		 String q = request.getParameter("qnaNo");
+		 
+		 s.setQnaNo(q);
+		 
+		 s.setId(id);
+		 
+		 int result = sService.insertAnser(s);
+		 
+		 
+		 
+		 
+		 
+			/*
+			 * String condition = request.getParameter("searchCondition"); String value =
+			 * request.getParameter("qnaNo");
+			 * 
+			 * 
+			 * Search sc = new Search();
+			 * 
+			 * sc.setSearchCondition(condition); sc.setSearchValue(value);
+			 * 
+			 * 
+			 * int listCount = sService.selectSearchCount(sc);
+			 */
+		 
+		 
+		// List<storeA> Alist = sService.AsearchList(sc); 
+		 
+		 
+		// System.out.println("답변 내용 " + Alist);
+		 
+		 
+		 
+		 if(result > 0) {
+				   
+			// redirect.addFlashAttribute("Alist", Alist);
+			 return "redirect:/store/storedetail?PR_CODE="+PR_CODE;
+			} else {
+			 return "redirect:/store/storedetail?PR_CODE="+PR_CODE; // 나중에 에러 페이지연결
+			}
+		 
+		 
+		  
+	}
+	
+
 	@GetMapping("updatepage")
 	public String updatepageView(Model model, int PR_CODE) {
 		Store s  = sService.selectStore(PR_CODE, false); 
 		model.addAttribute("s", s);
 		return "store/B/storeupdate";
 	}
+	
 	
 	// 게시글 수정
 		@PostMapping("/update")

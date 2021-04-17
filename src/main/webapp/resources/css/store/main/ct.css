@@ -1,0 +1,217 @@
+ @charset "UTF-8";
+
+/* 넥슨 고딕 Bold */
+@font-face {
+    font-family: 'NEXON Lv1 Gothic OTF Bold';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF Bold.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+*{
+    font-family: 'NEXON Lv1 Gothic OTF Bold';
+}
+ 
+ 
+
+        
+        .banner{
+            width : 100%;
+            height: 50vh;
+            background-image: url(../resources/images/class/121212.png);
+            background-repeat: no-repeat;
+            background-size: cover;
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        .intro5{
+            color : #e3a259;
+            text-align: center;
+            padding: 20px;
+            font-family: 'ELAND_Nice_M';
+        }
+
+        #intro-sub{
+            color: #f1d1ac;
+        }
+        
+        .classabout{
+            text-align: center;
+        }
+
+        #createform{
+            text-align: center;
+        }
+
+        
+
+        .answer{
+            width : 300px;
+            height: 30px;
+        }
+
+
+        .btnarea{
+            margin-top: 5%;
+            margin-bottom: 5%;
+            text-align: center;
+        }
+
+        .classdate{
+            width : 150px;
+            text-align: left;
+        }
+
+        #tbColor{
+            background-color: rgba(255, 255, 255, 0.781);
+            border-radius: 30vw;
+            padding-top: 5%;
+            margin-top: 2%;
+            padding-bottom: 3%;
+        }
+
+        #clTable{
+            margin-left: auto;
+            margin-right: auto;
+            /* margin-top: 10%; */
+        }
+
+        #clTable td{
+            padding-top: 1%;
+            /* padding-left: 7%;
+            padding-right: 7%; */
+        }
+
+        #clTable input[type=text]{
+            border-radius: 1vw;
+            border-color: #d8d4d070;
+        }
+
+        /* 버튼 색깔 */
+        #btnArea2{
+            color: white;
+            background-color: #e3a259;
+        }
+        #btnArea2:hover{
+            color: black;
+            background-color: #f1d1ac;
+        }
+        #btnArea1{
+            color: white;
+            background-color: #f0c21b;
+        }
+        #btnArea1:hover{
+            color: black;
+            background-color: #f8e18d;
+        }
+.container{
+    margin: auto;
+    max-width: 1300px;
+}
+
+.row{
+    display : flex;
+    align-items: center;
+    flex-wrap: wrap;
+    
+}
+
+.col-2{
+    flex-basis: 50%;
+    min-width: 300px;
+}
+
+.col-2 img{
+    max-width: 100%;
+    padding: 50px 0;
+}
+
+.classes{
+    margin: auto;
+    padding-left : 30px;
+    padding-right: 30px;
+}
+
+.classes h2{
+    margin: 80px;
+    text-align: center;
+    position: relative;
+    line-height: 60px;
+}
+
+.classes h2::after{
+    content : '';
+    background-color: rgb(194, 182, 160);
+    width: 80px;
+    height: 3px;
+    border-radius: 2px;
+    position: absolute;
+    bottom : 0;
+    left : 50%;
+    transform: translateX(-50%);    
+}
+
+.col-5{
+    flex-basis : 20px;
+    padding: 10px;
+    min-width: 20%;
+    min-height: 500px;
+    margin-bottom : 50px;
+    transition: transform 0.5s;
+}
+
+.col-5 img{
+    width : 100%;
+}
+
+.rating .fa{
+    color : rgb(170, 113, 29);
+}
+
+.col-5:hover{
+    transform: translateY(-15px);
+}
+
+.input{
+    width : 380px;
+    height : 38px;
+    border-radius: 30px;
+}
+
+:root{
+    --clr-primary: #ee6352;
+    --clr-body: #333;
+    --clr-bg:#ddd;
+}
+
+ 
+#submitbtn{
+    cursor: pointer;
+    border: 0;
+    background : 0;
+    border-radius: 50%;
+}
+
+.filter{
+    text-align: center;
+    
+}
+
+.filter select{
+    border: 0;
+   margin : 15px;
+}
+
+
+#filterbtn {
+    background-color: transparent;
+    line-height: 25px;
+    width : 100px;
+    border:0px;
+}
+#filterbtn i:hover {
+position :relative;
+left : 20%;
+transition: all 0.25s linear 0.2s;
+}

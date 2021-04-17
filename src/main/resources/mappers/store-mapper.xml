@@ -25,6 +25,22 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 		<result property="SCOUNT" column="SCOUNT"/>	
 		
 	</resultMap>
+	 
+	 <resultMap id="QResultSet" type="storeQ">
+		<id property="qnaNo" column="QNA_NO"/>
+		<result property="qnaTitle" column="QNA_TYPE"/>
+		<result property="qnaContent" column="QNA_CONTENT"/>
+		<result property="qnaDate" column="QNA_DATE"/>
+		<result property="PR_CODE" column="PR_CODE"/>
+	 	<result property="id" column="ID"/>
+		
+	</resultMap>
+	 
+	 <resultMap id="AResultSet" type="storeA">
+		<id property="qnaNo" column="QNA_NO"/>
+		<result property="aContent" column="A_CONTENT"/>
+		<result property="id" column="ID"/>  
+	</resultMap>
  
 	
 	<!-- 
@@ -388,6 +404,103 @@ C_CODE	VARCHAR2(30 BYTE)	No		18	카페코드
 		      PR_CODE = #{PR_CODE}
 	</update>
 	
+ 
+	
+	<!--질문등록   -->
+	 <insert id="insertQuestion" parameterType="string">
+		INSERT
+		INTO PRODUCT_Q
+		(
+		     QNA_NO
+		    ,QNA_TYPE
+		    ,QNA_CONTENT
+		    ,QNA_DATE
+		    ,PR_CODE 
+		    ,ID
+		          
+		 	)
+		VALUES
+		(
+		
+			  STQ.NEXTVAL	
+		   	, #{qnaTitle}
+			, #{qnaContent}
+			, SYSDATE
+			, #{PR_CODE}
+			, #{id} 
+		)
+	
+	</insert>
+	
+	
+	<!--  질문 리스트 -->
+	<select id="QsearchList"   parameterType="Search" resultMap="QResultSet">
+	  <bind name="sv" value="'%' + _parameter.getSearchValue() + '%'"/>  
+		SELECT
+		    *
+		  FROM
+		      PRODUCT_Q  
+		<where>
+			 
+			<choose>
+				<when test="searchCondition == 'PR_CODE'">
+				AND 
+					PR_CODE LIKE #{sv} 
+				</when>
+				 
+				 
+				<otherwise>
+				 AND 
+					PR_CODE LIKE #{sv} 
+				</otherwise>
+			</choose>
+		</where>
+		 
+	</select>
+	
+	
+	<!-- 질문답변 -->
+	 <insert id="insertAnser" parameterType="string">
+		INSERT
+		INTO PRODUCT_A
+		(
+		     QNA_NO
+		    ,A_CONTENT
+		    ,ID  
+		          
+		 	)
+		VALUES
+		(
+		   	 #{qnaNo}
+			,#{aContent}
+			,#{id}
+		)
+	
+	</insert>
 	
 	 
+	<!-- 답변 리스트  -->
+	<select id="AsearchList"   parameterType="Search" resultMap="AResultSet">
+	  <bind name="sv" value="'%' + _parameter.getSearchValue() + '%'"/>  
+		SELECT
+		     *
+		  FROM
+		     PRODUCT_A 
+		     JOIN  PRODUCT_Q USING(QNA_NO)  
+		<where>
+			 
+			<choose>
+				<when test="searchCondition == 'qnaNo'">
+				AND 
+					PR_CODE LIKE #{sv} 
+				</when>
+				  
+				<otherwise>
+				 AND 
+					PR_CODE LIKE #{sv} 
+				</otherwise>
+			</choose>
+		</where>
+		 
+	</select>
 </mapper>

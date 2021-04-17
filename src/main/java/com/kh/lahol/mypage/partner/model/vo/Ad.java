@@ -138,5 +138,5 @@ public class Ad {
 				+ ", url=" + url + ", ad_status=" + ad_status + ", ad_reject=" + ad_reject + ", id=" + id + ", bn_code="
 				+ bn_code + "]";
 	}
-	
+
 }

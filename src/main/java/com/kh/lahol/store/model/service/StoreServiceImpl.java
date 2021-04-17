@@ -9,6 +9,8 @@ import com.kh.lahol.store.model.dao.StoreDao;
 import com.kh.lahol.store.model.vo.PageInfo;
 import com.kh.lahol.store.model.vo.Search; 
 import com.kh.lahol.store.model.vo.Store;
+import com.kh.lahol.store.model.vo.storeA;
+import com.kh.lahol.store.model.vo.storeQ;
 
 @Service
 public class StoreServiceImpl implements StoreService {
@@ -84,7 +86,39 @@ public class StoreServiceImpl implements StoreService {
 		return sDao.updateStore(s);
 	}
 
+	@Override
+	public List<storeQ> QsearchList(Search sc, PageInfo pi) {
+		return sDao.QsearchList(sc , pi);
+	}
+	
+	//답변 등록
+	@Override
+	public int insertAnser(storeA s) { 
+		return sDao.insertAnser(s);
+	}
 
+	//답변 리스트 
+	 
+	@Override
+	public List<storeA> AsearchList(Search sc, PageInfo pi) {
+		return sDao.AsearchList(sc,pi);
+	}
+
+
+ 
+	
+	
+	//질문 등록
+	@Override
+	public int insertQuestion(storeQ q) { 
+		return sDao.insertQuestion(q);
+	}
+
+	
+	
+	
+
+ 
 
  
 

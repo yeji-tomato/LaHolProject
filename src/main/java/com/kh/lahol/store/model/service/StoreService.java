@@ -5,6 +5,8 @@ import java.util.List;
 import com.kh.lahol.store.model.vo.PageInfo;
 import com.kh.lahol.store.model.vo.Search; 
 import com.kh.lahol.store.model.vo.Store;
+import com.kh.lahol.store.model.vo.storeA;
+import com.kh.lahol.store.model.vo.storeQ;
 
 public interface StoreService {
 	//.1 게시글 수 카운트
@@ -35,7 +37,19 @@ public interface StoreService {
 	public int deleteStore(int pR_CODE);
 
 	public int updateStore(Store s);
+
 	
+	//제품에 달린 질문 리스트 
+	public List<storeQ> QsearchList(Search sc, PageInfo pi);
+	
+	//질분번호 답변
+	public int insertAnser(storeA s);
+	//답변 리스트 
+	public List<storeA> AsearchList(Search sc, PageInfo pi);
+
+	public int insertQuestion(storeQ q);
+
+	 
 
 	
 

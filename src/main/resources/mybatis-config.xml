@@ -14,6 +14,8 @@
 	<typeAliases> 
 		<!-- 스토어  -->
 		<typeAlias type="com.kh.lahol.store.model.vo.Store" alias="Store"/>
+		<typeAlias type="com.kh.lahol.store.model.vo.storeQ" alias="storeQ"/>
+		<typeAlias type="com.kh.lahol.store.model.vo.storeA" alias="storeA"/>
 		<!-- 일반회원 -->
 		<typeAlias type="com.kh.lahol.member.model.vo.M_Normal" alias="Member_N"/>
 		<!-- 사업자회원 -->
@@ -38,9 +40,12 @@
 		
 		<!-- 마이페이지 쿠폰 -->
 		<typeAlias type="com.kh.lahol.mypage.normal.model.vo.Coupon" alias="M_Coupon"/>
-		
-		
- 
+
+		<!-- Ad -->
+ 		<typeAlias type="com.kh.lahol.mypage.partner.model.vo.Ad" alias="Ad"/>
+ 		<!-- Ad 신청 시 payment -->
+ 		<typeAlias type="com.kh.lahol.mypage.partner.model.vo.Payment" alias="M_Payment"/>
+
 	</typeAliases>
 	
 	<!-- mappers -->

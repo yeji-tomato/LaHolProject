@@ -11,7 +11,9 @@
  
  
 <!-- 스토어 css -->
-<link rel="stylesheet" href="${ contextPath }/resources/css/store/main/detail.css">
+<link rel="stylesheet" href="${ contextPath }/resources/css/store/main/detail.css?a">
+<!-- 스토어q css -->
+<link rel="stylesheet" href="${ contextPath }/resources/css/store/Q&A/Q&A.css?ddd">
 <!-- 제이쿼리 CDN -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
  
@@ -20,6 +22,10 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
 <!-- bootstrap js -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+ 
+ 
+ 
+ 
  
  <link rel="stylesheet" href="${ contextPath }/resources/css/store/detail.css?a=">
  
@@ -266,105 +272,88 @@
 	                          </div>
 	
 	
+	
 	                        </div>
-	                        <!-- Q&A -->
+	                        <!-- Q&A --> 
 	                        <div class="tab-pane fade" id="qa" role="tabpanel" aria-labelledby="qa-tab">
 	                            
 	                            <div id="board_div" style="  margin-top: 10px;  ">
 	                                <table id="qnaBoard">
-	                                    <thead>
+	                                
 	                                        <strong>
-	                                        <tr id="th_title">
-	                                            <th id="tb_num">문의유형</th>
-	                                            <th id="tb_title">문의내용</th>
-	                                            <th id="tb_author">작성자</th>
-	                                            <th id="tb_date">날짜</th>
-	                                        </tr>
+	                                       		   <tr>
+	                                               <th id="tb_title">문의유형</th>
+								                   <th id="tb_content">문의내용</th>
+								                   <th id="tb_author">작성자</th>
+								                   <th id="tb_date">날짜</th>
+	                                       		  </tr>
 	                                        </strong>
-	                                    </thead>
-	                                    <tbody> 
-	                                            <tr>
-	                                                <td>배송문의</td>
-	                                                <td>제목</td>
-	                                                <td> 나다</td>
-	                                                <td> 2021.03.29</td>
-	                                            </tr>
-	                                            <tr>
-	                                                <td>상품문의</td>
-	                                                <td>제목</td>
-	                                                <td> 나다</td>
-	                                                <td> 2021.03.29</td>
-	                                            </tr>
-	                                         
-	                                             
-	                                             
-	                                    </tbody>
-	                                </table> 
-	                                    <button  type="button"  id="modal_opne_btn">질문하기</button>
-	                                    <!-- 질문 팝업-->
-	                                    <div id="modal">
-	    
-	                                        <div class="modal_content">
-	                                            <table class="table table-boardered">
-	                             
-	                                                <input type="hidden" class="title" name="category"
-	                                                    value=" " readonly> 
-	                                                <br><br>
-	                                                <tr>
-	                                                    <th id="thArea">문의유형</th>
-	                                                    <td><select id="filter"  style=" float: left;">  
-	                                                        <optgroup label="문의유형">
-	                                                            <option value="배송">배송</option>
-	                                                            <option value="상품">상품</option>
-	                                                            <option value="기타">기타</option> 
-	                                                        </optgroup>
-	                                                    </select> </td>
-	                                                </tr>
-	                                                 
-	                                                
-	                                                 
-	                                                <tr>
-	                                                    <th id="thArea">내용</th>
-	                                                    <td><textarea rows="5" cols="40"  
-	                                                            placeholder="내용을 입력해주세요." class="form-control"></textarea></td>
-	                                                </tr> 
-	                                                
-	                                            </table>
-	                                           
-	                                            <div id="modal_close_btn" style="float:left;">
-	                                            <button type="button"   style="  margin-left: 100px;  margin-top: 0px;  width: 94px;  margin-right: 10px;  " >확인</button>
-	                                            </div>
-	                                            <div id="btnArea" style="float:left;">
-	                                            <button id="modal_close_btn"   style="   margin-left: 0;;   margin-left: 0px;  margin-top: 0px;  width: 94px;   " >취소</button>
-	                                            </div>  
-	                                            
-	                                          
-	                                                   
-	                                             
-	                                             
-	                                        </div>
-	                                        <div class="modal_layer"></div>
-	                                    </div>
-	                                    
-	    
-	                                    <!-- 질문 팝업-->
-	    
-	                                </div>
-	                                <div class="pagingArea" style="margin-left: 50px;">
-	                                       
-	                                    <button onclick="location.href=' '" style="  width: 32px;   "> &lt;&lt; </button>
-	                                     
-	                                        <button disabled> &lt; </button>
-	                             
-	                                        <button onclick="location.href=' '"> &lt; </button>
 	                                  
-	                                        <button disabled> &gt; </button> 
-	                                        <button onclick="location.href=' '"> &gt; </button>
+								  </table>  
+								 <c:forEach var="q" items="${ QsearchList }"  > 
+									<table cellspacing="0" border="1" class="recruit" id="faqBoard">
+										<tbody> 
+											<tr class="question">   
+													<input type="hidden" name="QnA_NO" value="${ q.qnaNo} ">
+													<td id="tb_title"> ${ q.qnaTitle } </td>
+												  	<td id="tb_content">  ${ q.qnaContent } </td>
+												  	<td id="tb_author">  ${ q.id  } </td>
+												  	<td id="tb_date">  ${ q.qnaDate  }
+												  	
+												   
+												  	<%--  <c:if test="${ !empty sessionScope.loginUser && a.qnaNo ne  q.qnaNo  }"> <!-- 제품을 등록한 사라만 답변  가능하게 수정해야됨 --> --%>
+														<button type="button" id="aa" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal${ q.qnaNo}">답변 </button>
+												<%-- 	</c:if>	 --%>
+													 
+												</td>
+											</tr>
+											<tr class="hide">
+											 <c:forEach var="a" items="${ Alist}"  > 
+													<c:if test="${ a.qnaNo eq  q.qnaNo }">
+													 	<td id="tb_a" >    답변${  a.aContent  }  </td> 
+													 </c:if>
+													 <c:if test="${ a.qnaNo ne  q.qnaNo || empty  a.qnaNo }">
+													 	<td id="tb_a" >  아직 답변이 없습니다.  </td> 
+													 </c:if>
+											  </c:forEach>
+											</tr> 
+										</tbody>
+									</table>
+									</c:forEach>   
+									
+									
+									   
+									<script> 
+						            $(function(){
+						                var article = (".recruit .show1"); 
+						                $(".recruit .question  td").click(function() { 
+						                    var myArticle =$(this).parents().next("tr"); 
+						                    if($(myArticle).hasClass('hide')) { 
+						                        $(article).removeClass('show1').addClass('hide'); 
+						                        $(myArticle).removeClass('hide').addClass('show1'); 
+						                    } 
+						                    else { 
+						                        $(myArticle).addClass('hide').removeClass('show1'); 
+						                    } 
+						                }); 
+						            });
+						    	</script>
+						    	 
 	                              
-	                                    <button onclick="location.href=' '"style="    width: 32px; "> &gt;&gt; </button>
-	                                 </div> 
+	                               
+	                       	 </div> 
+	                       	 
+	                       	 
+	                       	 <c:if test="${ !empty sessionScope.loginUser }">
+	                       	  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#QModal" > 질문</button>
+	                       	 </c:if>
+	                       	 
 	                        </div>
-	                        <div class="tab-pane fade" id="de" role="tabpanel" aria-labelledby="de-tab" >
+	                        
+	                        
+	                        
+							
+	                        <div class="tab-pane fade" id="de" role="tabpanel" aria-labelledby="de-tab" style="background-color:white;" >
 	                        <!--  작성한 택배사에 맞는 택배사 정보 출력 -->
 	                        <c:if  test="${ s.DY_COMPANY == '로젠' }">  
 	                            <img  src="${ contextPath }/resources/img/store/배송정보.jpg" style="  margin-left: 35px; ">
@@ -378,19 +367,133 @@
 	                          <c:if  test="${ s.DY_COMPANY == '쿠팡' }">  
 	                            <img  src="${ contextPath }/resources/img/store/배송정보.jpg" style="  margin-left: 35px; ">
 	                        </c:if>
-	                         
-	                         
-	                           
+	                          
 	                        </div>
 	                       
 	                    </div>
+	                     
+	                    
 	                  </div>
-						 
-		
-	
-				 
-	                
+						  
 			</div>
+			</div>
+		
+					 <c:forEach var="q" items="${ QsearchList }"> 
+			    	 	   	 	 <!-- Modal 답변 -->
+							<div class="modal fade" id="exampleModal${ q.qnaNo}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+								<form action="${ contextPath }/store/anser?qnaNo=${ q.qnaNo }&PR_CODE=${ s.PR_CODE }"  method="post" >
+								<input type="hidden"  name="qnaNo" vale="${ q.qnaNo }">
+								<div class="modal-dialog">
+								<div class="modal-content">
+									<div class="modal-header">
+									<h5 class="modal-title" id="exampleModalLabel" style="color: white;">
+										<img src="../../resources/images/img_common/logo.png" class="logoimg">
+										 관리자 답변
+									</h5>
+									<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+									</div>
+									<div class="modal-body">
+									<h5 class="sorry-text"> 제품 답변</h5>   <br>  </h5>
+										<table class="rp_reason_table">
+											<tr>
+												<td>답변</td>
+												<td aria-readonly="true"> </td>
+											</tr>
+									 
+											<tr>
+												<td>사유 상세 설명 </td>
+											</tr>
+											<tr>
+												<td colspan="2"> 
+													<textarea class="evidence" name="aContent"> </textarea>
+												</td>
+											</tr>
+										</table>
+										<p>
+											<br>
+											<p class="alert-text">
+											답변 잘 해주셈
+											</p>
+										</p>
+										
+										</div>
+										<div class="modal-footer" >
+										<button type="submit"   class="btn btn-danger"   >등록</button>
+										<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+										</div>
+									</table>
+								</div>
+								</div>
+								</form>
+							</div>
+			
+				</c:forEach>
+			
+					 	 <!-- Modal 질문하기 -->
+							<div class="modal fade" id="QModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+								<form action="${ contextPath }/store/question?PR_CODE=${ s.PR_CODE }"  method="post" >
+								<input type="hidden"  name="PR_CODE" vale="${ s.PR_CODE }">
+								<div class="modal-dialog">
+								<div class="modal-content">
+									<div class="modal-header">
+									<h5 class="modal-title" id="exampleModalLabel" style="color: white;">
+										<img src="../../resources/images/img_common/logo.png" class="logoimg">
+										제품 질문
+									</h5>
+									<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+									</div>
+									<div class="modal-body">
+									<h5 class="sorry-text">제품에대한 질문을 해주세요 <br> 질문이 접수되면 3일내로 처리됩니다. </h5>
+										<table class="rp_reason_table">
+											<tr>
+												<td>제품명</td>
+												<td aria-readonly="true">${ s.PR_NAME }</td>
+											</tr>
+											<tr>
+												<td>문의유형</td>
+												<td>
+													<select name="qnaTitle"> 
+														<option value="배송">
+															배송
+														</option>
+														<option value="제품">
+															제품
+														</option>
+														<option value="이벤트">
+															이벤트
+														</option>
+														<option value="기타">
+															기타
+														</option> 
+													</select>
+											</td>
+											</tr>
+											<tr>
+												<td>문의 내용</td>
+											</tr>
+											<tr>
+												<td colspan="2"> 
+													<textarea class="evidence" name="qnaContent"> </textarea>
+												</td>
+											</tr>
+										</table>
+										<p>
+											<br>
+											<p class="alert-text">
+											제품에대한 문의가 아닌 부적절한 내용의 글이면 임의로 삭제 될수있습니다.
+											</p>
+										</p>
+										
+										</div>
+										<div class="modal-footer" >
+										<button type="submit"   class="btn btn-danger"   >등록</button>
+										<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+										</div>
+									</table>
+								</div>
+								</div>
+								</form>
+							</div>
 	 
 		</section>
 			 

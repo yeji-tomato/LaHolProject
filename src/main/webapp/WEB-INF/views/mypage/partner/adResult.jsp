@@ -26,13 +26,16 @@
             padding-top: 10%;
         }
 
+		.mp-container {
+        	height : 900px;
+        }
 
         #mp{
             display: flex;
             margin-top: 1%;
             margin-left: 5%;
             width: 80vw;
-            height: 80vh;
+            height: 800px;
             justify-content: center;
             text-align: center;
             border-radius: 30px;
