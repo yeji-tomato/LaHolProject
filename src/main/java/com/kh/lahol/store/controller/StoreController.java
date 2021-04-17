@@ -47,6 +47,7 @@ import com.kh.lahol.store.model.vo.storeA;
 import com.kh.lahol.store.model.vo.storeQ;
 import com.kh.lahol.store.page.Pagination;
 import com.kh.lahol.store.page.Pagination2;
+import com.kh.lahol.store.page.Pagination3;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 import com.oreilly.servlet.multipart.FileRenamePolicy; 
@@ -278,7 +279,7 @@ public class StoreController {
 	}
 	
 	@GetMapping("/storedetail")
-	public String storeDetail(int PR_CODE, String QnA_NO,  HttpServletRequest request,
+	public String storeDetail(int PR_CODE, String QnA_NO,  HttpServletRequest request,ModelAndView mv,
 			  HttpServletResponse response, @RequestParam(value="page" , required=false, defaultValue="1")int currentPage ,
 			  Model model) {
 		boolean flagslist = false; 
@@ -333,7 +334,7 @@ public class StoreController {
 			 
 				  
 				 int listCount = sService.selectSearchCount(sc);  
-				 PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+				 PageInfo pi = Pagination3.getPageInfo(currentPage, listCount);
 		 
 			
 			 
@@ -366,6 +367,8 @@ public class StoreController {
 				model.addAttribute("s", s); 
 				model.addAttribute("QsearchList", QsearchList); 
 				model.addAttribute("Alist", Alist); 
+			
+				mv.addObject("pi", pi);
 				return "store/storedetail";
 			} else {
 				return "store/storedetail";
@@ -384,7 +387,7 @@ public class StoreController {
 		Member loginUser = (Member)session.getAttribute("loginUser");
 		
 		
-		String id =loginUser.getId();
+		String id =loginUser.getName();
 		
 		
 		 System.out.println("제품 번호넘어와라"+PR_CODE); 

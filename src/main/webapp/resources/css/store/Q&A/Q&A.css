@@ -53,11 +53,13 @@
  .show1 { 
 	height: 50px;  
 	font-size: 18px;  
+	background-color: #e6e4e4b6;
 	
 }
  
  .show1 td{
  	width: 150px; 
+ 	background-color: #e6e4e4b6;
  }
 
    
@@ -67,12 +69,12 @@
 	}
 	
 	 #tb_title {
-            width: 10%;
+            width: 15%;
             padding-left: 2%;
         }
 	
     #tb_content {
-            width:55%;
+            width:50%;
             
         }
         #tb_author {
@@ -82,10 +84,32 @@
         #tb_date {
             width:20%;
         }
-      #tb_a{
-    width:30%;
-      
-      }
+        
+        
+        
+        
+        /**/
+         #tb_title2 {
+            width: 15%;
+        }
+	
+    	#tb_content2 {
+           width:50%;
+            
+        }
+        #tb_author2 {
+            width:15%;
+            height: 50px;  
+            text-align:left;
+        }
+        #tb_date2 {
+            width:20%;
+            text-align:left;
+        }
+        
+        
+        
+     
  
  #aa{
   width: 52px;
