@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.lahol.coffeeclass.model.dao.CoffeeClassDao;
+import com.kh.lahol.coffeeclass.model.vo.ClassRegister;
 import com.kh.lahol.coffeeclass.model.vo.CoffeeClass;
 import com.kh.lahol.coffeeclass.model.vo.PageInfo;
 
@@ -29,7 +30,7 @@ public class CoffeeClassServiceImpl implements CoffeeClassSerivce{
 	// 페이지 등록
 	@Override
 	public int insertClass(CoffeeClass cl) {
-		System.out.println("service : " + cl);
+		
 		return clDao.insertClass(cl);
 	}
 
@@ -55,6 +56,25 @@ public class CoffeeClassServiceImpl implements CoffeeClassSerivce{
 	@Override
 	public int deleteClass(CoffeeClass cl) {
 		return clDao.deleteClass(cl);
+	}
+
+	// 클래스 신고
+	@Override
+	public int reportClass(CoffeeClass cl) {
+		System.out.println("service : " + cl);
+		return clDao.reportClass(cl);
+	}
+
+	// 클래스 댓글 신고
+	@Override
+	public int reportClComment(CoffeeClass cl) {
+		return clDao.reportClComment(cl);
+	}
+
+	// 클래스 신청
+	@Override
+	public int registerMember(ClassRegister clRegi) {
+		return clDao.registerMember(clRegi);
 	}
 
 

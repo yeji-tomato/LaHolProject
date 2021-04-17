@@ -30,6 +30,7 @@ import com.kh.lahol.cafe.bus.model.service.CafeBizService;
 import com.kh.lahol.cafe.bus.model.vo.Cafe;
 import com.kh.lahol.coffeeclass.model.exception.CoffeeClassException;
 import com.kh.lahol.coffeeclass.model.service.CoffeeClassSerivce;
+import com.kh.lahol.coffeeclass.model.vo.ClassRegister;
 import com.kh.lahol.coffeeclass.model.vo.CoffeeClass;
 import com.kh.lahol.coffeeclass.model.vo.PageInfo;
 import com.kh.lahol.coffeeclass.page.Pagination;
@@ -171,7 +172,7 @@ public class CoffeClassController {
 	}	
 	  
 	  
-	// 클래스 상세페이지
+	  // 클래스 상세페이지
 	  @GetMapping("/coffeeclass/classdetail")	// coffeeclass라는 타입을 저장을 해서 forwarding하는거라 model객체 필요
 	  public String classdetail(@RequestParam String classNo,
 			  					Model model) {
@@ -192,8 +193,27 @@ public class CoffeClassController {
 			  return "common/error";
 		  }
 		  
-	  }
-	 
+	    }
+	  
+	  	// 클래스 신고
+		@PostMapping("/coffeeclass/classreport")
+		public String classReport(@ModelAttribute CoffeeClass cl,
+								  Model model) {
+		System.out.println("1111");		
+		int result = clService.reportClass(cl);
+				
+		System.out.println("컨트롤러 : " + cl);
+				
+		if(result > 0) {
+			//String redirectUrl = "/coffeeclass/classdetail?classNo=" + cl.getClassNo();
+			//System.out.println(redirectUrl);
+			 return "redirect:/coffeeclass/classdetail?classNo=" + cl.getClassNo(); 
+		} else {	
+			return "common/error";
+		}
+				
+		}
+	
 	  
 	  // 사업자 커피클래스 메인 페이지
 	  @GetMapping("/coffeeclass/busmain")
@@ -329,7 +349,16 @@ public class CoffeClassController {
 	  }
 	  
 	
-	  
+	  // 클래스 수강신청
+	  @PostMapping("/coffeeclass/register")
+	  public String registerClass(@ModelAttribute ClassRegister clRegi) {
+		  
+		  System.out.println(clRegi);
+		  
+		  clService.registerMember(clRegi);
+		  
+		  return "";
+	  }
 	  
 		
 		

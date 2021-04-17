@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.kh.lahol.coffeeclass.model.vo.ClassRegister;
 import com.kh.lahol.coffeeclass.model.vo.CoffeeClass;
 import com.kh.lahol.coffeeclass.model.vo.PageInfo;
 
@@ -56,6 +57,24 @@ public class CoffeeClassDaoImpl implements CoffeeClassDao{
 	@Override
 	public int deleteClass(CoffeeClass cl) {
 		return sqlSession.delete("clMapper.deleteClass", cl);
+	}
+
+	// 클래스 신고
+	@Override
+	public int reportClass(CoffeeClass cl) {
+		return sqlSession.insert("clMapper.reportClass", cl);
+	}
+
+	// 클래스 댓글 신고
+	@Override
+	public int reportClComment(CoffeeClass cl) {
+		return sqlSession.insert("clMapper.reportClComment", cl);
+	}
+
+	// 클래스 수강신청
+	@Override
+	public int registerMember(ClassRegister clRegi) {
+		return sqlSession.insert("clMapper.registerMember", clRegi);
 	}
 
 

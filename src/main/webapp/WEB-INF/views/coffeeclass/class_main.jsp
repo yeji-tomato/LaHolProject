@@ -91,45 +91,13 @@
       <div class="row">				<!-- 키값 -->
       	  <c:forEach var="cl" items="${ list }">
       	  	  <div class="col" id="classdetail" onclick="selectClass('${cl.classNo}');">
-              	<img src="${ contextPath }/resources/img/coffeeclass/classphoto/class2.png" class ="card-img-top" onclick="">
+              	<img src="${ contextPath }/resources/nuploadFiles/classImg/${ coffeeclass.trPhoto }" class ="card-img-top" onclick="">
               	<h4>${ cl.className }</h4>
          	  	<p>${ cl.clPrice }원</p>
          	  	<!-- 별점 -->
          	  </div>
       	  </c:forEach>
       	  
-      	  
-          <div class="col" id="classdetail">
-              <img src="${ contextPath }/resources/img/coffeeclass/classphoto/class1.jpg" class ="card-img-top" onclick="">
-              <h4>드립커피 고수되기</h4>
-              <p>45000원</p>
-              <div class="rating">
-              <i class="fa fa-star"></i>
-			  <i class="fa fa-star"></i>
-              </div>
-          </div>
-          <div class="col" id="classdetail">
-              <img src="${ contextPath }/resources/img/coffeeclass/classphoto/class9.jpg" class ="card-img-top" onclick="location.href='bus_classdetail.html'">
-              <h4>신라호텔 수석 바리스타가 알려주는 좋은원두</h4>
-              <p>50000원</p>
-              <div class="rating">
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              
-              </div>
-          </div>
-          <div class="col" id="classdetail">
-              <img src="${ contextPath }/resources/img/coffeeclass/classphoto/class5.jpg" class ="card-img-top" onclick="location.href='bus_classdetail.html'">
-              <h4>미대출신 바리스타의 라떼아트</h4>
-              <p>33000원</p>
-              <div class="rating">
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star-half"></i>
-              <i class="fa fa-star-half"></i>
-              </div>
-          </div>
 
       </div>
 			<nav aria-label="Page navigation example">

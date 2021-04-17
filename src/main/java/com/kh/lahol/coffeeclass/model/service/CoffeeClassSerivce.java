@@ -2,6 +2,7 @@ package com.kh.lahol.coffeeclass.model.service;
 
 import java.util.List;
 
+import com.kh.lahol.coffeeclass.model.vo.ClassRegister;
 import com.kh.lahol.coffeeclass.model.vo.CoffeeClass;
 import com.kh.lahol.coffeeclass.model.vo.PageInfo;
 
@@ -25,11 +26,17 @@ public interface CoffeeClassSerivce {
 	// 6. 클래스 수정하기 
 	public int updateClass(CoffeeClass cl);
 	
-	// 6. 클래스 삭제하기 
+	// 7. 클래스 삭제하기 
 	public int deleteClass(CoffeeClass cl);
-	
-	
 
+	// 8. 클래스 신고하기
+	public int reportClass(CoffeeClass cl);
+	
+	// 9. 클래스 댓글 신고하기
+	public int reportClComment(CoffeeClass cl);
+
+	// 10. 클래스 수강신청
+	public int registerMember(ClassRegister clRegi);
 
 
 
