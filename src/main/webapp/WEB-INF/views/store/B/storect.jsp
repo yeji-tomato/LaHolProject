@@ -18,6 +18,9 @@
        
        
 </style>
+
+
+
 <body>
 	<!-- menubar -->
 	<jsp:include page="/WEB-INF/views/common/menubar.jsp"/>
@@ -50,7 +53,7 @@
                                 <div class="col-sm-6">
         
                                                                                  
-                                   	<form action="${ contextPath }/store/insert"  method="post" enctype="multipart/form-data">
+                                   	<form   id="terms_form" action="${ contextPath }/store/insert"  method="post" enctype="multipart/form-data" >
                                   
                                         <table class="table table-boardered">
                                             <tr>
@@ -105,12 +108,7 @@
                                                     type="file"  name="file1"><input
                                                     type="file"  name="file2"></td>
                                             </tr>
-                                            <tr>
-                                                <th>사업자명</th>
-                                                <td><input class="form-control" type="text"
-                                                    name=" "  
-                                                    required></td>
-                                            </tr>
+                                             
                                             <tr>
                                                 <th>택배사</th>
                                                 <td><select id="area5" name="DY_COMPANY"
@@ -137,18 +135,11 @@
                                             </tr>
         
                                             <tr>
-                                                <th>사업장주소</th>
-                                                <td><input type="text" class="postcodify_address"
-                                                    readonly name="cafe_map"
-                                                    style="width: 308px; height: 26px; float: left;">
-                                                    <button id="postcodify_search_button" type="button"
-                                                        style="float: left;">검색</button></td>
+                                                
                                             </tr>
         
                                             <tr>
-                                                <th>상세주소</th>
-                                                <td><input class="form-control" type="text"
-                                                    name="detail_address" required></td>
+                                               
                                             </tr>
                                             <tr>
                                                 <th>제품고객센터</th>
@@ -170,8 +161,11 @@
                                             
                                             </tr> 
                                             <tr>
-                                                <td><input type="radio" name="terms" value="Y" /> 동의
-                                                    <input type="radio" name="terms" value="N" checked="checked" /> 미동의
+                                                <td>
+                                               <input type="checkbox" id="check_1"  name="" /> 제품 판매 이용약관 동의<br />
+                       							 <input type="checkbox" id="check_2"  name="" /> 개인정보 수집 및 정보 이용 동의<br />
+         										<input type="checkbox" id="check_3"  name="" /> 판매 위치정보 이용약관 동의<br />
+			                                              
                                                 </td>
                                             </tr>
                                             <br>
@@ -179,7 +173,7 @@
                                             <br>
                                             <tr>
                                                 <td colspan="2">
-                                                    <button id="btnArea1">등록</button>
+                                                    <input  type="button" id="nextBtn" value="등록"> 
                                                     <button type="button" id="btnArea2"
                                                         onclick="javascript:history.back();">취소</button> 
                                                 </td>
@@ -190,29 +184,40 @@
                              </div>
         
                             </div>
-                           <!--  <script>
-                        
-                                $(document).ready(function() {
-                                 
-                                    $('#btnArea1').click(function() {
-        
-                                        if( $('select[name=terms]').val() == 'N'){
-                                            if(confirm("동의가 필요합니다 동의하시겠습니까? ")){ 
-                                            }else{
-                                                return false;
-                                                
-                                            }
-                                        }
-                                    });
-        
-                                });
-                            </script> -->
+                           
+                          <script >
+        $(document).ready(function(){
+    
+            $("#nextBtn").click(function(){    
+                if($("#check_1").is(":checked") == false){
+                    alert("모든 약관에 동의 하셔야 다음 단계로 진행 가능합니다.");
+                    return;
+                }else if($("#check_2").is(":checked") == false){
+                    alert("모든 약관에 동의 하셔야 다음 단계로 진행 가능합니다..");
+                    return;
+                }else if($("#check_3").is(":checked") == false){
+                    alert("모든 약관에 동의 하셔야 다음 단계로 진행 가능합니다...");
+                    return;
+                }else{
+                    $("#terms_form").submit();
+                }
+            });    
+        });
+    </script> 
+                           
+                           
+                           
+                           
+                           
+                           
+                           
+                           
          
                         </div>
                         <script src="//d1p7wdleee1q2z.cloudfront.net/post/search.min.js"></script> 
                         <script> $(function() { $("#postcodify_search_button").postcodifyPopUp(); }); </script>
         
-                    </form>
+                   
                 </div>
         </div>
 

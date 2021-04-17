@@ -13,7 +13,7 @@
 <!-- 스토어 css -->
 <link rel="stylesheet" href="${ contextPath }/resources/css/store/main/detail.css?a">
 <!-- 스토어q css -->
-<link rel="stylesheet" href="${ contextPath }/resources/css/store/Q&A/Q&A.css?ddd">
+<link rel="stylesheet" href="${ contextPath }/resources/css/store/Q&A/Q&A.css?dsds">
 <!-- 제이쿼리 CDN -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
  
@@ -282,45 +282,94 @@
 	                                
 	                                        <strong>
 	                                       		   <tr>
-	                                               <th id="tb_title">문의유형</th>
-								                   <th id="tb_content">문의내용</th>
-								                   <th id="tb_author">작성자</th>
-								                   <th id="tb_date">날짜</th>
+	                                               <th id="tb_title2" style="text-align:left;">문의유형</th>
+								                   <th id="tb_content2" style="text-align:left;">문의내용</th>
+								                   <th id="tb_author2" style="text-align:left;">작성자</th>
+								                   <th id="tb_date2" style="padding-right: 60px;">날짜</th>
 	                                       		  </tr>
 	                                        </strong>
+	                                        
 	                                  
 								  </table>  
 								 <c:forEach var="q" items="${ QsearchList }"  > 
+								
 									<table cellspacing="0" border="1" class="recruit" id="faqBoard">
 										<tbody> 
+										
 											<tr class="question">   
-													<input type="hidden" name="QnA_NO" value="${ q.qnaNo} ">
+												<input type="hidden" name="QnA_NO" value="${ q.qnaNo} ">
+												
 													<td id="tb_title"> ${ q.qnaTitle } </td>
 												  	<td id="tb_content">  ${ q.qnaContent } </td>
 												  	<td id="tb_author">  ${ q.id  } </td>
 												  	<td id="tb_date">  ${ q.qnaDate  }
-												  	
-												   
-												  	<%--  <c:if test="${ !empty sessionScope.loginUser && a.qnaNo ne  q.qnaNo  }"> <!-- 제품을 등록한 사라만 답변  가능하게 수정해야됨 --> --%>
-														<button type="button" id="aa" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal${ q.qnaNo}">답변 </button>
-												<%-- 	</c:if>	 --%>
+												  
+												  
+												 	 <c:if test="${ !empty sessionScope.loginUser }"> 
+													 <button type="button" id="aa" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal${ q.qnaNo}">답변 </button>
+											 		</c:if>
+											 		
+											 		
+											 		<c:set var="loop_flag" value="false" />
+											 		 <c:forEach var="a" items="${ Alist}"  > 
+											 		   <c:if test="${not loop_flag }">
+															<c:if test="${  !empty a  && a.qnaNo eq  q.qnaNo }">
+																 <h6  style="color:red;">답변완료</h6>
+																  <c:set var="loop_flag" value="true" />
+															 </c:if>  
+															 
+													 </c:if>
+													 </c:forEach> 
 													 
-												</td>
+													  <c:forEach var="a" items="${ Alist}"  > 
+											 		   <c:if test="${not loop_flag }">
+													 
+													  <c:if test="${ empty a || a.qnaNo ne  q.qnaNo }">
+							                       	   			<h6 style="color:red;">답변대기</h6>
+							                       	   			 <c:set var="loop_flag" value="true" />
+							                       		</c:if>
+							                       	
+													 </c:if>
+													 </c:forEach> 
+													 
+													 
+											 
+											 		
+											  		 
 											</tr>
-											<tr class="hide">
-											 <c:forEach var="a" items="${ Alist}"  > 
-													<c:if test="${ a.qnaNo eq  q.qnaNo }">
-													 	<td id="tb_a" >    답변${  a.aContent  }  </td> 
+											<tr class="hide"> 
+											<c:set var="loop_flag" value="false" />
+											 	  <c:forEach var="a" items="${ Alist}"  >  
+											 	   <c:if test="${not loop_flag }">
+													<c:if test="${  a.qnaNo eq  q.qnaNo }">
+														<td>->답변</td>
+													 	<td id="tb_a" >    ${  a.aContent  }  </td> 
+													 	<td style="font-size:7px;"> *자세한 문의는 고객센터로 연락바랍니다.  </td>  
+													 	<td style="font-size:15px;"> ${  s.SERVICE_CENTER  }   </td>  
+														 	  <c:set var="loop_flag" value="true" />
+													 </c:if>   
+													  
 													 </c:if>
-													 <c:if test="${ a.qnaNo ne  q.qnaNo || empty  a.qnaNo }">
-													 	<td id="tb_a" >  아직 답변이 없습니다.  </td> 
+												</c:forEach>
+												 
+												   <c:forEach var="a" items="${ Alist}"  >  
+											 	   <c:if test="${not loop_flag }">
+													<c:if test="${   a.qnaNo ne  q.qnaNo  }">
+														<td>미답변 </td>
+													 	<td id="tb_a" > 빠른시일 안에 답변을 해드리겠습니다.     </td> 
+													 	<td style="font-size:7px;">   </td>  
+													 	<td style="font-size:15px;">   </td>  
+														 	  <c:set var="loop_flag" value="true" />
+													 </c:if>   
+													  
 													 </c:if>
-											  </c:forEach>
+												</c:forEach>
+											
 											</tr> 
 										</tbody>
 									</table>
-									</c:forEach>   
-									
+									</c:forEach>
+								 
 									
 									   
 									<script> 
@@ -347,6 +396,10 @@
 	                       	 <c:if test="${ !empty sessionScope.loginUser }">
 	                       	  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#QModal" > 질문</button>
 	                       	 </c:if>
+	                       	 
+	                       	 
+	                       	  
+	                       	 
 	                       	 
 	                        </div>
 	                        
@@ -401,7 +454,7 @@
 											</tr>
 									 
 											<tr>
-												<td>사유 상세 설명 </td>
+												<td>답변 상세 설명 </td>
 											</tr>
 											<tr>
 												<td colspan="2"> 
