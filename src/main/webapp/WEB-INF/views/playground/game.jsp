@@ -161,13 +161,13 @@
 		createBoard();
 
 		// 쿠폰 리스트
-		var couponList = ["15% 쿠폰", "17% 쿠폰" ,"20% 쿠폰"];
+		var couponList = ["10% 쿠폰", "15% 쿠폰", "20% 쿠폰", "30% 쿠폰", "40% 쿠폰", "50% 쿠폰"];
 
 		// 랜덤으로 쿠폰 발행
 		let random = Math.floor(Math.random() * couponList.length);
 
 		// 출력
-		$('#result-text').html(couponList[random] + ' 획득');
+		$('#result-text').html(couponList[random] + ' 획득 🥳');
 
 		</script>
 	</body>

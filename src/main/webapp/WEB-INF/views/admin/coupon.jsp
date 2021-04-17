@@ -234,13 +234,13 @@
 					<!-- 날짜 -->
 					<div id="date-container">
 						<div id="date-box">
-							<a class="period" id="day" href="">Day</a>
+							<a class="period dateBtn" id="day" href="">Day</a>
 
-							<a class="period" id="week">Week</a>
+							<a class="period dateBtn" id="week">Week</a>
 
-							<a class="period" id="month">Month</a>
+							<a class="period dateBtn" id="month">Month</a>
 
-							<a class="period" id="year">Year</a>
+							<a class="period dateBtn" id="year">Year</a>
 
 							<a class="period" id="calendar">
 								<svg
@@ -269,7 +269,14 @@
 								page-size="5"
 								page-size-options="5"
 								viewport-stop
-								data=''
+								data='[{
+								 "coupon_name" : "데이터 없음",
+								 "issuedBy" : "데이터 없음",
+								 "limit" : "데이터 없음",
+								 "issued" : "데이터 없음",
+								 "expired" : "데이터 없음",
+								 "used" : "사용완료"
+										}]'
 							>
 								<zg-colgroup>
 									<zg-column index="coupon_name" header="쿠폰명"></zg-column>
@@ -287,9 +294,9 @@
 							</div>
 							<div id="graph-desc-container">
 								<div id="percent-container">
-									<div class="percent" id="rest-text">₩ 560,000 (47%)</div>
-									<div class="percent" id="used-text">₩ 170,000 (38%)</div>
-									<div class="percent" id="expired-text">₩ 380,000 (17%)</div>
+									<div class="percent"><span id="rest-text">₩ 560,000 (47%)</span></div>
+									<div class="percent"><span id="used-text">₩ 170,000 (38%)</span></div>
+									<div class="percent"><span id="expired-text">₩ 380,000 (17%)</span></div>
 								</div>
 								<div id="total-container">
 									<span id="total-title">총 발급액</span>
@@ -303,6 +310,10 @@
 		</div>
 		<script>
 		$(function() {
+			
+		    $('#day').trigger('click');
+		    $('#day').trigger('focus');
+		    
 		    // 서브카테고리 기본 숨김처리
 		    $('.sub-category').hide();
 		    $('#coupon-category').addClass('active');
@@ -326,11 +337,49 @@
 		    });
 		});
 		
+		const dataTable = $('#dataTable');
+		const rest = $('#rest-text');
+		const expired = $('#expired-text');
+		const used = $('#used-text');
+		
+		var issuedAccu = 0;
+		var expiredAccu = 0;
+		var usedAccu = 0;
+		
+		/* 캘린더 적용 클릭 시 */
+		$('#calendar').on('apply.daterangepicker', function(ev, picker) {
+			
+		    var startDate = picker.startDate.format('YY-MM-DD');
+		    var endDate = picker.endDate.format('YY-MM-DD');
+		    
+		    $('#custom-period').html(startDate + ' ~ ' + endDate);
+		    
+		    var dates = { "startDate": startDate, "endDate": endDate };
+		    		    
+		    $.ajax({
+		    	url: "selectCouponByTerm",
+		    	type : "post",
+		    	data : JSON.stringify(dates),
+	        	dataType : "json",
+ 	    		contentType : "application/json; charset=utf-8",
+	        	success : function(data) {
+	        		
+	        		var jData = JSON.stringify(data);
+	        		
+	        		dataTable.attr('data', jData).trigger("create");
+	        		console.log(data);
+	        	},
+	        	error : function(e) {
+	        		console.log(e);
+	        	}
+		    })
+		});
+		
+		/* 날짜 버튼 클릭 시 */
 		$(function(){
-		    $(".period").click(function(event) {
+		    $(".dateBtn").click(function(event) {
 		    	const dataTable = $('#dataTable');
 		        var date = event.target.id;
-		        console.log(date);
 		        
 		        $.ajax({
 		        	url : "${ pageContext.request.contextPath }/admin/coupon/" + date,
@@ -345,8 +394,6 @@
 		        	}
 		        })
 		    });    
-	    $('#day').trigger('click');
-	    $('#day').trigger('focus');
 		});
 
 		/* 다크모드 스위치 위 텍스트 토글*/
@@ -404,32 +451,8 @@
 		    },
 		  });
 
-		$('#calendar').on('apply.daterangepicker', function(ev, picker) {
-			
-		    var startDate = picker.startDate.format('YY-MM-DD');
-		    var endDate = picker.endDate.format('YY-MM-DD');
-		    
-		    $('#custom-period').html(startDate + ' - ' + endDate);
-		    
-		    console.log("시작 날" + startDate);
-		    console.log("끝나는 날" + endDate);
-		    
-	        $.ajax({
-	            url: "${ pageContext.request.contextPath }/admin/coupon/selectCouponByDates",
-	            type: "POST",
-	            date: {
-	            	startDate : String,
-	            	endDate : String
-	          		   },
-	            success: function(date){
-	                
-	            },
-	            error: function(){
-	                alert("simpleWithObject err");
-	            }
-	        });
-		});
 
+		/* 캘린더 취소 버튼 클릭 시 */
 		$('#calendar').on('cancel.daterangepicker', function(ev, picker) {
 		    $('#custom-period').html('');
 		});
@@ -449,12 +472,12 @@
 				tooltipFillColor: "rgba(51, 51, 51, 0.55)",
 				data: {
 				labels: [
-					"잔여",
+					"가용",
 					"사용",
 		            "만료"
 				],
 				datasets: [{
-				data: [1420000, 800000, 204000],
+				data: [],
 				backgroundColor: [
 					"rgb(54, 162, 235)",
 					"rgb(255, 205, 86)",
