@@ -30,6 +30,7 @@ import com.kh.lahol.cafe.bus.model.service.CafeBizService;
 import com.kh.lahol.cafe.bus.model.vo.Cafe;
 import com.kh.lahol.coffeeclass.model.exception.CoffeeClassException;
 import com.kh.lahol.coffeeclass.model.service.CoffeeClassSerivce;
+import com.kh.lahol.coffeeclass.model.vo.ClassRegister;
 import com.kh.lahol.coffeeclass.model.vo.CoffeeClass;
 import com.kh.lahol.coffeeclass.model.vo.PageInfo;
 import com.kh.lahol.coffeeclass.page.Pagination;
@@ -196,14 +197,17 @@ public class CoffeClassController {
 	  
 	  	// 클래스 신고
 		@PostMapping("/coffeeclass/classreport")
-		public String classReport(@ModelAttribute CoffeeClass cl) {
-				
+		public String classReport(@ModelAttribute CoffeeClass cl,
+								  Model model) {
+		System.out.println("1111");		
 		int result = clService.reportClass(cl);
 				
 		System.out.println("컨트롤러 : " + cl);
 				
 		if(result > 0) {
-			return "coffeeclass/class_detail";
+			//String redirectUrl = "/coffeeclass/classdetail?classNo=" + cl.getClassNo();
+			//System.out.println(redirectUrl);
+			 return "redirect:/coffeeclass/classdetail?classNo=" + cl.getClassNo(); 
 		} else {	
 			return "common/error";
 		}
@@ -345,7 +349,16 @@ public class CoffeClassController {
 	  }
 	  
 	
-	  
+	  // 클래스 수강신청
+	  @PostMapping("/coffeeclass/register")
+	  public String registerClass(@ModelAttribute ClassRegister clRegi) {
+		  
+		  System.out.println(clRegi);
+		  
+		  clService.registerMember(clRegi);
+		  
+		  return "";
+	  }
 	  
 		
 		

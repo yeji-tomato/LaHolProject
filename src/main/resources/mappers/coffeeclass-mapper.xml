@@ -244,6 +244,21 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 	    		  , #{classNo}
 	    )
 	  </insert>
+<!--  	  <insert id="registerMember" parameterType="ClassRegister">
+	      INSERT INTO PAYMENT (PAY_NO, PAY_ITEM, PAY_PRICE, PAY_DATE, ID, CL_PAY_NO)
+          VALUES ('CLPAY'||CLPAY.NEXTVAL, '커피', 8000, SYSDATE, 'user001', 'CL24')
+	  </insert> -->
+	  <select id="registerMember" resultMap="clResultSet">
+	  	SELECT
+	  			 PAY_NO
+	  		 	   , PAY_ITEM
+	  		 	   , PAY_PRICE
+	  		 	   , PAY_DATE
+	  		 	   , ID
+	  		 	   , CL_PAY_NO
+	  	  FROM
+	  	  		PAYMENT
+	  </select> 
 	
 	 
 </mapper>

@@ -136,11 +136,14 @@
                     </tbody>
                   </table>
                   <div class="btnDiv" id = "classupdate">
-                    
-                    <button type="button" class="btn" id = "register-btn">
-                    	  수강신청
-                      <i class="fa fa-credit-card-alt" aria-hidden="true"></i>
-                    </button>
+                    <form action="${ contextPath }/coffeeclass/register" method="POST">
+                    	<input type="hidden" name="userId" value="${ sessionScope.loginUser.id }">
+                    	<input type="hidden" name="classNo" value="${ coffeeclass.classNo }">
+	                    <button type="submit" class="btn" id = "register-btn">
+	                    	  수강신청
+	                      <i class="fa fa-credit-card-alt" aria-hidden="true"></i>
+	                    </button>
+                    </form>
                     <button type="button" class="btn" id = "cart-btn">
                       	  장바구니
                       <i class="fa fa-shopping-cart" aria-hidden="true"></i>
