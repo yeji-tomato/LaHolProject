@@ -47,15 +47,30 @@ public class CafeBizDaoImpl implements CafeBizDao{
 	}
 
 	@Override
-	public int insertCoffee() {
-		return sqlSession.insert("cafeMapper.insertCoffee", c);
+	public int insertCoffee(Coffee co) {
+		return sqlSession.insert("cafeMapper.insertCoffee", co);
 	}
 
-	/*
-	 * @Override public int insetCafeInfoPhoto(ArrayList<Caphoto> photoList) {
-	 * System.out.println("photoListDao : " + photoList); return
-	 * sqlSession.update("cafeMapper.insertCafePhotoInfo", photoList); }
-	 */
+	@Override
+	public Coffee selectCoffeeInfo(String cfNo) {
+		return sqlSession.selectOne("cafeMapper.selectCoffeeInfo", cfNo);
+	}
+
+	@Override
+	public int updateCoffeInfo(Coffee co) {
+		return sqlSession.update("cafeMapper.updateCoffeInfo", co);
+	}
+
+	@Override
+	public int coffeeDelete(String cfNo) {
+		return sqlSession.delete("cafeMapper.coffeeDelete", cfNo);
+	}
+
+	@Override
+	public int cafeDelete(String caCode) {
+		return sqlSession.update("cafeMapper.cafeDelete", caCode);
+	}
+
 
 	
 

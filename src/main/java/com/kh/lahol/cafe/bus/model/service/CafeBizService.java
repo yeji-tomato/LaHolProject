@@ -30,7 +30,16 @@ public interface CafeBizService {
 	public Cafe caWriteSelect(String Id);
 	
 	// 음료 정보 insert
-	public int insertCoffee();
+	public int insertCoffee(Coffee co);
+	
+	// 음료 정보 select
+	public Coffee selectCoffeeInfo(String cfNo);
+
+	public int updateCoffeeInfo(Coffee co);
+
+	public int coffeeDelete(String cfNo);
+
+	public int cafeDelete(String caCode);
 
 	
 

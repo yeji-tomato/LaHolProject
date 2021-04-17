@@ -55,8 +55,28 @@ public class CafeBizServiceImpl implements CafeBizService{
 	}
 
 	@Override
-	public int insertCoffee() {
-		return caBizDao.insertCoffee();
+	public int insertCoffee(Coffee co) {
+		return caBizDao.insertCoffee(co);
+	}
+
+	@Override
+	public Coffee selectCoffeeInfo(String cfNo) {
+		return caBizDao.selectCoffeeInfo(cfNo);
+	}
+
+	@Override
+	public int updateCoffeeInfo(Coffee co) {
+		return caBizDao.updateCoffeInfo(co);
+	}
+
+	@Override
+	public int coffeeDelete(String cfNo) {
+		return caBizDao.coffeeDelete(cfNo);
+	}
+
+	@Override
+	public int cafeDelete(String caCode) {
+		return caBizDao.cafeDelete(caCode);
 	}
 
 

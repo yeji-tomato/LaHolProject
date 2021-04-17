@@ -21,7 +21,15 @@ public interface CafeBizDao {
 
 	public Cafe caWriteSelect(String Id);
 
-	public int insertCoffee();
+	public int insertCoffee(Coffee co);
+
+	public Coffee selectCoffeeInfo(String cfNo);
+
+	public int updateCoffeInfo(Coffee co);
+
+	public int coffeeDelete(String cfNo);
+
+	public int cafeDelete(String caCode);
 
 	//public int insetCafeInfoPhoto(ArrayList<Caphoto> photoList);
 	

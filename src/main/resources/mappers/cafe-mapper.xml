@@ -180,6 +180,7 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 	    C_ADDRESS = #{caAddress},
 	    C_LA = #{caLa},
 	    C_LO = #{caLo},
+	    C_STATUS = 'Y',
 	    STARTTIME = #{caStartTime},
 	    C_WIFI = #{wifi},
 	    C_TOILET= #{toilet},
@@ -195,7 +196,7 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 	</update>
 	
 	<select id="selectCoffeeList" resultMap="coffeeResultSet">
-		SELECT
+	SELECT
     	CF_NO,
 	    CF_CATEGORY,
 	    CF_INAME,
@@ -211,6 +212,130 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 	WHERE 
 				CA.C_CODE = #{caCode}
 	ORDER BY CF_NO DESC
+	</select>
+	
+	<insert id="insertCoffee" parameterType="Coffee">
+	INSERT 
+	INTO COFFEE
+	(
+		CF_NO,
+		CF_CATEGORY,
+		CF_INAME,
+		CF_ICHNAME,
+		CF_IPATH,
+		CF_NAME,
+		CF_PRICE,
+		CF_COUNT,
+		C_CODE
+	)
+	VALUES
+	(
+		'CO' || CO.NEXTVAL,
+		#{cfCategory},
+		#{cfIname},
+		#{cfIchname},
+		#{chIpath},
+		#{cfName},
+		#{cfPrice},
+		#{cfCount},
+		#{caNo}
+	)
+	</insert>
+	
+	<select id="selectCoffeeInfo" resultMap="coffeeResultSet">
+		SELECT
+			CF_NO,
+			CF_CATEGORY,
+			CF_INAME,
+			CF_ICHNAME,
+			CF_IPATH,
+			CF_NAME,
+			CF_PRICE,
+			CF_COUNT,
+			C_CODE
+		FROM 
+			COFFEE
+		WHERE 
+			CF_NO = #{cfNo}
+	</select>
+	
+	
+	<update id="updateCoffeInfo" parameterType="Coffee">
+	UPDATE
+		COFFEE
+	SET
+		CF_NO = #{cfNo},
+		CF_CATEGORY = #{cfCategory},
+		CF_INAME = #{cfIname},
+		CF_ICHNAME = #{cfIchname},
+		CF_IPATH = #{chIpath},
+		CF_NAME = #{cfName},
+		CF_PRICE = #{cfPrice},
+		CF_COUNT = #{cfCount},
+		C_CODE = #{caNo}
+	WHERE
+		CF_NO = #{cfNo}
+	</update>
+	
+	<delete id="coffeeDelete" parameterType="Coffee">
+	DELETE
+	FROM COFFEE
+	WHERE CF_NO = #{cfNo}
+	</delete>
+	
+	<update id="cafeDelete" parameterType="Cafe">
+	UPDATE
+		CAFE
+	SET C_STATUS = 'N'
+	WHERE C_CODE = #{caCode}
+	</update>
+	
+	<!-- 사용자 -->
+	<select id="cafeMainList" resultMap="cafeResultSet">
+		SELECT
+		    C_CODE,
+		    C_NAME,
+		    C_ADDRESS,
+		    C_LA,
+		    C_LO,
+		    ID,
+		    STARTTIME,
+		    C_WIFI,
+		    C_TOILET,
+		    C_PARKING,
+		    C_MESSAGE,
+		    ENDTIME,
+		    MAINPHOTO,
+		    PHOTO1,
+		    PHOTO2,
+		    PHOTO3
+		FROM CAFE
+		WHERE C_STATUS = 'Y'
+		ORDER BY C_CODE DESC
+	</select>
+	
+	<select id="searchCafeDetail" resultMap="cafeResultSet">
+		SELECT
+			C_CODE,
+		    C_NAME,
+		    C_ADDRESS,
+		    C_LA,
+		    C_LO,
+		    ID,
+		    STARTTIME,
+		    C_WIFI,
+		    C_TOILET,
+		    C_PARKING,
+		    C_MESSAGE,
+		    ENDTIME,
+		    MAINPHOTO,
+		    PHOTO1,
+		    PHOTO2,
+		    PHOTO3
+		FROM 
+			CAFE
+		WHERE 
+			C_CODE = #{caCode}
 	</select>
 	
 	<!-- 카페 매장 예약 -->
