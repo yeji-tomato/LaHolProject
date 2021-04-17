@@ -290,6 +290,53 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 	WHERE C_CODE = #{caCode}
 	</update>
 	
+	<!-- 사용자 -->
+	<select id="cafeMainList" resultMap="cafeResultSet">
+		SELECT
+		    C_CODE,
+		    C_NAME,
+		    C_ADDRESS,
+		    C_LA,
+		    C_LO,
+		    ID,
+		    STARTTIME,
+		    C_WIFI,
+		    C_TOILET,
+		    C_PARKING,
+		    C_MESSAGE,
+		    ENDTIME,
+		    MAINPHOTO,
+		    PHOTO1,
+		    PHOTO2,
+		    PHOTO3
+		FROM CAFE
+		WHERE C_STATUS = 'Y'
+		ORDER BY C_CODE DESC
+	</select>
+	
+	<select id="searchCafeDetail" resultMap="cafeResultSet">
+		SELECT
+			C_CODE,
+		    C_NAME,
+		    C_ADDRESS,
+		    C_LA,
+		    C_LO,
+		    ID,
+		    STARTTIME,
+		    C_WIFI,
+		    C_TOILET,
+		    C_PARKING,
+		    C_MESSAGE,
+		    ENDTIME,
+		    MAINPHOTO,
+		    PHOTO1,
+		    PHOTO2,
+		    PHOTO3
+		FROM 
+			CAFE
+		WHERE 
+			C_CODE = #{caCode}
+	</select>
 	
 	<!-- 카페 매장 예약 -->
 	<insert id="insertHereRes" parameterType="CafeRes">

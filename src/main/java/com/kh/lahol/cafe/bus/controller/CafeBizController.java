@@ -176,6 +176,7 @@ public class CafeBizController {
 	@GetMapping("/caDetail")
 	public String caDetail(@RequestParam String caCode,
 							Model model) {
+		
 		Cafe ca = caBizService.selectCafeInfo(caCode);
 		
 		if(ca != null) {

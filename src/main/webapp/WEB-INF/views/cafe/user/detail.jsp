@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,12 +14,23 @@
 <!-- 아이콘 css -->
 <script src="https://kit.fontawesome.com/2ada8d19a4.js" crossorigin="anonymous"></script>
 <style>
-	body{
-	background: #CDC2AF;
-}
+    .wrap {position: absolute;left: 0;bottom: 40px;width: 288px;height: 132px;margin-left: -144px;text-align: left;overflow: hidden;font-size: 12px;font-family: 'Malgun Gothic', dotum, '돋움', sans-serif;line-height: 1.5;}
+    .wrap * {padding: 0;margin: 0;}
+    .wrap .info {width: 286px;height: 120px;border-radius: 5px;border-bottom: 2px solid #ccc;border-right: 1px solid #ccc;overflow: hidden;background: #fff;}
+    .wrap .info:nth-child(1) {border: 0;box-shadow: 0px 1px 2px #888;}
+    .info .title {padding: 5px 0 0 10px;height: 30px;background: #eee;border-bottom: 1px solid #ddd;font-size: 18px;font-weight: bold;}
+    .info .close {position: absolute;top: 10px;right: 10px;color: #888;width: 17px;height: 17px;background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/overlay_close.png');}
+    .info .close:hover {cursor: pointer;}
+    .info .body {position: relative;overflow: hidden;}
+    .info .desc {position: relative;margin: 13px 0 0 90px;height: 75px;}
+    .desc .ellipsis {overflow: hidden;text-overflow: ellipsis;white-space: nowrap;}
+    .desc .jibun {font-size: 11px;color: #888;margin-top: -2px;}
+    .info .img {position: absolute;top: 6px;left: 5px;width: 73px;height: 71px;border: 1px solid #ddd;color: #888;overflow: hidden;}
+    .info:after {content: '';position: absolute;margin-left: -12px;left: 50%;bottom: 0;width: 22px;height: 12px;background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')}
+    .info .link {color: #5085BB;}
 </style>
 </head>
-<body style="background: #f0ebe5;">
+<body>
 
 	<!-- menubar -->
 	<jsp:include page="/WEB-INF/views/common/menubar.jsp"/>
@@ -32,16 +44,16 @@
             <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
               <div class="carousel-inner" id="caroselLeft">
                 <div class="carousel-item active" data-bs-interval="10000">
-                  <img src="https://i.pinimg.com/564x/f2/ca/54/f2ca546edb3cd09e21cb3c64578f3232.jpg" class="d-block w-100" alt="...">
+                  <img src="${ contextPath }/resources/nuploadFiles/cafeImg/${ cafeInfo.mainPhoto }" class="d-block w-100" alt="...">
                 </div>
                 <div class="carousel-item" data-bs-interval="2000">
-                  <img src="https://i.pinimg.com/564x/b6/a3/e0/b6a3e0fadac5e060c60e82683162c76d.jpg" class="d-block w-100" alt="...">
+                  <img src="${ contextPath }/resources/nuploadFiles/cafeImg/${ cafeInfo.photo1 }" class="d-block w-100" alt="...">
                 </div>
                 <div class="carousel-item">
-                  <img src="https://i.pinimg.com/564x/18/9a/64/189a64011192664392d7705825e2aa1a.jpg" class="d-block w-100" alt="...">
+                  <img src="${ contextPath }/resources/nuploadFiles/cafeImg/${ cafeInfo.photo2 }" class="d-block w-100" alt="...">
                 </div>
                 <div class="carousel-item">
-                  <img src="https://i.pinimg.com/564x/a1/ab/b6/a1abb6390ea859b66dd4041c3d2ec510.jpg" class="d-block w-100" alt="...">
+                  <img src="${ contextPath }/resources/nuploadFiles/cafeImg/${ cafeInfo.photo3 }" class="d-block w-100" alt="...">
                 </div>
               </div>
               <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
@@ -58,11 +70,12 @@
             <div class="col-5">
               <div class="cf-info">
                 <div class="cafeTB">
+                <input type="hidden" value="${ loginUser.id }" id="userId">
                   <table class="cf-table">
                     <thead>
                       <tr>
                         <td>
-                          <p class="cf-title">LaHol 카페
+                          <p class="cf-title">${ cafeInfo.caName }
                           <button class="bullhornBtn" data-bs-toggle="modal" data-bs-target="#exampleModal">
                             <i class="fa fa-bullhorn" aria-hidden="true"></i>
                           </button>
@@ -74,37 +87,47 @@
                       <tr>
                         <td>
                           <i class="fa fa-clock-o" aria-hidden="true"></i> &nbsp;
-                          AM. 10:00 - PM. 11:00 
+                          ${ cafeInfo.caStartTime } - ${ cafeInfo.caEndTime }
                         </td>
                       </tr>
                       <tr>
+                      <c:forTokens var="addr" items="${ cafeInfo.caAddress }" delims="," varStatus="status">
+                          <c:if test="${ status.index eq 0 }">
+                          	<c:set var="addr1" value="${ addr }"/>
+                          </c:if>
+                          <c:if test="${ status.index eq 1 }">
+                          	<c:set var="addr2" value="${ addr }"/>
+                          </c:if>
+                          <c:if test="${ status.index eq 2 }">
+                          	<c:set var="addr3" value="${ addr }"/>
+                          </c:if>
+                          </c:forTokens>
                         <td>
                         <i class="fa fa-map-marker" aria-hidden="true"></i> &nbsp;
-                        경기도 용인시 호이동 둘리마을</td>
+                        ${ addr2 } ${ addr3 }</td>
                       </tr>
                       <tr>
                         <td>
                           <i class="fa fa-wifi" aria-hidden="true"></i> &nbsp;
-                          무선 인터넷
+                          	${ cafeInfo.wifi }
                         </td>
                       </tr>
                       <tr>
                         <td>
                           <i class="fa fa-male" aria-hidden="true"></i><i class="fa fa-female" aria-hidden="true"></i> &nbsp;
-                          남/녀 화장실 구분
+                          	${ cafeInfo.toilet }
                         </td>
                       </tr>
                       <tr>
                         <td>
                           <i class="fa fa-car" aria-hidden="true"></i> &nbsp;
-                          주차 가능
+                          	${ cafeInfo.parking }
                         </td>
                       </tr>
                       <tr>
                         <td>
                           <i class="fa fa-envelope-o" aria-hidden="true"></i> &nbsp;
-                          신메뉴 나왔습니다!
-                          얼른 오세요!!!!
+	                         ${ cafeInfo.message }
                         </td>
                       </tr>
                     </tbody>
@@ -115,38 +138,68 @@
                       MENU
                     </button> -->
                     <input class="modal-ck" type="checkbox" id="modal-ck" name="modal-ck"/>
-                    <label for="modal-ck" id="menuBtn">MENU</label> 	
-                    <button class="btnCafe" id="heartBtn">
-                      <i class="fa fa-heart" aria-hidden="true"></i>
-                    0
-                    </button>
-                    <!-- 매장 또는 포장 Modal -->
-                    <div class="modalChoose">		
+                    <label for="modal-ck" id="menuBtn" onclick="menuBtn">MENU</label> 	
+                    
+                    <!-- 매장 또는 포장 Modal -->		
+                      <div class="modalChoose">
                       <div class="modal-wrap" id="ForHere">	
                         <p id="here-text">매장</p>	          		
                         <i class="fa fa-coffee" id="htIcon" aria-hidden="true"></i>
-                      </div>	
+                      </div>
+                      	
                       <div class="modal-wrap" id="ToGo">	
                         <p id="here-text">포장</p>	          		
                         <i class="fa fa-shopping-bag" id="htIcon" aria-hidden="true"></i>
-                      </div>	          		
-                    </div>	
+                      </div>
+                     </div>	          		
+                    
                     </div>     
               </div>
         </div>
     </div>
 
     <!-- 매장 또는 포장 버튼 이동 -->
-    <script>
-      const here = document.getElementById("ForHere");
-      here.addEventListener("click", function(){
-        location.href='${ contextPath }/cafe/here';
-      });
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+	<script>
+		const id = document.getElementById("userId").value;
 
-      const togo = document.getElementById("ToGo");
-      togo.addEventListener("click", function(){
-        location.href='${ contextPath }/cafe/togo';
-      });
+	    const here = document.getElementById("ForHere");
+	    here.addEventListener("click", function(){
+	    	console.log(id);
+	    	if(id != ""){
+	      	location.href='${ contextPath }/cafe/here';
+	    	}else{
+	    		Swal.fire({
+	    			  text: '로그인이 필요한 서비스입니다.로그인을해주세요',
+	    			  imageUrl: 'https://images.unsplash.com/photo-1607473129381-ca8345af56ac?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80',
+	    			  imageWidth: 400,
+	    			  imageHeight: 200,
+	    			  imageAlt: 'Custom image',
+	    		}).then((result) => {
+	    			location.href='${ contextPath }/member/loginView';
+	    		})
+	    		
+	    	}
+	    });
+
+	
+	    const togo = document.getElementById("ToGo");
+	    togo.addEventListener("click", function(){
+	    	if(id != ""){
+	    		location.href='${ contextPath }/cafe/togo';
+		    	}else{
+		    		Swal.fire({
+		    			  text: '로그인이 필요한 서비스입니다.로그인을해주세요',
+		    			  imageUrl: 'https://images.unsplash.com/photo-1607473129381-ca8345af56ac?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80',
+		    			  imageWidth: 400,
+		    			  imageHeight: 200,
+		    			  imageAlt: 'Custom image',
+		    		}).then((result) => {
+		    			location.href='${ contextPath }/member/loginView';
+		    		})
+		    		
+		    	}
+	    });
     </script>
 
               <!-- Modal -->
@@ -166,7 +219,7 @@
                       
                       <tr>
                         <td>신고 카페</td>
-                        <td aria-readonly="true">Pro-Yonginler</td>
+                        <td aria-readonly="true">${ cafeInfo.caName }</td>
                       </tr>
                       <tr>
                         <td>신고사유</td>
@@ -240,10 +293,68 @@
         </li>
         </ul>
         <div class="tab-content" id="myTabContent">
+        <input type="hidden" id="la" value="${ cafeInfo.caLa }">
+        <input type="hidden" id="lo" value="${ cafeInfo.caLo }">
           <!-- 상세 정보 -->
         <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                <img src="../../../resources/images/cafe/map.png" style="width: 100%;">
-              
+                <div id="map" style="width:100%;height:60vh;"></div>
+             	<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=3400cb260ccc2b8ecfb54e177422380a&libraries=services&libraries=services"></script>
+				<script>
+				var la = parseFloat(document.getElementById("la").value);
+				var lo = parseFloat(document.getElementById("lo").value);
+				var mapContainer = document.getElementById('map'), // 지도의 중심좌표
+			    mapOption = { 
+			        center: new kakao.maps.LatLng(la, lo), // 지도의 중심좌표
+			        level: 4 // 지도의 확대 레벨
+			    }; 
+	
+				var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+	
+				// 지도에 마커를 표시합니다 
+				var marker = new kakao.maps.Marker({
+				    map: map, 
+				    position: new kakao.maps.LatLng(la, lo)
+				});
+	
+				// 커스텀 오버레이에 표시할 컨텐츠 입니다
+				// 커스텀 오버레이는 아래와 같이 사용자가 자유롭게 컨텐츠를 구성하고 이벤트를 제어할 수 있기 때문에
+				// 별도의 이벤트 메소드를 제공하지 않습니다 
+				var content = '<div class="wrap">' + 
+				            '    <div class="info">' + 
+				            '        <div class="title">' + 
+				            '            ${ cafeInfo.caName }' + 
+				            '            <div class="close" onclick="closeOverlay()" title="닫기"></div>' + 
+				            '        </div>' + 
+				            '        <div class="body">' + 
+				            '            <div class="img">' +
+				            '                <img src="${ contextPath }/resources/nuploadFiles/cafeImg/${ cafeInfo.mainPhoto }" width="73" height="70">' +
+				            '           </div>' + 
+				            '            <div class="desc">' + 
+				            '                <div class="ellipsis">${ addr2 }</div>' + 
+				            '                <div class="jibun ellipsis">${ addr3 }</div>' + 
+				            '            </div>' + 
+				            '        </div>' + 
+				            '    </div>' +    
+				            '</div>';
+	
+				// 마커 위에 커스텀오버레이를 표시합니다
+				// 마커를 중심으로 커스텀 오버레이를 표시하기위해 CSS를 이용해 위치를 설정했습니다
+				var overlay = new kakao.maps.CustomOverlay({
+				    content: content,
+				    map: map,
+				    position: marker.getPosition()       
+				});
+	
+				// 마커를 클릭했을 때 커스텀 오버레이를 표시합니다
+				kakao.maps.event.addListener(marker, 'click', function() {
+				    overlay.setMap(map);
+				});
+	
+				// 커스텀 오버레이를 닫기 위해 호출되는 함수입니다 
+				function closeOverlay() {
+				    overlay.setMap(null);     
+				}
+				</script>
         </div>
         <!-- 후기 -->
         <div class="tab-pane fade" id="review" role="tabpanel" aria-labelledby="review-tab">

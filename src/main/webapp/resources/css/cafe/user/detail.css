@@ -78,10 +78,10 @@ margin: 0px;
     background-color: transparent;
     border: 0;
     cursor: pointer;
+    font-size: 25px;
 }
 
 .fa-bullhorn{
-font-size: 2vw;
 float: right;
 color: #810B0B;
 }
