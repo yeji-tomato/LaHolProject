@@ -355,8 +355,8 @@
 							</zing-grid>
 						</div>
 						<div id="right-contents">
-							<div id="top-container">
-								<div id="store-chart-box">
+							<div id="top-container" style="width: 90%; height:40%">
+								<div id="store-chart-box" >
 									<canvas id="store-donut" height="70" width="70"></canvas>
 								</div>
 								<div id="class-chart-box">
@@ -367,9 +367,9 @@
 								</div>
 							</div>
 							<hr id="hr-bar" />
-							<div id="bottom-container">
+							<div id="bottom-container" style="width: 80%; height:70%">
 								<div id="graph-box">
-									<canvas id="line-graph" width="60"></canvas>
+									<canvas id="line-graph" width="60" height="25"></canvas>
 								</div>
 							</div>
 						</div>
@@ -592,7 +592,7 @@
 		            pointRadius: 3,
 		            fill: false,
 		            borderWidth: 4,
-		            data: [160, 120, 150, 170, 180, 170, 160]
+		            data: [160, 120, 150, 170, 500, 170, 160]
 		        }]
 		    },
 		    options: {
@@ -621,7 +621,7 @@
 		                    zeroLineColor: "transparent"
 		                },
 		                ticks: {
-		                    padding: 20,
+		                    padding: 2,
 		                    fontColor: "rgba(0,0,0,0.5)",
 		                    fontStyle: "bold"
 		                }

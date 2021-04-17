@@ -12,9 +12,8 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 		     , PHONE
 		     , EMAIL
 		     , BLIND
-		     , CASE ISACTIVE WHEN 'Y%' THEN '../../resources/img/admin/icon/active.svg'
-                             WHEN 'N' THEN '../../resources/img/admin/icon/inactive.svg'
-                             ELSE '../../resources/img/admin/icon/active.svg'
+			 , CASE ISACTIVE WHEN 'Y' THEN '../../resources/img/admin/icon/active.svg'
+                             ELSE '../../resources/img/admin/icon/inactive.svg'
                END AS ISACTIVE
 		  FROM
 		       MEMBER M
@@ -23,4 +22,56 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 	     WHERE
 	     	   GRADE = 'N'
 	</select>
+	<select id="selectPartnerList" resultType="Member_P">
+		SELECT
+		       M.ID
+		     , C_NAME
+             , NAME
+             , ADDR
+             , PHONE
+             , EMAIL
+             , WARNED
+             , TO_CHAR(ENDATE,'yyyy-mm-dd')AS ENDATE
+			 , CASE ISACTIVE WHEN 'Y' THEN '../../resources/img/admin/icon/active.svg'
+                             ELSE '../../resources/img/admin/icon/inactive.svg'
+               END AS ISACTIVE
+		  FROM
+		       MEMBER M
+	 LEFT JOIN
+	           M_PARTNER P ON(M.ID = P.ID)
+     LEFT JOIN
+               CAFE C ON(M.ID = C.ID)
+	     WHERE
+	     	   GRADE = 'P'
+	</select>
+		<select id="selectCouponByDate" parameterType="string" resultType="Coupon">
+		   SELECT C.COUPON_NAME
+             	, ISSUEDBY
+             	, LIMIT
+             	, COUNT(C.COUPON_NAME) AS ISSUED, EXPIRED, USED
+			 FROM COUPON C
+		LEFT JOIN CPN_EXPIRED V1 ON(C.COUPON_NAME = V1.COUPON_NAME)
+		LEFT JOIN CPN_USED V2 ON(C.COUPON_NAME = V2.COUPON_NAME)
+		<choose>
+     		<when test="_parameter == 'day'">WHERE TO_DATE(SYSDATE,'yy-mm-dd') - TO_DATE(ISSUEDATE, 'yy-mm-dd') = 0</when>
+     		<when test="_parameter == 'week'">WHERE ISSUEDATE <![CDATA[>=]]> TRUNC(SYSDATE, 'IW')
+									  AND ISSUEDATE <![CDATA[<]]> TRUNC(SYSDATE, 'IW') + 7</when>
+     		<when test="_parameter == 'month'">WHERE ISSUEDATE <![CDATA[>=]]> TRUNC(SYSDATE, 'MM')
+					   AND ISSUEDATE <![CDATA[<]]> LAST_DAY(SYSDATE)</when>
+			<when test="_parameter == 'year'">WHERE EXTRACT(YEAR FROM ISSUEDATE) = EXTRACT(YEAR FROM SYSDATE)</when>
+   		</choose>
+		 GROUP BY C.COUPON_NAME, ISSUEDBY, LIMIT, EXPIRED, USED
+	</select>
+		<select id="selectCouponByTerm" parameterType="map" resultType="Coupon">
+			SELECT C.COUPON_NAME
+             	, ISSUEDBY
+             	, LIMIT
+             	, COUNT(C.COUPON_NAME) AS ISSUED, EXPIRED, USED
+			 FROM COUPON C
+		LEFT JOIN CPN_EXPIRED V1 ON(C.COUPON_NAME = V1.COUPON_NAME)
+		LEFT JOIN CPN_USED V2 ON(C.COUPON_NAME = V2.COUPON_NAME)
+       		WHERE ISSUEDATE <![CDATA[>]]> #{startDate}
+       		  AND ISSUEDATE <![CDATA[<]]> #{endDate}
+         GROUP BY C.COUPON_NAME, ISSUEDBY, LIMIT, EXPIRED, USED
+		</select>
 </mapper>

@@ -234,15 +234,15 @@
 					<!-- 날짜 -->
 					<div id="date-container">
 						<div id="date-box">
-							<a class="period" href="#">Day</a>
+							<a class="period dateBtn" id="day" href="">Day</a>
 
-							<a class="period" href="#">Week</a>
+							<a class="period dateBtn" id="week">Week</a>
 
-							<a class="period" href="#">Month</a>
+							<a class="period dateBtn" id="month">Month</a>
 
-							<a class="period" href="#">Year</a>
+							<a class="period dateBtn" id="year">Year</a>
 
-							<a class="period" id="calendar" href="#">
+							<a class="period" id="calendar">
 								<svg
 									width="25"
 									height="25"
@@ -263,80 +263,40 @@
 					<!-- 메인 컨텐츠 -->
 					<div id="contents-container">
 						<div id="coupon-container">
-							<zing-grid
+							<zing-grid id="dataTable"
 								sort
 								pager
 								page-size="5"
 								page-size-options="5"
 								viewport-stop
-								data='[
-                                    {
-                                        "couponName" : "회원가입 축하 50%",
-                                        "issuedBy" : "회원가입",
-                                        "limit" : "5,000",
-                                        "issued" : "296건",
-                                        "expired" : "300건",
-                                        "used" : "800건",
-                                        "accu" : "₩ 3,240,000"
-                                    },
-                                    {
-                                        "couponName" : "원두 테스트 15%",
-                                        "issuedBy" : "플레이그라운드",
-                                        "limit" : "3,000",
-                                        "issued" : "300건",
-                                        "expired" : "200건",
-                                        "used" : "80건",
-                                        "accu" : "₩ 320,000"
-                                    },
-                                    {
-                                        "couponName" : "원두 테스트 20%",
-                                        "issuedBy" : "플레이그라운드",
-                                        "limit" : "3,000",
-                                        "issued" : "350건",
-                                        "expired" : "150건",
-                                        "used" : "60건",
-                                        "accu" : "₩ 290,000"
-                                    },
-                                    {
-                                        "couponName" : "게임 플레이 15%",
-                                        "issuedBy" : "플레이그라운드",
-                                        "limit" : "2,000",
-                                        "issued" : "300건",
-                                        "expired" : "180건",
-                                        "used" : "30건",
-                                        "accu" : "₩ 17,000"
-                                    },
-                                    {
-                                        "couponName" : "게임 플레이 20%",
-                                        "issuedBy" : "플레이그라운드",
-                                        "limit" : "3,000",
-                                        "issued" : "249건",
-                                        "expired" : "159건",
-                                        "used" : "42건",
-                                        "accu" : "₩ 189,000"
-                                    }
-                          ]'
+								data='[{
+								 "coupon_name" : "데이터 없음",
+								 "issuedBy" : "데이터 없음",
+								 "limit" : "데이터 없음",
+								 "issued" : "데이터 없음",
+								 "expired" : "데이터 없음",
+								 "used" : "사용완료"
+										}]'
 							>
 								<zg-colgroup>
-									<zg-column index="couponName" header="쿠폰명"></zg-column>
+									<zg-column index="coupon_name" header="쿠폰명"></zg-column>
 									<zg-column index="issuedBy" header="발급경로"></zg-column>
 									<zg-column index="limit" header="한도"></zg-column>
 									<zg-column index="issued" header="발급"></zg-column>
 									<zg-column index="expired" header="만료"></zg-column>
 									<zg-column index="used" header="사용완료"></zg-column>
-									<zg-column index="accu" header="누적사용액"></zg-column>
 								</zg-colgroup>
 							</zing-grid>
 						</div>
 						<div id="visual-container">
-							<div id="graph-container">
-								<canvas id="big-doughnut"></canvas>
+							<div id="graph-container" style="width: 50%; height: 90%;">
+								<canvas id="big-doughnut" width="30" height="11"></canvas>
 							</div>
 							<div id="graph-desc-container">
 								<div id="percent-container">
-									<div class="percent" id="rest-text">₩ 560,000 (47%)</div>
-									<div class="percent" id="used-text">₩ 170,000 (38%)</div>
-									<div class="percent" id="expired-text">₩ 380,000 (17%)</div>
+									<div class="percent"><span id="rest-text">₩ 560,000 (47%)</span></div>
+									<div class="percent"><span id="used-text">₩ 170,000 (38%)</span></div>
+									<div class="percent"><span id="expired-text">₩ 380,000 (17%)</span></div>
 								</div>
 								<div id="total-container">
 									<span id="total-title">총 발급액</span>
@@ -349,8 +309,11 @@
 			</section>
 		</div>
 		<script>
-		// 예지 메인 카테고리 색상 변경
 		$(function() {
+			
+		    $('#day').trigger('click');
+		    $('#day').trigger('focus');
+		    
 		    // 서브카테고리 기본 숨김처리
 		    $('.sub-category').hide();
 		    $('#coupon-category').addClass('active');
@@ -373,6 +336,65 @@
 		        $(this).addClass("active");
 		    });
 		});
+		
+		const dataTable = $('#dataTable');
+		const rest = $('#rest-text');
+		const expired = $('#expired-text');
+		const used = $('#used-text');
+		
+		var issuedAccu = 0;
+		var expiredAccu = 0;
+		var usedAccu = 0;
+		
+		/* 캘린더 적용 클릭 시 */
+		$('#calendar').on('apply.daterangepicker', function(ev, picker) {
+			
+		    var startDate = picker.startDate.format('YY-MM-DD');
+		    var endDate = picker.endDate.format('YY-MM-DD');
+		    
+		    $('#custom-period').html(startDate + ' ~ ' + endDate);
+		    
+		    var dates = { "startDate": startDate, "endDate": endDate };
+		    		    
+		    $.ajax({
+		    	url: "selectCouponByTerm",
+		    	type : "post",
+		    	data : JSON.stringify(dates),
+	        	dataType : "json",
+ 	    		contentType : "application/json; charset=utf-8",
+	        	success : function(data) {
+	        		
+	        		var jData = JSON.stringify(data);
+	        		
+	        		dataTable.attr('data', jData).trigger("create");
+	        		console.log(data);
+	        	},
+	        	error : function(e) {
+	        		console.log(e);
+	        	}
+		    })
+		});
+		
+		/* 날짜 버튼 클릭 시 */
+		$(function(){
+		    $(".dateBtn").click(function(event) {
+		    	const dataTable = $('#dataTable');
+		        var date = event.target.id;
+		        
+		        $.ajax({
+		        	url : "${ pageContext.request.contextPath }/admin/coupon/" + date,
+		        	dataType : "json",
+		        	type : "get",
+		        	success : function(data) {
+		        		dataTable.attr('data', JSON.stringify(data)).trigger("create");
+		        		console.log(data);
+		        	},
+		        	error : function(e) {
+		        		console.log(e);
+		        	}
+		        })
+		    });    
+		});
 
 		/* 다크모드 스위치 위 텍스트 토글*/
 		$(".toggle").click(function (e) {
@@ -389,6 +411,7 @@
 		        $('body').attr('data-theme', 'dark');
 		    }
 		};
+	
 
 
 		/* 캘린더 */
@@ -428,10 +451,8 @@
 		    },
 		  });
 
-		$('#calendar').on('apply.daterangepicker', function(ev, picker) {
-		    $('#custom-period').html(picker.startDate.format('YYYY.MM.DD') + ' - ' + picker.endDate.format('YYYY.MM.DD'));
-		});
 
+		/* 캘린더 취소 버튼 클릭 시 */
 		$('#calendar').on('cancel.daterangepicker', function(ev, picker) {
 		    $('#custom-period').html('');
 		});
@@ -451,12 +472,12 @@
 				tooltipFillColor: "rgba(51, 51, 51, 0.55)",
 				data: {
 				labels: [
-					"잔여",
+					"가용",
 					"사용",
 		            "만료"
 				],
 				datasets: [{
-				data: [1420000, 800000, 204000],
+				data: [],
 				backgroundColor: [
 					"rgb(54, 162, 235)",
 					"rgb(255, 205, 86)",

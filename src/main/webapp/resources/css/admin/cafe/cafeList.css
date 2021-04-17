@@ -231,6 +231,8 @@ body {
     flex: 1;
     display: flex;
     flex-direction: column;
+    justify-contents: center;
+    align-items: center;
 }
 
 #top-container {
@@ -250,6 +252,7 @@ body {
 #hr-bar {
     border: 1px solid #c7c7c7;
     width: 30vw;
+    margin-bottom: 10%;
 }
 
 #bottom-container {

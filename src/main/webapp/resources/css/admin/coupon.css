@@ -47,6 +47,11 @@ body {
     display: flex;
 }
 
+*:focus {
+    outline: none;
+}
+
+
 /* !! 왼쪽 영역*/
 #left-area {
     flex: 1.3;
@@ -198,7 +203,8 @@ body {
 }
 
 .period:hover,
-.period:focus {
+.period:focus,
+.period:active {
     color: var(--date-sel);
     text-decoration: underline;
 }

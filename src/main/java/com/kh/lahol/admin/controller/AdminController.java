@@ -1,7 +1,9 @@
 package com.kh.lahol.admin.controller;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -11,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,6 +22,8 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.lahol.admin.model.service.AdminService;
+import com.kh.lahol.admin.model.service.AdminServiceImpl;
+import com.kh.lahol.member.model.vo.Coupon;
 
 
 @Controller
@@ -26,8 +31,8 @@ import com.kh.lahol.admin.model.service.AdminService;
 @SessionAttributes({"loginUser"})
 public class AdminController {
 
-//	@Autowired
-//	private AdminService aService;
+	@Autowired
+	private AdminService adminService;
 		
 	// 회원리스트 (일반)
 	@RequestMapping("/user/normalList")
@@ -76,5 +81,12 @@ public class AdminController {
 	public String reportPartner(Locale locale, Model model) {
 		return "admin/report/partner";
 	}
+	
+	@RequestMapping(value="/selectCouponByTerm", method=RequestMethod.POST)
+	@ResponseBody
+	public List<Coupon> selectCouponByTerm(@RequestBody Map<String, Object> dates) {
+		return adminService.selectCouponByTerm(dates);
+	}
+	
 	
 }

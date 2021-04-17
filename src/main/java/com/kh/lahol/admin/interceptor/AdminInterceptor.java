@@ -15,8 +15,9 @@ public class AdminInterceptor extends HandlerInterceptorAdapter {
 			throws Exception {
 		
 		HttpSession session = request.getSession();
+		String id = (String)session.getAttribute("userId");
 		
-		if(session.getAttribute("userId") != "admin") {
+		if(id != "admin") {
 			// 테스트를 위해 조건 반대로 작성
 			return true;
 		} else {

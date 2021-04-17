@@ -22,6 +22,8 @@
 		<typeAlias type="com.kh.lahol.member.model.vo.M_Partner" alias="Member_P"/>
 		<!-- 관리자 -->
 		<typeAlias type="com.kh.lahol.member.model.vo.Member" alias="Member"/>
+		<!-- 쿠폰 -->
+		<typeAlias type="com.kh.lahol.member.model.vo.Coupon" alias="Coupon"/>
 		<!-- 회원가입 시 Cafe -->
 		<typeAlias type="com.kh.lahol.member.model.vo.Cafe" alias="M_Cafe"/>
 		<typeAlias type="com.kh.lahol.store.model.vo.Search" alias="Search"/>

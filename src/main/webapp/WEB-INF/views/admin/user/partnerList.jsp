@@ -214,7 +214,7 @@
 					</div>
 				</div>
 				<div id="contents-section">
-					<zing-grid
+					<zing-grid id="dataTable"
 						caption="사업자 회원"
 						sort
 						search
@@ -222,163 +222,19 @@
 						page-size="10"
 						page-size-options="5, 10"
 						viewport-stop
-						data='[
-                        {
-                          "ID" : "business1",
-                          "cafe" : "스타벅스",
-                          "ceo" : "김사장",
-                          "address" : "인천광역시 부평구 길주로 623",
-                          "phone" : "010-1234-1234",
-                          "email" : "business1@gmail.com",
-                          "alliance" : "3",
-                          "report" : "1",
-                          "status" : "${ contextPath }/resources/img/admin/icon/active.svg"
-                        },
-                        {
-                          "ID" : "business2",
-                          "cafe" : "요거프레소",
-                          "ceo" : "이사장",
-                          "address" : "서울특별시 영등포구 버드나루로 121",
-                          "phone" : "010-2222-0202",
-                          "email" : "business2@gmail.com",
-                          "alliance" : "1",
-                          "report" : "0",
-                          "status" : "${ contextPath }/resources/img/admin/icon/active.svg"
-                        },
-                        {
-                          "ID" : "business3",
-                          "cafe" : "이디야",
-                          "ceo" : "박사장",
-                          "address" : "서울특별시 영등포구 의사당대로 127",
-                          "phone" : "010-8888-9999",
-                          "email" : "business3@gmail.com",
-                          "alliance" : "2",
-                          "report" : "6",
-                          "status" : "${ contextPath }/resources/img/admin/icon/inactive.svg"
-                        },
-                        {
-                          "ID" : "business4",
-                          "cafe" : "KH카페",
-                          "ceo" : "최사장",
-                          "address" : "서울특별시 강남구 테헤란로10길 9",
-                          "phone" : "010-9090-8080",
-                          "email" : "business4@gmail.com",
-                          "alliance" : "2",
-                          "report" : "1",
-                          "status" : "${ contextPath }/resources/img/admin/icon/active.svg"
-                        },
-                        {
-                          "ID" : "business5",
-                          "cafe" : "동작노을카페",
-                          "ceo" : "이윤재",
-                          "address" : "서울특별시 동작구 동작대로 335",
-                          "phone" : "010-1234-5555",
-                          "email" : "business5@gmail.com",
-                          "alliance" : "2",
-                          "report" : "0",
-                          "status" : "${ contextPath }/resources/img/admin/icon/active.svg"
-                        },
-                       {
-                          "ID" : "business6",
-                          "cafe" : "카페람베리",
-                          "ceo" : "최다윤",
-                          "address" : "서울특별시 서초구 방배중앙로 214",
-                          "phone" : "010-1313-1414",
-                          "email" : "business6@gmail.com",
-                          "alliance" : "1",
-                          "report" : "0",
-                          "status" : "${ contextPath }/resources/img/admin/icon/active.svg"
-                        },
-                        {
-                          "ID" : "business7",
-                          "cafe" : "커피프레지던트",
-                          "ceo" : "김완식",
-                          "address" : "서울특별시 서초구 동광로1길 107",
-                          "phone" : "010-1234-1010",
-                          "email" : "business7@gmail.com",
-                          "alliance" : "2",
-                          "report" : "6",
-                          "status" : "${ contextPath }/resources/img/admin/icon/inactive.svg"
-                        },
-                        {
-                          "ID" : "business8",
-                          "cafe" : "땡스오트",
-                          "ceo" : "이예지",
-                          "address" : "서울특별시 마포구 성미산로23길 68",
-                          "phone" : "010-1234-5959",
-                          "email" : "business8@gmail.com",
-                          "alliance" : "2",
-                          "report" : "0",
-                          "status" : "${ contextPath }/resources/img/admin/icon/active.svg"
-                        }, 
-                        {
-                          "ID" : "business9",
-                          "cafe" : "어반플랜트",
-                          "ceo" : "백진주",
-                          "address" : "서울특별시 마포구 독막로4길 3",
-                          "phone" : "010-5555-1111",
-                          "email" : "business9@gmail.com",
-                          "alliance" : "2",
-                          "report" : "8",
-                          "status" : "${ contextPath }/resources/img/admin/icon/inactive.svg"
-                        },
-                       {
-                          "ID" : "business10",
-                          "cafe" : "피오니",
-                          "ceo" : "우별림",
-                          "address" : "서울특별시 마포구어울마당로 56",
-                          "phone" : "010-1111-3333",
-                          "email" : "business10@gmail.com",
-                          "alliance" : "3",
-                          "report" : "0",
-                          "status" : "${ contextPath }/resources/img/admin/icon/active.svg"
-                        },
-                        {
-                          "ID" : "business11",
-                          "cafe" : "마호가니커피",
-                          "ceo" : "홍길동",
-                          "address" : "서울특별시 영등포구 여의대로 66 KTB빌딩",
-                          "phone" : "010-9999-7777",
-                          "email" : "business11@gmail.com",
-                          "alliance" : "1",
-                          "report" : "0",
-                          "status" : "${ contextPath }/resources/img/admin/icon/active.svg"
-                        },
-                        {
-                          "ID" : "business12",
-                          "cafe" : "브리오슈도레",
-                          "ceo" : "임꺽정",
-                          "address" : "서울특별시 영등포구 의사당대로 108",
-                          "phone" : "010-9999-3333",
-                          "email" : "business12@gmail.com",
-                          "alliance" : "3",
-                          "report" : "0",
-                          "status" : "${ contextPath }/resources/img/admin/icon/inactive.svg"
-                        },
-                        {
-                          "ID" : "business13",
-                          "cafe" : "카페드레이프",
-                          "ceo" : "이황",
-                          "address" : "서울특별시 영등포구 양산로 146",
-                          "phone" : "010-9090-9191",
-                          "email" : "business13@gmail.com",
-                          "alliance" : "2",
-                          "report" : "0",
-                          "status" : "${ contextPath }/resources/img/admin/icon/active.svg"
-                        }
-                      ]'
+						data=''
 					>
 						<zg-colgroup>
-							<zg-column index="ID" header="ID"></zg-column>
-							<zg-column index="cafe" header="카페"></zg-column>
-							<zg-column index="ceo" header="대표자"></zg-column>
-							<zg-column index="address" header="주소"></zg-column>
+							<zg-column index="id" header="ID"></zg-column>
+							<zg-column index="c_name" header="카페"></zg-column>
+							<zg-column index="name" header="대표자"></zg-column>
+							<zg-column index="addr" header="주소"></zg-column>
 							<zg-column index="phone" header="연락처"></zg-column>
 							<zg-column index="email" header="이메일"></zg-column>
-							<zg-column index="alliance" header="제휴"></zg-column>
-							<zg-column index="report" header="신고"></zg-column>
+							<zg-column index="warned" header="경고"></zg-column>
+							<zg-column index="endate" header="가입일"></zg-column>
 							<zg-column
-								index="status"
+								index="isActive"
 								header="상태"
 								type="image"
 								type-image-alt="불러오기 실패"
@@ -431,6 +287,22 @@
 		        $('body').attr('data-theme', 'dark');
 		    }
 		};
+		
+		$(function(){
+			const dataTable = $('#dataTable');
+			$.ajax({
+				url: "${ pageContext.request.contextPath }/admin/partner/test",
+				dataType: "json",
+				type: "get",
+				success: function(data){
+					dataTable.attr('data', JSON.stringify(data)).trigger("create");
+	        		console.log(data);
+				},
+				error: function(e){
+					console.log(e);
+				}
+			});		
+	});
 		</script>
 	</body>
 </html>

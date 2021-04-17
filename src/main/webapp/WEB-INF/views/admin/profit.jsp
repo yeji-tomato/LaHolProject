@@ -286,7 +286,7 @@
 							</div>
 						</div>
 						<div id="right-box">
-							<div id="top-container">
+							<div id="top-container" style="width: 90%; height:40%">
 								<div id="store-chart-box">
 									<canvas id="store-donut" height="70" width="70"></canvas>
 								</div>
@@ -297,8 +297,8 @@
 									<canvas id="coffee-donut" height="70" width="70"></canvas>
 								</div>
 							</div>
-							<div id="bottom-container">
-								<canvas id="line-graph" width="60"></canvas>
+							<div id="bottom-container" style="width: 90%; height:40%">
+								<canvas id="line-graph"></canvas>
 							</div>
 						</div>
 					</div>
@@ -306,7 +306,6 @@
 			</section>
 		</div>
 		<script>
-		// 예지 메인 카테고리 색상 변경
 		$(function() {
 		    // 서브카테고리 기본 숨김처리
 		    $('.sub-category').hide();
@@ -553,7 +552,7 @@
 		            pointRadius: 3,
 		            fill: false,
 		            borderWidth: 4,
-		            data: [160, 120, 150, 170, 180, 170, 160]
+		            data: [160, 120, 150, 170, 500, 170, 160]
 		        }]
 		    },
 		    options: {
@@ -582,7 +581,7 @@
 		                    zeroLineColor: "transparent"
 		                },
 		                ticks: {
-		                    padding: 20,
+		                    padding: 2,
 		                    fontColor: "rgba(0,0,0,0.5)",
 		                    fontStyle: "bold"
 		                }
