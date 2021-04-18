@@ -36,7 +36,7 @@ public interface CoffeeClassDao {
 		public int reportClComment(CoffeeClass cl);
 
 		// 10. 클래스 수강신청
-		public int registerMember(ClassRegister clRegi);
+		public int registerClass(ClassRegister clRegi);
 
 		
 		

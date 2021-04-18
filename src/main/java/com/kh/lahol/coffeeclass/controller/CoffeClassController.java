@@ -22,6 +22,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -34,14 +36,17 @@ import com.kh.lahol.coffeeclass.model.vo.ClassRegister;
 import com.kh.lahol.coffeeclass.model.vo.CoffeeClass;
 import com.kh.lahol.coffeeclass.model.vo.PageInfo;
 import com.kh.lahol.coffeeclass.page.Pagination;
+import com.kh.lahol.member.model.vo.Member;
 
 @Controller
+@SessionAttributes({"loginUser"})
 public class CoffeClassController {
 
 	@Autowired
 	private CoffeeClassSerivce clService;
 	@Autowired
 	private CafeBizService cafeService;
+	
 
 	// 사용자 메인페이지
 	@GetMapping("/coffeeclass")
@@ -199,14 +204,10 @@ public class CoffeClassController {
 		@PostMapping("/coffeeclass/classreport")
 		public String classReport(@ModelAttribute CoffeeClass cl,
 								  Model model) {
-		System.out.println("1111");		
+		
 		int result = clService.reportClass(cl);
 				
-		System.out.println("컨트롤러 : " + cl);
-				
 		if(result > 0) {
-			//String redirectUrl = "/coffeeclass/classdetail?classNo=" + cl.getClassNo();
-			//System.out.println(redirectUrl);
 			 return "redirect:/coffeeclass/classdetail?classNo=" + cl.getClassNo(); 
 		} else {	
 			return "common/error";
@@ -351,17 +352,35 @@ public class CoffeClassController {
 	
 	  // 클래스 수강신청
 	  @PostMapping("/coffeeclass/register")
-	  public String registerClass(@ModelAttribute ClassRegister clRegi) {
+	  public String registerClass(@ModelAttribute ClassRegister clRegi, 
+			  					   Model model) {
 		  
-		  System.out.println(clRegi);
-		  
-		  clService.registerMember(clRegi);
-		  
-		  return "";
+		  int result = clService.registerClass(clRegi); 
+		  if(result > 0) {
+			  return "";
+		  } else {
+			  model.addAttribute("msg", "결제에 실패하였습니다.");
+			  return "";
+		  } 
+		 
 	  }
 	  
 		
 		
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
 	  
 	  
 	  
