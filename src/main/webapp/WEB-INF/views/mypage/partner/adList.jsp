@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -71,7 +72,7 @@
         .content-table {
             display: flex;
             justify-content: center;
-            min-height: 65vh;
+            min-height: 640px;
         }
 
         .content-div #list-table {
@@ -102,23 +103,38 @@
         }
 
         .content-div #list-table tr:first-child td:nth-child(2) {
-            width : 350px;
-        }
-
-        .content-div #list-table tr:first-child td:nth-child(3) {
-            width : 200px;
-        }
-
-        .content-div #list-table tr:first-child td:nth-child(4) {
             width : 250px;
         }
 
+        .content-div #list-table tr:first-child td:nth-child(3) {
+            width : 120px;
+        }
+
+        .content-div #list-table tr:first-child td:nth-child(4) {
+            width : 400px;
+        }
+
+        .content-div #list-table tr:first-child td:nth-child(5) {
+            width : 400px;
+        }
+        
         .content-div #list-table tr:first-child td:nth-child(5) {
             width : 150px;
         }
-
-        .content-div #list-table tr:first-child td:nth-child(6) {
-            width : 150px;
+        
+        #list-table tr td i {
+        	cursor : pointer;
+        	color : #999999;
+        	
+        	transition : all 0.3s;
+        }
+        
+        #list-table tr td i:hover {
+        	color : #2EAADC;
+        }
+        
+        #imageModal img {
+        	width : 100%;
         }
 
         .modal2,
@@ -175,6 +191,43 @@
             height: 50px;
 
             margin : 10px;
+        }
+        
+        .btn-ba,
+        .btn-p {
+        	width : 30px;
+        	height : 30px;
+        }
+        
+        .btn-ba {
+        	background : #4B654A;
+        	border : none;
+        	color : #fff;
+        	border-radius : 5px;
+        	
+        	transition : all 0.3s;
+        }
+        
+        .btn-ba:hover {
+        	background : #5A452E;
+        	
+        	transition : all 0.3s;
+        }
+        
+        .btn-p {
+        	border : none;
+        	background : transparent;
+        }
+        
+        .btn-p:disabled {
+        	color : #E5BD62;
+        }
+		
+		.swal2-confirm,
+        .swal2-cancel,
+        .swal2-html-container,
+        .swal2-title {
+        	font-family: 'NEXON Lv1 Gothic OTF';
         }
     </style>
 </head>
@@ -260,27 +313,79 @@
                     <table id="list-table">
                         <tr>
                             <td>번호</td>
-                            <td>신청기간</td>
+                            <td>신청일</td>
+                            <td>요청 기간</td>
                             <td>배너 이미지</td>
                             <td>요청 URL</td>
-                            <td>신청일자</td>
                             <td>진행상태</td>
                         </tr>
-                        <c:if test="${ list ne null }">
-                        <tr> <!-- 신청자 수 클릭 시 신청자 명단으로, 미답변 문의 클릭 시, 미답변 리스트 출력 -->
-                            <td>${ list.ad_code }</td>
-                        </tr>
+                        <c:if test="${ !empty list }">
+                        <c:forEach var="a" items="${ list }">
+	                        <tr> <!-- 신청자 수 클릭 시 신청자 명단으로, 미답변 문의 클릭 시, 미답변 리스트 출력 -->
+	                            <td>${ a.ad_code }</td>
+	                            <c:if test="${ a.postDate eq null }">
+	                            <td>${ a.applyDate }</td>
+	                            </c:if>
+	                            <c:if test="${ a.postDate ne null }">
+	                            <td>${ a.postDate }</td>
+	                            </c:if>
+	                            <td>${ a.duration }</td>
+	                            <td><i onclick='viewImage("${a.image}");'>배너 이미지 보기</i></td>
+	                            <td>${ a.url }</td>
+	                            <c:if test="${ fn:contains(a.ad_status, '반려') }">
+	                            <td onclick="selectAd(${a.ad_code})" style="cursor:pointer; color : red;">${ a.ad_status }</td>
+	                            </c:if>
+	                            <c:if test="${ !fn:contains(a.ad_status, '반려') }">
+	                            <td>${ a.ad_status }</td>
+	                            </c:if>
+	                        </tr>
+                        </c:forEach>
                         </c:if>
                     </table>
                 </div>
                 <!-- 페이징 추가 해야 함 -->
                 <div class="paging-div">
-                    페이징
+                    <!-- 이전 -->
+                	<c:if test="${ pi.currentPage <= 1 }">
+                		<button class="btn-ba" disabled> &lt; </button>
+                	</c:if>
+                	<c:if test="${ pi.currentPage > 1 }">
+                		<c:url var="before" value="/pMypage/adListView">
+                			<c:param name="page" value="${ pi.currentPage - 1 }"/>
+                		</c:url>
+                		<button class="btn-ba" onclick="location.href='${ before }'"> &lt;</button>
+                	</c:if>
+                	<!-- 페이지 숫자 -->
+                	<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+                		<c:if test="${ p eq pi.currentPage }">
+                			<button class="btn-p" disabled>${ p }</button>
+                		</c:if>
+                		<c:if test="${ p ne pi.currentPage }">
+                			<c:url var="pagination" value="/pMypage/adListView">
+                				<c:param name="page" value="${ p }"/>
+                			</c:url>
+               				<button class="btn-p" onclick="location.href='${ pagination }'">${ p }</button>
+                		</c:if>
+                	</c:forEach>
+                	<!-- 다음 -->
+                	<c:if test="${ pi.currentPage >= pi.maxPage }">
+						<button class="btn-ba" disabled> &gt; </button>
+					</c:if>
+					<c:if test="${ pi.currentPage < pi.maxPage }">
+						<c:url var="after" value="/pMypage/adListView">
+							<c:param name="page" value="${ pi.currentPage + 1 }"/>
+						</c:url>
+						<button class="btn-ba" onclick="location.href='${ after }'"> &gt;</button>
+					</c:if>
                 </div>
             </div>
         </div>
-        
     </div>
+    <script>
+    	function selectAd(ad_code) {
+    		location.href='${contextPath}/pMypage/adDetail?ad_code=' + ad_code + '&page=${ pi.currentPage }';
+    	}
+    </script>
     <div id="menuModal" class="modal2">
         <div class="modal-content2">
             <span class="modal-close2">&times;</span>
@@ -296,9 +401,17 @@
             <button class="select-menuBtn" onclick="location.href='${contextPath}/pMypage/adListView'">신청내역</button>
         </div>
     </div>
+    
+    <div id="imageModal" class="modal3">
+        <div class="modal-content3">
+            <img id="image">
+        </div>
+    </div>
     <script>
         var modal = document.getElementById("menuModal");
         var modal2 = document.getElementById("menuModal2");
+        var imageModal = document.getElementById("imageModal");
+        var image = document.getElementById("image");
         var btn = $(".side-item:nth-child(3)");
         var btn2 = $(".subMenu-div:nth-child(2)");
 
@@ -307,7 +420,16 @@
 
         var span = document.getElementsByClassName("modal-close2")[0];
         var span2 = document.getElementsByClassName("modal-close3")[0];
-
+		
+		function viewImage(imagePath) {
+			image.setAttribute('src', imagePath);
+    		imageModal.style.display = "block";
+    	}
+		
+		image.onclick = function() {
+			imageModal.style.display = "none";
+		}
+		
         btn.on('click', function(){
             modal.style.display = "block";
         });
@@ -339,6 +461,10 @@
 
             if(event.target == modal2) {
                 modal2.style.display = "none";
+            }
+            
+            if(event.target == imageModal) {
+            	imageModal.style.display = "none";
             }
         }
     </script>

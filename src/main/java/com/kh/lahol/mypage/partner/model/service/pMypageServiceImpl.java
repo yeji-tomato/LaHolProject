@@ -61,4 +61,14 @@ public class pMypageServiceImpl implements pMypageService{
 		return pDao.selectAdList(id, pi);
 	}
 
+	@Override
+	public Ad selectAdByCode(String ad_code) {
+		return pDao.selectAdByCode(ad_code);
+	}
+
+	@Override
+	public int updateAd(Ad ad) {
+		return pDao.updateAd(ad);
+	}
+
 }

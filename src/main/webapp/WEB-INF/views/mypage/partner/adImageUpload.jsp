@@ -298,6 +298,9 @@
                         <label for="banner-img">배너 이미지 선택</label>
                         <input type="text" id="banner-name" name="origin_image" disabled value="파일명">
                         <input type="file" id="banner-img" name="banner-img">
+                        <input type="hidden" name="ad_code" value="${ ad.ad_code }">
+                        <input type="hidden" name="rename_image" value="${ ad.rename_image }">
+                        <input type="hidden" name="reAd" value="${ reAd }">
                         <input type="hidden" id="day" name="day" value="${ day }">
                     </form>
                     <div class="img-preview-div">

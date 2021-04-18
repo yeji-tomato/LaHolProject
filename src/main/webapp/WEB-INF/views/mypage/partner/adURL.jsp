@@ -278,6 +278,8 @@
                         <input type="hidden" name="origin_image" value="${ ad.origin_image }">
                         <input type="hidden" name="rename_image" value="${ ad.rename_image }">
                         <input type="hidden" name="image" value="${ ad.image }">
+                        <input type="hidden" name="ad_code" value="${ ad.ad_code }">
+                        <input type="hidden" name="reAd" value="${ reAd }">
                         <p class="url-text">※배너 클릭 시, 이동하길 희망하는 URL을 작성해주세요.</p>
                         <p class="url-text">※빈 칸으로 넘길 시, 배너 클릭 시 연결되는 페이지가 없습니다.</p>
                     </form>

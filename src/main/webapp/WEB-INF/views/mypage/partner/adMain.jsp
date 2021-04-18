@@ -36,7 +36,6 @@
         	height : 900px;
         }
 
-
         #mp{
             display: flex;
             margin-top: 1%;
@@ -276,6 +275,8 @@
                         <!-- <input type="text" id="datepicker" class="datepicker-here" data-language="ko"> -->
                         <input type="text" id="startDate">
                         <input type="hidden" id="day" name="day">
+                        <input type="hidden" name="ad_code" value="${ ad.ad_code }">
+                        <input type="hidden" name="rename_image" value="${ ad.rename_image }">
                     </form>
                 </div>
                 <div class="btn-div">
@@ -304,6 +305,15 @@
     	});
     	
     	$("#ok-btn").click(function() {
+    		var startDate = document.getElementById("startDate");
+    		if(startDate.value == "") {
+    			Swal.fire({
+    				title : "광고시작일을 선택해 주세요!",
+    				icon : 'warning'
+    			});
+    			
+    			return;
+    		}
     		$("#date_form").submit();
     	});
     </script>
