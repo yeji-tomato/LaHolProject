@@ -12,7 +12,7 @@
 #nav{
 	font-family: 'NEXON Lv1 Gothic OTF Bold';
     /* background-color:  rgba(0, 0, 0, 0.3); */
-    background-color:  transparant; 
+    background-color:  transparant;
     position: fixed;
     z-index: 99;
     width: 100%;
@@ -26,7 +26,7 @@ display: flex;
 margin : 0;
 padding : 0;
 z-index: 10;
-border-bottom: 2px solid #F3D798;
+border-bottom: 2px solid #5a462f;
 height: 80px;
 align-items: flex-start;
 }
@@ -63,7 +63,7 @@ vertical-align: middle;
 
 .mainMenu a {
 text-decoration: none;
-color : #F3D798;
+color : #5a462f;
 transition: all 0.5s linear;
 }
 
@@ -123,7 +123,7 @@ justify-content: flex-end;
 
 .loginArea .loginMenu ul li a {
 text-decoration: none;
-color : #F3D798;
+color : #5a462f;
 transition: all 0.5s linear;
 }
 
@@ -135,6 +135,32 @@ transition: all 0.5s linear;
 
 #nav.active{
 	background: white;
+}
+
+.infoArea {
+       display : flex;
+       justify-content : flex-end;
+       align-items : center;
+       color : #4B654A;
+   }
+
+.infoArea p {
+    margin : 0 15px;
+}
+
+.infoArea svg {
+    fill : #4B654A;
+    width : 20px;
+    height : 20px;
+}
+
+#loginId{
+	color :#E5BD62;
+}
+
+#cart a{
+	text-decoration:none;
+	color : #4B654A;
 }
 
 /* 진주님 미디어 쿼리 */

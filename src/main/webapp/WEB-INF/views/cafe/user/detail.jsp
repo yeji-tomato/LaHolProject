@@ -167,7 +167,7 @@
 	    here.addEventListener("click", function(){
 	    	console.log(id);
 	    	if(id != ""){
-	      	location.href='${ contextPath }/cafe/here';
+	      	location.href='${ contextPath }/cafe/here?caCode=${ cafeInfo.caCode }';
 	    	}else{
 	    		Swal.fire({
 	    			  text: '로그인이 필요한 서비스입니다.로그인을해주세요',
@@ -186,7 +186,7 @@
 	    const togo = document.getElementById("ToGo");
 	    togo.addEventListener("click", function(){
 	    	if(id != ""){
-	    		location.href='${ contextPath }/cafe/togo';
+	    		location.href='${ contextPath }/cafe/togo?caCode=${ cafeInfo.caCode }';
 		    	}else{
 		    		Swal.fire({
 		    			  text: '로그인이 필요한 서비스입니다.로그인을해주세요',

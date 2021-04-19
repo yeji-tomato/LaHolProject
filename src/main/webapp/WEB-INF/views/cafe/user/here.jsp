@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,14 +12,14 @@
 <link rel="stylesheet" href="${ contextPath }/resources/css/cafe/user/pickadate/default.css">
 <link rel="stylesheet" href="${ contextPath }/resources/css/cafe/user/pickadate/default.date.css">
 </head>
-<body style="background: #f0ebe5;">
+<body>
 
 	<!-- menubar -->
 	<jsp:include page="/WEB-INF/views/common/menubar.jsp"/>
 	
 	<div class="page-cafe">
         <div>
-            <h1 id="cafeName">LaHol 카페</h1>
+            <h1 id="cafeName">${ cafeInfo.caName }</h1>
         </div>
     <div class="container">
         <div class="row">
@@ -54,6 +56,8 @@
             <!-- 매장 폼 -->
             <div class="col-5">
                 <div class="cf-info">
+                <input type="hidden" name="caNo" id="caCode" value="${ param.caCode }">
+                <input type="hidden" id="userId" name="userId" value="${ loginUser.id }">
                 <div class="cafeTB">
                     <table class="cf-table">
                     <thead>
@@ -86,14 +90,35 @@
                         </tr>
                         <tr>
                             <td class="tdHere">
+                            <c:forTokens var="timeSta" items="${ cafeInfo.caStartTime  }" delims=":" varStatus="status">
+                            	<c:if test="${ status.index eq 0 }">
+	                            	<c:set var="startHH" value="${ timeSta }"/>
+	                            </c:if>
+	                            <c:if test="${ status.index eq 1 }">
+	                            	<c:set var="startMM" value="${ timeSta }"/>
+	                            </c:if>
+                            </c:forTokens>
+                            <c:forTokens var="timeEnd" items="${ cafeInfo.caEndTime }" delims=":" varStatus="status">
+                            	<c:if test="${ status.index eq 0 }">
+	                            	<c:set var="endHH" value="${ timeEnd }"/>
+	                            </c:if>
+	                            <c:if test="${ status.index eq 1 }">
+	                            	<c:set var="endMM" value="${ timeEnd }"/>
+	                            </c:if>
+                            </c:forTokens>
+                            <fmt:parseNumber var="sum_sthh" value="${ startHH }" integerOnly="true" /> 
+                            <fmt:parseNumber var="sum_enhh" value="${ endHH }" integerOnly="true" />
+                            <fmt:parseNumber var="sum_stmm" value="${ startMM }" integerOnly="true" /> 
+                            <fmt:parseNumber var="sum_enmm" value="${ endMM }" integerOnly="true" />
+							
+							<c:set var="breakPoint" value="0" />
                                 <select class="timeSelect" name="caResHereTime">
                                     <option disabled selected>예약은 2시간만 이용가능합니다.</option>
-                                    <option>10:00 - 12:00</option>
-                                    <option>12:00 - 14:00</option>
-                                    <option>14:00 - 16:00</option>
-                                    <option>16:00 - 18:00</option>
-                                    <option>18:00 - 20:00</option>
-                                    <option>20:00 - 22:00</option>
+                                    <c:forEach var="i" begin="${ sum_sthh }" end="${ sum_enhh }" step="2">
+                                    	<c:forEach var="j" begin="${ sum_stmm }" end="${ sum_enmm }">
+                                    		<option><fmt:formatNumber pattern="00" value="${i}" />:<fmt:formatNumber pattern="00" value="${j}" /> - <fmt:formatNumber pattern="00" value="${i+2}" />:<fmt:formatNumber pattern="00" value="${j}" /></option>
+                                    	</c:forEach>
+                                    </c:forEach>
                                 </select>
                             </td>
                         </tr>
@@ -171,11 +196,14 @@
     
 
     <!-- ajax post 보내기 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
     <script type="text/javascript">
     	$(function(){
     		
     		$("#confirm").on("click", function(){
     			
+    			var caNo = $("#caCode").val();
+    			var userId = $("#userId").val();
     			const Date = $("#date").val();
         		var caResHereTime = $("select[name=caResHereTime] option:selected").text();
         		var caResPer = $(".numBox").val();
@@ -184,13 +212,22 @@
     				url:"${ contextPath }/cafe/here/insert",
     				type : "post",
     				data : {
+    					caNo : caNo,
+    					userId : userId,
     					caDate : Date,
     					caResHereTime : caResHereTime,
     					caResPer : caResPer
     				},
     				success : function(data){
-    					alert("매장 예약이 완료 되었습니다!");
-    					location.href='${ contextPath }/cafe/beverage';
+    					Swal.fire({
+    		    			  text: '매장 예약이 완료되었습니다!',
+    		    			  imageUrl: 'https://images.unsplash.com/photo-1607473129381-ca8345af56ac?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80',
+    		    			  imageWidth: 400,
+    		    			  imageHeight: 200,
+    		    			  imageAlt: 'Custom image',
+    		    		}).then((result) => {
+    		    			location.href='${ contextPath }/cafe/beverage?caCode=${ cafeInfo.caCode }';
+    		    		})
     				},
     				error : function(e){
     					console.log(e);

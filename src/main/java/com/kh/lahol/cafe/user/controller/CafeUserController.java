@@ -25,9 +25,11 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.lahol.cafe.bus.model.vo.Cafe;
+import com.kh.lahol.cafe.bus.model.vo.Coffee;
 import com.kh.lahol.cafe.user.model.exception.CafeException;
 import com.kh.lahol.cafe.user.model.service.CafeService;
 import com.kh.lahol.cafe.user.model.vo.CafeRes;
+import com.kh.lahol.cafe.user.model.vo.CoffeeRes;
 import com.kh.lahol.member.model.vo.Member;
 
 @Controller
@@ -75,8 +77,18 @@ public class CafeUserController {
 	
 	// 매장 페이지 이동
 	@GetMapping("/here")
-	public String Here() {
-		return "/cafe/user/here";
+	public String Here(@RequestParam String caCode, Model model) {
+		
+		Cafe cafeInfo = caService.searchDetail(caCode);
+		
+		if(cafeInfo != null) {
+			model.addAttribute("cafeInfo", cafeInfo);
+			return "/cafe/user/here";
+		}else {
+			model.addAttribute("msg", "등록된 카페 보기에 실패하였습니다.");
+			return "common/error";
+		}	
+		
 	}
 	
 	// 매장 insert
@@ -84,13 +96,12 @@ public class CafeUserController {
 	//DD MONTH, YYYY
 	public String hereInsert(Date caDate,@ModelAttribute CafeRes r) throws CafeException{
 		
-		
-		System.out.println("caResDate: "+ caDate);
+		//System.out.println("caResDate: "+ caDate);
 		r.setCaResDate(caDate);
 		System.out.println(r);
 		
 		int result = caService.hereInsertRes(r);
-		System.out.println("result : "+ result);
+		// System.out.println("result : "+ result);
 		
 		if(result > 0) {
 			return "/cafe/user/beverage";
@@ -129,9 +140,78 @@ public class CafeUserController {
 	
 	// 음료 선택 페이지 이동
 	@GetMapping("/beverage")
-	public String togo() {
-		return "/cafe/user/beverage";
+	public ModelAndView coffeeBeverage(@SessionAttribute("loginUser") Member m,
+										ModelAndView mv, @RequestParam String caCode) {
+		
+		// System.out.println(caCode + "caCode");
+		
+		List<Coffee> Coffeelist = caService.coffeeBeverage(caCode);
+		String Id = m.getId();
+		// System.out.println("아이디 : "+ Id);
+		CafeRes cafeRes = caService.hereTogoInfo(Id);
+		//System.out.println("selectRes : "+ cafeRes);
+		
+		
+		mv.addObject("Coffeelist", Coffeelist);
+		mv.addObject("cafeRes", cafeRes);
+		mv.setViewName("cafe/user/beverage");
+
+		return mv;
+		
 	}
+	
+	@PostMapping("/coRes/insert")
+	public String coResInsert(@ModelAttribute CoffeeRes coRes) throws CafeException{
+		//System.out.println(coRes);
+		int result = caService.coResInsert(coRes);
+		
+		if(result > 0) {
+			return "/cafe/user/beverageModal";
+		}else {
+			throw new CafeException("카페 예약에 실패하였습니다.");
+		}
+	}
+	
+	@GetMapping("/coRes/basket")
+	public ModelAndView coResBasket(@SessionAttribute("loginUser") Member m,
+										ModelAndView mv) {
+		
+		String id = m.getId();
+		
+		List<CoffeeRes> CoffeeRes = caService.coResBasket(id);
+		System.out.println(CoffeeRes);
+		
+		mv.addObject("CoffeeRes", CoffeeRes);
+		mv.setViewName("cafe/user/bevCart");
+
+		return mv;
+		
+	}
+	
+	
+	/*public String togo() {
+		return "/cafe/user/beverage";
+	}*/
+	
+	
+	// 매장 또는 포장 정보 가지고 오기
+//	@GetMapping("/hereTogo")
+//	public String hereTogoInfo(@SessionAttribute("loginUser") Member m, Model model) {
+//		
+//		String Id = m.getId();
+//		System.out.println("아이디 : "+ Id);
+//		CafeRes cafeRes = caService.hereTogoInfo(Id);
+//		System.out.println("selectRes : "+ cafeRes);
+//		
+//		if(cafeRes != null) {
+//			model.addAttribute("cafeRes", cafeRes);
+//			return "/cafe/user/bevCart";
+//		}else {
+//			model.addAttribute("msg", "등록된 카페예약 정보 보기에 실패하였습니다.");
+//			return "common/error";
+//		}
+//	}
+	
 	
 	
 

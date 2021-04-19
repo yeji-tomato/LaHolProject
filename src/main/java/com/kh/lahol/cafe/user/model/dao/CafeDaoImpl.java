@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.lahol.cafe.bus.model.vo.Cafe;
+import com.kh.lahol.cafe.bus.model.vo.Coffee;
 import com.kh.lahol.cafe.user.model.vo.CafeRes;
+import com.kh.lahol.cafe.user.model.vo.CoffeeRes;
 
 @Repository
 public class CafeDaoImpl implements CafeDao {
@@ -32,6 +34,26 @@ public class CafeDaoImpl implements CafeDao {
 	@Override
 	public Cafe searchDetail(String caCode) {
 		return sqlSession.selectOne("cafeMapper.searchCafeDetail", caCode);
+	}
+
+	@Override
+	public List<Coffee> coffeeBeverage(String caCode) {
+		return sqlSession.selectList("cafeMapper.coffeeBeverage", caCode);
+	}
+
+	@Override
+	public CafeRes hereTogoInfo(String id) {
+		return sqlSession.selectOne("cafeMapper.hereTogoInfo", id);
+	}
+
+	@Override
+	public int coResInsert(CoffeeRes coRes) {
+		return sqlSession.insert("cafeMapper.coResInsert", coRes);
+	}
+
+	@Override
+	public List<CoffeeRes> coResBasket(String id) {
+		return sqlSession.selectList("cafeMapper.coResBasket", id);
 	}
 
 }
