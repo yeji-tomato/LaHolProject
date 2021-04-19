@@ -111,10 +111,11 @@
                       <tr>
                         <td>날짜</td>
                         <td colspan="2">
-                          <select style="width: 80%;">
+                          <%-- <select style="width: 80%;">
                             <option value="" class = "selectdate" disabled ="disabled" selected>날짜</option> 
                             <option value="" class = "selectdate">"${ coffeeclass.classDate }"</option>
-                          </select>          
+                          </select>  --%>   
+                          <td>${ coffeeclass.classDate }</td>    
                         </td>
                       </tr>
                       <tr>
@@ -122,9 +123,12 @@
                         <td colspan="2">
                           <select style="width: 80%;">
                             <option value="" class = "selecttime" disabled="disabled" selected>시간</option>
-                          	<c:forEach var="time" items="${ classTimes }">
+                          	<%-- <c:forEach var="time" items="${ classTimes }">
                            		<option class = "selecttime" name="classTime" value="${ time }">${ time }</option>
-                        	</c:forEach>
+                        	</c:forEach> --%>
+                        	<option class = "selecttime" name="classTime" value="${ coffeeclass.classTime }">${ coffeeclass.classTime }</option>
+                        	<option class = "selecttime" name="classTime2" value="${ coffeeclass.classTime2 }">${ coffeeclass.classTime2 }</option>
+                        	<option class = "selecttime" name="classTime3" value="${ coffeeclass.classTime3 }">${ coffeeclass.classTime3 }</option>
                         </select>          
                         </td>
                       </tr>

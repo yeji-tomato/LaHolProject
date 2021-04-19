@@ -135,8 +135,8 @@
 						<td>강의 시간</td>
 						<td class="answer">
 						<input type="text" placeholder="하루 최대 3타임 운영가능" class="classdes" name="classTime"> 
-						<input type="text" placeholder="예시 ) 10:00 - 12:00" class="classdes" name="classTime">
-						<input type="text" placeholder="예시 ) 19:00 - 21:00" class="classdes" name="classTime">
+						<input type="text" placeholder="예시 ) 10:00 - 12:00" class="classdes" name="classTime2">
+						<input type="text" placeholder="예시 ) 19:00 - 21:00" class="classdes" name="classTime3">
 						</td>
 					</tr>
 
@@ -184,9 +184,9 @@
 						<td class="answer" style="text-align: left;">
 						<select name="classLvl">
 								<option>난이도 선택</option>
-								<option value = "상"></option>
-								<option value = "중"></option>
-								<option value = "하"></option>
+								<option value = "상">상</option>
+								<option value = "중">중</option>
+								<option value = "하">하</option>
 						</select></td>
 					</tr>
 

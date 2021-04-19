@@ -16,6 +16,8 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 		<result property="studentMax" column="CL_MAX"/>
 		<result property="classDate" column="CL_DATE"/>
 		<result property="classTime" column="CL_TIME"/>
+		<result property="classTime2" column="CL_TIME2"/>
+		<result property="classTime3" column="CL_TIME3"/>
 		<result property="classLoca" column="CL_LOCA"/>
 		<result property="clPrice" column="CL_PRICE"/>
 		<result property="classLvl" column="CL_LEVEL"/>
@@ -281,6 +283,29 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 	  	  		, #{classNo}	  	  
 	  	  )
 	  </insert>
+	  <select id = "searchClass" parameterType="ClassSearch" resultMap="clResultSet">
+	     <bind name="sv" value="'%' + _parameter.getSearchValue() +  '%'"/>
+	     SELECT
+	     		  CLASS_NO
+				, CL_NAME
+				, CL_DES
+				, TR_NAME
+				, TR_INTRO
+				, CL_CURI
+				, CL_LOCA
+				, CL_SHORTDES
+		  FROM  COFFEECLASS
+		<where>				
+				   CL_NAME LIKE #{sv}
+				OR CL_DES LIKE #{sv}
+				OR TR_NAME LIKE #{sv}
+				OR TR_INTRO LIKE #{sv}
+				OR CL_CURI LIKE #{sv}
+				OR CL_LOCA LIKE #{sv}
+				OR CL_SHORTDES LIKE #{sv}					
+		</where>
+	  ORDER BY CLASS_NO  
+	  </select>
 	
 	 
 </mapper>

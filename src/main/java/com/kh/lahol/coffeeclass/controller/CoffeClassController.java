@@ -33,6 +33,7 @@ import com.kh.lahol.cafe.bus.model.vo.Cafe;
 import com.kh.lahol.coffeeclass.model.exception.CoffeeClassException;
 import com.kh.lahol.coffeeclass.model.service.CoffeeClassSerivce;
 import com.kh.lahol.coffeeclass.model.vo.ClassRegister;
+import com.kh.lahol.coffeeclass.model.vo.ClassSearch;
 import com.kh.lahol.coffeeclass.model.vo.CoffeeClass;
 import com.kh.lahol.coffeeclass.model.vo.PageInfo;
 import com.kh.lahol.coffeeclass.page.Pagination;
@@ -71,6 +72,20 @@ public class CoffeClassController {
 
 		return mv;
 	}
+	
+	  
+	// 검색 기능
+	@GetMapping("coffeeclass/search")
+	public String searchClass(@ModelAttribute ClassSearch search,
+							  Model model) {
+		  
+		List<ClassSearch> searchList = clService.searchList(search);
+		
+		model.addAttribute("list", searchList);
+		
+		return "coffeeclass/class_main";
+	}
+	  
 	
 	// 클래스 개설 페이지로 이동
 	@GetMapping("/coffeeclass/createclass")
@@ -365,9 +380,7 @@ public class CoffeClassController {
 		 
 	  }
 	 
-	  
-	  
-	  
+	
 	  
 	  
 	  

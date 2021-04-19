@@ -3,6 +3,7 @@ package com.kh.lahol.coffeeclass.model.dao;
 import java.util.List;
 
 import com.kh.lahol.coffeeclass.model.vo.ClassRegister;
+import com.kh.lahol.coffeeclass.model.vo.ClassSearch;
 import com.kh.lahol.coffeeclass.model.vo.CoffeeClass;
 import com.kh.lahol.coffeeclass.model.vo.PageInfo;
 
@@ -37,6 +38,9 @@ public interface CoffeeClassDao {
 
 		// 10. 클래스 수강신청
 		public int registerClass(ClassRegister clRegi);
+
+		// 11. 검색
+		public List<ClassSearch> selectClassSearch(ClassSearch search);
 
 		
 		
