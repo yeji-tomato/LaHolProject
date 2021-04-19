@@ -5,9 +5,16 @@
 <head>
 <meta charset="UTF-8">
 <title>장바구니</title>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+<link rel="stylesheet" href="${ contextPath }/resources/css/basket/basket.css" type="text/css">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+    
 </head>
 <body>
-	<section id="content" class="content_css" style="height: 1700px;" >
+	<jsp:include page="/WEB-INF/views/common/menubar.jsp"/>
+	
+	<%@include file="./basketJS.jsp" %>
+	<section id="content" class="content_css" >
             <div class="outer1">
                 <form name="orderform" id="orderform" method="post" class="orderform" action="/Page">      
                 <div class="cart">
@@ -24,7 +31,7 @@
                                             </div>
                                             <div class="subdiv">
                                                 <div class="basketprice">가격</div> 
-                                                <div class="num" style="   width: 50px;  ">수량</div>
+                                                <div class="num">수량</div>
                                                 <div class="sum">합계</div>
                                                 <div class="del">배송비</div>
                                             
@@ -147,8 +154,8 @@
                                     </div>
                             
                                     <div class="right-align basketrowcmd">
-                                        <a href="javascript:void(0)" class="abutton" onclick="javascript:basket.delCheckedItem();">선택상품삭제</a>
-                                        <a href="javascript:void(0)" class="abutton" onclick="javascript:basket.delAllItem();">장바구니비우기</a>
+                                        <a href="javascript:void(0)" class="abutton" id="trashBtn" onclick="javascript:basket.delCheckedItem();">선택상품삭제</a>
+                                        <a href="javascript:void(0)" class="abutton" id="trashBtn" onclick="javascript:basket.delAllItem();">장바구니비우기</a>
                                     </div>
                             
                                   
@@ -160,16 +167,25 @@
                             </div><!-- /store1 -->
                             </div><!-- /cart -->
                         </form>
+                        
+                        
 
-                            <!-- 배송지 입력 -->
-                            <div>
-
-                            </div>
-
-                            
-                            </div>
+                        <!-- 배송지 입력 -->
+						<%@include file="./storeAddress.jsp" %>
+						
+						<!-- 카페 주소 -->
+						<%-- <%@include file="./cafeAddress.jsp" %> --%>
+                           
+                       <div>
+                           <!-- 쿠폰 및 전체 금액 -->
+                          <%@include file="./couponTotal.jsp" %> 
+                       </div>
+                           
+                           
+                       </div>
 
             
         </section>
+        <jsp:include page="/WEB-INF/views/common/footer2.jsp"/>
 </body>
 </html>

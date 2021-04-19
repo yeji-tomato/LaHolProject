@@ -18,9 +18,16 @@ private static final Logger logger = LoggerFactory.getLogger(BusMainController.c
 	 * Simply selects the home view to render by returning its name.
 	 */
 	@RequestMapping(value = "/basket/cart", method = RequestMethod.GET)
-	public String Beverage(Locale locale, Model model) {
+	public String Basket(Locale locale, Model model) {
 		
 		
 		return "basket/basket";
+	}
+	
+	@RequestMapping(value = "/basket/coupon", method = RequestMethod.GET)
+	public String Coupon(Locale locale, Model model) {
+		
+		
+		return "basket/coupon";
 	}
 }
