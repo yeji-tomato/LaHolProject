@@ -35,6 +35,8 @@ public class CoffeeClass{
 	private String blind;
 	private String status;
 	private String classTime;
+	private String classTime2;
+	private String classTime3;
 	private String clRuntime;
 	private String clThumbnail;
 	private String trPhoto;

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.lahol.coffeeclass.model.dao.CoffeeClassDao;
 import com.kh.lahol.coffeeclass.model.vo.ClassRegister;
+import com.kh.lahol.coffeeclass.model.vo.ClassSearch;
 import com.kh.lahol.coffeeclass.model.vo.CoffeeClass;
 import com.kh.lahol.coffeeclass.model.vo.PageInfo;
 
@@ -73,8 +74,14 @@ public class CoffeeClassServiceImpl implements CoffeeClassSerivce{
 
 	// 클래스 신청
 	@Override
-	public int registerMember(ClassRegister clRegi) {
-		return clDao.registerMember(clRegi);
+	public int registerClass(ClassRegister clRegi) {
+		return clDao.registerClass(clRegi);
+	}
+
+	// 검색
+	@Override
+	public List<ClassSearch> searchList(ClassSearch search) {
+		return clDao.selectClassSearch(search);
 	}
 
 

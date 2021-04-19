@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.lahol.coffeeclass.model.vo.ClassRegister;
+import com.kh.lahol.coffeeclass.model.vo.ClassSearch;
 import com.kh.lahol.coffeeclass.model.vo.CoffeeClass;
 import com.kh.lahol.coffeeclass.model.vo.PageInfo;
 
@@ -73,10 +74,17 @@ public class CoffeeClassDaoImpl implements CoffeeClassDao{
 
 	// 클래스 수강신청
 	@Override
-	public int registerMember(ClassRegister clRegi) {
-		return sqlSession.insert("clMapper.registerMember", clRegi);
+	public int registerClass(ClassRegister clRegi) {
+		return sqlSession.insert("clMapper.registerClass", clRegi);
 	}
 
+	// 검색
+	@Override
+	public List<ClassSearch> selectClassSearch(ClassSearch search) {
+		return sqlSession.selectList("clMapper.searchClass", search);
+	}
+
+	
 
 
 }

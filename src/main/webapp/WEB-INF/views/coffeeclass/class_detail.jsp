@@ -18,7 +18,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
     <!-- jQuery-->
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-    
+  	<!-- iamport -->
+    <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
     
     
 </head>
@@ -110,10 +111,11 @@
                       <tr>
                         <td>날짜</td>
                         <td colspan="2">
-                          <select style="width: 80%;">
+                          <%-- <select style="width: 80%;">
                             <option value="" class = "selectdate" disabled ="disabled" selected>날짜</option> 
                             <option value="" class = "selectdate">"${ coffeeclass.classDate }"</option>
-                          </select>          
+                          </select>  --%>   
+                          <td>${ coffeeclass.classDate }</td>    
                         </td>
                       </tr>
                       <tr>
@@ -121,29 +123,37 @@
                         <td colspan="2">
                           <select style="width: 80%;">
                             <option value="" class = "selecttime" disabled="disabled" selected>시간</option>
-                          	<c:forEach var="time" items="#{ classTimes }">
+                          	<%-- <c:forEach var="time" items="${ classTimes }">
                            		<option class = "selecttime" name="classTime" value="${ time }">${ time }</option>
-                        	</c:forEach>
+                        	</c:forEach> --%>
+                        	<option class = "selecttime" name="classTime" value="${ coffeeclass.classTime }">${ coffeeclass.classTime }</option>
+                        	<option class = "selecttime" name="classTime2" value="${ coffeeclass.classTime2 }">${ coffeeclass.classTime2 }</option>
+                        	<option class = "selecttime" name="classTime3" value="${ coffeeclass.classTime3 }">${ coffeeclass.classTime3 }</option>
                         </select>          
                         </td>
                       </tr>
                       <tr>
                         <td>결제금액</td>
                         <td colspan="2">
-                          65,000원
+                          ${ coffeeclass.clPrice }원
                         </td>
                       </tr>
                     </tbody>
                   </table>
                   <div class="btnDiv" id = "classupdate">
                     <form action="${ contextPath }/coffeeclass/register" method="POST">
-                    	<input type="hidden" name="userId" value="${ sessionScope.loginUser.id }">
-                    	<input type="hidden" name="classNo" value="${ coffeeclass.classNo }">
-	                    <button type="submit" class="btn" id = "register-btn">
+                    	<input type="hidden" id="user_id" name="buyerId" value="${ sessionScope.loginUser.id }">
+                    	<input type="hidden" id= "class_no" name="classNo" value="${ coffeeclass.classNo }">
+                    	<input type="hidden" id= "class_name" name="className" value="${ coffeeclass.className }">
+                    	<input type="hidden" id="cl_price" name="clPrice" value="${ coffeeclass.clPrice}">
+	                    <input type="hidden" id = "cl_date" name="classDate" value = "${ coffeeclass.classDate }">
+	                    <input type="hidden" id = "cl_time" name="classTime" value = "${ coffeeclass.classTime }">
+                    </form>
+	                     <button class="btn" id = "register-btn" onclick="onSubmit();">
 	                    	  수강신청
 	                      <i class="fa fa-credit-card-alt" aria-hidden="true"></i>
-	                    </button>
-                    </form>
+	                    </button> 
+	                   
                     <button type="button" class="btn" id = "cart-btn">
                       	  장바구니
                       <i class="fa fa-shopping-cart" aria-hidden="true"></i>
@@ -175,114 +185,8 @@
         </div>
     </div>
   </div>
-  
-  	<!-- 클래스 삭제 Modal -->
-	  <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
-			<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header" style="background-color: #4B654A;">
-				<h5 class="modal-title" id="deleteModalLabel" style="color: white;">
-					<img src="${ contextPath }/resources/img/common/logo-lahol2.png" class = "logoimg"
-					style="width : 30px; height: 30px;">
-					경고
-				</h5>
-				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-				</div>
-				<div class="modal-body">
-				
-				<h5 class="sorry-text"> 삭제 유의사항 </h5> 
-	            <h6>클래스 삭제 시 업로드하신 클래스의 내용과 함께 댓글과 질의응답 </h6>
-	            	<h6 style="color:red"> 모두 삭제되며 복구가 어렵습니다. </h6>
-	                <h6> * 클래스가 종료되어 삭제를 하시는 경우라면 
-	               	 클래스가 종료시 일반사용자들에게 더 이상 노출이 되지 않으며 사업자 본인만 클래스 내용들을 확인할 수 있음을 알려드립니다. 
-	                </h6>
-	
-						<br>
-						<p class="alert-text">
-						정말 삭제하시겠습니까? 
-						</p>
-					</p>
-					
-					</div>
-					<div class="modal-footer" style="background-color: #4B654A;">
-					<button type="button" class="btn btn-danger" onclick="location.href='${ contextPath }/coffeeclass/deleteClass?classNo=${ coffeeclass.classNo }'"
-					>삭제</button>
-					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-					</div>
-				</table>
-			</div>
-			</div>
-		</div>
- 
-  
- 	 <!-- 신고Modal -->
-		<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-			<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header" style="background-color: #4B654A;">
-				<h5 class="modal-title" id="exampleModalLabel" style="color: white;">
-					<img src="${ contextPath }/resources/img/common/logo-lahol2.png" style="width : 30px; height: 30px;">
-					클래스신고
-				</h5>
-				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-				</div>
-				<div class="modal-body">
-				<h5  style="text-align: center; padding: 5vh;">페이지 사용에 불편을 드려 죄송합니다. <br> 신고가 접수되면 3일내로 처리됩니다. </h5>
-					<form action = "${ contextPath }/coffeeclass/classreport" method="post">
-					<td><input name ="classNo" type="hidden" value="${ coffeeclass.classNo }"></td>
-					<table style="width: 100%;">					
-						<tr>
-							<td>신고 클래스</td>
-							<td aria-readonly="true">${ coffeeclass.className }</td>
-						</tr>
-						<tr>
-							<td>신고사유</td>
-							<td>
-								<select name="rpReason">
-									<option disabled="disabled" selected>
-										--신고사유선택--
-									</option>
-									<option>
-										강사의 부적절한 언어 및 행위
-									</option>
-									<option>
-										강사 허위자격(실력의심)
-									</option>
-									<option>
-										강의 중 상품강매
-									</option>
-									<option>
-										기타
-									</option>
-								</select>
-							</td>
-						</tr>
-						<tr>
-							<td>사유 상세 설명</td>
-						</tr>
-						<tr>
-							<td colspan="2">
-								<textarea name="rpDeets" style="width: 100%; line-height: 15vh;"></textarea>
-							</td>
-						</tr>
-					</table>
-						<br>
-						<p class="alert-text" style="color:rgb(170, 42, 42); font-size: 12px;">
-						허위신고일 경우, 신고자의 활동이 제한될 수 있으니 신중하게 신고해주세요. 
-						</p>					
-					<div class="modal-footer"  style="background-color: #4B654A;">
-					<button type="submit" class="btn btn-danger">신고</button>
-					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-					</div>
-					</form>
-					</div>
-			</div>
-			</div>
-		</div>
-  
-  
 
-    <!-- <div> -->
+      <!-- tab -->
       <ul class="nav nav-tabs" id="myTab" role="tablist">
         <li class="nav-item" role="presentation">
             <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">
@@ -301,7 +205,7 @@
         <div class="tab-content" id="myTabContent">
         
         
-          <!-- 상세 정보 -->
+        <!-- 상세 정보 -->
         <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                 <!-- Product description section 1-->
                 <div class="row align-items-center py-md-3">
@@ -336,211 +240,96 @@
               
         </div>
         
-        
-         <!-- 후기 -->
-        <div class="tab-pane fade" id="review" role="tabpanel" aria-labelledby="review-tab" style="background-color: blueviolet;">
-          <div style="background-color: blueviolet; padding-top: 3vh;">
-          <div class="clcomment">
-            <table>
-              <tr>
-                <td>
-                  <i class="fa fa-star" aria-hidden="true"></i>
-                  <i class="fa fa-star" aria-hidden="true"></i>
-                  <i class="fa fa-star" aria-hidden="true"></i>
-                  <i class="fa fa-star" aria-hidden="true"></i>
-                  <i class="fa fa-star" aria-hidden="true"></i>
-                </td>
-                <td>
-                  작성일자|
-                </td>
-                <td>
-                  2020.04.20
-                </td>
-                <td>
-                  <button class = "iconbtn">
-                  <img src = "../../LaHolFront/resources/images/class/report.png"  class="iconbtn">
-                </button>
-              </td>
-              </tr>
-              <tr>
-                <td>구매자아이디</td>
-              </tr>
-              <tr>
-                <td>내용</td>
-              </tr>
-            </table>
-          </div>
-          <div class="clcomment">
-            <table>
-                <tbody>
-              <tr>
-                <td>
-                  <i class="fa fa-star" aria-hidden="true"></i>
-                  <i class="fa fa-star" aria-hidden="true"></i>
-                  <i class="fa fa-star" aria-hidden="true"></i>
-                  <i class="fa fa-star" aria-hidden="true"></i>
-                  <i class="fa fa-star" aria-hidden="true"></i>
-                </td>
-                <td>
-                  작성일자|
-                <td>
-                <td>
-                  2020.04.20
-                <td>
-                  <button class = "iconbtn btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" >
-                  <img src = "../../LaHolFront/resources/images/class/report.png"  class="iconbtn">
-                </button>
-              </td>
-              </tr>
-              <tr>
-                <td>dayoon1004</td>
-              </tr>
-              <tr>
-                <td>아 진짜 별로에요 묻는거 대답 하나도 못하시고.. </td>
-              </tr>
-            </tbody>
-            </table>
-        </div>
-      </div>
-     </div>
-        
-        
-        <!-- Q&A -->
-        <div class="tab-pane fade" id="qa" role="tabpanel" aria-labelledby="qa-tab">
-          <div class="qa-content">
-            <div class="writeBtn">
-              <button id="wBtn">Write</button>
-            </div>
-            <div class="accordionMenu">
-              <div class="accordion accordion-flush" id="accordionFlushExample">
-                <div class="accordion-item">
-                  <h2 class="accordion-header" id="flush-headingOne">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                      <table class="qaTable">
-                        <tr>
-                          <td>1</td>
-                          <td>답변완료</td>
-                          <td colspan="5">주차장은 최대 몇 대 가능한가요?</td>
-                          <td>dd****</td>
-                          <td>2020-12-25</td>
-                        </tr>
-                      </table>
-                    </button>
-                  </h2>
-                  <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-                    <div class="accordion-body">
-                      <div class="qaAnswer">
-                        <div>
-                          <h1 style="color: #810B0B;">Q</h1>
-                          주차장은 최대 몇 대 가능한가요?
-                        </div>
-                        <hr>
-                        <div>
-                          <p>
-                            <h1 style="color: #4B654A;">A</h1>
-                            안녕하세요 고객님.
-                            00 카페입니다.
-      
-                            주차장은 총 10대 가능합니다.
-      
-                            방문 시에 참고 부탁드립니다.
-      
-                            감사합니다.
-                            좋은 하루 보내세요.
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="accordion-item">
-                  <h2 class="accordion-header" id="flush-headingTwo">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
-                      <table class="qaTable">
-                        <tr>
-                          <td>2</td>
-                          <td>답변완료</td>
-                          <td colspan="5">주차장은 최대 몇 대 가능한가요?</td>
-                          <td>dd****</td>
-                          <td>2020-12-25</td>
-                        </tr>
-                      </table>
-                    </button>
-                  </h2>
-                  <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
-                    <div class="accordion-body">
-                      <div class="qaAnswer">
-                        <div>
-                          <h1 style="color: #810B0B;">Q</h1>
-                          주차장은 최대 몇 대 가능한가요?
-                        </div>
-                        <hr>
-                        <div>
-                          <p>
-                            <h1 style="color: #4B654A;">A</h1>
-                            안녕하세요 고객님.
-                            00 카페입니다.
-      
-                            주차장은 총 10대 가능합니다.
-      
-                            방문 시에 참고 부탁드립니다.
-      
-                            감사합니다.
-                            좋은 하루 보내세요.
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="accordion-item">
-                  <h2 class="accordion-header" id="flush-headingThree">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
-                      <table class="qaTable">
-                        <tr>
-                          <td>3</td>
-                          <td>답변완료</td>
-                          <td colspan="5">주차장은 최대 몇 대 가능한가요?</td>
-                          <td>dd****</td>
-                          <td>2020-12-25</td>
-                        </tr>
-                      </table>
-                    </button>
-                  </h2>
-                  <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
-                    <div class="accordion-body">
-                      <div class="qaAnswer">
-                        <div>
-                          <h1 style="color: #810B0B;">Q</h1>
-                          주차장은 최대 몇 대 가능한가요?
-                        </div>
-                        <hr>
-                        <div>
-                          <p>
-                            <h1 style="color: #4B654A;">A</h1>
-                            안녕하세요 고객님.
-                            00 카페입니다.
-      
-                            주차장은 총 10대 가능합니다.
-      
-                            방문 시에 참고 부탁드립니다.
-      
-                            감사합니다.
-                            좋은 하루 보내세요.
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-          </div>
-          </div>
-        </div>
-        </div>
-        
+
+    <!-- 후기 , Q&A -->
+    <jsp:include page="/WEB-INF/views/coffeeclass/class_detail_comment.jsp"/>
+  
 	<!-- footer -->
 	<jsp:include page="/WEB-INF/views/common/footer2.jsp"/>
+	
+	<!-- 모달 (신고, 삭제) -->
+	<jsp:include page="/WEB-INF/views/coffeeclass/class_detail_modal.jsp"/>
+	
+	
+	<!-- KG이니시스 -->
+	<script>
+	$("#register-btn").click(function () {
+        var IMP = window.IMP; // 생략가능
+        IMP.init('imp85155473');
+        // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
+        // i'mport 관리자 페이지 -> 내정보 -> 가맹점식별코드
+        IMP.request_pay({
+        pg: 'html5_inicis', // version 1.1.0부터 지원.
+        /*
+        'kakao':카카오페이,
+        html5_inicis':이니시스(웹표준결제)
+        'nice':나이스페이
+        'jtnet':제이티넷
+        'uplus':LG유플러스
+        'danal':다날
+        'payco':페이코
+        'syrup':시럽페이
+        'paypal':페이팔
+        */
+        pay_method: 'card',
+        /*
+        'samsung':삼성페이,
+        'card':신용카드,
+        'trans':실시간계좌이체,
+        'vbank':가상계좌,
+        'phone':휴대폰소액결제
+        */
+        merchant_uid: 'merchant_' + new Date().getTime(),
+        /*
+        merchant_uid에 경우
+        https://docs.iamport.kr/implementation/payment
+        위에 url에 따라가시면 넣을 수 있는 방법이 있습니다.
+        참고하세요.
+        나중에 포스팅 해볼게요.
+        */
+        //결제창에서 보여질 이름 (6개월권, 1년권인지 판별해야함)
+        name: '주문명:결제테스트',
+        //가격 (6개월이면 100원, 1년이면 200원으로 설정되야함)
+        amount: 100,
+        
+        //결제 마지막 결제내역 확인란(이메일, 이름만보임)
+        
+        //임대인의 이메일
+        buyer_email: 'iamport@siot.do',
+        //임대인의 이름
+        buyer_name: '구매자이름',
+        //임대인의 휴대전화
+        buyer_tel: '010-1234-5678',
+        //임대인의주소
+        buyer_addr: '서울특별시 강남구 삼성동',
+        /*
+        모바일 결제시,
+        결제가 끝나고 랜딩되는 URL을 지정
+        (카카오페이, 페이코, 다날의 경우는 필요없음. PC와 마찬가지로 callback함수로 결과가 떨어짐)
+        */
+        buyer_postcode: '123-456',
+        m_redirect_url: 'https://www.yourdomain.com/payments/complete'
+        }, function (rsp) {
+        console.log(rsp);
+        if (rsp.success) {
+        
+        // 결제 후 ALERT창   
+  
+        var msg = '결제가 완료되었습니다.';
+        msg += '고유ID : ' + rsp.imp_uid;
+        msg += '상점 거래ID : ' + rsp.merchant_uid;
+        msg += '결제 금액 : ' + rsp.paid_amount;
+        msg += '카드 승인번호 : ' + rsp.apply_num;
+        } else {
+        var msg = '결제에 실패하였습니다.';
+        msg += '에러내용 : ' + rsp.error_msg;
+        }
+        alert(msg);
+        });
+        });
+
+
+	</script>
       
 </body>
 </html>
