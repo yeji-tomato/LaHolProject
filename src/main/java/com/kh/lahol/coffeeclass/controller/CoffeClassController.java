@@ -352,21 +352,19 @@ public class CoffeClassController {
 	
 	  // 클래스 수강신청
 	  @PostMapping("/coffeeclass/register")
-	  public String registerClass(@ModelAttribute ClassRegister clRegi, 
+	  public String registerClass(@ModelAttribute ClassRegister clRegi,			  					
 			  					   Model model) {
 		  
 		  int result = clService.registerClass(clRegi); 
 		  if(result > 0) {
-			  return "";
+			  return "coffeeclass/class_detail";
 		  } else {
 			  model.addAttribute("msg", "결제에 실패하였습니다.");
-			  return "";
+			  return "common/error";
 		  } 
 		 
 	  }
-	  
-		
-		
+	 
 	  
 	  
 	  

@@ -18,7 +18,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
     <!-- jQuery-->
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-
+  	<!-- iamport -->
+    <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
     
     
 </head>
@@ -121,7 +122,7 @@
                         <td colspan="2">
                           <select style="width: 80%;">
                             <option value="" class = "selecttime" disabled="disabled" selected>시간</option>
-                          	<c:forEach var="time" items="#{ classTimes }">
+                          	<c:forEach var="time" items="${ classTimes }">
                            		<option class = "selecttime" name="classTime" value="${ time }">${ time }</option>
                         	</c:forEach>
                         </select>          
@@ -143,11 +144,12 @@
                     	<input type="hidden" id="cl_price" name="clPrice" value="${ coffeeclass.clPrice}">
 	                    <input type="hidden" id = "cl_date" name="classDate" value = "${ coffeeclass.classDate }">
 	                    <input type="hidden" id = "cl_time" name="classTime" value = "${ coffeeclass.classTime }">
-	                    <button class="btn" id = "register-btn" onclick="onSubmit();">
+                    </form>
+	                     <button class="btn" id = "register-btn" onclick="onSubmit();">
 	                    	  수강신청
 	                      <i class="fa fa-credit-card-alt" aria-hidden="true"></i>
-	                    </button>
-                    </form>
+	                    </button> 
+	                   
                     <button type="button" class="btn" id = "cart-btn">
                       	  장바구니
                       <i class="fa fa-shopping-cart" aria-hidden="true"></i>
@@ -247,71 +249,81 @@
 	
 	<!-- KG이니시스 -->
 	<script>
-	$("#register-btn").click(function){
-		var IMP = window.IMP;	// 이니시스 결제 API 오픈
-		IMP.init('imp95013192');
-    	//var bn_code = document.getElementById("bn_code"); // 넘겨받을 값을 input으로 바꾼것의 id
-    	//var duration = document.getElementById("duration"); // 넘겨받을 값을 input으로 바꾼것의 id
-		var payitem = document.getElementById("class_name");
-    	var price = document.getElementById("cl_price");
-    	var classdate = document.getElementById("cl_date");
-    	var classtime = document.getElementById("cl_time");
-    	
-    	if(classdate.value == "") {
-			Swal.fire({
-				title : "날짜를 선택해주세요",
-				icon : 'warning'
-			});
-			return;
-		}
-		
-		if(duration.value == "") {
-			Swal.fire({
-				title : "시간을 선택해주세요",
-				icon : 'warning'
-			});
-			return;
-		}
-		
-		IMP.request_pay({
-			pg : 'html5_inicis',
-			pay_method : 'card',
-			merchant_uid : 'merchant_' + new Date().getTime(),
-			name : payitem,			// 결제하는 상품명
-			amount : price,			// 결제 금액
-			buyer_email : '${ sessionScope.loginUser.email }',
-			buyer_name : '${ sessionScope.loginUser.name }',
-			buyer_tel : '${ sessionScope.loginUser.phone }',
-			buyer_addr : '${ addr[1] }' + '${ addr[2] }',
-			buyer_postcode : '${ addr[0] }'
-		}, function(rsp) {
-			if(rsp.success) {
-				var msg = "결제가 완료되었습니다.<br>";
-				// msg += '고유 ID : ' + rsp.imp_uid + "<br>";
-				// msg += '상점 거래 ID : ' + rsp.merchant_uid + "<br>";
-				// msg += '결제 금액 : ' + rsp.paid_amount + "<br>";
-				msg += '카드 승인번호 : ' + rsp.apply_num;
-				
-				Swal.fire({
-					title : msg,
-					icon : 'success'
-				}).then(function(result){
-					if(result.isConfirmed) {
-	    				$("#ad_form").submit();
-					}
-				});
-				
-			} else {
-				var msg = '결제에 실패하였습니다.';
-				msg += '[에러내용]<br>' + rsp.error_msg;
-				
-				Swal.fire({
-					title : msg,
-					icon : 'warning'
-				});
-			}
-		});
-	}
+	$("#register-btn").click(function () {
+        var IMP = window.IMP; // 생략가능
+        IMP.init('imp85155473');
+        // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
+        // i'mport 관리자 페이지 -> 내정보 -> 가맹점식별코드
+        IMP.request_pay({
+        pg: 'html5_inicis', // version 1.1.0부터 지원.
+        /*
+        'kakao':카카오페이,
+        html5_inicis':이니시스(웹표준결제)
+        'nice':나이스페이
+        'jtnet':제이티넷
+        'uplus':LG유플러스
+        'danal':다날
+        'payco':페이코
+        'syrup':시럽페이
+        'paypal':페이팔
+        */
+        pay_method: 'card',
+        /*
+        'samsung':삼성페이,
+        'card':신용카드,
+        'trans':실시간계좌이체,
+        'vbank':가상계좌,
+        'phone':휴대폰소액결제
+        */
+        merchant_uid: 'merchant_' + new Date().getTime(),
+        /*
+        merchant_uid에 경우
+        https://docs.iamport.kr/implementation/payment
+        위에 url에 따라가시면 넣을 수 있는 방법이 있습니다.
+        참고하세요.
+        나중에 포스팅 해볼게요.
+        */
+        //결제창에서 보여질 이름 (6개월권, 1년권인지 판별해야함)
+        name: '주문명:결제테스트',
+        //가격 (6개월이면 100원, 1년이면 200원으로 설정되야함)
+        amount: 100,
+        
+        //결제 마지막 결제내역 확인란(이메일, 이름만보임)
+        
+        //임대인의 이메일
+        buyer_email: 'iamport@siot.do',
+        //임대인의 이름
+        buyer_name: '구매자이름',
+        //임대인의 휴대전화
+        buyer_tel: '010-1234-5678',
+        //임대인의주소
+        buyer_addr: '서울특별시 강남구 삼성동',
+        /*
+        모바일 결제시,
+        결제가 끝나고 랜딩되는 URL을 지정
+        (카카오페이, 페이코, 다날의 경우는 필요없음. PC와 마찬가지로 callback함수로 결과가 떨어짐)
+        */
+        buyer_postcode: '123-456',
+        m_redirect_url: 'https://www.yourdomain.com/payments/complete'
+        }, function (rsp) {
+        console.log(rsp);
+        if (rsp.success) {
+        
+        // 결제 후 ALERT창   
+  
+        var msg = '결제가 완료되었습니다.';
+        msg += '고유ID : ' + rsp.imp_uid;
+        msg += '상점 거래ID : ' + rsp.merchant_uid;
+        msg += '결제 금액 : ' + rsp.paid_amount;
+        msg += '카드 승인번호 : ' + rsp.apply_num;
+        } else {
+        var msg = '결제에 실패하였습니다.';
+        msg += '에러내용 : ' + rsp.error_msg;
+        }
+        alert(msg);
+        });
+        });
+
 
 	</script>
       
