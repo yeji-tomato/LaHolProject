@@ -503,4 +503,17 @@ C_CODE	VARCHAR2(30 BYTE)	No		18	카페코드
 		</where>
 		 
 	</select>
+	
+	<select id="CafeCode"   parameterType="Search"  resultType="string" >
+	  <bind name="sv" value="'%' + _parameter.getSearchValue() + '%'"/>  
+		SELECT 	   
+		  	 	ID
+		 FROM
+				CAFE
+		  WHERE
+				 C_CODE LIKE #{sv} 
+		 
+	</select>
+ 
+	
 </mapper>
