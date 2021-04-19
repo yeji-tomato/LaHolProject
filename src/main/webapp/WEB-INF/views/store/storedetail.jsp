@@ -305,9 +305,7 @@
 												  	<td id="tb_date">  ${ q.qnaDate  }
 												  
 												  
-												 	 <c:if test="${ !empty sessionScope.loginUser }"> 
-													 <button type="button" id="aa" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal${ q.qnaNo}">답변 </button>
-											 		</c:if>
+												 	 
 											 		
 											 		
 											 		<c:set var="loop_flag" value="false" />
@@ -321,19 +319,33 @@
 													 </c:if>
 													 </c:forEach> 
 													 
+													 
 													  <c:forEach var="a" items="${ Alist}"  > 
 											 		   <c:if test="${not loop_flag }">
 													 
-													  <c:if test="${ empty a || a.qnaNo ne  q.qnaNo }">
-							                       	   			<h6 style="color:red;">답변대기</h6>
+													  <c:if test="${ empty a || a.qnaNo ne  q.qnaNo  }">
+							                       	   			<h6 style="color:blue;">답변대기
+							                       	   			 <c:forEach var="c" items="${ CafeCode }"  > 
+														 			<c:if test="${ !empty sessionScope.loginUser && c eq loginUser.id }"> 
+																	 <button type="button" id="aa" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal${ q.qnaNo}">답변 </button></h6>
+														 			</c:if>
+														 		</c:forEach>
 							                       	   			 <c:set var="loop_flag" value="true" />
 							                       		</c:if>
 							                       	
 													 </c:if>
 													 </c:forEach> 
 													 
-													 
-											 
+													 <c:forEach var="a" items="${ Alist2 }"  > 
+														 <c:if test="${   a  eq 'x' }">
+														 		<h6 style="color:blue;">답변대기
+														 		 <c:forEach var="c" items="${ CafeCode }"  > 
+														 			<c:if test="${ !empty sessionScope.loginUser && c eq loginUser.id }"> 
+																	 <button type="button" id="aa" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal${ q.qnaNo}">답변 </button></h6>
+														 			</c:if>
+														 		</c:forEach>
+														 </c:if>
+											 		</c:forEach>
 											 		
 											  		 
 											</tr>
@@ -364,6 +376,16 @@
 													  
 													 </c:if>
 												</c:forEach>
+												
+												
+													 <c:forEach var="a" items="${ Alist2 }"  > 
+														 <c:if test="${   a  eq 'x' }">
+														 		<td>미답변 </td>
+													 	<td id="tb_a" > 빠른시일 안에 답변을 해드리겠습니다.     </td> 
+													 	<td style="font-size:7px;">   </td>  
+													 	<td style="font-size:15px;">   </td>  
+														 </c:if>
+											 		</c:forEach>
 											
 											</tr> 
 										</tbody>

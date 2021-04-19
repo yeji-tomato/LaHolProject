@@ -279,7 +279,7 @@ public class StoreController {
 	}
 	
 	@GetMapping("/storedetail")
-	public String storeDetail(int PR_CODE, String QnA_NO,  HttpServletRequest request,ModelAndView mv,
+	public String storeDetail(int PR_CODE, String QnA_NO,  HttpServletRequest request,ModelAndView mv, @ModelAttribute Cafe q,
 			  HttpServletResponse response, @RequestParam(value="page" , required=false, defaultValue="1")int currentPage ,
 			  Model model) {
 		boolean flagslist = false; 
@@ -353,21 +353,51 @@ public class StoreController {
 			
 			 System.out.println("답변 리스트 나오나?"+ Alist);
 	 
+			 System.out.println("답변갯수"+ Alist.size()); // 답변 갯수가 넘어오는지확인 
+			 
+			 
+				
+				if(Alist.size() < 1 ) {
+					
+					 String Alist2 = "x";   
+					
+					System.out.println(Alist2);  // 답변갯수가 0이면 x값 넣어줌
+					model.addAttribute("Alist2", Alist2); 
+					
+				}
+				
+				
+			 
+		 
 			 
 			
 			// 제품 정보 
 			 
 		
 			Store s = sService.selectStore(PR_CODE, !flagPR);
+			
+			
+			//카페코드 갖고오기 
+			String a = s.getC_CODE();
+			System.out.println("카페코드" + a);
+			
+			 Search cd = new Search();
 		
+			 cd.setSearchValue(a);
+			
+			 List<Cafe> CafeCode = sService.CafeCode(cd); 
+			
+		 
+			System.out.println("아이디"+CafeCode);
+			
 			
 			 
 			 
-			if(s != null) {
+			if(s != null   ) {
 				model.addAttribute("s", s); 
 				model.addAttribute("QsearchList", QsearchList); 
 				model.addAttribute("Alist", Alist); 
-			
+				model.addAttribute("CafeCode", CafeCode); 
 				mv.addObject("pi", pi);
 				return "store/storedetail";
 			} else {
@@ -375,7 +405,7 @@ public class StoreController {
 			}
 		
 		
-		 
+			 
 		
 		
 	}
@@ -433,10 +463,9 @@ public class StoreController {
 		 
 		 s.setId(id);
 		 
+		 
+		 
 		 int result = sService.insertAnser(s);
-		 
-		 
-		 
 		 
 		 
 			/*

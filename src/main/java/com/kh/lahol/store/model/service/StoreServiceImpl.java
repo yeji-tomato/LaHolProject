@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kh.lahol.cafe.bus.model.vo.Cafe;
 import com.kh.lahol.store.model.dao.StoreDao;
 import com.kh.lahol.store.model.vo.PageInfo;
 import com.kh.lahol.store.model.vo.Search; 
@@ -114,9 +115,12 @@ public class StoreServiceImpl implements StoreService {
 		return sDao.insertQuestion(q);
 	}
 
-	
-	
-	
+	@Override
+	public List<Cafe> CafeCode(Search cd) {
+		return sDao. CafeCode(cd);
+	}
+
+ 
 
  
 
