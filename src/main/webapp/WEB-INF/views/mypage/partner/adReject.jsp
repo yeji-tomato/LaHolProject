@@ -26,13 +26,16 @@
             padding-top: 10%;
         }
 
-
+		.mp-container {
+        	height : 900px;
+        }
+        
         #mp{
             display: flex;
             margin-top: 1%;
             margin-left: 5%;
             width: 80vw;
-            height: 80vh;
+            height: 800px;
             justify-content: center;
             text-align: center;
             border-radius: 30px;
@@ -133,6 +136,11 @@
 
             width : 25vw;
             height: 40vh;
+            padding : 15px;
+            font-size : 1.5rem;
+            
+            text-align : center;
+            vertical-align : middle;
         }
 
         .modal2,
@@ -272,10 +280,11 @@
                     <h3>배너 반려 사유</h3>
                 </div>
                 <div class="input-div">
-                    <textarea id="returnReason" style="resize: none;" readonly></textarea>
+                    <%-- <textarea id="returnReason" style="resize: none;" readonly>${ ad.ad_reject }</textarea> --%>
+                    <input type="text" id="returnReason" readonly value="${ ad.ad_reject }">
                 </div>
                 <div class="btn-div">
-                    <button class="delete-btn" id="ok-btn" onclick="location.href='${contextPath}/pMypage/reAdView'">재신청</button>
+                    <button class="delete-btn" id="ok-btn" onclick="location.href='${contextPath}/pMypage/adView?ad_code=${ ad.ad_code }'">재신청</button>
                 </div>
             </div>
         </div>

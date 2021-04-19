@@ -171,6 +171,7 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 		       COUPON
 		 WHERE
 		       ID = #{id}
+	  ORDER BY REGEXP_REPLACE(COUPON_CODE, '[0-9]'), TO_NUMBER(REGEXP_REPLACE(COUPON_CODE, '[^0-9]')) DESC
 	</select>
 	<insert id="insertAd" parameterType="Ad">
 		INSERT
@@ -220,6 +221,8 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 		     , PURCHASE_NUMBER
 		     , SUBSCRIBE_CODE
 		     , CL_PAY_NO
+		     , PAY_DC
+		     , PAY_TOTAL
 		  )
 		VALUES
 		(
@@ -234,9 +237,11 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 		     , NULL
 		     , NULL
 		     , NULL
+		     , 0
+		     , #{pay_price}
 		)
 	</insert>
-	<select id="adListCount" parameterType="string">
+	<select id="adListCount" parameterType="string" resultType="_int">
 		SELECT
 		       COUNT(*)
 		  FROM
@@ -262,5 +267,40 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 		       AD
 		 WHERE
 		       ID = #{id}
+	  ORDER BY TO_NUMBER(AD_CODE) DESC
 	</select>
+	<select id="selectAdByCode" parameterType="string" resultMap="adResultSet">
+		SELECT
+		       AD_CODE
+		     , APPLYDATE
+		     , POSTDATE
+		     , DURATION
+		     , ORIGIN_IMAGE
+		     , RENAME_IMAGE
+		     , IMAGE
+		     , URL
+		     , AD_STATUS
+		     , AD_REJECT
+		     , ID
+		     , BN_CODE
+		  FROM
+		       AD
+		 WHERE
+		       AD_CODE = #{ad_code}
+	</select>
+	<update id="updateAd" parameterType="Ad">
+		UPDATE
+		       AD
+		   SET
+		       APPLYDATE = TO_DATE(#{ad_reject}, 'yy/mm/dd')
+		     , POSTDATE = NULL
+		     , ORIGIN_IMAGE = #{origin_image}
+		     , RENAME_IMAGE = #{rename_image}
+		     , IMAGE = #{image}
+		     , URL = #{url}
+		     , AD_STATUS = DEFAULT
+		     , AD_REJECT = NULL
+		 WHERE
+		       AD_CODE = #{ad_code}
+	</update>
 </mapper>

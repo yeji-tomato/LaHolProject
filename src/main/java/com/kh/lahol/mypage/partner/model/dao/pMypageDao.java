@@ -23,4 +23,8 @@ public interface pMypageDao {
 
 	List<Ad> selectAdList(String id, PageInfo pi);
 
+	Ad selectAdByCode(String ad_code);
+
+	int updateAd(Ad ad);
+
 }

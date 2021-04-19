@@ -53,4 +53,14 @@ public class pMypageDaoImpl implements pMypageDao{
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		return sqlSession.selectList("mypageMapper.selectAdList", id, rowBounds);
 	}
+
+	@Override
+	public Ad selectAdByCode(String ad_code) {
+		return sqlSession.selectOne("mypageMapper.selectAdByCode", ad_code);
+	}
+
+	@Override
+	public int updateAd(Ad ad) {
+		return sqlSession.update("mypageMapper.updateAd", ad);
+	}
 }

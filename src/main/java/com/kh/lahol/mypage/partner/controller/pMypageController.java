@@ -70,7 +70,12 @@ public class pMypageController {
 	}
 	
 	@GetMapping("/adView")
-	public String adView() {
+	public String adView(@RequestParam(value="ad_code", required=false, defaultValue="") String ad_code,
+			             Model model) {
+		if(!ad_code.equals("")) {
+			Ad ad = pService.selectAdByCode(ad_code);
+			model.addAttribute("ad", ad);
+		}
 		return "mypage/partner/adMain";
 	}
 	
@@ -154,8 +159,17 @@ public class pMypageController {
 	}
 	
 	@PostMapping("/adDate")
-	public String adDate(@RequestParam("day") String day, Model model) {
+	public String adDate(@RequestParam("day") String day,
+				         @ModelAttribute Ad ad,
+			             Model model) {
 		model.addAttribute("day", day);
+		Boolean reAd = false;
+		if(!ad.getAd_code().equals("")) {
+			reAd = true;
+			model.addAttribute("ad", ad);
+			model.addAttribute("reAd", reAd);
+		}
+		
 		return "mypage/partner/adImageUpload";
 	}
 	
@@ -163,8 +177,13 @@ public class pMypageController {
 	public String adImage(@ModelAttribute Ad ad,
 			              @RequestParam(value="banner-img") MultipartFile file,
 			              @RequestParam("day") String day,
+			              @RequestParam(value="reAd", required=false, defaultValue="false") Boolean reAd,
 			              HttpServletRequest request,
 			              Model model) {
+		if(ad.getRename_image() != null) {
+			deleteFile(ad.getRename_image(), request);
+		}
+		
 		if(!file.getOriginalFilename().equals("")) {
 			String renameFileName = saveFile(file, request);
 			String root = request.getSession().getServletContext().getContextPath();
@@ -174,6 +193,9 @@ public class pMypageController {
 			ad.setRename_image(renameFileName);
 			model.addAttribute("day", day);
 			model.addAttribute("ad", ad);
+			if(reAd) {
+				model.addAttribute("reAd", reAd);
+			}
 			return "mypage/partner/adURL";
 		} else {
 			model.addAttribute("msg", "이미지 업로드에 실패하였습니다.");
@@ -206,13 +228,36 @@ public class pMypageController {
 		return renameFileName;
 	}
 	
+	public void deleteFile(String rename_image, HttpServletRequest request) {
+		String root = request.getSession().getServletContext().getRealPath("resources");
+		File deleteFile = new File(root + "/muploadFiles/banner/" + rename_image);
+		
+		if(deleteFile.exists()) {
+			deleteFile.delete();
+		}
+	}
+	
 	@PostMapping("/adUrl")
 	public String adUrl(@ModelAttribute Ad ad,
 			            @RequestParam("day") String day,
-			            Model model) {
-		model.addAttribute("day", day);
-		model.addAttribute("ad", ad);
-		return "mypage/partner/adPayView";
+			            @RequestParam(value="reAd", required=false, defaultValue="false") Boolean reAd,
+			            Model model,
+			            RedirectAttributes rd) {
+		if(!reAd) {
+			model.addAttribute("ad", ad);
+			model.addAttribute("day", day);
+			return "mypage/partner/adPayView";
+		} else {
+			ad.setAd_reject(day);
+			int result = pService.updateAd(ad);
+			
+			if(result > 0) {
+				return "mypage/partner/adResult";
+			}
+			rd.addFlashAttribute("msg", "광고 재신청에 실패했습니다.");
+			return "redirect:/pMypage/adListView";
+		}
+		
 	}
 	
 	@PostMapping("/adPay")
@@ -224,6 +269,7 @@ public class pMypageController {
 			            HttpServletRequest request){
 		// day는 applyDate이지만, 자료형을 맞추기위해 임시로 담아 sql문에서 TO_DATE로 처리
 		ad.setAd_reject(day);
+		System.out.println("insert Ad : " + ad);
 		int result = pService.insertAd(ad);
 		
 		String id = ((Member)request.getSession().getAttribute("loginUser")).getId();
@@ -246,5 +292,20 @@ public class pMypageController {
 			return "mypage/partner/adMain";
 		}
 		
+	}
+	
+	@GetMapping("/adDetail")
+	public String adDetail(Model model,
+			               @RequestParam("ad_code") String ad_code,
+			               @RequestParam(value="page", required=false, defaultValue="1") int currentPage,
+			               RedirectAttributes rd) {
+		Ad ad = pService.selectAdByCode(ad_code);
+		if(ad != null) {
+			model.addAttribute("ad", ad);
+			return "mypage/partner/adReject";
+		} else {
+			rd.addFlashAttribute("msg", "광고 신청 내역 조회에 실패하였습니다.");
+			return "redirect:/pMypage/adListView";
+		}
 	}
 }
