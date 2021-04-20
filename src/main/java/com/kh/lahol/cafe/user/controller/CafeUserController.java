@@ -1,10 +1,13 @@
 package com.kh.lahol.cafe.user.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,11 +27,13 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
 import com.kh.lahol.cafe.bus.model.vo.Cafe;
 import com.kh.lahol.cafe.bus.model.vo.Coffee;
 import com.kh.lahol.cafe.user.model.exception.CafeException;
 import com.kh.lahol.cafe.user.model.service.CafeService;
 import com.kh.lahol.cafe.user.model.vo.CafeRes;
+import com.kh.lahol.cafe.user.model.vo.CoffeeCart;
 import com.kh.lahol.cafe.user.model.vo.CoffeeRes;
 import com.kh.lahol.member.model.vo.Member;
 
@@ -98,7 +103,7 @@ public class CafeUserController {
 		
 		//System.out.println("caResDate: "+ caDate);
 		r.setCaResDate(caDate);
-		System.out.println(r);
+		//System.out.println(r);
 		
 		int result = caService.hereInsertRes(r);
 		// System.out.println("result : "+ result);
@@ -124,12 +129,12 @@ public class CafeUserController {
 	public String togoInsert(Date caDate, String caResTime,@ModelAttribute CafeRes r) throws CafeException{
 		r.setCaResDate(caDate);
 		r.setCaResGoTime(caResTime);
-		System.out.println("caResGoTime: "+ caDate);
-		System.out.println("caResTime: "+ caResTime);
-		System.out.println(r);
+		//System.out.println("caResGoTime: "+ caDate);
+		//System.out.println("caResTime: "+ caResTime);
+		//System.out.println(r);
 		
 		int result = caService.togoInsertRes(r);
-		System.out.println("result : "+ result);
+		//System.out.println("result : "+ result);
 		
 		if(result > 0) {
 			return "/cafe/user/beverage";
@@ -162,8 +167,9 @@ public class CafeUserController {
 	
 	@PostMapping("/coRes/insert")
 	public String coResInsert(@ModelAttribute CoffeeRes coRes) throws CafeException{
-		//System.out.println(coRes);
+		System.out.println(coRes);
 		int result = caService.coResInsert(coRes);
+		System.out.println(coRes.getCfNo());
 		
 		if(result > 0) {
 			return "/cafe/user/beverageModal";
@@ -172,21 +178,31 @@ public class CafeUserController {
 		}
 	}
 	
-	@GetMapping("/coRes/basket")
-	public ModelAndView coResBasket(@SessionAttribute("loginUser") Member m,
-										ModelAndView mv) {
-		
-		String id = m.getId();
-		
-		List<CoffeeRes> CoffeeRes = caService.coResBasket(id);
-		System.out.println(CoffeeRes);
-		
-		mv.addObject("CoffeeRes", CoffeeRes);
-		mv.setViewName("cafe/user/bevCart");
-
-		return mv;
-		
-	}
+	private List<CoffeeCart> CoffeeCart;
+	
+	  @GetMapping("/coRes/basket") 
+	  public void coResBasket(@SessionAttribute("loginUser") Member m, ModelAndView mv, HttpServletResponse response,
+			  				String cfNo, String caResNo, @ModelAttribute CoffeeCart coCart) {
+		  response.setContentType("application/json; charset=utf-8");
+		  
+	  String id = m.getId();
+	  coCart.setCfNo(cfNo);
+	  coCart.setCaResNo(caResNo);
+	  coCart.setId(id);
+	  System.out.println(coCart);
+	  
+		try {
+			CoffeeCart = caService.coResBasket(coCart);
+			PrintWriter out = response.getWriter();
+			out.print(new Gson().toJson(CoffeeCart));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	   
+		System.out.println(CoffeeCart);
+	 
+	 }
+	
 	
 	
 	/*public String togo() {

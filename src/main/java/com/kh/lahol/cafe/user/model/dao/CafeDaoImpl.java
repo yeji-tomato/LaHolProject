@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.kh.lahol.cafe.bus.model.vo.Cafe;
 import com.kh.lahol.cafe.bus.model.vo.Coffee;
 import com.kh.lahol.cafe.user.model.vo.CafeRes;
+import com.kh.lahol.cafe.user.model.vo.CoffeeCart;
 import com.kh.lahol.cafe.user.model.vo.CoffeeRes;
 
 @Repository
@@ -51,9 +52,10 @@ public class CafeDaoImpl implements CafeDao {
 		return sqlSession.insert("cafeMapper.coResInsert", coRes);
 	}
 
+
 	@Override
-	public List<CoffeeRes> coResBasket(String id) {
-		return sqlSession.selectList("cafeMapper.coResBasket", id);
+	public List<CoffeeCart> coResBasket(CoffeeCart coCart) {
+		return sqlSession.selectList("cafeMapper.coResBasket", coCart);
 	}
 
 }

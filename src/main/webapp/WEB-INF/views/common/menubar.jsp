@@ -70,7 +70,7 @@ scope="application"/>
 						</svg>
 						<p id="loginInfo">WELCOME&nbsp;</p>
 						<p id="loginId">${ sessionScope.loginUser.id }</p>
-						<p id="cart">
+						<p id="basket">
 							<a href="${ contextPath }/basket/cart">
 								<i class="fa fa-shopping-cart" aria-hidden="true"></i>&nbsp;CART
 							</a>

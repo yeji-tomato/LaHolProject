@@ -9,7 +9,7 @@
 <!-- beverage css -->
 <link rel="stylesheet" href="${ contextPath }/resources/css/cafe/user/beverage.css">
 </head>
-<body style="background: #f0ebe5;">
+<body>
 	
 	<!-- menubar -->
 	<jsp:include page="/WEB-INF/views/common/menubar.jsp"/>
@@ -19,9 +19,12 @@
     <div class="beverage-TB">
     <!-- 정렬 방식 -->
     <section class="content-cafe-sc">
-    <h1 class="berCate">BEVERAGE</h1>
-        <div class="container" id="ct-cf">          
-            <div class="row row-cols-4" id="rowP">
+    
+        <div class="container" id="ct-cf"> 
+         <div class="row">
+		    <div class="col-8">
+		    <h1 class="berCate">BEVERAGE</h1>
+		    	<div class="row row-cols-3" id="rowP">
             <c:forEach var="coffee" items="${ Coffeelist }">
             <c:choose>
             <c:when test="${!empty coffee}">
@@ -41,6 +44,12 @@
           	
             </c:forEach>
             </div>
+		    </div>
+		    <div class="col-4">
+		    	<%@include file="./coffeeCart.jsp" %>
+		    </div>
+		  </div>         
+            
             
         </div>
        
@@ -52,8 +61,7 @@
     </div>
     </div>
 
-    <!-- 장바구니 -->
-    <%@include file="./bevCart.jsp" %>
+
 
 	<!-- footer -->
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"/>

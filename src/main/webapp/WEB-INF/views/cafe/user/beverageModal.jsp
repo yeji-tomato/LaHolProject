@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -72,11 +73,11 @@
                     </div>
                 </div>
 				<!-- 카페 번호 -->
-				<input type="text" id="cfNo" value="${ coffee.cfNo }"/>
+				<input type="hidden" id="coffeeNo" value="${ coffee.cfNo }"/>
 				<!-- 카페 예약 번호 -->
-				<input type="text" id="caResNo" value="${ cafeRes.caResNo }"/>
+				<input type="hidden" id="caResNo" value="${ cafeRes.caResNo }"/>
                 <!-- 아이디 -->
-                <input type="text" id="caResNo" value="${ cafeRes.userId }"/>
+                <input type="hidden" id="caResNo" value="${ cafeRes.userId }"/>
                 <div class="bev" id="hotOrIce">
                     <hr>
                     <h4>종류</h4>
@@ -174,6 +175,8 @@
                             $(this).addClass("select");
                         });
                         });
+                        
+                        var coffeeNo = $("#coffeeNo").val();
                     </script>
                 </div>
             </div>
@@ -183,9 +186,11 @@
             </div>
             <script>
             function cartBtn(cfNo){
-            	$(".cart").addClass("cartAdd");
             	
-            	var cfNo = $("#cfNo").val();
+            	
+/*             	var coffeeNo = $("#coffeeNo").val();
+            	console.log(coffeeNo); */
+            	console.log(cfNo);
             	var caResNo = $("#caResNo").val();
             	var hotIce = $(".select > #hotIce").val();
             	var capa = $(".select > #capa").val();
@@ -201,8 +206,62 @@
             			cfResCap : capa,
             			cfResCup : cups,
             			cfResAmount : countBox
-            		}
+            		},
+            		success : function(data){
+            			cosole.log(data);
+            		},
+            		error : function(e){
+    					console.log(e);
+    				}
             	});
+            	
+            	$.ajax({
+    				url:"${ contextPath }/cafe/coRes/basket",
+    				type: "get",
+    				data : {
+    					cfNo : cfNo,
+    					caResNo : caResNo
+    				},
+    				dataType : "json",
+    				success : function(data){
+    					alert("불러오는 것에 대해 성공하였습니다.");
+    					console.log(data);
+    					var str = '';
+    					var total = '';
+    					var toPrice = 0;
+    					
+    					CoffeeCart = $("#CoffeeCart");
+    					CoffeeCart.html("");
+    					totalPrice = $("#totalPrice").html("");
+    					
+    					for(var i in data){
+    						
+    						str += '<td class="d-flex justify-content-between py-3 border-bottom">';
+    						str += '<li class="clearfix">';
+    						str += '<img src="${ contextPath }/resources/nuploadFiles/cafeImg/' + data[i].cfIchname + '" alt="..."  style="width: 100px;"/>';
+    						str += '&nbsp;<span class="item-name">'+ data[i].cfName +'</span>';
+    					
+    						str += '&nbsp;<span class="item-price">'+ data[i].cfPrice +'원</span>';
+    						str += '&nbsp;<span class="item-name">수량 :'  + data[i].cfResAmount +'</span><br>';
+    						str += '</li>';
+    		                str += '</td>';
+    		                
+    		                CoffeeCart.append(str);
+    		                
+    		                toPrice += parseInt(data[i].cfPrice * data[i].cfResAmount);
+    					}
+    					total += '<td class="d-flex justify-content-between py-3 border-bottom">';
+		                total += '<strong class="text-muted">결제금액</strong>';
+		                total += '<h5 class="font-weight-bold">' + toPrice + '원</h5>';
+		                total += '</td>';
+		                
+		                totalPrice.html(total);
+    					 /* $("#CoffeeCart").html(str); */
+    				},
+    				error : function(e){
+    					console.log(e);
+    				}
+    			});
             }
             </script>
         </div>
