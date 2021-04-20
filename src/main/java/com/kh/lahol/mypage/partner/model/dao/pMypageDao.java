@@ -5,6 +5,7 @@ import java.util.List;
 import com.kh.lahol.member.model.vo.Member;
 import com.kh.lahol.mypage.common.PageInfo;
 import com.kh.lahol.mypage.partner.model.vo.Ad;
+import com.kh.lahol.mypage.partner.model.vo.CoffeeClass;
 import com.kh.lahol.mypage.partner.model.vo.Payment;
 
 public interface pMypageDao {
@@ -26,5 +27,17 @@ public interface pMypageDao {
 	Ad selectAdByCode(String ad_code);
 
 	int updateAd(Ad ad);
+
+	int classListCount(String id);
+
+	List<CoffeeClass> selectClassList(String id, PageInfo pi);
+
+	int selectClassMemberCount(String class_no);
+
+	List<Member> selectClassMember(String class_no, PageInfo pi);
+
+	CoffeeClass selectClassByNo(String class_no);
+
+	int payStoreListCount(String id);
 
 }
