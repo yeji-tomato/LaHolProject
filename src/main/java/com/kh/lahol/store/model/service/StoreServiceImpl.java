@@ -10,6 +10,7 @@ import com.kh.lahol.store.model.dao.StoreDao;
 import com.kh.lahol.store.model.vo.PageInfo;
 import com.kh.lahol.store.model.vo.Search; 
 import com.kh.lahol.store.model.vo.Store;
+import com.kh.lahol.store.model.vo.Sub;
 import com.kh.lahol.store.model.vo.storeA;
 import com.kh.lahol.store.model.vo.storeQ;
 
@@ -118,6 +119,11 @@ public class StoreServiceImpl implements StoreService {
 	@Override
 	public List<Cafe> CafeCode(Search cd) {
 		return sDao. CafeCode(cd);
+	}
+
+	@Override
+	public int subscribe(Sub sb) {
+		return sDao.subscribe(sb);
 	}
 
  

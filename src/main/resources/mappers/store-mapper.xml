@@ -41,6 +41,17 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 		<result property="aContent" column="A_CONTENT"/>
 		<result property="id" column="ID"/>  
 	</resultMap>
+	 
+	
+	 <resultMap id="SubResultSet" type="Sub">
+		<id property="Sub_code" column="SUBSCRIBE_CODE"/>
+		<result property="Pr_code" column="PR_CODE"/>
+		<result property="Subs_Month" column="SUBS_MONTH"/>  
+		<result property="Pay" column="PAY_PRICE"/>
+		<result property="Number" column="NUMBER_OF_DE"/>  
+		<result property="S_status" column="SHIPPING_STATUS"/>
+		<result property="S_date" column="SHIPPING_DATE"/>  
+	</resultMap>
  
 	
 	<!-- 
@@ -515,5 +526,37 @@ C_CODE	VARCHAR2(30 BYTE)	No		18	카페코드
 		 
 	</select>
  
+ 
+ 
+  
+ 
+ <insert id="insertsubscribe" parameterType="string">
+		INSERT
+		INTO SUB
+		(
+		       SUBSCRIBE_CODE
+		     , PR_CODE
+		     , SUBS_MONTH
+		     , PAY_PRICE
+		     , NUMBER_OF_DE
+		     , SHIPPING_STATUS
+		     , SHIPPING_DATE
+		    
+		 	)
+		VALUES
+		(
+			 STS.NEXTVAL
+			,#{Pr_code}
+			,#{Subs_Month}
+			,#{Pay}
+			,#{Number}
+			,#{S_status}
+			, SYSDATE
+			 
+		)
+	
+	</insert>
+ 
+  
 	
 </mapper>

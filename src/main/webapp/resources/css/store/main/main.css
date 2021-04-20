@@ -771,7 +771,10 @@ ul {
          /*수정 삭제 */
  
  		#createB{
- 			width: 100px;
-            height: 35px;
+ 			 width: 120px;
+            height: 30px;
+            background-color: #F3D798;
+            color: white; 
  		}
+ 	 
  

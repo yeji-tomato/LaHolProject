@@ -101,14 +101,14 @@
                      </div>
                     <div class="fi" style="margin-left:20px">
                     	  <h4 >  &nbsp;추천상품</h4>
-                        <select id="filter"  style="margin-top: 0px;margin-left: 5px;">  
+                       <!--  <select id="filter"  style="margin-top: 0px;margin-left: 5px;">  
                         
                             <optgroup label="필터" >
                                 <option value="높은순">높은순</option>
                                 <option value="낮은순">낮은순</option>
                                 <option value="인기순">인기순</option> 
                             </optgroup>
-                        </select> 
+                        </select>  -->
                     </div>
                    
 					<!-- 인기 상품  -->	

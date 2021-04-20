@@ -1,0 +1,205 @@
+@charset "UTF-8";
+
+/* 넥슨 고딕 Bold */
+@font-face {
+    font-family: 'NEXON Lv1 Gothic OTF Bold';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF Bold.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+*{
+    font-family: 'NEXON Lv1 Gothic OTF Bold';
+}
+  
+ 
+   body{
+            background-color: #f6ebdb;
+        }
+        
+        .banner{
+            width : 100%;
+            height: 50vh;
+            background-image: url(../resources/images/store/텀블러.jpg);
+            background-repeat: no-repeat;
+            background-size: cover;
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        .intro{
+            color : #e3a259;
+            text-align: center;
+            padding: 20px;
+            font-family: 'ELAND_Nice_M';
+        }
+
+        #intro-sub{
+            color: #f1d1ac;
+        }
+      
+
+        #createform{
+            text-align: center;
+            height: 1800px;
+        }
+
+        
+ 
+
+        .btnarea{
+            margin-top: 5%;
+            margin-bottom: 5%;
+            text-align: center;
+        }
+
+      
+
+        #tbColor{
+            background-color: White;
+            border-radius: 30vw;
+            padding-top: 5%;
+            margin-top: 2%;
+            padding-bottom: 3%;
+        }
+
+        /*정기구독*/
+
+        /* 상품 정보*/
+        .np .class{
+            float: left;
+        }
+
+        .np>#a{
+            float: left;
+            margin-left: 14%;
+        }
+       
+        .if{
+            
+         height: 400px;
+
+        }
+        .pi{
+            float: left;
+            margin-top: 3%;
+            margin-left: 7%;
+        }
+        .prname{
+            float: left;
+            margin-top: 11%;
+            margin-left: 20%;
+            font-size:x-large;
+        }
+
+        .prp{
+            float: left;
+            margin-top: 11%;
+            margin-left: 25%;
+            font-size:x-large;
+            color:brown;
+
+        }
+        /* 할인 정보*/
+
+        .np2 .class{
+            float: left;
+        }
+
+        .np2>#a{
+            float: left;
+            margin-left: 14%;
+        
+        }
+
+       
+
+        .spi{
+            height: 350px;
+            width: 90%;
+            float: left;
+        }
+        .t{
+           width: 100%;
+           font-size: 25px;
+           margin-top: 5%;
+           margin-left: 10px;
+           float: left;
+         
+        }
+        .t>div{
+            float: left;
+            margin-left: 13%;
+        }
+        #h{
+            margin-left: 35%;
+        }
+        #hp{
+            float: right;
+            color:brown;
+        }
+
+        hr{
+            
+            width: 1200px;
+            margin-left: 60px;
+            border: 2px solid black;
+
+        }
+         /* 결제 정보*/
+
+         .ss{
+             width: 94%;
+             height: 150px;
+             border: solid 1px black; 
+             margin-top: 350px;
+             margin-left: 50px;
+
+         }
+         .hh>div{
+             margin-left: 2%;
+             font-size: 25px;
+             float: left;
+         }
+
+         .hh2{
+             font-size: 30px;
+         }
+
+         /*배송정보*/
+         .deinf{
+            width: 94%;
+            height: 350px;
+            border: solid 1px black;  
+            margin-left: 50px;
+            margin-top: 5%;
+
+         }
+         
+         .di1{
+             margin-left: 5%;
+         }
+
+         .di2{
+              margin-left: 600px;
+
+         }
+           /* 버튼 색깔 */
+        #btnArea2{
+            color: white;
+            background-color: #e3a259;
+        }
+        #btnArea2:hover{
+            color: black;
+            background-color: #f1d1ac;
+        }
+        #btnArea1{
+            color: white;
+            background-color: #f0c21b;
+        }
+        #btnArea1:hover{
+            color: black;
+            background-color: #f8e18d;
+        }
+ 
+ 
