@@ -42,6 +42,9 @@ public interface CoffeeClassSerivce {
 	// 11. 검색
 	public List<ClassSearch> searchList(ClassSearch search);
 
+	// 12. 필터
+	public List<ClassSearch> filterList(ClassSearch search);
+
 
 
 	

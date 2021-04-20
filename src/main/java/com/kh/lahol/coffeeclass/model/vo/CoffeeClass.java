@@ -1,6 +1,8 @@
 package com.kh.lahol.coffeeclass.model.vo;
   
-import java.sql.Date;
+import java.util.Date;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -27,9 +29,10 @@ public class CoffeeClass{
 	private String trIntro;
 	private String classCurri;
 	private int studentMax;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date classDate;
 	private String classLoca;
-	private String clPrice;
+	private int clPrice;
 	private String classLvl;
 	private int runtime;
 	private String blind;
@@ -42,6 +45,7 @@ public class CoffeeClass{
 	private String trPhoto;
 	private String clPhoto;
 	private String clWriter;
+	private String category;
 	
 	// report정보
 	private String rpReason;

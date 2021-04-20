@@ -84,6 +84,12 @@ public class CoffeeClassDaoImpl implements CoffeeClassDao{
 		return sqlSession.selectList("clMapper.searchClass", search);
 	}
 
+	// 필터
+	@Override
+	public List<ClassSearch> selectClassFilter(ClassSearch search) {
+		return sqlSession.selectList("clMapper.filterClass", search);
+	}
+
 	
 
 

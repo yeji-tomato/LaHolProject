@@ -95,6 +95,19 @@
 								<input type="text" id="linkedcafe" value="${ mycafe.caName }" readonly>
 						</td>
 					</tr>
+					
+					<tr>
+						<td>카테고리</td>
+						<td class="answer" style="text-align: left;">
+						<select name="category">
+							 <option selected disabled="disabled">난이도 선택</option>
+							 <option value="coffee">로스팅/원두</option>
+				             <option value="art">라테아트/디자인</option>
+				             <option value="dessert">디저트</option>
+				             <option value="certi">자격증</option>
+				             <option value="etc">기타</option>
+						</select></td>
+					</tr>
 
 
 					<tr>
@@ -211,7 +224,7 @@
 		</div>
 	</div>
 	
-	</script>
+	
 	
 	 <!-- footer -->
 	<jsp:include page="/WEB-INF/views/common/footer2.jsp"/>

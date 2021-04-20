@@ -20,8 +20,8 @@
 
 
       <!-- 후기 -->
-        <div class="tab-pane fade" id="review" role="tabpanel" aria-labelledby="review-tab" style="background-color: blueviolet;">
-          <div style="background-color: blueviolet; padding-top: 3vh;">
+        <div class="tab-pane fade" id="review" role="tabpanel" aria-labelledby="review-tab">
+          <div style="padding-top: 3vh;">
           <div class="clcomment">
             <table>
               <tr>
@@ -39,8 +39,8 @@
                   2020.04.20
                 </td>
                 <td>
-                  <button class = "iconbtn">
-                  <img src = "../../LaHolFront/resources/images/class/report.png"  class="iconbtn">
+                  <button class = "iconbtn" style="background-color: transparent; border: 0px;" data-bs-toggle="modal" data-bs-target="#commentModal" >
+                  <img src = "${ contextPath }/resources/img/coffeeclass/report.png" class="reportbtn">
                 </button>
               </td>
               </tr>
@@ -69,8 +69,8 @@
                 <td>
                   2020.04.20
                 <td>
-                  <button class = "iconbtn btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" >
-                  <img src = "../../LaHolFront/resources/images/class/report.png"  class="iconbtn">
+                  <button class = "iconbtn" style="background-color: transparent; border: 0px;" data-bs-toggle="modal" data-bs-target="#commentModal" >
+                  <img src = "${ contextPath }/resources/img/coffeeclass/report.png" class="reportbtn">
                 </button>
               </td>
               </tr>
@@ -88,8 +88,7 @@
 
 
 	 <!-- Q&A -->
-
-	 <div class="tab-pane fade" id="qa" role="tabpanel" aria-labelledby="qa-tab">
+	<div class="tab-pane fade" id="qa" role="tabpanel" aria-labelledby="qa-tab">
           <div class="qa-content">
             <div class="writeBtn">
               <button id="wBtn">Write</button>
@@ -221,6 +220,9 @@
           </div>
         </div>
         </div>
+	
+	
+
 
 </body>
 </html>
