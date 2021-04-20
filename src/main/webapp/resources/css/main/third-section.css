@@ -7,8 +7,7 @@
 #sc3{
   margin:0px; padding:0px; 
   box-sizing:border-box;
-    background-color: #F3D798;
-    /* background-color: #f6ebdb; */
+  background-color: #f6ebdb;
     padding: 40px;
 }
 
@@ -28,7 +27,7 @@
 }
 
 .title span {
-    color:#ffffff;
+    color:#5A452E;
     overflow:hidden;
 }
 

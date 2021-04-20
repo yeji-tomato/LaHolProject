@@ -11,9 +11,8 @@
 /* 광고부분 */
 .box{
     margin-top: -20%;
-    background-color: #f6ebdb;
     height: 100vh;
-
+	background: #fefaeb;
 }
 .cir{
     /* position: absolute; */
@@ -45,7 +44,7 @@
     font-size: 50px;
     margin: 100px;
     /* margin-top: 0px; */
-    color: #CDC2AF;
+    color: black;
 }
 .adSlider{
     margin-top: -25%;

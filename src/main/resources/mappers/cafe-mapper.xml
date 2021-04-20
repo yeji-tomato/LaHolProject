@@ -58,6 +58,35 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 		<result property="caResGoTime" column="C_GOTIME"/>		
 	</resultMap>
 	
+	<resultMap id="coffeeResResultSet" type="CoffeeRes">
+		<id property="cfResNo" column="CF_RES"/>
+		<result property="cfResHI" column="CF_RES_HI"/>
+		<result property="cfResCap" column="CF_RES_CAP"/>
+		<result property="cfResCup" column="CF_RES_CUP"/>
+		<result property="caResNo" column="C_RES"/>
+		<result property="cfResAmount" column="CF_AMOUNT"/>
+		<result property="cfNo" column="CF_NO"/>		
+	</resultMap>
+	
+	<resultMap id="coffeeCartResultSet" type="CoffeeCart">
+		<id property="cfResNo" column="CF_RES"/>
+		<result property="cfResHI" column="CF_RES_HI"/>
+		<result property="cfResCap" column="CF_RES_CAP"/>
+		<result property="cfResCup" column="CF_RES_CUP"/>
+		<result property="caResNo" column="C_RES"/>
+		<result property="cfResAmount" column="CF_AMOUNT"/>
+		<result property="cfNo" column="CF_NO"/>
+		<result property="cfIchname" column="CF_ICHNAME"/>
+		<result property="cfName" column="CF_NAME"/>
+		<result property="cfPrice" column="CF_PRICE"/>
+		<result property="cfCount" column="CF_COUNT"/>
+		<result property="caResDate" column="C_RES_DATE"/>
+		<result property="caResType" column="C_RES_TYPE"/>
+		<result property="caResHereTime" column="C_HERETIME"/>
+		<result property="caResGoTime" column="C_GOTIME"/>
+		<result property="id" column="ID"/>			
+	</resultMap>
+	
 	<!-- 입력을 위한 카페 정보 가져오기 -->
 	<select id="selectCafeWrite" resultMap="cafeResultSet">
 	SELECT	
@@ -359,8 +388,8 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
         '매장',
         #{caResDate},
         #{caResPer},
-        'CA5',
-        'user01',
+        #{caNo},
+        #{userId},
         DEFAULT,
         #{caResHereTime},
         NULL
@@ -384,18 +413,99 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 	)
 	VALUES
     (
-        'CARES' || CA_RES.NEXTVAL,
+        'CAR' || CA_RES.NEXTVAL,
         '포장',
         #{caResDate},
         #{caResPer},
-        'CA5',
-        'user01',
+        #{caNo},
+        #{userId},
         DEFAULT,
         NULL,
         #{caResGoTime}
     )
 	</insert>
 	
+	<select id="coffeeBeverage" resultMap="coffeeResultSet">
+	SELECT
+    	CF_NO,
+	    CF_CATEGORY,
+	    CF_INAME,
+	    CF_ICHNAME,
+	    CF_IPATH,
+	    CF_NAME,
+	    CF_PRICE,
+	    CF_COUNT,
+	    C_CODE
+	FROM COFFEE
+	WHERE C_CODE = #{caCode}
+	ORDER BY CF_CATEGORY DESC
+	</select>
+	
+	<select id="hereTogoInfo" resultMap="cafeResResultSet">
+	SELECT
+		C_RES,
+		C_RES_TYPE,
+		C_RES_DATE,
+		C_RES_PER,
+		C_CODE,
+		ID,
+		C_RES_ING,
+		C_HERETIME,
+		C_GOTIME
+    FROM (
+    SELECT * FROM CARES
+    WHERE ID = #{id}
+    ORDER BY C_RES DESC)
+    WHERE ROWNUM = 1
+	</select>
+	
+	<insert id="coResInsert" parameterType="CoffeeRes">
+	INSERT 
+	INTO CORES
+	(
+		CF_RES,
+		CF_RES_HI,
+		CF_RES_CAP,
+		CF_RES_CUP,
+		C_RES,
+		CF_AMOUNT,
+		CF_NO
+	)
+	VALUES
+	(
+		'COR' || CO_RES.NEXTVAL,
+		#{cfResHI},
+		#{cfResCap},
+		#{cfResCup},
+		#{caResNo},
+		#{cfResAmount},
+		#{cfNo}
+	)
+	</insert>
+	
+	<select id="coResBasket" resultMap="coffeeCartResultSet">
+	SELECT  CF_RES,
+            CF_RES_HI,
+            CF_RES_CAP,
+            CF_RES_CUP,
+            COR.C_RES,
+            CF_AMOUNT,
+            COR.CF_NO,
+            CO.CF_ICHNAME,
+            CO.CF_NAME,
+            CO.CF_PRICE,
+            CO.CF_COUNT,
+            CAR.C_RES_DATE,
+            CAR.C_RES_TYPE,
+            CAR.C_HERETIME,
+            CAR.C_GOTIME,
+            CAR.ID
+	FROM CORES COR, COFFEE CO, CARES CAR
+	WHERE COR.CF_NO = CO.CF_NO
+	AND COR.C_RES = CAR.C_RES
+    AND  COR.C_RES = #{caResNo}
+	AND CAR.ID = #{id}
+	</select>
 	
 	 
 </mapper>

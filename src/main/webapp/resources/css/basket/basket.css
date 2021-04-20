@@ -1,0 +1,269 @@
+@charset "UTF-8";
+
+@charset "UTF-8";
+
+
+@font-face {
+    font-family: 'NEXON Lv1 Gothic OTF Bold';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF Bold.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}  
+
+*{
+    font-family: 'NEXON Lv1 Gothic OTF Bold';
+}
+
+
+@keyframes check {0% {height: 0;width: 0;}
+25% {height: 0;width: 10px;}
+50% {height: 20px;width: 10px;}
+}
+.checkbox{background-color:#fff;display:inline-block;height:28px;margin:30%;width:28px;border-radius:4px;border:1px solid #ccc;float:right;}
+.checkbox span{display:block;height:28px;position:relative;width:28px;padding:0}
+.checkbox span:after{-moz-transform:scaleX(-1) rotate(135deg);-ms-transform:scaleX(-1) rotate(135deg);-webkit-transform:scaleX(-1) rotate(135deg);transform:scaleX(-1) rotate(135deg);-moz-transform-origin:left top;-ms-transform-origin:left top;-webkit-transform-origin:left top;transform-origin:left top;border-right:4px solid #fff;border-top:4px solid #fff;content:'';display:block;height:20px;left:3px;position:absolute;top:15px;width:10px}
+.checkbox span:hover:after{border-color:#999}
+.checkbox input{display:none}
+.checkbox input:checked + span:after{-webkit-animation:check .8s;-moz-animation:check .8s;-o-animation:check .8s;animation:check .8s;border-color:#555}
+.checkbox input:checked + .warning:after{
+    border-color:#4B654A
+}
+
+.outer1{
+	margin: 10%;
+}
+
+/* .cart{
+	box-shadow : .25rem .25rem .125rem .25rem rgba(0,0,0,.075);
+} */
+
+
+.basketdiv {
+    width: 100%;
+    float: left;
+    font-size: 0.9375em;
+    margin-bottom: 20px;
+}
+    .basketdiv .row.head {
+        /* border-bottom: 3px solid #4B654A;
+        background-color: #f0ebe5; */
+        /* border-bottom: 3px solid #CDC2AF; */
+        background-color: #F3EFEB;
+        box-sizing: border-box;
+        font-weight: 500;
+        margin-left: 0px;
+        margin-right: 0px;
+        border-radius : 50rem;
+
+    }
+    .basketdiv .data {
+        border-bottom: 1px solid#5A452E;
+        box-sizing: border-box;
+        cursor: pointer;
+        float: left;
+        width: 100%;
+        height: 120px;
+        margin-top: 0px;
+        margin-left: 0px;
+        margin-right: 0px;
+
+
+    }
+    .basketdiv .data .empty{
+        text-align: center;
+        padding: 12px 0;
+    }
+    .basketdiv .row > .subdiv {
+        display: block;
+        float: left;
+    }
+    .basketdiv .row > .subdiv:nth-child(1) {
+        width: 50%;
+    }
+    .basketdiv .row > .subdiv:nth-child(2) {
+        width: 40%;
+    }
+    .basketdiv .row > .subdiv:nth-child(3) {
+        width: 10%;
+    }
+    .basketdiv2 .row > .subdiv:nth-child(1) {
+        width: 60%;
+    }
+    .basketdiv2 .row > .subdiv:nth-child(2) {
+        width: 40%;
+    }
+    .basketdiv .row > div > div {
+        display: block;
+        float: left;
+        text-align: center;
+        margin: 0;
+        padding: 12px 0;
+    }
+    .basketdiv .row.data > div > div {
+        height: 60px;
+        line-height: 60px;
+       
+
+    }
+        .basketdiv .data .num .updown {
+            color: #4B654A;
+            font-size: 15px;
+            /* letter-spacing: -5px; */
+        }
+        .basketdiv .check {
+            width: 10%;
+        }
+    .basketdiv .check input[type=checkbox] {
+        transform: scale(1.5);
+    }
+    .basketdiv .img{
+        width: 20%;
+    }
+    .basketdiv .pname{
+        width: 60%;
+    }
+    .basketdiv2 .pname {
+        width: 70%;
+    }
+    .basketdiv .basketprice {
+        width: 20%;
+    }
+    .basketdiv .num {
+        width: 29%;
+      min-width: 100px;
+    }
+    .basketdiv .del {
+        width: 30%;
+      min-width: 100px;
+    }
+    .basketdiv .sum {
+        width: 70px;
+         max-width: 100px;
+        color: #810B0B;
+    }
+    .basketdiv .point {
+        width: 50%;
+    }
+    .basketdiv2 .basketprice {
+        width: 25%;
+    }
+
+    .basketdiv2 .num {
+        width: 27%;
+    }
+
+    .basketdiv2 .sum {
+        width: 28%;
+        color: #0000aa;
+    }
+
+    .basketdiv2 .point {
+        width: 25%;
+    }
+    .basketdiv .basketcmd{
+        width: 100%;
+        text-align: center;
+    }
+    .basketdiv .data .pname {
+        text-align: left !important;
+      line-height: 1.2 !important;
+      padding-top: 30px;
+      padding-left: 20px;
+    }
+    .basketdiv .data .price, .basketdiv .data .sum, .basketdiv .data .point {
+        text-align: right;
+    }
+    .baseform > tbody > tr > td:first-child {
+        width: 100px;
+    }
+
+.buttongroup {
+    padding: 11px 0;
+    margin: 50px 0;
+}
+.narrowbuttongroup{
+    margin: 15px 0;
+}
+    .buttongroup.center {
+        text-align: center;
+    }
+    .buttongroup input[type=text], .buttongroup input[type=password] {
+        height: 30px;
+    }
+    .buttongroup button, .buttongroup a {
+        margin-right: 5px;
+    }
+        .buttongroup button:last-child, .buttongroup a:last-child {
+            margin-right: 0;
+        }
+
+    .abutton, .abutton:link, .abutton:visited, .abutton:active, input[type=button] {
+        color: #414141;
+        cursor: pointer;
+        letter-spacing: -1px;
+        padding: 3px 5px;
+        margin: 2px 3px;
+        width: auto;
+        word-break: keep-all;
+        border-radius: 5px;
+        text-decoration: none;
+        font-size: 0.9375em;
+    }
+    
+    #trashBtn{
+    	border : 1px solid white;
+    	background : #CDC2AF;
+    }
+    
+    #trashBtn:hover{
+    	background : #5A452E;
+    	color : white;
+    }
+
+.abutton-alt {
+    background-color: #d3e2c6;
+}
+
+.red {
+    color:#b00;
+}
+.blue {
+  color: #0075ff;
+}
+.basketrowcmd, .sumcount, .summoney{
+  text-align: right;
+  margin-bottom: 10px;
+  margin-right : 20px;
+}
+.sumcount, .summoney{
+  font-size: 1.25em;
+    font-weight: bold;
+}
+.buttongroup{
+  text-align: center;
+}
+.buttongroup a{
+  text-decoration: none;
+}
+.cmd a, .cmd span {
+    padding: 12px 30px;
+    box-sizing: border-box;
+    margin-top: 10px;
+    font-size: 1.2em;
+    color: #000;
+    background-color: #f4f4f4;
+    border: 1px solid #e0e0e0;
+    text-align: center;
+}
+.cmd.small a, .cmd.small span {
+    padding: 6px 20px;
+    font-size: 0.8125em;
+}
+
+.orderform .p_num {
+    text-align: center;
+    height: 26px;
+    width: 20px;
+    font-size: 1em;
+    border: 0;
+}

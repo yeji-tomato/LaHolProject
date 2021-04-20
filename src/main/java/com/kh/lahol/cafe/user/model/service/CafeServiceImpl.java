@@ -6,8 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.lahol.cafe.bus.model.vo.Cafe;
+import com.kh.lahol.cafe.bus.model.vo.Coffee;
 import com.kh.lahol.cafe.user.model.dao.CafeDao;
 import com.kh.lahol.cafe.user.model.vo.CafeRes;
+import com.kh.lahol.cafe.user.model.vo.CoffeeCart;
+import com.kh.lahol.cafe.user.model.vo.CoffeeRes;
 
 @Service
 public class CafeServiceImpl implements CafeService{
@@ -32,6 +35,26 @@ public class CafeServiceImpl implements CafeService{
 	@Override
 	public Cafe searchDetail(String caCode) {
 		return caDao.searchDetail(caCode);
+	}
+
+	@Override
+	public List<Coffee> coffeeBeverage(String caCode) {
+		return caDao.coffeeBeverage(caCode);
+	}
+
+	@Override
+	public CafeRes hereTogoInfo(String id) {
+		return caDao.hereTogoInfo(id);
+	}
+
+	@Override
+	public int coResInsert(CoffeeRes coRes) {
+		return caDao.coResInsert(coRes);
+	}
+
+	@Override
+	public List<CoffeeCart> coResBasket(CoffeeCart coCart) {
+		return caDao.coResBasket(coCart);
 	}
 	
 

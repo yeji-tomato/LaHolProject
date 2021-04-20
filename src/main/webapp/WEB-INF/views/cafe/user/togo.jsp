@@ -54,6 +54,8 @@
         <!-- 매장 폼 -->
         <div class="col-5">
             <div class="cf-info">
+            <input type="hidden" name="caNo" id="caCode" value="${ param.caCode }">
+            <input type="hidden" id="userId" name="userId" value="${ loginUser.id }">
             <div class="cafeTB">
                 <table class="cf-table">
                 <thead>
@@ -128,6 +130,7 @@
     
     
 </script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <script>
 	$(function(){
 		
@@ -140,12 +143,14 @@
 				url:"${ contextPath }/cafe/togo/insert",
 				type : "post",
 				data : {
+					caNo : caNo,
+					userId : userId,
 					caDate : Date,
 					caResTime : caResTime
 				},
 				success : function(data){
 					alert("포장 예약이 완료 되었습니다!");
-					location.href='${ contextPath }/cafe/beverage';
+					location.href='${ contextPath }/cafe/beverage?caCode=${ cafeInfo.caCode }';
 				},
 				error : function(e){
 					console.log(e);
