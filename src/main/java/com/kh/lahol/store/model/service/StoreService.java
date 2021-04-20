@@ -6,6 +6,7 @@ import com.kh.lahol.cafe.bus.model.vo.Cafe;
 import com.kh.lahol.store.model.vo.PageInfo;
 import com.kh.lahol.store.model.vo.Search; 
 import com.kh.lahol.store.model.vo.Store;
+import com.kh.lahol.store.model.vo.Sub;
 import com.kh.lahol.store.model.vo.storeA;
 import com.kh.lahol.store.model.vo.storeQ;
 
@@ -51,6 +52,8 @@ public interface StoreService {
 	public int insertQuestion(storeQ q);
 
 	public List<Cafe> CafeCode(Search cd);
+
+	public int subscribe(Sub sb);
 
  
 

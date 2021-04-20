@@ -24,7 +24,8 @@
 <body>
 	<!-- menubar -->
 	<jsp:include page="/WEB-INF/views/common/menubar.jsp"/>
- <div class="banner">
+ <div class="banner" style="  height: 100px;
+">
         <h1 style="padding-top: 18vh;">라홀의 가족이 되시는 것을 환영합니다</h1>
     </div>
     <div>
@@ -79,7 +80,7 @@
                                             </tr>
                                             
                                             <tr>
-                                                <th>이벤트소개</th>
+                                                <th>이벤트/한줄소개</th>
                                                 <td><input type="text" class="form-control"
                                                     name="PR_EVENT" required placeholder=" ex)맛있는 원두커피 1kg 대용량/10+1 행사/신선한 당일로스팅 원두/홀릭커피"></td>
                                             </tr>
@@ -95,7 +96,7 @@
                                             <tr>
                                                 <th>제품가격</th>
                                                 <td><input type="text"  
-                                                    name="PR_PRICE" class="form-control"></td>
+                                                    name="PR_PRICE" class="form-control" placeholder=" 숫자만입력하세요."></td>
                                             </tr>
                                             <tr>
                                                 <th>구독가능여부 </th>
@@ -115,7 +116,7 @@
                                                     style="width: 102px; float: left;">
                                                         <optgroup label="택백사선택">
                                                             <option value="로젠">로젠</option>
-                                                            <option value="롯데">롯데</option>
+                                                            <option value="한진">한진</option>
                                                             <option value="CJ">CJ</option>
                                                             <option value="쿠팡">쿠팡</option> 
                                                         </optgroup> 

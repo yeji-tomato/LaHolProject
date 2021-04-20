@@ -182,7 +182,7 @@
 	                              장바구니
 	                              <i class="fa fa-shopping-cart" aria-hidden="true"></i>
 	                            </button>
-	                            <button type="button" class="btn" id = "cart1-btn" onClick="location.href='Subscription.html'" >
+	                            <button type="button" class="btn" id = "cart1-btn" onClick="location.href=' ${ contextPath }/store/subW?PR_CODE=${ s.PR_CODE }'"  >
 	                              정기구독
 	                                <i class="fa fa-shopping-bag" aria-hidden="true" ></i>
 	                              </button>
@@ -213,7 +213,7 @@
 	                        </li>
 	                        <li class="nav-item" role="presentation">
 	                            <button class="nav-link" id="de-tab" data-bs-toggle="tab" data-bs-target="#de" type="button" role="tab" aria-controls="de" aria-selected="false">
-	                               교환/반품
+	                               배송/반품
 	                            </button>
 	                        </li>
 	                        
@@ -231,7 +231,7 @@
 	                                    <div class="col-lg-4 col-md-6 offset-lg-1 py-4 order-md-1">
 	                                    <h2 class="h3 mb-4 pb-2">제품명</h2>
 	                                    <h6 class="fs-base mb-3">제품소개</h6>
-	                                    <p class="fs-sm text-muted pb-2">제품 소개 상세 :${s.PR_INF }.</p>
+	                                    <p class="fs-sm text-muted pb-2">제품 소개 상세 :${s.PR_IF }.</p>
 	                                    </div>
 	                                </div>
 	                                <!-- Product description section 2-->
@@ -240,7 +240,7 @@
 	                                <div class="col-lg-4 col-md-6 offset-lg-1 py-4">
 	                                <h2 class="h3 mb-4 pb-2">제품 기능</h2>
 	                                <h6 class="fs-base mb-3">기능 설명</h6>
-	                                <p class="fs-sm text-muted pb-md-2"> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.</p>
+	                                <p class="fs-sm text-muted pb-md-2"> ${s.PR_INF } </p>
 	                                </div>
 	                                </div>
 	                                <!-- Product description section 1-->
@@ -252,8 +252,8 @@
 	                                <!--설명-->
 	                                <div class="col-lg-4 col-md-6 offset-lg-1 py-4 order-md-1">
 	                                <h2 class="h3 mb-4 pb-2">제품 유의사항</h2>
-	                                <h6 class="fs-base mb-3"> </h6>
-	                                <p class="fs-sm text-muted pb-2">   Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Duis aute irure dolor in reprehenderit.</p>
+	                                <h6 class="fs-base mb-3">유의사항 </h6>
+	                                <p class="fs-sm text-muted pb-2"> ${s.PR_NOTICE }  </p>
 	                                </div>
 	                            </div>
 	                                
@@ -434,10 +434,10 @@
 	                            <img  src="${ contextPath }/resources/img/store/배송정보.jpg" style="  margin-left: 35px; ">
 	                        </c:if>
 	                          <c:if  test="${ s.DY_COMPANY == '한진' }">  
-	                            <img  src="${ contextPath }/resources/img/store/배송정보.jpg" style="  margin-left: 35px; ">
+	                            <img  src="${ contextPath }/resources/img/store/한진.jpg" style="  margin-left: 35px; ">
 	                        </c:if>
 	                          <c:if  test="${ s.DY_COMPANY == 'cj' }">  
-	                            <img  src="${ contextPath }/resources/img/store/배송정보.jpg" style="  margin-left: 35px; ">
+	                            <img  src="${ contextPath }/resources/img/store/cj.jpg" style="  margin-left: 35px; ">
 	                        </c:if>
 	                          <c:if  test="${ s.DY_COMPANY == '쿠팡' }">  
 	                            <img  src="${ contextPath }/resources/img/store/배송정보.jpg" style="  margin-left: 35px; ">

@@ -43,6 +43,7 @@ import com.kh.lahol.store.model.service.StoreService;
 import com.kh.lahol.store.model.vo.PageInfo;
 import com.kh.lahol.store.model.vo.Search;
 import com.kh.lahol.store.model.vo.Store;
+import com.kh.lahol.store.model.vo.Sub;
 import com.kh.lahol.store.model.vo.storeA;
 import com.kh.lahol.store.model.vo.storeQ;
 import com.kh.lahol.store.page.Pagination;
@@ -142,6 +143,9 @@ public class StoreController {
 	 
 		return "store/B/storect";
 	} 
+	
+	
+
 	
 	@PostMapping("/insert")
 	public String StoreInsert(@ModelAttribute Cafe c,@ModelAttribute Store s, 
@@ -502,6 +506,10 @@ public class StoreController {
 	}
 	
 
+	
+	
+	
+	
 	@GetMapping("updatepage")
 	public String updatepageView(Model model, int PR_CODE) {
 		Store s  = sService.selectStore(PR_CODE, false); 
@@ -613,6 +621,65 @@ public class StoreController {
 		}
 	 
 	}
+	
+	@GetMapping("/subW")
+	public String subscribewritepage(Model model, int PR_CODE   ) {
+		
+		
+		 
+		
+		System.out.println("정기구독 제품 정보 "+ PR_CODE);
+		
+		boolean flagPR = false; 
+		
+		Store s = sService.selectStore(PR_CODE, !flagPR);
+		
+		
+		if(s != null   ) {
+			model.addAttribute("s", s);  
+		  
+			return "store/U/subscribe";
+		} else {
+			return "store/U/subscribe";
+		}
+		
+	
+	} 
+	
+	
+	
+	@PostMapping("/subscribe")
+	public String subscribe(@ModelAttribute Sub sb, Model model, String PR_CODE, @RequestParam("SUBSCRIPTIONS") String SUBSCRIPTIONS   ) {
+		
+		
+	
+		
+		System.out.println("정기구독 제품 정보 "+ sb);
+		 
+		System.out.println("구독일수"+SUBSCRIPTIONS);
+		sb.setSubs_Month(SUBSCRIPTIONS);
+		
+		
+		System.out.println("구독 제품번호"+PR_CODE);
+		 sb.setPr_code(PR_CODE);
+		
+		
+		
+	int result = sService.subscribe(sb);
+		
+	 
+		 if(result > 0) {
+			 return "redirect:/store/list2";
+			 
+		 }else 
+		 {  return "redirect:/store/list2"; } //에러페이지 연결
+		  
+		
+	
+	} 
+	
+	
+	 
 	
 	
 }

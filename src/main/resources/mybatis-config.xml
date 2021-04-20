@@ -14,8 +14,12 @@
 	<typeAliases> 
 		<!-- 스토어  -->
 		<typeAlias type="com.kh.lahol.store.model.vo.Store" alias="Store"/>
+		<!-- 스토어 질문  -->
 		<typeAlias type="com.kh.lahol.store.model.vo.storeQ" alias="storeQ"/>
+		<!-- 스토어 답변  -->
 		<typeAlias type="com.kh.lahol.store.model.vo.storeA" alias="storeA"/>
+		<!-- 정기구독 -->
+		<typeAlias type="com.kh.lahol.store.model.vo.storeA" alias="Sub"/>
 		<!-- 일반회원 -->
 		<typeAlias type="com.kh.lahol.member.model.vo.M_Normal" alias="Member_N"/>
 		<!-- 사업자회원 -->
