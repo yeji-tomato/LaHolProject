@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,13 +27,16 @@
             padding-top: 10%;
         }
 
-
+		.mp-container {
+        	height : 900px;
+        }
+		
         #mp{
             display: flex;
             margin-top: 1%;
             margin-left: 5%;
             width: 80vw;
-            height: 80vh;
+            height: 800px;
             justify-content: center;
             text-align: center;
             border-radius: 30px;
@@ -65,7 +69,9 @@
         }
 
         .content-table {
-            min-height: 550px;
+        	display: flex;
+            justify-content: center;
+            min-height: 600px;
         }
 
         .content-div #list-table {
@@ -122,6 +128,10 @@
         .content-div #list-table tr:first-child td:nth-child(8) {
             width : 100px;
         }
+        
+        .content-div #list-table tr td b {
+        	cursor : pointer;
+        }
 
         .modal2,
         .modal3 {
@@ -177,6 +187,43 @@
             height: 50px;
 
             margin : 10px;
+        }
+        
+        .btn-ba,
+        .btn-p {
+        	width : 30px;
+        	height : 30px;
+        }
+        
+        .btn-ba {
+        	background : #4B654A;
+        	border : none;
+        	color : #fff;
+        	border-radius : 5px;
+        	
+        	transition : all 0.3s;
+        }
+        
+        .btn-ba:hover {
+        	background : #5A452E;
+        	
+        	transition : all 0.3s;
+        }
+        
+        .btn-p {
+        	border : none;
+        	background : transparent;
+        }
+        
+        .btn-p:disabled {
+        	color : #E5BD62;
+        }
+		
+		.swal2-confirm,
+        .swal2-cancel,
+        .swal2-html-container,
+        .swal2-title {
+        	font-family: 'NEXON Lv1 Gothic OTF';
         }
 
     </style>
@@ -269,16 +316,61 @@
                             <td>일정</td>
                             <td>신청자 수</td>
                             <td>진행상태</td>
-                            <td>미답변문의</td>
                         </tr>
-                        <tr> <!-- 신청자 수 클릭 시 신청자 명단으로, 미답변 문의 클릭 시, 미답변 리스트 출력 -->
-                            <td>aa</td>
-                        </tr>
+                        <c:if test="${ empty list }">
+                        	<tr>
+                        		<td colspan="7">${ cl_list }</td>
+                        	</tr>
+                        </c:if>
+                        <c:if test="${ !empty list }">
+                        <c:forEach var="cl" items="${ list }">
+	                        <tr> <!-- 신청자 수 클릭 시 신청자 명단으로, 미답변 문의 클릭 시, 미답변 리스트 출력 -->
+	                            <td>${ cl.class_no }</td>
+	                            <td>${ cl.cl_name }</td>
+	                            <td>${ cl.tr_name }</td>
+	                            <td>${ cl.c_name }</td>
+	                            <td>${ cl.cl_date }, ${ cl.cl_time }(${ cl.cl_runtime })</td>
+	                            <td onclick="selectClassMember('${ cl.class_no }');"><b>${ cl.people }</b></td>
+	                            <td>${ cl.cl_status }</td>
+	                        </tr>
+                        </c:forEach>
+                        </c:if>
                     </table>
                 </div>
                 <!-- 페이징 추가 해야 함 -->
                 <div class="paging-div">
-                    페이징
+                	<!-- 이전 -->
+                	<c:if test="${ pi.currentPage <= 1 }">
+                		<button class="btn-ba" disabled> &lt; </button>
+                	</c:if>
+                	<c:if test="${ pi.currentPage > 1 }">
+                		<c:url var="before" value="/pMypage/classView">
+                			<c:param name="page" value="${ pi.currentPage - 1 }"/>
+                		</c:url>
+                		<button class="btn-ba" onclick="location.href='${ before }'"> &lt;</button>
+                	</c:if>
+                	<!-- 페이지 숫자 -->
+                	<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+                		<c:if test="${ p eq pi.currentPage }">
+                			<button class="btn-p" disabled>${ p }</button>
+                		</c:if>
+                		<c:if test="${ p ne pi.currentPage }">
+                			<c:url var="pagination" value="/pMypage/classView">
+                				<c:param name="page" value="${ p }"/>
+                			</c:url>
+               				<button class="btn-p" onclick="location.href='${ pagination }'">${ p }</button>
+                		</c:if>
+                	</c:forEach>
+                	<!-- 다음 -->
+                	<c:if test="${ pi.currentPage >= pi.maxPage }">
+						<button class="btn-ba" disabled> &gt; </button>
+					</c:if>
+					<c:if test="${ pi.currentPage < pi.maxPage }">
+						<c:url var="after" value="/pMypage/classView">
+							<c:param name="page" value="${ pi.currentPage + 1 }"/>
+						</c:url>
+						<button class="btn-ba" onclick="location.href='${ after }'"> &gt;</button>
+					</c:if>
                 </div>
             </div>
         </div>
@@ -300,6 +392,10 @@
         </div>
     </div>
     <script>
+    	function selectClassMember(class_no) {
+    		location.href="${ contextPath }/pMypage/classMember?class_no=" + class_no;
+    	}
+    
         var modal = document.getElementById("menuModal");
         var modal2 = document.getElementById("menuModal2");
         var btn = $(".side-item:nth-child(3)");

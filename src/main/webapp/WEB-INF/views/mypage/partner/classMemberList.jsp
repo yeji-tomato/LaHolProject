@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,14 +27,17 @@
             height: auto; 
             padding-top: 10%;
         }
-
+		
+		.mp-container {
+        	height : 900px;
+        }
 
         #mp{
             display: flex;
             margin-top: 1%;
             margin-left: 5%;
             width: 80vw;
-            height: 80vh;
+            height: 800px;
             justify-content: center;
             text-align: center;
             border-radius: 30px;
@@ -181,6 +186,43 @@
 
             margin : 10px;
         }
+        
+        .btn-ba,
+        .btn-p {
+        	width : 30px;
+        	height : 30px;
+        }
+        
+        .btn-ba {
+        	background : #4B654A;
+        	border : none;
+        	color : #fff;
+        	border-radius : 5px;
+        	
+        	transition : all 0.3s;
+        }
+        
+        .btn-ba:hover {
+        	background : #5A452E;
+        	
+        	transition : all 0.3s;
+        }
+        
+        .btn-p {
+        	border : none;
+        	background : transparent;
+        }
+        
+        .btn-p:disabled {
+        	color : #E5BD62;
+        }
+		
+		.swal2-confirm,
+        .swal2-cancel,
+        .swal2-html-container,
+        .swal2-title {
+        	font-family: 'NEXON Lv1 Gothic OTF';
+        }
 
     </style>
 </head>
@@ -260,25 +302,69 @@
             <!-- 이부분에 내용 작성 -->
             <div class="content-div">
                 <div class="content-title">
-                    <p><span>[클래스 이름]</span>신청자 현황</p>
+                    <p><span>[${ class_name }]</span> 신청자 현황</p>
                 </div>
                 <div class="content-table">
                     <table id="list-table">
                         <tr>
                             <td>번호</td>
                             <td>이름</td>
-                            <td>생년월일</td>
                             <td>연락처</td>
+                            <td>이메일</td>
                             <td>등록일</td>
                         </tr>
-                        <tr> <!-- 신청자 수 클릭 시 신청자 명단으로, 미답변 문의 클릭 시, 미답변 리스트 출력 -->
-                            <td>aa</td>
-                        </tr>
+                        <c:if test="${ empty list }">
+                        	<tr>
+                        		<td colspan="5">${ cl_list }</td>
+                        	<tr>
+                        </c:if>
+                        <c:if test="${ !empty list }">
+                        <c:forEach var="cl" items="${ list }" varStatus="status">
+	                        <tr>
+	                            <td>${ fn:length(list) - status.index }</td>
+	                            <td>${ cl.name }</td>
+	                            <td>${ cl.phone }</td>
+	                            <td>${ cl.email }</td>
+	                            <td>${ cl.pay_date }</td>
+	                        </tr>
+                        </c:forEach>
+                        </c:if>
                     </table>
                 </div>
                 <!-- 페이징 추가 해야 함 -->
                 <div class="paging-div">
-                    페이징
+                    <!-- 이전 -->
+                	<c:if test="${ pi.currentPage <= 1 }">
+                		<button class="btn-ba" disabled> &lt; </button>
+                	</c:if>
+                	<c:if test="${ pi.currentPage > 1 }">
+                		<c:url var="before" value="/pMypage/classMember">
+                			<c:param name="page" value="${ pi.currentPage - 1 }"/>
+                		</c:url>
+                		<button class="btn-ba" onclick="location.href='${ before }'"> &lt;</button>
+                	</c:if>
+                	<!-- 페이지 숫자 -->
+                	<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+                		<c:if test="${ p eq pi.currentPage }">
+                			<button class="btn-p" disabled>${ p }</button>
+                		</c:if>
+                		<c:if test="${ p ne pi.currentPage }">
+                			<c:url var="pagination" value="/pMypage/classMember">
+                				<c:param name="page" value="${ p }"/>
+                			</c:url>
+               				<button class="btn-p" onclick="location.href='${ pagination }'">${ p }</button>
+                		</c:if>
+                	</c:forEach>
+                	<!-- 다음 -->
+                	<c:if test="${ pi.currentPage >= pi.maxPage }">
+						<button class="btn-ba" disabled> &gt; </button>
+					</c:if>
+					<c:if test="${ pi.currentPage < pi.maxPage }">
+						<c:url var="after" value="/pMypage/classMember">
+							<c:param name="page" value="${ pi.currentPage + 1 }"/>
+						</c:url>
+						<button class="btn-ba" onclick="location.href='${ after }'"> &gt;</button>
+					</c:if>
                 </div>
             </div>
         </div>

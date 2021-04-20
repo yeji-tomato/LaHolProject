@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,13 +12,11 @@
     <link rel="stylesheet" href="${ contextPath }/resources/css/mypage/sideMenu.css">
     <!-- footer css -->
     <link rel="stylesheet" href="${ contextPath }/resources/css/common/footer.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <!-- datepicker -->
     <link href="${ contextPath }/resources/css/common/datepicker.min.css" rel="stylesheet" type="text/css" media="all">
-    <!-- Air datepicker css -->
-    <script src="${ contextPath }/resources/js/mypage/datepicker.js"></script> <!-- Air datepicker js -->
-    <script src="${ contextPath }/resources/js/mypage/datepicker.ko.js"></script> <!-- 달력 한글 추가를 위해 커스텀 -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    
     <!-- char.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.0.1/chart.min.js" integrity="sha512-2uu1jrAmW1A+SMwih5DAPqzFS2PI+OPw79OVLS4NJ6jGHQ/GmIVDDlWwz4KLO8DnoUmYdU8hTtFcp8je6zxbCg==" crossorigin="anonymous"></script>
 
@@ -32,14 +31,17 @@
             height: auto; 
             padding-top: 10%;
         }
-
+		
+		.mp-container {
+        	height : 900px;
+        }
 
         #mp{
             display: flex;
             margin-top: 1%;
             margin-left: 5%;
             width: 80vw;
-            height: 80vh;
+            height: 800px;
             justify-content: center;
             text-align: center;
             border-radius: 30px;
@@ -248,12 +250,52 @@
 
             margin : 10px;
         }
+        
+        .btn-ba,
+        .btn-p {
+        	width : 30px;
+        	height : 30px;
+        }
+        
+        .btn-ba {
+        	background : #4B654A;
+        	border : none;
+        	color : #fff;
+        	border-radius : 5px;
+        	
+        	transition : all 0.3s;
+        }
+        
+        .btn-ba:hover {
+        	background : #5A452E;
+        	
+        	transition : all 0.3s;
+        }
+        
+        .btn-p {
+        	border : none;
+        	background : transparent;
+        }
+        
+        .btn-p:disabled {
+        	color : #E5BD62;
+        }
+		
+		.swal2-confirm,
+        .swal2-cancel,
+        .swal2-html-container,
+        .swal2-title {
+        	font-family: 'NEXON Lv1 Gothic OTF';
+        }
 
     </style>
 </head>
 <body>
 	<!-- menubar -->
 	<jsp:include page="/WEB-INF/views/common/menubar.jsp"/>
+    <!-- Air datepicker css -->
+    <script src="${ contextPath }/resources/js/mypage/datepicker.js"></script> <!-- Air datepicker js -->
+    <script src="${ contextPath }/resources/js/mypage/datepicker.ko.js"></script> <!-- 달력 한글 추가를 위해 커스텀 -->
     <!-- 카페 사이드 메뉴 바 -->
     <div class="mypage-container">
         <div id="side" class="col-mp">
@@ -373,7 +415,38 @@
                     </div>
                     <!-- 페이징 추가 해야 함 -->
                     <div class="paging-div">
-                        페이징
+                        <!-- 이전 -->
+                	<c:if test="${ pi.currentPage <= 1 }">
+                		<button class="btn-ba" disabled> &lt; </button>
+                	</c:if>
+                	<c:if test="${ pi.currentPage > 1 }">
+                		<c:url var="before" value="/pMypage/storeView">
+                			<c:param name="page" value="${ pi.currentPage - 1 }"/>
+                		</c:url>
+                		<button class="btn-ba" onclick="location.href='${ before }'"> &lt;</button>
+                	</c:if>
+                	<!-- 페이지 숫자 -->
+                	<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+                		<c:if test="${ p eq pi.currentPage }">
+                			<button class="btn-p" disabled>${ p }</button>
+                		</c:if>
+                		<c:if test="${ p ne pi.currentPage }">
+                			<c:url var="pagination" value="/pMypage/storeView">
+                				<c:param name="page" value="${ p }"/>
+                			</c:url>
+               				<button class="btn-p" onclick="location.href='${ pagination }'">${ p }</button>
+                		</c:if>
+                	</c:forEach>
+                	<!-- 다음 -->
+                	<c:if test="${ pi.currentPage >= pi.maxPage }">
+						<button class="btn-ba" disabled> &gt; </button>
+					</c:if>
+					<c:if test="${ pi.currentPage < pi.maxPage }">
+						<c:url var="after" value="/pMypage/storeView">
+							<c:param name="page" value="${ pi.currentPage + 1 }"/>
+						</c:url>
+						<button class="btn-ba" onclick="location.href='${ after }'"> &gt;</button>
+					</c:if>
                     </div>
                 </div>
                 <div class="chart-div">

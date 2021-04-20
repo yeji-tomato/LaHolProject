@@ -27,6 +27,7 @@ import com.kh.lahol.mypage.common.PageInfo;
 import com.kh.lahol.mypage.common.Pagination;
 import com.kh.lahol.mypage.partner.model.service.pMypageService;
 import com.kh.lahol.mypage.partner.model.vo.Ad;
+import com.kh.lahol.mypage.partner.model.vo.CoffeeClass;
 import com.kh.lahol.mypage.partner.model.vo.Payment;
 
 @Controller
@@ -50,7 +51,22 @@ public class pMypageController {
 	}
 	
 	@GetMapping("/classView")
-	public String classView() {
+	public String classView(Model model,
+			                @RequestParam(value="page", required=false, defaultValue="1") int currentPage,
+			                HttpServletRequest request) {
+		String id = ((Member)request.getSession().getAttribute("loginUser")).getId();
+		
+		int classListCount = pService.classListCount(id);
+		
+		if(classListCount > 0) {
+			PageInfo pi = Pagination.getPageInfo(currentPage, classListCount);
+			List<CoffeeClass> list = pService.selectClassList(id, pi);
+			model.addAttribute("list", list);
+			model.addAttribute("pi", pi);
+		} else {
+			model.addAttribute("cl_list", "조회된 클래스 현황이 없습니다.");
+		}
+		
 		return "mypage/partner/classList";
 	}
 	
@@ -60,7 +76,13 @@ public class pMypageController {
 	}
 	
 	@GetMapping("/storeView")
-	public String storeView() {
+	public String storeView(Model model,
+			                @RequestParam(value="page", required=false, defaultValue="1") int currentPage,
+			                HttpServletRequest request) {
+		String id = ((Member)request.getSession().getAttribute("loginUser")).getId();
+		
+		int payStoreListCount = pService.payStoreListCount(id);
+		
 		return "mypage/partner/manageStore";
 	}
 	
@@ -307,5 +329,25 @@ public class pMypageController {
 			rd.addFlashAttribute("msg", "광고 신청 내역 조회에 실패하였습니다.");
 			return "redirect:/pMypage/adListView";
 		}
+	}
+	
+	@GetMapping("/classMember")
+	public String classMember(Model model,
+			                  @RequestParam("class_no") String class_no,
+			                  @RequestParam(value="page", required=false, defaultValue="1") int currentPage) {
+		int classMemberCount = pService.selectClassMemberCount(class_no);
+		
+		if(classMemberCount > 0) {
+			PageInfo pi = Pagination.getPageInfo(currentPage, classMemberCount);
+			List<Member> list = pService.selectClassMember(class_no, pi);
+			CoffeeClass cl = pService.selectClassByNo(class_no);
+			model.addAttribute("class_name", cl.getCl_name());
+			model.addAttribute("list", list);
+			model.addAttribute("pi", pi);
+		} else {
+			model.addAttribute("cl_list", "조회된 신청자가 없습니다.");
+		}
+		
+		return "mypage/partner/classMemberList";
 	}
 }

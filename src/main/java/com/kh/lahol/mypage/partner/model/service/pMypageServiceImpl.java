@@ -9,6 +9,7 @@ import com.kh.lahol.member.model.vo.Member;
 import com.kh.lahol.mypage.common.PageInfo;
 import com.kh.lahol.mypage.partner.model.dao.pMypageDao;
 import com.kh.lahol.mypage.partner.model.vo.Ad;
+import com.kh.lahol.mypage.partner.model.vo.CoffeeClass;
 import com.kh.lahol.mypage.partner.model.vo.Payment;
 
 @Service
@@ -69,6 +70,36 @@ public class pMypageServiceImpl implements pMypageService{
 	@Override
 	public int updateAd(Ad ad) {
 		return pDao.updateAd(ad);
+	}
+
+	@Override
+	public int classListCount(String id) {
+		return pDao.classListCount(id);
+	}
+
+	@Override
+	public List<CoffeeClass> selectClassList(String id, PageInfo pi) {
+		return pDao.selectClassList(id, pi);
+	}
+
+	@Override
+	public int selectClassMemberCount(String class_no) {
+		return pDao.selectClassMemberCount(class_no);
+	}
+
+	@Override
+	public List<Member> selectClassMember(String class_no, PageInfo pi) {
+		return pDao.selectClassMember(class_no, pi);
+	}
+
+	@Override
+	public CoffeeClass selectClassByNo(String class_no) {
+		return pDao.selectClassByNo(class_no);
+	}
+
+	@Override
+	public int payStoreListCount(String id) {
+		return pDao.payStoreListCount(id);
 	}
 
 }

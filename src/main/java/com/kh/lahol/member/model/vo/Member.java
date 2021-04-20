@@ -13,8 +13,10 @@ public class Member {
 	private Date moDate;
 	private String isActive;
 	private String grade;
+	
+	private Date pay_date;
 
-	Member(){}
+	public Member(){}
 	
 	public Member(String id, String pwd, String email, String name, String phone, String addr, Date enDate, Date moDate,
 			String isActive, String grade) {
@@ -50,7 +52,14 @@ public class Member {
 		this.grade = grade;
 	}
 
-
+	public Member(String id, String email, String name, String phone, Date pay_date) {
+		super();
+		this.id = id;
+		this.email = email;
+		this.name = name;
+		this.phone = phone;
+		this.pay_date = pay_date;
+	}
 
 	public String getId() {
 		return id;
@@ -131,12 +140,20 @@ public class Member {
 	public void setGrade(String grade) {
 		this.grade = grade;
 	}
+	
+	public Date getPay_date() {
+		return pay_date;
+	}
+
+	public void setPay_date(Date pay_date) {
+		this.pay_date = pay_date;
+	}
 
 	@Override
 	public String toString() {
 		return "Member [id=" + id + ", pwd=" + pwd + ", email=" + email + ", name=" + name + ", phone=" + phone
 				+ ", addr=" + addr + ", enDate=" + enDate + ", moDate=" + moDate + ", isActive=" + isActive + ", grade="
-				+ grade + "]";
-	};
-	
+				+ grade + ", pay_date=" + pay_date + "]";
+	}
+
 }

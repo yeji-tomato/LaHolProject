@@ -383,7 +383,7 @@
     </div>
     <script>
     	function selectAd(ad_code) {
-    		location.href='${contextPath}/pMypage/adDetail?ad_code=' + ad_code + '&page=${ pi.currentPage }';
+    		location.href='${contextPath}/pMypage/adDetail?ad_code=' + ad_code;
     	}
     </script>
     <div id="menuModal" class="modal2">

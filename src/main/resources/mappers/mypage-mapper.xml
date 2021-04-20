@@ -68,6 +68,46 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 		<result property="id" column="ID"/>
 		<result property="bn_code" column="BN_CODE"/>
 	</resultMap>
+	<resultMap id="classResultSet" type="M_CoffeeClass">
+		<id property="class_code" column="CLASS_CODE"/>
+		<result property="c_code" column="C_CODE"/>
+		<result property="cl_name" column="CL_NAME"/>
+		<result property="people" column="PEOPLE"/>
+		<result property="cl_des" column="CL_DES"/>
+		<result property="tr_name" column="TR_NAME"/>
+		<result property="tr_intro" column="TR_INTRO"/>
+		<result property="cl_curi" column="CL_CURI"/>
+		<result property="cl_max" column="CL_MAX"/>
+		<result property="cl_date" column="CL_DATE"/>
+		<result property="cl_loca" column="CL_LOCA"/>
+		<result property="cl_price" column="CL_PRICE"/>
+		<result property="blind" column="BLIND"/>
+		<result property="cl_status" column="CL_STATUS"/>
+		<result property="bus_no" column="BUS_NO"/>
+		<result property="cl_shortdes" column="CL_SHORTDES"/>
+		<result property="cl_time" column="CL_TIME"/>
+		<result property="cl_time2" column="CL_TIME2"/>
+		<result property="cl_time3" column="CL_TIME3"/>
+		<result property="cl_level" column="CL_LEVEL"/>
+		<result property="cl_runtime" column="CL_RUNTIME"/>
+		<result property="class_photo" column="CLASS_PHOTO"/>
+		<result property="cl_thumbnail" column="CL_THUMBNAIL"/>
+		<result property="tr_photo" column="TR_PHOTO"/>
+		<result property="cl_writer" column="CL_WRITER"/>
+		<result property="cl_category" column="CL_CATEGORY"/>
+		<result property="c_name" column="C_NAME"/>
+		<result property="c_owner" column="C_OWNER"/>
+		<result property="c_address" column="C_ADDRESS"/>
+		<result property="c_la" column="C_LA"/>
+		<result property="c_lo" column="C_LO"/>
+	</resultMap>
+	<resultMap id="classMemberResultSet" type="Member">
+		<id property="id" column="ID"/>
+		<result property="name" column="NAME"/>
+		<result property="phone" column="PHONE"/>
+		<result property="email" column="EMAIL"/>
+		<result property="pay_date" column="PAY_DATE"/>
+	</resultMap>
 	<update id="updateMember" parameterType="Member">
 		UPDATE
 		       MEMBER
@@ -215,7 +255,7 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 		     , PAY_PRICE
 		     , SUBSCRIBE
 		     , PAY_DATE
-		     , ID
+		     , BUYER_ID
 		     , CAFE_RES
 		     , AD_CODE
 		     , PURCHASE_NUMBER
@@ -303,4 +343,120 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 		 WHERE
 		       AD_CODE = #{ad_code}
 	</update>
+	<select id="classListCount" parameterType="string" resultType="_int">
+		SELECT 
+		       COUNT(*)
+		  FROM 
+		       COFFEECLASS
+		  JOIN
+		       CAFE USING(C_CODE)
+		 WHERE
+		       ID = #{id}
+	</select>
+	<select id="selectClassList" parameterType="string" resultMap="classResultSet">
+		SELECT
+		       CLASS_NO
+		     , C_CODE
+		     , CL_NAME
+		     , PEOPLE
+		     , CL_DES
+		     , TR_NAME
+		     , TR_INTRO
+		     , CL_CURI
+		     , CL_MAX
+		     , CL_DATE
+		     , CL_LOCA
+		     , CL_PRICE
+		     , BLIND
+		     , CL_STATUS
+		     , BUS_NO
+		     , CL_SHORTDES
+		     , CL_TIME
+		     , CL_TIME2
+		     , CL_TIME3
+		     , CL_LEVEL
+		     , CL_RUNTIME
+		     , CLASS_PHOTO
+		     , CL_THUMBNAIL
+		     , TR_PHOTO
+		     , CL_WRITER
+		     , CL_CATEGORY
+		     , C_NAME
+		     , C_OWNER
+		     , C_ADDRESS
+		     , C_LA
+		     , C_LO
+		  FROM
+		       COFFEECLASS
+		  JOIN
+		       CAFE USING(C_CODE)
+		  JOIN
+		       CL_PEOPLE USING(CLASS_NO)
+		 WHERE
+		       ID = #{id}
+	  ORDER BY REGEXP_REPLACE(CLASS_NO, '[0-9]'), TO_NUMBER(REGEXP_REPLACE(CLASS_NO, '[^0-9]')) DESC
+	</select>
+	<select id="selectClassMemberCount" parameterType="string" resultType="_int">
+		SELECT
+		       COUNT(*)
+		  FROM 
+		       PAYMENT
+		  JOIN 
+		       MEMBER ON(BUYER_ID = ID)
+		  JOIN 
+		       CL_ORDER USING(CL_PAY_NO)
+		 WHERE
+		       CLASS_NO = #{class_no}
+	</select>
+	<select id="selectClassMember" parameterType="string" resultMap="classMemberResultSet">
+		SELECT
+		       ID
+		     , NAME
+		     , PHONE
+		     , EMAIL
+		     , PAY_DATE
+		  FROM
+		       PAYMENT
+		  JOIN 
+		       MEMBER ON(BUYER_ID = ID)
+		  JOIN 
+		       CL_ORDER USING(CL_PAY_NO)
+		 WHERE
+		       CLASS_NO = #{class_no}
+	</select>
+	<select id="selectClassByNo" parameterType="string" resultMap="classResultSet">
+		SELECT
+		       CLASS_NO
+		     , C_CODE
+		     , CL_NAME
+		     , CL_DES
+		     , TR_NAME
+		     , TR_INTRO
+		     , CL_CURI
+		     , CL_MAX
+		     , CL_DATE
+		     , CL_LOCA
+		     , CL_PRICE
+		     , BLIND
+		     , CL_STATUS
+		     , BUS_NO
+		     , CL_SHORTDES
+		     , CL_TIME
+		     , CL_TIME2
+		     , CL_TIME3
+		     , CL_LEVEL
+		     , CL_RUNTIME
+		     , CLASS_PHOTO
+		     , CL_THUMBNAIL
+		     , TR_PHOTO
+		     , CL_WRITER
+		     , CL_CATEGORY
+		  FROM
+		       COFFEECLASS
+		 WHERE
+		       CLASS_NO = #{class_no}
+	</select>
+	<select id="payStoreListCount" parameterType="string" resultType="_int">
+		
+	</select>
 </mapper>

@@ -42,6 +42,8 @@
 		
 		<!-- 마이페이지 쿠폰 -->
 		<typeAlias type="com.kh.lahol.mypage.normal.model.vo.Coupon" alias="M_Coupon"/>
+		<!-- 마이페이지 클래스 -->
+		<typeAlias type="com.kh.lahol.mypage.partner.model.vo.CoffeeClass" alias="M_CoffeeClass"/>
 
 		<!-- Ad -->
  		<typeAlias type="com.kh.lahol.mypage.partner.model.vo.Ad" alias="Ad"/>
