@@ -113,31 +113,40 @@
       <h2>진행중인 클래스</h2>
       <!-- 필터 검색 -->
     <div class="filter">
-      <select class= "category">
-             <option value="" disabled="disabled" selected>카테고리</option>
+     <form action="${ contextPath }/coffeeclass/filterSearch" method="get">
+      <select class= "category" name="searchCondition1">
+             <option disabled="disabled" selected>카테고리</option>
+             <option value="all">전체</option>
              <option value="coffee">로스팅/원두</option>
              <option value="art">라테아트/디자인</option>
              <option value="dessert">디저트</option>
              <option value="certi">자격증</option>
              <option value="etc">기타</option>
-         </select>
-         <select class = "place">
-             <option value="">지역</option>
-             <option value="">서울/경기</option>
-             <option value="">강원</option>
-             <option value="">대구</option>
-             <option value="">제주</option>
-         </select>
-         <input type="date" value="날짜">
-       
-         <button id="filterbtn"><i class="fa fa-arrow-right" aria-hidden="true">GO</i></button>
+       </select>
+       <select class ="classLoca" name="searchCondition2">
+             <option disabled="disabled" selected>지역</option>
+             <option value="All">전체</option>
+             <option value="Capital">서울/경기</option>
+             <option value="GW">강원</option>
+             <option value="BS">부산</option>
+             <option value="JJ">제주</option>
+        </select>
+        <!--  <input type="date" value="날짜"> -->
+        <%--  <select class ="clPrice" name="searchCondition">
+             <option disabled="disabled" selected>가격대</option>
+             <option value="<50000">50000원 미만</option>
+             <option value="50000~100000">5~10만원</option>
+             <option value=">=100000">100,000원 이상</option>
+        </select> --%>
+         <button id="filterbtn" onclick="filterOn();"><i class="fa fa-arrow-right" aria-hidden="true">GO</i></button>
+       </form>
      </div>
       
       <div class="row">
          <!-- 키값 -->
       	  <c:forEach var="cl" items="${ list }">
       	  	  <div class="col" id="classdetail" onclick="selectClass('${cl.classNo}');">
-              	<img src="${ contextPath }/resources/nuploadFiles/classImg/${ coffeeclass.trPhoto }" class ="card-img-top" onclick="">
+              	<img src="${ contextPath }/resources/nuploadFiles/classImg/${ cl.trPhoto }" class ="card-img-top" onclick="">
               	<h4>${ cl.className }</h4>
          	  	<p>${ cl.clPrice }원</p>
          	  	<!-- 별점 -->
@@ -192,6 +201,13 @@
   	<script>
   		function selectClass(classNo){
   			location.href='${contextPath}/coffeeclass/classdetail?classNo='+classNo;
+  		}
+  		
+  		// 필터 정렬
+  		function filterOn(){
+  			var searchCondition1 = $("#searchCondition1").val();
+  			var searchCondition2 = $("#searchCondition2").val();
+	    	location.href="${ ContextPath}/coffeeclass/search?searchCondition1" + searchCondition1 + "&searchCondition2" + searchCondtion2;
   		}
   	</script>
   	

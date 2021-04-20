@@ -18,6 +18,7 @@
         height: 500px;
      }
 
+	/*tabl*/
      #myTab{
        padding-top: 5%;
      }
@@ -37,14 +38,19 @@
       color: white;
      }
 
-     .nav-tabs .nav-link{
+     /* .nav-tabs .nav-link{
       background-color: #5A452E;
       color: white;
       padding: 5%;
-     }
+     } */
+     
+     #home-tab.active, #review-tab.active, #qa-tab.active{
+		background-color: #E5BD62;
+		border-color : transparent;
+	}
 
      .tab-pane{
-       background-color: #f6ebdb;
+       background-color: white;
      }
 
      /* 클래스 정보 */
@@ -499,7 +505,11 @@
     background-color: #e1d7ca;
 }
 
-/* 삭제 모달*/
+/*아이콘*/
+.reportbtn{
+height: 20px; 
+width:20px;
+}
 
 
 

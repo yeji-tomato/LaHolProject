@@ -18,8 +18,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
@@ -38,6 +40,12 @@ import com.kh.lahol.coffeeclass.model.vo.CoffeeClass;
 import com.kh.lahol.coffeeclass.model.vo.PageInfo;
 import com.kh.lahol.coffeeclass.page.Pagination;
 import com.kh.lahol.member.model.vo.Member;
+import com.kh.lahol.store.model.vo.Search;
+import com.kh.lahol.store.model.vo.storeA;
+import com.kh.lahol.store.model.vo.storeQ;
+import com.kh.lahol.store.page.Pagination3;
+
+
 
 @Controller
 @SessionAttributes({"loginUser"})
@@ -85,7 +93,22 @@ public class CoffeClassController {
 		
 		return "coffeeclass/class_main";
 	}
-	  
+	
+	
+	// 필터 기능
+	@GetMapping("/coffeeclass/filter")
+	public String filterClass(@ModelAttribute ClassSearch search,
+							   Model model) {
+		
+		List<ClassSearch> filterList = clService.filterList(search);
+		
+		model.addAttribute("list", filterList);
+		
+		return "coffeeclass/class_main";
+		
+	}
+	
+	
 	
 	// 클래스 개설 페이지로 이동
 	@GetMapping("/coffeeclass/createclass")
@@ -153,7 +176,7 @@ public class CoffeClassController {
 		int result = clService.insertClass(cl);
 		
 		if(result > 0) {
-			return "coffeeclass/class_main";
+			return "redirect:/coffeeclass";
 		}else {
 			System.out.println("클래스 등록에 실패하셨습니다.");
 		}
@@ -195,7 +218,8 @@ public class CoffeClassController {
 	  // 클래스 상세페이지
 	  @GetMapping("/coffeeclass/classdetail")	// coffeeclass라는 타입을 저장을 해서 forwarding하는거라 model객체 필요
 	  public String classdetail(@RequestParam String classNo,
-			  					Model model) {
+			  					Model model,
+			  					HttpServletRequest request) {
 		  
 		  CoffeeClass cl = clService.selectCoffeeClass(classNo);
 		  
@@ -213,22 +237,25 @@ public class CoffeClassController {
 			  return "common/error";
 		  }
 		  
+			
+		  
 	    }
 	  
-	  	// 클래스 신고
-		@PostMapping("/coffeeclass/classreport")
-		public String classReport(@ModelAttribute CoffeeClass cl,
-								  Model model) {
+  	  // 클래스 신고
+	  @PostMapping("/coffeeclass/classreport")
+	  public String classReport(@ModelAttribute CoffeeClass cl,
+							  Model model) {
+	
+	  int result = clService.reportClass(cl);
+	 		
+	  if(result > 0) {
+		 return "redirect:/coffeeclass/classdetail?classNo=" + cl.getClassNo(); 
+	  } else {	
+		return "common/error";
+	  }
+			
+	  }
 		
-		int result = clService.reportClass(cl);
-				
-		if(result > 0) {
-			 return "redirect:/coffeeclass/classdetail?classNo=" + cl.getClassNo(); 
-		} else {	
-			return "common/error";
-		}
-				
-		}
 	
 	  
 	  // 사업자 커피클래스 메인 페이지
@@ -367,9 +394,10 @@ public class CoffeClassController {
 	
 	  // 클래스 수강신청
 	  @PostMapping("/coffeeclass/register")
-	  public String registerClass(@ModelAttribute ClassRegister clRegi,			  					
+	  							// ajax사용시
+	  public String registerClass(@RequestBody ClassRegister clRegi,			  					
 			  					   Model model) {
-		  
+		  System.out.println(clRegi);
 		  int result = clService.registerClass(clRegi); 
 		  if(result > 0) {
 			  return "coffeeclass/class_detail";

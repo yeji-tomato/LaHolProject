@@ -31,17 +31,16 @@
         <div class="row">
             <!--왼쪽-->
             <div class="col">
-            <!-- <img src="../resources/images/class/classp7.jpg" style="width: 400px; height: 500px;"> -->
             <!-- carousel -->
             <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
               <div class="carousel-inner" id="caroselLeft">
-                <div class="carousel-item active" data-bs-interval="10000">
+                <div class="carousel-item active" data-bs-interval="7000">
                   <img src="${ contextPath }/resources/nuploadFiles/classImg/${ coffeeclass.clThumbnail }" class="d-block w-100" alt="...">
                 </div>
-                <div class="carousel-item" data-bs-interval="2000">
-                  <img src="${ contextPath }/resources/nuploadFiles/classImg/${ coffeeclass.clPhoto }" alt="...">
+                <div class="carousel-item" data-bs-interval="3000">
+                  <img src="${ contextPath }/resources/nuploadFiles/classImg/${ coffeeclass.clPhoto }" class="d-block w-100" alt="...">
                 </div>
-                <div class="carousel-item">
+                <div class="carousel-item" data-bs-interval="3000">
                   <img src="${ contextPath }/resources/nuploadFiles/classImg/${ coffeeclass.trPhoto }" alt="...">
                 </div>
               </div>
@@ -92,25 +91,25 @@
                         <td>
                           <ul>
                             <li>난이도</li>
-                            <li>소요시간</li>
-                          </ul>
-                        </td>
-                        <td>
-                          <ul style="border-left: 2px solid black;">
-                            <li>난이도</li>
-                            <li>소요시간</li>
-                          </ul>
-                        </td>
-                        <td>
-                          <ul style="border-left: 2px solid black;">
                             <li>${ coffeeclass.classLvl }</li>
+                          </ul>
+                        </td>
+                        <td>
+                          <ul style="border-left: 2px solid black;">
+                            <li>소요시간</li>
                             <li>${ coffeeclass.clRuntime }</li>
+                          </ul>
+                        </td>
+                        <td>
+                          <ul style="border-left: 2px solid black;">
+                            <li>수강정원</li>
+                            <li>${ coffeeclass.studentMax }</li>
                           </ul>
                         </td>
                       </tr>
                       <tr>
                         <td>날짜</td>
-                        <td colspan="2">
+                        <td>
                           <%-- <select style="width: 80%;">
                             <option value="" class = "selectdate" disabled ="disabled" selected>날짜</option> 
                             <option value="" class = "selectdate">"${ coffeeclass.classDate }"</option>
@@ -127,8 +126,12 @@
                            		<option class = "selecttime" name="classTime" value="${ time }">${ time }</option>
                         	</c:forEach> --%>
                         	<option class = "selecttime" name="classTime" value="${ coffeeclass.classTime }">${ coffeeclass.classTime }</option>
+                        	<c:if test="${ !empty coffeeclass.classTime2 }">
                         	<option class = "selecttime" name="classTime2" value="${ coffeeclass.classTime2 }">${ coffeeclass.classTime2 }</option>
+                        	</c:if>
+                        	<c:if test="${ !empty coffeeclass.classTime3 }">
                         	<option class = "selecttime" name="classTime3" value="${ coffeeclass.classTime3 }">${ coffeeclass.classTime3 }</option>
+                        	</c:if>
                         </select>          
                         </td>
                       </tr>
@@ -149,7 +152,7 @@
 	                    <input type="hidden" id = "cl_date" name="classDate" value = "${ coffeeclass.classDate }">
 	                    <input type="hidden" id = "cl_time" name="classTime" value = "${ coffeeclass.classTime }">
                     </form>
-	                     <button class="btn" id = "register-btn" onclick="onSubmit();">
+	                     <button class="btn" id = "register-btn">
 	                    	  수강신청
 	                      <i class="fa fa-credit-card-alt" aria-hidden="true"></i>
 	                    </button> 
@@ -202,9 +205,8 @@
             <button class="nav-link" id="qa-tab" data-bs-toggle="tab" data-bs-target="#qa" type="button" role="tab" aria-controls="qa" aria-selected="false">Q&A</button>
         </li>
         </ul>
+        
         <div class="tab-content" id="myTabContent">
-        
-        
         <!-- 상세 정보 -->
         <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                 <!-- Product description section 1-->
@@ -237,12 +239,13 @@
                 <p class="fs-sm text-muted pb-2">${ coffeeclass.trIntro }</p>
                 </div>
             </div>
-              
+        </div>
+             <!-- 후기 , Q&A -->
+    		<jsp:include page="/WEB-INF/views/coffeeclass/class_detail_comment.jsp"/>
         </div>
         
 
-    <!-- 후기 , Q&A -->
-    <jsp:include page="/WEB-INF/views/coffeeclass/class_detail_comment.jsp"/>
+    
   
 	<!-- footer -->
 	<jsp:include page="/WEB-INF/views/common/footer2.jsp"/>
@@ -252,12 +255,13 @@
 	
 	
 	<!-- KG이니시스 -->
-	<script>
+	<script>	
 	$("#register-btn").click(function () {
         var IMP = window.IMP; // 생략가능
         IMP.init('imp85155473');
         // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
         // i'mport 관리자 페이지 -> 내정보 -> 가맹점식별코드
+        // IMP.request_pay(params, callback);
         IMP.request_pay({
         pg: 'html5_inicis', // version 1.1.0부터 지원.
         /*
@@ -288,10 +292,10 @@
         나중에 포스팅 해볼게요.
         */
         //결제창에서 보여질 이름 (6개월권, 1년권인지 판별해야함)
-        name: '주문명:결제테스트',
+        name: '${coffeeclass.className}',
         //가격 (6개월이면 100원, 1년이면 200원으로 설정되야함)
         amount: 100,
-        
+        // '${coffeeclass.clPrice}',
         //결제 마지막 결제내역 확인란(이메일, 이름만보임)
         
         //임대인의 이메일
@@ -308,25 +312,49 @@
         (카카오페이, 페이코, 다날의 경우는 필요없음. PC와 마찬가지로 callback함수로 결과가 떨어짐)
         */
         buyer_postcode: '123-456',
-        m_redirect_url: 'https://www.yourdomain.com/payments/complete'
-        }, function (rsp) {
+        m_redirect_url: 'http://localhost:8828/lahol/coffeeclass/',
+	}, function (rsp) {
         console.log(rsp);
         if (rsp.success) {
-        
-        // 결제 후 ALERT창   
-  
-        var msg = '결제가 완료되었습니다.';
-        msg += '고유ID : ' + rsp.imp_uid;
-        msg += '상점 거래ID : ' + rsp.merchant_uid;
-        msg += '결제 금액 : ' + rsp.paid_amount;
-        msg += '카드 승인번호 : ' + rsp.apply_num;
+	        // 결제 후 ALERT창
+	        $.ajax({
+	          method: "POST",
+	          url : "${contextPath}/coffeeclass/register",
+	          contentType: "application/json",
+	          data : JSON.stringify({
+	        	  impUid: rsp.imp_uid,
+	        	  paymentId: rsp.merchant_uid,
+	        	  totalPrice : rsp.paid_amount,
+	        	  buyDate: rsp.paid_at,
+	        	  buyerId: 'user001',
+	        	  classNo: '${coffeeclass.classNo}',
+	          	  className: '${coffeeclass.className}',
+	        	  classPrice: '${coffeeclass.clPrice}'
+	          }),
+	          dataType: 'json'  
+	        }).done(function(data) {
+	            //[2] 서버에서 REST API로 결제정보확인 및 서비스루틴이 정상적인 경우
+	            if ( everythings_fine ) {
+	              var msg = '결제가 완료되었습니다.';
+	              msg += '\n고유ID : ' + rsp.imp_uid;
+	              msg += '\n상점 거래ID : ' + rsp.merchant_uid;
+	              msg += '\결제 금액 : ' + rsp.paid_amount;
+	              msg += '카드 승인번호 : ' + rsp.apply_num;
+
+	              alert(msg);
+	            } else {
+	              //[3] 아직 제대로 결제가 되지 않았습니다.
+	              //[4] 결제된 금액이 요청한 금액과 달라 결제를 자동취소처리하였습니다.
+			      
+	            }
+          	});
         } else {
-        var msg = '결제에 실패하였습니다.';
-        msg += '에러내용 : ' + rsp.error_msg;
+        	var msg = '결제에 실패하였습니다.';
+	        msg += '에러내용 : ' + rsp.error_msg;
+	        alert(msg);
         }
-        alert(msg);
-        });
-        });
+      }); // end of ajax
+    }); // end of onclick
 
 
 	</script>

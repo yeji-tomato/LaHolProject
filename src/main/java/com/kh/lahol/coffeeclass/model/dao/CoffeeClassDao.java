@@ -42,6 +42,9 @@ public interface CoffeeClassDao {
 		// 11. 검색
 		public List<ClassSearch> selectClassSearch(ClassSearch search);
 
+		// 12. 필터
+		public List<ClassSearch> selectClassFilter(ClassSearch search);
+
 		
 		
 

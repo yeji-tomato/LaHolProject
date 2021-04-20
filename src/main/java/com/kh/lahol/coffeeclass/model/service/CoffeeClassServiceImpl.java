@@ -84,6 +84,12 @@ public class CoffeeClassServiceImpl implements CoffeeClassSerivce{
 		return clDao.selectClassSearch(search);
 	}
 
+	// 필터
+	@Override
+	public List<ClassSearch> filterList(ClassSearch search) {
+		return clDao.selectClassFilter(search);
+	}
+
 
 
 

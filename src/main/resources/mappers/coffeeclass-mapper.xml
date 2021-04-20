@@ -30,6 +30,7 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 		<result property="clWriter" column="CL_WRITER"/>
 		<result property="rpReason" column="REPORT_TYPE"/>
 		<result property="rpDeets" column="REPORT_REASON"/>
+		<result property="category" column="CL_CATEGORY"/>
 	</resultMap>
 		
 	<!-- 조회수증가-->
@@ -93,12 +94,15 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 				, BUS_NO
 				, CL_SHORTDES
 				, CL_TIME
+				, CL_TIME2
+				, CL_TIME3
 				, CL_LEVEL
 				, CL_RUNTIME
 				, CL_THUMBNAIL
 				, TR_PHOTO
 				, CLASS_PHOTO
 				, CL_WRITER
+				, CL_CATEGORY
 	   	 )
 	    VALUES
 	    (
@@ -118,12 +122,15 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 	    		, #{busNo}
 	    		, #{clShortDes}
 	    		, #{classTime}
+	    		, #{classTime2}
+	    		, #{classTime3}
 	    		, #{classLvl}
 	    		, #{clRuntime} 
 	    		, #{clThumbnail}
 	    		, #{trPhoto}
 	    		, #{clPhoto}
 	    		, #{clWriter}
+	    		, #{category}
 	    )
 
 	</insert>
@@ -147,6 +154,8 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 				, BUS_NO
 				, CL_SHORTDES
 				, CL_TIME
+				, CL_TIME2
+				, CL_TIME3
 				, CL_LEVEL
 				, CL_RUNTIME
 				, CL_THUMBNAIL
@@ -270,7 +279,7 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 	  	  		, PAY_ITEM
 	  	  		, PAY_PRICE
 	  	  		, PAY_DATE
-	  	  		, USER_ID
+	  	  		, BUYER_ID
 	  	  		, CL_PAY_NO 	
 	  	  )
 	  	  VALUES
@@ -283,6 +292,7 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 	  	  		, #{classNo}	  	  
 	  	  )
 	  </insert>
+	  <!-- 메인페이지 검색 -->
 	  <select id = "searchClass" parameterType="ClassSearch" resultMap="clResultSet">
 	     <bind name="sv" value="'%' + _parameter.getSearchValue() +  '%'"/>
 	     SELECT
@@ -305,6 +315,54 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 				OR CL_SHORTDES LIKE #{sv}					
 		</where>
 	  ORDER BY CLASS_NO  
+	  </select>
+	  <!-- 메인페이지 필터검색 -->
+	  <select id="filterClass" parameterType="ClassSearch" resultMap="clResultSet">
+	     SELECT
+	     		  CLASS_NO
+				, CL_NAME
+				, CL_DES
+				, TR_NAME
+				, TR_INTRO
+				, CL_CURI
+				, CL_LOCA
+				, CL_SHORTDES
+		  FROM  COFFEECLASS
+		<where>				
+			<choose>
+				<when test="searchCondition1 == coffee">
+					<choose>
+						<when test="searchCondition2 == Capital">AND CL_LOCA LIKE #{sv}</when>
+						<when test="searchCondition2 == GW"></when>
+						<when test="searchCondition2 == BS"></when>
+						<when test="searchCondition2 == JJ"></when>
+						<otherwise></otherwise>
+					</choose>
+				</when>
+				<when test="searchCondition1 == art">
+				</when>
+				<when test="searchCondition1 == dessert">
+				</when>
+				<when test="searchCondition1 == certi">
+				</when>
+				<when test="searchCondition1 == etc">
+				</when>
+			</choose>
+			<choose>
+				<when test="searchCondition2 == category"></when>
+				<when test="searchCondition2 == classLoca"></when>
+			</choose>
+				   CL_NAME LIKE #{sv}
+				OR CL_DES LIKE #{sv}
+				OR TR_NAME LIKE #{sv}
+				OR TR_INTRO LIKE #{sv}
+				OR CL_CURI LIKE #{sv}
+				OR CL_LOCA LIKE #{sv}
+				OR CL_SHORTDES LIKE #{sv}					
+		</where>
+	  ORDER BY CLASS_NO  
+	  
+	  
 	  </select>
 	
 	 
