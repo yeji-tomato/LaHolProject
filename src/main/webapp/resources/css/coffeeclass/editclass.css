@@ -84,7 +84,7 @@
             padding-right: 7%; */
         }
 
-        #clTable input[type=text]{
+        #clTable input[type=text], textarea{
             border-radius: 1vw;
             border-color: #d8d4d070;
         }

@@ -221,15 +221,15 @@ h1{
 }
 
  #filterbtn i:hover {
-position :relative;
-left : 20%;
-transition: all 0.15s linear 0.2s;
-color : orange;
+	position :relative;
+	left : 20%;
+	transition: all 0.15s linear 0.2s;
+	color : orange;
 } 
 
 .card-img-top{
-width : 30vh;
-height : 45vh;
+	width : 30vw;
+	height : 45vh;
 }
 
 /*클래스 개설 버튼*/

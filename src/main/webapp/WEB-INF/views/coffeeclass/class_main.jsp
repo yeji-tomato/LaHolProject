@@ -145,11 +145,15 @@
       <div class="row">
          <!-- 키값 -->
       	  <c:forEach var="cl" items="${ list }">
-      	  	  <div class="col" id="classdetail" onclick="selectClass('${cl.classNo}');">
+      	  	  <div class="col" id="classdetail" onclick="selectClass('${cl.classNo}');" style="max-width: 200px;">
               	<img src="${ contextPath }/resources/nuploadFiles/classImg/${ cl.trPhoto }" class ="card-img-top" onclick="">
               	<h4>${ cl.className }</h4>
          	  	<p>${ cl.clPrice }원</p>
          	  	<!-- 별점 -->
+         	  	 <div class="rating">
+	             <i class="fa fa-star"></i>
+	             <i class="fa fa-star-half"></i>
+	             </div>
          	  </div>
       	  </c:forEach>
       
@@ -170,7 +174,7 @@
    <div class="classes">
       <h2>진행예정 / 종료된 클래스</h2>
       <div class="row">
-          <div class="col">
+          <div class="col" style="max-width: 200px;">
               <img src="${ contextPath }/resources/img/coffeeclass/classphoto/class1.jpg" class ="card-img-top" onclick="location.href='classdetail.html'">
               <h4>클래스이름</h4>
               <p>가격</p>

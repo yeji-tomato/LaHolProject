@@ -84,8 +84,8 @@
 					</tr>
 					<tr>
 						<td>강사소개</td>
-						<td class="answer"><input type="text" style="height: 200px;"
-							class="classdes" name="trIntro"></td>
+						<td class="answer"><textarea style="height: 200px;"
+							class="classdes" name="trIntro"></textarea></td>
 					</tr>
 
 					<tr>
@@ -100,7 +100,7 @@
 						<td>카테고리</td>
 						<td class="answer" style="text-align: left;">
 						<select name="category">
-							 <option selected disabled="disabled">난이도 선택</option>
+							 <option selected disabled="disabled">클래스 카테고리 선택</option>
 							 <option value="coffee">로스팅/원두</option>
 				             <option value="art">라테아트/디자인</option>
 				             <option value="dessert">디저트</option>
@@ -117,14 +117,14 @@
 
 					<tr>
 						<td>클래스 상세 소개</td>
-						<td class="answer"><input type="textarea"
-							style="line-height: 200px;" class="classdes" name="classDes"></td>
+						<td class="answer"><textarea
+							style="height: 200px;" class="classdes" name="classDes" id="classDes"></textarea></td>
 					</tr>
 
 					<tr>
 						<td>클래스 커리큘럼</td>
-						<td class="answer"><input type="textarea" style="height: 200px;"
-							class="classdes" name="classCurri" placeholder="10:00-11:00 커피와 함께하는 커피의 역사 -휴식10분- 11:10-12:00 현대 커피브랜드의 가치"></td>
+						<td class="answer"><textarea style="height: 200px;"
+							class="classdes" name="classCurri" placeholder="10:00-11:00 커피와 함께하는 커피의 역사 -휴식10분- 11:10-12:00 현대 커피브랜드의 가치"></textarea></td>
 					</tr>
 
 					<tr>
@@ -228,5 +228,8 @@
 	
 	 <!-- footer -->
 	<jsp:include page="/WEB-INF/views/common/footer2.jsp"/>
+	
+	<!-- script -->
+	<script>$('#classDes').val().replace(/\n/g, "<br>")</script>
 </body>
 </html>
