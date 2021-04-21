@@ -34,8 +34,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.kh.lahol.cafe.bus.model.vo.Cafe;
-import com.kh.lahol.common.model.vo.MyFileRenamePolicy;
+import com.kh.lahol.cafe.bus.model.vo.Cafe; 
 import com.kh.lahol.member.model.vo.M_Partner;
 import com.kh.lahol.member.model.vo.Member;
 //import com.kh.lahol.store.model.service.QService;
@@ -48,10 +47,10 @@ import com.kh.lahol.store.model.vo.storeA;
 import com.kh.lahol.store.model.vo.storeQ;
 import com.kh.lahol.store.page.Pagination;
 import com.kh.lahol.store.page.Pagination2;
-import com.kh.lahol.store.page.Pagination3;
-import com.oreilly.servlet.MultipartRequest;
-import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
-import com.oreilly.servlet.multipart.FileRenamePolicy; 
+import com.kh.lahol.store.page.Pagination3;/*
+											import com.oreilly.servlet.MultipartRequest;
+											import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
+											import com.oreilly.servlet.multipart.FileRenamePolicy; */
 
 @Controller
 @RequestMapping("/store")
@@ -421,8 +420,7 @@ public class StoreController {
 		Member loginUser = (Member)session.getAttribute("loginUser");
 		
 		
-		String id =loginUser.getName();
-		
+		String id =loginUser.getId();
 		
 		 System.out.println("제품 번호넘어와라"+PR_CODE); 
 		 String qn = request.getParameter("PR_CODE");

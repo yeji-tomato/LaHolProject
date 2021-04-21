@@ -113,15 +113,18 @@
                    
 					<!-- 인기 상품  -->	
 					<c:forEach var="s" items="${ list2 }">
-	                    <div class="product" onclick="selectStore(${s.PR_CODE});"  > 
+	                    <div class="product"   > 
 	                        <div class="scale" > 
-	                            <img  src="${ contextPath }/resources/img/store/${ s.STORE_PHOTO1 }" width="350px" height="300px" >  
+	                            <img  src="${ contextPath }/resources/img/store/${ s.STORE_PHOTO1 }" width="350px" height="300px"  onclick="selectStore(${s.PR_CODE});">  
 	                        </div>    
 	                        <div class="if" style="float:left; width: 350px;  ">
 	                        <center>
-	                        <h4 ><a style="color:red;"><인기></a>${ s.PR_NAME }</h4>
+	                        <h5 onclick="selectStore(${s.PR_CODE});" ><a style="color:red;" ><인기></a>${ s.PR_NAME }</h5>
 	                            <h5 style="color: #810B0B"> ${ s.PR_PRICE }</h5>
-	                            <h6 style="color:#935039 ">#${ s.ORIGIN } <a style="color:#96877D "> #${ s.ST_CATAGORY} </a></h6> 
+	                            <h6 style="color:#935039 ">#${ s.ORIGIN } <a style="color:#96877D "> #${ s.ST_CATAGORY} </a><c:if test="${  s.SUBSCRIPTIONS eq 'Y'  }">        
+	                             <a style="color:#935039 ">#구독가능 </a></h6> 
+	                            </c:if> </a></h6> 
+	                              
 	                        </center>
 	                        </div>
 	                        <button  id="ifb">바로구매 <i class="fa fa-credit-card-alt" aria-hidden="true"></i></button>  
@@ -142,18 +145,21 @@
                     <h4>   &nbsp;&nbsp;&nbsp;일반상품</h4>
               				   
 					<c:forEach var="s" items="${ list }">
-                    <div class="product"  onclick="selectStore(${s.PR_CODE});"  > 
+                    <div class="product"   > 
                         <div class="scale" > 
-                            <img  src="${ contextPath }/resources/img/store/${ s.STORE_PHOTO1 }" width="350px" height="300px " >  
+                            <img  src="${ contextPath }/resources/img/store/${ s.STORE_PHOTO1 }" width="350px" height="300px "  onclick="selectStore(${s.PR_CODE});" >  
                         </div>    
                         <div class="if" style="float:left; width: 350px;  ">
                         <center>
-                        <h4 >${ s.PR_NAME }</h4>
+                        <h4   onclick="selectStore(${s.PR_CODE});">${ s.PR_NAME }</h4>
                             <h5 style="color: #810B0B"> ${ s.PR_PRICE }</h5>
-                            <h6 style="color:#935039 ">#${ s.ORIGIN } <a style="color:#96877D "> #${ s.ST_CATAGORY} </a></h6> 
+                             <h6 style="color:#935039 ">#${ s.ORIGIN } <a style="color:#96877D "> #${ s.ST_CATAGORY} </a><c:if test="${  s.SUBSCRIPTIONS eq 'Y'  }">        
+	                             <a style="color:#964b00 ;">#구독가능 </a></h6> 
+	                            </c:if> </a></h6> 
                         </center>
                         </div>
-                        <button  id="ifb">바로구매 <i class="fa fa-credit-card-alt" aria-hidden="true"></i></button>  
+                        <button  id="ifb">바로구매 <i class="fa fa-credit-card-alt" aria-hidden="true"></i></button>  <c:if test="${  s.SUBSCRIPTIONS eq 'Y'  }"> 
+                        <button  id="ifb" style="  margin-top: 45px; " onClick="location.href=' ${ contextPath }/store/subW?PR_CODE=${ s.PR_CODE }'" >정기구독 <i class="fa fa-credit-card-alt" aria-hidden="true"></i></button> </c:if> 
                     </div> 
                     
              

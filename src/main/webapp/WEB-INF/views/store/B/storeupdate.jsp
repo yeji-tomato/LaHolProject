@@ -9,7 +9,7 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
     
-    <link rel="stylesheet" href="${ contextPath }/resources/css/store/main/ct.css?A">
+    <link rel="stylesheet" href="${ contextPath }/resources/css/store/main/ct.css?Aㅇ">
 </head>
 <style>
 
@@ -27,7 +27,7 @@
     <div>
         	
         <!--입력란-->
-        <div id="tbColor">
+        <div id="tbColor2">
 
         <div id="createform">
             <div class= "content-header">
@@ -94,7 +94,7 @@
                                             <tr>
                                                 <th>이벤트소개</th>
                                                 <td><input type="text" class="form-control"
-                                                    name="PR_EVENT" required value="${ s.PR_IF }"> </td>
+                                                    name="PR_EVENT" required value="${ s.PR_EVENT }"> </td>
                                             </tr>
         
                                             <tr>
@@ -127,14 +127,8 @@
                                                     </td>
                                             </tr>
                                              
-                                            
-                                            
-                                            <tr>
-                                                <th>사업자명</th>
-                                                <td><input class="form-control" type="text"
-                                                    name=" "  
-                                                    required></td>
-                                            </tr>
+                                             
+                                           
                                             <tr>
                                                 <th>택배사</th>
                                                 <td><select id="area5" name="DY_COMPANY"
