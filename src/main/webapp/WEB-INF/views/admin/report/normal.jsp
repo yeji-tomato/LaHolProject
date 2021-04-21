@@ -394,8 +394,8 @@
 		        $('#theDiv').html('어쩌구저쩌구');
 		    }
 		    
-		<script src="${ contextPath }/resources/js/admin/darkMode.js"></script>
 		</script>
+		<script src="${ contextPath }/resources/js/admin/darkMode.js"></script>
 	</body>
 </html>
     

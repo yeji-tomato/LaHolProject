@@ -381,8 +381,8 @@
 		    });
 		});
 
-		<script src="${ contextPath }/resources/js/admin/darkMode.js"></script>
 		</script>
+		<script src="${ contextPath }/resources/js/admin/darkMode.js"></script>
 	</body>
 </html>
     
