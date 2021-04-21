@@ -18,8 +18,5 @@ public class Sub {
 	private String Pr_code;
 	private String Subs_Month;
 	private String Pay;
-	private String Number;
-	private String S_status;
-	private Date S_date;
 	
 }

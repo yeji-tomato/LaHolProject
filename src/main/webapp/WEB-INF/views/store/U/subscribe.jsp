@@ -213,7 +213,7 @@
 	        	   amount : ${  ((s.PR_PRICE*9)- ((s.PR_PRICE*9)*0.15)) /6  }
 	           }else if( $('select[name=SUBSCRIPTIONS]').val() == '9'){
 	        	   amount : ${  ((s.PR_PRICE*9)- ((s.PR_PRICE*9)*0.15)) /9  }
-	           } , */
+	           } , */ 
 	           amount : '100' ,
 	           buyer_email : ' ',
 	           buyer_name : ' ',

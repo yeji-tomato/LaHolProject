@@ -21,7 +21,8 @@
 <body>
 	<!-- menubar -->
 	<jsp:include page="/WEB-INF/views/common/menubar.jsp"/>
- <div class="banner">
+	<div id="aa">
+ <div class="banner" style="  height: 100px; ">
         <h1 style="padding-top: 18vh;"> </h1>
     </div>
     <div>
@@ -92,7 +93,7 @@
                                             </tr>
                                             
                                             <tr>
-                                                <th>이벤트소개</th>
+                                                <th>이벤트/한줄소개</th>
                                                 <td><input type="text" class="form-control"
                                                     name="PR_EVENT" required value="${ s.PR_EVENT }"> </td>
                                             </tr>
@@ -203,6 +204,7 @@
 
         
         
+    </div>
     </div>
     </div>
     <!-- footer -->

@@ -9,10 +9,9 @@
 
 <!-- 아이콘 cdn -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-<!-- 폰트 모음 CSS-->
-<link rel="stylesheet" href="../common/fonts/fonts.css" />
+ 
 <!-- 스토어 css -->
-<link rel="stylesheet" href="${ contextPath }/resources/css/store/main/main.css?+">
+<link rel="stylesheet" href="${ contextPath }/resources/css/store/main/main.css?sddsd">
 </head>
 <style>  
 	
@@ -25,7 +24,7 @@
 	<jsp:include page="/WEB-INF/views/main/store.jsp"/>
 	
 	
-	<section class="storemain" >
+	 
 	
 		<div class="outer1"  style="height:auto;"> 
 			<div class="store1" style="height:auto;"  >  
@@ -113,17 +112,21 @@
                    
 					<!-- 인기 상품  -->	
 					<c:forEach var="s" items="${ list2 }">
-	                    <div class="product"   > 
-	                        <div class="scale" > 
-	                            <img  src="${ contextPath }/resources/img/store/${ s.STORE_PHOTO1 }" width="350px" height="300px"  onclick="selectStore(${s.PR_CODE});">  
+	                    <div class="product"   >
+	                    
+	                        <div class="scale" >  
+	                          <c:if test="${  s.SUBSCRIPTIONS eq 'Y'  }">  	<div style="font-weight: bold;position: absolute;  z-index:10;" >  <a style="color:#810B0B;">구독가능 </a></div>  </c:if>
+	                            <img  src="${ contextPath }/resources/img/store/${ s.STORE_PHOTO1 }" width="350px" height="300px"  onclick="selectStore(${s.PR_CODE});"  >  
+	                            
+	                         
 	                        </div>    
 	                        <div class="if" style="float:left; width: 350px;  ">
 	                        <center>
 	                        <h5 onclick="selectStore(${s.PR_CODE});" ><a style="color:red;" ><인기></a>${ s.PR_NAME }</h5>
 	                            <h5 style="color: #810B0B"> ${ s.PR_PRICE }</h5>
-	                            <h6 style="color:#935039 ">#${ s.ORIGIN } <a style="color:#96877D "> #${ s.ST_CATAGORY} </a><c:if test="${  s.SUBSCRIPTIONS eq 'Y'  }">        
-	                             <a style="color:#935039 ">#구독가능 </a></h6> 
-	                            </c:if> </a></h6> 
+	                            <h6 ><c:if test="${  s.SUBSCRIPTIONS eq 'Y'  }">        
+	                             <a style="color:#E5BD62 ">#구독가능 </a>   </c:if> <a style="color:#935039 ">#${ s.ORIGIN }</a> <a style="color:#96877D "> #${ s.ST_CATAGORY} </a></h6> 
+	                          </a></h6> 
 	                              
 	                        </center>
 	                        </div>
@@ -147,19 +150,20 @@
 					<c:forEach var="s" items="${ list }">
                     <div class="product"   > 
                         <div class="scale" > 
+                            <c:if test="${  s.SUBSCRIPTIONS eq 'Y'  }">  	<div style="font-weight: bold;position: absolute;  z-index:10;" >  <a style="color:#810B0B;">구독가능 </a></div>  </c:if>
                             <img  src="${ contextPath }/resources/img/store/${ s.STORE_PHOTO1 }" width="350px" height="300px "  onclick="selectStore(${s.PR_CODE});" >  
                         </div>    
                         <div class="if" style="float:left; width: 350px;  ">
                         <center>
                         <h4   onclick="selectStore(${s.PR_CODE});">${ s.PR_NAME }</h4>
                             <h5 style="color: #810B0B"> ${ s.PR_PRICE }</h5>
-                             <h6 style="color:#935039 ">#${ s.ORIGIN } <a style="color:#96877D "> #${ s.ST_CATAGORY} </a><c:if test="${  s.SUBSCRIPTIONS eq 'Y'  }">        
-	                             <a style="color:#964b00 ;">#구독가능 </a></h6> 
-	                            </c:if> </a></h6> 
+                              <h6 ><c:if test="${  s.SUBSCRIPTIONS eq 'Y'  }">        
+	                             <a style="color:#E5BD62">#구독가능 </a>   </c:if> <a style="color:#935039 ">#${ s.ORIGIN }</a> <a style="color:#96877D "> #${ s.ST_CATAGORY} </a></h6> 
+	                          </a></h6> 
                         </center>
                         </div>
-                        <button  id="ifb">바로구매 <i class="fa fa-credit-card-alt" aria-hidden="true"></i></button>  <c:if test="${  s.SUBSCRIPTIONS eq 'Y'  }"> 
-                        <button  id="ifb" style="  margin-top: 45px; " onClick="location.href=' ${ contextPath }/store/subW?PR_CODE=${ s.PR_CODE }'" >정기구독 <i class="fa fa-credit-card-alt" aria-hidden="true"></i></button> </c:if> 
+                        <button  id="ifb">바로구매 <i class="fa fa-credit-card-alt" aria-hidden="true"></i></button>  <%-- <c:if test="${  s.SUBSCRIPTIONS eq 'Y'  }"> 
+                        <button  id="ifb" style="  margin-top: 45px; background-color:blue;" onClick="location.href=' ${ contextPath }/store/subW?PR_CODE=${ s.PR_CODE }'" >정기구독 <i class="fa fa-credit-card-alt" aria-hidden="true"></i></button> </c:if>  --%>
                     </div> 
                     
              
@@ -244,12 +248,12 @@
           		 
           		</div>
           		 
-          		 <!-- 여기밑부터 푸터 -->
+
           		 
           		</div>
           		
-           
-	</section>
+                     	  
+ 	  
     
        
     <script>
@@ -263,8 +267,7 @@
 	
 	 
       
-       
- 
+     
 		 
 </body> 
 	  
