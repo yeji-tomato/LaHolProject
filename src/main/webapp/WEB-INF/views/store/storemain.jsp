@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -118,24 +119,26 @@
 	                          <c:if test="${  s.SUBSCRIPTIONS eq 'Y'  }">  	<div style="font-weight: bold;position: absolute;  z-index:10;" >  <a style="color:#810B0B;">구독가능 </a></div>  </c:if>
 	                            <img  src="${ contextPath }/resources/img/store/${ s.STORE_PHOTO1 }" width="350px" height="300px"  onclick="selectStore(${s.PR_CODE});"  >  
 	                            
-	                         
+	                           
 	                        </div>    
 	                        <div class="if" style="float:left; width: 350px;  ">
 	                        <center>
 	                        <h5 onclick="selectStore(${s.PR_CODE});" ><a style="color:red;" ><인기></a>${ s.PR_NAME }</h5>
-	                            <h5 style="color: #810B0B"> ${ s.PR_PRICE }</h5>
-	                            <h6 ><c:if test="${  s.SUBSCRIPTIONS eq 'Y'  }">        
-	                             <a style="color:#E5BD62 ">#구독가능 </a>   </c:if> <a style="color:#935039 ">#${ s.ORIGIN }</a> <a style="color:#96877D "> #${ s.ST_CATAGORY} </a></h6> 
+	                            <h5 style="color: #810B0B"> ${ s.PR_PRICE }원</h5>
+	                            <h6 ><c:if test="${  s.SUBSCRIPTIONS eq 'Y' && !empty sessionScope.loginUser   }">        
+	                             <a style="color:#RED; ">#구독가능 </a>   </c:if> <a style="color:#935039; ">#${ s.ORIGIN }</a> <a style="color:#96877D "> #${ s.ST_CATAGORY} </a></h6> 
 	                          </a></h6> 
 	                              
 	                        </center>
 	                        </div>
 	                        <button  id="ifb">바로구매 <i class="fa fa-credit-card-alt" aria-hidden="true"></i></button>  
+	                         <c:if test="${  s.SUBSCRIPTIONS eq 'Y'  }"> 
+                        <button  id="ifb" style="  margin-top: 45px; background-color:#935039;" onClick="location.href=' ${ contextPath }/store/subW?PR_CODE=${ s.PR_CODE }'" >정기구독 <i class="fa fa-credit-card-alt" aria-hidden="true"></i></button> </c:if>  
 	                    </div> 
                     
              
 					</c:forEach>
-	
+	   
                 
                 
                 </div>
@@ -157,13 +160,19 @@
                         <center>
                         <h4   onclick="selectStore(${s.PR_CODE});">${ s.PR_NAME }</h4>
                             <h5 style="color: #810B0B"> ${ s.PR_PRICE }</h5>
-                              <h6 ><c:if test="${  s.SUBSCRIPTIONS eq 'Y'  }">        
-	                             <a style="color:#E5BD62">#구독가능 </a>   </c:if> <a style="color:#935039 ">#${ s.ORIGIN }</a> <a style="color:#96877D "> #${ s.ST_CATAGORY} </a></h6> 
+                              <h6 ><c:if test="${  s.SUBSCRIPTIONS eq 'Y' && !empty sessionScope.loginUser  }">        
+	                             <a style="color:#RED;">#구독가능 </a>   </c:if> <a style="color:#935039 ">#${ s.ORIGIN }</a> <a style="color:#96877D "> #${ s.ST_CATAGORY} </a></h6> 
 	                          </a></h6> 
                         </center>
                         </div>
-                        <button  id="ifb">바로구매 <i class="fa fa-credit-card-alt" aria-hidden="true"></i></button>  <%-- <c:if test="${  s.SUBSCRIPTIONS eq 'Y'  }"> 
-                        <button  id="ifb" style="  margin-top: 45px; background-color:blue;" onClick="location.href=' ${ contextPath }/store/subW?PR_CODE=${ s.PR_CODE }'" >정기구독 <i class="fa fa-credit-card-alt" aria-hidden="true"></i></button> </c:if>  --%>
+                        
+                        
+                        <button  id="ifb">바로구매 <i class="fa fa-credit-card-alt" aria-hidden="true"></i></button> 
+                        
+                        
+                        
+                           <c:if test="${  s.SUBSCRIPTIONS eq 'Y'  }"> 
+                        <button  id="ifb" style="  margin-top: 45px; background-color:#935039;" onClick="location.href=' ${ contextPath }/store/subW?PR_CODE=${ s.PR_CODE }'" >정기구독 <i class="fa fa-credit-card-alt" aria-hidden="true"></i></button> </c:if>  
                     </div> 
                     
              

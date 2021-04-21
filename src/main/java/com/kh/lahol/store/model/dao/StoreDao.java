@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.kh.lahol.cafe.bus.model.vo.Cafe;
 import com.kh.lahol.store.model.vo.PageInfo;
+import com.kh.lahol.store.model.vo.Payment;
 import com.kh.lahol.store.model.vo.Search; 
 import com.kh.lahol.store.model.vo.Store;
 import com.kh.lahol.store.model.vo.Sub;
@@ -48,6 +49,8 @@ public interface StoreDao {
 	public List<Cafe> CafeCode(Search cd);
 
 	public int subscribe(Sub sb);
+
+	public int PAYMENT(Payment py);
 
 	 
  

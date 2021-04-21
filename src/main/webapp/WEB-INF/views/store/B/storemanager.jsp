@@ -13,7 +13,7 @@
 <!-- 폰트 모음 CSS-->
 <link rel="stylesheet" href="../common/fonts/fonts.css" />
 <!-- 스토어 css -->
-<link rel="stylesheet" href="${ contextPath }/resources/css/store/main/main.css?asss">
+<link rel="stylesheet" href="${ contextPath }/resources/css/store/main/main.css?as">
 </head>
 <style>  
 	 
@@ -59,13 +59,14 @@
 	               		  <c:forEach var="s" items="${ list }">   
 		                    <div class="product"    > 
 		 		                 <div class="scale"  onclick="selectStore(${s.PR_CODE});"> 
+		 		                 <div style="font-weight: bold;position: absolute;z-index:10;width: 350px;" >  <a style="color:#810B0B;">제품 코드:${ s.PR_CODE }<BR>   카테고리:${ s.ST_CATAGORY } <BR> 제품명:${ s.PR_NAME }<BR>  가격:${ s.PR_PRICE}<BR>
+                                                                       원산지:${ s.ORIGIN } <BR> 구독여부:${ s.SUBSCRIPTIONS} <BR> 제품등록일: ${ s.PR_DATE}<BR> 택배사: ${ s.DY_COMPANY}</a></div> 
 		                            <img  src="${ contextPath }/resources/img/store/${ s.STORE_PHOTO1 }" width="350px" height="300px " >  
 		                        </div>    
 		                        <div class="if" style="float:left; witdh: 50px;">
 		                        <center>
 		                        <h4 >${ s.PR_NAME }</h4>
-		                            <h5 style="color: #96877D"> ${ s.PR_PRICE }</h5>
-		                             
+		                            <h5 style="color: #96877D"> ${ s.PR_PRICE }</h5>  
 		                        </center>
 		                        </div>
 		                        <button  id="ifs" onclick="location.href='${ contextPath }/store/updatepage?PR_CODE=${ s.PR_CODE }'" >수정</button>   

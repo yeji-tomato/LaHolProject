@@ -69,6 +69,9 @@
                     <!--구독 할인 정보 -->
                     <form   id="terms_form" action="${ contextPath }/store/subscribe"  method="post"  >    
 					 <input type="hidden" name ="PR_CODE" value="${ s.PR_CODE }">
+					 <input type="hidden" name ="PR_PRICE" value="${ s.PR_PRICE }">	
+					 <input type="hidden" name ="PR_NAME" value="${ s.PR_NAME }">	 
+					    
                     <div class="sp">
                         <div class="np2"> 
                           
@@ -126,30 +129,58 @@
                         </div>
                     
                         <div class="hh2">
-                            <div style="   margin-top: 40px; float: right;  "> = 월 구독액:    <a style="color: brown;"> <fmt:formatNumber value="  ${  ((s.PR_PRICE*9)- ((s.PR_PRICE*9)*0.15)) /9  }  " pattern="#,###"/>          원</a>  </div>
+                            <div style="   margin-top: 40px; float: right;  "> = 월 구독액:    <a style="color: brown;"> <fmt:formatNumber value="  ${  ((s.PR_PRICE*9)- ((s.PR_PRICE*9)*0.15)) /9  }  " pattern="#,###"/>     원</a>  </div>
                         </div>
 
                     </div>
 
                     <hr>
- 
+  
                     <!--구독 배성 정보-->
                     <div class="deinf">
-                        <h4> 주문자 회원정보와 동일한 정보를 불러옵니다  <input type="checkbox" checked="checked"  ></h4>
-                       
+                        <h4> 주문자 회원정보와 동일한 정보를 불러옵니다  <input type="checkbox" id="load" value="${ loginUser.addr }"  onclick='getCheckboxValue(event)'/>  신규주소지<input name="chkbox" type="checkbox" checked="checked" onClick="checkDisable(this.form)"> </h4>
+                          
                         <div class="di1" style="float: left;"> 
                             <table >
-                               
+                      
                                 <tr >
-                                    <th style="width: 200px;" >구매자 성함</th>
-                                    <td><input type="text" class="form-control"   name="name" required    maxlength="8" style="
-                                        width: 100px; " value=" ${ loginUser.name }"></td>
+                                    <th style="width: 200px;" >구매자 성함</th>  
+                                    <td style="text-align:left;">  ${ loginUser.name }</td>
                                 </tr>
                                 
                                 <tr>
                                     <th>연락처</th>
-                                    <td><input type="text" class="form-control"
-                                        name="" required style="  width: 300px; " value="${ loginUser.phone  }"> </td>
+                                    <td><div id='result2' style="text-align:left;"></div>  </td>
+                                </tr>
+
+                                 
+
+                                <tr>
+                                    <th>배송받을 주소</th>
+                                    <td>   <div id='result'></div> </td>
+                                </tr>
+                                
+                                <tr>
+                                    <th>주문 메시지</th>
+                                    <td><textarea  name="dd" rows="5" cols="40"  style="  width: 300px;  " class="form-control"> </textarea></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <!-- 새로입력하기 -->
+                        
+                        <div class="di1" style="float: left;"> 
+                            <table >
+                             
+                                <tr >
+                                    <th style="width: 200px;" >구매자 성함</th>
+                                    <td><input name="aa" type="text" class="form-control"  id='result'  required    maxlength="8" style="
+                                        width: 100px; "    >  </td>
+                                </tr>
+                                
+                                <tr>
+                                    <th>연락처</th>
+                                    <td><input name="textbox"  type="text" class="form-control"
+                                       required style="  width: 300px; "  name="텍스트박스" > </td>
                                 </tr>
 
                                  
@@ -157,18 +188,25 @@
                                 <tr>
                                     <th>배송받을 주소</th>
                                     <td><input class="form-control" type="text" style="  width: 300px;  "
-                                        name="detail_address" required value="${ loginUser.addr  } "></td>
+                                        name="detail_address" required name="텍스트박스" ></td>
                                 </tr>
                                 
                                 <tr>
                                     <th>주문 메시지</th>
-                                    <td><textarea rows="5" cols="40"  style="  width: 300px;  " class="form-control"> </textarea></td>
+                                    <td><textarea name="텍스트박스"   rows="5" cols="40"  style="  width: 300px;  class="form-control"  > </textarea></td>
                                 </tr>
                             </table>
                         </div>
+ 
+
 
  
+
+ 
+ 
  					</div>
+ 	 
+ 					
  					  </form>
  					  <div style="margin-top: 170px;">
                             <button id="btnArea1"  onclick="onSubmit();"  >구독</button>
@@ -184,7 +222,7 @@
  
 
  </div>
-                 
+
      
 	<!-- footer -->
 	<jsp:include page="/WEB-INF/views/common/footer2.jsp"/>
@@ -192,11 +230,35 @@
 	<script>
 	function submitForm() {
 	    document.getElementById("envselection").submit();
+	    
+	    
 	}
 	</script>
 	
+	<script>
+		function getCheckboxValue(event)  {
+			  let result = '';  
+			  if(event.target.checked)  {
+			    result = event.target.value;    
+			    result2 = ${ loginUser.phone };    
+			  }else {
+			    result = ''; 
+			    result2 = ''; 
+			  }
+			  
+			  document.getElementById('result').innerText
+			    = result; 
+			  document.getElementById('result2').innerText
+			    = result2;  
+			}
+		
+	</script>
 	
-	 
+
+ 
+	
+	
+	
      <script>
  	 function onSubmit() {
 		 var IMP = window.IMP; // 생략가능
@@ -216,7 +278,7 @@
 	           } , */ 
 	           amount : '100' ,
 	           buyer_email : ' ',
-	           buyer_name : ' ',
+	           buyer_name : '${ loginUser.name } ',
 	           buyer_tel : '  ',
 	           buyer_addr : '',
 	           buyer_postcode : '123-456',
@@ -234,7 +296,7 @@
 	               var msg = '결제에 실패하였습니다.';
 	               msg += '에러내용 : ' + rsp.error_msg;
 	               //실패시 이동할 페이지 
-	            
+	               $("#terms_form").submit();
 	                
 	           } 
 	           alert(msg);
@@ -243,6 +305,29 @@
 		 
 </script>        
  		
+ <script >
+
+ function checkDisable(frm)
+ {
+     if( frm.chkbox.checked == true ){
+ 	   frm.textbox.disabled = false;
+ 	   frm.aa.disabled = false;
+ 	  frm.detail_address.disabled = false;
+ 	 frm.텍스트박스.disabled = false;
+ 	 frm.dd.disabled = true;
+ 	} else 
+ 	{
+ 	   frm.textbox.disabled =  true;
+ 	  frm.aa.disabled =  true;
+ 	 frm.detail_address.disabled =  true;
+ 	 frm.텍스트박스.disabled =  true;
+ 	 frm.dd.disabled = false;
+ 	}
+ }
+
+</script>
+
+
  
            
 </body>

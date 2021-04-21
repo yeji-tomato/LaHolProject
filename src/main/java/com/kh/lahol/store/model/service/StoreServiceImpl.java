@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.kh.lahol.cafe.bus.model.vo.Cafe;
 import com.kh.lahol.store.model.dao.StoreDao;
 import com.kh.lahol.store.model.vo.PageInfo;
+import com.kh.lahol.store.model.vo.Payment;
 import com.kh.lahol.store.model.vo.Search; 
 import com.kh.lahol.store.model.vo.Store;
 import com.kh.lahol.store.model.vo.Sub;
@@ -124,6 +125,12 @@ public class StoreServiceImpl implements StoreService {
 	@Override
 	public int subscribe(Sub sb) {
 		return sDao.subscribe(sb);
+	}
+
+ 
+	@Override
+	public int PAYMENT(Payment py) {
+		return sDao.PAYMENT(py);
 	}
 
  
