@@ -226,13 +226,13 @@
 					>
 						<zg-colgroup>
 							<zg-column index="id" header="ID"></zg-column>
-							<zg-column index="c_name" header="카페"></zg-column>
+							<zg-column index="cafe" header="카페"></zg-column>
 							<zg-column index="name" header="대표자"></zg-column>
 							<zg-column index="addr" header="주소"></zg-column>
 							<zg-column index="phone" header="연락처"></zg-column>
 							<zg-column index="email" header="이메일"></zg-column>
 							<zg-column index="warned" header="경고"></zg-column>
-							<zg-column index="endate" header="가입일"></zg-column>
+							<zg-column index="enDate" header="가입일"></zg-column>
 							<zg-column
 								index="isActive"
 								header="상태"

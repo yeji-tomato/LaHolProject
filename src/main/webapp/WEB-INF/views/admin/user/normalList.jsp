@@ -274,11 +274,7 @@
 		    });
 		});
 		
-
-		
-		
 		$(function(){
-			
 			const dataTable = $('#dataTable');
 			$.ajax({
 				url: "${ pageContext.request.contextPath }/admin/user/test",
