@@ -4,7 +4,9 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -29,6 +31,7 @@ import com.kh.lahol.mypage.partner.model.service.pMypageService;
 import com.kh.lahol.mypage.partner.model.vo.Ad;
 import com.kh.lahol.mypage.partner.model.vo.CoffeeClass;
 import com.kh.lahol.mypage.partner.model.vo.Payment;
+import com.kh.lahol.mypage.partner.model.vo.StoreStats;
 
 @Controller
 @RequestMapping("/pMypage")
@@ -82,6 +85,26 @@ public class pMypageController {
 		String id = ((Member)request.getSession().getAttribute("loginUser")).getId();
 		
 		int payStoreListCount = pService.payStoreListCount(id);
+		
+		if(payStoreListCount > 0) {
+			PageInfo pi = Pagination.getPageInfo(currentPage, payStoreListCount);
+			List<StoreStats> list = pService.selectPayStoreList(id, pi);
+			int sumPrice = pService.selectSumPayStore(id, "");
+			int storePrice = pService.selectSumPayStore(id, "STP");
+			int classPrice = pService.selectSumPayStore(id, "CL");
+			int cafePrice = pService.selectSumPayStore(id, "CAP");
+			Map<String, Integer> map = new HashMap<>();
+			map.put("sumPrice", sumPrice);
+			map.put("storePrice", storePrice);
+			map.put("classPrice", classPrice);
+			map.put("cafePrice", cafePrice);
+			map.put("count", payStoreListCount);
+			model.addAttribute("map", map);
+			model.addAttribute("list", list);
+			model.addAttribute("pi", pi);
+		} else {
+			model.addAttribute("payList", "판매된 내역이 없습니다.");
+		}
 		
 		return "mypage/partner/manageStore";
 	}
