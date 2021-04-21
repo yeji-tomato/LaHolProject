@@ -29,7 +29,7 @@
                             <ul class="bev-ul">
                                 <li><h3>${ coffee.cfName }</h3></li>
                                 <li>
-                                <input type="number" value="${ coffee.cfCount }" id="count"/>
+                                <input type="hidden" value="${ coffee.cfCount }" id="count"/>
                                     <button type="button" class="minus${ coffee.cfNo }" id="pmBtn">
                                         <i class="fa fa-minus" aria-hidden="true"></i>
                                     </button>
@@ -190,7 +190,7 @@
             	
 /*             	var coffeeNo = $("#coffeeNo").val();
             	console.log(coffeeNo); */
-            	console.log(cfNo);
+            	//console.log(cfNo);
             	var caResNo = $("#caResNo").val();
             	var hotIce = $(".select > #hotIce").val();
             	var capa = $(".select > #capa").val();
@@ -224,8 +224,7 @@
     				},
     				dataType : "json",
     				success : function(data){
-    					alert("불러오는 것에 대해 성공하였습니다.");
-    					console.log(data);
+    					//console.log(data);
     					var str = '';
     					var total = '';
     					var toPrice = 0;
@@ -246,13 +245,17 @@
     						str += '</li>';
     		                str += '</td>';
     		                
-    		                CoffeeCart.append(str);
+    		                
     		                
     		                toPrice += parseInt(data[i].cfPrice * data[i].cfResAmount);
     					}
+    					
+    					CoffeeCart.append(str);
+    					
     					total += '<td class="d-flex justify-content-between py-3 border-bottom">';
 		                total += '<strong class="text-muted">결제금액</strong>';
-		                total += '<h5 class="font-weight-bold">' + toPrice + '원</h5>';
+		                total += '<h5 class="font-weight-bold" id="toPrice">' + toPrice + '</h5>';
+		                total += '<h5>원</h5>';
 		                total += '</td>';
 		                
 		                totalPrice.html(total);

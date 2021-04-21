@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="cartMapper">
+		<resultMap id="cartResultSet" type="Cart">
+			<id property="cartNo" column="CART_NO"/>
+			<result property="cartName" column="CART_NAME"/>
+			<result property="cartPrice" column="CART_PRICE"/>
+			<result property="cartCount" column="CART_COUNT"/>
+			<result property="cartRes" column="CART_RES"/>
+			<result property="shipFee" column="SHIP_FEE"/>
+			<result property="classNo" column="CLASS_NO"/>
+			<result property="userId" column="ID"/>
+			<result property="purchaseNo" column="PURCHASE_NO"/>
+			<result property="cres" column="C_RES"/>
+			<result property="photoName" column="PHOTONAME"/>
+			<result property="today" column="TODAY"/>
+		</resultMap>
+
+	
+		<!-- 카페 예약 정보 장바구니에 입력 -->
+		<insert id="insertCafeCart" parameterType="Cart">
+			INSERT
+			INTO CART
+			(
+				CART_NO,
+				CART_NAME,
+				CART_PRICE,
+				CART_COUNT,
+				CART_RES,
+				SHIP_FEE,
+				CLASS_NO,
+				ID,
+				PURCHASE_NO,
+				C_RES,
+				PHOTONAME,
+				TODAY
+			)
+			VALUES
+			(
+				'CAT'|| CAT.NEXTVAL,
+				(
+                    SELECT C_NAME
+                    FROM CAFE
+                    WHERE C_CODE = #{cartName}
+                ),
+				#{cartPrice},
+				0,
+				#{cartRes},
+				0,
+				null,
+				#{userId},
+				null,
+				#{cres},
+				(
+                    SELECT MAINPHOTO
+                    FROM CAFE
+                    WHERE C_CODE = #{cartName}
+                ),
+				SYSDATE
+			)
+		</insert>
+		
+		<select id="cartSelectList" resultMap="cartResultSet">
+		SELECT
+				CART_NO,
+				CART_NAME,
+				CART_PRICE,
+				CART_COUNT,
+				CART_RES,
+				SHIP_FEE,
+				CLASS_NO,
+				ID,
+				PURCHASE_NO,
+				C_RES,
+				PHOTONAME,
+				TODAY
+		FROM CART
+		WHERE ID = #{id}
+		ORDER BY TODAY DESC
+		</select>
+	
+	
+	
+	
+</mapper>

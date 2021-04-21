@@ -167,9 +167,9 @@ public class CafeUserController {
 	
 	@PostMapping("/coRes/insert")
 	public String coResInsert(@ModelAttribute CoffeeRes coRes) throws CafeException{
-		System.out.println(coRes);
+		//System.out.println(coRes);
 		int result = caService.coResInsert(coRes);
-		System.out.println(coRes.getCfNo());
+		//System.out.println(coRes.getCfNo());
 		
 		if(result > 0) {
 			return "/cafe/user/beverageModal";
@@ -189,7 +189,7 @@ public class CafeUserController {
 	  coCart.setCfNo(cfNo);
 	  coCart.setCaResNo(caResNo);
 	  coCart.setId(id);
-	  System.out.println(coCart);
+	  //System.out.println(coCart);
 	  
 		try {
 			CoffeeCart = caService.coResBasket(coCart);
@@ -199,34 +199,15 @@ public class CafeUserController {
 			e.printStackTrace();
 		}
 	   
-		System.out.println(CoffeeCart);
+		//System.out.println(CoffeeCart);
 	 
 	 }
-	
-	
-	
-	/*public String togo() {
-		return "/cafe/user/beverage";
-	}*/
-	
-	
-	// 매장 또는 포장 정보 가지고 오기
-//	@GetMapping("/hereTogo")
-//	public String hereTogoInfo(@SessionAttribute("loginUser") Member m, Model model) {
-//		
-//		String Id = m.getId();
-//		System.out.println("아이디 : "+ Id);
-//		CafeRes cafeRes = caService.hereTogoInfo(Id);
-//		System.out.println("selectRes : "+ cafeRes);
-//		
-//		if(cafeRes != null) {
-//			model.addAttribute("cafeRes", cafeRes);
-//			return "/cafe/user/bevCart";
-//		}else {
-//			model.addAttribute("msg", "등록된 카페예약 정보 보기에 실패하였습니다.");
-//			return "common/error";
-//		}
-//	}
+
+	  @GetMapping("/coffee/order")
+	public String coffeeOrder() {
+		  
+		return "/cafe/user/coffeeOrder";
+	}
 	
 	
 	

@@ -71,7 +71,7 @@ scope="application"/>
 						<p id="loginInfo">WELCOME&nbsp;</p>
 						<p id="loginId">${ sessionScope.loginUser.id }</p>
 						<p id="basket">
-							<a href="${ contextPath }/basket/cart">
+							<a href="${ contextPath }/cart/main">
 								<i class="fa fa-shopping-cart" aria-hidden="true"></i>&nbsp;CART
 							</a>
 						</p>
