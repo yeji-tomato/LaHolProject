@@ -55,7 +55,9 @@
  		<typeAlias type="com.kh.lahol.mypage.partner.model.vo.Ad" alias="Ad"/>
  		<!-- Ad 신청 시 payment -->
  		<typeAlias type="com.kh.lahol.mypage.partner.model.vo.Payment" alias="M_Payment"/>
-
+		
+		<!-- 장바구니 -->
+		<typeAlias type="com.kh.lahol.common.model.vo.Cart" alias="Cart"/>
 	</typeAliases>
 	
 	<!-- mappers -->
@@ -69,7 +71,8 @@
 
 		<!-- admin-mapper -->
 		<mapper resource="mappers/admin-mapper.xml"/>
-
+		<!-- 장바구니 mapper -->
+		<mapper resource="mappers/cart-mapper.xml"/>
 		<!-- Cafe mapper -->
 		<mapper resource="mappers/cafe-mapper.xml"/>
 		<!-- nMypage mapper -->

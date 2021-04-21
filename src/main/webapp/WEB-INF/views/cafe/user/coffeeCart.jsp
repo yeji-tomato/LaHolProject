@@ -39,6 +39,9 @@
          	<table style="width : 100%">
          		<tbody>
          			<tr id="CoffeeCart">
+         				<td class="d-flex justify-content-between py-3 border-bottom">
+		                	<strong class="text-muted">메뉴를 선택해주세요!</strong>
+		                </td>
          			</tr>
          			<tr id="totalPrice">
          			</tr>
@@ -46,16 +49,55 @@
          	</table>
          </div>
        </div>
-       </div>
        
        <div class="cartBtn">
+       <a href="${ contextPath }/coffee/order">
         <button id="card">
             <i class="fa fa-credit-card-alt" aria-hidden="true"></i>
         </button>
-        <button id="cartBtn">
+        </a>
+        <button id="cartBtn" onclick="commonCart()">
             <i class="fa fa-shopping-cart" aria-hidden="true"></i>
         </button>
     	</div>
+    	
+    	<input type="hidden" name="cRes" id="cRes" value="${ cafeRes.caResNo }"/>
+       	<input type="hidden" name ="cartRes" id="cartRes" value="${ cafeRes.caResType }"/>
+       	<input type="hidden" name ="cartName" id="cartName" value="${ cafeRes.caNo }"/>
+       	<input type="hidden" name ="userId" id="userId" value="${ loginUser.id }"/>
+    	<!-- 장바구니 insert Ajax -->
+       	<script>
+       	function commonCart(){
+       		var cRes = $("#cRes").val();
+       		var cartName = $("#cartName").val();
+       		var cartRes = $("#cartRes").val()
+       		var total = $("#toPrice").text();
+       		var userId = $("#userId").val();
+       		$.ajax({
+       			url:"${ contextPath }/cart/cafe/insert",
+        		type : "post",
+        		data : {
+        			cres : cRes,
+        			cartName : cartName,
+        			cartRes : cartRes,
+        			total : total,
+        			userId : userId
+        		},
+        		success : function(data){
+        			alert("장바구니에 추가되었습니다.");
+        			location.href="${ contextPath }/cart/main";
+        		},
+        		error : function(e){
+					console.log(e);
+				}
+        		
+       		});
+       	}
+       	
+       	</script>
+       </div>
+       
+       
        </div>
        
 	</div>

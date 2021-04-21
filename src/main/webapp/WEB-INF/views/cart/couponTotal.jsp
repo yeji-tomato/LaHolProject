@@ -20,7 +20,7 @@
        </div>
        <script type="text/javascript">
 		    function winPopup() {
-		        var popUrl = "${contextPath}/basket/coupon";
+		        var popUrl = "${contextPath}/cart/coupon";
 		        var popOption = "width=10vw,height=10vh";
 		        window.open(popUrl, popOption, "_blank");
 		    }

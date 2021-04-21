@@ -96,7 +96,7 @@
                             	<c:set var="addr3" value="${ addr }"/>
                             </c:if>
                             </c:forTokens>
-	                        <p style="color: #96877D">${ addr2 }<br>
+	                        <p style="color: #96877D; font-size: 13px;">${ addr2 }<br>
 	                         ${ addr3 }</p>
 	                    </div>
 	                </div>
