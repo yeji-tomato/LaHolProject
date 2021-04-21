@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,6 +20,7 @@
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     
     <!-- char.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.0.1/chart.min.js" integrity="sha512-2uu1jrAmW1A+SMwih5DAPqzFS2PI+OPw79OVLS4NJ6jGHQ/GmIVDDlWwz4KLO8DnoUmYdU8hTtFcp8je6zxbCg==" crossorigin="anonymous"></script>
 
     <style>
@@ -133,7 +136,7 @@
         }
 
         .content-table {
-            min-height: 550px;
+            min-height: 580px;
         }
 
         .content-div #list-table {
@@ -160,7 +163,7 @@
         }
 
         .content-div #list-table tr:first-child td:nth-child(1) {
-            width : 80px;
+            width : 100px;
         }
 
         .content-div #list-table tr:first-child td:nth-child(2) {
@@ -168,11 +171,11 @@
         }
 
         .content-div #list-table tr:first-child td:nth-child(3) {
-            width : 500px;
+            width : 400px;
         }
 
         .content-div #list-table tr:first-child td:nth-child(4) {
-            width : 100px;
+            width : 200px;
         }
 
         .content-div #list-table tr:first-child td:nth-child(5) {
@@ -180,10 +183,6 @@
         }
 
         .content-div #list-table tr:first-child td:nth-child(6) {
-            width : 150px;
-        }
-
-        .content-div #list-table tr:first-child td:nth-child(7) {
             width : 150px;
         }
 
@@ -370,12 +369,11 @@
             <div class="content-div">
                 <div class="text-div">
                     <div class="content-header">
-                        <form>
-                            <select id="pay-category">
+                        <form id="period_form" method="POST" action="${ contextPath }/pMypage/searchStore">
+                            <select id="pay-category" name="searchCondition">
                                 <option value="">전체</option>
-                                <option value="cReservation">카페예약</option>
+                                <option value="cafe">카페</option>
                                 <option value="class">클래스</option>
-                                <option value="coffee">원두</option>
                                 <option value="store">스토어</option>
                             </select>
                             <br>
@@ -393,24 +391,51 @@
                         </form>
                     </div>
                     <div class="price-text">
-                        <span class="sub-text">판매 건 수 : 10건</span>
-                        <span class="sub-text">총 판매 금액 : 1,000,000원</span>
-                        <span class="sub-text">발생 수수료 : 10,000,000원</span>
-                        <span class="sub-text">순이익 : 100,000원</span>
+                        <span class="sub-text">판매 건 수 : <fmt:formatNumber value="${ map.count }"/>건</span>
+                        <span class="sub-text">총 판매 금액 : <fmt:formatNumber value="${ map.sumPrice }"/>원</span>
+                        <span class="sub-text">발생 수수료 : <fmt:formatNumber value="${ map.sumPrice * 0.05 }"/>원</span>
+                        <span class="sub-text">순이익 : <fmt:formatNumber value="${ map.sumPrice * 0.95 }"/>원</span>
                     </div>
                     <div class="content-table">
                         <table id="list-table">
                             <tr>
-                                <td>번호</td>
+                                <td>결제코드</td>
                                 <td>카테고리</td>
                                 <td>물품명</td>
                                 <td>수량</td>
                                 <td>금액</td>
                                 <td>판매일</td>
                             </tr>
-                            <tr>
-                                <td>aa</td>
-                            </tr>
+                            <c:if test="${ empty list }">
+                            	<tr>
+                            		<td colspan="6">${ payList }</td>
+                            	</tr>
+                            </c:if>
+                            <c:if test="${ !empty list }">
+                            <c:forEach var="p" items="${ list }" varStatus="status">
+	                            <tr>
+	                                <td>${ p.pay_no }</td>
+	                                <c:if test="${ fn:contains(p.pay_no, 'CL') }">
+	                                <td>클래스</td>
+	                                </c:if>
+	                                <c:if test="${ fn:contains(p.pay_no, 'ST') }">
+	                                <td>스토어</td>
+	                                </c:if>
+	                                <c:if test="${ fn:contains(p.pay_no, 'CA') }">
+	                                <td>카페</td>
+	                                </c:if>
+	                                <td>${ p.pay_item }</td>
+	                                <c:if test="${ fn:contains(p.pay_no, 'CA') }">
+	                                <td>세부 내용 확인</td>
+	                                </c:if>
+	                                <c:if test="${ !fn:contains(p.pay_no, 'CA') }">
+	                                <td>${ p.pr_count }</td>
+	                                </c:if>
+	                                <td><fmt:formatNumber value="${ p.pay_price }"/></td>
+	                                <td>${ p.pay_date }</td>
+	                            </tr>
+                            </c:forEach>
+                            </c:if>
                         </table>
                     </div>
                     <!-- 페이징 추가 해야 함 -->
@@ -449,8 +474,10 @@
 					</c:if>
                     </div>
                 </div>
-                <div class="chart-div">
-                    <canvas id="myChart"></canvas>
+                <div class="chart-div" style="margin-left:5%;">
+                	<div id="barChart" style="width:90%; height:50%; margin-top: 10%;">
+                    	<canvas id="myChart" width="300" height="200"></canvas>
+                    </div>
                     <script>
                     var ctx = document.getElementById('myChart');
                     var myChart = new Chart(ctx, {
@@ -459,7 +486,7 @@
                             labels: ['Store', 'Class', 'Coffee'],
                             datasets: [{
                                 label: '판매비율',
-                                data: [33.3, 11.1, 55.5],   // 비율 변경
+                                data: [${ map.storePrice div map.sumPrice * 100}, ${ map.classPrice div map.sumPrice * 100}, ${ map.cafePrice div map.sumPrice * 100}],   // 비율 변경
                                 backgroundColor: [
                                     'rgba(255, 99, 132, 0.2)',
                                     'rgba(54, 162, 235, 0.2)',
@@ -488,25 +515,65 @@
                         }
                     });
                     </script>
-                    <canvas id="myLineChart"></canvas>
+                    <div id="lineChart" style="width:90%; height:300px;">
+                    	<canvas id="myLineChart" width="300" height="200"></canvas>
+                    </div>
                     <script>
-                        var chart = document.getElementById("myLineChart");
-                        var lineChart = new Chart(chart, {
-                            type : 'line',
-                            data: {
-                                labels : ['Store', 'Class', 'Coffee'],
-                                datasets : [{
-                                    label : '기간별 판매 비율',
-                                    data : [33.3, 11.1, 55.5],  // 비율 변경
-                                    fill : false,
-                                    borderColor : 'rgb(75, 192, 192)',
-                                    tension : 0.1
-                                }]
-                            },
-                            options : {
+                        var chart = document.getElementById("myLineChart").getContext("2d");
+                        var myChart = new Chart(chart, {
+                		    type: 'line',
+                		    data: {
+                		        labels: ["Store", "Class", "Coffee"],
+                		        datasets: [{
+                		            label: "판매 비율",
+                		            borderColor: "#ff6384",
+                		            pointBorderColor: "#ff6384",
+                		            pointBackgroundColor: "#ff6384",
+                		            pointHoverBackgroundColor: "#ff6384",
+                		            pointHoverBorderColor: "#ff6384",
+                		            pointBorderWidth: 5,
+                		            pointHoverRadius: 5,
+                		            pointHoverBorderWidth: 1,
+                		            pointRadius: 3,
+                		            fill: false,
+                		            borderWidth: 4,
+                		            data: [160, 120, 150]
+                		        }]
+                		    },
+                		    options: {
+                		        legend: {
+                		            position: "bottom",
+                		            display: false
+                		        },
+                		        scales: {
+                		            yAxes: [{
+                		                ticks: {
+                		                    fontColor: "rgba(0,0,0,0.5)",
+                		                    fontStyle: "bold",
+                		                    beginAtZero: true,
+                		                    maxTicksLimit: 5,
+                		                    padding: 5,
+                		                    display: false
+                		                },
+                		                gridLines: {
+                		                    drawTicks: false,
+                		                    display: false
+                		                }
 
-                            }
-                        });
+                		            }],
+                		            xAxes: [{
+                		                gridLines: {
+                		                    zeroLineColor: "transparent"
+                		                },
+                		                ticks: {
+                		                    padding: 2,
+                		                    fontColor: "rgba(0,0,0,0.5)",
+                		                    fontStyle: "bold"
+                		                }
+                		            }]
+                		        }
+                		    }
+                		});
                     </script>
                 </div>
             </div>

@@ -7,6 +7,7 @@ import com.kh.lahol.mypage.common.PageInfo;
 import com.kh.lahol.mypage.partner.model.vo.Ad;
 import com.kh.lahol.mypage.partner.model.vo.CoffeeClass;
 import com.kh.lahol.mypage.partner.model.vo.Payment;
+import com.kh.lahol.mypage.partner.model.vo.StoreStats;
 
 public interface pMypageDao {
 
@@ -39,5 +40,9 @@ public interface pMypageDao {
 	CoffeeClass selectClassByNo(String class_no);
 
 	int payStoreListCount(String id);
+
+	List<StoreStats> selectPayStoreList(String id, PageInfo pi);
+
+	int selectSumPayStore(List<String> list);
 
 }

@@ -12,6 +12,7 @@ import com.kh.lahol.mypage.common.PageInfo;
 import com.kh.lahol.mypage.partner.model.vo.Ad;
 import com.kh.lahol.mypage.partner.model.vo.CoffeeClass;
 import com.kh.lahol.mypage.partner.model.vo.Payment;
+import com.kh.lahol.mypage.partner.model.vo.StoreStats;
 
 @Repository
 public class pMypageDaoImpl implements pMypageDao{
@@ -98,4 +99,17 @@ public class pMypageDaoImpl implements pMypageDao{
 	public int payStoreListCount(String id) {
 		return sqlSession.selectOne("mypageMapper.payStoreListCount", id);
 	}
+
+	@Override
+	public List<StoreStats> selectPayStoreList(String id, PageInfo pi) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return sqlSession.selectList("mypageMapper.selectPayStoreList", id, rowBounds);
+	}
+
+	@Override
+	public int selectSumPayStore(List<String> list) {
+		return sqlSession.selectOne("mypageMapper.selectSumPayStore", list);
+	}
+
 }

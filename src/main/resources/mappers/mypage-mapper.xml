@@ -108,6 +108,21 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 		<result property="email" column="EMAIL"/>
 		<result property="pay_date" column="PAY_DATE"/>
 	</resultMap>
+	<resultMap id="storeStatsResultSet" type="StoreStats">
+		<id property="pay_no" column="PAY_NO"/>
+		<result property="pay_item" column="PAY_ITEM"/>
+		<result property="buyer_id" column="BUYER_ID"/>
+		<result property="cafe_res" column="CAFE_RES"/>
+		<result property="purchase_number" column="PURCHASE_NUMBER"/>
+		<result property="subscribe_code" column="SUBSCRIBE_CODE"/>
+		<result property="cl_pay_no" column="CL_PAY_NO"/>
+		<result property="pay_date" column="PAY_DATE"/>
+		<result property="pay_price" column="PAY_PRICE"/>
+		<result property="pay_dc" column="PAY_DC"/>
+		<result property="pay_total" column="PAY_TOTAL"/>
+		<result property="id" column="ID"/>
+		<result property="pr_count" column="PR_COUNT"/>
+	</resultMap>
 	<update id="updateMember" parameterType="Member">
 		UPDATE
 		       MEMBER
@@ -457,6 +472,43 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 		       CLASS_NO = #{class_no}
 	</select>
 	<select id="payStoreListCount" parameterType="string" resultType="_int">
-		
+		SELECT
+		       COUNT(*)
+		  FROM
+		       M_STORE_STATS
+		 WHERE
+		       ID = #{id}
+	</select>
+	<select id="selectPayStoreList" parameterType="string" resultMap="storeStatsResultSet">
+		SELECT
+		       PAY_NO
+		     , PAY_ITEM
+		     , BUYER_ID
+		     , CAFE_RES
+		     , PURCHASE_NUMBER
+		     , SUBSCRIBE_CODE
+		     , CL_PAY_NO
+		     , PAY_DATE
+		     , PAY_PRICE
+		     , PAY_DC
+		     , PAY_TOTAL
+		     , ID
+		     , PR_COUNT
+		  FROM
+		       M_STORE_STATS
+		 WHERE
+		       ID = #{id}
+	  ORDER BY REGEXP_REPLACE(PAY_NO, '[0-9]'), TO_NUMBER(REGEXP_REPLACE(PAY_NO, '[^0-9]')) DESC
+	</select>
+	<select id="selectSumPayStore" parameterType="java.util.List" resultType="_int">
+		SELECT
+		       SUM(PAY_PRICE)
+		  FROM
+		       M_STORE_STATS
+		 WHERE
+		       ID = #{list[0]}
+		 <if test="list[1] != null">
+		   AND PAY_NO LIKE #{list[1]} || '%'
+		 </if>
 	</select>
 </mapper>

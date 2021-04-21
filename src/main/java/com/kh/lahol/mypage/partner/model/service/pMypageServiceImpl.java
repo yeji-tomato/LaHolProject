@@ -1,5 +1,6 @@
 package com.kh.lahol.mypage.partner.model.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import com.kh.lahol.mypage.partner.model.dao.pMypageDao;
 import com.kh.lahol.mypage.partner.model.vo.Ad;
 import com.kh.lahol.mypage.partner.model.vo.CoffeeClass;
 import com.kh.lahol.mypage.partner.model.vo.Payment;
+import com.kh.lahol.mypage.partner.model.vo.StoreStats;
 
 @Service
 public class pMypageServiceImpl implements pMypageService{
@@ -100,6 +102,19 @@ public class pMypageServiceImpl implements pMypageService{
 	@Override
 	public int payStoreListCount(String id) {
 		return pDao.payStoreListCount(id);
+	}
+
+	@Override
+	public List<StoreStats> selectPayStoreList(String id, PageInfo pi) {
+		return pDao.selectPayStoreList(id, pi);
+	}
+
+	@Override
+	public int selectSumPayStore(String id, String category) {
+		List<String> list = new ArrayList<>();
+		list.add(id);
+		list.add(category);
+		return pDao.selectSumPayStore(list);
 	}
 
 }

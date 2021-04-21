@@ -70,11 +70,13 @@ scope="application"/>
 						</svg>
 						<p id="loginInfo">WELCOME&nbsp;</p>
 						<p id="loginId">${ sessionScope.loginUser.id }</p>
+						<c:if test="${ sessionScope.loginUser.grade eq 'N' }">
 						<p id="basket">
 							<a href="${ contextPath }/cart/main">
 								<i class="fa fa-shopping-cart" aria-hidden="true"></i>&nbsp;CART
 							</a>
 						</p>
+						</c:if>
 					</c:if>
                 </div>
                 <div class="loginMenu">
