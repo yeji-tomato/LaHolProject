@@ -9,7 +9,7 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 		       M.ID
 		     , NICKNAME
 		     , NAME
-		     , PHONE
+             , REGEXP_REPLACE(PHONE, '(.{3})(.+)(.{4})', '\1-\2-\3') AS PHONE
 		     , EMAIL
 		     , BLIND
 			 , CASE ISACTIVE WHEN 'Y' THEN '../../resources/img/admin/icon/active.svg'
@@ -22,13 +22,13 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 	     WHERE
 	     	   GRADE = 'N'
 	</select>
-	<select id="selectPartnerList" resultType="Member_P">
+	<select id="selectPartnerList" resultType="A_Member_P">
 		SELECT
 		       M.ID
-		     , C_NAME
+		     , C_NAME AS CAFE
              , NAME
              , ADDR
-             , PHONE
+             , REGEXP_REPLACE(PHONE, '(.{3})(.+)(.{4})', '\1-\2-\3') AS PHONE
              , EMAIL
              , WARNED
              , TO_CHAR(ENDATE,'yyyy-mm-dd')AS ENDATE
@@ -43,6 +43,8 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
                CAFE C ON(M.ID = C.ID)
 	     WHERE
 	     	   GRADE = 'P'
+	       AND
+	       	   C_NAME IS NOT NULL
 	</select>
 		<select id="selectCouponByDate" parameterType="string" resultType="Coupon">
 		   SELECT C.COUPON_NAME
