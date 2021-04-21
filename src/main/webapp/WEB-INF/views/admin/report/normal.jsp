@@ -383,22 +383,6 @@
 		    });
 		});
 
-		/* 다크모드 스위치 위 텍스트 토글*/
-		$(".toggle").click(function (e) {
-		    $(this).toggleClass("toggle-on");
-		});
-
-		/* 다크모드 토글 */
-		function toggleDarkMode() {
-		    var dataTheme = $('body').attr('data-theme');
-
-		    if(dataTheme === 'dark') {
-		        $('body').attr('data-theme', 'light');
-		    } else {
-		        $('body').attr('data-theme', 'dark');
-		    }
-		};
-
 		/* 이미지 있는 신고 건 > 이미지 띄우기
 		   이미지 없는 신고 건 > 텍스트 띄우기 */
 
@@ -409,6 +393,8 @@
 		    } else {
 		        $('#theDiv').html('어쩌구저쩌구');
 		    }
+		    
+		<script src="${ contextPath }/resources/js/admin/darkMode.js"></script>
 		</script>
 	</body>
 </html>
