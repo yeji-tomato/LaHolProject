@@ -9,7 +9,7 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
     
-    <link rel="stylesheet" href="${ contextPath }/resources/css/store/main/ct.css?A">
+    <link rel="stylesheet" href="${ contextPath }/resources/css/store/main/ct.css?Ad">
 </head>
 <style>
 
@@ -24,14 +24,17 @@
 <body>
 	<!-- menubar -->
 	<jsp:include page="/WEB-INF/views/common/menubar.jsp"/>
+	
+	<div id="aa">
  <div class="banner" style="  height: 100px;
 ">
         <h1 style="padding-top: 18vh;">라홀의 가족이 되시는 것을 환영합니다</h1>
     </div>
     <div>
         	
+        	
         <!--입력란-->
-        <div id="tbColor">
+        <div id="tbColor2">
 
         <div id="createform">
             <div class= "content-header">
@@ -62,6 +65,7 @@
                                                 <td><select id="area5" name="ST_CATAGORY"
                                                     style="width: 102px; float: left;">
                                                         <optgroup label="판매카테고리">
+                                                        	<option value="원두">원두</option>
                                                             <option value="텀블러">텀블러</option>
                                                             <option value="접시">접시</option>
                                                             <option value="식기류">식기류</option>
@@ -224,6 +228,7 @@
 
         
         
+    </div>
     </div>
     </div>
     <!-- footer -->
