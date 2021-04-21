@@ -753,10 +753,25 @@ ul {
             position: absolute; 
             margin-left: -80px;
             margin-top: 15px; 
-            width: 80px;
+               width: 80px;
             height: 25px;
-            background-color: #F3D798;
-            color: white; 
+            background-color: #c9a89b ;
+            
+            
+            border-radius:2px 2px 2px 2px; 
+
+    		background-color: #f8585b;
+		
+		    border: none;
+		
+		    color:#fff;
+		 
+		    text-align: center;
+		
+		    text-decoration: none;
+		 
+		
+		    font-size: 15px;
         }
         #ifs:hover{
             color: #9e2e1290;
@@ -767,10 +782,25 @@ ul {
             position: absolute; 
             margin-left: -80px;
             margin-top: 45px; 
-            width: 80px;
+                 width: 80px;
             height: 25px;
-            background-color: #F3D798;
-            color: white; 
+            background-color: #c9a89b ;
+            
+            
+            border-radius:2px 2px 2px 2px; 
+
+    		background-color: #RED;
+		
+		    border: none;
+		
+		    color:#fff;
+		 
+		    text-align: center;
+		
+		    text-decoration: none;
+		 
+		
+		    font-size: 15px;
         }
         #ifd:hover{
             color: red;

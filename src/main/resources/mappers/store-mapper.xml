@@ -49,6 +49,24 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 		<result property="Subs_Month" column="SUBS_MONTH"/>  
 		<result property="Pay" column="PAY_PRICE"/> 
 	</resultMap>
+
+	
+	 <resultMap id="PayResultSet" type="Payment">
+		<id property="pay_no" column="PAY_NO"/>
+		<result property="PAY_ITEM" column="PAY_ITEM"/>
+		<result property="pay_price" column="PAY_PRICE"/>
+		<result property="subscribe" column="SUBSCRIBE"/>  
+		<result property="pay_date" column="PAY_DATE"/>  
+		<result property="id" column="BUYER_ID"/>  
+		<result property="cafe_res" column="CAFE_RES"/> 
+		<result property="ad_code" column="AD_CODE"/>
+		<result property="purchase_number" column="PURCHASE_NUMBER"/>  
+		<result property="subscribe_code" column="SUBSCRIBE_CODE"/> 
+		<result property="cl_pay_no" column="CL_PAY_NO"/> 
+		<result property="pay_dc" column="PAY_DC"/> 
+		<result property="pay_total" column="PAY_TOTA"/> 
+	</resultMap>
+	
  
 	
 	<!-- 
@@ -548,6 +566,50 @@ C_CODE	VARCHAR2(30 BYTE)	No		18	카페코드
 	
 	</insert>
  
+ 
+ 
+  <insert id="insertPAYMENT" parameterType="string">
+		INSERT
+		  INTO
+		       PAYMENT
+		  (
+		       PAY_NO
+		     , PAY_ITEM
+		     , PAY_PRICE
+		     , SUBSCRIBE
+		     , PAY_DATE
+		     , BUYER_ID
+		     , CAFE_RES
+		     , AD_CODE
+		     , PURCHASE_NUMBER
+		     , SUBSCRIBE_CODE
+		     , CL_PAY_NO
+		     , PAY_DC
+		     , PAY_TOTAL
+		  )
+		VALUES
+		(
+		       STP.NEXTVAL
+		     , #{PAY_ITEM}
+		     , #{pay_price}
+		     , #{subscribe}
+		     , SYSDATE
+		     , #{id}
+		     , NULL
+		     , #{ad_code}
+		     , NULL
+		     , (SELECT SUBSCRIBE_CODE
+				FROM
+				(SELECT SUBSCRIBE_CODE, ROWNUM AS RNUM
+				FROM SUB
+				ORDER BY SUBSCRIBE_CODE DESC)
+				WHERE RNUM = 1)
+		     , NULL
+		     , 0
+		     , #{pay_price}
+		)
+	
+	</insert>
   
 	
 </mapper>

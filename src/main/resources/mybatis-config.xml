@@ -20,6 +20,8 @@
 		<typeAlias type="com.kh.lahol.store.model.vo.storeA" alias="storeA"/>
 		<!-- 정기구독 -->
 		<typeAlias type="com.kh.lahol.store.model.vo.storeA" alias="Sub"/>
+		<!-- 스토어 결제 -->
+		<typeAlias type="com.kh.lahol.store.model.vo.Payment" alias="Payment"/>
 		<!-- 일반회원 -->
 		<typeAlias type="com.kh.lahol.member.model.vo.M_Normal" alias="Member_N"/>
 		<!-- 사업자회원 -->

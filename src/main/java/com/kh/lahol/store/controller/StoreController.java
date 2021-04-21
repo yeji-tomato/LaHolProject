@@ -40,6 +40,7 @@ import com.kh.lahol.member.model.vo.Member;
 //import com.kh.lahol.store.model.service.QService;
 import com.kh.lahol.store.model.service.StoreService;
 import com.kh.lahol.store.model.vo.PageInfo;
+import com.kh.lahol.store.model.vo.Payment;
 import com.kh.lahol.store.model.vo.Search;
 import com.kh.lahol.store.model.vo.Store;
 import com.kh.lahol.store.model.vo.Sub;
@@ -647,30 +648,94 @@ public class StoreController {
 	
 	
 	@PostMapping("/subscribe")
-	public String subscribe(@ModelAttribute Sub sb, Model model, String PR_CODE, @RequestParam("SUBSCRIPTIONS") String SUBSCRIPTIONS   ) {
+	public String subscribe(@ModelAttribute Sub sb,@ModelAttribute Payment py , Model model, String PR_CODE, ModelAndView mv,
+			  int PR_PRICE,String PR_NAME, @RequestParam("SUBSCRIPTIONS") String SUBSCRIPTIONS, HttpSession session   ) {
 		
 		
 	
-		
-		System.out.println("정기구독 제품 정보 "+ sb);
 		 
-		System.out.println("구독일수"+SUBSCRIPTIONS);
+		 
+		
+		int pr =  Integer.parseInt(SUBSCRIPTIONS);
+		
+		 
+		
+		//System.out.println("구독일수"+SUBSCRIPTIONS);
 		sb.setSubs_Month(SUBSCRIPTIONS);
 		
 		
-		System.out.println("구독 제품번호"+PR_CODE);
+		
+		if(pr ==3) {
+			double a = ((PR_PRICE*3)- ((PR_PRICE*3)* 0.05))/3;
+			String b = Double.toString(a);
+			
+			// System.out.println("총 가격"+b);
+			sb.setPay(b);
+			py.setPay_price(b);
+			py.setPay_total(b);
+			
+		}else if(pr == 6) {
+			double a = ((PR_PRICE*6)- ((PR_PRICE*6)* 0.1))/6;
+			String b = Double.toString(a);
+			
+			 
+			sb.setPay(b);
+			py.setPay_price(b);
+			py.setPay_total(b);
+
+		}else if(pr == 9) {
+			
+			double a = ((PR_PRICE*9)- ((PR_PRICE*9)* 0.15))/9;
+			String b = Double.toString(a);
+			
+			 
+			sb.setPay(b);
+			py.setPay_price(b);
+			py.setPay_total(b);
+		}
+		
+		
+		
+		
+		 
 		 sb.setPr_code(PR_CODE);
 		
+		 
+		 
+		 Member loginUser = (Member)session.getAttribute("loginUser"); 
+		 String id =loginUser.getId();
+		 
+		 int result = sService.subscribe(sb);
 		
+		 String dd = "Y"; //구독
+		 System.out.println(PR_NAME);
+		 
+		 py.setPAY_ITEM(PR_NAME); 
+		 py.setSubscribe(dd);
+		 py.setId(id);
+		 py.setSubscribe_code(PR_CODE); 
+		 
 		
-	int result = sService.subscribe(sb);
-		
+		 
+		  
+		 
+		 
+
+		 System.out.println("제품정보"+sb);
+		 
+		 String a = sb.getSub_code();
+		 
 	 
+		 int result2 = sService.PAYMENT(py); 	
+		 
+	
 		 if(result > 0) {
-			 return "redirect:/store/list2";
+			 return "redirect:/store/list";
 			 
 		 }else 
-		 {  return "redirect:/store/list2"; } //에러페이지 연결
+		 {  return "redirect:/store/list";
+		 } 
+		 
 		  
 		
 	
