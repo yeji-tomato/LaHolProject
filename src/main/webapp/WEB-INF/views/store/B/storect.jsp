@@ -26,8 +26,7 @@
 	<jsp:include page="/WEB-INF/views/common/menubar.jsp"/>
 	
 	<div id="aa">
- <div class="banner" style="  height: 100px;
-">
+ <div class="banner" style="  height: 100px; ">
         <h1 style="padding-top: 18vh;">라홀의 가족이 되시는 것을 환영합니다</h1>
     </div>
     <div>

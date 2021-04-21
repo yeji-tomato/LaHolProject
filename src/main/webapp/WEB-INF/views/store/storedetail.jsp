@@ -13,7 +13,7 @@
 <!-- 스토어 css -->
 <link rel="stylesheet" href="${ contextPath }/resources/css/store/main/detail.css?a">
 <!-- 스토어q css -->
-<link rel="stylesheet" href="${ contextPath }/resources/css/store/Q&A/Q&A.css?dsds">
+<link rel="stylesheet" href="${ contextPath }/resources/css/store/Q&A/Q&A.css?s">
 <!-- 제이쿼리 CDN -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
  
@@ -174,6 +174,8 @@
 	
 							 
 	                        <div class="btnDiv">
+	                        
+	                        <c:if test="${ !empty sessionScope.loginUser }">
 	                            <button type="button" class="btn" id = "register-btn">
 	                               바로구매
 	                              <i class="fa fa-credit-card-alt" aria-hidden="true"></i>
@@ -191,12 +193,19 @@
 	                                <i class="fa fa-shopping-bag" aria-hidden="true" ></i>
 	                              </button>    </c:if>
 	                  
+	                  </c:if>
+	                   <c:if test="${  empty sessionScope.loginUser }">
+	                   		<h4><a style="color:red;">구매 및 구독은 로그인후 이용해주시기 바랍니다.</a></h4>
+	                   </c:if>
 	                            </div>  
 							 
 						</table>
 					</div> 
 					 
 	                </div>
+	                
+	                
+	                
 	                
 	                <!-- 세부영역-->
 	                <div>
@@ -241,7 +250,7 @@
 	                                </div>
 	                                <!-- Product description section 2-->
 	                                <div class="row align-items-center py-4 py-lg-5">
-	                                <div class="col-lg-5 col-md-6 offset-lg-1"><img class="d-block rounded-3"  src="${ contextPath }/resources/img/store/${ s.STORE_PHOTO2 }"  style="width: 550px;"alt="Map"></div>
+	                                <div class="col-lg-5 col-md-6 offset-lg-1"><img class="d-block rounded-3"  src="${ contextPath }/resources/img/store/${ s.STORE_PHOTO2 }"  style="width: 500px;"alt="Map"></div>
 	                                <div class="col-lg-4 col-md-6 offset-lg-1 py-4">
 	                                <h2 class="h3 mb-4 pb-2">제품 기능</h2>
 	                                <h6 class="fs-base mb-3">기능 설명</h6>
@@ -359,7 +368,7 @@
 											 	  <c:forEach var="a" items="${ Alist}"  >  
 											 	   <c:if test="${not loop_flag }">
 													<c:if test="${  a.qnaNo eq  q.qnaNo }">
-														<td>->답변</td>
+														<td> <img  src="${ contextPath }/resources/img/store/A.jpg"  style="width:50px;"> </td>
 													 	<td id="tb_a" >    ${  a.aContent  }  </td> 
 													 	<td style="font-size:7px;"> *자세한 문의는 고객센터로 연락바랍니다.  </td>  
 													 	<td style="font-size:15px;"> ${  s.SERVICE_CENTER  }   </td>  
@@ -517,7 +526,8 @@
 	                            <img  src="${ contextPath }/resources/img/store/cj.jpg" style="  margin-left: 35px; ">
 	                        </c:if>
 	                          <c:if  test="${ s.DY_COMPANY == '쿠팡' }">  
-	                            <img  src="${ contextPath }/resources/img/store/배송정보.jpg" style="  margin-left: 35px; ">
+	                             <img  src="${ contextPath }/resources/img/store/쿠팡.png" style="  margin-left: 35px; width: 950px;" >
+	                            <img  src="${ contextPath }/resources/img/store/쿠쿠.jpg" style="  margin-left: 35px; ">
 	                        </c:if>
 	                          
 	                        </div>
