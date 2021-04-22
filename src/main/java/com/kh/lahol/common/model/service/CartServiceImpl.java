@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.lahol.common.model.dao.CartDao;
 import com.kh.lahol.common.model.vo.Cart;
+import com.kh.lahol.common.model.vo.Coupon;
 
 @Service
 public class CartServiceImpl implements CartService{
@@ -23,5 +24,10 @@ public class CartServiceImpl implements CartService{
 	@Override
 	public List<Cart> cartSelectList(String id) {
 		return cartDao.cartSelectList(id);
+	}
+
+	@Override
+	public List<Coupon> couponSelectList(String id) {
+		return cartDao.couponSelectList(id);
 	}
 }

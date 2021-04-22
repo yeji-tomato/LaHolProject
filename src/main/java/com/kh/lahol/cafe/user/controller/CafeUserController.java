@@ -119,6 +119,8 @@ public class CafeUserController {
 	// 포장 페이지 이동
 	@GetMapping("/togo")
 	public String Beverage() {
+		
+		
 		return "/cafe/user/togo";
 	}
 	
@@ -134,7 +136,8 @@ public class CafeUserController {
 		//System.out.println(r);
 		
 		int result = caService.togoInsertRes(r);
-		//System.out.println("result : "+ result);
+		System.out.println(r);
+		System.out.println("result : "+ result);
 		
 		if(result > 0) {
 			return "/cafe/user/beverage";
@@ -154,7 +157,7 @@ public class CafeUserController {
 		String Id = m.getId();
 		// System.out.println("아이디 : "+ Id);
 		CafeRes cafeRes = caService.hereTogoInfo(Id);
-		//System.out.println("selectRes : "+ cafeRes);
+		System.out.println(cafeRes);
 		
 		
 		mv.addObject("Coffeelist", Coffeelist);
@@ -189,7 +192,7 @@ public class CafeUserController {
 	  coCart.setCfNo(cfNo);
 	  coCart.setCaResNo(caResNo);
 	  coCart.setId(id);
-	  //System.out.println(coCart);
+	  System.out.println(coCart);
 	  
 		try {
 			CoffeeCart = caService.coResBasket(coCart);
@@ -204,9 +207,18 @@ public class CafeUserController {
 	 }
 
 	  @GetMapping("/coffee/order")
-	public String coffeeOrder() {
+	public ModelAndView coffeeOrder(ModelAndView mv, @RequestParam String caResNo) {
 		  
-		return "/cafe/user/coffeeOrder";
+		  
+		  List<CoffeeCart> CoffeeCart = caService.coffeeOrder(caResNo);
+		  
+		  System.out.println("커피 오더 : "+ CoffeeCart);
+		  
+		  mv.addObject("CoffeeOrder", CoffeeCart);
+		  mv.setViewName("cafe/user/coffeeOrder");
+		  
+		  
+		return mv;
 	}
 	
 	

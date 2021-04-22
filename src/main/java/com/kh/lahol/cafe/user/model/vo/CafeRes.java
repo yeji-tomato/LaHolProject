@@ -26,5 +26,5 @@ public class CafeRes {
 	private String caResIng;
 	private String caResHereTime;
 	private String caResGoTime;
-
+	private Date caToDate;
 }

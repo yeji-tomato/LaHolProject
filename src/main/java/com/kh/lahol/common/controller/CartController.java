@@ -1,7 +1,11 @@
 package com.kh.lahol.common.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 import java.util.Locale;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,9 +21,11 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kh.lahol.common.model.vo.Cart;
+import com.google.gson.Gson;
 import com.kh.lahol.common.model.exception.CartException;
 import com.kh.lahol.common.model.service.CartService;
-import com.kh.lahol.common.model.vo.Cart;
+import com.kh.lahol.common.model.vo.Coupon;
 import com.kh.lahol.member.model.vo.Member;
 
 
@@ -27,7 +33,7 @@ import com.kh.lahol.member.model.vo.Member;
 @Controller
 @RequestMapping("/cart")
 @SessionAttributes({"loginUser"})
-public class CartController {
+public class CartController{
 	
 	@Autowired 
 	private CartService cartService;
@@ -71,8 +77,35 @@ public class CartController {
 	}
 	
 	@GetMapping("/coupon")
-	public String Coupon() {
+	public ModelAndView couponSelectList(@SessionAttribute("loginUser") Member m,
+			ModelAndView mv) {
 		
-		return "cart/coupon";
+		String id = m.getId();
+		// System.out.println("쿠폰 아이디" + id);
+
+		List<Coupon> couponlist = cartService.couponSelectList(id);
+		System.out.println(couponlist);
+		
+		mv.addObject("couponlist", couponlist);
+		mv.setViewName("cart/coupon");
+		
+		
+		return mv;
+	}
+	
+	@PostMapping("/couponResult")
+	public String coponResult(String couponValue, HttpServletResponse response) {
+		response.setContentType("application/json; charset=utf-8");
+		
+		PrintWriter out;
+		try {
+			out = response.getWriter();
+			out.print(new Gson().toJson(couponValue));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		
+		return "cart/couponTotal";
 	}
 }

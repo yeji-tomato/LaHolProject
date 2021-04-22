@@ -6,6 +6,7 @@ import com.kh.lahol.cafe.bus.model.vo.Cafe;
 import com.kh.lahol.cafe.bus.model.vo.Coffee;
 import com.kh.lahol.cafe.user.model.vo.CafeRes;
 import com.kh.lahol.cafe.user.model.vo.CoffeeCart;
+import com.kh.lahol.cafe.user.model.vo.CoffeeOrder;
 import com.kh.lahol.cafe.user.model.vo.CoffeeRes;
 
 public interface CafeService {
@@ -25,5 +26,7 @@ public interface CafeService {
 	public int coResInsert(CoffeeRes coRes);
 	// 커피 basket
 	public List<CoffeeCart> coResBasket(CoffeeCart coCart);
+	
+	public List<CoffeeCart> coffeeOrder(String caResNo);
 
 }

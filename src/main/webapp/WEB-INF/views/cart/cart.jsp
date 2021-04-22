@@ -44,10 +44,21 @@
                                             <div class="split"></div>
                                         </div>
                                         
+                                        
                                         <!-- 상품 --> 
-                                        <c:forEach var="crt" items="${ cartlist }"> 
+                                        <c:forEach var="crt" items="${ cartlist }">
+                                         
                                         <!-- 카페 상품 -->
                                         <c:choose>
+                                        	<c:when test="${ crt.cartName eq null }">
+                                        	<div class="row data">
+                                        		<div class="subdiv">
+                                        		담겨진 상품이 존재하지 않습니다.
+                                        		</div>
+                                        	</div>
+                                        	</c:when>
+                                        	
+                                        	
                                         	<c:when test="${ crt.cres != null }">
                                         		<div class="row data">
 	                                            <div class="subdiv">
@@ -64,16 +75,19 @@
 	                                            </div>
 	                                            <div class="subdiv">
 	                                                <div class="basketprice">
-	                                                	<input type="button" value="주문내역" style="border: 0;"/>
+	                                                	${ crt.cartPrice }
 	                                                </div>
 	                                                <div class="num">
 	                                                    <div class="updown">
-                                                        <input type="text" name="p_num1" id="p_num1" size="2" maxlength="4" class="p_num" value="1" onkeyup="javascript:basket.changePNum(3);">
+                                                        <%-- <input type="text" name="p_num1" id="p_num1" size="2" maxlength="4" class="p_num" value="${ crt.cartCount }" onkeyup="javascript:basket.changePNum(3);"> --%>
                                                         <!-- <span onclick="javascript:basket.changePNum(1);"><i class="fas fa-arrow-alt-circle-up up"></i></span>
                                                         <span onclick="javascript:basket.changePNum(1);"><i class="fas fa-arrow-alt-circle-down down"></i></span> -->
+                                                    	<button style="border: 0; background: white;"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></button>
                                                     </div>
 	                                                </div>
-	                                                <div class="sum">${ crt.cartPrice }원</div>
+	                                                <c:set var="cartSum" value="${ crt.cartPrice }"/>
+	                                                 
+	                                                <div class="sum">${ cartSum }원</div>
 	                                                <div class="del">${ crt.cartRes }</div> 
 	                                            </div>
 	                                            <div class="subdiv">
@@ -112,6 +126,7 @@
                                                         <span onclick="javascript:basket.changePNum(2);"><i class="fas fa-arrow-alt-circle-down down"></i></span>
                                                     </div>
 	                                                </div>
+	                                                <c:set var= "sum" value="${totalCount + crt.cartCount}"/>
 	                                                <div class="sum">${ crt.cartPrice }원</div>
 	                                                <div class="del">${ crt.cartRes }</div> 
 	                                            </div>
@@ -166,6 +181,9 @@
                                         	</c:when>
                                         </c:choose>
                                         
+                                        <c:set var= "totalCount" value="${totalCount + crt.cartCount}"/>
+                                        <!-- 최종합계 -->
+                                        <c:set var= "total" value="${total + cartSum}"/>
                                         </c:forEach> 
                                         
                                         
@@ -174,13 +192,9 @@
                                 
                                     </div>
                             
-                                    <div class="right-align basketrowcmd">
-                                        <a href="javascript:void(0)" class="abutton" id="trashBtn" onclick="javascript:basket.delCheckedItem();">선택상품삭제</a>
-                                        <a href="javascript:void(0)" class="abutton" id="trashBtn" onclick="javascript:basket.delAllItem();">장바구니비우기</a>
-                                    </div>
                             
                                   
-                                    <div class="bigtext right-align sumcount" id="sum_p_num">상품갯수: 2개</div>
+                                    <div class="bigtext right-align sumcount" id="sum_p_num">합계: <c:out value="${total}"/></div>
                                   
                                
                                
