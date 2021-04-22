@@ -41,6 +41,4 @@ public interface CafeBizService {
 
 	public int cafeDelete(String caCode);
 
-	
-
 }

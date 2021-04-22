@@ -69,24 +69,18 @@
                     </thead>
                     <tbody>
                       <tr>
-                        <td>주최카페</td> <!-- cafeNo를 통해 이름 불러오기 -->
-                        <td colspan="2">${ coffeeclass.cafeNo }</td>
-                      </tr>
                       <tr>
                         <td>연계 카페명</td> <!-- cafeNo를 통해 이름 불러오기 -->
-                        <td> ${ coffeeclass.cafeNo }</td>
+                        <td> ${ mycafe.caName }</td>
                         <!--마우스 오버시 등장하는 정보-->              
+                      </tr>
                         <div class="help-tip" style="float:right;">
-                    
                           <div class="info">
                           <p>카페이름 : ${ coffeeclass.cafeNo } </p> <!-- cafeNo를 통해 이름 불러오기 -->
                           <p>카페 위치 :  ${ coffeeclass.cafeNo }   </p> <!-- cafeNo를 통해  -->
                           <a href = "${ ContextPath }/cafe/user/here">☕카페보러가기</a>
                           </div>
-                      
-                          </div>
-                       </td>
-                      </tr>
+                        </div>
                       <tr>
                         <td>
                           <ul>

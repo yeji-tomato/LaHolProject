@@ -2,6 +2,7 @@ package com.kh.lahol.coffeeclass.model.service;
 
 import java.util.List;
 
+import com.kh.lahol.cafe.bus.model.vo.Cafe;
 import com.kh.lahol.coffeeclass.model.vo.ClassRegister;
 import com.kh.lahol.coffeeclass.model.vo.ClassSearch;
 import com.kh.lahol.coffeeclass.model.vo.CoffeeClass;
@@ -44,6 +45,8 @@ public interface CoffeeClassSerivce {
 
 	// 12. 필터
 	public List<ClassSearch> filterList(ClassSearch search);
+
+	public Cafe selectCafeInfoById(String id);
 
 
 

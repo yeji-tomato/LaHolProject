@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.kh.lahol.cafe.bus.model.vo.Cafe;
 import com.kh.lahol.coffeeclass.model.vo.ClassRegister;
 import com.kh.lahol.coffeeclass.model.vo.ClassSearch;
 import com.kh.lahol.coffeeclass.model.vo.CoffeeClass;
@@ -88,6 +89,11 @@ public class CoffeeClassDaoImpl implements CoffeeClassDao{
 	@Override
 	public List<ClassSearch> selectClassFilter(ClassSearch search) {
 		return sqlSession.selectList("clMapper.filterClass", search);
+	}
+
+	@Override
+	public Cafe selectCafeInfoById(String id) {
+		return sqlSession.selectOne("clMapper.selectCafeInfoById", id);
 	}
 
 	

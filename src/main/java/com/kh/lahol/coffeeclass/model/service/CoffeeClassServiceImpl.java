@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kh.lahol.cafe.bus.model.vo.Cafe;
 import com.kh.lahol.coffeeclass.model.dao.CoffeeClassDao;
 import com.kh.lahol.coffeeclass.model.vo.ClassRegister;
 import com.kh.lahol.coffeeclass.model.vo.ClassSearch;
@@ -88,6 +89,11 @@ public class CoffeeClassServiceImpl implements CoffeeClassSerivce{
 	@Override
 	public List<ClassSearch> filterList(ClassSearch search) {
 		return clDao.selectClassFilter(search);
+	}
+
+	@Override
+	public Cafe selectCafeInfoById(String id) {
+		return clDao.selectCafeInfoById(id);
 	}
 
 
