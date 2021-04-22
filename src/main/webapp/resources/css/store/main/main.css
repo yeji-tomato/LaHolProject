@@ -828,4 +828,27 @@ ul {
             color: white; 
  		}
  	 
+ 	 
+ 	  #add{
+           
+               width: 80px;
+            height: 25px;
+            background-color: #c9a89b ;
+            
+            
+            border-radius:2px 2px 2px 2px; 
+
+    		background-color: #f8585b;
+		
+		    border: none;
+		
+		    color:#fff;
+		 
+		    text-align: center;
+		
+		    text-decoration: none;
+		 
+		
+		    font-size: 15px;
+        }
  

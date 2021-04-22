@@ -436,16 +436,16 @@
 	                       	 
 	                       	  
 	                       	  
-	                       	  <div class="paing" style="float: right;position: relative;left: -50%;width: 100%;left: 0px;right: 0px;" >
-	                <c:if test="${param.searchValue eq null }">
-						<c:set var="loc" value="/store/list" scope="page"/>
-					</c:if>
+	                <div class="paing" style="float: right;position: relative;left: -50%;width: 100%;left: 0px;right: 0px;" >
+			                <c:if test="${param.searchValue eq null }">
+								<c:set var="loc" value="/store/list" scope="page"/>
+							</c:if>
 						
-					<c:if test="${param.searchValue ne null}" >
-							<c:set var="loc" value="/store/search?searchCondition=${ param.searchCondition }&searchValue=${ param.searchValue}" scope="page"/> 
-					</c:if>
-					
-	                <table style="margin-left:40%;">
+							<c:if test="${param.searchValue ne null}" >
+									<c:set var="loc" value="/store/search?searchCondition=${ param.searchCondition }&searchValue=${ param.searchValue}" scope="page"/> 
+							</c:if>
+					<center>
+	                <table >
 		                <tr>
 							<td colspan="6">
 							<!-- [이전] -->
@@ -480,7 +480,7 @@
 									<a href="${ pagination }">${ p }</a> &nbsp;
 								</c:if>
 							</c:forEach>
-							
+						
 							
 							<!-- [다음] -->
 							<c:if test="${ pi.currentPage >= pi.maxPage }">
@@ -499,9 +499,10 @@
 							</td> 
 						</tr>
 	                </table> 
+	                 
                 </div>
 	                       	  
-	                       	  
+	                       		</center> 
 	                       	  
 	                       	  
 	                       	  
@@ -517,7 +518,7 @@
 	                        <div class="tab-pane fade" id="de" role="tabpanel" aria-labelledby="de-tab" style="background-color:white;" >
 	                        <!--  작성한 택배사에 맞는 택배사 정보 출력 -->
 	                        <c:if  test="${ s.DY_COMPANY == '로젠' }">  
-	                            <img  src="${ contextPath }/resources/img/store/배송정보.jpg" style="  margin-left: 35px; ">
+	                            <img  src="${ contextPath }/resources/img/store/배송수정.jpg" style="  margin-left: 35px; ">
 	                        </c:if>
 	                          <c:if  test="${ s.DY_COMPANY == '한진' }">  
 	                            <img  src="${ contextPath }/resources/img/store/한진.jpg" style="  margin-left: 35px; ">
@@ -527,7 +528,7 @@
 	                        </c:if>
 	                          <c:if  test="${ s.DY_COMPANY == '쿠팡' }">  
 	                             <img  src="${ contextPath }/resources/img/store/쿠팡.png" style="  margin-left: 35px; width: 950px;" >
-	                            <img  src="${ contextPath }/resources/img/store/쿠쿠.jpg" style="  margin-left: 35px; ">
+	                            <img  src="${ contextPath }/resources/img/store/쿠팡팡.jpg" style="  margin-left:0; ">
 	                        </c:if>
 	                          
 	                        </div>

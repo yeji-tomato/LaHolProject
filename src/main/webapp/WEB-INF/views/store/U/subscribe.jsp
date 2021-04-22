@@ -120,7 +120,7 @@
 
                     <!-- 결제 정보 확인-->
 					
-                    <div class="ss">
+                            <div class="ss">
                     <h5  style="color:red;">최대 9개월 할인했을경우!</h5>
                         <div class="hh">
                             <div> 총금액 :  ${(s.PR_PRICE*9)*1 }   원 </div>
@@ -138,26 +138,26 @@
   
                     <!--구독 배성 정보-->
                     <div class="deinf">
-                        <h4> 주문자 회원정보와 동일한 정보를 불러옵니다  <input type="checkbox" id="load" value="${ loginUser.addr }"  onclick='getCheckboxValue(event)'/>  신규주소지<input name="chkbox" type="checkbox" checked="checked" onClick="checkDisable(this.form)"> </h4>
+                        <h4>    신규주소지<input name="chkbox" type="checkbox"  value="주문자  회원정보와 동일한 주소를 사용합니다"  checked="checked" onClick="checkDisable(this.form)"  > </h4>
                           
                         <div class="di1" style="float: left;"> 
-                            <table >
-                      
+                            <table > 
+		                      	<h6 style="width: 400px; "><a style="color: red;"> <div id='result' ></div> </a> </h6>  
                                 <tr >
-                                    <th style="width: 200px;" >구매자 성함</th>  
-                                    <td style="text-align:left;">  ${ loginUser.name }</td>
+                                    <th style="width: 200px;" >구매자 성함</th> 
+                                    <td style="text-align:left;">  ${ loginUser.name }  </td>
                                 </tr>
                                 
                                 <tr>
                                     <th>연락처</th>
-                                    <td><div id='result2' style="text-align:left;"></div>  </td>
+                                    <td style="text-align:left;"> ${ loginUser.phone } </td>   
                                 </tr>
 
                                  
 
                                 <tr>
-                                    <th>배송받을 주소</th>
-                                    <td>   <div id='result'></div> </td>
+                                    <th >배송받을 주소</th>
+                                    <td style="text-align:left;width: 202px;">${ loginUser.addr } </td>
                                 </tr>
                                 
                                 <tr>
@@ -184,22 +184,29 @@
                                 </tr>
 
                                  
-
+                                      
+	
+	                            <tr>
+                                    <th >도로명주소</th>
+                                    <td style="float: left;"><input type="text" class="postcodify_address"    placeholder="주소" name="address" readonly  >  <input name="detail_address" type="button"   id="postcodify_search_button"  value="검색"></td>
+                                </tr>
                                 <tr>
-                                    <th>배송받을 주소</th>
+                                    <th>상세주소</th>
                                     <td><input class="form-control" type="text" style="  width: 300px;  "
-                                        name="detail_address" required name="텍스트박스" ></td>
+                                          required name="detailaddr" ></td>
                                 </tr>
                                 
                                 <tr>
                                     <th>주문 메시지</th>
-                                    <td><textarea name="텍스트박스"   rows="5" cols="40"  style="  width: 300px;  class="form-control"  > </textarea></td>
+                                    <td><textarea name="텍스트박스"   rows="5" cols="40"  style="  width: 300px; "  class="form-control"  > </textarea></td>
                                 </tr>
                             </table>
                         </div>
- 
+	  					<script src="//d1p7wdleee1q2z.cloudfront.net/post/search.min.js"></script>
+						<!-- 검색 버튼 클릭 시 팝업 레이어 열리도록 -->
+						<script> $(function() { $("#postcodify_search_button").postcodifyPopUp(); }); </script>
 
-
+    		
  
 
  
@@ -227,108 +234,140 @@
 	<!-- footer -->
 	<jsp:include page="/WEB-INF/views/common/footer2.jsp"/>
 	
-	<script>
-	function submitForm() {
-	    document.getElementById("envselection").submit();
-	    
-	    
-	}
-	</script>
+				<script>
+				function submitForm() {
+				    document.getElementById("envselection").submit();
+				    
+				    
+				}
+				</script>
 	
-	<script>
-		function getCheckboxValue(event)  {
-			  let result = '';  
-			  if(event.target.checked)  {
-			    result = event.target.value;    
-			    result2 = ${ loginUser.phone };    
-			  }else {
-			    result = ''; 
-			    result2 = ''; 
-			  }
-			  
-			  document.getElementById('result').innerText
-			    = result; 
-			  document.getElementById('result2').innerText
-			    = result2;  
-			}
-		
-	</script>
-	
+				<script>
+					function getCheckboxValue(event)  {
+						  let result = '';  
+						  if(event.target.checked)  {
+						    result = event.target.value;      
+						  }else {
+						    result = ''; 
+						  }
+						  
+						  document.getElementById('result').innerText
+						    = result; 
+						}
+					
+				</script>
+				
 
  
 	
 	
 	
-     <script>
- 	 function onSubmit() {
-		 var IMP = window.IMP; // 생략가능
-	       IMP.init('imp37495715'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
-	       
-	       IMP.request_pay({
-	           pg : 'kakaopay',
-	           pay_method : 'card',
-	           merchant_uid : 'merchant_' + new Date().getTime(),
-	           name : '라홀 정기구독',
-	          /*  if( $('select[name=SUBSCRIPTIONS]').val() == '3'){
-	        	   amount : ${  ((s.PR_PRICE*9)- ((s.PR_PRICE*9)*0.05)) /3  }
-	           }else if( $('select[name=SUBSCRIPTIONS]').val() == '6'){
-	        	   amount : ${  ((s.PR_PRICE*9)- ((s.PR_PRICE*9)*0.15)) /6  }
-	           }else if( $('select[name=SUBSCRIPTIONS]').val() == '9'){
-	        	   amount : ${  ((s.PR_PRICE*9)- ((s.PR_PRICE*9)*0.15)) /9  }
-	           } , */ 
-	           amount : '100' ,
-	           buyer_email : ' ',
-	           buyer_name : '${ loginUser.name } ',
-	           buyer_tel : '  ',
-	           buyer_addr : '',
-	           buyer_postcode : '123-456',
-	           //m_redirect_url : 'http://www.naver.com'
-	       }, function(rsp) {
-	    	   console.log(rsp);
-	          if (rsp.success) { 
-	                  var msg = '결제가 완료되었습니다.';
-	                  msg += '\n고유ID : ' + rsp.imp_uid;
-	                  msg += '\n상점 거래ID : ' + rsp.merchant_uid;
-	                  msg += '\n결제 금액 : ' + rsp.paid_amount;
-	                  msg += '\n카드 승인번호 : ' + rsp.apply_num;
-	                  $("#terms_form").submit();
-	          } else {
-	               var msg = '결제에 실패하였습니다.';
-	               msg += '에러내용 : ' + rsp.error_msg;
-	               //실패시 이동할 페이지 
-	               $("#terms_form").submit();
-	                
-	           } 
-	           alert(msg);
-	       });		
- 	}
-		 
-</script>        
- 		
- <script >
-
- function checkDisable(frm)
- {
-     if( frm.chkbox.checked == true ){
- 	   frm.textbox.disabled = false;
- 	   frm.aa.disabled = false;
- 	  frm.detail_address.disabled = false;
- 	 frm.텍스트박스.disabled = false;
- 	 frm.dd.disabled = true;
- 	} else 
- 	{
- 	   frm.textbox.disabled =  true;
- 	  frm.aa.disabled =  true;
- 	 frm.detail_address.disabled =  true;
- 	 frm.텍스트박스.disabled =  true;
- 	 frm.dd.disabled = false;
- 	}
- }
-
-</script>
+			     <script>
+			 	 function onSubmit() {
+					 var IMP = window.IMP; // 생략가능
+				       IMP.init('imp37495715'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
+				       
+				       IMP.request_pay({
+				           pg : 'kakaopay',
+				           pay_method : 'card',
+				           merchant_uid : 'merchant_' + new Date().getTime(),
+				           name : '라홀 정기구독',
+				          /*  if( $('select[name=SUBSCRIPTIONS]').val() == '3'){
+				        	   amount : ${  ((s.PR_PRICE*9)- ((s.PR_PRICE*9)*0.05)) /3  }
+				           }else if( $('select[name=SUBSCRIPTIONS]').val() == '6'){
+				        	   amount : ${  ((s.PR_PRICE*9)- ((s.PR_PRICE*9)*0.15)) /6  }
+				           }else if( $('select[name=SUBSCRIPTIONS]').val() == '9'){
+				        	   amount : ${  ((s.PR_PRICE*9)- ((s.PR_PRICE*9)*0.15)) /9  }
+				           } , */ 
+				           amount : '100' ,
+				           buyer_email : ' ',
+				           buyer_name : '${ loginUser.name } ',
+				           buyer_tel : '  ',
+				           buyer_addr : '',
+				           buyer_postcode : '123-456',
+				           //m_redirect_url : 'http://www.naver.com'
+				       }, function(rsp) {
+				    	   console.log(rsp);
+				          if (rsp.success) { 
+				                  var msg = '결제가 완료되었습니다.';
+				                  msg += '\n고유ID : ' + rsp.imp_uid;
+				                  msg += '\n상점 거래ID : ' + rsp.merchant_uid;
+				                  msg += '\n결제 금액 : ' + rsp.paid_amount;
+				                  msg += '\n카드 승인번호 : ' + rsp.apply_num;
+				                  $("#terms_form").submit();
+				          } else {
+				               var msg = '결제에 실패하였습니다.';
+				               msg += '에러내용 : ' + rsp.error_msg;
+				               //실패시 이동할 페이지 
+				               $("#terms_form").submit();
+				                
+				           } 
+				           alert(msg);
+				       });		
+			 	}
+					 
+			</script>    
 
 
- 
+
+				<script>
+					function getCheckboxValue(event)  {
+						  let result = '';  
+						  if(event.target.checked)  {
+						    result = event.target.value;    
+						    result2 = ${ loginUser.phone };    
+						  }else {
+						    result = ''; 
+						    result2 = ''; 
+						  }
+						  
+						  document.getElementById('result').innerText
+						    = result; 
+						  document.getElementById('result2').innerText
+						    = result2;  
+						}
+					
+				</script>
+			    
+				 		
+				 <script >
+				
+				 function checkDisable(frm)
+				 {
+				     if( frm.chkbox.checked == true ){
+				 	   frm.textbox.disabled = false;
+				 	   frm.aa.disabled = false;
+				 	  frm.detail_address.disabled = false;
+				 	 frm.텍스트박스.disabled = false;
+				 	 frm.address.disabled = false;
+				 	frm.detailaddr .disabled = false;
+				 	 frm.dd.disabled = true;
+				 	} else 
+				 	{
+				 	   frm.textbox.disabled =  true;
+				 	  frm.aa.disabled =  true;
+				 	 frm.detail_address.disabled =  true;
+				 	 frm.텍스트박스.disabled =  true;
+				 	 frm.dd.disabled = false;
+				 	 frm.address.disabled =true;
+				 	frm.detailaddr .disabled =true;
+				 	}
+				     
+				     let result = '';  
+					  if(event.target.checked)  {
+						  result = ''; 
+					  }else { 
+					    result = event.target.value;     
+					  }
+					  
+					  document.getElementById('result').innerText
+					    = result; 
+					 
+				 }
+				
+				</script>
+
+	
            
 </body>
 </html>
