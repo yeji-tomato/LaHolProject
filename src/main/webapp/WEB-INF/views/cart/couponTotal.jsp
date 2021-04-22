@@ -44,12 +44,6 @@
          </ul><a href="#" class="btn rounded-pill py-2 btn-block" style="background: #5A452E; color: white;">결제하기</a>
        </div>
      </div>
-     <!-- 쿠폰 적용 후 화면에 출력 -->
-     <script>
-     	
-		
-		
-     </script>
    </div>
 </body>
 </html>
