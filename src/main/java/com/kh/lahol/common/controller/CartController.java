@@ -17,9 +17,10 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kh.lahol.common.model.vo.Cart;
 import com.kh.lahol.common.model.exception.CartException;
 import com.kh.lahol.common.model.service.CartService;
-import com.kh.lahol.common.model.vo.Cart;
+import com.kh.lahol.common.model.vo.Coupon;
 import com.kh.lahol.member.model.vo.Member;
 
 
@@ -27,7 +28,7 @@ import com.kh.lahol.member.model.vo.Member;
 @Controller
 @RequestMapping("/cart")
 @SessionAttributes({"loginUser"})
-public class CartController {
+public class CartController{
 	
 	@Autowired 
 	private CartService cartService;
@@ -71,8 +72,19 @@ public class CartController {
 	}
 	
 	@GetMapping("/coupon")
-	public String Coupon() {
+	public ModelAndView couponSelectList(@SessionAttribute("loginUser") Member m,
+			ModelAndView mv) {
 		
-		return "cart/coupon";
+		String id = m.getId();
+		System.out.println("쿠폰 아이디" + id);
+
+		List<Coupon> couponlist = cartService.couponSelectList(id);
+		System.out.println(couponlist);
+		
+		mv.addObject("couponlist", couponlist);
+		mv.setViewName("cart/coupon");
+		
+		
+		return mv;
 	}
 }

@@ -19,6 +19,16 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 			<result property="today" column="TODAY"/>
 		</resultMap>
 
+		<resultMap id="cartCouponResultSet" type="Cart_Coupon">
+			<id property="couponCode" column="COUPON_CODE"/>
+			<result property="id" column="ID"/>
+			<result property="couponName" column="COUPON_NAME"/>
+			<result property="limit" column="LIMIT"/>
+			<result property="issuedBy" column="ISSUEDBY"/>
+			<result property="issuedDate" column="ISSUEDATE"/>
+			<result property="expDate" column="EXPDATE"/>
+			<result property="isUsed" column="ISUSED"/>
+		</resultMap>
 	
 		<!-- 카페 예약 정보 장바구니에 입력 -->
 		<insert id="insertCafeCart" parameterType="Cart">
@@ -82,7 +92,19 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 		ORDER BY TODAY DESC
 		</select>
 	
-	
+		<select id="couponSelectList" resultMap ="cartCouponResultSet">
+			SELECT
+			    COUPON_CODE,
+			    ID,
+			    COUPON_NAME,
+			    LIMIT,
+			    ISSUEDBY,
+			    ISSUEDATE,
+			    EXPDATE,
+			    ISUSED
+			FROM COUPON
+			WHERE ID = #{id}
+		</select>
 	
 	
 </mapper>

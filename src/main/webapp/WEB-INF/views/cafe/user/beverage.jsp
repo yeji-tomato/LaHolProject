@@ -23,7 +23,6 @@
         <div class="container" id="ct-cf"> 
          <div class="row">
 		    <div class="col-8">
-		    <h1 class="berCate">BEVERAGE</h1>
 		    	<div class="row row-cols-3" id="rowP">
             <c:forEach var="coffee" items="${ Coffeelist }">
             <c:choose>

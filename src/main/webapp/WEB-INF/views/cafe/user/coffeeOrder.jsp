@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,7 +17,7 @@
 	<%@include file="/WEB-INF/views/cart/cartJS.jsp" %>
 	<section id="content" class="content_css" >
             <div class="outer1">
-                <form name="orderform" id="orderform" method="post" class="orderform" action="/Page">      
+              
                 <div class="cart">
                     <div class="store1"> 
                         <div class="oder">
@@ -33,6 +34,7 @@
                                                 <div class="basketprice">가격</div> 
                                                 <div class="num">수량</div>
                                                 <div class="sum">합계</div>
+                                                <div class="del">자세히 보기</div>
                                             </div>
                                             <div class="subdiv">
                             
@@ -41,7 +43,8 @@
                                             <div class="split"></div>
                                         </div>
                                         
-                                        <!-- 상품 -->     
+                                        <!-- 상품 -->  
+                                        <c:forEach var="cor" items="${ CoffeeOrder }">   
                                         <div class="row data">
                                             <div class="subdiv">
                                                 <div class="check">
@@ -50,134 +53,93 @@
                                                         <span class="warning"></span>
                                                     </label>
                                                 </div>
-                                                <div class="img"><img src="https://www.twosome.co.kr:7009/Twosome_file/PRODUCT/1145_big_img" width="100"></div>
+                                                <div class="img"><img src="${ contextPath }/resources/nuploadFiles/cafeImg/${ cor.cfIchname }" width="100"></div>
                                                 <div class="pname">
-                                                    <span>텀블러</span>
+                                                    <span>${ cor.cfName }</span>
                                                 </div>
                                             </div>
                                             <div class="subdiv">
-                                                <div class="basketprice"><input type="hidden" name="p_price" id="p_price1" class="p_price" value="20000">20,000원</div>
+                                                <div class="basketprice">${ cor.cfPrice }</div>
                                                 <div class="num">
-                                                    <div class="updown">
-                                                        <input type="text" name="p_num1" id="p_num1" size="2" maxlength="4" class="p_num" value="2" onkeyup="javascript:basket.changePNum(1);">
-                                                        <span onclick="javascript:basket.changePNum(1);"><i class="fas fa-arrow-alt-circle-up up"></i></span>
-                                                        <span onclick="javascript:basket.changePNum(1);"><i class="fas fa-arrow-alt-circle-down down"></i></span>
-                                                    </div>
+                                                    ${ cor.cfResAmount }
                                                 </div>
-                                                <div class="sum">40,000원</div>
-                                                <div class="del">2,500</div> 
+                                                <c:set var="cfSum" value="${ cor.cfPrice * cor.cfResAmount }"/>
+                                                <div class="sum">${ cfSum }</div>
+                                               <div class="del">
+                                               	<button style="border: 0; background: white;"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></button>
+                                               </div>
                                             </div>
                                             <div class="subdiv">
+                                             
                                                 <div class="basketcmd">
+                                                
                                                 <a href="javascript:void(0)" class="abutton" onclick="javascript:basket.delItem();">
-                                                    X
+                                                   x
                                                 </a>
                                                 </div>
                                             </div>
                                         </div>
+                                        <c:set var= "totalCount" value="${totalCount + cor.cfResAmount}"/>
+                                        <c:set var= "total" value="${total + cfSum}"/>
+                                        </c:forEach>
                                         
-                                        <!-- 상품 -->     
-                                        <div class="row data">
-                                            <div class="subdiv">
-                                                <div class="check">
-                                                    <!-- <input type="checkbox" name="buy" value="261" checked="">&nbsp; -->
-                                                    <label class="checkbox">
-                                                        <input type="checkbox" id="checkB" name="buy" value="260" checked/>
-                                                        <span class="warning"></span>
-                                                    </label>
-                                                </div>
-                                                <div class="img"><img src="https://img.hankyung.com/photo/202102/01.25546146.1.jpg" width="100"></div>
-                                                <div class="pname">
-                                                    <span>바리스타 클래스수업</span>
-                                                </div>
-                                            </div>
-                                            <div class="subdiv">
-                                                <div class="basketprice"><input type="hidden" name="p_price" id="p_price2" class="p_price" value="19000">19,000원</div>
-                                                <div class="num">
-                                                    <div class="updown">
-                                                        <input type="text" name="p_num2" id="p_num2" size="2" maxlength="4" class="p_num" value="1" onkeyup="javascript:basket.changePNum(2);">
-                                                        <span onclick="javascript:basket.changePNum(2);"><i class="fas fa-arrow-alt-circle-up up"></i></span>
-                                                        <span onclick="javascript:basket.changePNum(2);"><i class="fas fa-arrow-alt-circle-down down"></i></span>
-                                                    </div>
-                                                </div>
-                                                <div class="sum">19,000원</div>
-                                                <div class="del"></div> 
-                                            </div>
-                                            <div class="subdiv">
-                                                
-                                                <div class="basketcmd">
-                                                    <a href="javascript:void(0)" class="abutton" onclick="javascript:basket.delItem();">
-                                                        X
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <!-- 상품 -->     
-                                        <div class="row data">
-                                            <div class="subdiv">
-                                                <div class="check">
-                                                    <!-- <input type="checkbox" name="buy" value="262" checked="">&nbsp; -->
-                                                    <label class="checkbox">
-                                                        <input type="checkbox" id="checkB" name="buy" value="260" checked/>
-                                                        <span class="warning"></span>
-                                                    </label>
-                                                </div>
-                                                <div class="img"><img src="https://i.pinimg.com/564x/77/0d/a6/770da6b422e6457ee09897be29bb18a0.jpg" width="100"></div>
-                                                <div class="pname">
-                                                    <span>커피예약</span>
-                                                </div>
-                                            </div>
-                                            <div class="subdiv">
-                                                <div class="basketprice"><input type="hidden" name="p_price" id="p_price3" class="p_price" value="15200">15,200원</div>
-                                                <div class="num">
-                                                    <div class="updown">
-                                                        <input type="text" name="p_num3" id="p_num3" size="2" maxlength="4" class="p_num" value="1" onkeyup="javascript:basket.changePNum(3);">
-                                                        <span onclick="javascript:basket.changePNum(3);"><i class="fas fa-arrow-alt-circle-up up"></i></span>
-                                                        <span onclick="javascript:basket.changePNum(3);"><i class="fas fa-arrow-alt-circle-down down"></i></span>
-                                                    </div>
-                                                </div> 
-                                                <div class="sum">15,200원</div>
-                                                <div class="del"> </div>
-                                            </div>
-                                            <div class="subdiv">
-                                                <div class="basketcmd">
-                                                    <a href="javascript:void(0)" class="abutton" onclick="javascript:basket.delItem();">
-                                                        X
-                                                    </a>
-                                            </div>
-                                            </div>
-                                        </div>
                                 
                                     </div>
-                            
-                                    <div class="right-align basketrowcmd">
-                                        <a href="javascript:void(0)" class="abutton" id="trashBtn" onclick="javascript:basket.delCheckedItem();">선택상품삭제</a>
-                                        <a href="javascript:void(0)" class="abutton" id="trashBtn" onclick="javascript:basket.delAllItem();">장바구니비우기</a>
-                                    </div>
+                  
                             
                                   
-                                    <div class="bigtext right-align sumcount" id="sum_p_num">상품갯수: 4개</div>
+                                    <div class="bigtext right-align sumcount" id="sum_p_num">상품갯수: <c:out value="${totalCount}"/>개</div>
                                   
                                
                                
                             </div>
                             </div><!-- /store1 -->
                             </div><!-- /cart -->
-                        </form>
+                        
                         
                         
 						
 						<!-- 카페 주소 -->
-						<%@include file="./cafeAddress.jsp" %>
+						<%-- <%@include file="./cafeAddress.jsp" %> --%>
                            
                        <div>
                            <!-- 쿠폰 및 전체 금액 -->
-                          <%@include file="/WEB-INF/views/cart/couponTotal.jsp" %> 
-                       </div>
-                           
-                           
-                       </div>
+                          <div class="row py-5 p-4 rounded shadow-sm">
+						     <div class="col-lg-6">
+						       <div class="rounded-pill px-4 py-3 text-uppercase font-weight-bold" style="background: #F3EFEB;">적용 가능한 할인쿠폰</div>
+						       <div class="p-4">
+						         <div class="input-group mb-4 border rounded-pill p-2">
+						           <input type="text" placeholder="Apply coupon" aria-describedby="button-addon3" class="form-control border-0">
+						           <div class="input-group-append border-0">
+						             <button id="button-addon3" type="button" class="btn px-4 rounded-pill" style="background: #5A452E; color: white;" onclick="winPopup();"><i class="fa fa-gift mr-2"></i>coupon</button>
+						           </div>
+						         </div>
+						       </div>
+						       <script type="text/javascript">
+								    function winPopup() {
+								        var popUrl = "${contextPath}/cart/coupon";
+								        var popOption = "width=10vw,height=10vh";
+								        window.open(popUrl, popOption, "_blank");
+								    }
+								</script>
+						     </div>
+						     <div class="col-lg-6">
+						       <div class="rounded-pill px-4 py-3 text-uppercase font-weight-bold" style="background: #F3EFEB;">결제 정보</div>
+						       <div class="p-4">
+						         <ul class="list-unstyled mb-4">
+						           <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">상품금액 </strong><strong><c:out value="${total}"/> 원</strong></li>
+						           <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">할인금액</strong><strong>0</strong></li>
+						           <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">결제금액</strong>
+						             <h5 class="font-weight-bold">76,700원</h5>
+						           </li>
+						         </ul><a href="#" class="btn rounded-pill py-2 btn-block" style="background: #5A452E; color: white; width : 100%">결제하기</a>
+						       </div>
+						     </div>
+						   </div>
+          </div>
+              
+              
+          </div>
 
             
         </section>

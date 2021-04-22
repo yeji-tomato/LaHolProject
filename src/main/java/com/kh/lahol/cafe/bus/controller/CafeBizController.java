@@ -211,6 +211,7 @@ public class CafeBizController {
 								HttpServletRequest request) throws CafeException {
 		c.setCaAddress("우편번호" + "," + cafeAddress1 + "," + cafeAddress2);
 		 
+		
 		 if(!mainfile.getOriginalFilename().equals("")) {
 				// 파일 저장 메소드 별도로 작성 - 리네임명 리턴
 			if(c.getMainPhoto() != null) {

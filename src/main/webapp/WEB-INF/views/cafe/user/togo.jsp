@@ -9,8 +9,9 @@
 <!-- pickadate -->
 <link rel="stylesheet" href="${ contextPath }/resources/css/cafe/user/pickadate/default.css">
 <link rel="stylesheet" href="${ contextPath }/resources/css/cafe/user/pickadate/default.date.css">
+
 </head>
-<body style="background: #f0ebe5;">
+<body>
 
 	<!-- menubar -->
 	<jsp:include page="/WEB-INF/views/common/menubar.jsp"/>
@@ -138,6 +139,8 @@
 			
 			const Date = $("#date").val();
 			const  caResTime = $(".timeSelect").val();
+			const userId = $("#userId").val();
+			const caNo = $("#caCode").val();
 			
 			$.ajax({
 				url:"${ contextPath }/cafe/togo/insert",
@@ -149,8 +152,15 @@
 					caResTime : caResTime
 				},
 				success : function(data){
-					alert("포장 예약이 완료 되었습니다!");
-					location.href='${ contextPath }/cafe/beverage?caCode=${ cafeInfo.caCode }';
+					Swal.fire({
+		    			  text: '포장 예약이 완료되었습니다!',
+		    			  imageUrl: 'https://images.unsplash.com/photo-1607473129381-ca8345af56ac?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80',
+		    			  imageWidth: 400,
+		    			  imageHeight: 200,
+		    			  imageAlt: 'Custom image',
+		    		}).then((result) => {
+		    			location.href='${ contextPath }/cafe/beverage?caCode=${ param.caCode }';
+		    		})
 				},
 				error : function(e){
 					console.log(e);

@@ -51,7 +51,7 @@
        </div>
        
        <div class="cartBtn">
-       <a href="${ contextPath }/coffee/order">
+       <a href="${ contextPath }/cafe/coffee/order?caResNo=${cafeRes.caResNo}">
         <button id="card">
             <i class="fa fa-credit-card-alt" aria-hidden="true"></i>
         </button>

@@ -56,6 +56,7 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 		<result property="caResIng" column="C_RES_ING"/>
 		<result property="caResHereTime" column="C_HERETIME"/>	
 		<result property="caResGoTime" column="C_GOTIME"/>		
+		<result property="caToDate" column="C_DATE"/>
 	</resultMap>
 	
 	<resultMap id="coffeeResResultSet" type="CoffeeRes">
@@ -86,6 +87,7 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 		<result property="caResGoTime" column="C_GOTIME"/>
 		<result property="id" column="ID"/>			
 	</resultMap>
+	
 	
 	<!-- 입력을 위한 카페 정보 가져오기 -->
 	<select id="selectCafeWrite" resultMap="cafeResultSet">
@@ -380,11 +382,12 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
         ID,
         C_RES_ING,
         C_HERETIME,
-        C_GOTIME
+        C_GOTIME,
+        C_DATE
 	)
 	VALUES
     (
-        'CARES' || CA_RES.NEXTVAL,
+        'CAR' || CA_RES.NEXTVAL,
         '매장',
         #{caResDate},
         #{caResPer},
@@ -392,7 +395,8 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
         #{userId},
         DEFAULT,
         #{caResHereTime},
-        NULL
+        NULL,
+        SYSDATE
     )
 	</insert>
 	
@@ -409,7 +413,8 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
         ID,
         C_RES_ING,
         C_HERETIME,
-        C_GOTIME
+        C_GOTIME,
+        C_DATE
 	)
 	VALUES
     (
@@ -421,7 +426,8 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
         #{userId},
         DEFAULT,
         NULL,
-        #{caResGoTime}
+        #{caResGoTime},
+        DEFAULT
     )
 	</insert>
 	
@@ -451,11 +457,12 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 		ID,
 		C_RES_ING,
 		C_HERETIME,
-		C_GOTIME
+		C_GOTIME,
+		C_DATE
     FROM (
     SELECT * FROM CARES
     WHERE ID = #{id}
-    ORDER BY C_RES DESC)
+    ORDER BY C_DATE DESC)
     WHERE ROWNUM = 1
 	</select>
 	
@@ -507,5 +514,21 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 	AND CAR.ID = #{id}
 	</select>
 	
+	<select id="coOrder" resultMap="coffeeCartResultSet">
+		SELECT 
+		    CF_RES,
+		    CF_RES_HI,
+		    CF_RES_CAP,
+		    CF_RES_CUP,
+		    C_RES,
+		    CF_AMOUNT,
+		    COR.CF_NO,
+		    CF_ICHNAME,
+		    CF_NAME,
+		    CF_PRICE
+		FROM CORES COR, COFFEE CO
+		WHERE COR.CF_NO = CO.CF_NO
+		AND C_RES = #{caResNo}
+	</select>
 	 
 </mapper>

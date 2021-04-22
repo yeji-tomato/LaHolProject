@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.lahol.common.model.vo.Cart;
+import com.kh.lahol.common.model.vo.Coupon;
 
 @Repository
 public class CartDaoImpl implements CartDao{
@@ -23,5 +24,13 @@ public class CartDaoImpl implements CartDao{
 	public List<Cart> cartSelectList(String id) {
 		return sqlSession.selectList("cartMapper.cartSelectList", id);
 	}
+
+	@Override
+	public List<Coupon> couponSelectList(String id) {
+		System.out.println("dao"+id);
+		return sqlSession.selectList("cartMapper.couponSelectList", id);
+	}
+
+	
 
 }

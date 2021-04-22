@@ -10,6 +10,7 @@ import com.kh.lahol.cafe.bus.model.vo.Coffee;
 import com.kh.lahol.cafe.user.model.dao.CafeDao;
 import com.kh.lahol.cafe.user.model.vo.CafeRes;
 import com.kh.lahol.cafe.user.model.vo.CoffeeCart;
+import com.kh.lahol.cafe.user.model.vo.CoffeeOrder;
 import com.kh.lahol.cafe.user.model.vo.CoffeeRes;
 
 @Service
@@ -55,6 +56,11 @@ public class CafeServiceImpl implements CafeService{
 	@Override
 	public List<CoffeeCart> coResBasket(CoffeeCart coCart) {
 		return caDao.coResBasket(coCart);
+	}
+
+	@Override
+	public List<CoffeeCart> coffeeOrder(String caResNo) {
+		return caDao.coffeeOrder(caResNo);
 	}
 	
 

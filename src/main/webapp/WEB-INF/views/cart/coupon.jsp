@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,8 +23,17 @@
 		margin : 10%;
 	}
 	
-td:hover{
-	background : #F3D798;
+.btnCenter{
+	padding-top : 5%;
+	text-align: center;
+}	
+	
+.couBtn{
+	background: #5A452E; 
+	color: white;
+	border : 0;
+	border-radius : 5%;
+	padding: 1% 3% 1% 3%;
 }
 </style>
 </head>
@@ -35,15 +45,20 @@ td:hover{
          	<table style="width : 100%">
          		<tbody>
          			<tr>
+         				<c:forEach var="coupon" items="${ couponlist }">
 	         			<td class="d-flex justify-content-between py-3 border-bottom">
-	         				<strong>30% 쿠폰</strong>
+	         				 <input type="radio" name="radioTxt" value="${ coupon.couponName }">
+	         				 <strong>${ coupon.couponName }</strong>
 	         			</td>
-	         			<td class="d-flex justify-content-between py-3 border-bottom">
-	         				<strong>회원가입 쿠폰</strong>
-	         			</td>
+	         			</c:forEach>
          			</tr>
          		</tbody>
          	</table>
+         	
+         	<div class="btnCenter">
+         		<button class="couBtn" onclick="">확인</button>
+         		<button class="couBtn">취소</button>
+         	</div>
          </div>
        </div>
      </div>

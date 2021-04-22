@@ -3,6 +3,7 @@ package com.kh.lahol.common.model.service;
 import java.util.List;
 
 import com.kh.lahol.common.model.vo.Cart;
+import com.kh.lahol.common.model.vo.Coupon;
 
 public interface CartService {
 
@@ -10,5 +11,7 @@ public interface CartService {
 	int cafeCartInsert(Cart cart);
 
 	List<Cart> cartSelectList(String id);
+
+	List<Coupon> couponSelectList(String id);
 
 }
