@@ -31,6 +31,7 @@ import com.kh.lahol.mypage.partner.model.service.pMypageService;
 import com.kh.lahol.mypage.partner.model.vo.Ad;
 import com.kh.lahol.mypage.partner.model.vo.CoffeeClass;
 import com.kh.lahol.mypage.partner.model.vo.Payment;
+import com.kh.lahol.mypage.partner.model.vo.Search;
 import com.kh.lahol.mypage.partner.model.vo.StoreStats;
 
 @Controller
@@ -89,15 +90,15 @@ public class pMypageController {
 		if(payStoreListCount > 0) {
 			PageInfo pi = Pagination.getPageInfo(currentPage, payStoreListCount);
 			List<StoreStats> list = pService.selectPayStoreList(id, pi);
-			int sumPrice = pService.selectSumPayStore(id, "");
-			int storePrice = pService.selectSumPayStore(id, "STP");
-			int classPrice = pService.selectSumPayStore(id, "CL");
-			int cafePrice = pService.selectSumPayStore(id, "CAP");
+			int sumPriceTotal = pService.selectSumPayStore(id, "");
+			int storePriceTotal = pService.selectSumPayStore(id, "STP");
+			int classPriceTotal = pService.selectSumPayStore(id, "CL");
+			int cafePriceTotal = pService.selectSumPayStore(id, "CAP");
 			Map<String, Integer> map = new HashMap<>();
-			map.put("sumPrice", sumPrice);
-			map.put("storePrice", storePrice);
-			map.put("classPrice", classPrice);
-			map.put("cafePrice", cafePrice);
+			map.put("sumPriceTotal", sumPriceTotal);
+			map.put("storePriceTotal", storePriceTotal);
+			map.put("classPriceTotal", classPriceTotal);
+			map.put("cafePriceTotal", cafePriceTotal);
 			map.put("count", payStoreListCount);
 			model.addAttribute("map", map);
 			model.addAttribute("list", list);
@@ -108,6 +109,67 @@ public class pMypageController {
 		
 		return "mypage/partner/manageStore";
 	}
+	
+	@GetMapping("/searchStore")
+	public String searchStore(Model model,
+			                  @RequestParam(value="page", required=false, defaultValue="1") int currentPage,
+			                  @ModelAttribute Search search,
+			                  HttpServletRequest request,
+			                  RedirectAttributes rd) {
+		String id = ((Member)request.getSession().getAttribute("loginUser")).getId();
+		search.setId(id);
+		if(search.getSearch().equals("selection")) {
+			search.setSearch(null);
+			System.out.println(search);
+		} else if(search.getSearch().equals("")) {
+			rd.addFlashAttribute("msg", "검색 기간을 선택해주세요.");
+			return "redirect:/pMypage/storeView";
+		}
+		int searchPayStoreCount = pService.searchPayStoreCount(search);
+		System.out.println(searchPayStoreCount);
+		PageInfo pi = Pagination.getPageInfo(currentPage, searchPayStoreCount);
+		if(searchPayStoreCount > 0) {
+			List<StoreStats> list = pService.searchPayStoreList(search, pi);
+			Map<String, Integer> map = new HashMap<>();
+			// 전체 판매 금액
+			int sumPriceTotal = pService.selectSumPayStore(id, "");
+			int storePriceTotal = pService.selectSumPayStore(id, "ST");
+			int classPriceTotal = pService.selectSumPayStore(id, "CL");
+			int cafePriceTotal = pService.selectSumPayStore(id, "CA");
+			map.put("sumPriceTotal", sumPriceTotal);
+			map.put("storePriceTotal", storePriceTotal);
+			map.put("classPriceTotal", classPriceTotal);
+			map.put("cafePriceTotal", cafePriceTotal);
+			
+			// 기간별 판매 금액
+			int sumPrice = pService.searchSumPayStore(search, "");
+			int storePrice = pService.searchSumPayStore(search, "ST");
+			int classPrice = pService.searchSumPayStore(search, "CL");
+			int cafePrice = pService.searchSumPayStore(search, "CA");
+			map.put("sumPrice", sumPrice);
+			map.put("storePrice", storePrice);
+			map.put("classPrice", classPrice);
+			map.put("cafePrice", cafePrice);
+			
+			// 카테고리 포함 판매 금액
+			int sumPriceCategory = pService.searchSumPayStore(search, search.getSearchCondition());
+			System.out.println(search.getSearchCondition());
+			map.put("sumPriceCategory", sumPriceCategory);
+			System.out.println(search);
+			System.out.println(map);
+			map.put("count", searchPayStoreCount);
+			model.addAttribute("map", map);
+			model.addAttribute("list", list);
+			model.addAttribute("search", search);
+			model.addAttribute("pi", pi);
+			return "mypage/partner/manageStore";
+		} else {
+			rd.addFlashAttribute("msg", "기간별 조회에 실패하였습니다.");
+			return "redirect:/pMypage/storeView";
+		}
+		
+	}
+	
 	
 	@GetMapping("/orderView")
 	public String orderView() {
@@ -250,7 +312,7 @@ public class pMypageController {
 	
 	public String saveFile(MultipartFile file, HttpServletRequest request) {
 		String root = request.getSession().getServletContext().getRealPath("resources");
-		String savePath = root + "\\muploadFiles\\banner";
+		String savePath = root + "/muploadFiles/banner";
 		File folder = new File(savePath);
 		if(!folder.exists()) {
 			folder.mkdirs();
@@ -262,7 +324,7 @@ public class pMypageController {
 				              + (int)(Math.random() * 100000)
 				              + originalFileName.substring(originalFileName.lastIndexOf("."));
 		
-		String renamePath = folder + "\\" + renameFileName;
+		String renamePath = folder + "/" + renameFileName;
 		
 		try {
 			file.transferTo(new File(renamePath));

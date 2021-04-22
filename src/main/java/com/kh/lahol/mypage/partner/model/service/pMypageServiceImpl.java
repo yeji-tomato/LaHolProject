@@ -12,6 +12,7 @@ import com.kh.lahol.mypage.partner.model.dao.pMypageDao;
 import com.kh.lahol.mypage.partner.model.vo.Ad;
 import com.kh.lahol.mypage.partner.model.vo.CoffeeClass;
 import com.kh.lahol.mypage.partner.model.vo.Payment;
+import com.kh.lahol.mypage.partner.model.vo.Search;
 import com.kh.lahol.mypage.partner.model.vo.StoreStats;
 
 @Service
@@ -115,6 +116,24 @@ public class pMypageServiceImpl implements pMypageService{
 		list.add(id);
 		list.add(category);
 		return pDao.selectSumPayStore(list);
+	}
+
+	@Override
+	public int searchPayStoreCount(Search search) {
+		return pDao.searchPayStoreCount(search);
+	}
+
+	@Override
+	public List<StoreStats> searchPayStoreList(Search search, PageInfo pi) {
+		return pDao.searchPayStoreList(search, pi);
+	}
+
+	@Override
+	public int searchSumPayStore(Search search, String category) {
+		List<Object> list = new ArrayList<>();
+		list.add(search);
+		list.add(category);
+		return pDao.searchSumPayStore(list);
 	}
 
 }

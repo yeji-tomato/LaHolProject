@@ -20,8 +20,8 @@
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     
     <!-- char.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.0.1/chart.min.js" integrity="sha512-2uu1jrAmW1A+SMwih5DAPqzFS2PI+OPw79OVLS4NJ6jGHQ/GmIVDDlWwz4KLO8DnoUmYdU8hTtFcp8je6zxbCg==" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.0.1/chart.min.js" integrity="sha512-2uu1jrAmW1A+SMwih5DAPqzFS2PI+OPw79OVLS4NJ6jGHQ/GmIVDDlWwz4KLO8DnoUmYdU8hTtFcp8je6zxbCg==" crossorigin="anonymous"></script> -->
 
     <style>
         body{
@@ -81,7 +81,7 @@
             outline: none;
         }
 
-        .content-div .content-header input[type=submit] {
+        .content-div .content-header input[type=button] {
             width : 100px;
             outline: none;
             color : #fff;
@@ -369,32 +369,39 @@
             <div class="content-div">
                 <div class="text-div">
                     <div class="content-header">
-                        <form id="period_form" method="POST" action="${ contextPath }/pMypage/searchStore">
+                        <form id="period_form" method="GET" action="${ contextPath }/pMypage/searchStore">
                             <select id="pay-category" name="searchCondition">
-                                <option value="">전체</option>
-                                <option value="cafe">카페</option>
-                                <option value="class">클래스</option>
-                                <option value="store">스토어</option>
+                                <option value="" <c:if test="${ param.searchCondition == '' }">selected</c:if>>전체</option>
+                                <option value="CA" <c:if test="${ param.searchCondition == 'CA' }">selected</c:if>>카페</option>
+                                <option value="CL" <c:if test="${ param.searchCondition == 'CL' }">selected</c:if>>클래스</option>
+                                <option value="ST" <c:if test="${ param.searchCondition == 'ST' }">selected</c:if>>스토어</option>
                             </select>
                             <br>
-                            <input type="radio" id="1-month" name="period" value="1" checked>
+                            <input type="radio" id="1-month" name="search" value="1" checked>
                             <label for="1-month">1개월</label>&nbsp;&nbsp;
-                            <input type="radio" id="3-month" name="period" value="3">
+                            <input type="radio" id="3-month" name="search" value="3" <c:if test="${ param.search == '3' }">checked</c:if>>
                             <label for="3-month">3개월</label>&nbsp;&nbsp;
-                            <input type="radio" id="6-month" name="period" value="6">
+                            <input type="radio" id="6-month" name="search" value="6" <c:if test="${ param.search == '6' }">checked</c:if>>
                             <label for="6-month">6개월</label>&nbsp;&nbsp;
-                            <input type="radio" name="period" value="selection">
-                            <input type="text" id="date1" name="period-start">&nbsp;
+                            <input type="radio" id="selection" name="search" value="selection" <c:if test="${ param.search == '' }">checked</c:if>>
+                            <input type="text" id="date1" name="period_start">&nbsp;
                             <label style="color:#5A452E"> ~</label>&nbsp;
-                            <input type="text" id="date2" name="period-end">&nbsp;&nbsp;
-                            <input type="submit" value="검색">
+                            <input type="text" id="date2" name="period_end">&nbsp;&nbsp;
+                            <input type="button" value="검색" onclick="onSubmit();">
                         </form>
                     </div>
                     <div class="price-text">
                         <span class="sub-text">판매 건 수 : <fmt:formatNumber value="${ map.count }"/>건</span>
-                        <span class="sub-text">총 판매 금액 : <fmt:formatNumber value="${ map.sumPrice }"/>원</span>
-                        <span class="sub-text">발생 수수료 : <fmt:formatNumber value="${ map.sumPrice * 0.05 }"/>원</span>
-                        <span class="sub-text">순이익 : <fmt:formatNumber value="${ map.sumPrice * 0.95 }"/>원</span>
+                        <c:if test="${ empty search }">
+	                        <span class="sub-text">총 판매 금액 : <fmt:formatNumber value="${ map.sumPriceTotal }"/>원</span>
+	                        <span class="sub-text">발생 수수료 : <fmt:formatNumber value="${ map.sumPriceTotal * 0.05 }"/>원</span>
+	                        <span class="sub-text">순이익 : <fmt:formatNumber value="${ map.sumPriceTotal * 0.95 }"/>원</span>
+                        </c:if>
+                        <c:if test="${ !empty search }">
+                        	<span class="sub-text">총 판매 금액 : <fmt:formatNumber value="${ map.sumPriceCategory }"/>원</span>
+	                        <span class="sub-text">발생 수수료 : <fmt:formatNumber value="${ map.sumPriceCategory * 0.05 }"/>원</span>
+	                        <span class="sub-text">순이익 : <fmt:formatNumber value="${ map.sumPriceCategory * 0.95 }"/>원</span>
+                        </c:if>
                     </div>
                     <div class="content-table">
                         <table id="list-table">
@@ -440,53 +447,89 @@
                     </div>
                     <!-- 페이징 추가 해야 함 -->
                     <div class="paging-div">
-                        <!-- 이전 -->
-                	<c:if test="${ pi.currentPage <= 1 }">
-                		<button class="btn-ba" disabled> &lt; </button>
-                	</c:if>
-                	<c:if test="${ pi.currentPage > 1 }">
-                		<c:url var="before" value="/pMypage/storeView">
-                			<c:param name="page" value="${ pi.currentPage - 1 }"/>
-                		</c:url>
-                		<button class="btn-ba" onclick="location.href='${ before }'"> &lt;</button>
-                	</c:if>
+                    <!-- 이전 -->
+                    <c:choose>
+                    	<c:when test="${ pi.currentPage <= 1 }">
+                    		<button class="btn-ba" disabled> &lt; </button>
+                    	</c:when>
+                    	<c:when test="${ empty search }">
+                    		<c:url var="before" value="/pMypage/storeView">
+                				<c:param name="page" value="${ pi.currentPage - 1 }"/>
+                			</c:url>
+                			<button class="btn-ba" onclick="location.href='${ before }'"> &lt;</button>
+                    	</c:when>
+                    	<c:otherwise>
+                    		<c:url var="before" value="/pMypage/searchStore">
+                				<c:param name="page" value="${ pi.currentPage - 1 }"/>
+                				<c:param name="searchCondition" value="${ param.searchCondition }"/>
+								<c:param name="period_start" value="${ param.period_start }"/>
+								<c:param name="period_end" value="${ param.period_end }"/>
+								<c:param name="search" value="${ param.search }"/>
+                			</c:url>
+                			<button class="btn-ba" onclick="location.href='${ before }'"> &lt;</button>
+                    	</c:otherwise>
+                    </c:choose>
                 	<!-- 페이지 숫자 -->
                 	<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
-                		<c:if test="${ p eq pi.currentPage }">
-                			<button class="btn-p" disabled>${ p }</button>
-                		</c:if>
-                		<c:if test="${ p ne pi.currentPage }">
-                			<c:url var="pagination" value="/pMypage/storeView">
-                				<c:param name="page" value="${ p }"/>
-                			</c:url>
-               				<button class="btn-p" onclick="location.href='${ pagination }'">${ p }</button>
-                		</c:if>
+                		<c:choose>
+	                		<c:when test="${ p eq pi.currentPage }">
+	                			<button class="btn-p" disabled>${ p }</button>
+	                		</c:when>
+	                		<c:when test="${ empty search }">
+	                			<c:url var="pagination" value="/pMypage/storeView">
+	                				<c:param name="page" value="${ p }"/>
+	                			</c:url>
+	               				<button class="btn-p" onclick="location.href='${ pagination }'">${ p }</button>
+	                		</c:when>
+	                		<c:otherwise>
+	                			<c:url var="pagination" value="/pMypage/searchStore">
+	                				<c:param name="page" value="${ p }"/>
+	                				<c:param name="searchCondition" value="${ param.searchCondition }"/>
+									<c:param name="period_start" value="${ param.period_start }"/>
+									<c:param name="period_end" value="${ param.period_end }"/>
+									<c:param name="search" value="${ param.search }"/>
+	                			</c:url>
+	               				<button class="btn-p" onclick="location.href='${ pagination }'">${ p }</button>
+	                		</c:otherwise>
+               			</c:choose>
                 	</c:forEach>
                 	<!-- 다음 -->
-                	<c:if test="${ pi.currentPage >= pi.maxPage }">
-						<button class="btn-ba" disabled> &gt; </button>
-					</c:if>
-					<c:if test="${ pi.currentPage < pi.maxPage }">
-						<c:url var="after" value="/pMypage/storeView">
-							<c:param name="page" value="${ pi.currentPage + 1 }"/>
-						</c:url>
-						<button class="btn-ba" onclick="location.href='${ after }'"> &gt;</button>
-					</c:if>
+                	<c:choose>
+	                	<c:when test="${ pi.currentPage >= pi.maxPage }">
+							<button class="btn-ba" disabled> &gt; </button>
+						</c:when>
+						<c:when test="${ empty search }">
+							<c:url var="after" value="/pMypage/storeView">
+								<c:param name="page" value="${ pi.currentPage + 1 }"/>
+							</c:url>
+							<button class="btn-ba" onclick="location.href='${ after }'"> &gt;</button>
+						</c:when>
+						<c:otherwise>
+							<c:url var="after" value="/pMypage/searchStore">
+								<c:param name="page" value="${ pi.currentPage + 1 }"/>
+								<c:param name="searchCondition" value="${ param.searchCondition }"/>
+								<c:param name="period_start" value="${ param.period_start }"/>
+								<c:param name="period_end" value="${ param.period_end }"/>
+								<c:param name="search" value="${ param.search }"/>
+							</c:url>
+							<button class="btn-ba" onclick="location.href='${ after }'"> &gt;</button>
+						</c:otherwise>
+					</c:choose>
                     </div>
                 </div>
                 <div class="chart-div" style="margin-left:5%;">
-                	<div id="barChart" style="width:90%; height:50%; margin-top: 10%;">
-                    	<canvas id="myChart" width="300" height="200"></canvas>
+                	<div id="barChart" style="width:90%; height:45%; margin-top: 15%;">
+                    	<canvas id="myChart" width="300" height="250"></canvas>
                     </div>
                     <script>
                     var ctx = document.getElementById('myChart');
                     var myChart = new Chart(ctx, {
                         type: 'bar',
                         data: {
-                            labels: ['Store', 'Class', 'Coffee'],
+                            labels: ['Store', 'Class', 'Cafe'],
                             datasets: [{
                                 label: '판매비율',
-                                data: [${ map.storePrice div map.sumPrice * 100}, ${ map.classPrice div map.sumPrice * 100}, ${ map.cafePrice div map.sumPrice * 100}],   // 비율 변경
+                                data: [${ map.storePriceTotal div map.sumPriceTotal * 100}, ${ map.classPriceTotal div map.sumPriceTotal * 100}, ${ map.cafePriceTotal div map.sumPriceTotal * 100}],   // 비율 변경
                                 backgroundColor: [
                                     'rgba(255, 99, 132, 0.2)',
                                     'rgba(54, 162, 235, 0.2)',
@@ -507,25 +550,47 @@
                             }]
                         },
                         options: {
+                        	legend: {
+            		            position: "bottom",
+            		            display: false
+            		        },
                             scales: {
-                                y: {
-                                    beginAtZero: true
-                                }
+                            	yAxes: [{
+            		                ticks: {
+            		                    fontColor: "rgba(0,0,0,0.5)",
+            		                    fontStyle: "bold",
+            		                    beginAtZero: true,
+            		                    maxTicksLimit: 5,
+            		                    padding: 5,
+            		                    display: false
+            		                },
+            		                gridLines: {
+            		                    drawTicks: false,
+            		                    display: false
+            		                }
+
+            		            }]
                             }
                         }
                     });
                     </script>
                     <div id="lineChart" style="width:90%; height:300px;">
-                    	<canvas id="myLineChart" width="300" height="200"></canvas>
+                    	<canvas id="line" width="300" height="250"></canvas>
                     </div>
                     <script>
-                        var chart = document.getElementById("myLineChart").getContext("2d");
+                        var chart = document.getElementById("line").getContext("2d");
+                        var data = [];
+                        if(${ empty search }) {
+        		            data = [${ map.storePriceTotal div map.sumPriceTotal * 100 }, ${ map.classPriceTotal div map.sumPriceTotal * 100 }, ${ map.cafePriceTotal div map.sumPriceTotal * 100 }]
+    		            } else {
+    		            	data = [${ map.storePrice div map.sumPrice * 100 }, ${ map.classPrice div map.sumPrice * 100 }, ${ map.cafePrice div map.sumPrice * 100 }]
+    		            }
                         var myChart = new Chart(chart, {
                 		    type: 'line',
                 		    data: {
-                		        labels: ["Store", "Class", "Coffee"],
+                		        labels: ["Store", "Class", "Cafe"],
                 		        datasets: [{
-                		            label: "판매 비율",
+                		            label: "전체 판매 비율",
                 		            borderColor: "#ff6384",
                 		            pointBorderColor: "#ff6384",
                 		            pointBackgroundColor: "#ff6384",
@@ -537,7 +602,7 @@
                 		            pointRadius: 3,
                 		            fill: false,
                 		            borderWidth: 4,
-                		            data: [160, 120, 150]
+                		            data : data
                 		        }]
                 		    },
                 		    options: {
@@ -587,7 +652,43 @@
         $("#date2").datepicker({
     	    language: 'ko'
         });
-    </script>
+        
+        var category = document.getElementById("pay-category");
+        var month1 = document.getElementById("1-month");
+        var month3 = document.getElementById("3-month");
+        var month6 = document.getElementById("6-month");
+        var date1 = document.getElementById("date1");
+        var date2 = document.getElementById("date2");
+        
+        function onSubmit() {
+	        if($("#selection").prop('checked')) {
+	    		if(date1.value == "") {
+	    			Swal.fire({
+						title : '시작 기간을 설정해주세요.',
+						icon : 'warning'
+					});
+	    			return;
+	    		}
+	    		
+	    		if(date2.value == "") {
+	    			Swal.fire({
+						title : '끝 기간을 설정해주세요.',
+						icon : 'warning'
+					});
+	    			return;
+	    		}
+	    	}
+	        $("#period_form").submit();
+        }
+        
+        /* $("#pay-category").change(function(){
+        	var category = $(this).val();
+        	
+        	$.ajax({
+        		url : ""
+        	});
+        }); */
+        </script>
     <div id="menuModal" class="modal2">
         <div class="modal-content2">
             <span class="modal-close2">&times;</span>

@@ -505,7 +505,7 @@
     				// msg += '고유 ID : ' + rsp.imp_uid + "<br>";
     				// msg += '상점 거래 ID : ' + rsp.merchant_uid + "<br>";
     				// msg += '결제 금액 : ' + rsp.paid_amount + "<br>";
-    				msg += '카드 승인번호 : ' + rsp.apply_num;
+    				// msg += '카드 승인번호 : ' + rsp.apply_num;
     				
     				Swal.fire({
     					title : msg,

@@ -52,7 +52,9 @@
 		<typeAlias type="com.kh.lahol.mypage.partner.model.vo.CoffeeClass" alias="M_CoffeeClass"/>
 		<!-- 마이페이지 스토어 통계 -->
 		<typeAlias type="com.kh.lahol.mypage.partner.model.vo.StoreStats" alias="StoreStats"/>
-
+		<!-- 마이페이지 스토어 Search -->
+		<typeAlias type="com.kh.lahol.mypage.partner.model.vo.Search" alias="M_Search"/>
+		
 		<!-- Ad -->
  		<typeAlias type="com.kh.lahol.mypage.partner.model.vo.Ad" alias="Ad"/>
  		<!-- Ad 신청 시 payment -->
