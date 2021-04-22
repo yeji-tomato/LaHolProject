@@ -341,6 +341,11 @@
 	                        </tr>
                         </c:forEach>
                         </c:if>
+                        <c:if test="${ empty list }">
+                        	<tr>
+                        		<td colspan="6">${ ad }</td>
+                        	</tr>
+                        </c:if>
                     </table>
                 </div>
                 <!-- 페이징 추가 해야 함 -->

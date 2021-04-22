@@ -368,7 +368,7 @@
                 					title : '사용할 수 없는 닉네임 입니다.',
                 					icon : 'warning'
                 				});
-                				chkNick.innerHTML = "사용할 수 없는 아이디 입니다.";
+                				chkNick.innerHTML = "사용할 수 없는 닉네임 입니다.";
                 				chkNick.style.color = "red";
                 				nickname.focus();
                 			} else {
@@ -388,7 +388,7 @@
                 							icon : 'success'
                 						})
                 						nickname.setAttribute('readonly', true);
-                						chkNick.innerHTML = "사용 가능한 아이디 입니다.";
+                						chkNick.innerHTML = "사용 가능한 닉네임 입니다.";
                 						chkNick.style.color = "green";
                 						isUsableNick = true;
                 					} else {

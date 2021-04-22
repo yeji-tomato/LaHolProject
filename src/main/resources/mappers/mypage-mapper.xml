@@ -248,8 +248,8 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 		VALUES
 		(
 		       SEQ_AD.NEXTVAL
+		     , SYSDATE
 		     , TO_DATE(#{ad_reject}, 'yy/mm/dd')
-		     , NULL
 		     , #{duration}
 		     , #{origin_image}
 		     , #{rename_image}
@@ -347,8 +347,8 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 		UPDATE
 		       AD
 		   SET
-		       APPLYDATE = TO_DATE(#{ad_reject}, 'yy/mm/dd')
-		     , POSTDATE = NULL
+		       APPLYDATE = SYSDATE
+		     , POSTDATE = TO_DATE(#{ad_reject}, 'yy/mm/dd')
 		     , ORIGIN_IMAGE = #{origin_image}
 		     , RENAME_IMAGE = #{rename_image}
 		     , IMAGE = #{image}
@@ -502,7 +502,7 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 	</select>
 	<select id="selectSumPayStore" parameterType="java.util.List" resultType="_int">
 		SELECT
-		       SUM(PAY_PRICE)
+		       NVL(SUM(PAY_PRICE), 0)
 		  FROM
 		       M_STORE_STATS
 		 WHERE
@@ -510,5 +510,71 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 		 <if test="list[1] != null">
 		   AND PAY_NO LIKE #{list[1]} || '%'
 		 </if>
+	</select>
+	<select id="searchPayStoreCount" parameterType="M_Search" resultType="_int">
+		SELECT 
+		       COUNT(*)
+		  FROM
+		       M_STORE_STATS
+		 WHERE
+		       ID = #{id}
+		   AND PAY_NO LIKE #{searchCondition} || '%'
+		   <choose>
+		   		<when test="search != null">
+		   		AND MONTHS_BETWEEN(SYSDATE, PAY_DATE) <![CDATA[<=]]> TO_NUMBER(#{search})
+		   		</when>
+		   		<otherwise>
+		   		AND PAY_DATE <![CDATA[>=]]> TO_DATE(#{period_start}, 'YYYY-MM-DD')
+		   		AND PAY_DATE <![CDATA[<=]]> TO_DATE(#{period_end}, 'YYYY-MM-DD')
+		   		</otherwise>
+		   </choose>
+	</select>
+	<select id="searchPayStoreList" parameterType="M_Search" resultMap="storeStatsResultSet">
+		SELECT 
+		       PAY_NO
+		     , PAY_ITEM
+		     , BUYER_ID
+		     , CAFE_RES
+		     , PURCHASE_NUMBER
+		     , SUBSCRIBE_CODE
+		     , CL_PAY_NO
+		     , PAY_DATE
+		     , PAY_PRICE
+		     , PAY_DC
+		     , PAY_TOTAL
+		     , ID
+		     , PR_COUNT
+		  FROM
+		       M_STORE_STATS
+		 WHERE
+		       ID = #{id}
+		   AND PAY_NO LIKE #{searchCondition} || '%'
+		   <choose>
+		   		<when test="search != null">
+		   		AND MONTHS_BETWEEN(SYSDATE, PAY_DATE) <![CDATA[<=]]> TO_NUMBER(#{search})
+		   		</when>
+		   		<otherwise>
+		   		AND PAY_DATE <![CDATA[>=]]> TO_DATE(#{period_start}, 'YYYY-MM-DD')
+		   		AND PAY_DATE <![CDATA[<=]]> TO_DATE(#{period_end}, 'YYYY-MM-DD')
+		   		</otherwise>
+		   </choose>
+	</select>
+	<select id="searchSumPayStore" parameterType="java.util.List" resultType="_int">
+		SELECT
+		       NVL(SUM(PAY_PRICE), 0)
+		  FROM
+		       M_STORE_STATS
+		 WHERE
+		       ID = #{list[0].id}
+		   AND PAY_NO LIKE #{list[1]} || '%'
+		   <choose>
+		   		<when test="list[0].search != null">
+		   		AND MONTHS_BETWEEN(SYSDATE, PAY_DATE) <![CDATA[<=]]> TO_NUMBER(#{list[0].search})
+		   		</when>
+		   		<otherwise>
+		   		AND PAY_DATE <![CDATA[>=]]> TO_DATE(#{list[0].period_start}, 'YYYY-MM-DD')
+		   		AND PAY_DATE <![CDATA[<=]]> TO_DATE(#{list[0].period_end}, 'YYYY-MM-DD')
+		   		</otherwise>
+		   </choose>
 	</select>
 </mapper>

@@ -28,10 +28,6 @@
             padding-top: 10%;
         }
         
-        #nav {
-    		background-color : #CDC2AF !important;
-    	}
-        
         .mp-container {
         	height : 900px;
         }
