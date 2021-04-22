@@ -84,14 +84,13 @@
             padding-right: 7%; */
         }
 
-        #clTable input[type=text]{
+        #clTable input[type=text], textarea, input[type=number]{
             border-radius: 1vw;
             border-color: #d8d4d070;
         }
 
         #linkedcafe{
             padding-top: 1vh;
-             margin-left: 4vh; 
              width :200px; 
              float: left; 
              border: transparent; 

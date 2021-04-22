@@ -69,24 +69,18 @@
                     </thead>
                     <tbody>
                       <tr>
-                        <td>주최카페</td> <!-- cafeNo를 통해 이름 불러오기 -->
-                        <td colspan="2">${ coffeeclass.cafeNo }</td>
-                      </tr>
                       <tr>
                         <td>연계 카페명</td> <!-- cafeNo를 통해 이름 불러오기 -->
-                        <td> ${ coffeeclass.cafeNo }</td>
+                        <td> ${ mycafe.caName }</td>
                         <!--마우스 오버시 등장하는 정보-->              
+                      </tr>
                         <div class="help-tip" style="float:right;">
-                    
                           <div class="info">
                           <p>카페이름 : ${ coffeeclass.cafeNo } </p> <!-- cafeNo를 통해 이름 불러오기 -->
                           <p>카페 위치 :  ${ coffeeclass.cafeNo }   </p> <!-- cafeNo를 통해  -->
                           <a href = "${ ContextPath }/cafe/user/here">☕카페보러가기</a>
                           </div>
-                      
-                          </div>
-                       </td>
-                      </tr>
+                        </div>
                       <tr>
                         <td>
                           <ul>
@@ -217,7 +211,12 @@
                     <div class="col-lg-4 col-md-6 offset-lg-1 py-4 order-md-1">
                     <h2 class="h3 mb-4 pb-2">클래스 소개</h2>
                     <h6 class="fs-base mb-3">${ coffeeclass.clShortDes }</h6>
-                    <p class="fs-sm text-muted pb-2">${ coffeeclass.classDes }</p>
+                    <% 
+                    	// 뷰페이지용 치환변수 선언
+                    	pageContext.setAttribute("crcn", "\r\n");	//Space, Enter
+                        pageContext.setAttribute("br", "<br/>");	// br태그
+                    %>
+                    <p class="fs-sm text-muted pb-2" style="white-space: pre-line;">${ coffeeclass.classDes }</p>
                     </div>
                 </div>
               <!-- Product description section 2-->
@@ -225,7 +224,7 @@
                 <div class="col-lg-5 col-md-6 offset-lg-1"><img class="d-block rounded-3" src="${ contextPath }/resources/nuploadFiles/classImg/${ coffeeclass.clPhoto} " alt="Map"></div>
                 <div class="col-lg-4 col-md-6 offset-lg-1 py-4">
                 <h2 class="h3 mb-4 pb-2">클래스 커리큘럼</h2>
-                <p class="fs-sm text-muted pb-md-2"> ${ coffeeclass.classCurri }</p>
+                <p class="fs-sm text-muted pb-md-2" style="white-space: pre-line;"> ${ coffeeclass.classCurri }</p>
                 </div>
               </div>
               <!-- Product description section 1-->
@@ -236,7 +235,7 @@
                 <div class="col-lg-4 col-md-6 offset-lg-1 py-4 order-md-1">
                 <h2 class="h3 mb-4 pb-2">강사 소개</h2>
                 <h6 class="fs-base mb-3">${ coffeeclass.trName }</h6>
-                <p class="fs-sm text-muted pb-2">${ coffeeclass.trIntro }</p>
+                <p class="fs-sm text-muted pb-2" style="white-space: pre-line;">${ coffeeclass.trIntro }</p>
                 </div>
             </div>
         </div>

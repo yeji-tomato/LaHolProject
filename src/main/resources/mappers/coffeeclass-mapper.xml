@@ -32,7 +32,27 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 		<result property="rpDeets" column="REPORT_REASON"/>
 		<result property="category" column="CL_CATEGORY"/>
 	</resultMap>
-		
+	<resultMap id="cafeResultSet" type="Cafe">
+		<id property="caCode" column="C_CODE"/>
+		<result property="caName" column="C_NAME"/>
+		<result property="caOwner" column="C_OWNER"/>
+		<result property="caNumber" column="C_NUMBER"/>
+		<result property="caAddress" column="C_ADDRESS"/>
+		<result property="caStatus" column="C_STATUS"/>
+		<result property="caLa" column="C_LA"/>
+		<result property="caLo" column="C_LO"/>
+		<result property="caId" column="ID"/>	
+		<result property="caStartTime" column="STARTTIME"/>
+		<result property="wifi" column="C_WIFI"/>
+		<result property="toilet" column="C_TOILET"/>
+		<result property="parking" column="C_PARKING"/>
+		<result property="message" column="C_MESSAGE"/>
+		<result property="caEndTime" column="ENDTIME"/>
+		<result property="mainPhoto" column="MAINPHOTO"/>
+		<result property="photo1" column="PHOTO1"/>
+		<result property="photo2" column="PHOTO2"/>
+		<result property="photo3" column="PHOTO3"/>
+	</resultMap>
 	<!-- 조회수증가-->
 	<select id="selectListCount" resultType="_int">
 		SELECT
@@ -169,6 +189,7 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 	 ORDER BY
 				CLASS_NO DESC
 	</select>
+	<!-- update시 정보 불러오는 코드 -->
 	<select id = "bringClass" resultMap="clResultSet">
 		SELECT 
 				  CLASS_NO
@@ -365,5 +386,27 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 	  
 	  </select>
 	
-	 
+	 <select id="selectCafeInfoById" parameterType="string" resultMap="cafeResultSet">
+	 	SELECT
+	 	       C_CODE,
+			   C_NAME,
+			   C_ADDRESS,
+			   C_LA,
+			   C_LO,
+			   ID,
+			   STARTTIME,
+			   C_WIFI,
+			   C_TOILET,
+			   C_PARKING,
+			   C_MESSAGE,
+			   ENDTIME,
+			   MAINPHOTO,
+			   PHOTO1,
+			   PHOTO2,
+			   PHOTO3
+		  FROM
+		       CAFE
+		 WHERE
+		       ID = #{id}
+	 </select>
 </mapper>

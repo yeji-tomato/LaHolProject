@@ -112,12 +112,14 @@ public class CoffeClassController {
 	
 	// 클래스 개설 페이지로 이동
 	@GetMapping("/coffeeclass/createclass")
-	public String createclass(Model model) {
+											// 세션의 값을 불러오긴 위해 
+	public String createclass(Model model, HttpServletRequest request) {
 		/*
 		 * Cafe cafe = new Cafe(); cafe.setCaName("만랩커피");
 		 */
-		Cafe cafe = cafeService.selectCafeInfo("CA21");
-		// User loginUser = session.getAttribute("loginUSer(키값)") 을 통해서 controller에서 가지고 나온다  
+		// Cafe cafe = cafeService.selectCafeInfo("CA21");
+		Member loginUser = (Member)request.getSession().getAttribute("loginUser"); // 을 통해서 controller에서 가지고 나온다
+		Cafe cafe = clService.selectCafeInfoById(loginUser.getId());
 		// selectMyCafe라는 메소드 만들고, 
 		// Cafe mycafe = cafeService.selectMyCafe(loginUser);
 		model.addAttribute("mycafe", cafe);
@@ -220,6 +222,8 @@ public class CoffeClassController {
 	  public String classdetail(@RequestParam String classNo,
 			  					Model model,
 			  					HttpServletRequest request) {
+		  		  
+		 
 		  
 		  CoffeeClass cl = clService.selectCoffeeClass(classNo);
 		  
@@ -409,6 +413,7 @@ public class CoffeClassController {
 	  }
 	 
 	
+	  // 
 	  
 	  
 	  
