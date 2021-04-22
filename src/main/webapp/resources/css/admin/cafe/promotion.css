@@ -222,9 +222,10 @@ body {
 
 #img {
     border: 1px solid pink;
-    height: 70%;
-    width: 80%;
+    height: 37vh;
+    width: 16vw;
     border-radius: 5%;
+    margin-top: 8%;
 }
 
 #ad-text {
@@ -246,6 +247,7 @@ body {
 #ad-href {
     color: var(--date-sel);
     font-size: 2.5vh;
+    margin-bottom: -6%;
 }
 
 
@@ -256,6 +258,13 @@ body {
     align-items: center;
     padding-bottom: 5%;
     /* display: none;*/  /*when viewing confirmed one */
+}
+
+.swal2-confirm,
+.swal2-cancel,
+.swal2-html-container,
+.swal2-title {
+	font-family: 'NEXON Lv1 Gothic OTF';
 }
 
 /* 토글 */

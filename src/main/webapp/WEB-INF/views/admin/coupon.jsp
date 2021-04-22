@@ -309,8 +309,15 @@
 			</section>
 		</div>
 		<script>
+		
+		$('.dateBtn').on('click', function(){
+		    $('.dateBtn').removeClass('selected');
+		    $(this).addClass('selected');
+		});
+		
+
+		
 		$(function() {
-			
 		    $('#day').trigger('click');
 		    $('#day').trigger('focus');
 		    
@@ -351,6 +358,8 @@
 			
 		    var startDate = picker.startDate.format('YY-MM-DD');
 		    var endDate = picker.endDate.format('YY-MM-DD');
+		    
+		    $('.dateBtn').removeClass('selected');
 		    
 		    $('#custom-period').html(startDate + ' ~ ' + endDate);
 		    
@@ -478,6 +487,8 @@
 		            circumference: 1 * Math.PI}
 			});           
 		});
+		
+		
 		
 		</script>
 		<script src="${ contextPath }/resources/js/admin/darkMode.js"></script>

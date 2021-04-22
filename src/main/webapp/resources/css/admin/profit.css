@@ -220,7 +220,8 @@ body {
 }
 
 .period:hover,
-.period:focus {
+.period:focus,
+.dateBtn.selected {
     color: var(--date-sel);
     text-decoration: underline;
 }

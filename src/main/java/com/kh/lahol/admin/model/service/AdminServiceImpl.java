@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.lahol.admin.model.dao.AdminDao;
+import com.kh.lahol.admin.model.vo.Promotion;
 import com.kh.lahol.member.model.vo.Coupon;
 import com.kh.lahol.member.model.vo.Member;
 
@@ -35,6 +36,16 @@ public class AdminServiceImpl implements AdminService{
 	@Override
 	public List<Coupon> selectCouponByTerm(Map<String, Object> dates) {
 		return adminDao.selectCouponByTerm(dates);
+	}
+
+	@Override
+	public List<Promotion> selectAdWaitingList() {
+		return adminDao.selectAdWaitingList();
+	}
+
+	@Override
+	public List<Promotion> selectAdConfirmedList() {
+		return adminDao.selectAdConfirmedList();
 	}
 
 }

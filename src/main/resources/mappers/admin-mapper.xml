@@ -50,10 +50,10 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 		   SELECT C.COUPON_NAME
              	, ISSUEDBY
              	, LIMIT
-             	, COUNT(C.COUPON_NAME) AS ISSUED, EXPIRED, USED
+             	, COUNT(C.COUPON_NAME) AS ISSUED
+             	, COUNT(CASE WHEN EXPDATE <![CDATA[<]]> SYSDATE AND ISUSED = 'N' THEN 1 ELSE NULL END) AS EXPIRED
+                , COUNT(CASE WHEN ISUSED = 'Y' THEN 1 ELSE NULL END) AS USED
 			 FROM COUPON C
-		LEFT JOIN CPN_EXPIRED V1 ON(C.COUPON_NAME = V1.COUPON_NAME)
-		LEFT JOIN CPN_USED V2 ON(C.COUPON_NAME = V2.COUPON_NAME)
 		<choose>
      		<when test="_parameter == 'day'">WHERE TO_DATE(SYSDATE,'yy-mm-dd') - TO_DATE(ISSUEDATE, 'yy-mm-dd') = 0</when>
      		<when test="_parameter == 'week'">WHERE ISSUEDATE <![CDATA[>=]]> TRUNC(SYSDATE, 'IW')
@@ -62,18 +62,60 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 					   AND ISSUEDATE <![CDATA[<]]> LAST_DAY(SYSDATE)</when>
 			<when test="_parameter == 'year'">WHERE EXTRACT(YEAR FROM ISSUEDATE) = EXTRACT(YEAR FROM SYSDATE)</when>
    		</choose>
-		 GROUP BY C.COUPON_NAME, ISSUEDBY, LIMIT, EXPIRED, USED
+		 GROUP BY C.COUPON_NAME, ISSUEDBY, LIMIT
 	</select>
 		<select id="selectCouponByTerm" parameterType="map" resultType="Coupon">
-			SELECT C.COUPON_NAME
+			SELECT
+				  C.COUPON_NAME
              	, ISSUEDBY
              	, LIMIT
-             	, COUNT(C.COUPON_NAME) AS ISSUED, EXPIRED, USED
+             	, COUNT(C.COUPON_NAME) AS ISSUED
+				, COUNT(CASE WHEN EXPDATE <![CDATA[<]]> SYSDATE AND ISUSED = 'N' THEN 1 ELSE NULL END) AS EXPIRED
+                , COUNT(CASE WHEN ISUSED = 'Y' THEN 1 ELSE NULL END) AS USED
 			 FROM COUPON C
-		LEFT JOIN CPN_EXPIRED V1 ON(C.COUPON_NAME = V1.COUPON_NAME)
-		LEFT JOIN CPN_USED V2 ON(C.COUPON_NAME = V2.COUPON_NAME)
        		WHERE ISSUEDATE <![CDATA[>]]> #{startDate}
        		  AND ISSUEDATE <![CDATA[<]]> #{endDate}
-         GROUP BY C.COUPON_NAME, ISSUEDBY, LIMIT, EXPIRED, USED
+         GROUP BY C.COUPON_NAME, ISSUEDBY, LIMIT
+		</select>
+		<select id="selectAdWaitingList" resultType="A_Promo">
+		 SELECT
+               AD_CODE AS ADCODE
+             , C_NAME AS CAFE
+             , TO_CHAR(APPLYDATE,'yyyy-mm-dd') AS APPLYDATE
+             , TO_CHAR(POSTDATE,'yyyy-mm-dd') AS POSTDATE
+             , CONCAT(DURATION, '일') AS DURATION
+             , RENAME_IMAGE AS RENAMEIMAGE
+             , IMAGE
+             , AD_STATUS AS ADSTATUS
+             , A.ID AS ID
+             , BN_CODE AS BNCODE
+             , URL
+		  FROM
+		  	   AD A
+    INNER JOIN
+			   CAFE C ON(A.ID = C.ID)
+		 WHERE
+		 	   AD_STATUS = '승인 대기'
+		</select>
+		<select id="selectAdConfirmedList" resultType="A_Promo">
+		 SELECT
+               AD_CODE AS ADCODE
+             , C_NAME AS CAFE
+             , TO_CHAR(APPLYDATE,'yyyy-mm-dd') AS APPLYDATE
+             , TO_CHAR(POSTDATE,'yyyy-mm-dd') AS POSTDATE
+             , CONCAT(DURATION, '일') AS DURATION
+             , RENAME_IMAGE AS RENAMEIMAGE
+             , IMAGE
+             , AD_STATUS AS ADSTATUS
+             , A.ID AS ID
+             , BN_CODE AS BNCODE
+             , URL
+             
+		  FROM
+		  	   AD A
+    INNER JOIN
+			   CAFE C ON(A.ID = C.ID)
+		 WHERE
+		 	   AD_STATUS = '승인 완료'		
 		</select>
 </mapper>
