@@ -63,6 +63,7 @@
     	
     	<input type="hidden" name="cRes" id="cRes" value="${ cafeRes.caResNo }"/>
        	<input type="hidden" name ="cartRes" id="cartRes" value="${ cafeRes.caResType }"/>
+       	
        	<input type="hidden" name ="cartName" id="cartName" value="${ cafeRes.caNo }"/>
        	<input type="hidden" name ="userId" id="userId" value="${ loginUser.id }"/>
     	<!-- 장바구니 insert Ajax -->
@@ -73,6 +74,7 @@
        		var cartRes = $("#cartRes").val()
        		var total = $("#toPrice").text();
        		var userId = $("#userId").val();
+       		var cartCount = $("#cartCount").val();
        		$.ajax({
        			url:"${ contextPath }/cart/cafe/insert",
         		type : "post",
@@ -81,7 +83,8 @@
         			cartName : cartName,
         			cartRes : cartRes,
         			total : total,
-        			userId : userId
+        			userId : userId,
+        			cartCount : cartCount
         		},
         		success : function(data){
         			alert("장바구니에 추가되었습니다.");

@@ -59,6 +59,7 @@
                                                 </div>
                                             </div>
                                             <div class="subdiv">
+                                            
                                                 <div class="basketprice">${ cor.cfPrice }</div>
                                                 <div class="num">
                                                     ${ cor.cfResAmount }
@@ -128,9 +129,10 @@
 						       <div class="p-4">
 						         <ul class="list-unstyled mb-4">
 						           <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">상품금액 </strong><strong><c:out value="${total}"/> 원</strong></li>
-						           <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">할인금액</strong><strong>0</strong></li>
+						           <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">할인금액</strong><strong>${ coupon }</strong></li>
 						           <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">결제금액</strong>
-						             <h5 class="font-weight-bold">76,700원</h5>
+						             <c:set var= "totalSum" value="${total - coupon}"/>
+						             <h5 class="font-weight-bold"><c:out value="${totalSum}"/> 원</h5>
 						           </li>
 						         </ul><a href="#" class="btn rounded-pill py-2 btn-block" style="background: #5A452E; color: white; width : 100%">결제하기</a>
 						       </div>

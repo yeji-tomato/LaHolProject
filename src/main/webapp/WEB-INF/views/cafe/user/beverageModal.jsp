@@ -34,7 +34,7 @@
                                         <i class="fa fa-minus" aria-hidden="true"></i>
                                     </button>
                                     
-                                    <input type="number" class="countBox" value="1" min="1" max="100" readonly>
+                                    <input type="number" class="countBox" value="1" min="1" max="100"readonly>
                                     <button type="button" class="plus${ coffee.cfNo }"  id="pmBtn">
                                         <i class="fa fa-plus" aria-hidden="true"></i>
                                     </button>
@@ -241,7 +241,7 @@
     						str += '&nbsp;<span class="item-name">'+ data[i].cfName +'</span>';
     					
     						str += '&nbsp;<span class="item-price">'+ data[i].cfPrice +'원</span>';
-    						str += '&nbsp;<span class="item-name">수량 :'  + data[i].cfResAmount +'</span><br>';
+    						str += '&nbsp;<span class="item-name" id="countBox">수량 :'  + data[i].cfResAmount +'</span><br>';
     						str += '</li>';
     		                str += '</td>';
     		                

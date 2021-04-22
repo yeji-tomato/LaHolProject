@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -36,6 +38,7 @@
 	padding: 1% 3% 1% 3%;
 }
 </style>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 </head>
 <body>
 	<div class="coupon">
@@ -50,15 +53,41 @@
 	         				 <input type="radio" name="radioTxt" value="${ coupon.couponName }">
 	         				 <strong>${ coupon.couponName }</strong>
 	         			</td>
+	         			
 	         			</c:forEach>
+	         			
          			</tr>
          		</tbody>
+         		
          	</table>
-         	
+				<input type="hidden" id="total" value="${ param.total }">
          	<div class="btnCenter">
-         		<button class="couBtn" onclick="">확인</button>
-         		<button class="couBtn">취소</button>
+         		<button class="couBtn" id="radioButton">확인</button>
+         		<button class="couBtn" onclick="window.close();">취소</button>
          	</div>
+         	
+         	<script type="text/javascript">
+		      $(document).ready(function() {
+		        $('#radioButton').click(function () {
+		          var initVal = $("#applyCoupon", opener.document).val();
+		          var radioVal = $('input[name="radioTxt"]:checked').val();
+		          var couponValue = parseInt(radioVal.substring(0,2));
+		          
+		          var totalValue = $("#total").val();
+		          var discountValue = totalValue*(couponValue/100);
+		          var resultPrice = totalValue - discountValue;
+		          
+		          $("#applyCoupon", opener.document).val(radioVal);
+		          $("#couponPrice", opener.document).text(discountValue);
+		          $("#resultPrice", opener.document).text(resultPrice);
+            	  	window.self.close();
+		          
+		          
+		          
+		          
+		        });
+		      });
+    	</script>
          </div>
        </div>
      </div>

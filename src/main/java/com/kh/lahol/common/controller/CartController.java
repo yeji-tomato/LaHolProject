@@ -1,7 +1,11 @@
 package com.kh.lahol.common.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 import java.util.Locale;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,6 +22,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.lahol.common.model.vo.Cart;
+import com.google.gson.Gson;
 import com.kh.lahol.common.model.exception.CartException;
 import com.kh.lahol.common.model.service.CartService;
 import com.kh.lahol.common.model.vo.Coupon;
@@ -76,7 +81,7 @@ public class CartController{
 			ModelAndView mv) {
 		
 		String id = m.getId();
-		System.out.println("쿠폰 아이디" + id);
+		// System.out.println("쿠폰 아이디" + id);
 
 		List<Coupon> couponlist = cartService.couponSelectList(id);
 		System.out.println(couponlist);
@@ -86,5 +91,21 @@ public class CartController{
 		
 		
 		return mv;
+	}
+	
+	@PostMapping("/couponResult")
+	public String coponResult(String couponValue, HttpServletResponse response) {
+		response.setContentType("application/json; charset=utf-8");
+		
+		PrintWriter out;
+		try {
+			out = response.getWriter();
+			out.print(new Gson().toJson(couponValue));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		
+		return "cart/couponTotal";
 	}
 }
