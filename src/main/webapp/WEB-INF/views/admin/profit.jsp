@@ -234,13 +234,13 @@
 					<!-- 날짜 -->
 					<div id="date-container">
 						<div id="date-box">
-							<a class="period" href="#">Day</a>
+							<a class="period dateBtn" href="#">Day</a>
 
-							<a class="period" href="#">Week</a>
+							<a class="period dateBtn" href="#">Week</a>
 
-							<a class="period" href="#">Month</a>
+							<a class="period dateBtn" href="#">Month</a>
 
-							<a class="period" href="#">Year</a>
+							<a class="period dateBtn" href="#">Year</a>
 
 							<a class="period" id="calendar" href="#">
 								<svg
@@ -306,6 +306,12 @@
 			</section>
 		</div>
 		<script>
+		
+		$('.dateBtn').on('click', function(){
+		    $('.dateBtn').removeClass('selected');
+		    $(this).addClass('selected');
+		});
+		
 		$(function() {
 		    // 서브카테고리 기본 숨김처리
 		    $('.sub-category').hide();
@@ -379,7 +385,6 @@
 		$('.period').click(function(){
 		    $('#custom-period').html('');
 		});
-
 
 		/* charts.js */
 

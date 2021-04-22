@@ -204,10 +204,12 @@ body {
 
 .period:hover,
 .period:focus,
-.period:active {
+.period:active,
+.dateBtn.selected {
     color: var(--date-sel);
     text-decoration: underline;
 }
+
 
 #calendar,
 #picked-date {

@@ -10,6 +10,7 @@
 		<link rel="stylesheet" href="${ contextPath }/resources/css/common/fonts.css" />
 		<link rel="stylesheet" href="${ contextPath }/resources/css/admin/styles/button.css" />
 		<script src="https://cdn.zinggrid.com/zinggrid.min.js" defer></script>
+		<script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 	</head>
 	<body data-theme="light">
 		<!--!! 최상단 컨테이너-->
@@ -225,55 +226,12 @@
 								page-size="3"
 								page-size-options="3"
 								viewport-stop
-								data='[
-                                {
-                                    "cafe" : "스타벅스",
-                                    "applyDate" : "2021.04.01",
-                                    "postDate" : "2021.04.05",
-                                    "duration" : "2주"
-                                },
-                                {
-                                    "cafe" : "요거프레소",
-                                    "applyDate" : "2021.04.01",
-                                    "postDate" : "2021.04.05",
-                                    "duration" : "1주"
-                                },
-                                {
-                                    "cafe" : "이디야",
-                                    "applyDate" : "2021.04.02",
-                                    "postDate" : "2021.04.05",
-                                    "duration" : "3주"
-                                },
-                                {
-                                    "cafe" : "KH카페",
-                                    "applyDate" : "2021.04.02",
-                                    "postDate" : "2021.04.12",
-                                    "duration" : "1주"
-                                },
-                                {
-                                    "cafe" : "동작노을카페",
-                                    "applyDate" : "2021.04.02",
-                                    "postDate" : "2021.04.12",
-                                    "duration" : "1주"
-                                },
-                                {
-                                    "cafe" : "카페람베리",
-                                    "applyDate" : "2021.04.03",
-                                    "postDate" : "2021.04.19",
-                                    "duration" : "1주"
-                                },
-                                {
-                                    "cafe" : "커피프레지던트",
-                                    "applyDate" : "2021.04.03",
-                                    "postDate" : "2021.04.19",
-                                    "duration" : "1주"
-                                }
-                              ]'
+								data=''
 							>
 								<zg-colgroup>
 									<zg-column index="cafe" header="카페"></zg-column>
 									<zg-column index="applyDate" header="신청일"></zg-column>
-									<zg-column index="postDate" header="게시일"></zg-column>
+									<zg-column index="postDate" header="희망게시일"></zg-column>
 									<zg-column index="duration" header="집행기간"></zg-column>
 								</zg-colgroup>
 							</zing-grid>
@@ -287,49 +245,12 @@
 								page-size="3"
 								page-size-options="3"
 								viewport-stop
-								data='[
-                                {
-                                    "cafe" : "어반플랜트",
-                                    "applyDate" : "2021.03.20",
-                                    "postDate" : "2021.03.27",
-                                    "duration" : "1주"
-                                },
-                                {
-                                    "cafe" : "마호가니커피",
-                                    "applyDate" : "2021.03.21",
-                                    "postDate" : "2021.03.27",
-                                    "duration" : "2주"
-                                },
-                                {
-                                    "cafe" : "브리오슈도레",
-                                    "applyDate" : "2021.03.21",
-                                    "postDate" : "2021.03.27",
-                                    "duration" : "1주"
-                                },
-                                {
-                                    "cafe" : "카페드레이프",
-                                    "applyDate" : "2021.03.22",
-                                    "postDate" : "2021.04.01",
-                                    "duration" : "1주"
-                                },
-                                {
-                                    "cafe" : "파스쿠찌",
-                                    "applyDate" : "2021.03.25",
-                                    "postDate" : "2021.04.01",
-                                    "duration" : "1주"
-                                },
-                                {
-                                    "cafe" : "할리스커피",
-                                    "applyDate" : "2021.03.26",
-                                    "postDate" : "2021.04.01",
-                                    "duration" : "1주"
-                                }
-                              ]'
+								data=''
 							>
 								<zg-colgroup>
 									<zg-column index="cafe" header="카페"></zg-column>
 									<zg-column index="applyDate" header="신청일"></zg-column>
-									<zg-column index="postDate" header="게시일"></zg-column>
+									<zg-column index="postDate" header="희망게시일"></zg-column>
 									<zg-column index="duration" header="집행기간"></zg-column>
 								</zg-colgroup>
 							</zing-grid>
@@ -338,16 +259,16 @@
 					<div id="img-container">
 						<div id="img-box">
 							<div id="ad-img">
-								<div id="img"></div>
+								<img src="" id="img">
 							</div>
 							<div id="ad-text">
 								<span id="ad-cafe">스타벅스</span>
 								<br />
-								<a href="#" id="ad-href">www.lahol.com/cafe/234</a>
+								<a href="#" id="ad-href">페이지로 이동</a>
 							</div>
 							<div id="ad-buttons">
-								<button class="blue btn-style">승 인</button>
-								<button class="red btn-style">반 려</button>
+								<button id="confirmBtn" class="blue btn-style">승 인</button>
+								<button id="rejectBtn" class="red btn-style">반 려</button>
 							</div>
 						</div>
 					</div>
@@ -355,6 +276,14 @@
 			</section>
 		</div>
 		<script>
+		
+		// 페이지 온 로드 박스컨텐츠 숨김
+		const boxContents = $('#ad-img, #ad-text, #ad-buttons');
+		
+		$(function(){	
+			boxContents.hide();
+		})
+		
 		$(function() {
 		    // 서브카테고리 기본 숨김처리
 		    $('.sub-category').hide();
@@ -381,6 +310,140 @@
 		    });
 		});
 
+		   
+		// 광고 대기리스트 조회
+		$(function(){
+			const waitingList = $('#waiting-list');
+			$.ajax({
+				url: "${ pageContext.request.contextPath }/admin/promo/waiting",
+				dataType: "json",
+				type: "get",
+				success: function(data){
+					waitingList.attr('data', JSON.stringify(data)).trigger("create");
+				},
+				error: function(e){
+					console.log(e);
+				}
+			});		
+		});
+		
+		// 광고 승인리스트 조회
+		$(function(){
+			const confirmedList = $('#confirmed-list');
+			$.ajax({
+				url: "${ pageContext.request.contextPath }/admin/promo/confirmed",
+				dataType: "json",
+				type: "get",
+				success: function(data){
+					confirmedList.attr('data', JSON.stringify(data)).trigger("create");
+				},
+				error: function(e){
+					console.log(e);
+				}
+			});		
+		});
+		
+	//	src="${ contextPath }/resources/nuploadFiles/classImg/${ coffeeclass.clThumbnail }"
+		
+		// 대기리스트 Row 클릭
+		var waitingList = document.querySelector("#waiting-list");
+		
+		waitingList.addEventListener('row:click', function(e) {
+			console.log(e.detail.ZGData.data);
+			boxContents.show();
+			var cafeName = e.detail.ZGData.data.cafe;
+			var url = e.detail.ZGData.data.url;
+			var imgPath = e.detail.ZGData.data.image;
+			
+			$('#ad-cafe').html(cafeName);
+			$('#ad-href').attr('href', url);
+			$('#img').attr('src', imgPath);
+			
+			console.log($('#img').attr('src'));
+			
+			// 승인버튼 클릭 시 
+			$('#confirmBtn').click(function(){
+				Swal.fire({
+					  icon: 'question',
+					  title: '해당 광고를 승인하겠습니까?',
+					  showCancelButton: true,
+					  confirmButtonText: '승인',
+					  cancelButtonText: '취소'
+					}).then((result) => {
+					  if (result.isConfirmed) {
+					    Swal.fire('승인되었습니다', '', 'success')
+					  } 
+					})
+			})
+			
+			
+			
+			// 반려버튼 클릭 시
+			$('#rejectBtn').click(function(){
+				var reason = '';
+				Swal.fire({
+					  icon: 'question',
+					  title: '해당 광고를 반려하겠습니까?',
+					  showCancelButton: true,
+					  confirmButtonText: '반려',
+					  confirmButtonColor: '#DC143C',
+					  cancelButtonText: '취소'
+					}).then((result) => {
+					  if (result.isConfirmed) {
+					    // 반려버튼 재 클릭 시
+						  (async () => {
+							  const {value: reason} = await swal.fire({
+							      title: '반려사유를 선택하세요',
+							      input: 'select',
+							      inputOptions: {
+							          'reason1': '부적절한 문구',
+							          'reason2': '부적절한 이미지',
+							          'reason3': '허위·과장 광고',
+							          'reason4' : '낮은 이미지 화소'
+							      },
+							      inputPlaceholder: '-- 반려사유 선택 --',
+							      showCancelButton: true,
+							      inputValidator: (value) => {
+							          return new Promise((resolve) => {
+							              if (value === '') {
+							            	  resolve('반려사유를 선택하지 않았습니다')
+							              } else {
+							            	  Swal.fire('반려되었습니다', '', 'success')
+							            	  console.log("반려사유" + reason);
+							              }
+							          })
+							      }
+							  })
+							  if (country) {
+							      swal.fire('You selected: ' + reason)
+							  }
+							  })()
+					  } 
+					})
+			})
+			
+		});
+		
+		// 승인리스트 Row 클릭
+		var confirmedList = document.querySelector("#confirmed-list");
+		confirmedList.addEventListener('row:click', function(e) {
+			boxContents.show();
+			$('#ad-buttons').hide();
+			
+			var cafeName = e.detail.ZGData.data.cafe;
+			var url = e.detail.ZGData.data.url;
+			var imgPath = e.detail.ZGData.data.renameImage
+			
+			$('#ad-cafe').html(cafeName);
+			$('#ad-href').attr('href', url);
+			
+			$('#confirmBtn').click(function(){
+	console.log("버튼 클릭 됨 ");
+			});
+
+		}); // this is the end
+
+		
 		</script>
 		<script src="${ contextPath }/resources/js/admin/darkMode.js"></script>
 	</body>

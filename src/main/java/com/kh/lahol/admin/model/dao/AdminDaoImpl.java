@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.kh.lahol.admin.model.vo.Promotion;
 import com.kh.lahol.member.model.vo.Coupon;
 import com.kh.lahol.member.model.vo.Member;
 
@@ -35,6 +36,16 @@ public class AdminDaoImpl implements AdminDao{
 	@Override
 	public List<Coupon> selectCouponByTerm(Map<String, Object> dates) {
 		return sqlSession.selectList("adminMapper.selectCouponByTerm", dates);
+	}
+
+	@Override
+	public List<Promotion> selectAdWaitingList() {
+		return sqlSession.selectList("adminMapper.selectAdWaitingList");
+	}
+
+	@Override
+	public List<Promotion> selectAdConfirmedList() {
+		return sqlSession.selectList("adminMapper.selectAdConfirmedList");
 	}
 
 

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.kh.lahol.admin.model.service.AdminService;
+import com.kh.lahol.admin.model.vo.Promotion;
 import com.kh.lahol.member.model.vo.Coupon;
 import com.kh.lahol.member.model.vo.Member;
 
@@ -37,5 +38,15 @@ public class AdminDataController {
 		return adminService.selectCouponByDate(date);
 	}
 	
-
+	// 광고 승인대기 리스트 조회
+	@GetMapping("/admin/promo/waiting")
+	public List<Promotion> selectAdWaitingList(){
+		return adminService.selectAdWaitingList();
+	}
+	
+	// 광고 승인완료 리스트 조회
+	@GetMapping("/admin/promo/confirmed")
+	public List<Promotion> selectAdConfirmedList(){
+		return adminService.selectAdConfirmedList();
+	}
 }
