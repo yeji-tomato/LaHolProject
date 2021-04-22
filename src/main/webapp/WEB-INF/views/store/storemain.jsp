@@ -159,7 +159,7 @@
                         <div class="if" style="float:left; width: 350px;  ">
                         <center>
                         <h4   onclick="selectStore(${s.PR_CODE});">${ s.PR_NAME }</h4>
-                            <h5 style="color: #810B0B"> ${ s.PR_PRICE }</h5>
+                            <h5 style="color: #810B0B"> ${ s.PR_PRICE } 원</h5>
                               <h6 ><c:if test="${  s.SUBSCRIPTIONS eq 'Y' && !empty sessionScope.loginUser  }">        
 	                             <a style="color:#RED;">#구독가능 </a>   </c:if> <a style="color:#935039 ">#${ s.ORIGIN }</a> <a style="color:#96877D "> #${ s.ST_CATAGORY} </a></h6> 
 	                          </a></h6> 
@@ -177,8 +177,8 @@
                     
              
 					</c:forEach>
-					           
-                <div class="paing" style="float: right;position: relative;left: -50%;width: 100%;left: 0px;right: 0px;" >
+				
+                <div class="paing" style="float: right;position: relative; width: 100%;left: 0px;right: 0px;" >
 	                <c:if test="${param.searchValue eq null }">
 						<c:set var="loc" value="/store/list" scope="page"/>
 					</c:if>
@@ -186,8 +186,8 @@
 					<c:if test="${param.searchValue ne null}" >
 							<c:set var="loc" value="/store/search?searchCondition=${ param.searchCondition }&searchValue=${ param.searchValue}" scope="page"/> 
 					</c:if>
-					
-	                <table style="margin-left:40%;">
+					 <center>
+	                <table  >
 		                <tr>
 							<td colspan="6">
 							<!-- [이전] -->
@@ -241,7 +241,9 @@
 							</td> 
 						</tr>
 	                </table> 
+	               
                 </div>
+                 </center>
                  <c:if test="${ loginUser.grade eq 'P'  }"> 
 		                 <div id="bu" style="width:60%;  height: 50px;   float:left;">
 		                    <button id="management" style="margin-top: 0px;float:left;margin-left: 1300px;"   onClick="location.href=' ${ contextPath }/store/list2'" >  스토어 관리  </button>   

@@ -52,6 +52,7 @@ import com.kh.lahol.store.page.Pagination3;/*
 											import com.oreilly.servlet.MultipartRequest;
 											import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 											import com.oreilly.servlet.multipart.FileRenamePolicy; */
+import com.kh.lahol.store.page.Pagination4;
 
 @Controller
 @RequestMapping("/store")
@@ -118,7 +119,7 @@ public class StoreController {
 		//내가 작성한 게시글 수만 카운트
 		int listCount = sService.mySearchCount(Id);
 		 
-		PageInfo pi = Pagination.getPageInfo(currentPage, listCount); 
+		PageInfo pi = Pagination4.getPageInfo(currentPage, listCount); 
 		List<Store> list = sService.myselectList(pi,Id);
 		
 		 
@@ -371,7 +372,7 @@ public class StoreController {
 				}
 				
 				
-			 
+		 
 		 
 			 
 			
@@ -404,18 +405,19 @@ public class StoreController {
 				model.addAttribute("CafeCode", CafeCode); 
 				mv.addObject("pi", pi);
 				return "store/storedetail";
+				
 			} else {
 				return "store/storedetail";
 			}
-		
-		
-			 
+			
+	 
+		  
 		
 		
 	}
 	//질문등록
 	@PostMapping("/question")
-	public String questionView(@ModelAttribute storeQ q , Model model,HttpServletRequest request,   int PR_CODE, HttpSession session ) {
+	public String questionView(@ModelAttribute storeQ q ,Model model,HttpServletRequest request,   int PR_CODE, HttpSession session ) {
 		
 		 
 		Member loginUser = (Member)session.getAttribute("loginUser");
@@ -433,8 +435,9 @@ public class StoreController {
 		 
 		 int result = sService.insertQuestion(q);
 		 
-		 
-		 
+		
+
+		 String ss="tab-pane fade show active";
 		 
 		 
 		 

@@ -49,13 +49,30 @@
                 
            	  <br>
            	    <div class="fi" >
-                    <h4>   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 판매중인 상품 &nbsp;&nbsp;<button id="createB" onClick="location.href=' ${ contextPath }/store/create'" > 제품등록 </button>    </h4>
+                    <h4>   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 판매중인 상품 &nbsp;&nbsp;   </h4>
               				</div> 
               				<br>
               			 
               				<br>
                 <div id="view2"   >
                 
+                			<div class="product" onClick="location.href=' ${ contextPath }/store/create'"    > 
+		 		                 <div class="scale"  > 
+		 		                 
+		                            <img  src="${ contextPath }/resources/img/store/new.jpg" width="350px" height="300px " >  
+		                        </div>    
+		                        <div class="if" style="float:left; witdh: 50px;">
+		                       
+		                       
+		                      
+		                        </div>
+		                        <center>
+		                        <button  id="add" onClick="location.href=' ${ contextPath }/store/create'"  >제품등록</button>   
+		                       	</center>
+		                    </div> 
+		                    
+		                    
+		                    
 	               		  <c:forEach var="s" items="${ list }">   
 		                    <div class="product"    > 
 		 		                 <div class="scale"  onclick="selectStore(${s.PR_CODE});"> 
@@ -76,9 +93,9 @@
 		                    </c:forEach>
 	                    
 						
-					  
+					  	<center>
 			                <div class="paing" style="float: right;position: relative;left: -50%;width: 100%;left: 0px;right: 0px;" >
-			                <table style="margin-left:40%;">
+			                <table >
 			                <tr>
 								<td colspan="6">
 								<!-- [이전] -->
@@ -121,9 +138,9 @@
 				             <div id="bu" style="width:60%;  height: 50px;   float:left;">
 				              <button id="management" style="margin-top: 0px;float:left;margin-left: 1300px;"    onClick="location.href=' ${ contextPath }/store/list'" >  스토어 메인 </button>   
 				              </div> 
-				              
+				           
               		   </div>
-                 
+                    </center>
                  
                  
                   
