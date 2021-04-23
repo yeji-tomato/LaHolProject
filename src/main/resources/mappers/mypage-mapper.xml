@@ -123,6 +123,20 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 		<result property="id" column="ID"/>
 		<result property="pr_count" column="PR_COUNT"/>
 	</resultMap>
+	<resultMap id="shippingResultSet" type="M_Shipping">
+		<id property="shipping_code" column="SHIPPING_CODE"/>
+		<result property="pay_no" column="PAY_NO"/>
+		<result property="pay_item" column="PAY_ITEM"/>
+		<result property="shipping_status" column="SHIPPING_STATUS"/>
+		<result property="shipping_date" column="SHIPPING_DATE"/>
+		<result property="delivery" column="DELIVERY"/>
+		<result property="subs_month" column="SUBS_MONTH"/>
+		<result property="sub" column="SUB"/>
+		<result property="count" column="COUNT"/>
+		<result property="buyer_id" column="BUYER_ID"/>
+		<result property="addr" column="ADDR"/>
+		<result property="id" column="ID"/>
+	</resultMap>
 	<update id="updateMember" parameterType="Member">
 		UPDATE
 		       MEMBER
@@ -576,5 +590,62 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 		   		AND PAY_DATE <![CDATA[<=]]> TO_DATE(#{list[0].period_end}, 'YYYY-MM-DD')
 		   		</otherwise>
 		   </choose>
+	</select>
+	<select id="orderListCount" parameterType="string" resultType="_int">
+		SELECT
+		       COUNT(*)
+		  FROM
+		       SH_STORE_VIEW
+		 WHERE
+		       ID = #{id}
+	</select>
+	<select id="selectOrderList" parameterType="string" resultMap="shippingResultSet">
+		SELECT
+		       SHIPPING_CODE
+		     , PAY_NO
+		     , PAY_ITEM
+		     , SHIPPING_STATUS
+		     , SHIPPING_DATE
+		     , DELIVERY
+		     , SUBS_MONTH
+		     , SUB
+		     , COUNT
+		     , BUYER_ID
+		     , ADDR
+		     , ID
+		  FROM
+		       SH_STORE_VIEW
+		 WHERE
+		       ID = #{id}
+	  ORDER BY TO_NUMBER(SHIPPING_CODE) DESC
+	</select>
+	<update id="updateShipping" parameterType="java.util.List">
+		UPDATE
+		       SH_STATUS
+		   SET
+		       SHIPPING_STATUS = #{list[1]}
+		     , SHIPPING_DATE = SYSDATE
+		 WHERE
+		       SHIPPING_CODE = #{list[0]}
+	</update>
+	<select id="selectShip" parameterType="M_Shipping" resultMap="shippingResultSet">
+		SELECT
+		       SHIPPING_CODE
+		     , PAY_NO
+		     , PAY_ITEM
+		     , SHIPPING_STATUS
+		     , SHIPPING_DATE
+		     , DELIVERY
+		     , SUBS_MONTH
+		     , SUB
+		     , COUNT
+		     , BUYER_ID
+		     , ADDR
+		     , ID
+		  FROM
+		       SH_STORE_VIEW
+		 WHERE
+		       ID = #{id}
+		   AND SHIPPING_CODE = #{shipping_code}
 	</select>
 </mapper>

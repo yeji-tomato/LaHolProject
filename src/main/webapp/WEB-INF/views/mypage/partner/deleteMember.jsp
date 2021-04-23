@@ -20,10 +20,6 @@
             padding: 0;
         }
         
-        #nav {
-    		background-color : #CDC2AF !important;
-    	}
-
         .mypage-container{
             width: 100%;
             height: auto; 

@@ -8,6 +8,7 @@ import com.kh.lahol.mypage.partner.model.vo.Ad;
 import com.kh.lahol.mypage.partner.model.vo.CoffeeClass;
 import com.kh.lahol.mypage.partner.model.vo.Payment;
 import com.kh.lahol.mypage.partner.model.vo.Search;
+import com.kh.lahol.mypage.partner.model.vo.Shipping;
 import com.kh.lahol.mypage.partner.model.vo.StoreStats;
 
 public interface pMypageService {
@@ -51,5 +52,13 @@ public interface pMypageService {
 	List<StoreStats> searchPayStoreList(Search search, PageInfo pi);
 
 	int searchSumPayStore(Search search, String category);
+
+	int orderListCount(String id);
+
+	List<Shipping> selectOrderList(String id, PageInfo pi);
+
+	int updateShipping(String shipping_code, String status);
+
+	Shipping selectShip(Shipping ship);
 
 }
