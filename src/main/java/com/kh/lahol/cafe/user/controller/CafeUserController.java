@@ -118,10 +118,19 @@ public class CafeUserController {
 
 	// 포장 페이지 이동
 	@GetMapping("/togo")
-	public String Beverage() {
+	public String Beverage(@RequestParam String caCode, Model model) {
+		
+		Cafe cafeInfo = caService.searchDetail(caCode);
+		
+		if(cafeInfo != null) {
+			model.addAttribute("cafeInfo", cafeInfo);
+			return "/cafe/user/togo";
+		}else {
+			model.addAttribute("msg", "등록된 카페 보기에 실패하였습니다.");
+			return "common/error";
+		}
 		
 		
-		return "/cafe/user/togo";
 	}
 	
 

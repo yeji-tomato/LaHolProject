@@ -26,6 +26,7 @@ import com.google.gson.Gson;
 import com.kh.lahol.common.model.exception.CartException;
 import com.kh.lahol.common.model.service.CartService;
 import com.kh.lahol.common.model.vo.Coupon;
+import com.kh.lahol.common.model.vo.Payment;
 import com.kh.lahol.member.model.vo.Member;
 
 
@@ -107,5 +108,26 @@ public class CartController{
 		
 		
 		return "cart/couponTotal";
+	}
+	
+	
+	@PostMapping("/cafe/payment")
+	public String cafeCartPayment(@ModelAttribute Payment pay, 
+				@SessionAttribute("loginUser") Member m) throws CartException{
+		
+		/*
+		 * String id = m.getId(); pay.setBuyId(id);
+		 * 
+		 * int result = cartService.cafeCartPayment(pay);
+		 * 
+		 * if(result > 0) { return "cart/cart"; }else { throw new
+		 * CartException("결제 테이블에 값 넣는 것을 실패하였습니다."); }
+		 */
+		
+		System.out.println(pay);
+		return null;
+		
+		
+		
 	}
 }
