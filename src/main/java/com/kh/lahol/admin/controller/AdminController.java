@@ -1,5 +1,7 @@
 package com.kh.lahol.admin.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Date;
 import java.util.List;
 import java.util.Locale;
@@ -23,6 +25,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.lahol.admin.model.service.AdminService;
 import com.kh.lahol.admin.model.service.AdminServiceImpl;
+import com.kh.lahol.admin.model.vo.CafeList;
 import com.kh.lahol.member.model.vo.Coupon;
 
 
@@ -82,11 +85,28 @@ public class AdminController {
 		return "admin/report/partner";
 	}
 	
+	// 커스텀 기간에 따른 쿠폰 
 	@RequestMapping(value="/selectCouponByTerm", method=RequestMethod.POST)
 	@ResponseBody
 	public List<Coupon> selectCouponByTerm(@RequestBody Map<String, Object> dates) {
 		return adminService.selectCouponByTerm(dates);
 	}
 	
+	@RequestMapping(value="/updateAdConfirmed", method=RequestMethod.POST)
+	@ResponseBody
+	public void updateAdConfirmed(String adCode, HttpServletResponse response) {
+		
+		adminService.updateAdConfirmed(adCode);
+		
+		try {
+			PrintWriter out = response.getWriter();
+			out.print("success");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		adminService.updateAdConfirmed(adCode);
+	}
+		
 	
 }

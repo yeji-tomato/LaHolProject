@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.lahol.admin.model.dao.AdminDao;
+import com.kh.lahol.admin.model.vo.CafeList;
 import com.kh.lahol.admin.model.vo.Promotion;
 import com.kh.lahol.member.model.vo.Coupon;
 import com.kh.lahol.member.model.vo.Member;
@@ -48,4 +49,13 @@ public class AdminServiceImpl implements AdminService{
 		return adminDao.selectAdConfirmedList();
 	}
 
+	@Override
+	public List<CafeList> selectCafeList(String date) {
+		return adminDao.selectCafeList(date);
+	}
+
+	@Override
+	public void updateAdConfirmed(String adCode) {
+		adminDao.updateAdConfirmed(adCode);
+	}
 }

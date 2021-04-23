@@ -11,8 +11,12 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
+
+// 필드 추가해야함!!! 
 public class CafeList {
+	private String id;
 	private String cafe;
 	private String phone;
-	private String enDate;
+	private String sales;
+	private String openDate;
 }

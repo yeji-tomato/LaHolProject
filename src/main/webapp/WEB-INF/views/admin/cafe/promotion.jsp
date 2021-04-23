@@ -343,14 +343,18 @@
 			});		
 		});
 		
-	//	src="${ contextPath }/resources/nuploadFiles/classImg/${ coffeeclass.clThumbnail }"
 		
 		// 대기리스트 Row 클릭
 		var waitingList = document.querySelector("#waiting-list");
 		
-		waitingList.addEventListener('row:click', function(e) {
-			console.log(e.detail.ZGData.data);
+		waitingList.addEventListener('row:click', function(e) { // !! THE VERY START
+			console.log("클릭된 대기리스트 열의 정보 : " + e.detail.ZGData.data);
 			boxContents.show();
+			
+			// 로우 업데이트 시 필요한 변수 
+			var adCode = e.detail.ZGData.data.adCode;
+
+			// 박스 컨텐츠에 띄울 변수
 			var cafeName = e.detail.ZGData.data.cafe;
 			var url = e.detail.ZGData.data.url;
 			var imgPath = e.detail.ZGData.data.image;
@@ -372,11 +376,24 @@
 					}).then((result) => {
 					  if (result.isConfirmed) {
 					    Swal.fire('승인되었습니다', '', 'success')
-					  } 
+					    			
+					   var data = { adCode: adCode };
+					    
+			    	  $.ajax({
+					       url: "${ pageContext.request.contextPath }/admin/updateAdConfirmed",
+					       type: "post",
+					       data: data,
+					       success: function(data) {
+					    	   console.log("업데이트 성공해따");
+					    	   boxContents.hide();
+					       },
+							error: function(e){
+								console.log(e);
+							}
+					      }); 
+					  }; 
 					})
-			})
-			
-			
+			});
 			
 			// 반려버튼 클릭 시
 			$('#rejectBtn').click(function(){
@@ -392,37 +409,47 @@
 					  if (result.isConfirmed) {
 					    // 반려버튼 재 클릭 시
 						  (async () => {
-							  const {value: reason} = await swal.fire({
+							  var {value: reason} = await swal.fire({
 							      title: '반려사유를 선택하세요',
 							      input: 'select',
 							      inputOptions: {
-							          'reason1': '부적절한 문구',
-							          'reason2': '부적절한 이미지',
-							          'reason3': '허위·과장 광고',
-							          'reason4' : '낮은 이미지 화소'
+							          '부적절한 문구': '부적절한 문구',
+							          '부적절한 이미지': '부적절한 이미지',
+							          '허위·과장 광고': '허위·과장 광고',
+							          '낮은 이미지 화소' : '낮은 이미지 화소'
 							      },
 							      inputPlaceholder: '-- 반려사유 선택 --',
 							      showCancelButton: true,
 							      inputValidator: (value) => {
 							          return new Promise((resolve) => {
+							        	  // 사유를 선택하지 않고 확인 버튼을 눌렀을 때
 							              if (value === '') {
 							            	  resolve('반려사유를 선택하지 않았습니다')
 							              } else {
+							            	  // 사유 선택 후 확인 버튼 눌렀을 때
 							            	  Swal.fire('반려되었습니다', '', 'success')
-							            	  console.log("반려사유" + reason);
+							            	  console.log("반려사유 : " + value);
+							            	  
+							            	  boxContents.hide();
+							            	  							            		  
+							            	  // 광고 업데이트
+							            	  
+							     
+
+						/* 	            	  $.ajax({
+							            		  url: "",
+							            		  type: ""
+							            	  }) */
+	
 							              }
 							          })
 							      }
 							  })
-							  if (country) {
-							      swal.fire('You selected: ' + reason)
-							  }
-							  })()
+						})()
 					  } 
 					})
 			})
-			
-		});
+		}); // !! THE VERY END 
 		
 		// 승인리스트 Row 클릭
 		var confirmedList = document.querySelector("#confirmed-list");
@@ -432,16 +459,16 @@
 			
 			var cafeName = e.detail.ZGData.data.cafe;
 			var url = e.detail.ZGData.data.url;
-			var imgPath = e.detail.ZGData.data.renameImage
+			var imgPath = e.detail.ZGData.data.image;
 			
 			$('#ad-cafe').html(cafeName);
 			$('#ad-href').attr('href', url);
+			$('#img').attr('src', imgPath);
 			
 			$('#confirmBtn').click(function(){
-	console.log("버튼 클릭 됨 ");
+				console.log("버튼 클릭 됨 ");
 			});
-
-		}); // this is the end
+		}); 
 
 		
 		</script>

@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.util.List;
 import java.util.Map;
 
+import com.kh.lahol.admin.model.vo.CafeList;
 import com.kh.lahol.admin.model.vo.Promotion;
 import com.kh.lahol.member.model.vo.Coupon;
 import com.kh.lahol.member.model.vo.Member;
@@ -21,4 +22,8 @@ public interface AdminDao {
 	List<Promotion> selectAdWaitingList();
 
 	List<Promotion> selectAdConfirmedList();
+
+	List<CafeList> selectCafeList(String date);
+	
+	void updateAdConfirmed(String adCode);
 }
