@@ -48,6 +48,7 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 		<result property="Pr_code" column="PR_CODE"/>
 		<result property="Subs_Month" column="SUBS_MONTH"/>  
 		<result property="Pay" column="PAY_PRICE"/> 
+		<result property="delivery" column="DELIVERY"/> 
 	</resultMap>
 
 	
@@ -65,6 +66,15 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 		<result property="cl_pay_no" column="CL_PAY_NO"/> 
 		<result property="pay_dc" column="PAY_DC"/> 
 		<result property="pay_total" column="PAY_TOTA"/> 
+		<result property="cl_tile" column="CL_TIME"/> 
+	</resultMap>
+
+	
+	 <resultMap id="PrResultSet" type="Prpay">
+		<id property="payCode" column="PAY_CODE_S"/>
+		<result property="panNo" column="PAY_NO"/>
+		<result property="subCode" column="SUBSCRIBE_CODE"/>
+		<result property="puNum" column="PURCHASE_NUMBER"/> 
 	</resultMap>
 	
  
@@ -101,7 +111,7 @@ C_CODE	VARCHAR2(30 BYTE)	No		18	카페코드
 	
 	
 
-	
+	<!-- 검색용  -->
 	<select id="selectSearchCount"  parameterType="Search" resultType="_int"  >
 	  <bind name="sv" value="'%' + _parameter.getSearchValue() + '%'"/>  
 	 
@@ -130,6 +140,9 @@ C_CODE	VARCHAR2(30 BYTE)	No		18	카페코드
 			</choose>
 		</where>
 	</select> 
+	
+	
+	
 	
 	
 	<select id="selectList" resultMap="storeResultSet">
@@ -485,6 +498,26 @@ C_CODE	VARCHAR2(30 BYTE)	No		18	카페코드
 	</select>
 	
 	
+	<!-- 질문 리스트 카운트 -->
+	<select id="selectQCount"  parameterType="Search" resultType="_int"  >
+	  <bind name="sv" value="'%' + _parameter.getSearchValue() + '%'"/>  
+	 
+		SELECT 
+		       COUNT(*)
+		  FROM
+		       PRODUCT_Q
+	   <where> 
+			<choose>
+				
+				<otherwise>
+				 AND 
+					PR_CODE LIKE #{sv} 
+				</otherwise>
+			</choose>
+		</where>
+	</select> 
+	
+	
 	<!-- 질문답변 -->
 	 <insert id="insertAnser" parameterType="string">
 		INSERT
@@ -526,9 +559,28 @@ C_CODE	VARCHAR2(30 BYTE)	No		18	카페코드
 					PR_CODE LIKE #{sv} 
 				</otherwise>
 			</choose>
-		</where>
-		 
+		</where> 
 	</select>
+	
+	
+		<!-- 답변 리스트 카운트 -->
+	<select id="selectACount"  parameterType="Search" resultType="_int"  >
+	  <bind name="sv" value="'%' + _parameter.getSearchValue() + '%'"/>   
+		SELECT 
+		       COUNT(*)
+		  FROM
+		       PRODUCT_A
+		       JOIN  PRODUCT_Q USING(QNA_NO)  
+	   <where> 
+			<choose>
+				
+				<otherwise>
+				 AND 
+					PR_CODE LIKE #{sv} 
+				</otherwise>
+			</choose>
+		</where>
+	</select> 
 	
 	<select id="CafeCode"   parameterType="Search"  resultType="string" >
 	  <bind name="sv" value="'%' + _parameter.getSearchValue() + '%'"/>  
@@ -553,6 +605,7 @@ C_CODE	VARCHAR2(30 BYTE)	No		18	카페코드
 		     , PR_CODE
 		     , SUBS_MONTH
 		     , PAY_PRICE 
+		     , DELIVERY
 		    
 		 	)
 		VALUES
@@ -560,7 +613,8 @@ C_CODE	VARCHAR2(30 BYTE)	No		18	카페코드
 			 STS.NEXTVAL
 			,#{Pr_code}
 			,#{Subs_Month}
-			,#{Pay} 
+			,#{Pay}
+			, NULL 
 			 
 		)
 	
@@ -586,6 +640,7 @@ C_CODE	VARCHAR2(30 BYTE)	No		18	카페코드
 		     , CL_PAY_NO
 		     , PAY_DC
 		     , PAY_TOTAL
+		     , CL_TIME
 		  )
 		VALUES
 		(
@@ -607,9 +662,40 @@ C_CODE	VARCHAR2(30 BYTE)	No		18	카페코드
 		     , NULL
 		     , 0
 		     , #{pay_price}
+		     , NULL
 		)
 	
 	</insert>
-  
+	<insert id="insertPrpay" parameterType="string">
+		INSERT
+		INTO PR_PAY
+		(
+		       PAY_CODE_S
+		     , PAY_NO
+		     , SUBSCRIBE_CODE
+		     , PURCHASE_NUMBER 
+		    
+		 	)
+		VALUES
+		(
+			 STD.NEXTVAL
+			,(SELECT PAY_NO
+				FROM
+				(SELECT PAY_NO, ROWNUM AS RNUM
+				FROM PAYMENT
+				ORDER BY PAY_NO DESC)
+				WHERE RNUM = 1)
+			,(SELECT SUBSCRIBE_CODE
+				FROM
+				(SELECT SUBSCRIBE_CODE, ROWNUM AS RNUM
+				FROM PAYMENT
+				ORDER BY PAY_NO DESC)
+				WHERE RNUM = 1)
+			, NULL 
+			 
+		)
+	
+	</insert>
+	
 	
 </mapper>

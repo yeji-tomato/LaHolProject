@@ -14,7 +14,7 @@
   
  
    #aa{
-            background-color: #f6ebdb;
+            
         }
         
         .banner{
@@ -68,6 +68,34 @@
         /* 상품 정보*/
         .np .class{
             float: left;
+         
+        }
+        .np{
+            background-color: #F3EFEB;
+		    box-sizing: border-box;
+		    font-weight: 500;
+		    margin-left: 0px;
+		    margin-right: 0px;
+		    border-radius: 50rem;
+		    height: 35px;
+        }
+        
+       .np2{
+            background-color: #F3EFEB;
+		    box-sizing: border-box;
+		    font-weight: 500;
+		    margin-left: 0px;
+		    margin-right: 0px;
+		    border-radius: 50rem;
+		    height: 35px;
+        }
+        
+        .np div{
+        	margin-top: 5px;
+        }
+        
+         .np2 div{
+        	margin-top: 5px;
         }
 
         .np>#a{
@@ -88,7 +116,7 @@
         .prname{
             float: left;
             margin-top: 11%;
-            margin-left: 20%;
+            margin-left: 15%;
             font-size:x-large;
         }
 
@@ -150,10 +178,15 @@
 
          .ss{
              width: 94%;
-             height: 150px;
-             border: solid 1px black; 
+             height: 150px; 
              margin-top: 350px;
              margin-left: 50px;
+             
+             
+           background-color: #F3EFEB;
+		    box-sizing: border-box;
+		    font-weight: 500; 
+		    border-radius: 2rem; 
 
          }
          .hh>div{
@@ -169,15 +202,21 @@
          /*배송정보*/
          .deinf{
             width: 94%;
-            height: 350px;
-            border: solid 1px black;  
+            height: 350px; 
             margin-left: 50px;
             margin-top: 5%;
 
          }
          
+         
          .di1{
-             margin-left: 5%;
+             margin-left: 5%; 
+		    box-sizing: border-box;
+		    font-weight: 500; 
+		    margin-right: 0px;
+		    border-radius: 2rem;
+		    height:300px;
+		    border: 2px solid gray;
          }
 
          .di2{

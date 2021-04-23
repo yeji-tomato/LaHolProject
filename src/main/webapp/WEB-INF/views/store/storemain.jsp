@@ -15,7 +15,7 @@
 <link rel="stylesheet" href="${ contextPath }/resources/css/store/main/main.css?sddsd">
 </head>
 <style>  
-	
+ 
  
     </style>
 <body>
@@ -41,7 +41,11 @@
 		                             <c:if test="${ param.searchCondition != 'title' }"> 
 		                            <input type="search" name="searchValue"   placeholder="Search" id="search" autocomplete="off">
 		                            </c:if> 
-		                             <button class="go-icon" name="searchCondition" value="title" type="submit"><i class="fa fa-arrow-right"></i></button>
+		                             <button class="go-icon" name="searchCondition" value="title" type="submit"  style="width: 1px;  height: 3px;
+																									    left: 320px; bottom: 10px;
+																									    border-bottom-width: 0px;
+																									    border-left-width: 0px;
+    border-right-width: 0px; border-top-width: 0px; top: -10;  padding-left: 0px;  padding-right: 0px;"><i class="fa fa-arrow-right"></i></button>
 		                        </form>
 		                        <svg class="search-border" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:a="http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/" x="0px" y="0px" viewBox="0 0 671 111" style="enable-background:new 0 0 671 111;"
 		                            xml:space="preserve">
@@ -100,7 +104,7 @@
                    
                      </div>
                     <div class="fi" style="margin-left:20px">
-                    	  <h4 >  &nbsp;추천상품</h4>
+                    	  <h4 style="color:gray;" >  &nbsp;추천상품</h4>
                        <!--  <select id="filter"  style="margin-top: 0px;margin-left: 5px;">  
                         
                             <optgroup label="필터" >
@@ -125,15 +129,15 @@
 	                        <center>
 	                        <h5 onclick="selectStore(${s.PR_CODE});" ><a style="color:red;" ><인기></a>${ s.PR_NAME }</h5>
 	                            <h5 style="color: #810B0B"> ${ s.PR_PRICE }원</h5>
-	                            <h6 ><c:if test="${  s.SUBSCRIPTIONS eq 'Y' && !empty sessionScope.loginUser   }">        
-	                             <a style="color:#RED; ">#구독가능 </a>   </c:if> <a style="color:#935039; ">#${ s.ORIGIN }</a> <a style="color:#96877D "> #${ s.ST_CATAGORY} </a></h6> 
+	                            <h6 ><%-- <c:if test="${  s.SUBSCRIPTIONS eq 'Y' && !empty sessionScope.loginUser   }">        
+	                             <a style="color:#RED; ">#구독가능 </a>   </c:if> --%> <a style="color:#935039; ">#${ s.ORIGIN }</a> <a style="color:#96877D "> #${ s.ST_CATAGORY} </a></h6> 
 	                          </a></h6> 
 	                              
 	                        </center>
 	                        </div>
 	                        <button  id="ifb">바로구매 <i class="fa fa-credit-card-alt" aria-hidden="true"></i></button>  
-	                         <c:if test="${  s.SUBSCRIPTIONS eq 'Y'  }"> 
-                        <button  id="ifb" style="  margin-top: 45px; background-color:#935039;" onClick="location.href=' ${ contextPath }/store/subW?PR_CODE=${ s.PR_CODE }'" >정기구독 <i class="fa fa-credit-card-alt" aria-hidden="true"></i></button> </c:if>  
+	                        <%--  <c:if test="${  s.SUBSCRIPTIONS eq 'Y' && !empty sessionScope.loginUser   }"> 
+                        <button  id="ifb" style="  margin-top: 45px; background-color:#935039;" onClick="location.href=' ${ contextPath }/store/subW?PR_CODE=${ s.PR_CODE }'" >정기구독 <i class="fa fa-credit-card-alt" aria-hidden="true"></i></button> </c:if>   --%>
 	                    </div> 
                     
              
@@ -160,8 +164,8 @@
                         <center>
                         <h4   onclick="selectStore(${s.PR_CODE});">${ s.PR_NAME }</h4>
                             <h5 style="color: #810B0B"> ${ s.PR_PRICE } 원</h5>
-                              <h6 ><c:if test="${  s.SUBSCRIPTIONS eq 'Y' && !empty sessionScope.loginUser  }">        
-	                             <a style="color:#RED;">#구독가능 </a>   </c:if> <a style="color:#935039 ">#${ s.ORIGIN }</a> <a style="color:#96877D "> #${ s.ST_CATAGORY} </a></h6> 
+                              <h6 ><%-- <c:if test="${  s.SUBSCRIPTIONS eq 'Y' && !empty sessionScope.loginUser  }">        
+	                             <a style="color:#RED;">#구독가능 </a>   </c:if> --%> <a style="color:#935039 ">#${ s.ORIGIN }</a> <a style="color:#96877D "> #${ s.ST_CATAGORY} </a></h6> 
 	                          </a></h6> 
                         </center>
                         </div>
@@ -171,8 +175,8 @@
                         
                         
                         
-                           <c:if test="${  s.SUBSCRIPTIONS eq 'Y'  }"> 
-                        <button  id="ifb" style="  margin-top: 45px; background-color:#935039;" onClick="location.href=' ${ contextPath }/store/subW?PR_CODE=${ s.PR_CODE }'" >정기구독 <i class="fa fa-credit-card-alt" aria-hidden="true"></i></button> </c:if>  
+                        <%--    <c:if test="${   s.SUBSCRIPTIONS eq 'Y' && !empty sessionScope.loginUser   }"> 
+                        <button  id="ifb" style="  margin-top: 45px; background-color:#935039;" onClick="location.href=' ${ contextPath }/store/subW?PR_CODE=${ s.PR_CODE }'" >정기구독 <i class="fa fa-credit-card-alt" aria-hidden="true"></i></button> </c:if> --%>  
                     </div> 
                     
              
@@ -269,7 +273,7 @@
        
     <script>
 		function selectStore(PR_CODE){
-			location.href='${contextPath}/store/storedetail?PR_CODE=' + PR_CODE + '&page=${ pi.currentPage }';
+			location.href='${contextPath}/store/storedetail?PR_CODE=' + PR_CODE + '&page=${ pi.currentPage }'+'&k=0';
 			// => 상세 페이지 접근 시 기존 page 값도 파라미터로 전달
 		}
 	</script>

@@ -152,7 +152,7 @@
     
     <script>
 		function selectStore(PR_CODE){
-			location.href='${contextPath}/store/storedetail?PR_CODE=' + PR_CODE + '&page=${ pi.currentPage }';
+			location.href='${contextPath}/store/storedetail?PR_CODE=' + PR_CODE + '&page=${ pi.currentPage }'+'&k=0';
 			// => 상세 페이지 접근 시 기존 page 값도 파라미터로 전달
 		}
 	</script>

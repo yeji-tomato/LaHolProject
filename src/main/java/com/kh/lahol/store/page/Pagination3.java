@@ -4,10 +4,10 @@ import com.kh.lahol.store.model.vo.PageInfo;
 
 public class Pagination3 { 
 	public static PageInfo getPageInfo(int currentPage, int listCount) {
-		PageInfo pi2 = null; 
+		PageInfo pi = null; 
 		
 		int pageLimit = 10;	  
-		int StoreLimit = 30; // Q&A 페이징 처리 못해서 임시로 만듬 
+		int StoreLimit = 5; // Q&A 페이징 처리 못해서 임시로 만듬 
 		
 		int maxPage = (int)Math.ceil((double)listCount / StoreLimit);
 		int startPage = (currentPage - 1) / pageLimit * pageLimit + 1;
@@ -18,8 +18,8 @@ public class Pagination3 {
 			endPage = maxPage;
 		}
 		
-		pi2 = new PageInfo(currentPage,  listCount, pageLimit, maxPage, startPage, endPage, StoreLimit);
+		pi = new PageInfo(currentPage,  listCount, pageLimit, maxPage, startPage, endPage, StoreLimit);
 		
-		return pi2;
+		return pi;
 	}
 }

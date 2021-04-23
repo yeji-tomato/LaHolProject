@@ -28,4 +28,5 @@ public class Payment {
 	private String cl_pay_no;
 	private String pay_dc;
 	private String pay_total;
+	private String cl_tile;
 }

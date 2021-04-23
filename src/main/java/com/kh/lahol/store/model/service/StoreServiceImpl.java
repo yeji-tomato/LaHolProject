@@ -9,6 +9,7 @@ import com.kh.lahol.cafe.bus.model.vo.Cafe;
 import com.kh.lahol.store.model.dao.StoreDao;
 import com.kh.lahol.store.model.vo.PageInfo;
 import com.kh.lahol.store.model.vo.Payment;
+import com.kh.lahol.store.model.vo.Prpay;
 import com.kh.lahol.store.model.vo.Search; 
 import com.kh.lahol.store.model.vo.Store;
 import com.kh.lahol.store.model.vo.Sub;
@@ -131,6 +132,23 @@ public class StoreServiceImpl implements StoreService {
 	@Override
 	public int PAYMENT(Payment py) {
 		return sDao.PAYMENT(py);
+	}
+
+	@Override
+	public int prpay(Prpay pa) { 
+		return sDao.prpay(pa);
+	}
+
+	//질문수 카운트
+	@Override
+	public int selectQCount(Search sc) {
+		return sDao.selectQCount(sc );
+	}
+	
+	//답변 수 카운트
+	@Override
+	public int selectACount(Search sc) {
+		return sDao.selectACount(sc );
 	}
 
  

@@ -41,6 +41,7 @@ import com.kh.lahol.member.model.vo.Member;
 import com.kh.lahol.store.model.service.StoreService;
 import com.kh.lahol.store.model.vo.PageInfo;
 import com.kh.lahol.store.model.vo.Payment;
+import com.kh.lahol.store.model.vo.Prpay;
 import com.kh.lahol.store.model.vo.Search;
 import com.kh.lahol.store.model.vo.Store;
 import com.kh.lahol.store.model.vo.Sub;
@@ -77,12 +78,13 @@ public class StoreController {
 		//추천 게시글 용
 		List<Store> list2 = sService.selectList2(pi2);
 		 
-		
+		//int k = 0;
 		
 		
 		
 		if(list !=null) {
 			mv.addObject("list", list);
+			//mv.addObject("k",k);
 			mv.addObject("pi", pi);
 			mv.setViewName("store/storemain");
 		} else {
@@ -91,6 +93,7 @@ public class StoreController {
 		
 		if(list2 !=null) {
 			mv.addObject("list2", list2); 
+			//mv.addObject("k",k);
 			mv.setViewName("store/storemain");
 		} else {
 		
@@ -109,7 +112,7 @@ public class StoreController {
 		Member loginUser = (Member)session.getAttribute("loginUser");
 		
 		
-		
+		 
 		
 		 //Cafe loginUser2 = (Cafe)session.getAttribute("loginUser");
 		String Id = loginUser.getId();
@@ -127,6 +130,7 @@ public class StoreController {
 		if(list !=null) {
 			mv.addObject("list", list);
 			mv.addObject("pi", pi);
+			 
 			mv.setViewName("store/B/storemanager");
 		} else {
 		
@@ -284,7 +288,7 @@ public class StoreController {
 	}
 	
 	@GetMapping("/storedetail")
-	public String storeDetail(int PR_CODE, String QnA_NO,  HttpServletRequest request,ModelAndView mv, @ModelAttribute Cafe q,
+	public String storeDetail(int PR_CODE, String QnA_NO,  HttpServletRequest request,ModelAndView mv, @ModelAttribute Cafe q,String qqw,int k,
 			  HttpServletResponse response, @RequestParam(value="page" , required=false, defaultValue="1")int currentPage ,
 			  Model model) {
 		boolean flagslist = false; 
@@ -322,7 +326,7 @@ public class StoreController {
 						e.printStackTrace();
 					}
 					
-				
+				System.out.println("k의 값은??"+k);
 		//제품 Q 리스트 
 		
 				String condition = request.getParameter("searchCondition");
@@ -337,11 +341,11 @@ public class StoreController {
 				 System.err.println("질분 제품번호  " + PR_CODE);
 				 System.err.println("q리스트 " + sc);
 			 
-				  
-				 int listCount = sService.selectSearchCount(sc);  
-				 PageInfo pi = Pagination3.getPageInfo(currentPage, listCount);
+				
+				 int listCount = sService.selectQCount(sc);  
+				 PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 		 
-			
+				 System.out.println("질문객수 카운트"+listCount);
 			 
 			
 			
@@ -352,7 +356,10 @@ public class StoreController {
 			 
 			 
 			 
-			 
+			/*
+			 * int listCount2 = sService.selectACount(sc); PageInfo pi2 =
+			 * Pagination.getPageInfo(currentPage, listCount2);
+			 */
 			 List<storeA> Alist = sService.AsearchList(sc,pi); 
 			
 			
@@ -372,10 +379,27 @@ public class StoreController {
 				}
 				
 				
-		 
-		 
-			 
-			
+				if(k == 0 ) { 
+					 String talbe= "tab-pane fade show active";
+					 String table2 = "tab-pane fade";
+					 String sa = "nav-link active";
+					 String sa1  ="nav-link"; 
+					 model.addAttribute("table",talbe); 
+					 model.addAttribute("table2",table2); 
+					 model.addAttribute("sa",sa); 
+					 model.addAttribute("sa1",sa1); 
+			  
+					} else if(k ==1 ) { 
+						 String table = "tab-pane fade";
+						 String talbe2= "tab-pane fade show active";
+						 String sa1 = "nav-link active";
+						 String sa  ="nav-link"; 
+						 model.addAttribute("table",table); 
+						 model.addAttribute("table2",talbe2);  
+						 model.addAttribute("sa",sa); 
+						 model.addAttribute("sa1",sa1); 
+				}
+				
 			// 제품 정보 
 			 
 		
@@ -403,7 +427,8 @@ public class StoreController {
 				model.addAttribute("QsearchList", QsearchList); 
 				model.addAttribute("Alist", Alist); 
 				model.addAttribute("CafeCode", CafeCode); 
-				mv.addObject("pi", pi);
+				model.addAttribute("pi", pi);
+				
 				return "store/storedetail";
 				
 			} else {
@@ -417,7 +442,7 @@ public class StoreController {
 	}
 	//질문등록
 	@PostMapping("/question")
-	public String questionView(@ModelAttribute storeQ q ,Model model,HttpServletRequest request,   int PR_CODE, HttpSession session ) {
+	public String questionView(@ModelAttribute storeQ q ,Model model,HttpServletRequest request,   int PR_CODE, HttpSession session   ) {
 		
 		 
 		Member loginUser = (Member)session.getAttribute("loginUser");
@@ -444,9 +469,9 @@ public class StoreController {
 		 
 		 if(result > 0) {
 				 
-			 return "redirect:/store/storedetail?PR_CODE="+PR_CODE;
+			 return "redirect:/store/storedetail?&k=1&PR_CODE="+PR_CODE ;
 			} else {
-			 return "redirect:/store/storedetail?PR_CODE="+PR_CODE; // 나중에 에러 페이지연결
+			  return "redirect:/store/storedetail?&k=1&PR_CODE="+PR_CODE ; // 나중에 에러 페이지연결
 			}
 		  
 	}
@@ -498,9 +523,9 @@ public class StoreController {
 		 if(result > 0) {
 				   
 			// redirect.addFlashAttribute("Alist", Alist);
-			 return "redirect:/store/storedetail?PR_CODE="+PR_CODE;
+			 return "redirect:/store/storedetail?&k=1&PR_CODE="+PR_CODE ;
 			} else {
-			 return "redirect:/store/storedetail?PR_CODE="+PR_CODE; // 나중에 에러 페이지연결
+			  return "redirect:/store/storedetail?&k=1&PR_CODE="+PR_CODE ; // 나중에 에러 페이지연결
 			}
 		 
 		 
@@ -597,13 +622,13 @@ public class StoreController {
  
 			 
 			if (result > 0) {            
-				return  "redirect:/store/storedetail?PR_CODE="+s.getPR_CODE();
+				return  "redirect:/store/storedetail?&k=0&PR_CODE=" +s.getPR_CODE();
 			} else {
 				 
-			}
+			} 
 			
 			 
-			return  "redirect:/store/storedetail?PR_CODE="+s.getPR_CODE();
+			return  "redirect:/store/storedetail?&k=0&PR_CODE="+s.getPR_CODE();
 		}
 	
 	@GetMapping("/delete")
@@ -617,9 +642,9 @@ public class StoreController {
 		
 	 
 		if(result > 0) {
-			return "redirect:/store/list2";
+			return "redirect:/store/list2?k=0";
 		}else {
-			return "redirect:/store/list2";
+			return "redirect:/store/list2?k=0";
 		}
 	 
 	}
@@ -651,7 +676,7 @@ public class StoreController {
 	
 	
 	@PostMapping("/subscribe")
-	public String subscribe(@ModelAttribute Sub sb,@ModelAttribute Payment py , Model model, String PR_CODE, ModelAndView mv,
+	public String subscribe(@ModelAttribute Sub sb,@ModelAttribute Payment py ,@ModelAttribute Prpay pa  ,Model model, String PR_CODE, ModelAndView mv,
 			  int PR_PRICE,String PR_NAME, @RequestParam("SUBSCRIPTIONS") String SUBSCRIPTIONS, HttpSession session   ) {
 		
 		
@@ -731,12 +756,14 @@ public class StoreController {
 	 
 		 int result2 = sService.PAYMENT(py); 	
 		 
+		 int result3 = sService.prpay(pa); 	
+		 
 	
 		 if(result > 0) {
-			 return "redirect:/store/list";
+			 return "redirect:/store/list?k=0";
 			 
 		 }else 
-		 {  return "redirect:/store/list";
+		 {  return "redirect:/store/list?k=0";
 		 } 
 		 
 		  
