@@ -13,6 +13,7 @@ import com.kh.lahol.mypage.partner.model.vo.Ad;
 import com.kh.lahol.mypage.partner.model.vo.CoffeeClass;
 import com.kh.lahol.mypage.partner.model.vo.Payment;
 import com.kh.lahol.mypage.partner.model.vo.Search;
+import com.kh.lahol.mypage.partner.model.vo.Shipping;
 import com.kh.lahol.mypage.partner.model.vo.StoreStats;
 
 @Repository
@@ -128,6 +129,28 @@ public class pMypageDaoImpl implements pMypageDao{
 	@Override
 	public int searchSumPayStore(List<Object> list) {
 		return sqlSession.selectOne("mypageMapper.searchSumPayStore", list);
+	}
+
+	@Override
+	public int orderListCount(String id) {
+		return sqlSession.selectOne("mypageMapper.orderListCount", id);
+	}
+
+	@Override
+	public List<Shipping> selectOrderList(String id, PageInfo pi) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return sqlSession.selectList("mypageMapper.selectOrderList", id, rowBounds);
+	}
+
+	@Override
+	public int updateShipping(List<String> list) {
+		return sqlSession.update("mypageMapper.updateShipping", list);
+	}
+
+	@Override
+	public Shipping selectShip(Shipping ship) {
+		return sqlSession.selectOne("mypageMapper.selectShip", ship);
 	}
 
 }

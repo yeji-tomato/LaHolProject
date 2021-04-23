@@ -59,6 +59,8 @@
 		<typeAlias type="com.kh.lahol.mypage.partner.model.vo.StoreStats" alias="StoreStats"/>
 		<!-- 마이페이지 스토어 Search -->
 		<typeAlias type="com.kh.lahol.mypage.partner.model.vo.Search" alias="M_Search"/>
+		<!-- 마이페이지 주문 배송내역 -->
+		<typeAlias type="com.kh.lahol.mypage.partner.model.vo.Shipping" alias="M_Shipping"/>
 		
 		<!-- Ad -->
  		<typeAlias type="com.kh.lahol.mypage.partner.model.vo.Ad" alias="Ad"/>
