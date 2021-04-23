@@ -69,6 +69,7 @@
 	                                                    </label>
 	                                                </div>
 	                                                <div class="img"><img src="${ contextPath }/resources/nuploadFiles/cafeImg/${ crt.photoName }" width="100"></div>
+	                                                <c:set var= "name" value="${ crt.cartName }"/>
 	                                                <div class="pname">
 	                                                    <span>${ crt.cartName }</span>
 	                                                </div>

@@ -30,16 +30,16 @@
             <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
                 <div class="carousel-inner" id="caroselLeft">
                 <div class="carousel-item active" data-bs-interval="10000">
-                    <img src="https://i.pinimg.com/564x/f2/ca/54/f2ca546edb3cd09e21cb3c64578f3232.jpg" class="d-block w-100" alt="...">
+                    <img src="${ contextPath }/resources/nuploadFiles/cafeImg/${ cafeInfo.mainPhoto }" class="d-block w-100" alt="...">
                 </div>
                 <div class="carousel-item" data-bs-interval="2000">
-                    <img src="https://i.pinimg.com/564x/b6/a3/e0/b6a3e0fadac5e060c60e82683162c76d.jpg" class="d-block w-100" alt="...">
+                    <img src="${ contextPath }/resources/nuploadFiles/cafeImg/${ cafeInfo.photo1 }" class="d-block w-100" alt="...">
                 </div>
                 <div class="carousel-item">
-                    <img src="https://i.pinimg.com/564x/18/9a/64/189a64011192664392d7705825e2aa1a.jpg" class="d-block w-100" alt="...">
+                    <img src="${ contextPath }/resources/nuploadFiles/cafeImg/${ cafeInfo.photo2 }" class="d-block w-100" alt="...">
                 </div>
                 <div class="carousel-item">
-                    <img src="https://i.pinimg.com/564x/a1/ab/b6/a1abb6390ea859b66dd4041c3d2ec510.jpg" class="d-block w-100" alt="...">
+                    <img src="${ contextPath }/resources/nuploadFiles/cafeImg/${ cafeInfo.photo3 }" class="d-block w-100" alt="...">
                 </div>
                 </div>
                 <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">

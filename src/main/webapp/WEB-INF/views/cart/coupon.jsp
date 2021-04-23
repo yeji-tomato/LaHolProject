@@ -72,7 +72,6 @@
 		          var initVal = $("#applyCoupon", opener.document).val();
 		          var radioVal = $('input[name="radioTxt"]:checked').val();
 		          var couponValue = parseInt(radioVal.substring(0,2));
-		          
 		          var totalValue = $("#total").val();
 		          var discountValue = totalValue*(couponValue/100);
 		          var resultPrice = totalValue - discountValue;
