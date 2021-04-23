@@ -43,6 +43,9 @@
 		<typeAlias type="com.kh.lahol.coffeeclass.model.vo.ClassRegister" alias="ClassRegister"/>
 		<!-- 클래스 검색  -->
 		<typeAlias type="com.kh.lahol.coffeeclass.model.vo.ClassSearch" alias="ClassSearch"/>
+		<!-- 클래스 질문&답변 -->
+		<typeAlias type="com.kh.lahol.coffeeclass.model.vo.ClassQnA" alias="ClassQnA"/>
+
 
 		<!-- Yeji_Cafe -->
 		<typeAlias type="com.kh.lahol.cafe.bus.model.vo.Cafe" alias="Cafe"/>
@@ -68,6 +71,7 @@
 		<!-- 장바구니 -->
 		<typeAlias type="com.kh.lahol.common.model.vo.Cart" alias="Cart"/>
 		<typeAlias type="com.kh.lahol.common.model.vo.Coupon" alias="Cart_Coupon"/>
+
 	</typeAliases>
 	
 	<!-- mappers -->

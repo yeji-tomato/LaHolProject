@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.lahol.cafe.bus.model.vo.Cafe;
+import com.kh.lahol.coffeeclass.model.vo.ClassQnA;
 import com.kh.lahol.coffeeclass.model.vo.ClassRegister;
 import com.kh.lahol.coffeeclass.model.vo.ClassSearch;
 import com.kh.lahol.coffeeclass.model.vo.CoffeeClass;
@@ -91,9 +92,16 @@ public class CoffeeClassDaoImpl implements CoffeeClassDao{
 		return sqlSession.selectList("clMapper.filterClass", search);
 	}
 
+	// 세션 정보 불러오기 
 	@Override
 	public Cafe selectCafeInfoById(String id) {
 		return sqlSession.selectOne("clMapper.selectCafeInfoById", id);
+	}
+
+	// 클래스 QnA 질문
+	@Override
+	public int askClass(ClassQnA qna) {
+		return sqlSession.insert("clMapper.askClass", qna);
 	}
 
 	
