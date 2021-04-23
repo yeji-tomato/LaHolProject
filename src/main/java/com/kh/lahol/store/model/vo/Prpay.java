@@ -1,6 +1,6 @@
 package com.kh.lahol.store.model.vo;
 
-import java.util.Date;
+import java.sql.Date;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,11 +13,9 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class Sub {
-	private String Sub_code;
-	private String Pr_code;
-	private String Subs_Month;
-	private String Pay;
-	private String delivery;
-	
+public class Prpay {
+	private String payCode;
+	private String panNo;
+	private String subCode;
+	private String puNum;
 }

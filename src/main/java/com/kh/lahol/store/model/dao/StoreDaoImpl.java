@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.kh.lahol.cafe.bus.model.vo.Cafe;
 import com.kh.lahol.store.model.vo.PageInfo;
 import com.kh.lahol.store.model.vo.Payment;
+import com.kh.lahol.store.model.vo.Prpay;
 import com.kh.lahol.store.model.vo.Search; 
 import com.kh.lahol.store.model.vo.Store;
 import com.kh.lahol.store.model.vo.Sub;
@@ -143,6 +144,18 @@ public class StoreDaoImpl implements StoreDao{
 	@Override
 	public int PAYMENT(Payment py) {
 		return sqlSession.insert("storeMapper.insertPAYMENT", py); 
+	}
+	@Override
+	public int prpay(Prpay pa) { 
+		return sqlSession.insert("storeMapper.insertPrpay",pa); 
+	}
+	@Override
+	public int selectQCount(Search sc) {
+		return sqlSession.selectOne("storeMapper.selectQCount", sc);
+	}
+	@Override
+	public int selectACount(Search sc) {
+		return sqlSession.selectOne("storeMapper.selectACount", sc);
 	}
 	
  
