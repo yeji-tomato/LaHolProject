@@ -191,7 +191,48 @@
 			</div>
 			</div>
 		</div>
-  
+		
+	  <!-- 질문 모달 -->
+	  <div class="modal fade" id="askModal" tabindex="-1" aria-labelledby="askModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header" style="background-color: #F3D798;">
+				<h5 class="modal-title" id="askModalLabel" style="color: white;">
+					<img src="${ contextPath }/resources/img/common/logo-green.png" style="width : 30px; height: 30px;">
+					문의하기
+				</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+				<h5  style="text-align: center; padding: 5vh;"> ${ coffeeclass.className }클래스에 궁금한 점이 있다면 남겨주세요! </h5>
+					<form action="${ contextPath }/coffeeclass/ask" method="post">
+					<input type="hidden" name="qnaNo" value="${ qna.qnaNo }">
+                   	<input type="hidden" name="classNo" value="${ coffeeclass.classNo }">
+                   	<input type="hidden" name="userId" value="${ sessionScope.loginUser.id }">
+                   	<input type="hidden" name="askDate" value="${ qna.askDate }">
+					<table style="width: 100%;">
+						<tr>			
+							<td>문의내용</td>
+						</tr>
+						<tr>
+							<td colspan="2">
+								<textarea style="width: 100%; height:20vh; resize:none;" name="question"></textarea>
+							</td>
+						</tr>
+					</table>
+					<br>
+					<p class="alert-text" style="color:rgb(170, 42, 42); font-size: 13px;">
+					평균적으로 3일이내로 답변해 드립니다. <br> 급한 문의는 라홀서비스 번호로 연락주시면 신속히 해결해드리겠습니다!
+					</p>
+					<div class="modal-footer"  style="background-color: #F3D798;">
+						<button type="submit" class="btn btn-danger">문의하기</button>
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+					</div>
+					</form>
+			</div>
+			</div>
+		</div>
+		</div>
 
 
 </body>

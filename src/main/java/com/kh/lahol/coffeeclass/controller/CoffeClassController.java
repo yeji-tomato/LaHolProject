@@ -13,6 +13,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -34,6 +35,7 @@ import com.kh.lahol.cafe.bus.model.service.CafeBizService;
 import com.kh.lahol.cafe.bus.model.vo.Cafe;
 import com.kh.lahol.coffeeclass.model.exception.CoffeeClassException;
 import com.kh.lahol.coffeeclass.model.service.CoffeeClassSerivce;
+import com.kh.lahol.coffeeclass.model.vo.ClassQnA;
 import com.kh.lahol.coffeeclass.model.vo.ClassRegister;
 import com.kh.lahol.coffeeclass.model.vo.ClassSearch;
 import com.kh.lahol.coffeeclass.model.vo.CoffeeClass;
@@ -100,9 +102,12 @@ public class CoffeClassController {
 	public String filterClass(@ModelAttribute ClassSearch search,
 							   Model model) {
 		
+		System.out.println(search.toString());
+		
 		List<ClassSearch> filterList = clService.filterList(search);
 		
 		model.addAttribute("list", filterList);
+		
 		
 		return "coffeeclass/class_main";
 		
@@ -259,9 +264,7 @@ public class CoffeClassController {
 	  }
 			
 	  }
-		
-	
-	  
+ 
 	  // 사업자 커피클래스 메인 페이지
 	  @GetMapping("/coffeeclass/busmain")
 	  public String busmain() { 
@@ -412,11 +415,67 @@ public class CoffeClassController {
 		 
 	  }
 	 
+	  // 클래스 QnA 출력
+	  /*// 사용자 메인페이지
+	@GetMapping("/coffeeclass")
+	public ModelAndView coffeeClassList(ModelAndView mv,
+			@RequestParam(value = "page", required = false, defaultValue = "1") int currentPage) { // 메뉴바 클릭시 파라미터가 따로
+																									// 없으므로 1로 설정(1페이지)
+
+		int listCount = clService.selectListCount(); // 게시글 갯수
+
+		// 요청 페이지에 맞는 클래스 리스트 조회
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+		List<CoffeeClass> list = clService.selectList(pi);
+
+		if (list != null) {
+			mv.addObject("list", list);
+			mv.addObject("pi", pi);
+			mv.setViewName("coffeeclass/class_main");
+		} else {
+			mv.addObject("msg", "클래스 페이지에 접근할 수 없습니다.");
+			mv.setViewName("common/errorPage");
+		}
+
+		return mv;
+	}*/
 	
-	  // 
+	  // 클래스 문의 등록
+	  @PostMapping("/coffeeclass/ask")
+	  public String askClass(@ModelAttribute ClassQnA qna, 
+			  					  Model model,
+			  					HttpServletRequest request, HttpSession session, RedirectAttributes rttr) {
+		  
+		  Member loginUser = (Member)session.getAttribute("loginUser");
+		  
+		  if(loginUser == null) {
+			  rttr.addFlashAttribute("msg", "로그인한 회원만 문의를 남길 수 있습니다.");
+			  return "redirect:/member/loginView";
+		  }
+		  
+		  String id = loginUser.getId();
+		  String classNo = request.getParameter("classNo");
+		  
+		  System.out.println(loginUser + id + classNo);
+		  
+		  qna.setClassNo(classNo);
+		  qna.setUserId(id);
+		  
+		  model.addAttribute("qna", qna);
+		  
+		  int result = clService.askClass(qna);
+		  
+		  if(result > 0) {			  
+			  return "redirect:/coffeeclass/classdetail?classNo=" + classNo;
+		  } else {
+			  return "common/error";
+		  }
+		  
+		  
+		  
+	  }
 	  
-	  
-	  
+	  // 클래스 답변 등록
 	  
 	  
 	  
