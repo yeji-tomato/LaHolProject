@@ -63,7 +63,10 @@
 		<typeAlias type="com.kh.lahol.mypage.partner.model.vo.Search" alias="M_Search"/>
 		<!-- 마이페이지 주문 배송내역 -->
 		<typeAlias type="com.kh.lahol.mypage.partner.model.vo.Shipping" alias="M_Shipping"/>
-		
+		<!-- 마이페이지 일반 구매 내역 -->
+		<typeAlias type="com.kh.lahol.mypage.normal.model.vo.PayList" alias="PayList"/>
+		<!-- 마이페이지 클래스 디테일 -->
+		<typeAlias type="com.kh.lahol.mypage.normal.model.vo.ClassDetail" alias="ClassDetail"/>
 		<!-- Ad -->
  		<typeAlias type="com.kh.lahol.mypage.partner.model.vo.Ad" alias="Ad"/>
  		<!-- Ad 신청 시 payment -->

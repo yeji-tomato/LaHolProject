@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,16 +11,13 @@
     <!-- menubar css -->
     <link rel="stylesheet" href="${ contextPath }/resources/css/common/menubar.css">
     <!-- side menubar css -->
-    <link rel="stylesheet" href="${ contextPath }/resources/css/common/menu.css">
+    <link rel="stylesheet" href="${ contextPath }/resources/css/mypage/sideMenu.css">
     <!-- footer css -->
     <link rel="stylesheet" href="${ contextPath }/resources/css/common/footer.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <!-- datepicker -->
     <link href="${ contextPath }/resources/css/common/datepicker.min.css" rel="stylesheet" type="text/css" media="all">
-    <!-- Air datepicker css -->
-    <script src="<c:url value="/resources/js/mypage/datepicker.js"/>"></script> <!-- Air datepicker js -->
-    <script src="<c:url value="/resources/js/mypage/datepicker.ko.js"/>"></script> <!-- 달력 한글 추가를 위해 커스텀 -->
     
     <style>
         body{
@@ -77,7 +77,7 @@
             outline: none;
         }
 
-        .content-div .content-header input[type=submit] {
+        .content-div .content-header input[type=button] {
             width : 100px;
             outline: none;
             color : #fff;
@@ -98,7 +98,9 @@
         }
 
         .content-table {
-            min-height: 550px;
+            min-height: 580px;
+            display : flex;
+            justify-content: center;
         }
 
         .content-div #list-table {
@@ -133,11 +135,11 @@
         }
 
         .content-div #list-table tr:first-child td:nth-child(3) {
-            width : 500px;
+            width : 450px;
         }
 
         .content-div #list-table tr:first-child td:nth-child(4) {
-            width : 100px;
+            width : 150px;
         }
 
         .content-div #list-table tr:first-child td:nth-child(5) {
@@ -151,13 +153,56 @@
         .content-div #list-table tr:first-child td:nth-child(7) {
             width : 150px;
         }
+        
+        .clickTr {
+        	cursor : pointer;
+        }
+        
+        .btn-ba,
+        .btn-p {
+        	width : 30px;
+        	height : 30px;
+        }
+        
+        .btn-ba {
+        	background : #4B654A;
+        	border : none;
+        	color : #fff;
+        	border-radius : 5px;
+        	
+        	transition : all 0.3s;
+        }
+        
+        .btn-ba:hover {
+        	background : #5A452E;
+        	
+        	transition : all 0.3s;
+        }
+        
+        .btn-p {
+        	border : none;
+        	background : transparent;
+        }
+        
+        .btn-p:disabled {
+        	color : #E5BD62;
+        }
+		
+		.swal2-confirm,
+        .swal2-cancel,
+        .swal2-html-container,
+        .swal2-title {
+        	font-family: 'NEXON Lv1 Gothic OTF';
+        }
 
     </style>
 </head>
 <body>
     <!-- menubar -->
 	<jsp:include page="/WEB-INF/views/common/menubar.jsp"/>
-
+	<!-- Air datepicker css -->
+    <script src="<c:url value="/resources/js/mypage/datepicker.js"/>"></script> <!-- Air datepicker js -->
+    <script src="<c:url value="/resources/js/mypage/datepicker.ko.js"/>"></script> <!-- 달력 한글 추가를 위해 커스텀 -->
     <!-- 카페 사이드 메뉴 바 -->
     <div class="mypage-container">
         <div id="side" class="col-mp">
@@ -223,26 +268,25 @@
             <!-- 이부분에 내용 작성 -->
             <div class="content-div">
                 <div class="content-header">
-                    <form method="POST" action="${contextPath}/mypage/paymentSearch">
-                        <select id="pay-category">
-                            <option value="">전체</option>
-                            <option value="cReservation">카페예약</option>
-                            <option value="class">클래스</option>
-                            <option value="coffee">원두</option>
-                            <option value="store">스토어</option>
+                    <form id="period_form" method="GET" action="${ contextPath }/nMypage/searchPayment">
+                        <select id="pay-category" name="searchCondition">
+                            <option value="" <c:if test="${ param.searchCondition == '' }">selected</c:if>>전체</option>
+                            <option value="CA" <c:if test="${ param.searchCondition == 'CA' }">selected</c:if>>카페</option>
+                            <option value="CL" <c:if test="${ param.searchCondition == 'CL' }">selected</c:if>>클래스</option>
+                            <option value="ST" <c:if test="${ param.searchCondition == 'ST' }">selected</c:if>>스토어</option>
                         </select>
                         <br>
-                        <input type="radio" id="1-month" name="period" value="1" checked>
+                        <input type="radio" id="1-month" name="search" value="1" checked>
                         <label for="1-month">1개월</label>&nbsp;&nbsp;
-                        <input type="radio" id="3-month" name="period" value="3">
+                        <input type="radio" id="3-month" name="search" value="3" <c:if test="${ param.search == '3' }">checked</c:if>>
                         <label for="3-month">3개월</label>&nbsp;&nbsp;
-                        <input type="radio" id="6-month" name="period" value="6">
+                        <input type="radio" id="6-month" name="search" value="6" <c:if test="${ param.search == '6' }">checked</c:if>>
                         <label for="6-month">6개월</label>&nbsp;&nbsp;
-                        <input type="radio" name="period" value="selection">
-                        <input type="text" id="date1" name="period-start">&nbsp;
+                        <input type="radio" id="selection" name="search" value="selection" <c:if test="${ param.search == '' }">checked</c:if>>
+                        <input type="text" id="date1" name="period_start">&nbsp;
                         <label style="color:#5A452E"> ~</label>&nbsp;
-                        <input type="text" id="date2" name="period-end">&nbsp;&nbsp;
-                        <input type="submit" value="검색">
+                        <input type="text" id="date2" name="period_end">&nbsp;&nbsp;
+                        <input type="button" value="검색" onclick="onSubmit();">
                     </form>
                 </div>
                 <div class="content-table">
@@ -256,14 +300,117 @@
                             <td>구매일</td>
                             <td>상태</td>
                         </tr>
-                        <tr>
-                            <td>aa</td>
-                        </tr>
+                        <c:if test="${ empty list }">
+	                        <tr>
+	                        	<td colspan="7">${ payList }</td>
+	                        </tr>
+                        </c:if>
+                        <c:if test="${ !empty list }">
+                        <c:forEach var="p" items="${ list }">
+	                        <tr class="clickTr" onclick="detailPayment('${ p.pay_no }');">
+	                            <td>${ p.pay_no }</td>
+	                            <c:if test="${ fn:contains(p.pay_no, 'CL') }">
+                                <td>클래스</td>
+                                </c:if>
+                                <c:if test="${ fn:contains(p.pay_no, 'ST') }">
+                                <td>스토어</td>
+                                </c:if>
+                                <c:if test="${ fn:contains(p.pay_no, 'CA') }">
+                                <td>카페</td>
+                                </c:if>
+                                <td>${ p.pay_item }</td>
+                                <c:if test="${ fn:contains(p.pay_no, 'CA') }">
+                                <td>세부 내용 확인</td>
+                                </c:if>
+                                <c:if test="${ !fn:contains(p.pay_no, 'CA') }">
+                                <td>${ p.pr_count }</td>
+                                </c:if>
+                                <td><fmt:formatNumber value="${ p.pay_total }"/></td>
+                                <td>${ p.pay_date }</td>
+                                <c:if test="${ fn:contains(p.pay_no, 'CL') }">
+                                <td>${ p.cl_status }</td>
+                                </c:if>
+                                <c:if test="${ fn:contains(p.pay_no, 'ST') }">
+                                <td>${ p.shipping_status }</td>
+                                </c:if>
+                                <c:if test="${ fn:contains(p.pay_no, 'CA') }">
+                                <td>${ p.c_res_ing }</td>
+                                </c:if>
+	                        </tr>
+	                    </c:forEach>
+                        </c:if>
                     </table>
                 </div>
                 <!-- 페이징 추가 해야 함 -->
                 <div class="paging-div">
-                    페이징
+                    <!-- 이전 -->
+                    <c:choose>
+                    	<c:when test="${ pi.currentPage <= 1 }">
+                    		<button class="btn-ba" disabled> &lt; </button>
+                    	</c:when>
+                    	<c:when test="${ empty search }">
+                    		<c:url var="before" value="/nMypage/paymentView">
+                				<c:param name="page" value="${ pi.currentPage - 1 }"/>
+                			</c:url>
+                			<button class="btn-ba" onclick="location.href='${ before }'"> &lt;</button>
+                    	</c:when>
+                    	<c:otherwise>
+                    		<c:url var="before" value="/nMypage/searchPayment">
+                				<c:param name="page" value="${ pi.currentPage - 1 }"/>
+                				<c:param name="searchCondition" value="${ param.searchCondition }"/>
+								<c:param name="period_start" value="${ param.period_start }"/>
+								<c:param name="period_end" value="${ param.period_end }"/>
+								<c:param name="search" value="${ param.search }"/>
+                			</c:url>
+                			<button class="btn-ba" onclick="location.href='${ before }'"> &lt;</button>
+                    	</c:otherwise>
+                    </c:choose>
+                	<!-- 페이지 숫자 -->
+                	<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+                		<c:choose>
+	                		<c:when test="${ p eq pi.currentPage }">
+	                			<button class="btn-p" disabled>${ p }</button>
+	                		</c:when>
+	                		<c:when test="${ empty search }">
+	                			<c:url var="pagination" value="/nMypage/paymentView">
+	                				<c:param name="page" value="${ p }"/>
+	                			</c:url>
+	               				<button class="btn-p" onclick="location.href='${ pagination }'">${ p }</button>
+	                		</c:when>
+	                		<c:otherwise>
+	                			<c:url var="pagination" value="/nMypage/searchPayment">
+	                				<c:param name="page" value="${ p }"/>
+	                				<c:param name="searchCondition" value="${ param.searchCondition }"/>
+									<c:param name="period_start" value="${ param.period_start }"/>
+									<c:param name="period_end" value="${ param.period_end }"/>
+									<c:param name="search" value="${ param.search }"/>
+	                			</c:url>
+	               				<button class="btn-p" onclick="location.href='${ pagination }'">${ p }</button>
+	                		</c:otherwise>
+               			</c:choose>
+                	</c:forEach>
+                	<!-- 다음 -->
+                	<c:choose>
+	                	<c:when test="${ pi.currentPage >= pi.maxPage }">
+							<button class="btn-ba" disabled> &gt; </button>
+						</c:when>
+						<c:when test="${ empty search }">
+							<c:url var="after" value="/nMypage/paymentView">
+								<c:param name="page" value="${ pi.currentPage + 1 }"/>
+							</c:url>
+							<button class="btn-ba" onclick="location.href='${ after }'"> &gt;</button>
+						</c:when>
+						<c:otherwise>
+							<c:url var="after" value="/nMypage/searchPayment">
+								<c:param name="page" value="${ pi.currentPage + 1 }"/>
+								<c:param name="searchCondition" value="${ param.searchCondition }"/>
+								<c:param name="period_start" value="${ param.period_start }"/>
+								<c:param name="period_end" value="${ param.period_end }"/>
+								<c:param name="search" value="${ param.search }"/>
+							</c:url>
+							<button class="btn-ba" onclick="location.href='${ after }'"> &gt;</button>
+						</c:otherwise>
+					</c:choose>
                 </div>
             </div>
         </div>
@@ -275,6 +422,52 @@
         });
         $("#date2").datepicker({
     	    language: 'ko'
+        });
+        
+        var category = document.getElementById("pay-category");
+        var month1 = document.getElementById("1-month");
+        var month3 = document.getElementById("3-month");
+        var month6 = document.getElementById("6-month");
+        var date1 = document.getElementById("date1");
+        var date2 = document.getElementById("date2");
+        
+        function onSubmit() {
+	        if($("#selection").prop('checked')) {
+	    		if(date1.value == "") {
+	    			Swal.fire({
+						title : '시작 기간을 설정해주세요.',
+						icon : 'warning'
+					});
+	    			return;
+	    		}
+	    		
+	    		if(date2.value == "") {
+	    			Swal.fire({
+						title : '끝 기간을 설정해주세요.',
+						icon : 'warning'
+					});
+	    			return;
+	    		}
+	    	}
+	        $("#period_form").submit();
+        }
+        
+        function detailPayment(pay_no) {
+        	if(pay_no.indexOf("CL") == 0) {
+        		location.href="${ contextPath }/nMypage/detailClass?pay_no=" + pay_no;
+        	} else if(pay_no.indexOf("CA") == 0) {
+        		location.href="${ contextPath }/nMypage/detailCafe?pay_no=" + pay_no;
+        	} else if(pay_no.indexOf("ST") == 0) {
+        		location.href="${ contextPath }/nMypage/detailStore?pay_no=" + pay_no;
+        	}
+        }
+        
+        $(function(){
+        	$(".clickTr").mouseenter(function(){
+        		$(this).css({"background":"#FADFAD"});
+        	}).mouseout(function(){
+        		$(this).css({"background" : "#FFF"});
+        	});
         });
     </script>
 	<!-- footer -->
