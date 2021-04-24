@@ -29,6 +29,7 @@
  
  <link rel="stylesheet" href="${ contextPath }/resources/css/store/detail.css?a=">
  
+ 
 </head>
 <style>
 
@@ -44,7 +45,7 @@
 	<!-- carousel -->
 	<jsp:include page="/WEB-INF/views/main/store.jsp"/>
  
-	
+ 
  
 	<section id="content" class="content_css"  >
 			<div class="outer">
@@ -211,7 +212,7 @@
 	                <div>
 	                    <ul class="nav nav-tabs" id="myTab" role="tablist">
 	                        <li class="nav-item" role="presentation">
-	                            <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">
+	                            <button class="${ sa }" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">
 	                                상세정보
 	                            </button>
 	                        </li>
@@ -221,7 +222,7 @@
 	                            </button>
 	                        </li>
 	                        <li class="nav-item" role="presentation">
-	                            <button class="nav-link" id="qa-tab" data-bs-toggle="tab" data-bs-target="#qa" type="button" role="tab" aria-controls="qa" aria-selected="false">
+	                            <button class="${ sa1 }" id="qa-tab" data-bs-toggle="tab" data-bs-target="#qa" type="button" role="tab" aria-controls="qa" aria-selected="false">
 	                                Q&A
 	                            </button>
 	                        </li>
@@ -234,7 +235,7 @@
 	                    </ul>
 	                      <div class="tab-content" id="myTabContent">
 	                        <!-- 상세 정보 -->
-	                        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+	                        <div class="${ table }" id="home" role="tabpanel" aria-labelledby="home-tab">
 	                                <!-- Product description section 1-->
 	                                <div class="row align-items-center py-md-3">
 	                                    <!--사진-->
@@ -289,7 +290,7 @@
 	
 	                        </div>
 	                        <!-- Q&A --> 
-	                        <div class="tab-pane fade" id="qa" role="tabpanel" aria-labelledby="qa-tab">
+	                        <div class="${ table2 }" id="qa" role="tabpanel" aria-labelledby="qa-tab">
 	                            
 	                            <div id="board_div" style="  margin-top: 10px;  ">
 	                                <table id="qnaBoard">
@@ -437,13 +438,9 @@
 	                       	  
 	                       	  
 	                <div class="paing" style="float: right;position: relative;left: -50%;width: 100%;left: 0px;right: 0px;" >
-			                <c:if test="${param.searchValue eq null }">
-								<c:set var="loc" value="/store/list" scope="page"/>
-							</c:if>
-						
-							<c:if test="${param.searchValue ne null}" >
-									<c:set var="loc" value="/store/search?searchCondition=${ param.searchCondition }&searchValue=${ param.searchValue}" scope="page"/> 
-							</c:if>
+			               
+									<c:set var="loc" value="/store/storedetail?PR_CODE=${s.PR_CODE }" scope="page"/> 
+						                     
 					<center>
 	                <table >
 		                <tr>
@@ -452,7 +449,7 @@
 							<c:if test="${ pi.currentPage <= 1 }">
 								[이전] &nbsp;
 							</c:if>
-							<c:if test="${ pi.currentPage > 1 }">
+							<c:if test="${ pi.currentPage > 1  }">
 								<c:url var="before" value="${ loc }">
 									<c:param name="page" value="${ pi.currentPage -1 }" />
 									<c:if test="${param.searchValue ne null} }">
@@ -460,7 +457,7 @@
 										<c:param name="searchValue" value="${ param.searchValue}  "/>
 									</c:if>
 								</c:url>
-								<a href="${ before }">[이전]</a> &nbsp;
+								<a href="${ before }&k=1" >[이전]</a> &nbsp;
 							</c:if>
 							
 							
@@ -469,7 +466,7 @@
 								<c:if test="${ p eq pi.currentPage }">
 									<font color="red" size="4"><b>[${ p }]</b></font> &nbsp;
 								</c:if>
-								<c:if test="${ p ne pi.currentPage }">
+								<c:if test="${ p ne pi.currentPage  }">
 									<c:url var="pagination" value="${ loc}">
 										<c:param name="page" value="${ p }"/>
 										 <c:if test="${param.searchValue ne null} }">
@@ -477,11 +474,12 @@
 												<c:param name="searchValue" value="${ param.searchValue}  "/>
 									     </c:if>
 									</c:url>
-									<a href="${ pagination }">${ p }</a> &nbsp;
+									<a href="${ pagination }&k=1"  >${ p }</a> &nbsp;
 								</c:if>
-							</c:forEach>
 						
-							
+							</c:forEach>
+						<!-- class="nav-link" id="qa-tab" data-bs-toggle="tab" data-bs-target="#qa" type="button" role="tab" aria-controls="qa" aria-selected="false"
+							 -->
 							<!-- [다음] -->
 							<c:if test="${ pi.currentPage >= pi.maxPage }">
 								[다음]
@@ -494,7 +492,7 @@
 												<c:param name="searchValue" value="${param.searchValue} "/>
 									     </c:if>
 								</c:url>
-								<a href="${ after }">[다음]</a>
+								<a href="${ after }&k=1"  >[다음]</a>
 							</c:if>
 							</td> 
 						</tr>
@@ -511,7 +509,8 @@
 	                       	 
 	                       	 
 	                        </div>
-	                        
+	                
+	        
 	                        
 	                        
 							
@@ -544,7 +543,7 @@
 					 <c:forEach var="q" items="${ QsearchList }"> 
 			    	 	   	 	 <!-- Modal 답변 -->
 							<div class="modal fade" id="exampleModal${ q.qnaNo}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-								<form action="${ contextPath }/store/anser?qnaNo=${ q.qnaNo }&PR_CODE=${ s.PR_CODE }"  method="post" >
+								<form action="${ contextPath }/store/anser?qnaNo=${ q.qnaNo }&PR_CODE=${ s.PR_CODE }&k=1"  method="post" >
 								<input type="hidden"  name="qnaNo" vale="${ q.qnaNo }">
 								<div class="modal-dialog">
 								<div class="modal-content">
@@ -657,6 +656,7 @@
 								</div>
 								</form>
 							</div>
+							
 	 
 		</section>
 			 

@@ -3,7 +3,7 @@
 PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="clMapper">
-	<resultMap type="CoffeeClass" id="clResultSet" >
+	<resultMap id="clResultSet" type="CoffeeClass" >
 		<id property="classNo" column="CLASS_NO"/>
 		<result property="busNo" column="BUS_NO"/>
 		<result property="cafeNo" column="C_CODE"/>
@@ -52,6 +52,15 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 		<result property="photo1" column="PHOTO1"/>
 		<result property="photo2" column="PHOTO2"/>
 		<result property="photo3" column="PHOTO3"/>
+	</resultMap>
+	<resultMap id="qnaResultSet" type="ClassQnA">
+		<result property="qnaNo" column="CL_QNA_NO"/>
+		<result property="classNo" column="CLASS_NO"/>
+		<result property="question" column="CL_QUESTION"/>
+		<result property="userId" column="USER_ID"/>
+		<result property="askDate" column="CL_ASKDATE"/>
+		<result property="answer" column="CL_ANSWER"/>
+		<result property="answerDate" column="CL_ANS_DATE"/>
 	</resultMap>
 	<!-- 조회수증가-->
 	<select id="selectListCount" resultType="_int">
@@ -272,8 +281,33 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 	    		  , #{rpDeets}
 	    		  , DEFAULT
 	    		  , DEFAULT 	
-	    		  , 'user01'
+	    		  , #{reporter}
 	    		  , #{classNo}
+	    )
+	  </insert>
+	  <insert id = "reportClComment" parameterType="CoffeeClass">
+		INSERT
+	      INTO    REPORT
+	     (
+				    REPORT_NO
+				  , REPORT_TYPE
+				  , REPORT_REASON
+				  , ISWARNED
+				  , ISCHECKED
+				  , REPORTER_ID
+				  , ITEM_CODE
+				  <!-- ,REPORTEE_ID -->
+	   	 )
+	    VALUES
+	    (
+	    		    'CLRP' || CL_REPORT_SEQ.NEXTVAL
+	    		  , #{rpReason}
+	    		  , #{rpDeets}
+	    		  , DEFAULT
+	    		  , DEFAULT 	
+	    		  , #{reporter}
+	    		  , #{classNo}
+	    		  <!-- #{reportee} -->
 	    )
 	  </insert>
 <!--  	  <insert id="registerMember" parameterType="ClassRegister">
@@ -339,51 +373,22 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 	  </select>
 	  <!-- 메인페이지 필터검색 -->
 	  <select id="filterClass" parameterType="ClassSearch" resultMap="clResultSet">
-	     SELECT
-	     		  CLASS_NO
-				, CL_NAME
-				, CL_DES
-				, TR_NAME
-				, TR_INTRO
-				, CL_CURI
-				, CL_LOCA
-				, CL_SHORTDES
+	     SELECT	
+				*
 		  FROM  COFFEECLASS
-		<where>				
-			<choose>
-				<when test="searchCondition1 == coffee">
-					<choose>
-						<when test="searchCondition2 == Capital">AND CL_LOCA LIKE #{sv}</when>
-						<when test="searchCondition2 == GW"></when>
-						<when test="searchCondition2 == BS"></when>
-						<when test="searchCondition2 == JJ"></when>
-						<otherwise></otherwise>
-					</choose>
-				</when>
-				<when test="searchCondition1 == art">
-				</when>
-				<when test="searchCondition1 == dessert">
-				</when>
-				<when test="searchCondition1 == certi">
-				</when>
-				<when test="searchCondition1 == etc">
-				</when>
-			</choose>
-			<choose>
-				<when test="searchCondition2 == category"></when>
-				<when test="searchCondition2 == classLoca"></when>
-			</choose>
-				   CL_NAME LIKE #{sv}
-				OR CL_DES LIKE #{sv}
-				OR TR_NAME LIKE #{sv}
-				OR TR_INTRO LIKE #{sv}
-				OR CL_CURI LIKE #{sv}
-				OR CL_LOCA LIKE #{sv}
-				OR CL_SHORTDES LIKE #{sv}					
-		</where>
-	  ORDER BY CLASS_NO  
-	  
-	  
+		 WHERE
+		 		1=1
+		 		<if test="searchCategory != null">
+		 			<if test="searchCategory != 'all'">
+		 			AND cl_category = #{searchCategory}
+		 			</if>
+		 		</if>
+		 		<if test="searchLocation != null">
+		 			<if test="searchLocation != 'all'">
+		 			  AND CL_LOCA LIKE '%' || #{searchLocation} || '%'
+		 			</if>
+		 		</if>
+	   ORDER BY DESC
 	  </select>
 	
 	 <select id="selectCafeInfoById" parameterType="string" resultMap="cafeResultSet">
@@ -409,4 +414,25 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 		 WHERE
 		       ID = #{id}
 	 </select>
+	 <!-- QNA 출력 -->
+	 <!-- 질문입력 -->
+	 <insert id="askClass" parameterType="ClassQnA">
+	 	INSERT 
+	 			INTO  CL_QNA
+	 			(	  CL_QNA_NO
+	 			    , CLASS_NO
+	 			    , USER_ID
+	 			    , CL_QUESTION
+	 			    , CL_ASKDATE    
+	 			 )
+	 			VALUES
+	 			(     'ASKCL'||ASKCL.NEXTVAL	
+	 			    , #{classNo}
+	 			    , #{userId}	
+	 			    , #{question}
+	 			    , SYSDATE
+	 			)
+	 </insert>
+	 <!-- 답변입력 -->
+	 
 </mapper>

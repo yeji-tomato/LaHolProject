@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="bus_create.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
     <!-- 스토어q css -->
-	<link rel="stylesheet" href="${ contextPath }/resources/css/store/subscribe/subscribe.css?3d">	
+	<link rel="stylesheet" href="${ contextPath }/resources/css/store/subscribe/subscribe.css?3sd">	
     <!-- 폰트 모음 CSS-->
     <link rel="stylesheet" href="../common/fonts/fonts.css" />
  	  <!-- jQuery -->
@@ -24,20 +24,20 @@
 	<!-- carousel -->
 	 
     
-	 <div id="aa">
+	 <div id="aa" style="   height: 2000px; ">
 
 	 <div class="banner" style="   height: 200px; ">
-        <h1 style="padding-top: 18vh;"> 정기구독을 통하여 할인 및 주기적으로 자동 배송 받으세요!</h1>
+        <h1 style="padding-top: 18vh; color: #4B654A;"> 라홀 정기구독  <i class="fa fa-rocket" aria-hidden="true"></i></h1>
     </div>
-    
+   
     <div>
         
         <!--입력란-->
-        <div id="tbColor3"> 
+        <div id="tbColor3" style="  padding-bottom: 0px;  padding-top: 0px; "> 
         <div id="createform">
             <div class= "content-header">
                 <h2 class = "intro">
-                    라홀 정기 구독
+                   정기 구독 상품
                 </h2>
               
                 </div>
@@ -47,25 +47,26 @@
                     <div class="if">
                         <div class="np"> 
                             <div id="a">이미지</div>
-                            <div id="a" style="  margin-left: 30%;">상품명</div> 
-                            <div style="margin-left: 70%;" >가격</div> 
+                            <div id="a" style="  margin-left: 30%;">제품소개</div> 
+                             <div id="a" style="  margin-left: 420px; ">가격</div> 
+                           
                         </div> 
-                        <hr>
+                        
 
                         <div class="pi" > 
                             <img  src="${ contextPath }/resources/img/store/${ s.STORE_PHOTO1 }" width="250px" height="280px "   >  
                         </div> 
-                        <div class="prname">
-                            <a>${s.PR_NAME }</a>
+                        <div class="prname" style="color:gray;">
+                            <a>제품명:${s.PR_NAME }</a><br><a style="font-size:19px;">카테고리:${s.ST_CATAGORY }</a><br><a style="font-size:16px;">원산지/제조:${s.ORIGIN }</a>
                         </div> 
 
-                        <div class="prp" style=" margin-left: 380px; ">
+                        <div class="prp" style=" margin-left: 330px; ">
                             <a> <fmt:formatNumber value="${s.PR_PRICE}" pattern="#,###"/>원  </a> 
                         </div>
                      
 
                     </div>
-                    <hr>
+                    <div id="dihr">
                     <!--구독 할인 정보 -->
                     <form   id="terms_form" action="${ contextPath }/store/subscribe"  method="post"  >    
 					 <input type="hidden" name ="PR_CODE" value="${ s.PR_CODE }">
@@ -76,7 +77,7 @@
                         <div class="np2"> 
                           
                             <div id="a">구독 일수</div>
-                            <div id="a" style="  margin-left: 30%;">할인률</div> 
+                            <div id="a" style="  margin-left: 30%;">할인률</div>  
                             <div style="margin-left: 70%;">할인금액</div>  
                         </div> 
 
@@ -121,7 +122,7 @@
                     <!-- 결제 정보 확인-->
 					
                             <div class="ss">
-                    <h5  style="color:red;">최대 9개월 할인했을경우!</h5>
+                    <h5  style="color:gray;">최대 9개월 할인했을경우!</h5>
                         <div class="hh">
                             <div> 총금액 :  ${(s.PR_PRICE*9)*1 }   원 </div>
                             <div style="margin-left: 20%;"> 할인금액:    <fmt:formatNumber value="   ${(s.PR_PRICE*9)*0.15*1 } " pattern="#,###"/>원 </div>
@@ -140,7 +141,7 @@
                     <div class="deinf">
                         <h4>    신규주소지<input name="chkbox" type="checkbox"  value="주문자  회원정보와 동일한 주소를 사용합니다"  checked="checked" onClick="checkDisable(this.form)"  > </h4>
                           
-                        <div class="di1" style="float: left;"> 
+                        <div class="di1" name="di1" style="float: left;"> 
                             <table > 
 		                      	<h6 style="width: 400px; "><a style="color: red;"> <div id='result' ></div> </a> </h6>  
                                 <tr >
@@ -215,7 +216,7 @@
  	 
  					
  					  </form>
- 					  <div style="margin-top: 170px;">
+ 					  <div style="margin-top: 100px;">
                             <button id="btnArea1"  onclick="onSubmit();"  >구독</button>
                             <button type="button" id="btnArea2"
                                 onclick="javascript:history.back();">취소</button>  

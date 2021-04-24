@@ -40,6 +40,7 @@ body {
     height: 100vh;
     padding: 0;
     margin: 0;
+    overflow: hidden;
 }
 
 /*전체 컨테이너*/
@@ -221,7 +222,6 @@ body {
 }
 
 #img {
-    border: 1px solid pink;
     height: 37vh;
     width: 16vw;
     border-radius: 5%;
@@ -259,11 +259,12 @@ body {
     padding-bottom: 5%;
     /* display: none;*/  /*when viewing confirmed one */
 }
-
+#i
 .swal2-confirm,
 .swal2-cancel,
 .swal2-html-container,
-.swal2-title {
+.swal2-title,
+.swal2-validation-message {
 	font-family: 'NEXON Lv1 Gothic OTF';
 }
 

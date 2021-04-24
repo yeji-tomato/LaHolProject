@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -19,11 +20,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.kh.lahol.member.model.vo.Member;
 import com.kh.lahol.mypage.common.PageInfo;
 import com.kh.lahol.mypage.common.Pagination;
@@ -32,6 +36,7 @@ import com.kh.lahol.mypage.partner.model.vo.Ad;
 import com.kh.lahol.mypage.partner.model.vo.CoffeeClass;
 import com.kh.lahol.mypage.partner.model.vo.Payment;
 import com.kh.lahol.mypage.partner.model.vo.Search;
+import com.kh.lahol.mypage.partner.model.vo.Shipping;
 import com.kh.lahol.mypage.partner.model.vo.StoreStats;
 
 @Controller
@@ -120,13 +125,11 @@ public class pMypageController {
 		search.setId(id);
 		if(search.getSearch().equals("selection")) {
 			search.setSearch(null);
-			System.out.println(search);
 		} else if(search.getSearch().equals("")) {
 			rd.addFlashAttribute("msg", "검색 기간을 선택해주세요.");
 			return "redirect:/pMypage/storeView";
 		}
 		int searchPayStoreCount = pService.searchPayStoreCount(search);
-		System.out.println(searchPayStoreCount);
 		PageInfo pi = Pagination.getPageInfo(currentPage, searchPayStoreCount);
 		if(searchPayStoreCount > 0) {
 			List<StoreStats> list = pService.searchPayStoreList(search, pi);
@@ -153,10 +156,7 @@ public class pMypageController {
 			
 			// 카테고리 포함 판매 금액
 			int sumPriceCategory = pService.searchSumPayStore(search, search.getSearchCondition());
-			System.out.println(search.getSearchCondition());
 			map.put("sumPriceCategory", sumPriceCategory);
-			System.out.println(search);
-			System.out.println(map);
 			map.put("count", searchPayStoreCount);
 			model.addAttribute("map", map);
 			model.addAttribute("list", list);
@@ -172,7 +172,22 @@ public class pMypageController {
 	
 	
 	@GetMapping("/orderView")
-	public String orderView() {
+	public String orderView(@RequestParam(value="page", required=false, defaultValue="1") int currentPage,
+			                Model model,
+			                HttpServletRequest request) {
+		String id = ((Member)request.getSession().getAttribute("loginUser")).getId();
+		
+		int orderListCount = pService.orderListCount(id);
+		
+		if(orderListCount > 0) {
+			PageInfo pi = Pagination.getPageInfo(currentPage, orderListCount);
+			List<Shipping> list = pService.selectOrderList(id, pi);
+			model.addAttribute("list", list);
+			model.addAttribute("pi", pi);
+		} else {
+			model.addAttribute("order", "주문 내역이 없습니다.");
+		}
+		
 		return "mypage/partner/orderList";
 	}
 	
@@ -434,5 +449,33 @@ public class pMypageController {
 		}
 		
 		return "mypage/partner/classMemberList";
+	}
+	
+	@PostMapping(value="/updateShipping", produces="application/json; charset=utf-8")
+	public @ResponseBody String updateShipping(String code, String val, HttpServletResponse response, HttpServletRequest request) {
+		Shipping ship = new Shipping();
+		String id = ((Member)request.getSession().getAttribute("loginUser")).getId();
+
+		String status = "";
+		if(val.equals("ready")) {
+			status = "상품준비중";
+		} else if(val.equals("transfer")) {
+			status = "상품인계";
+		} else if(val.equals("ship")) {
+			status = "상품배송중";
+		} else {
+			status = "배송완료";
+		}
+		
+		int result = pService.updateShipping(code, status);
+		if(result > 0) {
+			ship.setShipping_code(code);
+			ship.setId(id);
+			Shipping updateShip = pService.selectShip(ship);
+			Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+			return gson.toJson(updateShip);
+		} else {
+			return null;
+		}
 	}
 }

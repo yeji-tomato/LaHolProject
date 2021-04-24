@@ -216,159 +216,44 @@
 				<div id="contents-container">
 					<div class="table-container">
 						<div class="table-title" id="waiting-text">처리 대기</div>
-						<zing-grid
+						<zing-grid id="waiting-list"
 							sort
 							pager
 							page-size="3"
 							page-size-options="3"
 							viewport-stop
-							data='[
-                            {
-                                "cafe" : "스타벅스",
-                                "ceo" : "디지니",
-                                "phone" : "010-2345-1234",
-                                "service" : "클래스",
-                                "accu" : "3건",
-                                "reporter" : "console1",
-                                "reportDate" : "2021.10.11"
-                            },
-                            {
-                                "cafe" : "커피빈",
-                                "ceo" : "다오",
-                                "phone" : "010-8888-9999",
-                                "service" : "스토어",
-                                "accu" : "2건",
-                                "reporter" : "angrybird",
-                                "reportDate" : "2021.09.22"
-                            },
-                            {
-                                "cafe" : "빽다방",
-                                "ceo" : "백종원",
-                                "phone" : "010-9933-9933",
-                                "service" : "카페",
-                                "accu" : "2건",
-                                "reporter" : "soyujin",
-                                "reportDate" : "2020.09.04"
-                            },
-                            {
-                                "cafe" : "요거프레소",
-                                "ceo" : "옥택연",
-                                "phone" : "010-2222-1234",
-                                "service" : "카페",
-                                "accu" : "2건",
-                                "reporter" : "scenerey",
-                                "reportDate" : "2021.04.22"
-                            },
-                            {
-                                "cafe" : "동작노을카페",
-                                "ceo" : "누군가",
-                                "phone" : "010-1414-2424",
-                                "service" : "클래스",
-                                "accu" : "0",
-                                "reporter" : "korean",
-                                "reportDate" : "2021.03.22"
-                            },
-                            {
-                                "cafe" : "이디야",
-                                "ceo" : "이성계",
-                                "phone" : "010-1314-3241",
-                                "service" : "스토어",
-                                "accu" : "1",
-                                "reporter" : "choiyoung",
-                                "reportDate" : "2021.03.18"
-                            }
-                            ]'
+							data=''
 						>
+
 							<zg-colgroup>
-								<zg-column index="cafe" header="카페"></zg-column>
+								<zg-column index="prCode" header="상품코드"></zg-column>
+								<zg-column index="reportee" header="피신고자ID"></zg-column>
 								<zg-column index="ceo" header="대표자"></zg-column>
 								<zg-column index="phone" header="연락처"></zg-column>
 								<zg-column index="service" header="서비스"></zg-column>
 								<zg-column index="accu" header="누적신고"></zg-column>
 								<zg-column index="reporter" header="신고자ID"></zg-column>
-								<zg-column index="reportDate" header="신고일자"></zg-column>
 							</zg-colgroup>
 						</zing-grid>
 					</div>
 					<div class="table-container">
 						<div class="table-title" id="complete-text">처리 완료</div>
-						<zing-grid
+						<zing-grid id="completed-list"
 							sort
 							pager
 							page-size="3"
 							page-size-options="3"
 							viewport-stop
-							data='[
-                        {
-                            "cafe" : "스타벅스",
-                            "ceo" : "디지니",
-                            "phone" : "010-2345-1234",
-                            "service" : "클래스",
-                            "accu" : "3건",
-                            "reporter" : "console1",
-                            "reportDate" : "2021.10.11",
-                            "status" : "${ contextPath }/resources/img/admin/icon/denied.svg"
-                        },
-                        {
-                            "cafe" : "커피빈",
-                            "ceo" : "다오",
-                            "phone" : "010-8888-9999",
-                            "service" : "스토어",
-                            "accu" : "2건",
-                            "reporter" : "angrybird",
-                            "reportDate" : "2021.09.22",
-                            "status" : "${ contextPath }/resources/img/admin/icon/denied.svg"
-                        },
-                        {
-                            "cafe" : "빽다방",
-                            "ceo" : "백종원",
-                            "phone" : "010-9933-9933",
-                            "service" : "카페",
-                            "accu" : "2건",
-                            "reporter" : "soyujin",
-                            "reportDate" : "2020.09.04",
-                            "status" : "${ contextPath }/resources/img/admin/icon/accept.svg"
-                        },
-                        {
-                            "cafe" : "요거프레소",
-                            "ceo" : "옥택연",
-                            "phone" : "010-2222-1234",
-                            "service" : "카페",
-                            "accu" : "2건",
-                            "reporter" : "scenerey",
-                            "reportDate" : "2021.04.22",
-                            "status" : "${ contextPath }/resources/img/admin/icon/accept.svg"
-                        },
-                        {
-                            "cafe" : "동작노을카페",
-                            "ceo" : "누군가",
-                            "phone" : "010-1414-2424",
-                            "service" : "클래스",
-                            "accu" : "0",
-                            "reporter" : "korean",
-                            "reportDate" : "2021.03.22",
-                            "status" : "${ contextPath }/resources/img/admin/icon/accept.svg"
-                        },
-                        {
-                            "cafe" : "이디야",
-                            "ceo" : "이성계",
-                            "phone" : "010-1314-3241",
-                            "service" : "스토어",
-                            "accu" : "1",
-                            "reporter" : "choiyoung",
-                            "reportDate" : "2021.03.18",
-                            "status" : "${ contextPath }/resources/img/admin/icon/denied.svg"
-                        }
-                        ]'
+							data=''
 						>
 							<zg-colgroup>
-								<zg-column index="cafe" header="카페"></zg-column>
+								<zg-column index="prCode" header="상품코드"></zg-column>
+								<zg-column index="reportee" header="피신고자ID"></zg-column>
 								<zg-column index="ceo" header="대표자"></zg-column>
 								<zg-column index="phone" header="연락처"></zg-column>
 								<zg-column index="service" header="서비스"></zg-column>
 								<zg-column index="accu" header="누적신고"></zg-column>
 								<zg-column index="reporter" header="신고자ID"></zg-column>
-								<zg-column index="reportDate" header="신고일자"></zg-column>
 								<zg-column
 									index="status"
 									header="상태"
@@ -383,7 +268,6 @@
 			</section>
 		</div>
 		<script>
-		// 예지 메인 카테고리 색상 변경
 		$(function() {
 		    // 서브카테고리 기본 숨김처리
 		    $('.sub-category').hide();
@@ -409,6 +293,45 @@
 		        $(this).addClass("active");
 		    });
 		});
+		
+		/* 신고처리 대기리스트 조회 */
+		$(function(){
+			const waitingList = $('#waiting-list');
+			$.ajax({
+				url: "${ pageContext.request.contextPath }/admin/report/partnerList/waiting",
+				dataType: "json",
+				type: "get",
+				success: function(data){
+					waitingList.attr('data', JSON.stringify(data)).trigger("create");
+					console.log("대기리스트 : " + data);
+					console.log("대기리스트 조회 성공이당");
+				},
+				error: function(e){
+					console.log(e);
+				}
+			});		
+		});
+		
+		/* 신고처리 완료리스트 조회 */
+		$(function(){
+			const completedList = $('#completed-list');
+			$.ajax({
+				url: "${ pageContext.request.contextPath }/admin/report/partnerList/completed",
+				dataType: "json",
+				type: "get",
+				success: function(data){
+					completedList.attr('data', JSON.stringify(data)).trigger("create");
+					console.log("완료리스트 : " + data);
+					console.log("완료리스트 조회 성공이당");
+				},
+				error: function(e){
+					console.log(e);
+				}
+			});		
+		});
+		
+		
+		
 
 		</script>
 		<script src="${ contextPath }/resources/js/admin/darkMode.js"></script>

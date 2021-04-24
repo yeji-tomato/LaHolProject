@@ -14,11 +14,15 @@ public class Payment {
 	private String purchase_number;
 	private String subscribe_code;
 	private String cl_pay_no;
+	private String pay_dc;
+	private String pay_total;
+	private String cl_time;
 	
 	public Payment() {}
 
 	public Payment(String pay_no, String pay_item, String pay_price, String subscribe, Date pay_date, String id,
-			String cafe_res, String ad_code, String purchase_number, String subscribe_code, String cl_pay_no) {
+			String cafe_res, String ad_code, String purchase_number, String subscribe_code, String cl_pay_no,
+			String pay_dc, String pay_total, String cl_time) {
 		super();
 		this.pay_no = pay_no;
 		this.pay_item = pay_item;
@@ -31,6 +35,9 @@ public class Payment {
 		this.purchase_number = purchase_number;
 		this.subscribe_code = subscribe_code;
 		this.cl_pay_no = cl_pay_no;
+		this.pay_dc = pay_dc;
+		this.pay_total = pay_total;
+		this.cl_time = cl_time;
 	}
 
 	public String getPay_no() {
@@ -121,12 +128,37 @@ public class Payment {
 		this.cl_pay_no = cl_pay_no;
 	}
 
+	public String getPay_dc() {
+		return pay_dc;
+	}
+
+	public void setPay_dc(String pay_dc) {
+		this.pay_dc = pay_dc;
+	}
+
+	public String getPay_total() {
+		return pay_total;
+	}
+
+	public void setPay_total(String pay_total) {
+		this.pay_total = pay_total;
+	}
+
+	public String getCl_time() {
+		return cl_time;
+	}
+
+	public void setCl_time(String cl_time) {
+		this.cl_time = cl_time;
+	}
+
 	@Override
 	public String toString() {
 		return "Payment [pay_no=" + pay_no + ", pay_item=" + pay_item + ", pay_price=" + pay_price + ", subscribe="
 				+ subscribe + ", pay_date=" + pay_date + ", id=" + id + ", cafe_res=" + cafe_res + ", ad_code="
 				+ ad_code + ", purchase_number=" + purchase_number + ", subscribe_code=" + subscribe_code
-				+ ", cl_pay_no=" + cl_pay_no + "]";
+				+ ", cl_pay_no=" + cl_pay_no + ", pay_dc=" + pay_dc + ", pay_total=" + pay_total + ", cl_time="
+				+ cl_time + "]";
 	}
-	
+
 }

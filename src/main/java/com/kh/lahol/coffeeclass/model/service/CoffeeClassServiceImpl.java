@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.lahol.cafe.bus.model.vo.Cafe;
 import com.kh.lahol.coffeeclass.model.dao.CoffeeClassDao;
+import com.kh.lahol.coffeeclass.model.vo.ClassQnA;
 import com.kh.lahol.coffeeclass.model.vo.ClassRegister;
 import com.kh.lahol.coffeeclass.model.vo.ClassSearch;
 import com.kh.lahol.coffeeclass.model.vo.CoffeeClass;
@@ -94,6 +95,12 @@ public class CoffeeClassServiceImpl implements CoffeeClassSerivce{
 	@Override
 	public Cafe selectCafeInfoById(String id) {
 		return clDao.selectCafeInfoById(id);
+	}
+
+	// 클래스 Qna질문
+	@Override
+	public int askClass(ClassQnA qna) {
+		return clDao.askClass(qna);
 	}
 
 

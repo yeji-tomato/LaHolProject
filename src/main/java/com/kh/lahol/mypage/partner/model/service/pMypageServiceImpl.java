@@ -13,6 +13,7 @@ import com.kh.lahol.mypage.partner.model.vo.Ad;
 import com.kh.lahol.mypage.partner.model.vo.CoffeeClass;
 import com.kh.lahol.mypage.partner.model.vo.Payment;
 import com.kh.lahol.mypage.partner.model.vo.Search;
+import com.kh.lahol.mypage.partner.model.vo.Shipping;
 import com.kh.lahol.mypage.partner.model.vo.StoreStats;
 
 @Service
@@ -134,6 +135,29 @@ public class pMypageServiceImpl implements pMypageService{
 		list.add(search);
 		list.add(category);
 		return pDao.searchSumPayStore(list);
+	}
+
+	@Override
+	public int orderListCount(String id) {
+		return pDao.orderListCount(id);
+	}
+
+	@Override
+	public List<Shipping> selectOrderList(String id, PageInfo pi) {
+		return pDao.selectOrderList(id, pi);
+	}
+
+	@Override
+	public int updateShipping(String shipping_code, String status) {
+		List<String> list = new ArrayList<>();
+		list.add(shipping_code);
+		list.add(status);
+		return pDao.updateShipping(list);
+	}
+
+	@Override
+	public Shipping selectShip(Shipping ship) {
+		return pDao.selectShip(ship);
 	}
 
 }

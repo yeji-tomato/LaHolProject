@@ -3,6 +3,7 @@ package com.kh.lahol.coffeeclass.model.service;
 import java.util.List;
 
 import com.kh.lahol.cafe.bus.model.vo.Cafe;
+import com.kh.lahol.coffeeclass.model.vo.ClassQnA;
 import com.kh.lahol.coffeeclass.model.vo.ClassRegister;
 import com.kh.lahol.coffeeclass.model.vo.ClassSearch;
 import com.kh.lahol.coffeeclass.model.vo.CoffeeClass;
@@ -18,6 +19,7 @@ public interface CoffeeClassSerivce {
 	
 	// 3. 클래스 개설하기
 	public int insertClass(CoffeeClass cl);
+	public Cafe selectCafeInfoById(String id);	// 현재 로그인한 사람 정보 세션을 통해 불러오기
 	
 	// 4. 클래스 상세정보 보기
 	public CoffeeClass selectCoffeeClass(String classNo);
@@ -46,7 +48,9 @@ public interface CoffeeClassSerivce {
 	// 12. 필터
 	public List<ClassSearch> filterList(ClassSearch search);
 
-	public Cafe selectCafeInfoById(String id);
+	// 13. QnA 질문
+	public int askClass(ClassQnA qna);
+
 
 
 

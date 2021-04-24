@@ -123,6 +123,99 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 		<result property="id" column="ID"/>
 		<result property="pr_count" column="PR_COUNT"/>
 	</resultMap>
+	<resultMap id="shippingResultSet" type="M_Shipping">
+		<id property="shipping_code" column="SHIPPING_CODE"/>
+		<result property="pay_no" column="PAY_NO"/>
+		<result property="pay_item" column="PAY_ITEM"/>
+		<result property="shipping_status" column="SHIPPING_STATUS"/>
+		<result property="shipping_date" column="SHIPPING_DATE"/>
+		<result property="delivery" column="DELIVERY"/>
+		<result property="subs_month" column="SUBS_MONTH"/>
+		<result property="sub" column="SUB"/>
+		<result property="count" column="COUNT"/>
+		<result property="buyer_id" column="BUYER_ID"/>
+		<result property="addr" column="ADDR"/>
+		<result property="id" column="ID"/>
+	</resultMap>
+	<resultMap id="payListResultSet" type="PayList">
+		<id property="pay_no" column="PAY_NO"/>
+		<result property="pay_item" column="PAY_ITEM"/>
+		<result property="buyer_id" column="BUYER_ID"/>
+		<result property="cafe_res" column="CAFE_RES"/>
+		<result property="purchase_number" column="PURCHASE_NUMBER"/>
+		<result property="subscribe_code" column="SUBSCRIBE_CODE"/>
+		<result property="class_no" column="CLASS_NO"/>
+		<result property="cl_pay_no" column="CL_PAY_NO"/>
+		<result property="pay_date" column="PAY_DATE"/>
+		<result property="pay_price" column="PAY_PRICE"/>
+		<result property="pay_dc" column="PAY_DC"/>
+		<result property="pay_total" column="PAY_TOTAL"/>
+		<result property="id" column="ID"/>
+		<result property="pr_count" column="PR_COUNT"/>
+		<result property="shipping_status" column="SHIPPING_STATUS"/>
+		<result property="shipping_date" column="SHIPPING_DATE"/>
+		<result property="cl_status" column="CL_STATUS"/>
+		<result property="c_res_ing" column="C_RES_ING"/>
+		<result property="cl_name" column="CL_NAME"/>
+		<result property="cl_time" column="CL_TIME"/>
+		<result property="cl_date" column="CL_DATE"/>
+		<result property="c_la" column="C_LA"/>
+		<result property="c_lo" column="C_LO"/>
+		<result property="c_address" column="C_ADDRESS"/>
+	</resultMap>
+	<resultMap id="classDetailResultSet" type="ClassDetail">
+		<id property="pay_no" column="PAY_NO"/>
+		<result property="c_code" column="C_CODE"/>
+		<result property="class_no" column="CLASS_NO"/>
+		<result property="cl_name" column="CL_NAME"/>
+		<result property="pay_date" column="PAY_DATE"/>
+		<result property="tr_name" column="TR_NAME"/>
+		<result property="cl_max" column="CL_MAX"/>
+		<result property="cl_date" column="CL_DATE"/>
+		<result property="cl_time" column="CL_TIME"/>
+		<result property="c_name" column="C_NAME"/>
+		<result property="c_address" column="C_ADDRESS"/>
+		<result property="c_lo" column="C_LO"/>
+		<result property="c_la" column="C_LA"/>
+	</resultMap>
+	<resultMap id="storeDetailResultSet" type="StoreDetail">
+		<id property="pay_no" column="PAY_NO"/>
+		<result property="pay_item" column="PAY_ITEM"/>
+		<result property="pay_date" column="PAY_DATE"/>
+		<result property="pr_count" column="PR_COUNT"/>
+		<result property="pay_total" column="PAY_TOTAL"/>
+		<result property="addr" column="ADDR"/>
+		<result property="delivery" column="DELIVERY"/>
+		<result property="subs_month" column="SUBS_MONTH"/>
+		<result property="sub" column="SUB"/>
+		<result property="shipping_date" column="SHIPPING_DATE"/>
+		<result property="shipping_status" column="SHIPPING_STATUS"/>
+	</resultMap>
+	<resultMap id="cafeDetailResultSet" type="CafeDetail">
+		<id property="pay_no" column="PAY_NO"/>
+		<result property="c_res" column="C_RES"/>
+		<result property="cf_no" column="CF_NO"/>
+		<result property="c_code" column="C_CODE"/>
+		<result property="pay_date" column="PAY_DATE"/>
+		<result property="pay_total" column="PAY_TOTAL"/>
+		<result property="c_res_type" column="C_RES_TYPE"/>
+		<result property="c_res_date" column="C_RES_DATE"/>
+		<result property="c_heretime" column="C_HERETIME"/>
+		<result property="c_gotime" column="C_GOTIME"/>
+		<result property="c_res_per" column="C_RES_PER"/>
+		<result property="c_res_ing" column="C_RES_ING"/>
+		<result property="c_name" column="C_NAME"/>
+		<result property="c_address" column="C_ADDRESS"/>
+		<result property="c_la" column="C_LA"/>
+		<result property="c_lo" column="C_LO"/>
+		<result property="buyer_id" column="BUYER_ID"/>
+		<result property="cf_res_hi" column="CF_RES_HI"/>
+		<result property="cf_res_cap" column="CF_RES_CAP"/>
+		<result property="cf_res_cup" column="CF_RES_CUP"/>
+		<result property="cf_amount" column="CF_AMOUNT"/>
+		<result property="cf_category" column="CF_CATEGORY"/>
+		<result property="cf_name" column="CF_NAME"/>
+	</resultMap>
 	<update id="updateMember" parameterType="Member">
 		UPDATE
 		       MEMBER
@@ -576,5 +669,272 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 		   		AND PAY_DATE <![CDATA[<=]]> TO_DATE(#{list[0].period_end}, 'YYYY-MM-DD')
 		   		</otherwise>
 		   </choose>
+	</select>
+	<select id="orderListCount" parameterType="string" resultType="_int">
+		SELECT
+		       COUNT(*)
+		  FROM
+		       SH_STORE_VIEW
+		 WHERE
+		       ID = #{id}
+	</select>
+	<select id="selectOrderList" parameterType="string" resultMap="shippingResultSet">
+		SELECT
+		       SHIPPING_CODE
+		     , PAY_NO
+		     , PAY_ITEM
+		     , SHIPPING_STATUS
+		     , SHIPPING_DATE
+		     , DELIVERY
+		     , SUBS_MONTH
+		     , SUB
+		     , COUNT
+		     , BUYER_ID
+		     , ADDR
+		     , ID
+		  FROM
+		       SH_STORE_VIEW
+		 WHERE
+		       ID = #{id}
+	  ORDER BY TO_NUMBER(SHIPPING_CODE) DESC
+	</select>
+	<update id="updateShipping" parameterType="java.util.List">
+		UPDATE
+		       SH_STATUS
+		   SET
+		       SHIPPING_STATUS = #{list[1]}
+		     , SHIPPING_DATE = SYSDATE
+		 WHERE
+		       SHIPPING_CODE = #{list[0]}
+	</update>
+	<select id="selectShip" parameterType="M_Shipping" resultMap="shippingResultSet">
+		SELECT
+		       SHIPPING_CODE
+		     , PAY_NO
+		     , PAY_ITEM
+		     , SHIPPING_STATUS
+		     , SHIPPING_DATE
+		     , DELIVERY
+		     , SUBS_MONTH
+		     , SUB
+		     , COUNT
+		     , BUYER_ID
+		     , ADDR
+		     , ID
+		  FROM
+		       SH_STORE_VIEW
+		 WHERE
+		       ID = #{id}
+		   AND SHIPPING_CODE = #{shipping_code}
+	</select>
+	<select id="selectPayListCount" parameterType="string" resultType="_int">
+		SELECT
+		       COUNT(*)
+		  FROM
+		       M_PAY_LIST
+		 WHERE
+		       BUYER_ID = #{id}
+	</select>
+	<select id="selectPayList" parameterType="string" resultMap="payListResultSet">
+		SELECT
+		       PAY_NO
+		     , PAY_ITEM
+		     , BUYER_ID
+		     , CAFE_RES
+		     , PURCHASE_NUMBER
+		     , SUBSCRIBE_CODE
+		     , CLASS_NO
+		     , CL_PAY_NO
+		     , PAY_DATE
+		     , PAY_PRICE
+		     , PAY_DC
+		     , PAY_TOTAL
+		     , ID
+		     , PR_COUNT
+		     , SHIPPING_STATUS
+		     , SHIPPING_DATE
+		     , CL_STATUS
+		     , C_RES_ING
+		     , CL_NAME
+		     , CL_TIME
+		     , C_LA
+		     , C_LO
+		     , C_ADDRESS
+		  FROM
+		       M_PAY_LIST
+		 WHERE
+		       BUYER_ID = #{id}
+	  ORDER BY REGEXP_REPLACE(PAY_NO, '[0-9]'), TO_NUMBER(REGEXP_REPLACE(PAY_NO, '[^0-9]')) DESC
+	</select>
+	<select id="searchPaymentCount" parameterType="M_Search" resultType="_int">
+		SELECT
+		       COUNT(*)
+		  FROM
+		       M_PAY_LIST
+		 WHERE
+		       BUYER_ID = #{id}
+		   AND PAY_NO LIKE #{searchCondition} || '%'
+		   <choose>
+		   		<when test="search != null">
+		   		AND MONTHS_BETWEEN(SYSDATE, PAY_DATE) <![CDATA[<=]]> TO_NUMBER(#{search})
+		   		</when>
+		   		<otherwise>
+		   		AND PAY_DATE <![CDATA[>=]]> TO_DATE(#{period_start}, 'YYYY-MM-DD')
+		   		AND PAY_DATE <![CDATA[<=]]> TO_DATE(#{period_end}, 'YYYY-MM-DD')
+		   		</otherwise>
+		   </choose>
+	</select>
+	<select id="searchPaymentList" parameterType="M_Search" resultMap="payListResultSet">
+		SELECT
+		       PAY_NO
+		     , PAY_ITEM
+		     , BUYER_ID
+		     , CAFE_RES
+		     , PURCHASE_NUMBER
+		     , SUBSCRIBE_CODE
+		     , CLASS_NO
+		     , CL_PAY_NO
+		     , PAY_DATE
+		     , PAY_PRICE
+		     , PAY_DC
+		     , PAY_TOTAL
+		     , ID
+		     , PR_COUNT
+		     , SHIPPING_STATUS
+		     , SHIPPING_DATE
+		     , CL_STATUS
+		     , C_RES_ING
+		     , CL_NAME
+		     , CL_TIME
+		     , C_LA
+		     , C_LO
+		     , C_ADDRESS
+		  FROM
+		       M_PAY_LIST
+		 WHERE
+		       BUYER_ID = #{id}
+		   AND PAY_NO LIKE #{searchCondition} || '%'
+		   <choose>
+		   		<when test="search != null">
+		   		AND MONTHS_BETWEEN(SYSDATE, PAY_DATE) <![CDATA[<=]]> TO_NUMBER(#{search})
+		   		</when>
+		   		<otherwise>
+		   		AND PAY_DATE <![CDATA[>=]]> TO_DATE(#{period_start}, 'YYYY-MM-DD')
+		   		AND PAY_DATE <![CDATA[<=]]> TO_DATE(#{period_end}, 'YYYY-MM-DD')
+		   		</otherwise>
+		   </choose>
+	  ORDER BY REGEXP_REPLACE(PAY_NO, '[0-9]'), TO_NUMBER(REGEXP_REPLACE(PAY_NO, '[^0-9]')) DESC
+	</select>
+	<select id="selectPayment" parameterType="string" resultMap="payListResultSet">
+		SELECT
+		       PAY_NO
+		     , PAY_ITEM
+		     , BUYER_ID
+		     , CAFE_RES
+		     , PURCHASE_NUMBER
+		     , SUBSCRIBE_CODE
+		     , CLASS_NO
+		     , CL_PAY_NO
+		     , PAY_DATE
+		     , PAY_PRICE
+		     , PAY_DC
+		     , PAY_TOTAL
+		     , ID
+		     , PR_COUNT
+		     , SHIPPING_STATUS
+		     , SHIPPING_DATE
+		     , CL_STATUS
+		     , C_RES_ING
+		     , CL_NAME
+		     , CL_TIME
+		     , C_LA
+		     , C_LO
+		     , C_ADDRESS
+		  FROM
+		       M_PAY_LIST
+		 WHERE
+		       PAY_NO = #{pay_no}
+	</select>
+	<select id="selectClass" parameterType="string" resultMap="classDetailResultSet">
+		SELECT
+		       PAY_NO
+		     , C_CODE
+		     , CLASS_NO
+		     , CL_NAME
+		     , PAY_DATE
+		     , TR_NAME
+		     , CL_MAX
+		     , CL_DATE
+		     , PAYMENT.CL_TIME
+		     , C_NAME
+		     , C_ADDRESS
+		     , C_LA
+		     , C_LO
+		  FROM
+		       PAYMENT
+		  JOIN CL_ORDER USING(CL_PAY_NO)
+		  JOIN COFFEECLASS USING(CLASS_NO)
+		  JOIN CAFE USING(C_CODE)
+		 WHERE
+		       PAY_NO = #{pay_no}   
+	</select>
+	<select id="selectStore" parameterType="string" resultMap="storeDetailResultSet">
+		SELECT
+		       PAY_NO
+		     , PAY_ITEM
+		     , PAY_DATE
+		     , NVL(PR_COUNT, 0) AS PR_COUNT
+		     , PAY_TOTAL
+		     , ADDR
+		     , DELIVERY
+		     , NVL(SUBS_MONTH, 0) AS SUBS_MONTH
+		     , NVL(SUBSCRIBE, 'N') AS SUB
+		     , SHIPPING_DATE
+		     , SHIPPING_STATUS
+		  FROM
+		       PR_PAY PR
+		  JOIN PAYMENT PAY USING(PAY_NO)
+		  JOIN MEMBER ON(BUYER_ID = ID)
+     LEFT JOIN SUB S ON(PR.SUBSCRIBE_CODE = S.SUBSCRIBE_CODE)
+     LEFT JOIN PR_PAY_WHICH P ON(PR.PURCHASE_NUMBER = P.PURCHASE_NUMBER)
+          JOIN SH_STATUS USING(PAY_NO)
+     LEFT JOIN PRODUCT PD1 ON(S.PR_CODE = PD1.PR_CODE)
+     LEFT JOIN PRODUCT PD2 ON(P.PR_CODE = PD2.PR_CODE)
+         WHERE 
+               PAY_NO = #{pay_no}
+	</select>
+	<select id="selectCafe" parameterType="string" resultMap="cafeDetailResultSet">
+		SELECT
+		       PAY_NO
+		     , C_RES
+		     , CF_NO
+		     , C.C_CODE
+		     , PAY_DATE
+		     , PAY_TOTAL
+		     , C_RES_TYPE
+		     , C_RES_DATE
+		     , C_HERETIME
+		     , C_GOTIME
+		     , C_RES_PER
+		     , C_RES_ING
+		     , C_NAME
+		     , C_ADDRESS
+		     , C_LA
+		     , C_LO
+		     , BUYER_ID
+		     , CF_RES_HI
+		     , CF_RES_CAP
+		     , CF_RES_CUP
+		     , CF_AMOUNT
+		     , CF_CATEGORY
+		     , CF_NAME
+		  FROM
+		       PAYMENT PAY
+		  JOIN CARES CA ON(CAFE_RES = C_RES)
+		  JOIN CAFE C ON(CA.C_CODE = C.C_CODE)
+		  JOIN CORES USING(C_RES)
+		  JOIN COFFEE USING(CF_NO)
+		 WHERE
+		       PAY_NO = #{pay_no}
 	</select>
 </mapper>

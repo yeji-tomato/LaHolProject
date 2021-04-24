@@ -50,6 +50,8 @@ public class CoffeeClass{
 	// report정보
 	private String rpReason;
 	private String rpDeets;
+	private String reportee;
+	private String reporter;
 	
 	
 

@@ -3,6 +3,7 @@ package com.kh.lahol.coffeeclass.model.dao;
 import java.util.List;
 
 import com.kh.lahol.cafe.bus.model.vo.Cafe;
+import com.kh.lahol.coffeeclass.model.vo.ClassQnA;
 import com.kh.lahol.coffeeclass.model.vo.ClassRegister;
 import com.kh.lahol.coffeeclass.model.vo.ClassSearch;
 import com.kh.lahol.coffeeclass.model.vo.CoffeeClass;
@@ -46,7 +47,11 @@ public interface CoffeeClassDao {
 		// 12. 필터
 		public List<ClassSearch> selectClassFilter(ClassSearch search);
 
+		// 로그인 유저 세션 정보 불러오기
 		public Cafe selectCafeInfoById(String id);
+
+		// 13. 클래스 QnA질문
+		public int askClass(ClassQnA qna);
 
 		
 		

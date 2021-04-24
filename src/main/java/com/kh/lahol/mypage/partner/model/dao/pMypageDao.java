@@ -8,6 +8,7 @@ import com.kh.lahol.mypage.partner.model.vo.Ad;
 import com.kh.lahol.mypage.partner.model.vo.CoffeeClass;
 import com.kh.lahol.mypage.partner.model.vo.Payment;
 import com.kh.lahol.mypage.partner.model.vo.Search;
+import com.kh.lahol.mypage.partner.model.vo.Shipping;
 import com.kh.lahol.mypage.partner.model.vo.StoreStats;
 
 public interface pMypageDao {
@@ -51,5 +52,13 @@ public interface pMypageDao {
 	List<StoreStats> searchPayStoreList(Search search, PageInfo pi);
 
 	int searchSumPayStore(List<Object> list);
+
+	int orderListCount(String id);
+
+	List<Shipping> selectOrderList(String id, PageInfo pi);
+
+	int updateShipping(List<String> list);
+
+	Shipping selectShip(Shipping ship);
 
 }
