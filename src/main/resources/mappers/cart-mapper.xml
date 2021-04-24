@@ -124,7 +124,7 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 			AND ISUSED = 'Y'
 		</select>
 	
-		<!-- 결제 정보 insert -->
+		<!-- 카페 결제 정보 insert -->
 		<insert id="cafeCartPayment" parameterType="Cart_Payment">
 			INSERT
 			INTO PAYMENT
@@ -165,6 +165,46 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 			)
 		</insert>
 		
+		<!-- 장바구니 결제 정보 insert -->
+		<insert id="CartPayment" parameterType="Cart_Payment">
+			INSERT
+			INTO PAYMENT
+			(
+				PAY_NO,
+				PAY_ITEM,
+				PAY_PRICE,
+				SUBSCRIBE,
+				PAY_DATE,
+				BUYER_ID,
+				CAFE_RES,
+				AD_CODE,
+				PURCHASE_NUMBER,
+				SUBSCRIBE_CODE,
+				CL_PAY_NO,
+				PAY_DC,
+				PAY_TOTAL,
+				CL_TIME
+			)
+			VALUES
+			(
+				'CRTP'|| CRTP.NEXTVAL,
+				#{payItem},
+				#{payPrice},
+				NULL,
+				SYSDATE,
+				#{buyId},
+				#{cafeRes},
+				NULL,
+				NULL,
+				NULL,
+				NULL,
+				#{payDC},
+				#{payTotal},
+				NULL
+			)
+		</insert>
+		
+		
 		<update id="coponUse" parameterType="Cart_Coupon">
 		UPDATE
 			COUPON
@@ -173,4 +213,10 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 		WHERE COUPON_CODE = #{couponCode}
 		</update>
 	
+		<!-- 장바구니 결제 성공 시 장바구니 비우기 -->
+		<delete id="successCart" parameterType="Cart">
+		DELETE
+		FROM CART
+		WHERE ID = #{id}
+		</delete>
 </mapper>

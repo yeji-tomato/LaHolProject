@@ -42,6 +42,16 @@ public class CartDaoImpl implements CartDao{
 		return sqlSession.update("cartMapper.coponUse", cop);
 	}
 
+	@Override
+	public int CartPayment(Payment pay) {
+		return sqlSession.insert("cartMapper.CartPayment", pay);
+	}
+
+	@Override
+	public int successCart(String id) {
+		return sqlSession.delete("cartMapper.successCart", id);
+	}
+
 	
 
 }

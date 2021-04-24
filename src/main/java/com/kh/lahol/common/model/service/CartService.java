@@ -19,4 +19,8 @@ public interface CartService {
 
 	int couponUse(Coupon cop);
 
+	int CartPayment(Payment pay);
+
+	int successCart(String id);
+
 }

@@ -41,4 +41,15 @@ public class CartServiceImpl implements CartService{
 	public int couponUse(Coupon cop) {
 		return cartDao.couponUse(cop);
 	}
+
+	@Override
+	public int CartPayment(Payment pay) {
+		return cartDao.CartPayment(pay);
+	}
+
+	@Override
+	public int successCart(String id) {
+		// TODO Auto-generated method stub
+		return cartDao.successCart(id);
+	}
 }
