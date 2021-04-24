@@ -34,13 +34,17 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.kh.lahol.cafe.bus.model.vo.Cafe; 
+import com.kh.lahol.cafe.bus.model.vo.Cafe;
+import com.kh.lahol.cafe.user.model.vo.CoffeeCart;
+import com.kh.lahol.common.model.exception.CartException;
+import com.kh.lahol.common.model.vo.Cart;
 import com.kh.lahol.member.model.vo.M_Partner;
 import com.kh.lahol.member.model.vo.Member;
 //import com.kh.lahol.store.model.service.QService;
 import com.kh.lahol.store.model.service.StoreService;
 import com.kh.lahol.store.model.vo.PageInfo;
 import com.kh.lahol.store.model.vo.Payment;
+import com.kh.lahol.store.model.vo.Pr_pay_w;
 import com.kh.lahol.store.model.vo.Prpay;
 import com.kh.lahol.store.model.vo.Search;
 import com.kh.lahol.store.model.vo.Store;
@@ -650,10 +654,9 @@ public class StoreController {
 	}
 	
 	@GetMapping("/subW")
-	public String subscribewritepage(Model model, int PR_CODE   ) {
+	public String subscribewritepage(Model model, int PR_CODE  ) {
 		
 		
-		 
 		
 		System.out.println("정기구독 제품 정보 "+ PR_CODE);
 		
@@ -746,10 +749,9 @@ public class StoreController {
 		
 		 
 		  
-		 
-		 
 
-		 System.out.println("제품정보"+sb);
+
+		// System.out.println("제품정보"+sb);
 		 
 		 String a = sb.getSub_code();
 		 
@@ -771,8 +773,72 @@ public class StoreController {
 	
 	} 
 	
+	/*
+	 * @PostMapping("/storcart") public String asd(@ModelAttribute Cart,String p_num1 ) {
+	 * 
+	 * System.out.println("수량정보"+p_num1);
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * return null;
+	 * 
+	 * 
+	 * }
+	 * 
+	 */
 	
+	
+	 @GetMapping("/order")
+	public String storeOrder(Model model, int PR_CODE,int su, int pr ) {
+		// System.out.println(p_num1);
+		Store s  = sService.selectStore(PR_CODE, false); 
+		model.addAttribute("s", s); 
+		model.addAttribute("su", su); 
+		model.addAttribute("pr", pr); 
+		return "store/U/storeOder";
+	}
+	
+	
+	
+		@PostMapping("/storecart")
+		public String storeCartInsert(@ModelAttribute Pr_pay_w py,String price,
+				String p_num  ,String pr_code , HttpSession session) throws CartException {
+			
+			
+		
+
+			Member loginUser = (Member)session.getAttribute("loginUser"); 
+			String id = loginUser.getId();
+			
+			int pr =  Integer.parseInt(price);
+			int su = Integer.parseInt(p_num);
+		 
+			 
+			System.out.println("제품가격"+pr);
+			 
+			System.out.println("제품 갯수"+ su);
+			py.setPr_code(pr_code);
+			py.setPr_count(su);
+			
+			int result = sService.storepayInsert(py);
+			 
+		 
+		 
+			
+		 
+			
+			
+			 if(result > 0) {
+				 return "redirect:/store/order?PR_CODE="+pr_code+"&su="+su+"&pr="+pr;
+			 
+			 }else { throw new
+				 CartException("장바구니에 값 넣는 것을 실패하였습니다."); }
+		
+			
+		}
 	 
-	
-	
 }

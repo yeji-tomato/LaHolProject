@@ -77,6 +77,14 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 		<result property="puNum" column="PURCHASE_NUMBER"/> 
 	</resultMap>
 	
+	
+	
+	<resultMap id="PrWResultSet" type="Pr_pay_w">
+		<id property="p_number" column="PURCHASE_NUMBER"/>
+		<result property="pr_code" column="PR_CODE"/>
+		<result property="pr_count" column="PR_COUNT"/> 
+	</resultMap>
+	
  
 	
 	<!-- 
@@ -697,5 +705,24 @@ C_CODE	VARCHAR2(30 BYTE)	No		18	카페코드
 	
 	</insert>
 	
+	 
+	
+	
+	<insert id="storepayInsert" parameterType="Pr_pay_w">
+		INSERT
+		INTO PR_PAY_WHICH
+		(
+		       PURCHASE_NUMBER
+		     ,PR_CODE
+		     ,PR_COUNT 
+		    
+		 	)
+		VALUES
+		(
+			 STD.NEXTVAL
+			,#{pr_code}
+			,#{pr_count}
+		) 
+	</insert>
 	
 </mapper>

@@ -13,4 +13,6 @@ public interface CartDao {
 
 	List<Coupon> couponSelectList(String id);
 
+	int storeCartInsert(Cart ct);
+
 }

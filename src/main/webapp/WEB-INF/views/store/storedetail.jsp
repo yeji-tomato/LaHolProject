@@ -18,6 +18,9 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
  
  
+ 
+ 
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <!-- bootstrap css -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
 <!-- bootstrap js -->
@@ -89,43 +92,81 @@
 					</div> 
 	                 <!--수량증감-->
 	                <script >
-	 
-	                    var sell_price;
-	                    var amount;
-	                    
-	                    function init () {
-	                        sell_price = document.form.sell_price.value;
-	                        amount = document.form.amount.value;
-	                        document.form.sum.value = sell_price;
-	                        change();
-	                    }
-	                    
-	                    function add () {
-	                        hm = document.form.amount;
-	                        sum = document.form.sum;
-	                        hm.value ++ ;
-	                    
-	                        sum.value = parseInt(hm.value) * sell_price;
-	                    }
-	                    
-	                    function del () {
-	                        hm = document.form.amount;
-	                        sum = document.form.sum;
-	                            if (hm.value > 1) {
-	                                hm.value -- ;
-	                                sum.value = parseInt(hm.value) * sell_price;
-	                            }
-	                    }
-	                    
-	                    function change () {
-	                        hm = document.form.amount;
-	                        sum = document.form.sum;
-	                    
-	                            if (hm.value < 0) {
-	                                hm.value = 0;
-	                            }
-	                        sum.value = parseInt(hm.value) * sell_price;
-	                    }  
+	                let basket = {
+	                	    totalCount: 0, 
+	                	    totalPrice: 0,
+	                	    //체크한 장바구니 상품 비우기
+	                	    delCheckedItem: function(){
+	                	        document.querySelectorAll("input[name=buy]:checked").forEach(function (item) {
+	                	            item.parentElement.parentElement.parentElement.remove();
+	                	        });
+	                	        //AJAX 서버 업데이트 전송
+	                	    
+	                	        //전송 처리 결과가 성공이면
+	                	        this.reCalc();
+	                	        this.updateUI();
+	                	    },
+	                	    //장바구니 전체 비우기
+	                	    delAllItem: function(){
+	                	        document.querySelectorAll('.row.data').forEach(function (item) {
+	                	            item.remove();
+	                	          });
+	                	          //AJAX 서버 업데이트 전송
+	                	        
+	                	          //전송 처리 결과가 성공이면
+	                	          this.totalCount = 0;
+	                	          this.totalPrice = 0;
+	                	          this.reCalc();
+	                	          this.updateUI();
+	                	    },
+	                	    //재계산
+	                	    reCalc: function(){
+	                	        this.totalCount = 0;
+	                	        this.totalPrice = 0;
+	                	        document.querySelectorAll(".p_num").forEach(function (item) {
+	                	            var count = parseInt(item.getAttribute('value'));
+	                	            this.totalCount += count;
+	                	            var price = item.parentElement.parentElement.previousElementSibling.firstElementChild.getAttribute('value');
+	                	            this.totalPrice += count * price;
+	                	        }, this); // forEach 2번째 파라메터로 객체를 넘겨서 this 가 객체리터럴을 가리키도록 함. - thisArg
+	                	    },
+	                	    //화면 업데이트
+	                	    updateUI: function () {
+	                	        document.querySelector('#sum_p_num').value =  + this.totalCount.formatNumber();
+	                	        document.querySelector('#sum_p_price').textContent = '합계금액: ' + this.totalPrice.formatNumber() + '원';
+	                	    },
+	                	    //개별 수량 변경
+	                	    changePNum: function (pos) {
+	                	        var item = document.querySelector('input[name=p_num'+pos+']');
+	                	        var p_num = parseInt(item.getAttribute('value'));
+	                	        var newval = event.target.classList.contains('up') ? p_num+1 : event.target.classList.contains('down') ? p_num-1 : event.target.value;
+	                	        
+	                	        if (parseInt(newval) < 1 || parseInt(newval) > 99) { return false; }
+
+	                	        item.setAttribute('value', newval);
+	                	        item.value = newval;
+
+	                	        var price = item.parentElement.parentElement.previousElementSibling.firstElementChild.getAttribute('value');
+	                	        item.parentElement.parentElement.nextElementSibling.textContent = (newval * price).formatNumber()+"원";
+	                	        //AJAX 업데이트 전송
+
+	                	        //전송 처리 결과가 성공이면    
+	                	        this.reCalc();
+	                	        this.updateUI();
+	                	    },
+	                	    delItem: function () {
+	                	        event.target.parentElement.parentElement.parentElement.remove();
+	                	    }
+	                	}
+
+	                	// 숫자 3자리 콤마찍기
+	                	Number.prototype.formatNumber = function(){
+	                	    if(this==0) return 0;
+	                	    let regex = /(^[+-]?\d+)(\d{3})/;
+	                	    let nstr = (this + '');
+	                	    while (regex.test(nstr)) nstr = nstr.replace(regex, '$1' + ',' + '$2');
+	                	    return nstr;
+	                	};
 	                    //-->
 	                    </script>  
 	                    
@@ -160,33 +201,61 @@
 							</tr>
 	                        <br>
 	                        <tr>
+	                        </tr>
+	                 </table>
 	                            <div class="su" style=" margin-left: 20px;  "> 
-	                            <form name="form" method="get">
-	                                수량 : <input type=hidden name="sell_price"  >
-	                                <input type="text" name="amount" value="1" size="3" onchange="change();" >
-	                              
-	                                <input type="button" value=" + " onclick="add();"><input type="button" value=" - " onclick="del();">
-	                              
-	                                총 금액 : <input type="text" name="sum" size="11" readonly value="${s.PR_PRICE }">    원
-	                                </form>
+	                    
+	                             <form  id="terms_form" action="${ contextPath }/cart/storecart"  method="post"  >    
+	                             
+	                            				<input type="hidden" name="price" value="${s.PR_PRICE}">
+	                            				<input type="hidden" name="pr_code" value="${s.PR_CODE}">
+	                            			 	<input type="hidden" name="name" value="${s.PR_NAME }">
+	                            			 	<input type="hidden" name="photo" value="${s.STORE_PHOTO1}">
+	                            		 		
+	                                 			  <div class="subdiv">
+                                                <div class="basketprice"><input type="hidden" name="p_price" id="p_price1" class="p_price" value="${s.PR_PRICE }"> </div>
+                                                <div class="num">
+                                                    <div class="updown" style="float: left;">수량
+                                                        <input type="text" name="p_num1" id="p_num1" size="2" maxlength="4" class="p_num" value="1" onkeyup="javascript:basket.changePNum(1);">
+                                                        <span onclick="javascript:basket.changePNum(1);"><i class="fas fa-arrow-alt-circle-up up"></i></span>
+                                                        <span onclick="javascript:basket.changePNum(1);"><i class="fas fa-arrow-alt-circle-down down"></i></span>
+                                                    </div>
+                                                </div>  
+                                                <div class="sum"> <input type="hidden" name="sum" size="11" readonly  value=""  >${s.PR_PRICE }원   </div>
+                                            	</div>
+                                            	
+	                            
+	                             	 
+	                                	 </form>
+	                                	
+           								 
 	                            </div>
-							</tr>
-	
-	
+	                           
+							 <form  id="cart" action="${ contextPath }/store/storecart"  method="post"  >    
+							 <input type="hidden" name="price" value="${s.PR_PRICE}">
+	                         <input type="hidden" name="pr_code" value="${s.PR_CODE}">
+	                         <input type="hidden" name="name" value="${s.PR_NAME }">
+	                         <input type="hidden" name="p_num" id="sum_p_num" value="1">
+				 			
+                                   
+							 </form>
+
+	 
 							 
 	                        <div class="btnDiv">
 	                        
 	                        <c:if test="${ !empty sessionScope.loginUser }">
-	                            <button type="button" class="btn" id = "register-btn">
+	                       
+	                            <button type="button" class="btn" id = "register-btn"  onClick="location.href=' ${ contextPath }/store/store/order?PR_CODE=${ s.PR_CODE }'" >
 	                               바로구매
 	                              <i class="fa fa-credit-card-alt" aria-hidden="true"></i>
 	                            </button>
-	                            <button type="button" class="btn" id = "cart-btn">
+	                            <button type="button" class="btn" id ="cart-btn">
 	                              장바구니
 	                              <i class="fa fa-shopping-cart" aria-hidden="true"></i>
 	                            </button>
 	                            
-	                        
+	                       
 	                            
 	                    <c:if test="${  s.SUBSCRIPTIONS eq 'Y'  }">        
 	                            <button type="button" class="btn" id = "cart1-btn" onClick="location.href=' ${ contextPath }/store/subW?PR_CODE=${ s.PR_CODE }'"  >
@@ -200,13 +269,33 @@
 	                   </c:if>
 	                            </div>  
 							 
-						</table>
+					
 					</div> 
 					 
 	                </div>
 	                
 	                
 	                
+	                <script>
+	                $(document).on('click', '#cart-btn', function(){
+	                	alert("장바구니추가되었습니다"); 
+	                    $("#terms_form").submit();
+	            	});
+	                </script>
+	                 <script>
+	                $(document).on('click', '#register-btn', function(){
+	                
+	                    $("#cart").submit();
+	            	});
+	                </script>
+	                   <script>
+	                $(document).on('click', '#cart-btn', function(){
+	                	alert("장바구니추가되었습니다"); 
+	                    $("#terms_form").submit();
+	            	});
+	                </script>
+	                
+	                   
 	                
 	                <!-- 세부영역-->
 	                <div>

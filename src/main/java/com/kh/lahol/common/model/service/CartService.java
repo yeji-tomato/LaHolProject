@@ -17,4 +17,9 @@ public interface CartService {
 
 	int cafeCartPayment(Payment pay);
 
+	//스토어 카트
+	int storeCartInsert(Cart ct);
+	
+ 
+
 }

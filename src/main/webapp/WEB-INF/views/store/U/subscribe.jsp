@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+ 
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,15 +9,15 @@
 <title>정기구독</title>
 <link rel="stylesheet" href="bus_create.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
-    <!-- 스토어q css -->
-	<link rel="stylesheet" href="${ contextPath }/resources/css/store/subscribe/subscribe.css?3sd">	
+    <!-- 스토어구독 css -->
+	<link rel="stylesheet" href="${ contextPath }/resources/css/store/subscribe/subscribe.css?3sㅇd">	
     <!-- 폰트 모음 CSS-->
     <link rel="stylesheet" href="../common/fonts/fonts.css" />
  	  <!-- jQuery -->
   <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
   <!-- iamport.payment.js -->
   <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
- 
+
 </head>
 <body>
 <!-- menubar --> 
@@ -24,7 +25,7 @@
 	<!-- carousel -->
 	 
     
-	 <div id="aa" style="   height: 2000px; ">
+	 <div id="aa" style="height:1900px; ">
 
 	 <div class="banner" style="   height: 200px; ">
         <h1 style="padding-top: 18vh; color: #4B654A;"> 라홀 정기구독  <i class="fa fa-rocket" aria-hidden="true"></i></h1>
@@ -106,7 +107,7 @@
                             </div>
                             <div class="t">
                                 <div>
-                                    <input type="radio" name="SUBSCRIPTIONS" value="9" >9개월
+                                    <input type="radio" name="SUBSCRIPTIONS" value="9" onclick="submitForm()">9개월
                                 </div>
                                 <div id="h">
                                     <a>15%</a>
@@ -120,7 +121,40 @@
                     </div>
 
                     <!-- 결제 정보 확인-->
-					
+                    <!-- 3개월 -->
+			 	<div id="radioDiv" style="display:none; ">
+                            <div class="ss">
+                    <h5  style="color:gray;"> 3개월 구독했을시 최대 할인금액!</h5>
+                        <div class="hh">
+                            <div> 총금액 :  ${(s.PR_PRICE*3)*1 }   원 </div>
+                            <div style="margin-left: 20%;"> 할인금액:    <fmt:formatNumber value="   ${(s.PR_PRICE*3)*0.05} " pattern="#,###"/>원 </div>
+                            <div style="margin-left: 20%;"> 할인된금액:  <fmt:formatNumber value="  ${  (s.PR_PRICE*3)- (s.PR_PRICE*3)*0.05 }  " pattern="#,###"/>원 </div> 
+                        </div>
+                    
+                        <div class="hh2">
+                            <div style="   margin-top: 40px; float: right;  "> = 월 구독액:    <a style="color: brown;"> <fmt:formatNumber value="  ${  ((s.PR_PRICE*3)- ((s.PR_PRICE*3)*0.05)) /3  }  " pattern="#,###"/>     원</a>  </div>
+                        </div>
+
+                    </div>
+                    </div>  
+                      <!-- 6개월 -->
+                    	<div id="radioDiv2" style="display:none; ">
+                            <div class="ss">
+                    <h5  style="color:gray;">6개월 구독했을시  최대 할인금액!</h5>
+                        <div class="hh">
+                            <div> 총금액 :  ${(s.PR_PRICE*6)*1 }   원 </div>
+                            <div style="margin-left: 20%;"> 할인금액:    <fmt:formatNumber value=" ${(s.PR_PRICE*6)*0.1 } " pattern="#,###"/>원 </div>
+                            <div style="margin-left: 20%;"> 할인된금액:  <fmt:formatNumber value="${(s.PR_PRICE*6)- (s.PR_PRICE*6)*0.1}" pattern="#,###"/>원 </div> 
+                        </div>
+                    
+                        <div class="hh2">
+                            <div style="   margin-top: 40px; float: right;  "> = 월 구독액:    <a style="color: brown;"> <fmt:formatNumber value="  ${  ((s.PR_PRICE*6)- ((s.PR_PRICE*6)*0.1)) /6  }  " pattern="#,###"/>     원</a>  </div>
+                        </div>
+
+                    </div>
+                    </div>
+                      <!-- 9개월 -->
+                    	<div id="radioDiv3" style="display:none; ">
                             <div class="ss">
                     <h5  style="color:gray;">최대 9개월 할인했을경우!</h5>
                         <div class="hh">
@@ -134,13 +168,19 @@
                         </div>
 
                     </div>
+                    </div>
+
+ 
+ 
 
                     <hr>
   
                     <!--구독 배성 정보-->
                     <div class="deinf">
-                        <h4>    신규주소지<input name="chkbox" type="checkbox"  value="주문자  회원정보와 동일한 주소를 사용합니다"  checked="checked" onClick="checkDisable(this.form)"  > </h4>
-                          
+                        <h4>    신규주소지<input name="chkbox" type=checkbox  id="first" value="주문자  회원정보와 동일한 주소를 사용합니다"  checked="checked" onClick="checkDisable(this.form)"  > </h4>
+                         
+
+ 
                         <div class="di1" name="di1" style="float: left;"> 
                             <table > 
 		                      	<h6 style="width: 400px; "><a style="color: red;"> <div id='result' ></div> </a> </h6>  
@@ -213,6 +253,10 @@
  
  
  					</div>
+ 					
+ 					 
+       
+ 					
  	 
  					
  					  </form>
@@ -226,11 +270,11 @@
  			 
            </div>
       </div>
-
+       
  
 
  </div>
-
+</div>
      
 	<!-- footer -->
 	<jsp:include page="/WEB-INF/views/common/footer2.jsp"/>
@@ -257,14 +301,43 @@
 						}
 					
 				</script>
-				
-
+				 <script > 
+    function submitForm(){
+    	if( $('input:radio[name=SUBSCRIPTIONS]:checked').val() == '3'){
+     if( document.all["radioDiv"].style.display == "" ){
+     }else{
+            document.all["radioDiv"].style.display = ""; 
+            document.all["radioDiv2"].style.display = "none"; 
+            document.all["radioDiv3"].style.display = "none"; 
+            
+     }
+  	  }else if ($('input:radio[name=SUBSCRIPTIONS]:checked').val() == '6'){
+  		   if( document.all["radioDiv2"].style.display == "" ){ 
+         
+  	     }else{
+  	       document.all["radioDiv"].style.display = "none"; 
+           document.all["radioDiv2"].style.display = ""; 
+           document.all["radioDiv3"].style.display = "none"; 
+  	     }
+  		  
+  	  }else if ($('input:radio[name=SUBSCRIPTIONS]:checked').val() == '9'){
+  		 if( document.all["radioDiv3"].style.display == "" ){ 
+	     }else{
+	    	   document.all["radioDiv"].style.display = "none"; 
+	            document.all["radioDiv2"].style.display = "none"; 
+	            document.all["radioDiv3"].style.display = ""; 
+	     }
+  	  
+  	  }
+    }
+    </script>
  
-	
-	
-	
 			     <script>
 			 	 function onSubmit() {
+			 		 if( $('input:radio[name=SUBSCRIPTIONS]:checked').val() == null){
+			 			alert("구독할 개월수를 체크해주세요");
+  
+			 		 }else{
 					 var IMP = window.IMP; // 생략가능
 				       IMP.init('imp37495715'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
 				       
@@ -273,13 +346,14 @@
 				           pay_method : 'card',
 				           merchant_uid : 'merchant_' + new Date().getTime(),
 				           name : '라홀 정기구독',
-				          /*  if( $('select[name=SUBSCRIPTIONS]').val() == '3'){
+				        /*    if( $('input:radio[name=SUBSCRIPTIONS]:checked').val() == '3'){
 				        	   amount : ${  ((s.PR_PRICE*9)- ((s.PR_PRICE*9)*0.05)) /3  }
-				           }else if( $('select[name=SUBSCRIPTIONS]').val() == '6'){
+				           }else if( $('input:radio[name=SUBSCRIPTIONS]:checked').val() == '6'){
 				        	   amount : ${  ((s.PR_PRICE*9)- ((s.PR_PRICE*9)*0.15)) /6  }
-				           }else if( $('select[name=SUBSCRIPTIONS]').val() == '9'){
+				           }else if( $('input:radio[name=SUBSCRIPTIONS]:checked').val() == '9'){
 				        	   amount : ${  ((s.PR_PRICE*9)- ((s.PR_PRICE*9)*0.15)) /9  }
-				           } , */ 
+				           }   일단 100원*/
+				            
 				           amount : '100' ,
 				           buyer_email : ' ',
 				           buyer_name : '${ loginUser.name } ',
@@ -305,6 +379,7 @@
 				           } 
 				           alert(msg);
 				       });		
+			 		 }
 			 	}
 					 
 			</script>    

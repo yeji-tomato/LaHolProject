@@ -30,6 +30,12 @@ public class CartDaoImpl implements CartDao{
 		System.out.println("dao"+id);
 		return sqlSession.selectList("cartMapper.couponSelectList", id);
 	}
+	
+	//스토어
+	@Override
+	public int storeCartInsert(Cart ct) {
+		return sqlSession.insert("cartMapper.storeCartInsert", ct);
+	}
 
 	
 
