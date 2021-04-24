@@ -8,6 +8,7 @@ import com.kh.lahol.cafe.user.model.vo.CafeRes;
 import com.kh.lahol.cafe.user.model.vo.CoffeeCart;
 import com.kh.lahol.cafe.user.model.vo.CoffeeOrder;
 import com.kh.lahol.cafe.user.model.vo.CoffeeRes;
+import com.kh.lahol.common.model.vo.Report;
 
 public interface CafeService {
 	// 1. 카페 매장 예약 insert
@@ -28,5 +29,7 @@ public interface CafeService {
 	public List<CoffeeCart> coResBasket(CoffeeCart coCart);
 	
 	public List<CoffeeCart> coffeeOrder(String caResNo);
+	
+	public int cafeReport(Report rep);
 
 }

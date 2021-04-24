@@ -89,6 +89,22 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 	</resultMap>
 	
 	
+	<!-- 신고 테이블 -->
+	<resultMap id="cafeReportResultSet" type="Report">
+		<id property="reportNo" column="REPORT_NO"/>
+		<result property="reportType" column="REPORT_TYPE"/>
+		<result property="reportReason" column="REPORT_REASON"/>
+		<result property="iswarned" column="ISWARNED"/>
+		<result property="ischecked" column="ISCHECKED"/>
+		<result property="imgName" column="IMGNAME"/>
+		<result property="imgPath" column="IMGPATH"/>	
+		<result property="imgChName" column="IMGCHNAME"/>
+		<result property="reporterId" column="REPORTER_ID"/>
+		<result property="itemCode" column="ITEM_CODE"/>
+		<result property="reporteeId" column="REPORTEE_ID"/>			
+	</resultMap>
+	
+	
 	<!-- 입력을 위한 카페 정보 가져오기 -->
 	<select id="selectCafeWrite" resultMap="cafeResultSet">
 	SELECT	
@@ -530,5 +546,37 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 		WHERE COR.CF_NO = CO.CF_NO
 		AND C_RES = #{caResNo}
 	</select>
+	 
+	<insert id="cafeReport" parameterType="Report">
+	INSERT 
+	INTO REPORT
+	(
+		REPORT_NO,
+		REPORT_TYPE,
+		REPORT_REASON,
+		ISWARNED,
+		ISCHECKED,
+		IMGNAME,
+		IMGPATH,
+		IMGCHNAME,
+		REPORTER_ID,
+		ITEM_CODE,
+		REPORTEE_ID
+	)
+	VALUES
+	(
+		'CARP' || CARP.NEXTVAL,
+		#{reportType},
+		#{reportReason},
+		DEFAULT,
+		DEFAULT,
+		NULL,
+		NULL,
+		NULL,
+		#{reporterId},
+		#{itemCode},
+		NULL
+	)
+	</insert> 
 	 
 </mapper>

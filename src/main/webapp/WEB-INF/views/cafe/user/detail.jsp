@@ -13,6 +13,7 @@
 <link rel="stylesheet" href="${ contextPath }/resources/css/cafe/user/choose.css">
 <!-- 아이콘 css -->
 <script src="https://kit.fontawesome.com/2ada8d19a4.js" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.slim.js" integrity="sha256-HwWONEZrpuoh951cQD1ov2HUK5zA5DwJ1DNUXaM6FsY=" crossorigin="anonymous"></script>
 </head>
 <body>
 
@@ -60,7 +61,7 @@
                       <tr>
                         <td>
                           <p class="cf-title">${ cafeInfo.caName }
-                          <button class="bullhornBtn" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                          <button class="bullhornBtn" data-bs-toggle="modal" data-bs-target="#exampleModal" id="bullBtn">
                             <i class="fa fa-bullhorn" aria-hidden="true"></i>
                           </button>
                           </p>
@@ -155,10 +156,11 @@
 	    	}else{
 	    		Swal.fire({
 	    			  text: '로그인이 필요한 서비스입니다.로그인을해주세요',
-	    			  imageUrl: 'https://images.unsplash.com/photo-1607473129381-ca8345af56ac?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80',
+	    			  imageUrl: 'https://user-images.githubusercontent.com/59958929/115962683-89f1e000-a557-11eb-9a02-289523c91e1c.png',
 	    			  imageWidth: 400,
 	    			  imageHeight: 200,
 	    			  imageAlt: 'Custom image',
+	    			  confirmButtonColor: '#4B654A',
 	    		}).then((result) => {
 	    			location.href='${ contextPath }/member/loginView';
 	    		})
@@ -173,87 +175,42 @@
 	    		location.href='${ contextPath }/cafe/togo?caCode=${ cafeInfo.caCode }';
 		    	}else{
 		    		Swal.fire({
-		    			  text: '로그인이 필요한 서비스입니다.로그인을해주세요',
-		    			  imageUrl: 'https://images.unsplash.com/photo-1607473129381-ca8345af56ac?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80',
+		    			text: '로그인이 필요한 서비스입니다.로그인을해주세요',
+		    			  imageUrl: 'https://user-images.githubusercontent.com/59958929/115962683-89f1e000-a557-11eb-9a02-289523c91e1c.png',
 		    			  imageWidth: 400,
 		    			  imageHeight: 200,
 		    			  imageAlt: 'Custom image',
+		    			  confirmButtonColor: '#4B654A',
 		    		}).then((result) => {
 		    			location.href='${ contextPath }/member/loginView';
 		    		})
 		    		
 		    	}
 	    });
+	    
+	    
+	    //신고 모달
+	     const bullBtn = document.getElementById("bullBtn");
+	     bullBtn.addEventListener("click", function(){
+    	if(id == ""){
+	    		Swal.fire({
+	    			  text: '로그인이 필요한 서비스입니다.로그인을해주세요',
+	    			  imageUrl: 'https://user-images.githubusercontent.com/59958929/115962683-89f1e000-a557-11eb-9a02-289523c91e1c.png',
+	    			  imageWidth: 400,
+	    			  imageHeight: 200,
+	    			  imageAlt: 'Custom image',
+	    			  confirmButtonColor: '#4B654A',
+	    		}).then((result) => {
+	    			location.href='${ contextPath }/member/loginView';
+	    		})
+	    		
+	    	}
+	    });
     </script>
 
-              <!-- Modal -->
-              <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                <div class="modal-content">
-                  <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel" style="color: white;">
-                      <img src="${ contextPath }/resources/img/common/whiteLogo.png" class="logoimg">
-                      신고
-                  </h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                  </div>
-                  <div class="modal-body">
-                  <h5  class="sorry-text">페이지 사용에 불편을 드려 죄송합니다. <br> 신고가 접수되면 3일내로 처리됩니다. </h5>
-                    <table class="rp_reason_table">
-                      
-                      <tr>
-                        <td>신고 카페</td>
-                        <td aria-readonly="true">${ cafeInfo.caName }</td>
-                      </tr>
-                      <tr>
-                        <td>신고사유</td>
-                        <td>
-                          <select>
-                            <option>
-                              --신고사유선택--
-                            </option>
-                            <option>
-                              허위매장
-                            </option>
-                            <option>
-                              예약 및 주문 제조 불일치
-                            </option>
-                            <option>
-                              주문 시 부적절한 언어 사용
-                            </option>
-                            <option>
-                              기타
-                            </option>
-                          </select>
-                      </td>
-                      </tr>
-                      <tr>
-                        <td>사유 상세 설명</td>
-                      </tr>
-                      <tr>
-                        <td colspan="2">
-                          <textarea class="evidence"></textarea>
-                        </td>
-                      </tr>
-                    </table>
- 
-                      <br>
-                      <p class="alert-text">
-                      허위신고일 경우, 신고자의 활동이 제한될 수 있으니 신중하게 신고해주세요. 
-                      </p>
-
-                    
-                    </div>
-                    <div class="modal-footer">
-                    <button type="button" class="btn btn-danger">신고</button>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-                    </div>
-                </div>
-                </div>
-              </div>
-
-
-
+	
+	<!-- Cafe Modal -->
+	<jsp:include page="/WEB-INF/views/cafe/user/cafeReport.jsp"/>
 
   </div>
 

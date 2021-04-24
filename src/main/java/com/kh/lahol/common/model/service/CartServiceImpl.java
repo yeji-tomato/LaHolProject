@@ -49,7 +49,6 @@ public class CartServiceImpl implements CartService{
 
 	@Override
 	public int successCart(String id) {
-		// TODO Auto-generated method stub
 		return cartDao.successCart(id);
 	}
 }

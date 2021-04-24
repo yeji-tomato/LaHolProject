@@ -67,8 +67,12 @@
 		
 		<!-- 장바구니 -->
 		<typeAlias type="com.kh.lahol.common.model.vo.Cart" alias="Cart"/>
+		<!-- 쿠폰 -->
 		<typeAlias type="com.kh.lahol.common.model.vo.Coupon" alias="Cart_Coupon"/>
+		<!-- 결제 -->
 		<typeAlias type="com.kh.lahol.common.model.vo.Payment" alias="Cart_Payment"/>
+		<!-- 신고 -->
+		<typeAlias type="com.kh.lahol.common.model.vo.Report" alias="Report"/>
 	</typeAliases>
 	
 	<!-- mappers -->
