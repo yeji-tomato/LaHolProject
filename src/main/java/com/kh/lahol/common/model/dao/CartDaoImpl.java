@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.lahol.common.model.vo.Cart;
 import com.kh.lahol.common.model.vo.Coupon;
+import com.kh.lahol.common.model.vo.Payment;
 
 @Repository
 public class CartDaoImpl implements CartDao{
@@ -29,6 +30,16 @@ public class CartDaoImpl implements CartDao{
 	public List<Coupon> couponSelectList(String id) {
 		System.out.println("dao"+id);
 		return sqlSession.selectList("cartMapper.couponSelectList", id);
+	}
+
+	@Override
+	public int cafeCartPayment(Payment pay) {
+		return sqlSession.insert("cartMapper.cafeCartPayment", pay);
+	}
+
+	@Override
+	public int couponUse(Coupon cop) {
+		return sqlSession.update("cartMapper.coponUse", cop);
 	}
 
 	

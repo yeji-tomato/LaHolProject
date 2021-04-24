@@ -50,10 +50,10 @@
          			<tr>
          				<c:forEach var="coupon" items="${ couponlist }">
 	         			<td class="d-flex justify-content-between py-3 border-bottom">
-	         				 <input type="radio" name="radioTxt" value="${ coupon.couponName }">
-	         				 <strong>${ coupon.couponName }</strong>
+	         				 <input type="radio" id="selectId"  name="radioTxt" value="${ coupon.couponCode }">
+	         				 <label for="${ coupon.couponCode }">${ coupon.couponName }</label>
+	         				 
 	         			</td>
-	         			
 	         			</c:forEach>
 	         			
          			</tr>
@@ -69,19 +69,23 @@
          	<script type="text/javascript">
 		      $(document).ready(function() {
 		        $('#radioButton').click(function () {
-		          var initVal = $("#applyCoupon", opener.document).val();
-		          var radioVal = $('input[name="radioTxt"]:checked').val();
-		          var couponValue = parseInt(radioVal.substring(0,2));
-		          var totalValue = $("#total").val();
-		          var discountValue = totalValue*(couponValue/100);
-		          var resultPrice = totalValue - discountValue;
-		          
-		          $("#applyCoupon", opener.document).val(radioVal);
-		          $("#couponPrice", opener.document).text(discountValue);
-		          $("#resultPrice", opener.document).text(resultPrice);
-            	  	window.self.close();
-		          
-		          
+		        	
+		        	var radioVal = $('input[name="radioTxt"]:checked').val();
+		        	console.log(radioVal);
+		        	 var radioLabel = $("label[for='"+radioVal+"']").text(); // 라벨값을 불러온다.
+		        	 console.log(radioLabel);
+		        	 var couponValue = parseInt(radioLabel.substring(0,2));
+		        	 var totalValue = $("#total").val();
+		        	 var discountValue = totalValue*(couponValue/100);
+		        	 var resultPrice = totalValue - discountValue;
+		        	 
+		        	 $("#couponSequence", opener.document).text(radioVal);
+		        	 
+		        	 $("#applyCoupon", opener.document).val(radioLabel);
+		        	 
+			          $("#couponPrice", opener.document).text(discountValue);
+			          $("#resultPrice", opener.document).text(resultPrice);
+	            	  	window.self.close();
 		          
 		          
 		        });

@@ -18,6 +18,7 @@
            <div class="input-group-append border-0">
              <button id="button-addon3" type="button" class="btn px-4 rounded-pill" style="background: #5A452E; color: white;" onclick="winPopup();"><i class="fa fa-gift mr-2"></i>coupon</button>
            </div>
+           <p id="couponSequence" style="color: white"></p>
            	<input type="hidden" id="cfName"  value="${ cor.cfName }">
          </div>
          
