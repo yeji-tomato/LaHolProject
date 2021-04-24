@@ -22,9 +22,11 @@ import com.kh.lahol.member.model.vo.Member;
 import com.kh.lahol.mypage.common.PageInfo;
 import com.kh.lahol.mypage.common.Pagination;
 import com.kh.lahol.mypage.normal.model.service.nMypageService;
+import com.kh.lahol.mypage.normal.model.vo.CafeDetail;
 import com.kh.lahol.mypage.normal.model.vo.ClassDetail;
 import com.kh.lahol.mypage.normal.model.vo.Coupon;
 import com.kh.lahol.mypage.normal.model.vo.PayList;
+import com.kh.lahol.mypage.normal.model.vo.StoreDetail;
 import com.kh.lahol.mypage.partner.model.vo.Search;
 
 @Controller
@@ -195,6 +197,34 @@ public class nMypageController {
 		if(classDetail != null) {
 			model.addAttribute("detail", classDetail);
 			return "mypage/normal/paymentDetailClass";
+		} else {
+			rd.addFlashAttribute("msg", "상세 조회에 실패하였습니다.");
+			return "redirect:/nMypage/paymentView";
+		}
+	}
+	
+	@GetMapping("/detailStore")
+	public String detailStore(@RequestParam("pay_no") String pay_no,
+			                  Model model,
+			                  RedirectAttributes rd) {
+		StoreDetail storeDetail = nService.selectStore(pay_no);
+		if(storeDetail != null) {
+			model.addAttribute("detail", storeDetail);
+			return "mypage/normal/paymentDetailStore";
+		} else {
+			rd.addFlashAttribute("msg", "상세 조회에 실패하였습니다.");
+			return "redirect:/nMypage/paymentView";
+		}
+	}
+	
+	@GetMapping("/detailCafe")
+	public String detailCafe(@RequestParam("pay_no") String pay_no,
+			                 Model model,
+			                 RedirectAttributes rd) {
+		List<CafeDetail> list = nService.selectCafe(pay_no);
+		if(list != null) {
+			model.addAttribute("list", list);
+			return "mypage/normal/paymentDetailCafe";
 		} else {
 			rd.addFlashAttribute("msg", "상세 조회에 실패하였습니다.");
 			return "redirect:/nMypage/paymentView";

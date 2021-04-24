@@ -72,6 +72,10 @@
 		<typeAlias type="com.kh.lahol.mypage.normal.model.vo.PayList" alias="PayList"/>
 		<!-- 마이페이지 클래스 디테일 -->
 		<typeAlias type="com.kh.lahol.mypage.normal.model.vo.ClassDetail" alias="ClassDetail"/>
+		<!-- 마이페이지 스토어 디테일 -->
+		<typeAlias type="com.kh.lahol.mypage.normal.model.vo.StoreDetail" alias="StoreDetail"/>
+		<!-- 마이페이지 카페 디테일 -->
+		<typeAlias type="com.kh.lahol.mypage.normal.model.vo.CafeDetail" alias="CafeDetail"/>
 		<!-- Ad -->
  		<typeAlias type="com.kh.lahol.mypage.partner.model.vo.Ad" alias="Ad"/>
  		<!-- Ad 신청 시 payment -->
