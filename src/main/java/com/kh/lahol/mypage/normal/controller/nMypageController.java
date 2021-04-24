@@ -22,7 +22,10 @@ import com.kh.lahol.member.model.vo.Member;
 import com.kh.lahol.mypage.common.PageInfo;
 import com.kh.lahol.mypage.common.Pagination;
 import com.kh.lahol.mypage.normal.model.service.nMypageService;
+import com.kh.lahol.mypage.normal.model.vo.ClassDetail;
 import com.kh.lahol.mypage.normal.model.vo.Coupon;
+import com.kh.lahol.mypage.normal.model.vo.PayList;
+import com.kh.lahol.mypage.partner.model.vo.Search;
 
 @Controller
 @RequestMapping("/nMypage")
@@ -45,7 +48,21 @@ public class nMypageController {
 	}
 	
 	@GetMapping("/paymentView")
-	public String paymentView() {
+	public String paymentView(@RequestParam(value="page", required=false, defaultValue="1") int currentPage,
+			                  Model model,
+			                  HttpServletRequest request) {
+		String id = ((Member)request.getSession().getAttribute("loginUser")).getId();
+		int payListCount = nService.selectPayListCount(id);
+		
+		if(payListCount > 0) {
+			PageInfo pi = Pagination.getPageInfo(currentPage, payListCount);
+			List<PayList> list = nService.selectPayList(id, pi);
+			model.addAttribute("list", list);
+			model.addAttribute("pi", pi);
+		} else {
+			model.addAttribute("payList", "구매 내역이 없습니다.");
+		}
+		
 		return "mypage/normal/paymentList";
 	}
 	
@@ -138,6 +155,49 @@ public class nMypageController {
 		} else {
 			model.addAttribute("msg", "회원 탈퇴에 실패하였습니다.");
 			return "mypage/normal/deleteMember";
+		}
+	}
+	
+	@GetMapping("/searchPayment")
+	public String searchPayment(Model model,
+					            @RequestParam(value="page", required=false, defaultValue="1") int currentPage,
+					            @ModelAttribute Search search,
+					            HttpServletRequest request,
+					            RedirectAttributes rd) {
+		String id = ((Member)request.getSession().getAttribute("loginUser")).getId();
+		search.setId(id);
+		if(search.getSearch().equals("selection")) {
+			search.setSearch(null);
+		} else if(search.getSearch().equals("")) {
+			rd.addFlashAttribute("msg", "검색 기간을 선택해주세요.");
+			return "redirect:/nMypage/paymentView";
+		}
+		
+		int searchPaymentCount = nService.searchPaymentCount(search);
+		PageInfo pi = Pagination.getPageInfo(currentPage, searchPaymentCount);
+		if(searchPaymentCount > 0) {
+			List<PayList> list = nService.searchPaymentList(search, pi);
+			model.addAttribute("list", list);
+			model.addAttribute("search", search);
+			model.addAttribute("pi", pi);
+			return "mypage/normal/paymentList";
+		} else {
+			rd.addFlashAttribute("msg", "기간별 조회에 실패하였습니다.");
+			return "redirect:/nMypage/paymentView";
+		}
+	}
+	
+	@GetMapping("/detailClass")
+	public String detailClass(@RequestParam("pay_no") String pay_no,
+			                  Model model,
+			                  RedirectAttributes rd) {
+		ClassDetail classDetail = nService.selectClass(pay_no);
+		if(classDetail != null) {
+			model.addAttribute("detail", classDetail);
+			return "mypage/normal/paymentDetailClass";
+		} else {
+			rd.addFlashAttribute("msg", "상세 조회에 실패하였습니다.");
+			return "redirect:/nMypage/paymentView";
 		}
 	}
 }

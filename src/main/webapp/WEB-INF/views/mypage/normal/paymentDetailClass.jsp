@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,10 +10,9 @@
     <!-- menubar css -->
     <link rel="stylesheet" href="${ contextPath }/resources/css/common/menubar.css">
     <!-- side menubar css -->
-    <link rel="stylesheet" href="${ contextPath }/resources/css/common/menu.css">
+    <link rel="stylesheet" href="${ contextPath }/resources/css/mypage/sideMenu.css">
     <!-- footer css -->
     <link rel="stylesheet" href="${ contextPath }/resources/css/common/footer.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     
     <style>
         body{
@@ -25,13 +26,16 @@
             padding-top: 10%;
         }
 
-
+		.mp-container {
+        	height : 900px;
+        }
+        
         #mp{
             display: flex;
             margin-top: 1%;
             margin-left: 5%;
             width: 80vw;
-            height: auto;
+            height: 800px;
             justify-content: center;
             text-align: center;
             border-radius: 30px;
@@ -117,12 +121,18 @@
         .info-table .class-detail {
             width : 150px;
         }
+        
+        #map {
+        	border : 1px solid #4B654A;
+        }
 
     </style>
 </head>
 <body>
 	<!-- menubar -->
 	<jsp:include page="/WEB-INF/views/common/menubar.jsp"/>
+	<!-- kakaoMap Library -->
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=7f32424a29ddd32cc9bc9bd1bac80acc&libraries=services"></script>
     <!-- 카페 사이드 메뉴 바 -->
     <div class="mypage-container">
         <div id="side" class="col-mp">
@@ -188,7 +198,7 @@
             <!-- 이부분에 내용 작성 -->
             <div class="content-div">
                 <div class="content-title">
-                    <h3>카페 예약 현황</h3>
+                    <h3>클래스 예약 현황</h3>
                 </div>
                 <div class="content-info">
                     <div class="info-div">
@@ -196,48 +206,48 @@
                             <table class="info-table">
                                 <tr>
                                     <td class="first-td">결제일</td>
-                                    <td>2021.03.01(월) 15:20</td>
+                                    <td>${ detail.pay_date }</td>
                                 </tr>
                                 <tr><td></td></tr>
                                 <tr>
                                     <td class="first-td">클래스명</td>
-                                    <td>KH커피</td>
+                                    <td>${ detail.cl_name }</td>
                                 </tr>
                                 <tr><td></td></tr>
                                 <tr>
                                     <td class="first-td">정원</td>
-                                    <td></td>
+                                    <td>${ detail.cl_max }</td>
                                 </tr>
                                 <tr><td></td></tr>
                                 <tr>
                                     <td class="first-td">강사명</td>
-                                    <td>이윤재</td>
-                                    <td><button class="class-detail">클래스 상세보기</button></td>
+                                    <td>${ detail.tr_name }</td>
+                                    <td><button type="button" class="class-detail" onclick="detailClassView('${detail.class_no}');">클래스 상세보기</button></td>
                                 </tr>
                                 <tr><td></td></tr>
                                 <tr>
                                     <td class="first-td">강의 일정</td>
-                                    <td>2021.03.01(월) 18:00</td>
+                                    <td>${ detail.cl_date }, ${ detail.cl_time }</td>
                                 </tr>
                                 <tr><td></td></tr>
                                 <tr>
                                     <td class="first-td">장소</td>
-                                    <td></td>
+                                    <td>${ detail.c_name }, ${ fn:replace(detail.c_address, ',', ' ') }</td>
                                 </tr>
                                 <tr><td></td></tr>
                                 <tr>
-                                    <td colspan="3">지도지도</td>
+                                    <td colspan="3"><div id="map" style="width:100%; height:250px; margin:10px 0;"></div></td>
                                 </tr>
                                 <tr><td></td></tr>
                                 <tr>
                                     <td class="first-td">상태</td>
-                                    <td>예약완료/수강중/수강완료</td>
+                                    <td id="status">수강 대기</td>
                                 </tr>
                                 <tr><td></td></tr>
                                 <tr>
-                                    <td colspan="2">
-                                        <button type="button">확인</button>
-                                        <button type="button">후기 등록</button>    <!-- 완료 상태일 때만 후기 등록 나타남 -->
+                                    <td colspan="3">
+                                        <button type="button" onclick="location.href='${ contextPath }/nMypage/paymentView'">확인</button>
+                                        <button id="reviewBtn" type="button" style="display:none;">후기 등록</button>    <!-- 완료 상태일 때만 후기 등록 나타남 -->
                                     </td>
                                 </tr>
                             </table>
@@ -246,8 +256,48 @@
                 </div>
             </div>
         </div>
-        
     </div>
+    <c:set var="cl_date" value="${ fn:split(detail.cl_date, '-') }"/>
+    <script>
+    	$(function(){
+    		var date = new Date();
+    		var cl_date = new Date(${ cl_date[0] }, ${ cl_date[1] - 1}, ${ cl_date[2]});
+    		var status = document.getElementById("status");
+    		if(cl_date <= date) {
+    			status.innerHTML = "수강 완료";
+    			$("#reviewBtn").css({"display":"inline-block"});
+    		} else {
+    			status.innerHTML = "수강 대기";
+    			$("#reviewBtn").css({"display":"none"});
+    		}
+    	});
+    	
+    	var mapContainer = document.getElementById('map'),
+    		mapOption = {
+    			center : new kakao.maps.LatLng(33.450701, 126.570667),
+    			level : 3
+    	};
+    	
+    	var map = new kakao.maps.Map(mapContainer, mapOption);
+    	var coords = new kakao.maps.LatLng(${ detail.c_la }, ${ detail.c_lo });
+    	
+    	var marker = new kakao.maps.Marker({
+    		map : map,
+    		position : coords
+    	});
+    	
+    	var infowindow = new kakao.maps.InfoWindow({
+    		content : '<div style="width:150px; text-align:center; padding:6px 0;">${ detail.c_name }</div>'
+    	});
+    	infowindow.open(map, marker);
+    	
+    	map.setCenter(coords);
+    	
+    	function detailClassView(class_no) {
+    		console.log(class_no);
+    		location.href="${ contextPath }/coffeeclass/classdetail?classNo=" + class_no;
+    	}
+    </script>
 	<!-- footer -->
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 </body>

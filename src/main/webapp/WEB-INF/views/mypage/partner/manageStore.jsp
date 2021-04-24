@@ -130,7 +130,7 @@
                 font-size: 11px;
             }
 
-            .content-div .content-header input[type=submit] {
+            .content-div .content-header input[type=button] {
                 width : 80px;
             }
         }
