@@ -12,6 +12,7 @@ import com.kh.lahol.cafe.user.model.vo.CafeRes;
 import com.kh.lahol.cafe.user.model.vo.CoffeeCart;
 import com.kh.lahol.cafe.user.model.vo.CoffeeOrder;
 import com.kh.lahol.cafe.user.model.vo.CoffeeRes;
+import com.kh.lahol.common.model.vo.Report;
 
 @Repository
 public class CafeDaoImpl implements CafeDao {
@@ -62,6 +63,11 @@ public class CafeDaoImpl implements CafeDao {
 	@Override
 	public List<CoffeeCart> coffeeOrder(String caResNo) {
 		return sqlSession.selectList("cafeMapper.coOrder", caResNo);
+	}
+
+	@Override
+	public int cafeReport(Report rep) {
+		return sqlSession.insert("cafeMapper.cafeReport", rep);
 	}
 
 }

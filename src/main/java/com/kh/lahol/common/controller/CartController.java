@@ -110,24 +110,79 @@ public class CartController{
 		return "cart/couponTotal";
 	}
 	
-	
+	// 카페 직접 결제 payment
 	@PostMapping("/cafe/payment")
 	public String cafeCartPayment(@ModelAttribute Payment pay, 
 				@SessionAttribute("loginUser") Member m) throws CartException{
 		
-		/*
-		 * String id = m.getId(); pay.setBuyId(id);
-		 * 
-		 * int result = cartService.cafeCartPayment(pay);
-		 * 
-		 * if(result > 0) { return "cart/cart"; }else { throw new
-		 * CartException("결제 테이블에 값 넣는 것을 실패하였습니다."); }
-		 */
 		
-		System.out.println(pay);
-		return null;
+		   String id = m.getId(); 
+		   pay.setBuyId(id);
+		   System.out.println(pay);
+		   int result = cartService.cafeCartPayment(pay);
+		  
+		  if(result > 0) { 
+			  return "cart/cart"; 
+		  }else { 
+			  throw new CartException("결제 테이블에 값 넣는 것을 실패하였습니다."); 
+		  }
+		
+	}
+	
+	// 장바구니 결제
+	@PostMapping("/payment")
+	public String CartPayment(@ModelAttribute Payment pay, 
+				@SessionAttribute("loginUser") Member m) throws CartException{
 		
 		
+		   String id = m.getId(); 
+		   pay.setBuyId(id);
+		   System.out.println(pay);
+		   int result = cartService.CartPayment(pay);
+		  
+		  if(result > 0) { 
+			  return "cart/cart"; 
+		  }else { 
+			  throw new CartException("결제 테이블에 값 넣는 것을 실패하였습니다."); 
+		  }
+		
+	}
+	
+	//쿠폰 사용 update
+	@PostMapping("/coupon/use")
+	public String couponUse(@ModelAttribute Coupon cop, 
+				@SessionAttribute("loginUser") Member m, String couponCode) throws CartException{
+		
+		
+		   String id = m.getId(); 
+		   cop.setId(id);
+		   cop.setCouponCode(couponCode);
+		 
+		   System.out.println("쿠폰 사용 "+ cop);
+		   System.out.println(couponCode);
+		   int result = cartService.couponUse(cop);
+		  
+		  if(result > 0) { 
+			  return "cart/cart"; 
+		  }else { 
+			  throw new CartException("쿠폰 사용을 실패하였습니다."); 
+		  }
+		
+	}
+	
+	// 결제 성공 시 장바구니 비우기
+	@PostMapping("/success")
+	public String successCart(@SessionAttribute("loginUser") Member m) throws CartException{
+		
+		   
+		String id = m.getId(); 
+		   int result = cartService.successCart(id);
+		  
+		  if(result > 0) { 
+			  return "cart/cart"; 
+		  }else { 
+			  throw new CartException("장바구니 비우기를 실패하였습니다."); 
+		  }
 		
 	}
 }

@@ -138,6 +138,7 @@
 	                                                </a>
 	                                                </div>
 	                                            </div>
+	                                            <input type="hidden" id="cResNo"  value="${ crt.cres }">
 	                                        </div>
                                         	</c:when>
                                         	

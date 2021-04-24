@@ -155,8 +155,11 @@ cursor: pointer;
     
     .evidence{
     width: 100%; 
-    line-height: 15vh;
+    height: 25vh;
     }
+    
+    
+    
     
     .ihateyou{
     width: 100%; 
