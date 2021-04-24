@@ -167,6 +167,7 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 		<id property="pay_no" column="PAY_NO"/>
 		<result property="c_code" column="C_CODE"/>
 		<result property="class_no" column="CLASS_NO"/>
+		<result property="cl_pay_no" column="CL_PAY_NO"/>
 		<result property="cl_name" column="CL_NAME"/>
 		<result property="pay_date" column="PAY_DATE"/>
 		<result property="tr_name" column="TR_NAME"/>
@@ -181,6 +182,8 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 	<resultMap id="storeDetailResultSet" type="StoreDetail">
 		<id property="pay_no" column="PAY_NO"/>
 		<result property="pay_item" column="PAY_ITEM"/>
+		<result property="purchase_number" column="PURCHASE_NUMBER"/>
+		<result property="subscribe_code" column="SUBSCRIBE_CODE"/>
 		<result property="pay_date" column="PAY_DATE"/>
 		<result property="pr_count" column="PR_COUNT"/>
 		<result property="pay_total" column="PAY_TOTAL"/>
@@ -860,6 +863,7 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 		       PAY_NO
 		     , C_CODE
 		     , CLASS_NO
+		     , CL_PAY_NO
 		     , CL_NAME
 		     , PAY_DATE
 		     , TR_NAME
@@ -882,6 +886,8 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 		SELECT
 		       PAY_NO
 		     , PAY_ITEM
+		     , P.PURCHASE_NUMBER
+		     , S.SUBSCRIBE_CODE
 		     , PAY_DATE
 		     , NVL(PR_COUNT, 0) AS PR_COUNT
 		     , PAY_TOTAL
@@ -936,5 +942,132 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 		  JOIN COFFEE USING(CF_NO)
 		 WHERE
 		       PAY_NO = #{pay_no}
+	</select>
+	<insert id="insertStoreReview" parameterType="StoreReview">
+		INSERT
+		  INTO PR_REVIEW
+		  (
+		       REVIEW_NO
+		     , REVIEW_DATE
+		     , REVIEW_GRADE
+		     , REVIEW_CONTENT
+		     , REVIEW_PHOTO
+		     , REVIEW_CHPH
+		     , REVIEW_PATH
+		     , REVIEW_STATUS
+		     , PURCHASE_NUMBER
+		     , SUBSCRIBE_CODE
+		     , ID
+		  )
+		VALUES
+		(
+		       'STRV' || RV.NEXTVAL
+		     , SYSDATE
+		     , #{review_grade}
+		     , #{review_content}
+		     , #{review_photo}
+		     , #{review_chph}
+		     , #{review_path}
+		     , DEFAULT
+		     , #{purchase_number}
+		     , #{subscribe_code}
+		     , #{id}
+		)
+	</insert>
+	<insert id="insertClassReview" parameterType="ClassReview">
+		INSERT
+		  INTO CL_REVIEW
+		  (
+		       CL_REVIEW_NO
+		     , CL_PAY_NO
+		     , CLASS_NO
+		     , WRITER_ID
+		     , CL_GRADE
+		     , CL_REV_IMG
+		     , CL_REVIEW
+		     , BLIND
+		     , CL_REV_DATE
+		     , CL_REV_RENAME
+		     , CL_REV_PATH
+		  )
+		VALUES
+		(
+		       'CLRV' || RV.NEXTVAL
+		     , #{cl_pay_no}
+		     , #{class_no}
+		     , #{writer_id}
+		     , #{cl_grade}
+		     , #{cl_rev_img}
+		     , #{cl_review}
+		     , DEFAULT
+		     , SYSDATE
+		     , #{cl_rev_rename}
+		     , #{cl_rev_path}
+		)
+	</insert>
+	<insert id="insertCafeReview" parameterType="CafeReview">
+		INSERT
+		  INTO CAREVIEW
+		  (
+		       C_REV_NO
+		     , C_REV_DATE
+		     , C_REV_GRA
+		     , C_REV_CON
+		     , C_REV_INAME
+		     , C_REV_ICHNAME
+		     , C_REV_IPATH
+		     , C_REV_STA
+		     , C_CODE
+		     , ID
+		     , C_RES
+		  )
+		VALUES
+		(
+		       'CARV' || RV.NEXTVAL
+		     , SYSDATE
+		     , #{c_rev_gra}
+		     , #{c_rev_con}
+		     , #{c_rev_iname}
+		     , #{c_rev_ichname}
+		     , #{c_rev_ipath}
+		     , DEFAULT
+		     , #{c_code}
+		     , #{id}
+		     , #{c_res}
+		)
+	</insert>
+	<select id="chkStoreReview" parameterType="StoreReview" resultType="_int">
+		SELECT
+		       COUNT(*)
+		  FROM
+		       PR_REVIEW
+		 WHERE
+		       ID = #{id}
+		   <if test="purchase_number != ''">
+		   AND PURCHASE_NUMBER = #{purchase_number}
+		   </if>
+		   <if test="subscribe_code != ''">
+		   AND SUBSCRIBE_CODE = #{subscribe_code}
+		   </if>
+	</select>
+	<select id="chkClassReview" parameterType="ClassReview" resultType="_int">
+		SELECT
+		       COUNT(*)
+		  FROM
+		       CL_REVIEW
+		 WHERE
+		       WRITER_ID = #{writer_id}
+		   AND CLASS_NO = #{class_no}
+		   AND CL_PAY_NO = #{cl_pay_no} 
+	</select>
+	<select id="chkCafeReview" parameterType="CafeReview" resultType="_int">
+		SELECT
+		       COUNT(*)
+		  FROM
+		       CAREVIEW
+		 WHERE
+		       ID = #{id}
+		   AND C_CODE = #{c_code}
+		   AND C_RES = #{c_res}
 	</select>
 </mapper>

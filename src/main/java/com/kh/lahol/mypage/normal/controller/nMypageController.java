@@ -1,5 +1,9 @@
 package com.kh.lahol.mypage.normal.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.lahol.member.model.vo.Member;
@@ -23,10 +28,14 @@ import com.kh.lahol.mypage.common.PageInfo;
 import com.kh.lahol.mypage.common.Pagination;
 import com.kh.lahol.mypage.normal.model.service.nMypageService;
 import com.kh.lahol.mypage.normal.model.vo.CafeDetail;
+import com.kh.lahol.mypage.normal.model.vo.CafeReview;
 import com.kh.lahol.mypage.normal.model.vo.ClassDetail;
+import com.kh.lahol.mypage.normal.model.vo.ClassReview;
 import com.kh.lahol.mypage.normal.model.vo.Coupon;
 import com.kh.lahol.mypage.normal.model.vo.PayList;
+import com.kh.lahol.mypage.normal.model.vo.Review;
 import com.kh.lahol.mypage.normal.model.vo.StoreDetail;
+import com.kh.lahol.mypage.normal.model.vo.StoreReview;
 import com.kh.lahol.mypage.partner.model.vo.Search;
 
 @Controller
@@ -228,6 +237,130 @@ public class nMypageController {
 		} else {
 			rd.addFlashAttribute("msg", "상세 조회에 실패하였습니다.");
 			return "redirect:/nMypage/paymentView";
+		}
+	}
+	
+	@GetMapping("/reviewInsert")
+	public String reviewInsert(Model model,
+			                   @ModelAttribute Review review,
+			                   HttpServletRequest request) {
+		String id = ((Member)request.getSession().getAttribute("loginUser")).getId();
+		review.setId(id);
+		
+		model.addAttribute("review", review);
+		return "mypage/normal/reviewInsert";
+	}
+	
+	@PostMapping("/reviewResister")
+	public String reviewResister(@ModelAttribute Review review,
+			                     Model model,
+			                     @RequestParam(value="review-img") MultipartFile file,
+			                     HttpServletRequest request,
+			                     @RequestParam("star_grade") String star_grade,
+			                     @RequestParam("content") String content) {
+		String renameFileName = "";
+		int result = 0;
+		if(!file.getOriginalFilename().equals("")) {
+			renameFileName = saveFile(file, request);
+		}
+		String root = request.getSession().getServletContext().getContextPath();
+		String savePath = root + "/resources/muploadFiles/review";
+		
+		if(review.getCategory().equals("STRV")) {
+			StoreReview storeReview = new StoreReview();
+			storeReview.setId(review.getId());
+			storeReview.setPurchase_number(review.getPurchase_number());
+			storeReview.setSubscribe_code(review.getSubscribe_code());
+			storeReview.setReview_grade(Double.parseDouble(star_grade));
+			storeReview.setReview_content(content);
+			storeReview.setReview_photo(file.getOriginalFilename());
+			storeReview.setReview_chph(renameFileName);
+			storeReview.setReview_path(savePath + "/" + renameFileName);
+			
+			int chkDup = nService.chkStoreReview(storeReview);
+			if(chkDup > 0) {
+				model.addAttribute("msg", "이미 리뷰를 등록한 제품입니다.");
+				return "mypage/normal/reviewInsert";
+			} else {
+				result = nService.insertStoreReview(storeReview);
+			}
+		} else if(review.getCategory().equals("CLRV")) {
+			ClassReview classReview = new ClassReview();
+			classReview.setWriter_id(review.getId());
+			classReview.setCl_pay_no(review.getCl_pay_no());
+			classReview.setClass_no(review.getClass_no());
+			classReview.setCl_grade(Double.parseDouble(star_grade));
+			classReview.setCl_review(content);
+			classReview.setCl_rev_img(file.getOriginalFilename());
+			classReview.setCl_rev_rename(renameFileName);
+			classReview.setCl_rev_path(savePath + "/" + renameFileName);
+			
+			int chkDup = nService.chkClassReview(classReview);
+			if(chkDup > 0) {
+				model.addAttribute("msg", "이미 리뷰를 등록한 클래스입니다.");
+				return "mypage/normal/reviewInsert";
+			} else {
+				result = nService.insertClassReview(classReview);
+			}
+		} else if(review.getCategory().equals("CARV")) {
+			CafeReview cafeReview = new CafeReview();
+			cafeReview.setId(review.getId());
+			cafeReview.setC_code(review.getC_code());
+			cafeReview.setC_res(review.getC_res());
+			cafeReview.setC_rev_gra(Double.parseDouble(star_grade));
+			cafeReview.setC_rev_con(content);
+			cafeReview.setC_rev_iname(file.getOriginalFilename());
+			cafeReview.setC_rev_ichname(renameFileName);
+			cafeReview.setC_rev_ipath(savePath + "/" + renameFileName);
+			
+			int chkDup = nService.chkCafeReview(cafeReview);
+			if(chkDup > 0) {
+				model.addAttribute("msg", "이미 리뷰를 등록한 카페입니다.");
+				return "mypage/normal/reviewInsert";
+			} else {
+				result = nService.insertCafeReview(cafeReview);
+			}
+		}
+		
+		if(result > 0) {
+			model.addAttribute("msg", "리뷰가 등록되었습니다.");
+		} else {
+			model.addAttribute("msg", "리뷰 등록에 실패하였습니다.");
+		}
+		return "mypage/normal/reviewInsert";
+	}
+	
+	public String saveFile(MultipartFile file, HttpServletRequest request) {
+		String root = request.getSession().getServletContext().getRealPath("resources");
+		String savePath = root + "/muploadFiles/review";
+		File folder = new File(savePath);
+		if(!folder.exists()) {
+			folder.mkdirs();
+		}
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+		String originalFileName = file.getOriginalFilename();
+		String renameFileName = sdf.format(new Date()) + "_"
+				              + (int)(Math.random() * 100000)
+				              + originalFileName.substring(originalFileName.lastIndexOf("."));
+		
+		String renamePath = folder + "/" + renameFileName;
+		
+		try {
+			file.transferTo(new File(renamePath));
+		} catch (IllegalStateException | IOException e) {
+			System.out.println("파일 업로드 에러 : " + e.getMessage());
+		}
+		
+		return renameFileName;
+	}
+	
+	public void deleteFile(String rename_image, HttpServletRequest request) {
+		String root = request.getSession().getServletContext().getRealPath("resources");
+		File deleteFile = new File(root + "/muploadFiles/review/" + rename_image);
+		
+		if(deleteFile.exists()) {
+			deleteFile.delete();
 		}
 	}
 }

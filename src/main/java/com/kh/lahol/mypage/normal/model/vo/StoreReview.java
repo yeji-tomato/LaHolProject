@@ -13,18 +13,16 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class StoreDetail {
-	private String pay_no;
-	private String pay_item;
+public class StoreReview {
+	private String review_no;
+	private Date review_date;
+	private double review_grade;
+	private String review_content;
+	private String review_photo;
+	private String review_chph;
+	private String review_path;
+	private String review_status;
 	private String purchase_number;
 	private String subscribe_code;
-	private Date pay_date;
-	private int pr_count;
-	private String pay_total;
-	private String addr;
-	private String delivery;
-	private String subs_month;
-	private String sub;
-	private Date shipping_date;
-	private String shipping_status;
+	private String id;
 }

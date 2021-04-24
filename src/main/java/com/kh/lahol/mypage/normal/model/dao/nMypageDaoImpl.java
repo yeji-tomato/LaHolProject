@@ -10,10 +10,13 @@ import org.springframework.stereotype.Repository;
 import com.kh.lahol.member.model.vo.Member;
 import com.kh.lahol.mypage.common.PageInfo;
 import com.kh.lahol.mypage.normal.model.vo.CafeDetail;
+import com.kh.lahol.mypage.normal.model.vo.CafeReview;
 import com.kh.lahol.mypage.normal.model.vo.ClassDetail;
+import com.kh.lahol.mypage.normal.model.vo.ClassReview;
 import com.kh.lahol.mypage.normal.model.vo.Coupon;
 import com.kh.lahol.mypage.normal.model.vo.PayList;
 import com.kh.lahol.mypage.normal.model.vo.StoreDetail;
+import com.kh.lahol.mypage.normal.model.vo.StoreReview;
 import com.kh.lahol.mypage.partner.model.vo.Search;
 
 @Repository
@@ -85,6 +88,36 @@ public class nMypageDaoImpl implements nMypageDao{
 	@Override
 	public List<CafeDetail> selectCafe(String pay_no) {
 		return sqlSession.selectList("mypageMapper.selectCafe", pay_no);
+	}
+
+	@Override
+	public int insertStoreReview(StoreReview storeReview) {
+		return sqlSession.insert("mypageMapper.insertStoreReview", storeReview);
+	}
+
+	@Override
+	public int insertClassReview(ClassReview classReview) {
+		return sqlSession.insert("mypageMapper.insertClassReview", classReview);
+	}
+
+	@Override
+	public int insertCafeReview(CafeReview cafeReview) {
+		return sqlSession.insert("mypageMapper.insertCafeReview", cafeReview);
+	}
+
+	@Override
+	public int chkStoreReview(StoreReview storeReview) {
+		return sqlSession.selectOne("mypageMapper.chkStoreReview", storeReview);
+	}
+
+	@Override
+	public int chkClassReview(ClassReview classReview) {
+		return sqlSession.selectOne("mypageMapper.chkClassReview", classReview);
+	}
+
+	@Override
+	public int chkCafeReview(CafeReview cafeReview) {
+		return sqlSession.selectOne("mypageMapper.chkCafeReview", cafeReview);
 	}
 
 }
