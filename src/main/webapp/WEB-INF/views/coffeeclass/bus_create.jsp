@@ -59,6 +59,7 @@
                 </pre>
 				</div>
 				<form action = "${ contextPath }/coffeeclass/createclass/insert" id="wrtieForm" method="post" enctype="multipart/form-data">
+				<input type="hidden" value="${ sessionScope.loginUser.id }" name="clWriter">
 				<table id="clTable" style="white;">
 					<tr id="clTr">
 						<td>클래스명</td>
@@ -92,7 +93,8 @@
 						<!--검색으로 select-->
 						<td>주최카페</td>
 						<td class="answer" style="text-align: left;">
-						<input type="text" id="linkedcafe" value="${ mycafe.caName }" readonly>
+						<input type="text" id="linkedcafe" value="${ mycafe.caName }" name="cafeName" readonly>
+						<input type="hidden" id="linkedcafeNo" value="${ mycafe.caCode }" name="cafeNo">
 						</td>
 					</tr>
 					
@@ -124,7 +126,7 @@
 					<tr>
 						<td>클래스 커리큘럼</td>
 						<td class="answer"><textarea style="height: 200px; resize: none;"
-							class="classdes" name="classCurri" placeholder="10:00-11:00 커피와 함께하는 커피의 역사  &#13;&#10; -휴식10분- &#13;&#10; 11:10-12:00 현대 커피브랜드의 가치"></textarea></td>
+							class="classdes" name="classCurri" placeholder="예시 : 세션1(20분) : 커피와 함께하는 커피의 역사  &#13;&#10; -휴식10분- &#13;&#10; 세션2(1시간): 현대 커피브랜드의 가치"></textarea></td>
 					</tr>
 
 					<tr>
@@ -208,7 +210,6 @@
 						<td class="answer"><input type="text"
 							placeholder="분 단위로 입력해주세요" class="classdes" name="clRuntime"></td>
 						<td>분</td>
-					</tr>
 				</table>
 				
 					<div class="btnarea">
