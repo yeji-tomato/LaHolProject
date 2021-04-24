@@ -11,12 +11,16 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-
-// 필드 추가해야함!!! 
-public class CafeList {
-	private String id;
+public class Report_P {
+	private String prCode;
 	private String cafe;
+	private String ceo;
 	private String phone;
-	private String sales;
-	private String openDate;
+	private String service;
+	private String accu;
+	private String reporter;
+	private String reportee;
+	private String imgPath;
+	private String imgChName;
+	private String status;
 }
