@@ -8,7 +8,9 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.kh.lahol.admin.model.vo.CafeList;
 import com.kh.lahol.admin.model.vo.Promotion;
+import com.kh.lahol.admin.model.vo.Report_P;
 import com.kh.lahol.member.model.vo.Coupon;
 import com.kh.lahol.member.model.vo.Member;
 
@@ -48,7 +50,29 @@ public class AdminDaoImpl implements AdminDao{
 		return sqlSession.selectList("adminMapper.selectAdConfirmedList");
 	}
 
+	@Override
+	public List<CafeList> selectCafeList(String date) {
+		return sqlSession.selectList("adminMapper.selectCafeList", date);
+	}
 
+	@Override
+	public void updateAdConfirmed(String adCode) {
+		sqlSession.update("adminMapper.updateAdConfirmed", adCode);
+	}
 
-	
+	@Override
+	public void updateAdRejected(Map<String, Object> data) {
+		sqlSession.update("adminMapper.updateAdRejected", data);
+	}
+
+	@Override
+	public List<Report_P> selectReportedPartnerList() {
+		return sqlSession.selectList("adminMapper.selectReportedPartnerList");
+	}
+
+	@Override
+	public List<Report_P> selectCompletedPartnerList() {
+		return sqlSession.selectList("adminMapper.selectCompletedPartnerList");
+	}
+
 }

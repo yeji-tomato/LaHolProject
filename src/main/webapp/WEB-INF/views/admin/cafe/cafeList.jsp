@@ -234,10 +234,10 @@
 					<!-- 날짜 -->
 					<div id="date-container">
 						<div id="date-box">
-							<a class="period" href="#">Day</a>
-							<a class="period" href="#">Week</a>
-							<a class="period" href="#">Month</a>
-							<a class="period" href="#">Year</a>
+							<a class="period dateBtn" id="day" href="#">Day</a>
+							<a class="period dateBtn" id="week" href="#">Week</a>
+							<a class="period dateBtn" id="month" href="#">Month</a>
+							<a class="period dateBtn" id="year" href="#">Year</a>
 							<a class="period" id="calendar" href="#">
 								<svg
 									width="25"
@@ -259,92 +259,13 @@
 					<!-- 메인 컨텐츠 -->
 					<div id="contents-container">
 						<div id="left-contents">
-							<zing-grid
+							<zing-grid id="dataTable"
 								sort
 								pager
 								page-size="10"
 								page-size-options="5, 10"
 								viewport-stop
-								data='[
-                                {
-                                    "cafe" : "스타벅스",
-                                    "sales" : "₩ 300,000",
-                                    "phone" : "010-1234-5678",
-                                    "openDate" : "2020.02.02"
-                                },
-                                {
-                                    "cafe" : "요거프레소",
-                                    "sales" : "₩ 270,000",
-                                    "phone" : "010-1515-2266",
-                                    "openDate" : "2018.11.29"
-                                },
-                                {
-                                    "cafe" : "이디야",
-                                    "sales" : "₩ 182,900",
-                                    "phone" : "010-1555-2555",
-                                    "openDate" : "2017.10.29"
-                                },
-                                {
-                                    "cafe" : "KH카페",
-                                    "sales" : "₩ 320,000",
-                                    "phone" : "010-4444-3333",
-                                    "openDate" : "2005.07.20"
-                                },
-                                {
-                                    "cafe" : "동작노을카페",
-                                    "sales" : "₩ 252,200",
-                                    "phone" : "010-1515-2525",
-                                    "openDate" : "2020.09.10"
-                                },
-                                {
-                                    "cafe" : "카페람베리",
-                                    "sales" : "₩ 170,000",
-                                    "phone" : "010-5353-2222",
-                                    "openDate" : "2020.10.05"
-                                },
-                                {
-                                    "cafe" : "커피프레지던트",
-                                    "sales" : "₩ 130,000",
-                                    "phone" : "010-4444-3333",
-                                    "openDate" : "2015.02.19"
-                                },
-                                {
-                                    "cafe" : "땡스오트",
-                                    "sales" : "₩ 227,500",
-                                    "phone" : "010-5959-8989",
-                                    "openDate" : "2016.05.22"
-                                },
-                                {
-                                    "cafe" : "어반플랜트",
-                                    "sales" : "₩ 158,000",
-                                    "phone" : "010-5799-1234",
-                                    "openDate" : "2019.02.14"
-                                },
-                                {
-                                    "cafe" : "피오니",
-                                    "sales" : "₩ 344,000",
-                                    "phone" : "010-6857-1928",
-                                    "openDate" : "2020.10.10"
-                                },
-                                {
-                                    "cafe" : "마호가니커피",
-                                    "sales" : "₩ 504,000",
-                                    "phone" : "010-4245-3423",
-                                    "openDate" : "2017.03.22"
-                                },
-                                {
-                                    "cafe" : "브리오슈도레",
-                                    "sales" : "₩ 332,000",
-                                    "phone" : "010-2342-5234",
-                                    "openDate" : "2018.09.28"
-                                },
-                                {
-                                    "cafe" : "카페드레이프",
-                                    "sales" : "₩ 109,000",
-                                    "phone" : "010-2456-1234",
-                                    "openDate" : "2019.04.05"
-                                }
-                              ]'
+								data=''
 							>
 								<zg-colgroup>
 									<zg-column index="cafe" header="카페"></zg-column>
@@ -355,7 +276,7 @@
 							</zing-grid>
 						</div>
 						<div id="right-contents">
-							<div id="top-container" style="width: 90%; height:40%">
+							<div id="top-container" class="graphArea" style="width: 90%; height:40%">
 								<div id="store-chart-box" >
 									<canvas id="store-donut" height="70" width="70"></canvas>
 								</div>
@@ -366,11 +287,12 @@
 									<canvas id="coffee-donut" height="70" width="70"></canvas>
 								</div>
 							</div>
-							<hr id="hr-bar" />
-							<div id="bottom-container" style="width: 80%; height:70%">
-								<div id="graph-box">
-									<canvas id="line-graph" width="60" height="25"></canvas>
+							<hr id="hr-bar" class="graphArea" />
+							<div id="bottom-container" class="graphArea" style="width: 80%; height:70%">
+ 								<div id="graph-box">
+									<canvas id="line-graph" width="60" height="25"></canvas>			
 								</div>
+								<div id="graph-alternative">일별 조회는 데이터를 제공하지 않습니다</div>
 							</div>
 						</div>
 					</div>
@@ -379,6 +301,11 @@
 		</div>
 		<script>
 		$(function() {
+		    $('#day').trigger('click');
+		    $('#day').trigger('focus');
+		    
+		    //$('.graphArea').hide(); 임시로 주석
+		    
 		    // 서브카테고리 기본 숨김처리
 		    $('.sub-category').hide();
 		    $('#cafe-category').addClass('active');
@@ -457,7 +384,7 @@
 		/* charts.js */
 
 		/* 1. 스토어 도넛 */
-		var storeValue = 50;
+		var storeValue = 0;
 
 		$(document).ready(function(){
 			var options = {
@@ -490,7 +417,7 @@
 		});
 
 		/* 2. 클래스 도넛 */
-		var classValue = 30;
+		var classValue = 0;
 
 		$(document).ready(function(){
 			var options = {
@@ -523,7 +450,7 @@
 		});
 
 		/* 3. 커피 도넛 */
-		var coffeeValue = 20;
+		var coffeeValue = 0;
 
 		$(document).ready(function(){
 			var options = {
@@ -535,7 +462,7 @@
 				tooltipFillColor: "rgba(51, 51, 51, 0.55)",
 				data: {
 				labels: [
-					"클래스"
+					"커피"
 				],
 				datasets: [{
 				data: [coffeeValue, 100-coffeeValue],
@@ -561,7 +488,7 @@
 		var myChart = new Chart(ctx, {
 		    type: 'line',
 		    data: {
-		        labels: ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL"],
+		        labels: ["월","화","수","목","금","토","일"],
 		        datasets: [{
 		            label: "Data",
 		            borderColor: "#ff6384",
@@ -611,6 +538,57 @@
 		            }]
 		        }
 		    }
+		});
+		
+		/* 카페리스트 데이터테이블에 출력 */
+/* 		$(function(){
+		    $(".dateBtn").click(function(event) {
+		    	const dataTable = $('#dataTable');
+		        var date = event.target.id;
+		        
+		        $.ajax({
+		        	url : "${ pageContext.request.contextPath }/admin/cafe/cafeList/" + date,
+		        	dataType : "json",
+		        	type : "get",
+		        	success : function(data) {
+		        		dataTable.attr('data', JSON.stringify(data)).trigger("create");
+		        		console.log(data);
+		        	},
+		        	error : function(e) {
+		        		console.log(e);
+		        	}
+		        })
+		    });    
+		}); */
+	
+		/* 라인그래프 라벨 세트 */
+		var labelSet = [
+			['월','화','수','목','금','토','일'],
+			['월초', '월말'],
+			['1월', '3월', '6월', '9월', '12월']
+		];
+		
+		/* 그래프 업데이트 */
+		function updateChartLabel(chart, label, data){
+			chart.data.labels.push(label);
+		    chart.data.datasets.forEach((dataset) => {
+		        dataset.data.push(data);
+		    });
+		    chart.update();
+		};
+		
+		/* 날짜 버튼 클릭 시 UI 변경 */
+		$('.dateBtn').click(function(e){
+			var criteria = e.target.id;
+			console.log(criteria);
+			
+			if(criteria == 'day') {
+				$('#graph-box').hide();
+				$('#graph-alternative').show();
+			} else {
+				$('#graph-box').show();
+				$('#graph-alternative').hide();
+			}
 		});
 		
 		</script>

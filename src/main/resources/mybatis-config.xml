@@ -34,6 +34,8 @@
 		<typeAlias type="com.kh.lahol.admin.model.vo.Member_P" alias="A_Member_P"/>
 		<typeAlias type="com.kh.lahol.admin.model.vo.CafeList" alias="A_CafeList"/>
 		<typeAlias type="com.kh.lahol.admin.model.vo.Promotion" alias="A_Promo"/>
+		<typeAlias type="com.kh.lahol.admin.model.vo.CafeList" alias="A_CafeList"/>
+		<typeAlias type="com.kh.lahol.admin.model.vo.Report_P" alias="A_Report_P"/>
 		<!-- 쿠폰 -->
 		<typeAlias type="com.kh.lahol.member.model.vo.Coupon" alias="Coupon"/>
 		<!-- 회원가입 시 Cafe -->
@@ -67,7 +69,22 @@
 		<typeAlias type="com.kh.lahol.mypage.partner.model.vo.Search" alias="M_Search"/>
 		<!-- 마이페이지 주문 배송내역 -->
 		<typeAlias type="com.kh.lahol.mypage.partner.model.vo.Shipping" alias="M_Shipping"/>
-		
+		<!-- 마이페이지 일반 구매 내역 -->
+		<typeAlias type="com.kh.lahol.mypage.normal.model.vo.PayList" alias="PayList"/>
+		<!-- 마이페이지 클래스 디테일 -->
+		<typeAlias type="com.kh.lahol.mypage.normal.model.vo.ClassDetail" alias="ClassDetail"/>
+		<!-- 마이페이지 스토어 디테일 -->
+		<typeAlias type="com.kh.lahol.mypage.normal.model.vo.StoreDetail" alias="StoreDetail"/>
+		<!-- 마이페이지 카페 디테일 -->
+		<typeAlias type="com.kh.lahol.mypage.normal.model.vo.CafeDetail" alias="CafeDetail"/>
+		<!-- 마이페이지 후기  -->
+		<typeAlias type="com.kh.lahol.mypage.normal.model.vo.Review" alias="M_Review"/>
+		<!-- 마이페이지 후기 등록용 스토어 -->
+		<typeAlias type="com.kh.lahol.mypage.normal.model.vo.StoreReview" alias="StoreReview"/>
+		<!-- 마이페이지 후기 등록용 클래스 -->
+		<typeAlias type="com.kh.lahol.mypage.normal.model.vo.ClassReview" alias="ClassReview"/>
+		<!-- 마이페이지 후기 등록용 카페 -->
+		<typeAlias type="com.kh.lahol.mypage.normal.model.vo.CafeReview" alias="CafeReview"/>
 		<!-- Ad -->
  		<typeAlias type="com.kh.lahol.mypage.partner.model.vo.Ad" alias="Ad"/>
  		<!-- Ad 신청 시 payment -->
@@ -75,8 +92,12 @@
 		
 		<!-- 장바구니 -->
 		<typeAlias type="com.kh.lahol.common.model.vo.Cart" alias="Cart"/>
+		<!-- 쿠폰 -->
 		<typeAlias type="com.kh.lahol.common.model.vo.Coupon" alias="Cart_Coupon"/>
-
+		<!-- 결제 -->
+		<typeAlias type="com.kh.lahol.common.model.vo.Payment" alias="Cart_Payment"/>
+		<!-- 신고 -->
+		<typeAlias type="com.kh.lahol.common.model.vo.Report" alias="Report"/>
 	</typeAliases>
 	
 	<!-- mappers -->

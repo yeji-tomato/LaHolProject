@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,10 +11,9 @@
     <!-- menubar css -->
     <link rel="stylesheet" href="${ contextPath }/resources/css/common/menubar.css">
     <!-- side menubar css -->
-    <link rel="stylesheet" href="${ contextPath }/resources/css/common/menu.css">
+    <link rel="stylesheet" href="${ contextPath }/resources/css/mypage/sideMenu.css">
     <!-- footer css -->
     <link rel="stylesheet" href="${ contextPath }/resources/css/common/footer.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     
     <style>
         body{
@@ -25,12 +27,16 @@
             padding-top: 10%;
         }
 		
+		.mp-container {
+        	height : 1050px;
+        }
+		
         #mp{
             display: flex;
             margin-top: 1%;
             margin-left: 5%;
             width: 80vw;
-            height: auto;
+            height: 1000px;
             justify-content: center;
             text-align: center;
             border-radius: 30px;
@@ -78,7 +84,7 @@
             width : 80%;
             display: flex;
             flex-direction: column;
-            justify-content: flex-start;
+            justify-content: center;
             align-content: center;
         }
 
@@ -115,9 +121,12 @@
 
         .info-table textarea {
             width : 80%;
-            height : 100px;
+            height : 200px;
             padding : 15px;
-
+            margin : 10px 0;
+            font-family: 'NEXON Lv1 Gothic OTF';
+            font-size : 13px;
+            
             border : 1px solid #e7e7e7;
             outline: none;
 
@@ -134,7 +143,8 @@
 <body>
     <!-- menubar -->
 	<jsp:include page="/WEB-INF/views/common/menubar.jsp"/>
-
+	<!-- kakaoMap Library -->
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=7f32424a29ddd32cc9bc9bd1bac80acc&libraries=services"></script>
     <!-- 카페 사이드 메뉴 바 -->
     <div class="mypage-container">
         <div id="side" class="col-mp">
@@ -208,12 +218,12 @@
                             <table class="info-table">
                                 <tr>
                                     <td class="first-td">결제일</td>
-                                    <td>2021.03.01(월) 15:20</td>
+                                    <td>${ list[0].pay_date }</td>
                                 </tr>
                                 <tr><td></td></tr>
                                 <tr>
                                     <td class="first-td">카페명</td>
-                                    <td>KH커피</td>
+                                    <td>${ list[0].c_name }</td>
                                 </tr>
                                 <tr><td></td></tr>
                                 <tr>
@@ -222,32 +232,49 @@
                                 </tr>
                                 <tr><td></td></tr>
                                 <tr>
-                                    <td colspan="2"><textarea style="resize: none;">세부내용</textarea></td>
+                                    <td colspan="2">
+	                                    <textarea style="resize: none;">
+1. 카폐 예약 인원 : ${ list[0].c_res_per }명
+2. 커피 예약 내역
+	                                    <c:forEach var="co" items="${ list }">
+	a. 메뉴 : ${ co.cf_name }
+	b. 요청 : ${ co.cf_res_hi } / ${ co.cf_res_cap } / ${ co.cf_res_cup }
+	c. 수량 : ${ co.cf_amount }
+	----------------------------
+	                                    </c:forEach>
+	                                    </textarea>
+                                    </td>
                                 </tr>
                                 <tr><td></td></tr>
                                 <tr>
                                     <td class="first-td">예약 일시</td>
-                                    <td>2021.03.01(월) 18:00</td>
+                                    <c:if test="${ list[0].c_res_type eq '매장' }">
+                                    	<td>${ list[0].c_res_date }, ${ list[0].c_heretime }</td>
+                                    </c:if>
+                                    <c:if test="${ list[0].c_res_type eq '포장' }">
+                                    	<td>${ list[0].c_res_date }, ${ list[0].c_gotime }</td>
+                                    </c:if>
                                 </tr>
                                 <tr><td></td></tr>
                                 <tr>
                                     <td class="first-td">카페 위치</td>
-                                    <td></td>
+                                    <td>${ fn:replace(list[0].c_address, ',', ' ') }</td>
                                 </tr>
                                 <tr><td></td></tr>
                                 <tr>
-                                    <td colspan="2">지도지도</td>
+                                    <td colspan="2"><div id="map" style="width:100%; height:250px; margin:10px 0;"></div></td>
                                 </tr>
                                 <tr><td></td></tr>
                                 <tr>
                                     <td class="first-td">예약 상태</td>
-                                    <td>예약완료/수취완료</td>
+                                    <td id="co_status">${ list[0].c_res_ing }</td>
                                 </tr>
                                 <tr><td></td></tr>
                                 <tr>
                                     <td colspan="2">
-                                        <button type="button">확인</button>
-                                        <button type="button">후기 등록</button>    <!-- 완료 상태일 때만 후기 등록 나타남 -->
+                                        <button type="button" onclick="location.href='${ contextPath }/nMypage/paymentView'">확인</button>
+                                        <button id="reviewBtn" type="button" style="display:none;"
+                                        onclick="window.open('${ contextPath }/nMypage/reviewInsert?category=CARV&c_code=${ list[0].c_code }&c_res=${ list[0].c_res }', 'popup', 'width=503px, height=603px')">후기 등록</button>
                                     </td>
                                 </tr>
                             </table>
@@ -256,8 +283,38 @@
                 </div>
             </div>
         </div>
-        
     </div>
+    <script>
+	    $(function(){
+			var co_status = $("#co_status").html();
+			if(co_status.indexOf('완료') > 0) {
+				$("#reviewBtn").css({"display":"inline-block"});
+			} else {
+				$("#reviewBtn").css({"display":"none"});
+			}
+		});
+    
+	    var mapContainer = document.getElementById('map'),
+		mapOption = {
+			center : new kakao.maps.LatLng(33.450701, 126.570667),
+			level : 3
+		};
+		
+		var map = new kakao.maps.Map(mapContainer, mapOption);
+		var coords = new kakao.maps.LatLng(${ list[0].c_la }, ${ list[0].c_lo });
+		
+		var marker = new kakao.maps.Marker({
+			map : map,
+			position : coords
+		});
+		
+		var infowindow = new kakao.maps.InfoWindow({
+			content : '<div style="width:150px; text-align:center; padding:6px 0;">${ list[0].c_name }</div>'
+		});
+		infowindow.open(map, marker);
+		
+		map.setCenter(coords);
+    </script>
 	<!-- footer -->
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 </body>

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,6 +9,7 @@
     <link rel="stylesheet" href="${ contextPath }/resources/css/common/reset.css">
     <link rel="stylesheet" href="${ contextPath }/resources/css/common/fonts.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <style>
         body {
             width : 500px;
@@ -196,10 +198,28 @@
         .btn-div .review-btn:hover {
             background: #7a917a;
         }
+        
+        .swal2-confirm,
+        .swal2-cancel,
+        .swal2-html-container,
+        .swal2-title {
+        	font-family: 'NEXON Lv1 Gothic OTF';
+        }
 
     </style>
 </head>
-<body>
+<body onbeforeunload="refreshAndClose();">
+	<c:if test="${ !empty msg }">
+		<script>
+			Swal.fire({
+				title : '${msg}',
+				icon : 'success'
+			}).then(function(){
+				window.close();
+			});
+		</script>
+		<c:remove var="msg"/>
+	</c:if>
     <div class="review-title">
         <div class="review-title-logo">
             <img src="${ contextPath }/resources/img/common/logo-lahol2.png">
@@ -211,16 +231,25 @@
     </div>
     <div class="review-content">
         <div class="content-text-div content-div">
-            <p class="content-text">사용한 카페 / 클래스 / 물품 / 원두에 대해</p>
+            <p class="content-text">사용한 카페 / 클래스 / 제품 / 스토어에 대해</p>
             <p class="content-text">자유롭게 후기를 작성해 주세요.</p>
         </div>
-        <form>
+        <form id="review_form" action="${ contextPath }/nMypage/reviewResister" method="POST" enctype="multipart/form-data">
             <div class="content-upload-img content-div">
                 <p class="content-subTitle">사진 리뷰</p>
                 <div class="upload-div">
                     <label for="review-img">사진 업로드</label>
                     <input type="text" id="upload-name" disabled>
                     <input type="file" id="review-img" name="review-img">
+                    <input type="hidden" name="category" value="${ review.category }">
+                    <input type="hidden" name="id" value="${ review.id }">
+                    <input type="hidden" name="cl_pay_no" value="${ review.cl_pay_no }">
+                    <input type="hidden" name="class_no" value="${ review.class_no }">
+                    <input type="hidden" name="c_code" value="${ review.c_code }">
+                    <input type="hidden" name="c_res" value="${ review.c_res }">
+                    <input type="hidden" name="subscribe_code" value="${ review.subscribe_code }">
+                    <input type="hidden" name="purchase_number" value="${ review.purchase_number }">
+                    <input type="hidden" id="star_grade" name="star_grade">
                 </div>
             </div>
             <div class="content-star content-div">
@@ -235,31 +264,118 @@
                     <span class="star star_left"></span>
                     <span class="star star_right"></span>
                 
-                <span class="star star_left"></span>
-                <span class="star star_right"></span>
-                
-                <span class="star star_left"></span>
-                <span class="star star_right"></span>
+	                <span class="star star_left"></span>
+	                <span class="star star_right"></span>
+	                
+	                <span class="star star_left"></span>
+	                <span class="star star_right"></span>
                 </div>
             </div>
             <div class="review-text content-div">
-                <p class="content-subTitle">후기</p>
-                <textarea id="review-text" style="resize: none;"></textarea>
+                <p class="content-subTitle">후기 <span id="counter">0</span>/250</p>
+                <textarea id="review-text" name="content" style="resize: none;" placeholder="5자 이상 250자 이내로 작성하세요."></textarea>
             </div>
             <div class="btn-div content-div">
-                <input type="submit" class="review-btn" value="등록">
-                <input type="button" class="review-btn" value="취소">
+                <input type="button" class="review-btn" value="등록" onclick="onSubmit();">
+                <input type="button" class="review-btn" value="취소" onclick="window.close();">
             </div>
         </form>
     </div>
     <script>
         $(".star").on('click',function(){
             var idx = $(this).index();
+            
             $(".star").removeClass("on");
-                for(var i=0; i<=idx; i++){
+            
+            for(var i=0; i<=idx; i++){
                     $(".star").eq(i).addClass("on");
             }
+            var star = document.getElementsByClassName("on");
+            $("#star_grade").val(star.length/2);
         });
+        
+        function refreshAndClose(){
+       		window.opener.location.reload();
+       		window.close();
+        }
+        
+        $("#review-text").on('keyup', function(){
+        	var inputLength = $(this).val().length;
+        	$("#counter").html(inputLength);
+        	
+        	var remain = 250 - inputLength;
+        	
+        	if(remain >= 0) {
+        		$("#counter").css("color", "black");
+        	} else {
+        		$("#counter").css("color", "red");
+        	}
+   		});
+        
+        $(function(){
+	        $("[type=file]").change(function(){
+	            loadImg(this);
+	        });
+	
+	        function loadImg(element) {
+	            if(element.files && element.files[0]) {
+	                $("#upload-name").val(element.files[0].name);
+	            }
+	        }
+	    });
+        
+        function onSubmit() {
+        	var reviewImg = document.getElementById("review-img");
+        	var star = document.getElementsByClassName("on");
+        	var content = document.getElementById("review-text");
+        	
+        	if(star.length == 0) {
+        		Swal.fire({
+    				title : "별점을 선택해주세요.",
+    				icon : 'warning'
+    			});
+        		return;
+        	}
+        	
+        	if(content.value.length < 5) {
+        		Swal.fire({
+    				title : "후기를 5자 이상 작성해주세요.",
+    				icon : 'warning'
+    			});
+        		content.focus();
+        		return;
+        	}
+        	
+        	if(content.value.length >= 250) {
+        		Swal.fire({
+    				title : "후기를 250자 이내로 작성해주세요.",
+    				icon : 'warning'
+    			});
+        		content.focus();
+        		return;
+        	}
+        	
+        	if(!(reviewImg.files && reviewImg.files[0])) {
+        		Swal.fire({
+					title : '업로드 된 이미지가 없습니다.',
+					text : "이미지 없이 등록 하시겠습니까?",
+					icon : 'warning',
+					showCancelButton : true,
+					confirmButtonColor : '#4B654A',
+					cancelButtonColor : '#d33',
+					confirmButtonText : '등록',
+					cancelButtonText : '취소'
+				}).then(function(result) {
+					if(result.isConfirmed) {
+						$("#review_form").submit();
+					} else {
+						return;
+					}
+				});
+        	}
+        	
+        	$("#review_form").submit();
+        }
     </script>
 </body>
 </html>

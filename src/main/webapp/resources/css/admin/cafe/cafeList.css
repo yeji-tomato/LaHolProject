@@ -36,6 +36,11 @@ body {
     height: 100vh;
     padding: 0;
     margin: 0;
+    overflow: hidden;
+}
+
+*:focus {
+    outline: none;
 }
 
 /*전체 컨테이너*/
@@ -257,6 +262,15 @@ body {
 
 #bottom-container {
     flex: 1;
+}
+
+#graph-alternative {
+	display: none;
+	text-align: center;
+	font-family: 'NEXON Lv1 Gothic OTF';
+	margin-top: 15%;
+	font-size: 3vh;
+	color: var(--date-sel);
 }
 
 .sub-category:hover #a-text {
@@ -498,3 +512,5 @@ canvas#horizontalBarChartCanvas {
     max-width: 30vw;
     height: 26vh;
   }
+  
+  

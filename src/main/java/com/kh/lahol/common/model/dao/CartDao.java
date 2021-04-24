@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.kh.lahol.common.model.vo.Cart;
 import com.kh.lahol.common.model.vo.Coupon;
+import com.kh.lahol.common.model.vo.Payment;
 
 public interface CartDao {
 
@@ -13,6 +14,16 @@ public interface CartDao {
 
 	List<Coupon> couponSelectList(String id);
 
+
 	int storeCartInsert(Cart ct);
+
+	int cafeCartPayment(Payment pay);
+
+	int couponUse(Coupon cop);
+
+	int CartPayment(Payment pay);
+
+	int successCart(String id);
+
 
 }

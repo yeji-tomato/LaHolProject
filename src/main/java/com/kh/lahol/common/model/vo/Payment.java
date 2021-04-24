@@ -23,6 +23,7 @@ public class Payment {
 	private String cafeRes;
 	private String adCode;
 	private String purchaseNumber;
+	private String subscribeCode;
 	private String clPayNo;
 	private String payDC;
 	private String payTotal;

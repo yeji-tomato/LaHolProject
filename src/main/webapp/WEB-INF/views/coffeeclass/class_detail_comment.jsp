@@ -129,6 +129,59 @@
             <div class="writeBtn">
               <button id="askBtn" aria-hidden="true" id="Question" data-bs-toggle="modal" data-bs-target="#askModal">문의하기</button>
             </div>
+            
+            <table class="table table-hover" id="qnatable">
+				<thead>
+				    <tr>
+				      <th scope="col" style="width : 200px;">답변상태</th>
+				      <th scope="col" colspan="2" style="text-align:center;">질문내용</th>
+				      <th scope="col" style="width : 200px;">작성자</th>
+				      <th scope="col" style="width : 200px;">작성일자</th>
+				    </tr>
+				  </thead>
+				  <tbody>
+				    <tr>
+				      <th scope="row">미답변</th>
+				      <td colspan="2">Mark</td>
+				      <td>cd****6</td>
+				      <td>2021-04-21</td>
+				    </tr>
+				    <tr>
+				      <th scope="row">답변완료</th>
+				      <td colspan="2">Jacob</td>
+				      <td>Th****on</td>
+				      <td>2021-01-06</td>
+				    </tr>
+				    <tr>
+				      <th scope="row">답변완료</th>
+				      <td colspan="2">Larry the Bird</td>
+				      <td>la****ry</td>
+				      <td>2020-06-21</td>
+				    </tr>
+				    <tr>
+				      <th scope="row">답변완료</th>
+				      <td colspan="2">배송이 늦어진다는 문자를 받긴했는데, 도대체 언제오나요?</td>
+				      <td>la****ry</td>
+				      <td>2020-06-21</td>
+				    </tr>
+				  </tbody>
+			</table>
+			
+			<div class="accordion" id="accordionExample">
+			  <div class="accordion-item">
+			    <h2 class="accordion-header" id="headingOne">
+			      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+			        Accordion Item #1
+			      </button>
+			    </h2>
+			      <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+			       <div class="accordion-body">
+			        <strong>This is the first item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+			       </div>
+			      </div>
+			  </div>
+            
+            
              
             <div class="accordionMenu">
               <div class="accordion accordion-flush" id="accordionFlushExample">
@@ -138,11 +191,10 @@
                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
                        <table class="qaTable">
                          <tr>
-	                          <td>1</td>
 	                          <td>답변완료</td>
 	                          <td colspan="5">주차장은 최대 몇 대 가능한가요?</td>
-	                          <td>dd****</td>
-	                          <td>2020-12-25</td>
+	                          <td>${ qna.question }</td>
+	                          <td>${ qna.askDate }</td>
                          </tr>
                        </table>
                      </button>

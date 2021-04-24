@@ -35,6 +35,7 @@ import com.kh.lahol.cafe.user.model.service.CafeService;
 import com.kh.lahol.cafe.user.model.vo.CafeRes;
 import com.kh.lahol.cafe.user.model.vo.CoffeeCart;
 import com.kh.lahol.cafe.user.model.vo.CoffeeRes;
+import com.kh.lahol.common.model.vo.Report;
 import com.kh.lahol.member.model.vo.Member;
 
 @Controller
@@ -230,6 +231,21 @@ public class CafeUserController {
 		return mv;
 	}
 	
+	  
+	// 카페 매장 신고 insert
+	@PostMapping("/report")
+	public String cafeReport(@ModelAttribute Report rep) throws CafeException{
+		
+		System.out.println(rep);
+		int result = caService.cafeReport(rep);
+		
+		
+		if(result > 0) {
+			return "/cafe/user/detail";
+		}else {
+			throw new CafeException("카페 신고에 실패하였습니다.");
+		}	
+	}
 	
 	
 

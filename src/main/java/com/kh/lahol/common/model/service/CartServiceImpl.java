@@ -43,5 +43,26 @@ public class CartServiceImpl implements CartService{
 	public int storeCartInsert(Cart ct) {
 		return cartDao.storeCartInsert(ct);
 	}
-	 
+
+
+	@Override
+	public int cafeCartPayment(Payment pay) {
+		return cartDao.cafeCartPayment(pay);
+	}
+
+	@Override
+	public int couponUse(Coupon cop) {
+		return cartDao.couponUse(cop);
+	}
+
+	@Override
+	public int CartPayment(Payment pay) {
+		return cartDao.CartPayment(pay);
+	}
+
+	@Override
+	public int successCart(String id) {
+		return cartDao.successCart(id);
+	}
+
 }

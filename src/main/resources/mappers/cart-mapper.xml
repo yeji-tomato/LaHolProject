@@ -29,6 +29,23 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 			<result property="expDate" column="EXPDATE"/>
 			<result property="isUsed" column="ISUSED"/>
 		</resultMap>
+		
+		<resultMap id="cartPaymentResultSet" type="Cart_Payment">
+			<id property="payNo" column="PAY_NO"/>
+			<result property="payItem" column="PAY_ITEM"/>
+			<result property="payPrice" column="PAY_PRICE"/>
+			<result property="subscribe" column="SUBSCRIBE"/>
+			<result property="payDate" column="PAY_DATE"/>
+			<result property="buyId" column="BUYER_ID"/>
+			<result property="cafeRes" column="CAFE_RES"/>
+			<result property="adCode" column="AD_CODE"/>
+			<result property="purchaseNumber" column="PURCHASE_NUMBER"/>
+			<result property="subscribeCode" column="SUBSCRIBE_CODE"/>
+			<result property="clPayNo" column="CL_PAY_NO"/>
+			<result property="payDC" column="PAY_DC"/>
+			<result property="payTotal" column="PAY_TOTAL"/>
+			<result property="clTime" column="CL_TIME"/>
+		</resultMap>
 	
 		<!-- 카페 예약 정보 장바구니에 입력 -->
 		<insert id="insertCafeCart" parameterType="Cart">
@@ -104,8 +121,97 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 			    ISUSED
 			FROM COUPON
 			WHERE ID = #{id}
+			AND ISUSED = 'Y'
 		</select>
 	
+		<!-- 카페 결제 정보 insert -->
+		<insert id="cafeCartPayment" parameterType="Cart_Payment">
+			INSERT
+			INTO PAYMENT
+			(
+				PAY_NO,
+				PAY_ITEM,
+				PAY_PRICE,
+				SUBSCRIBE,
+				PAY_DATE,
+				BUYER_ID,
+				CAFE_RES,
+				AD_CODE,
+				PURCHASE_NUMBER,
+				SUBSCRIBE_CODE,
+				CL_PAY_NO,
+				PAY_DC,
+				PAY_TOTAL,
+				CL_TIME
+			)
+			VALUES
+			(
+				'CAP'|| CAP.NEXTVAL,
+				#{payItem},
+				#{payPrice},
+				NULL,
+				SYSDATE,
+				#{buyId},
+				(SELECT C_RES 
+                FROM CORES
+                WHERE CF_RES = #{cafeRes}),
+				NULL,
+				NULL,
+				NULL,
+				NULL,
+				#{payDC},
+				#{payTotal},
+				NULL
+			)
+		</insert>
+		
+		<!-- 장바구니 결제 정보 insert -->
+		<insert id="CartPayment" parameterType="Cart_Payment">
+			INSERT
+			INTO PAYMENT
+			(
+				PAY_NO,
+				PAY_ITEM,
+				PAY_PRICE,
+				SUBSCRIBE,
+				PAY_DATE,
+				BUYER_ID,
+				CAFE_RES,
+				AD_CODE,
+				PURCHASE_NUMBER,
+				SUBSCRIBE_CODE,
+				CL_PAY_NO,
+				PAY_DC,
+				PAY_TOTAL,
+				CL_TIME
+			)
+			VALUES
+			(
+				'CRTP'|| CRTP.NEXTVAL,
+				#{payItem},
+				#{payPrice},
+				NULL,
+				SYSDATE,
+				#{buyId},
+				#{cafeRes},
+				NULL,
+				NULL,
+				NULL,
+				NULL,
+				#{payDC},
+				#{payTotal},
+				NULL
+			)
+		</insert>
+		
+		
+		<update id="coponUse" parameterType="Cart_Coupon">
+		UPDATE
+			COUPON
+		SET
+			ISUSED = 'N'
+		WHERE COUPON_CODE = #{couponCode}
+		</update>
 	
 		<!-- 스토어 제품 인서트 -->
 		<insert id="storeCartInsert" parameterType="Cart">
@@ -153,4 +259,12 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 		
 	 
 	
+
+		<!-- 장바구니 결제 성공 시 장바구니 비우기 -->
+		<delete id="successCart" parameterType="Cart">
+		DELETE
+		FROM CART
+		WHERE ID = #{id}
+		</delete>
+
 </mapper>

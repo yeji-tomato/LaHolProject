@@ -87,7 +87,6 @@
                                         <c:set var= "totalCount" value="${totalCount + cor.cfResAmount}"/>
                                         <c:set var= "total" value="${total + cfSum}"/>
                                         <input type="hidden" id="cfName"  value="${ cor.cfName }">
-						               <input type="hidden" id="cfSum"  value="${ cfSum }">
 						               <input type="hidden" id="cfNo"  value="${ cor.cfResNo }">
                                         </c:forEach>
                                         
@@ -122,6 +121,7 @@
 						             <button id="button-addon3" type="button" class="btn px-4 rounded-pill" style="background: #5A452E; color: white;" onclick="winPopup();"><i class="fa fa-gift mr-2"></i>coupon</button>
 						           </div>
 						         </div>
+						         <p id="couponSequence" style="color: white"></p>
 						       </div>
 						       <script type="text/javascript">
 								    function winPopup() {
@@ -137,7 +137,7 @@
 						       <div class="rounded-pill px-4 py-3 text-uppercase font-weight-bold" style="background: #F3EFEB;">결제 정보</div>
 						       <div class="p-4">
 						         <ul class="list-unstyled mb-4">
-						           <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">상품금액 </strong><strong><c:out value="${total}"/></strong></li>
+						           <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">상품금액 </strong><strong id="sumPrice"><c:out value="${total}"/></strong></li>
 						           <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">할인금액</strong><strong id="couponPrice">0</strong></li>
 						           <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">결제금액</strong>
 						             <h5 class="font-weight-bold" id="resultPrice"><c:out value="${total}"/></h5>
@@ -157,10 +157,13 @@
 				$("#check_module").click(function () {
 					
 				var cfName = $("#cfName").val(); // 물품명
-				var cfSum = $("#cfSum").val();	// 결제 금액
+				var cfSum = $("#sumPrice").text();	// 결제 금액
 				var cafeResNo = $("#cfNo").val();
 				var couponPrice = $("#couponPrice").text();
 				var resultPrice = $("#resultPrice").text();
+				
+				var couponNo = $("#couponSequence").text();
+
 					
 				var IMP = window.IMP; // 생략가능
 				IMP.init('imp85155473');
@@ -168,11 +171,8 @@
 				// i'mport 관리자 페이지 -> 내정보 -> 가맹점식별코드
 				IMP.request_pay({
 				pg: 'html5_inicis', // version 1.1.0부터 지원.
-
 				pay_method: 'card',
-
 				merchant_uid: 'merchant_' + new Date().getTime(),
-
 				name: cfName,
 				amount: 100,
 				
@@ -200,6 +200,8 @@
 					title : msg,
 					icon : 'success'
 				}).then(function(result){
+					
+					
 					$.ajax({
 		       			url:"${ contextPath }/cart/cafe/payment",
 		        		type : "post",
@@ -211,7 +213,6 @@
 		        			payTotal : resultPrice	
 		        		},
 		        		success : function(data){
-		        			alert("결제 정보가 insert 되었습니다.");
 		        			location.href="${ contextPath }";
 		        		},
 		        		error : function(e){
@@ -219,6 +220,23 @@
 						}
 		        		
 		       		});
+					
+					
+					$.ajax({
+		       			url:"${ contextPath }/cart/coupon/use",
+		        		type : "post",
+		        		data : {
+		        			couponCode : couponNo
+		        		},
+		        		success : function(data){
+		        			location.href="${ contextPath }";
+		        		},
+		        		error : function(e){
+							console.log(e);
+						}
+		        		
+		       		});
+					
 				});
 				} else {
 				var msg = '결제에 실패하였습니다.';

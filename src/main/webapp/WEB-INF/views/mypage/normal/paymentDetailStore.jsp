@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,7 +11,7 @@
     <!-- menubar css -->
     <link rel="stylesheet" href="${ contextPath }/resources/css/common/menubar.css">
     <!-- side menubar css -->
-    <link rel="stylesheet" href="${ contextPath }/resources/css/common/menu.css">
+    <link rel="stylesheet" href="${ contextPath }/resources/css/mypage/sideMenu.css">
     <!-- footer css -->
     <link rel="stylesheet" href="${ contextPath }/resources/css/common/footer.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
@@ -24,14 +27,17 @@
             height: auto; 
             padding-top: 10%;
         }
-
+		
+		.mp-container {
+        	height : 900px;
+        }
 
         #mp{
             display: flex;
             margin-top: 1%;
             margin-left: 5%;
             width: 80vw;
-            height: auto;
+            height: 800px;
             justify-content: center;
             text-align: center;
             border-radius: 30px;
@@ -79,7 +85,7 @@
             width : 80%;
             display: flex;
             flex-direction: column;
-            justify-content: flex-start;
+            justify-content: center;
             align-content: center;
         }
 
@@ -96,7 +102,7 @@
             border-collapse: collapse;
             width : 100%;
         }
-
+        
         .info-table td:nth-child(1) {
             width : 15%;
         }
@@ -200,7 +206,7 @@
             <!-- 이부분에 내용 작성 -->
             <div class="content-div">
                 <div class="content-title">
-                    <h3>카페 예약 현황</h3>
+                    <h3>제품 구매 내역</h3>
                 </div>
                 <div class="content-info">
                     <div class="info-div">
@@ -208,48 +214,56 @@
                             <table class="info-table">
                                 <tr>
                                     <td class="first-td">결제일</td>
-                                    <td>2021.03.01(월) 15:20</td>
+                                    <td>${ detail.pay_date }</td>
                                 </tr>
-                                <tr><td></td></tr>
+                                <tr style="height:10px"><td></td></tr>
                                 <tr>
                                     <td class="first-td">물품명</td>
-                                    <td>원두 - 정기 구독 12개월</td>
+                                	<c:if test="${ detail.sub eq 'Y' }">
+                                    	<td>${ detail.pay_item } - 정기구독 ${ detail.subs_month }개월</td>
+                                    </c:if>
+                                    <c:if test="${ detail.sub ne 'Y' }">
+                                    	<td>${ detail.pay_item }</td>
+                                    </c:if>
                                 </tr>
-                                <tr><td></td></tr>
+                                <tr style="height:10px"><td></td></tr>
                                 <tr>
                                     <td class="first-td">수량</td>
-                                    <td>1</td>
+                                    <td>${ detail.pr_count }</td>
                                 </tr>
-                                <tr><td></td></tr>
+                                <tr style="height:10px"><td></td></tr>
                                 <tr>
                                     <td class="first-td">금액</td>
-                                    <td>100,000원</td>
+                                    <td><fmt:formatNumber value="${ detail.pay_total }"/>원</td>
                                 </tr>
-                                <tr><td></td></tr>
+                                <tr style="height:10px"><td></td></tr>
                                 <tr>
                                     <td class="first-td">배송비</td>
-                                    <td>1,000원</td>
+                                    <td>2,500원</td>
                                 </tr>
-                                <tr><td></td></tr>
+                                <tr style="height:10px"><td></td></tr>
                                 <tr>
                                     <td class="first-td">배송 주소</td>
-                                    <td>주소주소주소</td>
+                                    <td>${ fn:replace(detail.addr, ',', ' ') }</td>
                                 </tr>
-                                <tr><td></td></tr>
+                                <tr style="height:10px"><td></td></tr>
+                                <c:if test="${ detail.sub eq 'Y' }">
                                 <tr>
                                     <td class="first-td">배송 회차</td> <!-- 구독일 때 만 나오게 처리 -->
-                                    <td>5/12</td>
+                                    <td>${ detail.delivery } / ${ detail.subs_month }</td>
                                 </tr>
-                                <tr><td></td></tr>
+                                </c:if>
+                                <tr style="height:10px"><td></td></tr>
                                 <tr>
                                     <td class="first-td">주문 상태</td>
-                                    <td>배송완료/배송중/결제완료/배송준비중</td>
+                                    <td id="sh_status">${ detail.shipping_status }</td>
                                 </tr>
-                                <tr><td></td></tr>
+                                <tr style="height:10px"><td></td></tr>
                                 <tr>
                                     <td colspan="2">
-                                        <button type="button">확인</button>
-                                        <button type="button">후기 등록</button>    <!-- 완료 상태일 때만 후기 등록 나타남 -->
+                                        <button type="button" onclick="location.href='${ contextPath }/nMypage/paymentView'">확인</button>
+                                        <button id="reviewBtn" type="button" style="display:none;"
+                                        onclick="window.open('${ contextPath }/nMypage/reviewInsert?category=STRV&purchase_number=${ detail.purchase_number }&subscribe_code=${ detail.subscribe_code }', 'popup', 'width=503px, height=603px')">후기 등록</button>
                                     </td>
                                 </tr>
                             </table>
@@ -258,8 +272,17 @@
                 </div>
             </div>
         </div>
-        
     </div>
+    <script>
+    	$(function(){
+    		var sh_status = $("#sh_status").html();
+    		if(sh_status.indexOf('완료') > 0) {
+    			$("#reviewBtn").css({"display":"inline-block"});
+    		} else {
+    			$("#reviewBtn").css({"display":"none"});
+    		}
+    	});
+    </script>
 	<!-- footer -->
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 </body>
