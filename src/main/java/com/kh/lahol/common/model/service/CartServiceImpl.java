@@ -30,7 +30,20 @@ public class CartServiceImpl implements CartService{
 	@Override
 	public List<Coupon> couponSelectList(String id) {
 		return cartDao.couponSelectList(id);
+	}//00
+
+	@Override
+	public int cafeCartPayment(Payment pay) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
+
+	//스토아 카트
+	@Override
+	public int storeCartInsert(Cart ct) {
+		return cartDao.storeCartInsert(ct);
+	}
+
 
 	@Override
 	public int cafeCartPayment(Payment pay) {
@@ -51,4 +64,5 @@ public class CartServiceImpl implements CartService{
 	public int successCart(String id) {
 		return cartDao.successCart(id);
 	}
+
 }

@@ -14,6 +14,9 @@ public interface CartDao {
 
 	List<Coupon> couponSelectList(String id);
 
+
+	int storeCartInsert(Cart ct);
+
 	int cafeCartPayment(Payment pay);
 
 	int couponUse(Coupon cop);
@@ -21,5 +24,6 @@ public interface CartDao {
 	int CartPayment(Payment pay);
 
 	int successCart(String id);
+
 
 }

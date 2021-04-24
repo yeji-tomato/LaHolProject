@@ -213,10 +213,58 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 		WHERE COUPON_CODE = #{couponCode}
 		</update>
 	
+		<!-- 스토어 제품 인서트 -->
+		<insert id="storeCartInsert" parameterType="Cart">
+			INSERT
+			INTO CART
+			(
+				CART_NO,
+				CART_NAME,
+				CART_PRICE,
+				CART_COUNT,
+				CART_RES,
+				SHIP_FEE,
+				CLASS_NO,
+				ID,
+				PURCHASE_NO,
+				C_RES,
+				PHOTONAME,
+				TODAY
+			)
+			VALUES
+			(
+				 CAT.NEXTVAL
+				,#{cartName}
+				,#{cartPrice}
+				,#{cartCount}
+				,NULL
+				,#{shipFee}
+				,NULL
+				,#{userId}
+				,(SELECT PURCHASE_NUMBER
+				FROM
+				(SELECT PURCHASE_NUMBER, ROWNUM AS RNUM
+				FROM PR_PAY_WHICH
+				ORDER BY PURCHASE_NUMBER DESC)
+				WHERE RNUM = 1)
+				,NULL
+				,(
+                    SELECT STORE_PHOTO1
+                    FROM PRODUCT
+                    WHERE PR_NAME = #{cartName}
+                )
+				,SYSDATE
+			)
+		</insert>
+		
+	 
+	
+
 		<!-- 장바구니 결제 성공 시 장바구니 비우기 -->
 		<delete id="successCart" parameterType="Cart">
 		DELETE
 		FROM CART
 		WHERE ID = #{id}
 		</delete>
+
 </mapper>
