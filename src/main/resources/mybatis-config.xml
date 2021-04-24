@@ -76,6 +76,14 @@
 		<typeAlias type="com.kh.lahol.mypage.normal.model.vo.StoreDetail" alias="StoreDetail"/>
 		<!-- 마이페이지 카페 디테일 -->
 		<typeAlias type="com.kh.lahol.mypage.normal.model.vo.CafeDetail" alias="CafeDetail"/>
+		<!-- 마이페이지 후기  -->
+		<typeAlias type="com.kh.lahol.mypage.normal.model.vo.Review" alias="M_Review"/>
+		<!-- 마이페이지 후기 등록용 스토어 -->
+		<typeAlias type="com.kh.lahol.mypage.normal.model.vo.StoreReview" alias="StoreReview"/>
+		<!-- 마이페이지 후기 등록용 클래스 -->
+		<typeAlias type="com.kh.lahol.mypage.normal.model.vo.ClassReview" alias="ClassReview"/>
+		<!-- 마이페이지 후기 등록용 카페 -->
+		<typeAlias type="com.kh.lahol.mypage.normal.model.vo.CafeReview" alias="CafeReview"/>
 		<!-- Ad -->
  		<typeAlias type="com.kh.lahol.mypage.partner.model.vo.Ad" alias="Ad"/>
  		<!-- Ad 신청 시 payment -->

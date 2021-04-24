@@ -273,7 +273,8 @@
                                 <tr>
                                     <td colspan="2">
                                         <button type="button" onclick="location.href='${ contextPath }/nMypage/paymentView'">확인</button>
-                                        <button id="reviewBtn" type="button" style="display:none;">후기 등록</button>    <!-- 완료 상태일 때만 후기 등록 나타남 -->
+                                        <button id="reviewBtn" type="button" style="display:none;"
+                                        onclick="window.open('${ contextPath }/nMypage/reviewInsert?category=CARV&c_code=${ list[0].c_code }&c_res=${ list[0].c_res }', 'popup', 'width=503px, height=603px')">후기 등록</button>
                                     </td>
                                 </tr>
                             </table>

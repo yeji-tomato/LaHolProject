@@ -17,6 +17,7 @@ public class ClassDetail {
 	private String pay_no;
 	private String c_code;
 	private String class_no;
+	private String cl_pay_no;
 	private String cl_name;
 	private Date pay_date;
 	private String tr_name;
