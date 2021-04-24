@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.kh.lahol.admin.model.service.AdminService;
 import com.kh.lahol.admin.model.vo.CafeList;
 import com.kh.lahol.admin.model.vo.Promotion;
+import com.kh.lahol.admin.model.vo.Report_P;
 import com.kh.lahol.member.model.vo.Coupon;
 import com.kh.lahol.member.model.vo.Member;
 
@@ -55,5 +56,17 @@ public class AdminDataController {
 	@GetMapping("/admin/cafe/cafeList/{date}")
 	public List<CafeList> selectCafeList(@PathVariable String date) {
 		return adminService.selectCafeList(date);
+	}
+	
+	// 파트너회원 신고처리 대기리스트 조회
+	@GetMapping("/admin/report/partnerList/waiting")
+	public List<Report_P> selectReportedPartnerList(){
+		return adminService.selectReportedPartnerList();
+	}
+	
+	// 파트너회원 신고처리 완료리스트 조회
+	@GetMapping("/admin/report/partnerList/completed")
+	public List<Report_P> selectCompletedPartnerList(){
+		return adminService.selectCompletedPartnerList();
 	}
 }

@@ -126,4 +126,68 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 		 WHERE 
 			   AD_CODE = #{adCode}	
 		</update>
+		<update id="updateAdRejected" parameterType="map">
+		UPDATE
+			   AD
+		   SET
+		       AD_STATUS = '반려'
+		     , AD_REJECT = #{value}
+		 WHERE 
+			   AD_CODE = #{adCode}	
+		</update>
+		<select id="selectReportedPartnerList" resultType="A_REPORT_P">	
+		SELECT
+			   ITEM_CODE AS PRCODE
+		     , C_NAME AS CAFE
+		     , NAME AS CEO
+		     , REGEXP_REPLACE(PHONE, '(.{3})(.+)(.{4})', '\1-\2-\3') AS PHONE
+		     , CASE WHEN REPORT_NO LIKE 'STRP%' THEN '스토어'
+					WHEN REPORT_NO LIKE 'CLRP%' THEN '클래스'
+					WHEN REPORT_NO LIKE 'CARP%' THEN '카페'
+					END AS SERVICE
+	         , CONCAT(WARNED, '건') AS ACCU
+	         , REPORTER_ID AS REPORTER
+	         , REPORTEE_ID AS REPORTEE
+           	 , IMGPATH
+             , IMGCHNAME
+		  FROM
+		 	   REPORT R
+    INNER JOIN
+		 	   MEMBER M ON(R.REPORTEE_ID = M.ID)
+    INNER JOIN
+   			   CAFE C ON(R.REPORTEE_ID = C.ID)
+    INNER JOIN  
+   			   M_PARTNER P ON(R.REPORTEE_ID = P.ID)
+		 WHERE 
+			   ISCHECKED = 'F'
+		</select>
+		<select id="selectCompletedPartnerList" resultType="A_REPORT_P">
+		SELECT
+			   ITEM_CODE AS PRCODE
+		     , C_NAME AS CAFE
+		     , NAME AS CEO
+		     , REGEXP_REPLACE(PHONE, '(.{3})(.+)(.{4})', '\1-\2-\3') AS PHONE
+		     , CASE WHEN REPORT_NO LIKE 'STRP%' THEN '스토어'
+					WHEN REPORT_NO LIKE 'CLRP%' THEN '클래스'
+					WHEN REPORT_NO LIKE 'CARP%' THEN '카페'
+					END AS SERVICE
+	         , CONCAT(WARNED, '건') AS ACCU
+	         , REPORTER_ID AS REPORTER
+	         , REPORTEE_ID AS REPORTEE
+	         , CASE ISWARNED WHEN 'T' THEN '../../resources/img/admin/icon/blind.svg'
+                             ELSE '../../resources/img/admin/icon/restore.svg'
+               END AS STATUS
+           	 , IMGPATH
+             , IMGCHNAME
+		  FROM 
+		  	   REPORT R
+    INNER JOIN 
+    		   MEMBER M ON(R.REPORTEE_ID = M.ID)
+    INNER JOIN
+   	   		   CAFE C ON(R.REPORTEE_ID = C.ID)
+    INNER JOIN
+    		   M_PARTNER P ON(R.REPORTEE_ID = P.ID)
+	     WHERE
+	     	   ISCHECKED = 'T'
+		</select>
 </mapper>

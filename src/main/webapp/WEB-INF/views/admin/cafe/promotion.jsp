@@ -429,18 +429,27 @@
 							            	  // 사유 선택 후 확인 버튼 눌렀을 때
 							            	  Swal.fire('반려되었습니다', '', 'success')
 							            	  console.log("반려사유 : " + value);
-							            	  
-							            	  boxContents.hide();
-							            	  							            		  
-							            	  // 광고 업데이트
-							            	  
-							     
-
-						/* 	            	  $.ajax({
-							            		  url: "",
-							            		  type: ""
-							            	  }) */
-	
+							            	  						            						            		  
+							            	  // 광고 반려 업데이트
+											   var data = {
+							            			  		adCode: adCode,
+							            			  		value: value
+							            	  			  };
+											    
+										    	  $.ajax({
+												       url: "${ pageContext.request.contextPath }/admin/updateAdRejected",
+												       type: "post",
+												       data: JSON.stringify(data),
+												       success: function(data) {
+												    	   console.log("반려 상태로 업데이트 성공해따");
+												    	   console.log("adCode : " + adCode);
+												    	   console.log("반려사유 : " + value);
+												    	   boxContents.hide();
+												       },
+														error: function(e){
+															console.log(e);
+														}
+												      }); 
 							              }
 							          })
 							      }

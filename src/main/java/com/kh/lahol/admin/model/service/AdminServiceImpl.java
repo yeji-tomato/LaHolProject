@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.kh.lahol.admin.model.dao.AdminDao;
 import com.kh.lahol.admin.model.vo.CafeList;
 import com.kh.lahol.admin.model.vo.Promotion;
+import com.kh.lahol.admin.model.vo.Report_P;
 import com.kh.lahol.member.model.vo.Coupon;
 import com.kh.lahol.member.model.vo.Member;
 
@@ -57,5 +58,20 @@ public class AdminServiceImpl implements AdminService{
 	@Override
 	public void updateAdConfirmed(String adCode) {
 		adminDao.updateAdConfirmed(adCode);
+	}
+
+	@Override
+	public void updateAdRejected(Map<String, Object> data) {
+		adminDao.updateAdRejected(data);
+	}
+
+	@Override
+	public List<Report_P> selectReportedPartnerList() {
+		return adminDao.selectReportedPartnerList();
+	}
+
+	@Override
+	public List<Report_P> selectCompletedPartnerList() {
+		return adminDao.selectCompletedPartnerList();
 	}
 }

@@ -170,6 +170,15 @@ body {
     flex: 1;
 }
 
+#graph-alternative {
+	display: none;
+	text-align: center;
+	font-family: 'NEXON Lv1 Gothic OTF';
+	margin-top: 20%;
+	font-size: 3vh;
+	color: var(--date-sel);
+}
+
 /* 토글 스위치 컨테이너 */
 #toggle-container {
     flex: 1;

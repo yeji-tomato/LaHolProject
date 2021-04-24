@@ -85,18 +85,17 @@ public class AdminController {
 		return "admin/report/partner";
 	}
 	
-	// 커스텀 기간에 따른 쿠폰 
+	// 커스텀 기간에 따른 쿠폰 조회
 	@RequestMapping(value="/selectCouponByTerm", method=RequestMethod.POST)
 	@ResponseBody
 	public List<Coupon> selectCouponByTerm(@RequestBody Map<String, Object> dates) {
 		return adminService.selectCouponByTerm(dates);
 	}
 	
+	// 배너광고 승인
 	@RequestMapping(value="/updateAdConfirmed", method=RequestMethod.POST)
 	@ResponseBody
 	public void updateAdConfirmed(String adCode, HttpServletResponse response) {
-		
-		adminService.updateAdConfirmed(adCode);
 		
 		try {
 			PrintWriter out = response.getWriter();
@@ -106,6 +105,13 @@ public class AdminController {
 		}
 		
 		adminService.updateAdConfirmed(adCode);
+	}
+	
+	// 배너광고 반려
+	@RequestMapping(value="/updateAdRejected", method=RequestMethod.POST)
+	@ResponseBody
+	public void updateAdRejected(Map<String, Object> data) {
+		adminService.updateAdRejected(data);
 	}
 		
 	

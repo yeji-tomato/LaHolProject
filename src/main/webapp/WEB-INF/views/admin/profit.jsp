@@ -234,13 +234,13 @@
 					<!-- 날짜 -->
 					<div id="date-container">
 						<div id="date-box">
-							<a class="period dateBtn" href="#">Day</a>
+							<a class="period dateBtn" id="day" href="#">Day</a>
 
-							<a class="period dateBtn" href="#">Week</a>
+							<a class="period dateBtn" id="week" href="#">Week</a>
 
-							<a class="period dateBtn" href="#">Month</a>
+							<a class="period dateBtn" id="month" href="#">Month</a>
 
-							<a class="period dateBtn" href="#">Year</a>
+							<a class="period dateBtn" id="year" href="#">Year</a>
 
 							<a class="period" id="calendar" href="#">
 								<svg
@@ -297,8 +297,11 @@
 									<canvas id="coffee-donut" height="70" width="70"></canvas>
 								</div>
 							</div>
-							<div id="bottom-container" style="width: 90%; height:40%">
+							<div id="bottom-container" class="graphArea" style="width: 90%; height:40%">
+								<div id="graph-box">
 								<canvas id="line-graph"></canvas>
+								</div>
+								<div id="graph-alternative">일별 조회는 데이터를 제공하지 않습니다</div>
 							</div>
 						</div>
 					</div>
@@ -313,6 +316,9 @@
 		});
 		
 		$(function() {
+		    $('#day').trigger('click');
+		    $('#day').trigger('focus');
+		    
 		    // 서브카테고리 기본 숨김처리
 		    $('.sub-category').hide();
 		    $('#stats-category').addClass('active');
@@ -577,6 +583,21 @@
 		            }]
 		        }
 		    }
+		});
+		
+		
+		/* 날짜 버튼 클릭 시 UI 변경 */
+		$('.dateBtn').click(function(e){
+			var criteria = e.target.id;
+			console.log(criteria);
+			
+			if(criteria == 'day') {
+				$('#graph-box').hide();
+				$('#graph-alternative').show();
+			} else {
+				$('#graph-box').show();
+				$('#graph-alternative').hide();
+			}
 		});
 		</script>
 		<script src="${ contextPath }/resources/js/admin/darkMode.js"></script>
