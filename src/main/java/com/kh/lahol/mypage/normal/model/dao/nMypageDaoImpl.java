@@ -9,9 +9,11 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.lahol.member.model.vo.Member;
 import com.kh.lahol.mypage.common.PageInfo;
+import com.kh.lahol.mypage.normal.model.vo.CafeDetail;
 import com.kh.lahol.mypage.normal.model.vo.ClassDetail;
 import com.kh.lahol.mypage.normal.model.vo.Coupon;
 import com.kh.lahol.mypage.normal.model.vo.PayList;
+import com.kh.lahol.mypage.normal.model.vo.StoreDetail;
 import com.kh.lahol.mypage.partner.model.vo.Search;
 
 @Repository
@@ -73,6 +75,16 @@ public class nMypageDaoImpl implements nMypageDao{
 	@Override
 	public ClassDetail selectClass(String pay_no) {
 		return sqlSession.selectOne("mypageMapper.selectClass", pay_no);
+	}
+
+	@Override
+	public StoreDetail selectStore(String pay_no) {
+		return sqlSession.selectOne("mypageMapper.selectStore", pay_no);
+	}
+
+	@Override
+	public List<CafeDetail> selectCafe(String pay_no) {
+		return sqlSession.selectList("mypageMapper.selectCafe", pay_no);
 	}
 
 }
