@@ -281,8 +281,33 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 	    		  , #{rpDeets}
 	    		  , DEFAULT
 	    		  , DEFAULT 	
-	    		  , 'user01'
+	    		  , #{reporter}
 	    		  , #{classNo}
+	    )
+	  </insert>
+	  <insert id = "reportClComment" parameterType="CoffeeClass">
+		INSERT
+	      INTO    REPORT
+	     (
+				    REPORT_NO
+				  , REPORT_TYPE
+				  , REPORT_REASON
+				  , ISWARNED
+				  , ISCHECKED
+				  , REPORTER_ID
+				  , ITEM_CODE
+				  <!-- ,REPORTEE_ID -->
+	   	 )
+	    VALUES
+	    (
+	    		    'CLRP' || CL_REPORT_SEQ.NEXTVAL
+	    		  , #{rpReason}
+	    		  , #{rpDeets}
+	    		  , DEFAULT
+	    		  , DEFAULT 	
+	    		  , #{reporter}
+	    		  , #{classNo}
+	    		  <!-- #{reportee} -->
 	    )
 	  </insert>
 <!--  	  <insert id="registerMember" parameterType="ClassRegister">
@@ -389,10 +414,11 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 		 WHERE
 		       ID = #{id}
 	 </select>
+	 <!-- QNA 출력 -->
 	 <!-- 질문입력 -->
 	 <insert id="askClass" parameterType="ClassQnA">
 	 	INSERT 
-	 			INTO 
+	 			INTO  CL_QNA
 	 			(	  CL_QNA_NO
 	 			    , CLASS_NO
 	 			    , USER_ID
@@ -400,11 +426,13 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 	 			    , CL_ASKDATE    
 	 			 )
 	 			VALUES
-	 			(     'ASKCL'||ASKCL.NEXT.VAL	
-	 			    , ${classNo}
-	 			    , ${askContent}
-	 			    , ${userId}
+	 			(     'ASKCL'||ASKCL.NEXTVAL	
+	 			    , #{classNo}
+	 			    , #{userId}	
+	 			    , #{question}
 	 			    , SYSDATE
 	 			)
 	 </insert>
+	 <!-- 답변입력 -->
+	 
 </mapper>

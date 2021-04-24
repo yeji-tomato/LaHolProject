@@ -74,6 +74,7 @@
 				<h5  style="text-align: center; padding: 5vh;">페이지 사용에 불편을 드려 죄송합니다. <br> 신고가 접수되면 3일내로 처리됩니다. </h5>
 					<form action = "${ contextPath }/coffeeclass/classreport" method="post">
 					<td><input name ="classNo" type="hidden" value="${ coffeeclass.classNo }"></td>
+					<input name="reporter" type="hidden" value="${ sessionScope.loginUser.id }">
 					<table style="width: 100%;">					
 						<tr>
 							<td>신고 클래스</td>
@@ -137,12 +138,12 @@
 				</div>
 				<div class="modal-body">
 				<h5  style="text-align: center; padding: 5vh;">페이지 사용에 불편을 드려 죄송합니다. <br> 신고가 접수되면 3일내로 처리됩니다. </h5>
-					<form action = "${ contextPath }/coffeeclass/classreport" method="post">
+					<form action = "${ contextPath }/coffeeclass/commentreport" method="post">
 					<td><input name ="classNo" type="hidden" value="${ coffeeclass.classNo }"></td>
 					<table style="width: 100%;">					
 						<tr>
 							<td>신고 대상</td>
-							<td aria-readonly="true">작성자아이디</td>
+							<td aria-readonly="true" name="reportee" value="${  sessionScope.loginUser.id }">${  sessionScope.loginUser.id }</td>
 						</tr>
 						<tr>
 							<td>신고사유</td>
@@ -174,7 +175,7 @@
 						</tr>
 						<tr>
 							<td colspan="2">
-								<textarea name="rpDeets" style="width: 100%; line-height: 15vh;"></textarea>
+								<textarea name="rpDeets" style="width: 100%; resize:none; height: 150px;"></textarea>
 							</td>
 						</tr>
 					</table>

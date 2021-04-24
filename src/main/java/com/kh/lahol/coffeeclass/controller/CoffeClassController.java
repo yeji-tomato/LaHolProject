@@ -252,9 +252,20 @@ public class CoffeClassController {
 	  
   	  // 클래스 신고
 	  @PostMapping("/coffeeclass/classreport")
-	  public String classReport(@ModelAttribute CoffeeClass cl,
-							  Model model) {
+	  public String classReport(@ModelAttribute CoffeeClass cl, @ModelAttribute ClassRegister thisclass,
+			  					HttpServletRequest request, Model model, RedirectAttributes rttr) {
 	
+	  Member loginUser = (Member)request.getSession().getAttribute("loginUser");
+	  
+	  if(loginUser == null) {
+		  rttr.addFlashAttribute("msg", "로그인한 회원만 신고할 수 있습니다.");
+		  return "redirect:/member/loginView";
+	  }
+	  
+	  if(loginUser.getId() != thisclass.getBuyerId()) {
+		  rttr.addFlashAttribute("msg", "수강생만 신고를 할 수 있습니다.");
+	  }
+	  
 	  int result = clService.reportClass(cl);
 	 		
 	  if(result > 0) {
@@ -264,6 +275,23 @@ public class CoffeClassController {
 	  }
 			
 	  }
+	  
+	  // 클래스 댓글 신고
+	  @PostMapping("/coffeeclass/commentreport")
+	  public String commentReport(@ModelAttribute CoffeeClass cl, HttpServletRequest request,
+							  Model model) {
+	  
+	  Member loginUser = (Member)request.getSession().getAttribute("loginUser");
+	  int result = clService.reportClComment(cl);
+	 		
+	  if(result > 0) {
+		 return "redirect:/coffeeclass/classdetail?classNo=" + cl.getClassNo(); 
+	  } else {	
+		return "common/error";
+	  }
+			
+	  }
+
  
 	  // 사업자 커피클래스 메인 페이지
 	  @GetMapping("/coffeeclass/busmain")
@@ -385,18 +413,21 @@ public class CoffeClassController {
 		  						Model model,
 		  						RedirectAttributes rd) {
 		 
+	
+		 
+			  int result = clService.deleteClass(cl);
+			  
+			  if(result > 0) {
+				  rd.addFlashAttribute("msg", "클래스 삭제가 완료되었습니다.");
+				  return "coffeeclass/class_main";
+			  } else {
+				  model.addAttribute("msg", "클래스 삭제에 실패했습니다.");
+				  return "";
+			  }
+		    
 		  
-		  int result = clService.deleteClass(cl);
-		  
-		  if(result > 0) {
-			  rd.addFlashAttribute("msg", "클래스 삭제가 완료되었습니다.");
-			  return "coffeeclass/class_main";
-		  } else {
-			  model.addAttribute("msg", "클래스 삭제에 실패했습니다.");
-			  return "";
 		  }
-		  
-	  }
+
 	  
 	
 	  // 클래스 수강신청
