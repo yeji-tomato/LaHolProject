@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.kh.lahol.admin.model.dao.AdminDao;
 import com.kh.lahol.admin.model.vo.CafeList;
 import com.kh.lahol.admin.model.vo.Promotion;
+import com.kh.lahol.admin.model.vo.Report_N;
 import com.kh.lahol.admin.model.vo.Report_P;
 import com.kh.lahol.member.model.vo.Coupon;
 import com.kh.lahol.member.model.vo.Member;
@@ -61,8 +62,8 @@ public class AdminServiceImpl implements AdminService{
 	}
 
 	@Override
-	public void updateAdRejected(Map<String, Object> data) {
-		adminDao.updateAdRejected(data);
+	public void updateAdRejected(Promotion p) {
+		adminDao.updateAdRejected(p);
 	}
 
 	@Override
@@ -74,4 +75,32 @@ public class AdminServiceImpl implements AdminService{
 	public List<Report_P> selectCompletedPartnerList() {
 		return adminDao.selectCompletedPartnerList();
 	}
+
+
+	@Override
+	public List<Report_N> selectReportedUserList() {
+		return adminDao.selectReportedUserList();
+	}
+
+	@Override
+	public List<Report_N> selectCompletedUserList() {
+		return adminDao.selectCompletedUserList();
+	}
+
+	@Override
+	public void updateReportStatus(Report_P ap) {
+		adminDao.updateReportStatus(ap);
+	}
+
+	@Override
+	public void updatePartnerWarned(Report_P ap) {
+		adminDao.updatePartnerWarned(ap);
+	}
+
+	@Override
+	public void updatePartnerReportInvalid(Report_P ap) {
+		adminDao.updatePartnerReportInvalid(ap);
+	}
+
+
 }

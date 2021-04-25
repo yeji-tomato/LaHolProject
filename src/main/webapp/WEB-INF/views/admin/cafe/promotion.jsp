@@ -275,6 +275,7 @@
 				</div>
 			</section>
 		</div>
+		
 		<script>
 		
 		// 페이지 온 로드 박스컨텐츠 숨김
@@ -377,20 +378,9 @@
 					  if (result.isConfirmed) {
 					    Swal.fire('승인되었습니다', '', 'success')
 					    			
-					   var data = { adCode: adCode };
-					    
-			    	  $.ajax({
-					       url: "${ pageContext.request.contextPath }/admin/updateAdConfirmed",
-					       type: "post",
-					       data: data,
-					       success: function(data) {
-					    	   console.log("업데이트 성공해따");
-					    	   boxContents.hide();
-					       },
-							error: function(e){
-								console.log(e);
-							}
-					      }); 
+					 //var data = { adCode: adCode };
+		           	// 광고 승인 업데이트
+					location.href='${ pageContext.request.contextPath }/admin/updateAdConfirmed?adCode='+adCode;
 					  }; 
 					})
 			});
@@ -431,25 +421,7 @@
 							            	  console.log("반려사유 : " + value);
 							            	  						            						            		  
 							            	  // 광고 반려 업데이트
-											   var data = {
-							            			  		adCode: adCode,
-							            			  		value: value
-							            	  			  };
-											    
-										    	  $.ajax({
-												       url: "${ pageContext.request.contextPath }/admin/updateAdRejected",
-												       type: "post",
-												       data: JSON.stringify(data),
-												       success: function(data) {
-												    	   console.log("반려 상태로 업데이트 성공해따");
-												    	   console.log("adCode : " + adCode);
-												    	   console.log("반려사유 : " + value);
-												    	   boxContents.hide();
-												       },
-														error: function(e){
-															console.log(e);
-														}
-												      }); 
+											   location.href='${ pageContext.request.contextPath }/admin/updateAdRejected?adCode='+adCode+'&value='+value;
 							              }
 							          })
 							      }
@@ -478,6 +450,8 @@
 				console.log("버튼 클릭 됨 ");
 			});
 		}); 
+		
+		
 
 		
 		</script>

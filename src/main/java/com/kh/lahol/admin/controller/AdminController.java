@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,6 +27,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.kh.lahol.admin.model.service.AdminService;
 import com.kh.lahol.admin.model.service.AdminServiceImpl;
 import com.kh.lahol.admin.model.vo.CafeList;
+import com.kh.lahol.admin.model.vo.Promotion;
+import com.kh.lahol.admin.model.vo.Report_P;
 import com.kh.lahol.member.model.vo.Coupon;
 
 
@@ -93,26 +96,48 @@ public class AdminController {
 	}
 	
 	// 배너광고 승인
-	@RequestMapping(value="/updateAdConfirmed", method=RequestMethod.POST)
-	@ResponseBody
-	public void updateAdConfirmed(String adCode, HttpServletResponse response) {
-		
-		try {
-			PrintWriter out = response.getWriter();
-			out.print("success");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
+	@RequestMapping(value="/updateAdConfirmed", method=RequestMethod.GET)
+	public String updateAdConfirmed(String adCode) {		
 		adminService.updateAdConfirmed(adCode);
+		return "redirect:/admin/cafe/promotion";
 	}
 	
 	// 배너광고 반려
-	@RequestMapping(value="/updateAdRejected", method=RequestMethod.POST)
-	@ResponseBody
-	public void updateAdRejected(Map<String, Object> data) {
-		adminService.updateAdRejected(data);
+	@RequestMapping(value="/updateAdRejected", method=RequestMethod.GET)
+	public String updateAdRejected(String adCode, String value) {
+		Promotion p = new Promotion();
+		p.setAdCode(adCode);
+		p.setValue(value);
+		adminService.updateAdRejected(p);
+		return "redirect:/admin/cafe/promotion";
 	}
+	
+	// 사업자 경고 + 1
+	@RequestMapping(value="/updatePartnerWarned", method=RequestMethod.GET)
+	public String updateAsWarned(String reportNo, String reportee,
+								 @ModelAttribute Report_P ap) {
+		ap.setReportNo(reportNo);
+		ap.setReportee(reportee);
+		
+		adminService.updatePartnerWarned(ap);
+		adminService.updateReportStatus(ap);
+		
+		return "redirect:/admin/report/partner";
+	}
+	
+	// 사업자 신고 무효처리
+	@RequestMapping(value="/updatePartnerReportInvalid", method=RequestMethod.GET)
+	public String updatePartnerReportInvalid(String reportNo,
+									   @ModelAttribute Report_P ap) {
+		ap.setReportNo(reportNo);
+		
+		adminService.updatePartnerReportInvalid(ap);
+		
+		return "redirect:/admin/report/partner";
+		
+	}
+	
+	
 		
 	
 }

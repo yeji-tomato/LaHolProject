@@ -9,6 +9,7 @@
 		<link rel="stylesheet" href="${ contextPath }/resources/css/admin/report/partner.css" />
 		<link rel="stylesheet" href="${ contextPath }/resources/css/common/fonts.css" />
 		<script src="https://cdn.zinggrid.com/zinggrid.min.js" defer></script>
+		<script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 	</head>
 	<body data-theme="light">
 		<!--!! 최상단 컨테이너-->
@@ -303,7 +304,7 @@
 				type: "get",
 				success: function(data){
 					waitingList.attr('data', JSON.stringify(data)).trigger("create");
-					console.log("대기리스트 : " + data);
+					console.log(data);
 					console.log("대기리스트 조회 성공이당");
 				},
 				error: function(e){
@@ -321,7 +322,7 @@
 				type: "get",
 				success: function(data){
 					completedList.attr('data', JSON.stringify(data)).trigger("create");
-					console.log("완료리스트 : " + data);
+					console.log(data);
 					console.log("완료리스트 조회 성공이당");
 				},
 				error: function(e){
@@ -329,7 +330,60 @@
 				}
 			});		
 		});
+				
+		// 대기리스트 Row 클릭
+		var waitingList = document.querySelector("#waiting-list");
 		
+		waitingList.addEventListener('row:click', function(e) { // !! THE VERY START
+			console.log(e.detail.ZGData.data);
+		
+			// 업데이트에 필요한 변수
+			var reportee = e.detail.ZGData.data.reportee;
+			var reportNo = e.detail.ZGData.data.reportNo;
+			// 모달에 띄울 변수
+			var reportType = e.detail.ZGData.data.reportType;
+			var reportReason = e.detail.ZGData.data.reportReason;
+			
+			Swal.fire({
+				  icon: 'question',
+				  title: reportType,
+				  text: reportReason,
+				  showCancelButton: true,
+				  confirmButtonText: '경고',
+				  confirmButtonColor: '#DC143C',
+				  showDenyButton: true,
+				  denyButtonText: '해제',
+				  denyButtonColor: '#34bdeb',
+				  cancelButtonText: '취소'
+				}).then((result) => {
+				  if (result.isConfirmed) {	// 경고 버튼 선택 시 
+					 Swal.fire('경고처리 되었습니다', '', 'success')
+					 location.href='${ pageContext.request.contextPath }/admin/updatePartnerWarned?reportNo='+reportNo+'&reportee='+reportee;
+				  } else if (result.isDenied) { // 해제 버튼 선택 시
+					 Swal.fire('경고가 해제되었습니다', '', 'info')
+					 location.href='${ pageContext.request.contextPath }/admin/updatePartnerReportInvalid?reportNo='+reportNo;
+				  }
+				}); // -- SWAL END
+		
+		}); // !! THE VERY END 
+
+		
+		// 완료리스트 row 클릭 시 
+		var completedList = document.querySelector("#completed-list");
+		
+		completedList.addEventListener('row:click', function(e) { // !! THE VERY START		
+			console.log(e.detail.ZGData.data);
+			
+			// 모달에 띄울 변수
+			var reportType = e.detail.ZGData.data.reportType;
+			var reportReason = e.detail.ZGData.data.reportReason;
+			
+			Swal.fire(
+					  reportType,
+					  reportReason,
+					  'info'
+					)
+		}); // !! THE VERY END 
 		
 		
 

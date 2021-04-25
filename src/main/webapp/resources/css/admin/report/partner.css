@@ -48,6 +48,14 @@ body {
     display: flex;
 }
 
+.swal2-confirm,
+.swal2-cancel,
+.swal2-html-container,
+.swal2-title,
+.swal2-validation-message {
+	font-family: 'NEXON Lv1 Gothic OTF';
+}
+
 /* !! 왼쪽 영역*/
 #left-area {
     flex: 1.3;
