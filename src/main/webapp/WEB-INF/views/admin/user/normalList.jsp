@@ -9,6 +9,7 @@
 		<link rel="stylesheet" href="${ contextPath }/resources/css/admin/user/normalList.css" />
 		<link rel="stylesheet" href="${ contextPath }/resources/css/common/fonts.css" />
 		<script src="https://cdn.zinggrid.com/zinggrid.min.js" defer></script>
+		<script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 	</head>
 	<body data-theme="light">
 		<!--!! 최상단 컨테이너-->
@@ -287,7 +288,8 @@
 					console.log(e);
 				}
 			});		
-	});
+		});
+		
 		</script>
 		<script src="${ contextPath }/resources/js/admin/darkMode.js"></script>
 	</body>

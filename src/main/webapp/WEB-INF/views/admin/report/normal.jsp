@@ -225,98 +225,32 @@
 								page-size="3"
 								page-size-options="3"
 								viewport-stop
-								data='[
-                                {
-                                    "id": "reportee1",
-                                    "reportDate" : "2021.04.01",
-                                    "reportReason" : "부적절한 사진"
-                                },
-                                {
-                                    "id": "reportee2",
-                                    "reportDate" : "2021.04.01",
-                                    "reportReason" : "욕설/비방"
-                                },
-                                {
-                                    "id": "reportee3",
-                                    "reportDate" : "2021.04.02",
-                                    "reportReason" : "부적절한 사진"
-                                },
-                                {
-                                    "id": "reportee4",
-                                    "reportDate" : "2021.04.03",
-                                    "reportReason" : "악의적 리뷰"
-                                },
-                                {
-                                    "id": "reportee5",
-                                    "reportDate" : "2021.04.03",
-                                    "reportReason" : "욕설/비방"
-                                },
-                                {
-                                    "id": "reportee6",
-                                    "reportDate" : "2021.04.04",
-                                    "reportReason" : "욕설/비방"
-                                }
-                              ]'
+								data=''
 							>
 								<zg-colgroup>
 									<zg-column index="id" header="ID"></zg-column>
-									<zg-column index="reportDate" header="신고일"></zg-column>
 									<zg-column index="reportReason" header="신고사유"></zg-column>
+									<zg-column index="image" header="이미지"></zg-column>
+									<zg-column index="accu" header="경고"></zg-column>
 								</zg-colgroup>
 							</zing-grid>
 						</div>
 						<div id="confirmed">
 							<span class="ad-title">처리 완료</span>
 							<zing-grid
-								id="confirmed-list"
+								id="completed-list"
 								sort
 								pager
 								page-size="3"
 								page-size-options="3"
 								viewport-stop
-								data='[
-								{
-                                    "id": "reportee7",
-                                    "reportDate" : "2021.03.30",
-                                    "reportReason" : "욕설/비방",
-									"status" : "${ contextPath }/resources/img/admin/icon/blind.svg"
-                                },
-								{
-                                    "id": "reportee8",
-                                    "reportDate" : "2021.03.30",
-                                    "reportReason" : "부적절한 사진",
-									"status" : "${ contextPath }/resources/img/admin/icon/restore.svg"
-                                },
-								{
-                                    "id": "reportee9",
-                                    "reportDate" : "2021.03.31",
-                                    "reportReason" : "부적절한 사진",
-									"status" : "${ contextPath }/resources/img/admin/icon/blind.svg"
-                                },
-								{
-                                    "id": "reportee10",
-                                    "reportDate" : "2021.04.01",
-                                    "reportReason" : "악의적 리뷰",
-									"status" : "${ contextPath }/resources/img/admin/icon/restore.svg"
-                                },
-								{
-                                    "id": "reportee12",
-                                    "reportDate" : "2021.04.02",
-                                    "reportReason" : "욕설/비방",
-									"status" : "${ contextPath }/resources/img/admin/icon/blind.svg"
-                                },
-								{
-                                    "id": "reportee13",
-                                    "reportDate" : "2021.04.03",
-                                    "reportReason" : "악의적 리뷰",
-									"status" : "${ contextPath }/resources/img/admin/icon/restore.svg"
-                                }
-                              ]'
+								data=''
 							>
 								<zg-colgroup>
 									<zg-column index="id" header="ID"></zg-column>
-									<zg-column index="reportDate" header="신고일"></zg-column>
 									<zg-column index="reportReason" header="신고사유"></zg-column>
+									<zg-column index="image" header="이미지"></zg-column>
+									<zg-column index="accu" header="경고"></zg-column>
 									<zg-column
 										index="status"
 										header="결과"
@@ -333,13 +267,6 @@
 							<div id="ad-img">
 								<div id="img"></div>
 								<div id="review-text">
-									사진이 없는 리뷰면 글이 여기에 나올건데 100바이트로
-									작성해보겠습니당 ^^ 사진이 없는 리뷰면 글이 여기에 나올건데
-									100바이트로 작성해보겠습니당 ^^ 사진이 없는 리뷰면 글이 여기에
-									나올건데 100바이트로 작성해보겠습니당 ^^ 사진이 없는 리뷰면
-									글이 여기에 나올건데 100바이트로 작성해보겠습니당 ^^ 사진이
-									없는 리뷰면 글이 여기에 나올건데 100바이트로 작성해보겠습니당
-									^^
 								</div>
 							</div>
 							<div id="ad-text">
@@ -357,6 +284,13 @@
 			</section>
 		</div>
 		<script>
+		// 페이지 온 로드 박스컨텐츠 숨김
+		const boxContents = $('#ad-img, #ad-text, #ad-buttons');
+		
+		$(function(){	
+			boxContents.hide();
+		})
+		
 		$(function() {
 		    // 서브카테고리 기본 숨김처리
 		    $('.sub-category').hide();
@@ -383,16 +317,41 @@
 		    });
 		});
 
-		/* 이미지 있는 신고 건 > 이미지 띄우기
-		   이미지 없는 신고 건 > 텍스트 띄우기 */
-
-		   var yes = true;
-
-		    if(yes) {
-		        $('#theDiv').prepend('<img id="theImg" src="theImg.png" />');
-		    } else {
-		        $('#theDiv').html('어쩌구저쩌구');
-		    }
+		/* 신고처리 대기리스트 조회 */
+		$(function(){
+			const waitingList = $('#waiting-list');
+			$.ajax({
+				url: "${ pageContext.request.contextPath }/admin/report/normalList/waiting",
+				dataType: "json",
+				type: "get",
+				success: function(data){
+					waitingList.attr('data', JSON.stringify(data)).trigger("create");
+					console.log(data);
+					console.log("대기리스트 조회 성공이라네");
+				},
+				error: function(e){
+					console.log(e);
+				}
+			});		
+		});
+		
+		/* 신고처리 완료리스트 조회 */
+		$(function(){
+			const waitingList = $('#completed-list');
+			$.ajax({
+				url: "${ pageContext.request.contextPath }/admin/report/normalList/completed",
+				dataType: "json",
+				type: "get",
+				success: function(data){
+					waitingList.attr('data', JSON.stringify(data)).trigger("create");
+					console.log(data);
+					console.log("완료리스트 조회 성공이라네");
+				},
+				error: function(e){
+					console.log(e);
+				}
+			});		
+		});
 		    
 		</script>
 		<script src="${ contextPath }/resources/js/admin/darkMode.js"></script>
