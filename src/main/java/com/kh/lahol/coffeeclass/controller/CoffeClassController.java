@@ -225,12 +225,19 @@ public class CoffeClassController {
 	  // 클래스 상세페이지
 	  @GetMapping("/coffeeclass/classdetail")	// coffeeclass라는 타입을 저장을 해서 forwarding하는거라 model객체 필요
 	  public String classdetail(@RequestParam String classNo,
+			  					@ModelAttribute ClassQnA classqna,
 			  					Model model,
 			  					HttpServletRequest request) {
 		  		  
-		 
-		  
 		  CoffeeClass cl = clService.selectCoffeeClass(classNo);
+		  
+		  // 카페 이름과 url불러오는 코드짜기
+		  //Cafe thiscafe = clService.selectCafeNameById(cl.getCafeNo());
+		  
+		  // QnA리스트 출력
+		  List <ClassQnA> qnalist = clService.selectQnA(classqna);
+		  
+		  // System.out.println(qnalist);
 		  
 		  if(cl != null) {	    //키값 : 뷰에서 보여질 변수명, 밸류: 컨트롤러에서 실제 쓰이는 변수명
 			  model.addAttribute("coffeeclass", cl);
@@ -239,14 +246,14 @@ public class CoffeClassController {
 				 * String[] classTimeArr = classTimeStr.split(",");
 				 * >> 객체안에 메소드로 넣어버림
 				 */ 
+			  model.addAttribute("qnalist", qnalist);
 			  model.addAttribute("classTimes", cl.bringTimes());
+			  System.out.println(classqna.getQnaNo());
 			  return "coffeeclass/class_detail";
 		  } else {
 			  model.addAttribute("errorMsg", "클래스를 불러오는데 실패했습니다.");
 			  return "common/error";
-		  }
-		  
-			
+		  }		  			
 		  
 	    }
 	  
@@ -448,7 +455,7 @@ public class CoffeClassController {
 	 
 	  // 클래스 QnA 출력
 	  /*// 사용자 메인페이지
-	@GetMapping("/coffeeclass")
+	@GetMapping("/coffeeclass/classqna")
 	public ModelAndView coffeeClassList(ModelAndView mv,
 			@RequestParam(value = "page", required = false, defaultValue = "1") int currentPage) { // 메뉴바 클릭시 파라미터가 따로
 																									// 없으므로 1로 설정(1페이지)
@@ -471,7 +478,7 @@ public class CoffeClassController {
 		return mv;
 	}*/
 	
-	  // 클래스 문의 등록
+	  // 클래스 문의,질문 등록
 	  @PostMapping("/coffeeclass/ask")
 	  public String askClass(@ModelAttribute ClassQnA qna, 
 			  					  Model model,

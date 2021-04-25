@@ -24,6 +24,7 @@ public class CoffeeClassDaoImpl implements CoffeeClassDao{
 		return sqlSession.selectOne("clMapper.selectListCount");
 	}
 
+	// 클래스 메인화면 불러오기 
 	@Override
 	public List<CoffeeClass> selectList(PageInfo pi) {
 		int offset = (pi.getCurrentPage() - 1)* pi.getBoardLimit();
@@ -32,16 +33,17 @@ public class CoffeeClassDaoImpl implements CoffeeClassDao{
 		return sqlSession.selectList("clMapper.selectList", null, rowBounds);
 	}
 
+	// 클래스 상세 페이지 접근
+	@Override
+	public CoffeeClass selectCoffeeClass(String classNo) {
+		return sqlSession.selectOne("clMapper.selectClass", classNo);
+	}
+	
 	// 클래스 수정 페이지 불러오기
 	@Override
 	public int insertClass(CoffeeClass cl) {
 		System.out.println("dao : " + cl);
 		return sqlSession.insert("clMapper.insertClass", cl);
-	}
-
-	@Override
-	public CoffeeClass selectCoffeeClass(String classNo) {
-		return sqlSession.selectOne("clMapper.selectClass", classNo);
 	}
 
 	// 수정 페이지 접근
@@ -98,13 +100,18 @@ public class CoffeeClassDaoImpl implements CoffeeClassDao{
 		return sqlSession.selectOne("clMapper.selectCafeInfoById", id);
 	}
 
+	// 클래스 QnA 불러오기
+	@Override
+	public List<ClassQnA> selectQnA(ClassQnA classqna) {
+		return sqlSession.selectList("clMapper.selectQnA", classqna);
+	}
+	
 	// 클래스 QnA 질문
 	@Override
 	public int askClass(ClassQnA qna) {
 		return sqlSession.insert("clMapper.askClass", qna);
 	}
 
-	
 
 
 }

@@ -50,8 +50,12 @@ public interface CoffeeClassDao {
 		// 로그인 유저 세션 정보 불러오기
 		public Cafe selectCafeInfoById(String id);
 
-		// 13. 클래스 QnA질문
+		// 13. 클래스 정보 불러오기
+		public List<ClassQnA> selectQnA(ClassQnA classqna);
+		
+		// 14. 클래스 QnA질문
 		public int askClass(ClassQnA qna);
+
 
 		
 		

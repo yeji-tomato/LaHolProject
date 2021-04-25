@@ -19,13 +19,12 @@
     <!-- jQuery-->
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
   	<!-- iamport -->
-    <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
-    
-    
+    <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>    
 </head>
 <body>
    	<!-- menubar -->
-	<jsp:include page="/WEB-INF/views/common/menubar.jsp" />
+	<jsp:include page="/WEB-INF/views/common/menubar.jsp"/>
+
    
     <div class="container" style="margin-top: 20vh;">
         <div class="row">
@@ -53,9 +52,9 @@
                 <span class="visually-hidden">Next</span>
               </button>
             </div>
-
-
-            </div>
+           </div>
+           
+           
             <!--오른쪽-->
             <div class="col">
               <div class="cl-info">
@@ -74,13 +73,13 @@
                         <td> ${ mycafe.caName }</td>
                         <!--마우스 오버시 등장하는 정보-->              
                       </tr>
-                        <div class="help-tip" style="float:right;">
+                        <%-- <div class="help-tip" style="float:right;">
                           <div class="info">
                           <p>카페이름 : ${ coffeeclass.cafeNo } </p> <!-- cafeNo를 통해 이름 불러오기 -->
                           <p>카페 위치 :  ${ coffeeclass.cafeNo }   </p> <!-- cafeNo를 통해  -->
                           <a href = "${ ContextPath }/cafe/user/here">☕카페보러가기</a>
                           </div>
-                        </div>
+                        </div> --%>
                       <tr>
                         <td>
                           <ul>
@@ -104,11 +103,7 @@
                       <tr>
                         <td>날짜</td>
                         <td>
-                          <%-- <select style="width: 80%;">
-                            <option value="" class = "selectdate" disabled ="disabled" selected>날짜</option> 
-                            <option value="" class = "selectdate">"${ coffeeclass.classDate }"</option>
-                          </select>  --%>   
-                          <td>${ coffeeclass.classDate }</td>    
+                          ${ coffeeclass.classDate }  
                         </td>
                       </tr>
                       <tr>
@@ -116,9 +111,9 @@
                         <td colspan="2">
                           <select style="width: 80%;">
                             <option value="" class = "selecttime" disabled="disabled" selected>시간</option>
-                          	<%-- <c:forEach var="time" items="${ classTimes }">
+                          	<c:forEach var="time" items="${ classTimes }">
                            		<option class = "selecttime" name="classTime" value="${ time }">${ time }</option>
-                        	</c:forEach> --%>
+                        	</c:forEach>
                         	<option class = "selecttime" name="classTime" value="${ coffeeclass.classTime }">${ coffeeclass.classTime }</option>
                         	<c:if test="${ !empty coffeeclass.classTime2 }">
                         	<option class = "selecttime" name="classTime2" value="${ coffeeclass.classTime2 }">${ coffeeclass.classTime2 }</option>
@@ -146,25 +141,28 @@
 	                    <input type="hidden" id = "cl_date" name="classDate" value = "${ coffeeclass.classDate }">
 	                    <input type="hidden" id = "cl_time" name="classTime" value = "${ coffeeclass.classTime }">
                     </form>
+                    
+                     <!-- 일반사용자들에게 보여지는 버튼 or 자신의 사업장이 아닌 클래스 열람시 보여지는 버튼 -->
+                     <c:if test="${ loginUser == NULL || loginUser.id ne coffeeclass.clWriter }">
 	                     <button class="btn" id = "register-btn">
 	                    	  수강신청
 	                      <i class="fa fa-credit-card-alt" aria-hidden="true"></i>
 	                    </button> 
-	                   
-                    <button type="button" class="btn" id = "cart-btn">
-                      	  장바구니
-                      <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                    </button>
-                    
-                     <!--클래스 신고-->                    
-                    <button style="border:transparent; background-color:transparent;">
-                      <div class="report" style="margin-bottom: 3vh;">
-                        <i class="fa fa-bullhorn" aria-hidden="true" id="reportclass" data-bs-toggle="modal" data-bs-target="#exampleModal"></i>
-                      </div>
-                    </button>
-                   
+	                    <button type="button" class="btn" id = "cart-btn" onclick="location.href='${contextPath}/cart/main'">
+	                      	  장바구니
+	                      <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+	                    </button>
+	                     <!--클래스 신고-->                    
+	                    <button style="border:transparent; background-color:transparent;">
+	                      <div class="report" style="margin-bottom: 3vh;">
+	                        <i class="fa fa-bullhorn" aria-hidden="true" id="reportclass" data-bs-toggle="modal" data-bs-target="#exampleModal"></i>
+	                      </div>
+	                    </button>
+                     </c:if>
                     </div> 
                     
+                    <!-- 클래스 개설한 당사자에게만 보여지는 버튼 -->
+                    <c:if test="${ loginUser != NULL && loginUser.id eq coffeeclass.clWriter }">
                     <div class="btnDiv">
 	                    <button type="button" class= "btn" id = "register-btn"
 	                     onclick="location.href='${ contextPath }/coffeeclass/updateclass?classNo=${ coffeeclass.classNo }'">
@@ -176,12 +174,13 @@
 	                                             클래스 삭제
 	                    <i class="fa fa-trash" aria-hidden="true"></i> 
 	                    </button>
-                    </div>     
+                    </div>  
+                    </c:if>   
                    
               </div>
         </div>
     </div>
-  </div>
+  </div> 
 
       <!-- tab -->
       <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -252,8 +251,8 @@
 	<!-- 모달 (신고, 삭제) -->
 	<jsp:include page="/WEB-INF/views/coffeeclass/class_detail_modal.jsp"/>
 	
-	
-	<!-- KG이니시스 -->
+	<!-- 바로결제
+	KG이니시스 
 	<script>	
 	$("#register-btn").click(function () {
         var IMP = window.IMP; // 생략가능
@@ -356,7 +355,7 @@
     }); // end of onclick
 
 
-	</script>
+	</script> -->
       
 </body>
 </html>

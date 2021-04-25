@@ -86,22 +86,30 @@ public class CoffeeClassServiceImpl implements CoffeeClassSerivce{
 		return clDao.selectClassSearch(search);
 	}
 
-	// 필터
+	// 필터 정렬
 	@Override
 	public List<ClassSearch> filterList(ClassSearch search) {
 		return clDao.selectClassFilter(search);
 	}
 
+	// 로그인 유저의 카페 정보 불러오기
 	@Override
 	public Cafe selectCafeInfoById(String id) {
 		return clDao.selectCafeInfoById(id);
 	}
+	
+	// 클래스 QnA 불러오기
+	@Override
+	public List<ClassQnA> selectQnA(ClassQnA classqna) {
+		return clDao.selectQnA(classqna);
+	}
 
-	// 클래스 Qna질문
+	// 클래스 Qna 질문,답변 등록
 	@Override
 	public int askClass(ClassQnA qna) {
 		return clDao.askClass(qna);
 	}
+
 
 
 
