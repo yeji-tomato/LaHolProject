@@ -7,7 +7,7 @@ public class Pagination {
 		public static PageInfo getPageInfo(int currentPage, int listCount, String caCode) {
 		PageInfo pi = null;	// 페이지 정보를 담아 줄 PageInfo 참조변수 선언
 		
-		int pageLimit = 2;	// 한 페이지에 보여질 페이징바의 갯수
+		int pageLimit = 4;	// 한 페이지에 보여질 페이징바의 갯수
 		int coffeeLimit = 4;	// 한 페이지 보여질 게시글 개수
 		
 		int maxPage = (int)Math.ceil((double)listCount / coffeeLimit);

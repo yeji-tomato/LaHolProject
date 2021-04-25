@@ -139,43 +139,38 @@
                 </div>
                 </div>
                 <!-- 페이징 바 -->
-		        <div aria-label="Page navigation" class="cafe-order-page">
-		            <ul class="pagination">
-		                <c:if test="${ pi.currentPage > 1 }">
-		                <li class="page-item">
-		                <c:url var="before" value="/cafe/biz/Coffee?caCode=${ cafeNo }">
+                <!-- [이전] -->
+					<c:if test="${ pi.currentPage <= 1 }">
+						[이전] &nbsp;
+					</c:if>
+					<c:if test="${ pi.currentPage > 1 }">
+						<c:url var="before" value="/cafe/biz/Coffee">
 							<c:param name="page" value="${ pi.currentPage -1 }" />
 						</c:url>
-		                <a class="page-link" id="page-color" href="${ before }" aria-label="Previous">
-		                    <span aria-hidden="true">&laquo;</span>
-		                </a>
-		                </li>
-		                </c:if>
-		                <!-- 페이징 숫자 -->
-		                <c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+						<a href="${ before }">[이전]</a> &nbsp;
+					</c:if>
+					<!-- 페이지 숫자 -->
+					<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
 						<c:if test="${ p eq pi.currentPage }">
-							<li class="page-item" id="page-hover"><a class="page-link" id="page-color">${ p }</a></li>
+							<font color="red" size="4"><b>[${ p }]</b></font> &nbsp;
 						</c:if>
 						<c:if test="${ p ne pi.currentPage }">
-							<c:url var="pagination">
+							<c:url var="pagination" value="/cafe/biz/Coffee">
 								<c:param name="page" value="${ p }"/>
 							</c:url>
-							<li class="page-item"><a class="page-link" id="page-color" href="${ pagination }">${ p }</a></li>
+							<a href="${ pagination }">${ p }</a> &nbsp;
 						</c:if>
 					</c:forEach>
+					<!-- [다음] -->
+					<c:if test="${ pi.currentPage >= pi.maxPage }">
+						[다음]
+					</c:if>
 					<c:if test="${ pi.currentPage < pi.maxPage }">
-						<c:url var="after" value="/cafe/biz/Coffee?caCode=${ cafeNo }">
+						<c:url var="after" value="/cafe/biz/Coffee">
 							<c:param name="page" value="${ pi.currentPage + 1 }" />
 						</c:url>
-						<li class="page-item">
-		                <a class="page-link" id="page-color" href="${ after }" aria-label="Next">
-		                    <span aria-hidden="true">&raquo;</span>
-		                </a>
-		                </li>
+						<a href="${ after }">[다음]</a>
 					</c:if>
-		                
-		            </ul>
-		         </div>
             </div>
             <jsp:include page="/WEB-INF/views/cafe/bus/coffeeInsert.jsp"/>
 
