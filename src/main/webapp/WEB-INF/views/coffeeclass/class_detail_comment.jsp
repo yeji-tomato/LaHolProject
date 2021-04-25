@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -127,7 +128,7 @@
 	<div class="tab-pane fade" id="qa" role="tabpanel" aria-labelledby="qa-tab">
           <div class="qa-content">
             <div class="writeBtn">
-              <button id="askBtn" aria-hidden="true" id="Question" data-bs-toggle="modal" data-bs-target="#askModal">문의하기</button>
+              <button id="askBtn" type="button" aria-hidden="true" data-bs-toggle="modal" data-bs-target="#askModal">문의하기</button>
             </div>
             
             <table class="table table-hover" id="qnatable">
@@ -137,33 +138,26 @@
 				      <th scope="col" colspan="2" style="text-align:center;">질문내용</th>
 				      <th scope="col" style="width : 200px;">작성자</th>
 				      <th scope="col" style="width : 200px;">작성일자</th>
+				      <c:if test="${ loginUser != NULL && loginUser.id eq coffeeclass.clWriter }">
+				      <th scope="col" style="width : 100px"></th>
+				      </c:if>
 				    </tr>
 				  </thead>
 				  <tbody>
-				    <tr>
-				      <th scope="row">미답변</th>
-				      <td colspan="2">Mark</td>
-				      <td>cd****6</td>
-				      <td>2021-04-21</td>
-				    </tr>
+				  <c:forEach var="qna" items="${ qnalist }">
 				    <tr>
 				      <th scope="row">답변완료</th>
-				      <td colspan="2">Jacob</td>
-				      <td>Th****on</td>
-				      <td>2021-01-06</td>
+				      <td colspan="2">${ qna.question }</td>
+				      <td>${ qna.userId }</td>
+				      <td>${ qna.askDate }</td>
+				      <c:if test="${ loginUser != NULL && loginUser.id eq coffeeclass.clWriter }">
+				      <th scope="col" style="width : 100px">
+				      <button id="answerBtn" type="button" data-bs-toggle="modal" data-bs-target="#answerModal${qna.qnaNo}">답변하기</button>
+				      </th>
+				      </c:if>
 				    </tr>
-				    <tr>
-				      <th scope="row">답변완료</th>
-				      <td colspan="2">Larry the Bird</td>
-				      <td>la****ry</td>
-				      <td>2020-06-21</td>
-				    </tr>
-				    <tr>
-				      <th scope="row">답변완료</th>
-				      <td colspan="2">배송이 늦어진다는 문자를 받긴했는데, 도대체 언제오나요?</td>
-				      <td>la****ry</td>
-				      <td>2020-06-21</td>
-				    </tr>
+				  </c:forEach>
+				    
 				  </tbody>
 			</table>
 			
@@ -181,52 +175,14 @@
 			      </div>
 			  </div>
             
-            
-             
-            <div class="accordionMenu">
-              <div class="accordion accordion-flush" id="accordionFlushExample">
-          		  <c:forEach var="qna" items="${list}">
-               		<div class="accordion-item">
-                 	 <h2 class="accordion-header" id="flush-headingOne">
-                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                       <table class="qaTable">
-                         <tr>
-	                          <td>답변완료</td>
-	                          <td colspan="5">주차장은 최대 몇 대 가능한가요?</td>
-	                          <td>${ qna.question }</td>
-	                          <td>${ qna.askDate }</td>
-                         </tr>
-                       </table>
-                     </button>
-                     </h2>
-                   <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-                   <div class="accordion-body">
-                      <div class="qaAnswer">
-                        <div>
-                          <h1 style="color: #810B0B;">Q</h1>
-                         	 주차장은 최대 몇 대 가능한가요?
-                        </div>
-                        <hr>
-                        <div>
-                          <h1 style="color: #4B654A;">A</h1>
-                          <p>
-				                            안녕하세요 고객님.  00 카페입니다. 주차장은 총 10대 가능합니다. 방문 시에 참고 부탁드립니다.
-				                            감사합니다. 좋은 하루 보내세요.
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                </c:forEach>
-                </div>
-            </div>
-            
          </div>
      </div>    
-         
+   </div> 
          
 	
+  		
+  
+  		
 
 
 </body>

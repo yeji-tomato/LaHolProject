@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -205,7 +206,7 @@
 				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
-				<h5  style="text-align: center; padding: 5vh;"> ${ coffeeclass.className }클래스에 궁금한 점이 있다면 남겨주세요! </h5>
+				<h5  style="text-align: center; padding: 5vh;"> '${ coffeeclass.className }' 클래스에 궁금한 점이 있다면 남겨주세요! </h5>
 					<form action="${ contextPath }/coffeeclass/ask" method="post">
 					<input type="hidden" name="qnaNo" value="${ qna.qnaNo }">
                    	<input type="hidden" name="classNo" value="${ coffeeclass.classNo }">
@@ -234,6 +235,51 @@
 			</div>
 		</div>
 		</div>
+		
+	 <!-- 답변 모달 -->
+	  <c:forEach var="qna" items="${ qnalist }">
+	  <div class="modal fade" id="answerModal${qna.qnaNo}" tabindex="-1" aria-labelledby="answerModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header" style="background-color: #F3D798;">
+				<h5 class="modal-title" id="answerModalLabel" style="color: white;">
+					<img src="${ contextPath }/resources/img/common/logo-green.png" style="width : 30px; height: 30px;">
+					답변하기
+				</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+				
+				<h5  style="text-align: center; padding: 5vh;"> 질문내용 <br>${ qna.question }</h5>
+					<%-- <form action="${ contextPath }/coffeeclass/answer" method="post"> --%>
+                   	<input type="hidden" name="askDate">
+					<table style="width: 100%;">
+						<tr>			
+							<td>답변내용</td>
+						</tr>
+						<tr>
+							<td colspan="2">
+								<textarea style="width: 100%; height:20vh; resize:none;" name="answer"></textarea>
+							</td>
+						</tr>
+					</table>
+					
+					<br>
+					<p class="alert-text" style="color:rgb(170, 42, 42); font-size: 13px;">
+					답변하기 어려운 점이 있다면 언제든지 저희 고객센터에 전화해주세요! 가이드라인을 제시해드립니다. 
+					<br>라홀 CS 번호 : 02-3389-2813
+					</p>
+					<div class="modal-footer"  style="background-color: #F3D798;">
+						<button type="submit" class="btn btn-danger">답변등록</button>
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+					</div>
+					<!-- </form> -->
+					
+			</div>
+			</div>
+		</div>
+		</div>
+		</c:forEach>
 
 
 </body>

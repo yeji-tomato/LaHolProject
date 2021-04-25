@@ -415,6 +415,14 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 		       ID = #{id}
 	 </select>
 	 <!-- QNA 출력 -->
+	 <select id="selectQnA" resultMap="qnaResultSet">
+	 	SELECT   CL_QNA_NO
+	 		   , USER_ID
+	 		   , CL_QUESTION
+	 		   , CL_ASKDATE
+		FROM    CL_QNA
+		WHERE   CLASS_NO = #{classNo}
+	 </select>
 	 <!-- 질문입력 -->
 	 <insert id="askClass" parameterType="ClassQnA">
 	 	INSERT 

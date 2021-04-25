@@ -48,8 +48,12 @@ public interface CoffeeClassSerivce {
 	// 12. 필터
 	public List<ClassSearch> filterList(ClassSearch search);
 
-	// 13. QnA 질문
+	// 13. QnA 정보 불러오기
+	public List<ClassQnA> selectQnA(ClassQnA classqna);
+	
+	// 14. QnA 질문, 답변등록
 	public int askClass(ClassQnA qna);
+
 
 
 

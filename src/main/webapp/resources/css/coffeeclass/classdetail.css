@@ -56,8 +56,8 @@
      /* 클래스 정보 */
      .cl-info{
        padding: 5%;
-       border: 3px solid #ada397;
-       border-radius: 5vw;
+       /* border: 3px solid #ada397;
+       border-radius: 5vw; */
        /* background-color: #f1d1ac; */
      }
 
@@ -193,17 +193,17 @@
             line-height: 1px;
         }
 
-        .mainMenu a {
+        /* .mainMenu a {
             text-decoration: none;
             color : white;
             transition: all 0.5s linear;
         }
 
         .mainMenu a:hover {
-            /* color : #F3D798; */
+            color : #F3D798;
             color : #4B654A;
             transition: all 0.5s linear;
-        }
+        } */
 
         .logoArea {
             width : 10%;
@@ -250,17 +250,17 @@
             line-height: 1px;
         }
 
-        .loginArea .loginMenu ul li a {
+        /* .loginArea .loginMenu ul li a {
             text-decoration: none;
             color : white;
             transition: all 0.5s linear;
         }
 
         .loginArea .loginMenu a:hover {
-            /* color : #F3D798; */
+            color : #F3D798;
             color : #4B654A;
             transition: all 0.5s linear;
-        }
+        } */
 
         nav.active{
             background: #CDC2AF;
