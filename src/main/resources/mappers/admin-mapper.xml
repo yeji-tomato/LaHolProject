@@ -138,6 +138,7 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 		<select id="selectReportedPartnerList" resultType="A_REPORT_P">	
 		SELECT
 			   ITEM_CODE AS PRCODE
+			 , REPORT_NO AS REPORTNO
 		     , C_NAME AS CAFE
 		     , NAME AS CEO
 		     , REPORT_TYPE AS REPORTTYPE
@@ -164,6 +165,7 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 		<select id="selectCompletedPartnerList" resultType="A_REPORT_P">
 		SELECT
 			   ITEM_CODE AS PRCODE
+			 , REPORT_NO AS REPORTNO
 		     , C_NAME AS CAFE
 		     , NAME AS CEO
 		     , REPORT_TYPE AS REPORTTYPE
@@ -176,8 +178,8 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 	         , CONCAT(WARNED, '건') AS ACCU
 	         , REPORTER_ID AS REPORTER
 	         , REPORTEE_ID AS REPORTEE
-	         , CASE ISWARNED WHEN 'T' THEN '../../resources/img/admin/icon/blind.svg'
-                             ELSE '../../resources/img/admin/icon/restore.svg'
+	         , CASE ISWARNED WHEN 'T' THEN '../../resources/img/admin/icon/accept.svg'
+                             ELSE '../../resources/img/admin/icon/denied.svg'
                END AS STATUS
 		  FROM 
 		  	   REPORT R
@@ -190,13 +192,57 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 	     WHERE
 	     	   ISCHECKED = 'T'
 		</select>
-		<update id="updatePartnerWarned" parameterType="map">
-	    {call
-	        declare
-	        begin
-	            UPDATE M_PARTNER SET WARNED = WARNED + 1 WHERE ID = #{reportee}
-	            UPDATE REPORT SET ISCHECKED = 'T', ISWARNED = 'T' WHERE ID = #{reportee}
-	        end
-	    }
+		<update id="updatePartnerWarned" parameterType="A_Report_P">
+	     UPDATE 
+	    	    M_PARTNER
+	    	SET
+	    		WARNED = WARNED + 1
+	      WHERE
+	      		ID = #{reportee}
 		</update>
+		<update id="updateReportStatus" parameterType="A_Report_P">
+		 UPDATE
+		 	 	REPORT
+		 	SET
+		 		ISCHECKED = 'T'
+		 	  , ISWARNED = 'T'
+		  WHERE
+		  	    REPORT_NO = #{reportNo}
+		</update>
+		<update id="updatePartnerReportInvalid" parameterType="A_Report_P">
+		 UPDATE
+		 	 	REPORT
+		 	SET
+		 		ISCHECKED = 'T'
+		 	  , ISWARNED = 'F'
+		  WHERE
+		  	    REPORT_NO = #{reportNo}
+		</update>
+		<select id="selectReportedUserList" resultType="A_Report_N">
+<!-- 		SELECT
+			   REPORT_NO AS REPORTNO
+		     , REPORT_TYPE AS REPORTTYPE
+             , REPORT_REASON AS REPORTREASON
+		     , CASE WHEN REPORT_NO LIKE 'STRP%' THEN '스토어'
+					WHEN REPORT_NO LIKE 'CLRP%' THEN '클래스'
+					WHEN REPORT_NO LIKE 'CARP%' THEN '카페'
+					END AS SERVICE
+	         , CONCAT(BLIND, '건') AS ACCU
+	         , REPORTER_ID AS REPORTER
+	         , REPORTEE_ID AS REPORTEE
+	         , AS HASIMG
+	         , AS IMGPATH
+	         , AS IMGCHNAME
+		  FROM
+		 	   REPORT R
+    INNER JOIN
+		 	   MEMBER M ON(R.REPORTEE_ID = M.ID)
+    INNER JOIN
+   			   CAFE C ON(R.REPORTEE_ID = C.ID)
+    INNER JOIN  
+   			   M_PARTNER P ON(R.REPORTEE_ID = P.ID)
+		 WHERE 
+			   ISCHECKED = 'F'	 -->	 
+		</select>
+		<select id="selectCompletedUserList" resultType="A_Report_N"></select>
 </mapper>

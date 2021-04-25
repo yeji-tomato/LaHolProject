@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,6 +28,7 @@ import com.kh.lahol.admin.model.service.AdminService;
 import com.kh.lahol.admin.model.service.AdminServiceImpl;
 import com.kh.lahol.admin.model.vo.CafeList;
 import com.kh.lahol.admin.model.vo.Promotion;
+import com.kh.lahol.admin.model.vo.Report_P;
 import com.kh.lahol.member.model.vo.Coupon;
 
 
@@ -111,12 +113,30 @@ public class AdminController {
 	}
 	
 	// 사업자 경고 + 1
-	@RequestMapping(value="/updatePartnerWarned", method=RequestMethod.POST)
-	@ResponseBody
-	public void updateAsWarned(Map<String, Object> data) {
-		adminService.updatePartnerWarned(data);
+	@RequestMapping(value="/updatePartnerWarned", method=RequestMethod.GET)
+	public String updateAsWarned(String reportNo, String reportee,
+								 @ModelAttribute Report_P ap) {
+		ap.setReportNo(reportNo);
+		ap.setReportee(reportee);
+		
+		adminService.updatePartnerWarned(ap);
+		adminService.updateReportStatus(ap);
+		
+		return "redirect:/admin/report/partner";
+	}
+	
+	// 사업자 신고 무효처리
+	@RequestMapping(value="/updatePartnerReportInvalid", method=RequestMethod.GET)
+	public String updatePartnerReportInvalid(String reportNo,
+									   @ModelAttribute Report_P ap) {
+		ap.setReportNo(reportNo);
+		
+		adminService.updatePartnerReportInvalid(ap);
+		
+		return "redirect:/admin/report/partner";
 		
 	}
+	
 	
 		
 	

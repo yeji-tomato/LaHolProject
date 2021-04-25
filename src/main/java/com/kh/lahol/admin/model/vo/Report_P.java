@@ -13,14 +13,15 @@ import lombok.ToString;
 @ToString
 public class Report_P {
 	private String prCode;
+	private String reportNo;
 	private String cafe;
+	private String reportType;
+	private String reportReason;
 	private String ceo;
 	private String phone;
 	private String service;
 	private String accu;
 	private String reporter;
 	private String reportee;
-	private String imgPath;
-	private String imgChName;
 	private String status;
 }
