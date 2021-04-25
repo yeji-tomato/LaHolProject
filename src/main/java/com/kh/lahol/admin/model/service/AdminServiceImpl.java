@@ -61,8 +61,8 @@ public class AdminServiceImpl implements AdminService{
 	}
 
 	@Override
-	public void updateAdRejected(Map<String, Object> data) {
-		adminDao.updateAdRejected(data);
+	public void updateAdRejected(Promotion p) {
+		adminDao.updateAdRejected(p);
 	}
 
 	@Override
@@ -73,5 +73,11 @@ public class AdminServiceImpl implements AdminService{
 	@Override
 	public List<Report_P> selectCompletedPartnerList() {
 		return adminDao.selectCompletedPartnerList();
+	}
+
+	@Override
+	public void updatePartnerWarned(Map<String, Object> data) {
+		adminDao.updatePartnerWarned(data);
+		
 	}
 }

@@ -28,9 +28,12 @@ public interface AdminService {
 	
 	void updateAdConfirmed(String adCode);
 	
-	void updateAdRejected(Map<String, Object> data);
+	void updateAdRejected(Promotion p);
 	
 	List<Report_P> selectReportedPartnerList();
 	
 	List<Report_P> selectCompletedPartnerList();
+	
+	void updatePartnerWarned(Map<String, Object> data);
+
 }

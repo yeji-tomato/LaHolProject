@@ -26,6 +26,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.kh.lahol.admin.model.service.AdminService;
 import com.kh.lahol.admin.model.service.AdminServiceImpl;
 import com.kh.lahol.admin.model.vo.CafeList;
+import com.kh.lahol.admin.model.vo.Promotion;
 import com.kh.lahol.member.model.vo.Coupon;
 
 
@@ -93,26 +94,30 @@ public class AdminController {
 	}
 	
 	// 배너광고 승인
-	@RequestMapping(value="/updateAdConfirmed", method=RequestMethod.POST)
-	@ResponseBody
-	public void updateAdConfirmed(String adCode, HttpServletResponse response) {
-		
-		try {
-			PrintWriter out = response.getWriter();
-			out.print("success");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
+	@RequestMapping(value="/updateAdConfirmed", method=RequestMethod.GET)
+	public String updateAdConfirmed(String adCode) {		
 		adminService.updateAdConfirmed(adCode);
+		return "redirect:/admin/cafe/promotion";
 	}
 	
 	// 배너광고 반려
-	@RequestMapping(value="/updateAdRejected", method=RequestMethod.POST)
-	@ResponseBody
-	public void updateAdRejected(Map<String, Object> data) {
-		adminService.updateAdRejected(data);
+	@RequestMapping(value="/updateAdRejected", method=RequestMethod.GET)
+	public String updateAdRejected(String adCode, String value) {
+		Promotion p = new Promotion();
+		p.setAdCode(adCode);
+		p.setValue(value);
+		adminService.updateAdRejected(p);
+		return "redirect:/admin/cafe/promotion";
 	}
+	
+	// 사업자 경고 + 1
+	@RequestMapping(value="/updatePartnerWarned", method=RequestMethod.POST)
+	@ResponseBody
+	public void updateAsWarned(Map<String, Object> data) {
+		adminService.updatePartnerWarned(data);
+		
+	}
+	
 		
 	
 }

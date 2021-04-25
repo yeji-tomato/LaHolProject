@@ -126,7 +126,7 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 		 WHERE 
 			   AD_CODE = #{adCode}	
 		</update>
-		<update id="updateAdRejected" parameterType="map">
+		<update id="updateAdRejected" parameterType="A_Promo">
 		UPDATE
 			   AD
 		   SET
@@ -140,6 +140,8 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 			   ITEM_CODE AS PRCODE
 		     , C_NAME AS CAFE
 		     , NAME AS CEO
+		     , REPORT_TYPE AS REPORTTYPE
+             , REPORT_REASON AS REPORTREASON
 		     , REGEXP_REPLACE(PHONE, '(.{3})(.+)(.{4})', '\1-\2-\3') AS PHONE
 		     , CASE WHEN REPORT_NO LIKE 'STRP%' THEN '스토어'
 					WHEN REPORT_NO LIKE 'CLRP%' THEN '클래스'
@@ -148,8 +150,6 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 	         , CONCAT(WARNED, '건') AS ACCU
 	         , REPORTER_ID AS REPORTER
 	         , REPORTEE_ID AS REPORTEE
-           	 , IMGPATH
-             , IMGCHNAME
 		  FROM
 		 	   REPORT R
     INNER JOIN
@@ -166,6 +166,8 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 			   ITEM_CODE AS PRCODE
 		     , C_NAME AS CAFE
 		     , NAME AS CEO
+		     , REPORT_TYPE AS REPORTTYPE
+             , REPORT_REASON AS REPORTREASON
 		     , REGEXP_REPLACE(PHONE, '(.{3})(.+)(.{4})', '\1-\2-\3') AS PHONE
 		     , CASE WHEN REPORT_NO LIKE 'STRP%' THEN '스토어'
 					WHEN REPORT_NO LIKE 'CLRP%' THEN '클래스'
@@ -177,8 +179,6 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 	         , CASE ISWARNED WHEN 'T' THEN '../../resources/img/admin/icon/blind.svg'
                              ELSE '../../resources/img/admin/icon/restore.svg'
                END AS STATUS
-           	 , IMGPATH
-             , IMGCHNAME
 		  FROM 
 		  	   REPORT R
     INNER JOIN 
@@ -190,4 +190,13 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 	     WHERE
 	     	   ISCHECKED = 'T'
 		</select>
+		<update id="updatePartnerWarned" parameterType="map">
+	    {call
+	        declare
+	        begin
+	            UPDATE M_PARTNER SET WARNED = WARNED + 1 WHERE ID = #{reportee}
+	            UPDATE REPORT SET ISCHECKED = 'T', ISWARNED = 'T' WHERE ID = #{reportee}
+	        end
+	    }
+		</update>
 </mapper>

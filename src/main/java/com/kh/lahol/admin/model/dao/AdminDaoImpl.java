@@ -61,8 +61,8 @@ public class AdminDaoImpl implements AdminDao{
 	}
 
 	@Override
-	public void updateAdRejected(Map<String, Object> data) {
-		sqlSession.update("adminMapper.updateAdRejected", data);
+	public void updateAdRejected(Promotion p) {
+		sqlSession.update("adminMapper.updateAdRejected", p);
 	}
 
 	@Override
@@ -73,6 +73,12 @@ public class AdminDaoImpl implements AdminDao{
 	@Override
 	public List<Report_P> selectCompletedPartnerList() {
 		return sqlSession.selectList("adminMapper.selectCompletedPartnerList");
+	}
+
+	@Override
+	public void updatePartnerWarned(Map<String, Object> data) {
+		sqlSession.update("adminMapper.updatePartnerWarned", data);
+//		sqlSession.update("adminMapper.updatePartner", )
 	}
 
 }

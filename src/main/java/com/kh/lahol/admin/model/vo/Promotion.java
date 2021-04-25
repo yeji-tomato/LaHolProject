@@ -23,4 +23,5 @@ public class Promotion {
 	private String id;
 	private String bnCode;
 	private String url;
+	private String value;
 }
