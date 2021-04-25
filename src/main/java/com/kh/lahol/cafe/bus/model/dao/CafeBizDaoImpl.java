@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.kh.lahol.cafe.bus.model.vo.Cafe;
 import com.kh.lahol.cafe.bus.model.vo.Caphoto;
 import com.kh.lahol.cafe.bus.model.vo.Coffee;
+import com.kh.lahol.cafe.bus.model.vo.PageInfo;
 
 @Repository
 public class CafeBizDaoImpl implements CafeBizDao{
@@ -37,8 +38,8 @@ public class CafeBizDaoImpl implements CafeBizDao{
 	}
 
 	@Override
-	public List<Coffee> selectCoffeeList(String caCode) {
-		return sqlSession.selectList("cafeMapper.selectCoffeeList", caCode);
+	public List<Coffee> selectCoffeeList(PageInfo pi) {
+		return sqlSession.selectList("cafeMapper.selectCoffeeList", pi);
 	}
 
 	@Override
@@ -69,6 +70,11 @@ public class CafeBizDaoImpl implements CafeBizDao{
 	@Override
 	public int cafeDelete(String caCode) {
 		return sqlSession.update("cafeMapper.cafeDelete", caCode);
+	}
+
+	@Override
+	public int selectCoffeeCount(String caCode) {
+		return sqlSession.selectOne("cafeMapper.cafeCoffeeCount", caCode);
 	}
 
 

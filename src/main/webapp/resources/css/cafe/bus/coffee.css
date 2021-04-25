@@ -128,6 +128,25 @@
 	height: 110vh;
 }
 
+/* 페이징 바 */
+.cafe-order-page{
+    margin-top: 5%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#page-color{
+    color: #5A452E;
+}
+#page-color:active{
+    background-color: #e3a259;
+    color: white;
+}
+#page-color:hover{
+    background-color: #e3a259;
+    color: white;
+}
+
 
 @media screen and (max-width:1280px) {
 

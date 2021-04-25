@@ -95,6 +95,7 @@
                                 	수정하기
                                 </a>
                                 <button class="btn" id="coffeeBtn" onclick="deleteCoffee('${ co.cfNo }')">삭제하기</button>
+                               <c:set var= "cafeNo" value="${ co.caNo }"/>
                                <script>
 	                   function deleteCoffee(cfNo){
 	               		Swal.fire({
@@ -137,7 +138,44 @@
                      
                 </div>
                 </div>
-                
+                <!-- 페이징 바 -->
+		        <div aria-label="Page navigation" class="cafe-order-page">
+		            <ul class="pagination">
+		                <c:if test="${ pi.currentPage > 1 }">
+		                <li class="page-item">
+		                <c:url var="before" value="/cafe/biz/Coffee?caCode=${ cafeNo }">
+							<c:param name="page" value="${ pi.currentPage -1 }" />
+						</c:url>
+		                <a class="page-link" id="page-color" href="${ before }" aria-label="Previous">
+		                    <span aria-hidden="true">&laquo;</span>
+		                </a>
+		                </li>
+		                </c:if>
+		                <!-- 페이징 숫자 -->
+		                <c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+						<c:if test="${ p eq pi.currentPage }">
+							<li class="page-item" id="page-hover"><a class="page-link" id="page-color">${ p }</a></li>
+						</c:if>
+						<c:if test="${ p ne pi.currentPage }">
+							<c:url var="pagination">
+								<c:param name="page" value="${ p }"/>
+							</c:url>
+							<li class="page-item"><a class="page-link" id="page-color" href="${ pagination }">${ p }</a></li>
+						</c:if>
+					</c:forEach>
+					<c:if test="${ pi.currentPage < pi.maxPage }">
+						<c:url var="after" value="/cafe/biz/Coffee?caCode=${ cafeNo }">
+							<c:param name="page" value="${ pi.currentPage + 1 }" />
+						</c:url>
+						<li class="page-item">
+		                <a class="page-link" id="page-color" href="${ after }" aria-label="Next">
+		                    <span aria-hidden="true">&raquo;</span>
+		                </a>
+		                </li>
+					</c:if>
+		                
+		            </ul>
+		         </div>
             </div>
             <jsp:include page="/WEB-INF/views/cafe/bus/coffeeInsert.jsp"/>
 

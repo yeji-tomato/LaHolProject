@@ -28,10 +28,12 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kh.lahol.cafe.bus.model.page.Pagination;
 import com.kh.lahol.cafe.bus.model.service.CafeBizService;
 import com.kh.lahol.cafe.bus.model.vo.Cafe;
 import com.kh.lahol.cafe.bus.model.vo.Caphoto;
 import com.kh.lahol.cafe.bus.model.vo.Coffee;
+import com.kh.lahol.cafe.bus.model.vo.PageInfo;
 import com.kh.lahol.cafe.user.model.exception.CafeException;
 import com.kh.lahol.cafe.user.model.service.CafeService;
 import com.kh.lahol.cafe.user.model.vo.CafeRes;
@@ -277,14 +279,20 @@ public class CafeBizController {
 	}
 	
 	@GetMapping("/Coffee")
-	public ModelAndView coffeeSelect(ModelAndView mv, @RequestParam String caCode) {
+	public ModelAndView coffeeSelect(ModelAndView mv, @RequestParam String caCode,
+			@RequestParam(value="page", required=false, defaultValue="1") int currentPage) {
 		
 		// System.out.println(caCode + "caCode");
-		
-		List<Coffee> Coffeelist = caBizService.selectCoffeeList(caCode);
+		int listCount = caBizService.selectCoffeeCount(caCode);
+		System.out.println(listCount);
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount, caCode);
+		System.out.println(pi);
+		List<Coffee> Coffeelist = caBizService.selectCoffeeList(pi);
+		System.out.println(Coffeelist);
 		
 		
 		mv.addObject("Coffeelist", Coffeelist);
+		mv.addObject("pi", pi);
 		mv.setViewName("cafe/bus/coffee");
 		
 		return mv;
