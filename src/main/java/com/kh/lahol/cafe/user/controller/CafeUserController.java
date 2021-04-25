@@ -37,6 +37,7 @@ import com.kh.lahol.cafe.user.model.vo.CoffeeCart;
 import com.kh.lahol.cafe.user.model.vo.CoffeeRes;
 import com.kh.lahol.common.model.vo.Report;
 import com.kh.lahol.member.model.vo.Member;
+import com.kh.lahol.store.model.vo.Search;
 
 @Controller
 @RequestMapping("/cafe")
@@ -48,7 +49,7 @@ public class CafeUserController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(CafeUserController.class);
 	
-	// 검색 페이지로 이동
+	// 메인 페이지로 이동
 	@GetMapping("/user")
 	public ModelAndView cafeMain(ModelAndView mv) {
 		
@@ -65,6 +66,20 @@ public class CafeUserController {
 		
 		return mv;
 	}
+	
+	
+	// 카페 검색
+	@GetMapping("/search")
+	public String cafeSearch(@ModelAttribute Search search, Model model) {
+		
+		System.out.println(search);
+		List<Cafe> cafeSearch = caService.cafeSearch(search);
+		System.out.println(cafeSearch);
+		model.addAttribute("CafeMainList", cafeSearch);
+		
+		return "cafe/user/cafeMain";
+	}
+		
 	
 	// 검색 세부 페이지로 이동
 	@GetMapping("/detail")
@@ -216,7 +231,7 @@ public class CafeUserController {
 	 
 	 }
 
-	  @GetMapping("/coffee/order")
+	@GetMapping("/coffee/order")
 	public ModelAndView coffeeOrder(ModelAndView mv, @RequestParam String caResNo) {
 		  
 		  
@@ -246,6 +261,9 @@ public class CafeUserController {
 			throw new CafeException("카페 신고에 실패하였습니다.");
 		}	
 	}
+	
+	
+	
 	
 	
 

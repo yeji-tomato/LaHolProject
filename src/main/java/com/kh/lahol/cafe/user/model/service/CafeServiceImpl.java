@@ -13,6 +13,7 @@ import com.kh.lahol.cafe.user.model.vo.CoffeeCart;
 import com.kh.lahol.cafe.user.model.vo.CoffeeOrder;
 import com.kh.lahol.cafe.user.model.vo.CoffeeRes;
 import com.kh.lahol.common.model.vo.Report;
+import com.kh.lahol.store.model.vo.Search;
 
 @Service
 public class CafeServiceImpl implements CafeService{
@@ -67,6 +68,11 @@ public class CafeServiceImpl implements CafeService{
 	@Override
 	public int cafeReport(Report rep) {
 		return caDao.cafeReport(rep);
+	}
+
+	@Override
+	public List<Cafe> cafeSearch(Search search) {
+		return caDao.cafeSearch(search);
 	}
 	
 

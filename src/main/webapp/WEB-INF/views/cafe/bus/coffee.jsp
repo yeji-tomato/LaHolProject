@@ -95,6 +95,7 @@
                                 	수정하기
                                 </a>
                                 <button class="btn" id="coffeeBtn" onclick="deleteCoffee('${ co.cfNo }')">삭제하기</button>
+                               <c:set var= "cafeNo" value="${ co.caNo }"/>
                                <script>
 	                   function deleteCoffee(cfNo){
 	               		Swal.fire({
@@ -137,7 +138,39 @@
                      
                 </div>
                 </div>
-                
+                <!-- 페이징 바 -->
+                <!-- [이전] -->
+					<c:if test="${ pi.currentPage <= 1 }">
+						[이전] &nbsp;
+					</c:if>
+					<c:if test="${ pi.currentPage > 1 }">
+						<c:url var="before" value="/cafe/biz/Coffee">
+							<c:param name="page" value="${ pi.currentPage -1 }" />
+						</c:url>
+						<a href="${ before }">[이전]</a> &nbsp;
+					</c:if>
+					<!-- 페이지 숫자 -->
+					<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+						<c:if test="${ p eq pi.currentPage }">
+							<font color="red" size="4"><b>[${ p }]</b></font> &nbsp;
+						</c:if>
+						<c:if test="${ p ne pi.currentPage }">
+							<c:url var="pagination" value="/cafe/biz/Coffee">
+								<c:param name="page" value="${ p }"/>
+							</c:url>
+							<a href="${ pagination }">${ p }</a> &nbsp;
+						</c:if>
+					</c:forEach>
+					<!-- [다음] -->
+					<c:if test="${ pi.currentPage >= pi.maxPage }">
+						[다음]
+					</c:if>
+					<c:if test="${ pi.currentPage < pi.maxPage }">
+						<c:url var="after" value="/cafe/biz/Coffee">
+							<c:param name="page" value="${ pi.currentPage + 1 }" />
+						</c:url>
+						<a href="${ after }">[다음]</a>
+					</c:if>
             </div>
             <jsp:include page="/WEB-INF/views/cafe/bus/coffeeInsert.jsp"/>
 

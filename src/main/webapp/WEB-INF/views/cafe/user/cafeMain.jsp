@@ -13,7 +13,6 @@
 	
 	<!-- menubar -->
 	<jsp:include page="/WEB-INF/views/common/menubar.jsp"/>
-
 	<section class="searchCafe">
             <div class="headSearch">
                 <!-- <div id="parallelogram"></div> -->
@@ -33,16 +32,16 @@
             <main>
                 <div class="search-container">
                     <div class="search-box">
+						<form action="${ contextPath }/cafe/search" method="get">
                         <div class="search-icon"><i class="fa fa-search search-icon"></i></div>
-                        <form action="" class="search-form">
-                            <input type="text" placeholder="Search" id="search" autocomplete="off">
-                        </form>
+                        <input type="text" placeholder="카페명 또는 지역을 검색해주세요." id="search" class="searchVal" name="searchValue" autocomplete="off" value="${ param.searchValue }">
                         <svg class="search-border" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:a="http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/" x="0px" y="0px" viewBox="0 0 671 111" style="enable-background:new 0 0 671 111;"
                             xml:space="preserve">
                         <path class="border" d="M335.5,108.5h-280c-29.3,0-53-23.7-53-53v0c0-29.3,23.7-53,53-53h280"/>
                         <path class="border" d="M335.5,108.5h280c29.3,0,53-23.7,53-53v0c0-29.3-23.7-53-53-53h-280"/>
                         </svg>
-                        <div class="go-icon"><i class="fa fa-arrow-right"></i></div>
+                        <button class="go-icon" type="submit" style="background: transparent; border: 0"><i class="fa fa-arrow-right"></i></button>
+                   		</form>
                     </div>
                 </div>
             </main>
@@ -64,16 +63,17 @@
                         $(".go-icon").removeClass("go-in");
                         }
                     });
+                    
                     $(".go-icon").click(function(){
-                    $(".search-form").submit();
+                        $(".search-form").submit();
                     });
                 });
             </script>
     </section>
-    <hr style="margin-top: 5%;">
+    <hr>
     <!-- 정렬 방식 -->
     <section class="content-cafe-sc">
-        <h1 style="color: gray; margin-left: 7%;">CAFE</h1>
+        <!-- <h1 style="color: gray; margin-left: 7%;">CAFE</h1> -->
         <div class="container" id="ct-cf">
             
             <div class="row row-cols-4" id="rowP">
@@ -102,8 +102,13 @@
 	                </div>
 	            </div>
             </c:when>
-            </c:choose> 
-          
+            <c:otherwise>
+            <div class="col">
+            	결과에 알맞는 카페가 존재하지 않습니다.
+           	</div>
+            </c:otherwise>
+            </c:choose>
+             
             </c:forEach>
             </div>
             

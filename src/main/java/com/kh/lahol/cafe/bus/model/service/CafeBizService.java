@@ -6,6 +6,7 @@ import java.util.List;
 import com.kh.lahol.cafe.bus.model.vo.Cafe;
 import com.kh.lahol.cafe.bus.model.vo.Caphoto;
 import com.kh.lahol.cafe.bus.model.vo.Coffee;
+import com.kh.lahol.cafe.bus.model.vo.PageInfo;
 
 public interface CafeBizService {
 	// 카페 정보 insert
@@ -24,7 +25,7 @@ public interface CafeBizService {
 	public Cafe selectCafeInfo(String caCode);
 	
 	// 카페 시퀀스를 통한 커피 조회
-	public List<Coffee> selectCoffeeList(String caCode);
+	public List<Coffee> selectCoffeeList(PageInfo pi);
 	
 	// 카페 등록을 하기 위한 select
 	public Cafe caWriteSelect(String Id);
@@ -40,5 +41,7 @@ public interface CafeBizService {
 	public int coffeeDelete(String cfNo);
 
 	public int cafeDelete(String caCode);
+
+	int selectCoffeeCount(String caCode);
 
 }
