@@ -353,14 +353,16 @@
 				           }else if( $('input:radio[name=SUBSCRIPTIONS]:checked').val() == '9'){
 				        	   amount : ${  ((s.PR_PRICE*9)- ((s.PR_PRICE*9)*0.15)) /9  }
 				           }   일단 100원*/
-				            
 				           amount : '100' ,
 				           buyer_email : ' ',
 				           buyer_name : '${ loginUser.name } ',
-				           buyer_tel : '  ',
-				           buyer_addr : '',
-				           buyer_postcode : '123-456',
-				           //m_redirect_url : 'http://www.naver.com'
+				           buyer_email: '${ sessionScope.loginUser.email }',
+						
+						   buyer_name: '${ sessionScope.loginUser.name }',
+					
+						   buyer_tel: '${ sessionScope.loginUser.phone }',
+					
+						   buyer_addr: '${ addr[1] }' + '${ addr[2] }',
 				       }, function(rsp) {
 				    	   console.log(rsp);
 				          if (rsp.success) { 

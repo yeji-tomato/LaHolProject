@@ -629,7 +629,7 @@ C_CODE	VARCHAR2(30 BYTE)	No		18	카페코드
 	</insert>
  
  
- 
+ 	<!-- 정기구독용 결제 ㅇ연결 -->
   <insert id="insertPAYMENT" parameterType="string">
 		INSERT
 		  INTO
@@ -674,6 +674,8 @@ C_CODE	VARCHAR2(30 BYTE)	No		18	카페코드
 		)
 	
 	</insert>
+	
+	<!-- 정기구독용 결제 상세 -->
 	<insert id="insertPrpay" parameterType="string">
 		INSERT
 		INTO PR_PAY
@@ -699,11 +701,94 @@ C_CODE	VARCHAR2(30 BYTE)	No		18	카페코드
 				FROM PAYMENT
 				ORDER BY PAY_NO DESC)
 				WHERE RNUM = 1)
-			, NULL 
+			, NULL
 			 
 		)
 	
 	</insert>
+	
+		<!--바로구매  결제 연결 -->
+  <insert id="insertPAYMENT2" parameterType="string">
+		INSERT
+		  INTO
+		       PAYMENT
+		  (
+		       PAY_NO
+		     , PAY_ITEM
+		     , PAY_PRICE
+		     , SUBSCRIBE
+		     , PAY_DATE
+		     , BUYER_ID
+		     , CAFE_RES
+		     , AD_CODE
+		     , PURCHASE_NUMBER
+		     , SUBSCRIBE_CODE
+		     , CL_PAY_NO
+		     , PAY_DC
+		     , PAY_TOTAL
+		     , CL_TIME
+		  )
+		VALUES
+		(
+		       STP.NEXTVAL
+		     , #{PAY_ITEM}
+		     , #{pay_price}
+		     , #{subscribe}
+		     , SYSDATE
+		     , #{id}
+		     , NULL
+		     , #{ad_code}
+		     , (SELECT PURCHASE_NUMBER
+				FROM
+				(SELECT PURCHASE_NUMBER, ROWNUM AS RNUM
+				FROM PR_PAY_WHICH
+				ORDER BY PURCHASE_NUMBER DESC)
+				WHERE RNUM = 1)
+		     , NULL
+		     , NULL
+		     , 0
+		     , #{pay_price}
+		     , NULL
+		)
+	
+	</insert>
+	
+	<!-- 바로구매용 결제 상세 -->
+	<insert id="insertPrpay2" parameterType="string">
+		INSERT
+		INTO PR_PAY
+		(
+		       PAY_CODE_S
+		     , PAY_NO
+		     , SUBSCRIBE_CODE
+		     , PURCHASE_NUMBER 
+		    
+		 	)
+		VALUES
+		(
+			 STD.NEXTVAL
+			,(SELECT PAY_NO
+				FROM
+				(SELECT PAY_NO, ROWNUM AS RNUM
+				FROM PAYMENT
+				ORDER BY PAY_NO DESC)
+				WHERE RNUM = 1)
+			,NULL
+			,(SELECT PURCHASE_NUMBER
+				FROM
+				(SELECT PURCHASE_NUMBER, ROWNUM AS RNUM
+				FROM PR_PAY_WHICH
+				ORDER BY PURCHASE_NUMBER DESC)
+				WHERE RNUM = 1)
+			 
+		)
+	
+	</insert>
+	
+	
+	
+	
+	
 	
 	 
 	

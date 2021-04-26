@@ -157,6 +157,16 @@ public class StoreServiceImpl implements StoreService {
 		 return sDao.storepayInsert(py);
 	}
 
+	@Override
+	public int paymnet(Payment pay) {
+		return sDao.paymnet(pay);
+	}
+
+	@Override
+	public int prpay2(Prpay pa) {
+		return sDao.prpay2(pa);
+	}
+
  
 
  

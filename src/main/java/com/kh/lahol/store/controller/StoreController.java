@@ -37,6 +37,7 @@ import com.google.gson.GsonBuilder;
 import com.kh.lahol.cafe.bus.model.vo.Cafe;
 import com.kh.lahol.cafe.user.model.vo.CoffeeCart;
 import com.kh.lahol.common.model.exception.CartException;
+import com.kh.lahol.common.model.service.CartService;
 import com.kh.lahol.common.model.vo.Cart;
 import com.kh.lahol.member.model.vo.M_Partner;
 import com.kh.lahol.member.model.vo.Member;
@@ -65,6 +66,9 @@ import com.kh.lahol.store.page.Pagination4;
 public class StoreController {
 	@Autowired
 	private StoreService sService;
+	
+	@Autowired 
+	private CartService cartService;
 	
   
 	// 상품 리스트 페이지
@@ -824,7 +828,7 @@ public class StoreController {
 			py.setPr_code(pr_code);
 			py.setPr_count(su);
 			
-			int result = sService.storepayInsert(py);
+			//int result = sService.storepayInsert(py);
 			 
 		 
 		 
@@ -832,11 +836,77 @@ public class StoreController {
 		 
 			
 			
-			 if(result > 0) {
-				 return "redirect:/store/order?PR_CODE="+pr_code+"&su="+su+"&pr="+pr;
+		
+			 return "redirect:/store/order?PR_CODE="+pr_code+"&su="+su+"&pr="+pr;
+			 
+		
+		
+			
+		}
+		
+		@PostMapping("/storecart2")
+		public String storeCartInsert(@ModelAttribute Pr_pay_w py,@ModelAttribute Payment pay ,@ModelAttribute Prpay pa  ,String price, String Coupon,
+				String num  ,String pr_code,String name,  HttpSession session) throws CartException {
+			
+			
+		
+
+			Member loginUser = (Member)session.getAttribute("loginUser");
+			 
+			String id = loginUser.getId();
+			
+			int pr =  Integer.parseInt(price);
+			
+			int su = Integer.parseInt(num);
+			int cu =  Integer.parseInt(Coupon);
+			 
+		
+			 int total=pr*su;
+			 int totalprice =total-cu;
+			
+			 String a = Integer.toString(total);
+			 String b = Integer.toString(cu);
+			 
+			 String c = null;
+		 
+			System.out.println("제품가격"+pr);
+			 
+			py.setPr_code(pr_code);
+			py.setPr_count(su);
+			
+			int result = sService.storepayInsert(py);
+			
+			
+			System.out.println("전체가격"+total);
+			System.out.println("할인가격"+totalprice);
+			
+			 String dd = "N"; //구독여부
+			 
+			 pay.setPAY_ITEM(name); 
+			 pay.setSubscribe(dd);
+			 pay.setId(id);
+			 pay.setSubscribe_code(pr_code); 
+			 pay.setPay_price(a);
+			 pay.setPay_total(b);
+			 pay.setPay_dc(Coupon);
+			 pay.setSubscribe_code(c);
+		 
+			 
+			   
+			 pa.setPuNum(pr_code);
+			 int result2 = sService.paymnet(pay); 	
+			 
+			 int result3 = sService.prpay2(pa); 	 
+		 
+		 
+			 
+			
+			
+			 if(result  > 0) {
+				 return "redirect:/store/storedetail?&k=0&PR_CODE="+pr_code;
 			 
 			 }else { throw new
-				 CartException("장바구니에 값 넣는 것을 실패하였습니다."); }
+				 CartException(" "); }
 		
 			
 		}

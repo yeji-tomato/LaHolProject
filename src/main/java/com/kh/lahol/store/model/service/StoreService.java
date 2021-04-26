@@ -68,6 +68,10 @@ public interface StoreService {
 
 	public int storepayInsert(Pr_pay_w py);
 
+	public int paymnet(Payment pay);
+
+	public int prpay2(Prpay pa);
+
  
  
 	
