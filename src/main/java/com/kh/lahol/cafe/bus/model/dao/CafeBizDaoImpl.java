@@ -83,6 +83,16 @@ public class CafeBizDaoImpl implements CafeBizDao{
 		return sqlSession.selectList("cafeMapper.selectCafeResList", id);
 	}
 
+	@Override
+	public List<CafeRes> selectOrderList(String id) {
+		return sqlSession.selectList("cafeMapper.selectOrderList", id);
+	}
+
+	@Override
+	public int coffeeStatus(CafeRes cr) {
+		return sqlSession.update("cafeMapper.coffeeStatus", cr);
+	}
+
 
 	
 

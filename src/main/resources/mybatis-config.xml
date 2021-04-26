@@ -58,6 +58,7 @@
 		<!-- Yeji_Cafe -->
 		<typeAlias type="com.kh.lahol.cafe.bus.model.vo.Cafe" alias="Cafe"/>
 		<typeAlias type="com.kh.lahol.cafe.bus.model.vo.Coffee" alias="Coffee"/>
+		<typeAlias type="com.kh.lahol.cafe.bus.model.vo.OrderList" alias="OrderList"/>
 		<typeAlias type="com.kh.lahol.cafe.user.model.vo.CafeRes" alias="CafeRes"/>
 		<typeAlias type="com.kh.lahol.cafe.user.model.vo.CoffeeRes" alias="CoffeeRes"/>
 		<typeAlias type="com.kh.lahol.cafe.user.model.vo.CoffeeCart" alias="CoffeeCart"/>

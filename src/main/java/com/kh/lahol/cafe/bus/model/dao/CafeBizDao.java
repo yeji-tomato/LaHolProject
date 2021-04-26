@@ -37,6 +37,10 @@ public interface CafeBizDao {
 
 	public List<CafeRes> selectCafeResList(String id);
 
+	public List<CafeRes> selectOrderList(String id);
+
+	public int coffeeStatus(CafeRes cr);
+
 	//public int insetCafeInfoPhoto(ArrayList<Caphoto> photoList);
 	
 	

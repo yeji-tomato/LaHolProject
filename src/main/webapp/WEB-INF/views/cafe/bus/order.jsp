@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,6 +8,7 @@
 <title>카페 주문 확인</title>
 <link rel="stylesheet" href="${ contextPath }/resources/css/cafe/bus/order.css" type="text/css">
 <link rel="stylesheet" href="${ contextPath }/resources/css/cafe/bus/sideMenu.css" type="text/css">
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 </head>
 <body>
 
@@ -67,13 +69,15 @@
         <div class="order_table">
             <h2>주문 내역</h2>
                 <table class="table" id="orderTB">
+                
                     <thead>
                     <tr>
                         <td colspan="9" style="text-align: center;">
                        <button class="btnOrd arrowBtn">
                            <i class="fa fa-chevron-left" aria-hidden="true"></i>
                        </button>
-                       &nbsp;<b style="font-size: 20px;">2021-03-29</b>&nbsp;
+                       &nbsp;
+                       <b style="font-size: 20px;">2016-03-04</b>&nbsp;
                        <button class="btnOrd arrowBtn">
                            <i class="fa fa-chevron-right" aria-hidden="true"></i>
                        </button>
@@ -81,10 +85,9 @@
                </tr>
                <tr> 
                    <td scope="col">#</td>
-                   <td scope="col">예약</td>
+                   <td scope="col">주문명</td>
                    <td scope="col">고객이름</td>
                    <td scope="col">휴대폰 번호</td>
-                   <td scope="col">추가 요청 사항</td>
                    <td scope="col">예약</td>
                    <td scope="col">시간</td>
                    <td scope="col">상세보기</td>
@@ -92,40 +95,93 @@
                </tr>
                </thead>
                <tbody id="tbody">
+               <c:forEach var="ord" items="${ cafeOrderlist }">
                        <tr>
-                       <td>1</td>
-                       <td>아메리카노 외 ...</td>
-                       <td>이예지</td>
-                       <td>01023456789</td>
-                       <td>아메리카노에 헤이즐넛 시럽 넣어주세요! 많이!!!!!!</td>
-                       <td>포장</td>
-                       <td>8:00 PM</td>
+                       <td>${ ord.caResNo }</td>
+                       <td>${ ord.cfName }</td>
+                       <td>${ ord.name }</td>
+                       <td>${ ord.phone }</td>
+                       <td>${ ord.caResType }</td>
+                       <c:set var="hereTogo" value="${ ord.caResType }" />
+                       <c:if test="${ hereTogo eq '매장' }">
+				        	<td>${ ord.caHereTime }</td>
+				        </c:if>
+				        <c:if test="${ hereTogo eq '포장' }">
+				        	<td>${ ord.caGoTime }</td>
+				        </c:if> 
                        <td class="mod trigger">
                            <i class="fa fa-arrow-right" aria-hidden="true"></i>
                        </td>
                        <td>
                            <div class="btn-group" role="group">
                                <button disabled style="color: black;" class="btnOrd">
-                                   <li id="statusCf">제조 전</li>
+                                   <li id="statusCf">${ ord.caResing }</li>
                                </button>
-                               <button id="btnGroupDrop" type="button" data-bs-toggle="dropdown" class="btnOrd">
+                               <button id="btnGroupDrop" type="button" onclick="coffeeStatus('${ ord.caResNo }')" data-bs-toggle="dropdown" class="btnOrd" >
                                    <i class="fa fa-caret-down" aria-hidden="true"></i>
                                </button>
                                <ul class="dropdown-menu" aria-labelledby="btnGroupDrop">
                                    <li class="btnOrd check" id="cofBef">
-                                           제조 전
+                                          	 제조 전
                                    </li>
                                    <li class="btnOrd check" id="cofIng">
-                                           제조 중
+                                           	제조 중
                                    </li>
                                    <li class="btnOrd check" id="cofFin"> 
-                                           제조 완료
+                                           	제조 완료
                                    </li>
                                </ul>
+                               <c:set var="caResNo" value="${ ord.caResNo }" />
                            </div>
+                           <script>
+                           function coffeeStatus(caResNo){
+                        	   $(".check").click (function(){
+                                   var coffeeStatus = ($(this).text()).trim();
+                                   console.log(caResNo);
+                                   Swal.fire({
+                                   	  title: coffeeStatus,
+                                   	  text : "(으)로 바꾸시겠습니까?",
+                                   	  icon: 'question',
+                                   	  showCancelButton: true,
+                                   	  confirmButtonColor: '#4B654A',
+                                   	  cancelButtonColor: '#810B0B',
+                                   	  confirmButtonText: 'Yes'
+                                   	}).then((result) => {
+                                   	  if (result.isConfirmed) {
+                                   	    Swal.fire({
+                                   	       title: coffeeStatus,
+                                   	       text : '으로 변경되었습니다!',
+                                   	       icon: 'success',
+                                   	      confirmButtonColor: '#4B654A'
+                                   	  })
+                                   	    $.ajax({
+                   			       			url:"${ contextPath }/cafe/biz/ing",
+                   			        		type : "post",
+                   			        		data : {
+                   			        			caResing : coffeeStatus,
+                   			        			caResNo : caResNo
+                   			        		},
+                   			        		success : function(data){
+                   			        			$("#statusCf").text(coffeeStatus);
+                   			        		},
+                   			        		error : function(e){
+                   								console.log(e);
+                   							}
+                   			        		
+                   			       		});
+                                   	  }
+                                   	})
+
+                                   
+                               });
+                           }
+                           
+                           </script>
                        </td>
                        </tr>
+               </c:forEach>
            </tbody>
+           
        </table>
        <!-- Modal -->
        <div class="modal-wrapper">
@@ -290,33 +346,31 @@
                    
                    </div>
                </div>
-               <!-- 페이징 바 -->
-               <div aria-label="Page navigation" class="cafe-order-page">
-                   <ul class="pagination">
-                       <li class="page-item">
-                       <a class="page-link" id="page-color" href="#" aria-label="Previous">
-                           <span aria-hidden="true">&laquo;</span>
-                       </a>
-                       </li>
-                       <li class="page-item" id="page-hover"><a class="page-link" id="page-color" href="#">1</a></li>
-                       <li class="page-item"><a class="page-link" id="page-color" href="#">2</a></li>
-                       <li class="page-item"><a class="page-link" id="page-color" href="#">3</a></li>
-                       <li class="page-item">
-                       <a class="page-link" id="page-color" href="#" aria-label="Next">
-                           <span aria-hidden="true">&raquo;</span>
-                       </a>
-                       </li>
-                   </ul>
-                   </div>
+               
            </div>
-           </div>
+
        </div>
+       <!-- 페이징 바 -->
+           <div aria-label="Page navigation" class="cafe-order-page">
+               <ul class="pagination">
+                   <li class="page-item">
+                   <a class="page-link" id="page-color" href="#" aria-label="Previous">
+                       <span aria-hidden="true">&laquo;</span>
+                   </a>
+                   </li>
+                   <li class="page-item" id="page-hover"><a class="page-link" id="page-color" href="#">1</a></li>
+                   <li class="page-item"><a class="page-link" id="page-color" href="#">2</a></li>
+                   <li class="page-item"><a class="page-link" id="page-color" href="#">3</a></li>
+                   <li class="page-item">
+                   <a class="page-link" id="page-color" href="#" aria-label="Next">
+                       <span aria-hidden="true">&raquo;</span>
+                   </a>
+                   </li>
+               </ul>
+               </div>
+           </div>
        <script>
-            $(".check").click (function(){
-                var coffeeStatus = $(this).text();
-                // var changeSt = $("#statusCf").text();
-                $("#statusCf").text(coffeeStatus);
-            });
+           
 
             // Modal
             $( document ).ready(function() {
