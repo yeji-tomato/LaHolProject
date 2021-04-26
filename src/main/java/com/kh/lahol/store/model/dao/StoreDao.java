@@ -62,6 +62,10 @@ public interface StoreDao {
 
 	public int storepayInsert(Pr_pay_w py);
 
+	public int paymnet(Payment pay);
+
+	public int prpay2(Prpay pa);
+
 	 
  
 	 

@@ -24,10 +24,10 @@
               <div class="card-meta">
                 <div class="card-meta__line"></div>
               </div>
-              <div class="card-tags">
-                <a href="#" target="_blank" class="card-tags__item">Animals</a>
-                <a href="#" target="_blank" class="card-tags__item">STORE</a>
-                <a href="#" target="_blank" class="card-tags__item">Smiling</a>
+              <div class="card-tags"> 
+                <a href="${ contextPath }/store/list2"  class="card-tags__item">HOME</a>  
+                <a href="${ contextPath }/store/create" class="card-tags__item">CREATE</a>
+                <a href="${contextPath}/pMypage/orderView" class="card-tags__item">DELIVERY</a>
                 <a href="#" target="_blank" class="card-tags__item">Fluffy</a>
                 <a href="#" target="_blank" class="card-tags__item">Awesome</a>
               </div>

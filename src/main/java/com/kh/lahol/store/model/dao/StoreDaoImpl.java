@@ -162,7 +162,16 @@ public class StoreDaoImpl implements StoreDao{
 	public int storepayInsert(Pr_pay_w py) {
 		 return sqlSession.insert("storeMapper.storepayInsert",py); 
 	}
+	@Override
+	public int paymnet(Payment pay) {
+		return sqlSession.insert("storeMapper.insertPAYMENT2", pay); 
+	}
+	@Override
+	public int prpay2(Prpay pa) {
+		return sqlSession.insert("storeMapper.insertPrpay2",pa); 
+	}
 	
+ 
  
 	
 	
