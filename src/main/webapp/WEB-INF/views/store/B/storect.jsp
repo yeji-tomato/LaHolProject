@@ -8,7 +8,7 @@
 <title>Insert title here</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-    
+     <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <link rel="stylesheet" href="${ contextPath }/resources/css/store/main/ct.css?Ad">
 </head>
 <style>
@@ -177,7 +177,7 @@
                                             <br>
                                             <tr>
                                                 <td colspan="2">
-                                                    <input  type="button" id="nextBtn" value="등록"> 
+                                                    <button  type="button" id="nextBtn" value="등록" style="background-color:#935039; color:white;">등록 </button>
                                                     <button type="button" id="btnArea2"
                                                         onclick="javascript:history.back();">취소</button> 
                                                 </td>
@@ -194,13 +194,13 @@
     
             $("#nextBtn").click(function(){    
                 if($("#check_1").is(":checked") == false){
-                    alert("모든 약관에 동의 하셔야 다음 단계로 진행 가능합니다.");
+                	Swal.fire("모든 약관에 동의 하셔야 다음 단계로 진행 가능합니다.");
                     return;
                 }else if($("#check_2").is(":checked") == false){
-                    alert("모든 약관에 동의 하셔야 다음 단계로 진행 가능합니다..");
+                	Swal.fire("모든 약관에 동의 하셔야 다음 단계로 진행 가능합니다..");
                     return;
                 }else if($("#check_3").is(":checked") == false){
-                    alert("모든 약관에 동의 하셔야 다음 단계로 진행 가능합니다...");
+                	Swal.fire("모든 약관에 동의 하셔야 다음 단계로 진행 가능합니다...");
                     return;
                 }else{
                     $("#terms_form").submit();

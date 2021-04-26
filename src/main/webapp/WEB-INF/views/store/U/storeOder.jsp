@@ -13,7 +13,7 @@
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>  
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>  
 <link rel="stylesheet" href="${ contextPath }/resources/css/basket/storeAddress.css" type="text/css">
-
+ <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
 
 
@@ -55,7 +55,7 @@
                                                 <div class="basketprice">가격</div> 
                                                 <div class="num">수량</div>
                                                 <div class="sum">합계</div>
-                                                <div class="del"> </div>
+                                                <div class="del">수량변경 </div>
                                             </div>
                                             <div class="subdiv">
                             
@@ -91,7 +91,7 @@
                                                 <div class="sum" style=" width: 80px;"> <input type="hidden" name="sum" size="11" readonly  value=""  > ${ su*pr }   </div>
                                        
                                                <div class="del">
-                                               	<button style="border: 0; background: white;"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></button>
+                                               	<button style="border: 0; background: white;" onclick="javascript:history.back();" ><i class="fa fa-long-arrow-right" aria-hidden="true"></i></button>
                                                </div>
                                             </div>
                                             <div class="subdiv">
@@ -225,7 +225,7 @@
 				           pg : 'kakaopay',
 				           pay_method : 'card',
 				           merchant_uid : 'merchant_' + new Date().getTime(),
-				           name : '라홀 정기구독',
+				           name : '${ s.PR_NAME}',
 				        /*    if( $('input:radio[name=SUBSCRIPTIONS]:checked').val() == '3'){
 				        	   amount : ${  ((s.PR_PRICE*9)- ((s.PR_PRICE*9)*0.05)) /3  }
 				           }else if( $('input:radio[name=SUBSCRIPTIONS]:checked').val() == '6'){

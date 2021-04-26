@@ -41,6 +41,7 @@ import com.kh.lahol.common.model.service.CartService;
 import com.kh.lahol.common.model.vo.Cart;
 import com.kh.lahol.member.model.vo.M_Partner;
 import com.kh.lahol.member.model.vo.Member;
+import com.kh.lahol.mypage.normal.model.vo.StoreReview;
 //import com.kh.lahol.store.model.service.QService;
 import com.kh.lahol.store.model.service.StoreService;
 import com.kh.lahol.store.model.vo.PageInfo;
@@ -48,7 +49,9 @@ import com.kh.lahol.store.model.vo.Payment;
 import com.kh.lahol.store.model.vo.Pr_pay_w;
 import com.kh.lahol.store.model.vo.Prpay;
 import com.kh.lahol.store.model.vo.Search;
+import com.kh.lahol.store.model.vo.Sh_status;
 import com.kh.lahol.store.model.vo.Store;
+import com.kh.lahol.store.model.vo.StoreReview2;
 import com.kh.lahol.store.model.vo.Sub;
 import com.kh.lahol.store.model.vo.storeA;
 import com.kh.lahol.store.model.vo.storeQ;
@@ -90,6 +93,11 @@ public class StoreController {
 		
 		
 		
+		
+		
+		
+		
+		
 		if(list !=null) {
 			mv.addObject("list", list);
 			//mv.addObject("k",k);
@@ -106,6 +114,9 @@ public class StoreController {
 		} else {
 		
 		}
+		
+		
+		
 		
 		 
 		
@@ -132,6 +143,7 @@ public class StoreController {
 		 
 		PageInfo pi = Pagination4.getPageInfo(currentPage, listCount); 
 		List<Store> list = sService.myselectList(pi,Id);
+		
 		
 		 
 		 
@@ -296,7 +308,7 @@ public class StoreController {
 	}
 	
 	@GetMapping("/storedetail")
-	public String storeDetail(int PR_CODE, String QnA_NO,  HttpServletRequest request,ModelAndView mv, @ModelAttribute Cafe q,String qqw,int k,
+	public String storeDetail(int PR_CODE, String QnA_NO,  HttpServletRequest request,ModelAndView mv, @ModelAttribute Cafe q,String qqw,int k ,
 			  HttpServletResponse response, @RequestParam(value="page" , required=false, defaultValue="1")int currentPage ,
 			  Model model) {
 		boolean flagslist = false; 
@@ -360,7 +372,16 @@ public class StoreController {
 			 List<storeQ> QsearchList = sService.QsearchList(sc,pi); 
 		
 			
-			//제품A 리스트
+			//리뷰ㅜ리스트!!!!!!
+			 int listCount2 = sService.selectReviewCount(sc); 
+			 PageInfo pi2 = Pagination.getPageInfo(currentPage, listCount2);
+			 List<StoreReview2> ReviewList = sService.ReviewList(sc,pi2); 
+			 
+			 
+			
+			 System.out.println("리뷰"+ReviewList);
+			 System.out.println(ReviewList.size());
+			 
 			 
 			 
 			 
@@ -369,6 +390,8 @@ public class StoreController {
 			 * Pagination.getPageInfo(currentPage, listCount2);
 			 */
 			 List<storeA> Alist = sService.AsearchList(sc,pi); 
+			 
+			 
 			
 			
 			 System.out.println("답변 리스트 나오나?"+ Alist);
@@ -388,24 +411,48 @@ public class StoreController {
 				
 				
 				if(k == 0 ) { 
-					 String talbe= "tab-pane fade show active";
+					 String talbe = "tab-pane fade show active";
 					 String table2 = "tab-pane fade";
+					 String talbe3= "tab-pane fade";
 					 String sa = "nav-link active";
 					 String sa1  ="nav-link"; 
+					 String sa2  ="nav-link"; 
 					 model.addAttribute("table",talbe); 
 					 model.addAttribute("table2",table2); 
+					 model.addAttribute("table3",talbe3); 
 					 model.addAttribute("sa",sa); 
 					 model.addAttribute("sa1",sa1); 
-			  
+					 model.addAttribute("sa2",sa2); 
 					} else if(k ==1 ) { 
 						 String table = "tab-pane fade";
 						 String talbe2= "tab-pane fade show active";
-						 String sa1 = "nav-link active";
+						 String talbe3= "tab-pane fade";
 						 String sa  ="nav-link"; 
+						 String sa1 = "nav-link active";
+						 String sa2  ="nav-link"; 
 						 model.addAttribute("table",table); 
 						 model.addAttribute("table2",talbe2);  
+						 model.addAttribute("table3",talbe3); 
 						 model.addAttribute("sa",sa); 
 						 model.addAttribute("sa1",sa1); 
+						 model.addAttribute("sa2",sa2); 
+				}else if(k ==2) {
+					 String table = "tab-pane fade";
+					 String talbe2= "tab-pane fade";
+					 String talbe3= "tab-pane fade show active";
+					 String sa  = "nav-link"; 
+					 String sa1  = "nav-link";
+					 String sa2  ="nav-link active"; 
+					 model.addAttribute("table",table); 
+					 model.addAttribute("table2",talbe2);  
+					 model.addAttribute("table3",talbe3); 
+					 model.addAttribute("sa",sa); 
+					 model.addAttribute("sa1",sa1); 
+					 model.addAttribute("sa2",sa2); 
+					
+					
+					
+					
 				}
 				
 			// 제품 정보 
@@ -429,13 +476,15 @@ public class StoreController {
 			
 			
 			 
-			 
+		
 			if(s != null   ) {
 				model.addAttribute("s", s); 
 				model.addAttribute("QsearchList", QsearchList); 
 				model.addAttribute("Alist", Alist); 
 				model.addAttribute("CafeCode", CafeCode); 
+				model.addAttribute("ReviewList",ReviewList); 
 				model.addAttribute("pi", pi);
+				model.addAttribute("pi2", pi2);
 				
 				return "store/storedetail";
 				
@@ -477,7 +526,7 @@ public class StoreController {
 		 
 		 if(result > 0) {
 				 
-			 return "redirect:/store/storedetail?&k=1&PR_CODE="+PR_CODE ;
+			 return "redirect:/store/storedetail?&k=1&PR_CODE="+PR_CODE+"#qa" ;
 			} else {
 			  return "redirect:/store/storedetail?&k=1&PR_CODE="+PR_CODE ; // 나중에 에러 페이지연결
 			}
@@ -531,7 +580,7 @@ public class StoreController {
 		 if(result > 0) {
 				   
 			// redirect.addFlashAttribute("Alist", Alist);
-			 return "redirect:/store/storedetail?&k=1&PR_CODE="+PR_CODE ;
+			 return "redirect:/store/storedetail?&k=1&PR_CODE="+PR_CODE+"#qa" ;
 			} else {
 			  return "redirect:/store/storedetail?&k=1&PR_CODE="+PR_CODE ; // 나중에 에러 페이지연결
 			}
@@ -683,7 +732,7 @@ public class StoreController {
 	
 	
 	@PostMapping("/subscribe")
-	public String subscribe(@ModelAttribute Sub sb,@ModelAttribute Payment py ,@ModelAttribute Prpay pa  ,Model model, String PR_CODE, ModelAndView mv,
+	public String subscribe(@ModelAttribute Sub sb,@ModelAttribute Payment py,@ModelAttribute Sh_status st  ,@ModelAttribute Prpay pa  ,Model model, String PR_CODE, ModelAndView mv,
 			  int PR_PRICE,String PR_NAME, @RequestParam("SUBSCRIPTIONS") String SUBSCRIPTIONS, HttpSession session   ) {
 		
 		
@@ -764,6 +813,7 @@ public class StoreController {
 		 
 		 int result3 = sService.prpay(pa); 	
 		 
+		 int result4 = sService.sh(st); 	 
 	
 		 if(result > 0) {
 			 return "redirect:/store/list?k=0";
@@ -845,7 +895,7 @@ public class StoreController {
 		}
 		
 		@PostMapping("/storecart2")
-		public String storeCartInsert(@ModelAttribute Pr_pay_w py,@ModelAttribute Payment pay ,@ModelAttribute Prpay pa  ,String price, String Coupon,
+		public String storeCartInsert(@ModelAttribute Pr_pay_w py,@ModelAttribute Sh_status st,@ModelAttribute Payment pay ,@ModelAttribute Prpay pa  ,String price, String Coupon,
 				String num  ,String pr_code,String name,  HttpSession session) throws CartException {
 			
 			
@@ -896,7 +946,11 @@ public class StoreController {
 			 pa.setPuNum(pr_code);
 			 int result2 = sService.paymnet(pay); 	
 			 
-			 int result3 = sService.prpay2(pa); 	 
+			 int result3 = sService.prpay2(pa); 	
+			 
+			 
+			 
+			 int result4 = sService.sh(st); 	 
 		 
 		 
 			 
