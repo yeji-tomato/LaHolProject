@@ -87,13 +87,13 @@ public class pMypageServiceImpl implements pMypageService{
 	}
 
 	@Override
-	public int selectClassMemberCount(String class_no) {
-		return pDao.selectClassMemberCount(class_no);
+	public int selectClassMemberCount(List<String> list) {
+		return pDao.selectClassMemberCount(list);
 	}
 
 	@Override
-	public List<Member> selectClassMember(String class_no, PageInfo pi) {
-		return pDao.selectClassMember(class_no, pi);
+	public List<Member> selectClassMember(List<String> list, PageInfo pi) {
+		return pDao.selectClassMember(list, pi);
 	}
 
 	@Override

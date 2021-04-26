@@ -35,9 +35,9 @@ public interface pMypageService {
 
 	List<CoffeeClass> selectClassList(String id, PageInfo pi);
 
-	int selectClassMemberCount(String class_no);
+	int selectClassMemberCount(List<String> list);
 
-	List<Member> selectClassMember(String class_no, PageInfo pi);
+	List<Member> selectClassMember(List<String> list, PageInfo pi);
 
 	CoffeeClass selectClassByNo(String class_no);
 

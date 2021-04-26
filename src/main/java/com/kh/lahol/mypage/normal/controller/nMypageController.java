@@ -279,6 +279,7 @@ public class nMypageController {
 			
 			int chkDup = nService.chkStoreReview(storeReview);
 			if(chkDup > 0) {
+				deleteFile(renameFileName, request);
 				model.addAttribute("msg", "이미 리뷰를 등록한 제품입니다.");
 				return "mypage/normal/reviewInsert";
 			} else {
@@ -297,6 +298,7 @@ public class nMypageController {
 			
 			int chkDup = nService.chkClassReview(classReview);
 			if(chkDup > 0) {
+				deleteFile(renameFileName, request);
 				model.addAttribute("msg", "이미 리뷰를 등록한 클래스입니다.");
 				return "mypage/normal/reviewInsert";
 			} else {
@@ -315,6 +317,7 @@ public class nMypageController {
 			
 			int chkDup = nService.chkCafeReview(cafeReview);
 			if(chkDup > 0) {
+				deleteFile(renameFileName, request);
 				model.addAttribute("msg", "이미 리뷰를 등록한 카페입니다.");
 				return "mypage/normal/reviewInsert";
 			} else {

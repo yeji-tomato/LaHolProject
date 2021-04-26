@@ -3,6 +3,7 @@ package com.kh.lahol.mypage.partner.controller;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -434,14 +435,20 @@ public class pMypageController {
 	@GetMapping("/classMember")
 	public String classMember(Model model,
 			                  @RequestParam("class_no") String class_no,
+			                  @RequestParam("cl_time") String cl_time,
 			                  @RequestParam(value="page", required=false, defaultValue="1") int currentPage) {
-		int classMemberCount = pService.selectClassMemberCount(class_no);
+		List<String> str = new ArrayList<>();
+		str.add(class_no);
+		str.add(cl_time);
+		
+		int classMemberCount = pService.selectClassMemberCount(str);
+		CoffeeClass cl = pService.selectClassByNo(class_no);
+		model.addAttribute("class_name", cl.getCl_name());
 		
 		if(classMemberCount > 0) {
 			PageInfo pi = Pagination.getPageInfo(currentPage, classMemberCount);
-			List<Member> list = pService.selectClassMember(class_no, pi);
-			CoffeeClass cl = pService.selectClassByNo(class_no);
-			model.addAttribute("class_name", cl.getCl_name());
+			
+			List<Member> list = pService.selectClassMember(str, pi);
 			model.addAttribute("list", list);
 			model.addAttribute("pi", pi);
 		} else {
