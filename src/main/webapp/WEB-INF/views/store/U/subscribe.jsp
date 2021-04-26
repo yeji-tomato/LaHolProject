@@ -17,7 +17,7 @@
   <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
   <!-- iamport.payment.js -->
   <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
-
+ <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 </head>
 <body>
 <!-- menubar --> 
@@ -335,7 +335,7 @@
 			     <script>
 			 	 function onSubmit() {
 			 		 if( $('input:radio[name=SUBSCRIPTIONS]:checked').val() == null){
-			 			alert("구독할 개월수를 체크해주세요");
+			 			Swal.fire("구독할 개월수를 체크해주세요");
   
 			 		 }else{
 					 var IMP = window.IMP; // 생략가능

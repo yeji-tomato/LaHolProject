@@ -36,18 +36,32 @@
 </head>
 <style>
 
+#sub{
+  background-color: yellow;
+  border: solid 1px;
+  border-radius: 5px;
+  margin-top: 10px;
+}
   .nav-tabs  #home-tab.active{
    background-color: #926736;
    color: white;
    }
+   
+    h2 {font-size:15px;}
+    .star-rating {width:150px; }                                 
+    .star-rating,.star-rating span {display:inline-block; height:26px; overflow:hidden;  background-image: url("../resources/img/store/star.png")}
+    .star-rating span{background-position:left bottom; line-height:0; vertical-align:top; }
 
+	.reviews{
+		border-radius:0px;
+	}
 </style>
 <body>
 <!-- menubar -->
 	<jsp:include page="/WEB-INF/views/common/menubar.jsp"/>
 	<!-- carousel -->
 	<jsp:include page="/WEB-INF/views/main/store.jsp"/>
- 
+ 	
  
  
 	<section id="content" class="content_css"  >
@@ -278,7 +292,7 @@
 	                
 	                <script>
 	                $(document).on('click', '#cart-btn', function(){
-	                	alert("장바구니추가되었습니다"); 
+	                	Swal.fire("장바구니추가되었습니다"); 
 	                    $("#terms_form").submit();
 	            	});
 	                </script>
@@ -288,12 +302,7 @@
 	                    $("#cart").submit();
 	            	});
 	                </script>
-	                   <script>
-	                $(document).on('click', '#cart-btn', function(){
-	                	alert("장바구니추가되었습니다"); 
-	                    $("#terms_form").submit();
-	            	});
-	                </script>
+	              
 	                
 	                   
 	                
@@ -306,7 +315,7 @@
 	                            </button>
 	                        </li>
 	                        <li class="nav-item" role="presentation">
-	                            <button class="nav-link" id="review-tab" data-bs-toggle="tab" data-bs-target="#review" type="button" role="tab" aria-controls="review" aria-selected="false">
+	                            <button class="${ sa2 }" id="review-tab" data-bs-toggle="tab" data-bs-target="#review" type="button" role="tab" aria-controls="review" aria-selected="false">
 	                                후기
 	                            </button>
 	                        </li>
@@ -363,17 +372,202 @@
 	                                
 	                        </div>
 	                      <!-- 후기 -->
-	                        <div class="tab-pane fade" id="review" role="tabpanel" aria-labelledby="review-tab">
+	                        <div class="${ table3 }" id="review" role="tabpanel" aria-labelledby="review-tab">
 	                           
-	                          <div class="rev" >
-	                              <div id="reviewc1">
-	
-	                              </div>
-	                              <div id="reviewc2">
-	
-	                            </div>
-	                             
-	                          </div>
+	                          
+	                          		  <table class="reviews" id="reviews" style="margin-left: 120px;">
+									    <thead>
+									        <tr  >
+									            <th>작성자</th>  
+									            <th>별점 및 내용</th>
+									            <th style="padding-left: 250px;"  width:65%;">등록일</th>
+									        </tr>
+									    </thead>
+									    <tbody>
+									  
+									       <c:forEach var="r" items="${ ReviewList }"  varStatus="status" >
+									    
+									            <tr>
+									               <c:if test="${ r.purchase_number != null }">  
+									               <td style="width: 66px;"><button id="sub" style="width:50px;">일반</button></td>
+									               </c:if>
+									                <c:if test="${ r.subscribe_code != null }">  
+									               <td style="width: 66px;"><button id="sub" style="width:50px;">구독</button></td>
+									               </c:if>
+									               <td style="width: 216px;"> <div class="wrap-star"style="margin-top: 5px;"> 
+												     	<c:if test="${ r.review_grade == 0.5 }">  
+												        <div class='star-rating'> 
+												         <span style ="width:10%"></span>
+												        </div>
+												     	</c:if> 
+												     		<c:if test="${ r.review_grade == 1.0 }">  
+												        <div class='star-rating'> 
+												         <span style ="width:20%"></span>
+												        </div>
+												     	</c:if>
+												     		<c:if test="${ r.review_grade == 1.5 }">  
+												        <div class='star-rating'> 
+												         <span style ="width:30%"></span>
+												        </div>
+												     	</c:if>
+												     		<c:if test="${ r.review_grade == 2.0 }">  
+												        <div class='star-rating'> 
+												         <span style ="width:40%"></span>
+												        </div>
+												     	</c:if>
+												     		<c:if test="${ r.review_grade == 2.5 }">  
+												        <div class='star-rating'> 
+												         <span style ="width:50%"></span>
+												        </div>
+												     	</c:if>
+												     		<c:if test="${ r.review_grade == 3.0 }">  
+												        <div class='star-rating'> 
+												         <span style ="width:60%"></span>
+												        </div>
+												     	</c:if>
+												     		<c:if test="${ r.review_grade == 3.5 }">  
+												        <div class='star-rating'> 
+												         <span style ="width:70%"></span>
+												        </div>
+												     	</c:if>
+												     		<c:if test="${ r.review_grade == 4.0 }">  
+												        <div class='star-rating'> 
+												         <span style ="width:80%"></span>
+												        </div>
+												     	</c:if>
+												     		<c:if test="${ r.review_grade == 4.5 }">  
+												        <div class='star-rating'> 
+												         <span style ="width:90%"></span>
+												        </div>
+												     	</c:if>
+												     		<c:if test="${ r.review_grade == 5.0 }">  
+												        <div class='star-rating'> 
+												         <span style ="width:100%"></span>
+												        </div>
+												     	</c:if>
+												     	  
+												     	 
+												    </div>
+									               
+									               </td>
+									               <td style="padding-top: 16px; padding-left: 250px;  ">  ${  r.review_date } </td>
+									            </tr>
+									            <tr> 
+									                <td style="width: 110px;">${ r.id  } ||</td>
+									                <td>${  r.review_content}</td>
+									            
+									                 <c:if test="${ r.review_photo ne null }">  
+									             
+									            </tr>
+									             <td> <img class="d-block rounded-3"  src="${ contextPath }/resources/muploadFiles/review/${r.review_chph}"  style="width: 200px;" >
+									               </td>
+									                </c:if>
+									          
+									        </c:forEach>
+									    </tbody>
+									</table>
+	                          		
+	                          		
+	                          		
+	                  <%--               <table id="qnaBoard">
+	                                
+	                                        <strong>
+	                                       		   <tr>
+	                                               <th id="tb_title2" style="text-align:left;">문의유형</th>
+								                   <th id="tb_content2" style="text-align:left;">문의내용</th>
+								                   <th id="tb_author2" style="text-align:left;">작성자</th>
+								                   <th id="tb_date2" style="padding-right: 60px;">날짜</th>
+	                                       		  </tr>
+	                                        </strong>
+	                                        
+	                                         <c:forEach var="r" items="${ ReviewList }"  > 
+								
+									<table cellspacing="0" border="1" class="recruit" id="faqBoard">
+										<tbody> 
+										
+											<tr class="question">   
+												
+												
+													<td id="tb_title">  </td>
+												  	<td id="tb_content">  ${ r.review_content } </td>
+												  	<td id="tb_author">  ${ r.id  } </td>
+												  	<td id="tb_date">  ${ r.review_date  }
+												  </td>
+												  </tr>
+												  </tbody>
+												  </table>
+												  </c:forEach>
+	                                  
+								  </table>  
+	                           --%>
+	                          
+	                          
+	                          
+	                               <div class="paing" style="float: right;position: relative;left: -50%;width: 100%;left: 0px;right: 0px;" >
+			               
+									<c:set var="loc" value="/store/storedetail?PR_CODE=${s.PR_CODE }" scope="page"/> 
+	                           <center>
+						                <table >
+						               
+							                <tr>
+												<td colspan="6">
+												<!-- [이전] -->
+												<c:if test="${ pi2.currentPage <= 1 }">
+													[이전] &nbsp;
+												</c:if>
+												<c:if test="${ pi2.currentPage > 1  }">
+													<c:url var="before" value="${ loc }">
+														<c:param name="page" value="${ pi2.currentPage -1 }" />
+														<c:if test="${param.searchValue ne null} }">
+															<c:param name="searchCondition" value="${ param.searchCondition }  "/>
+															<c:param name="searchValue" value="${ param.searchValue}  "/>
+														</c:if>
+													</c:url>
+													<a href="${ before }&k=2#review" >[이전]</a> &nbsp;
+												</c:if>
+												
+												
+												<!-- 페이지 숫자 -->
+												<c:forEach var="p" begin="${ pi2.startPage }" end="${ pi2.endPage }">
+													<c:if test="${ p eq pi2.currentPage }">
+														<font color="red" size="4"><b>[${ p }]</b></font> &nbsp;
+													</c:if>
+													<c:if test="${ p ne pi2.currentPage  }">
+														<c:url var="pagination" value="${ loc}">
+															<c:param name="page" value="${ p }"/>
+															 <c:if test="${param.searchValue ne null} }">
+																	<c:param name="searchCondition" value="${ param.searchCondition}  "/>
+																	<c:param name="searchValue" value="${ param.searchValue}  "/>
+														     </c:if>
+														</c:url>
+														<a href="${ pagination }&k=2#review"  >${ p }</a> &nbsp;
+													</c:if>
+											
+												</c:forEach>
+											 
+												<!-- [다음] -->
+												<c:if test="${ pi2.currentPage >= pi2.maxPage }">
+													[다음]
+												</c:if>
+												<c:if test="${ pi2.currentPage < pi2.maxPage }">
+													<c:url var="after" value="${ loc}">
+														<c:param name="page" value="${ pi2.currentPage + 1 }" />
+														<c:if test="${param.searchValue ne null} }">
+																	<c:param name="searchCondition" value="${param.searchCondition} "/>
+																	<c:param name="searchValue" value="${param.searchValue} "/>
+														     </c:if>
+													</c:url>
+													<a href="${ after }&k=2#review"  >[다음]</a>
+												</c:if>
+												</td> 
+											</tr>
+											  </center>
+						                </table> 
+						             
+						              </div>
+	                       		
+	                            
+	                        
 	
 	
 	
@@ -546,7 +740,7 @@
 										<c:param name="searchValue" value="${ param.searchValue}  "/>
 									</c:if>
 								</c:url>
-								<a href="${ before }&k=1" >[이전]</a> &nbsp;
+								<a href="${ before }&k=1#qa">[이전]</a> &nbsp;
 							</c:if>
 							
 							
@@ -563,7 +757,7 @@
 												<c:param name="searchValue" value="${ param.searchValue}  "/>
 									     </c:if>
 									</c:url>
-									<a href="${ pagination }&k=1"  >${ p }</a> &nbsp;
+									<a href="${ pagination }&k=1#qa">${ p }</a> &nbsp;
 								</c:if>
 						
 							</c:forEach>
@@ -581,7 +775,7 @@
 												<c:param name="searchValue" value="${param.searchValue} "/>
 									     </c:if>
 								</c:url>
-								<a href="${ after }&k=1"  >[다음]</a>
+								<a href="${ after }&k=1#qa">[다음]</a>
 							</c:if>
 							</td> 
 						</tr>
@@ -638,7 +832,7 @@
 								<div class="modal-content">
 									<div class="modal-header">
 									<h5 class="modal-title" id="exampleModalLabel" style="color: white;">
-										<img src="../../resources/images/img_common/logo.png" class="logoimg">
+									<img src="${ contextPath }/resources/img/common/whiteLogo.png" class = "logoimg">
 										 관리자 답변
 									</h5>
 									<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -688,7 +882,7 @@
 								<div class="modal-content">
 									<div class="modal-header">
 									<h5 class="modal-title" id="exampleModalLabel" style="color: white;">
-										<img src="../../resources/images/img_common/logo.png" class="logoimg">
+									<img src="${ contextPath }/resources/img/common/whiteLogo.png" class = "logoimg">
 										제품 질문
 									</h5>
 									<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>

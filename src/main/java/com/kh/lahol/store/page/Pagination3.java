@@ -7,7 +7,7 @@ public class Pagination3 {
 		PageInfo pi = null; 
 		
 		int pageLimit = 10;	  
-		int StoreLimit = 5; // Q&A 페이징 처리 못해서 임시로 만듬 
+		int StoreLimit = 2; // Q&A 페이징 처리 못해서 임시로 만듬 
 		
 		int maxPage = (int)Math.ceil((double)listCount / StoreLimit);
 		int startPage = (currentPage - 1) / pageLimit * pageLimit + 1;

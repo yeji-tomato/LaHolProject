@@ -85,7 +85,30 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 		<result property="pr_count" column="PR_COUNT"/> 
 	</resultMap>
 	
+	
+	<resultMap id="StResultSet" type="Sh_status">
+		<id property="sh_code" column="SHIPPING_CODE"/>
+		<result property="pay_no" column="PAY_NO"/>
+		<result property="sh_status" column="SHIPPING_STATUS"/> 
+		<result property="sh_date" column="SHIPPING_DATE"/> 
+	</resultMap>
+	
  
+
+	 <resultMap id="ReviewResultSet" type="StoreReview2">
+		<id property="review_no" column="REVIEW_NO"/>
+		<result property="review_date" column="REVIEW_DATE"/>
+		<result property="review_grade" column="REVIEW_GRADE"/> 
+		<result property="review_content" column="REVIEW_CONTENT"/> 
+		<result property="review_photo" column="REVIEW_PHOTO"/>
+		<result property="review_chph" column="REVIEW_CHPH"/> 
+		<result property="review_path" column="REVIEW_PATH"/> 
+		<result property="review_status" column="REVIEW_STATUS"/>
+		<result property="purchase_number" column="PURCHASE_NUMBER"/> 
+		<result property="subscribe_code" column="SUBSCRIBE_CODE"/> 
+		<result property="id" column="ID"/> 
+	</resultMap>
+	 
 	
 	<!-- 
 PR_CODE	VARCHAR2(30 BYTE)	No		1	제품코드
@@ -622,7 +645,7 @@ C_CODE	VARCHAR2(30 BYTE)	No		18	카페코드
 			,#{Pr_code}
 			,#{Subs_Month}
 			,#{Pay}
-			, NULL 
+			,'0' 
 			 
 		)
 	
@@ -652,7 +675,7 @@ C_CODE	VARCHAR2(30 BYTE)	No		18	카페코드
 		  )
 		VALUES
 		(
-		       STP.NEXTVAL
+		       'STP'||STP.NEXTVAL
 		     , #{PAY_ITEM}
 		     , #{pay_price}
 		     , #{subscribe}
@@ -730,7 +753,7 @@ C_CODE	VARCHAR2(30 BYTE)	No		18	카페코드
 		  )
 		VALUES
 		(
-		       STP.NEXTVAL
+		       'STP'||STP.NEXTVAL
 		     , #{PAY_ITEM}
 		     , #{pay_price}
 		     , #{subscribe}
@@ -787,11 +810,7 @@ C_CODE	VARCHAR2(30 BYTE)	No		18	카페코드
 	
 	
 	
-	
-	
-	
 	 
-	
 	
 	<insert id="storepayInsert" parameterType="Pr_pay_w">
 		INSERT
@@ -810,4 +829,64 @@ C_CODE	VARCHAR2(30 BYTE)	No		18	카페코드
 		) 
 	</insert>
 	
+	
+		<insert id="insertStatus" parameterType="Sh_status">
+		INSERT
+		INTO SH_STATUS
+		(
+		      SHIPPING_CODE
+		     ,PAY_NO
+		     ,SHIPPING_STATUS
+		     ,SHIPPING_DATE
+		    
+		 	)
+		VALUES
+		(
+			 SH.NEXTVAL
+			,(SELECT PAY_NO
+				FROM
+				(SELECT PAY_NO, ROWNUM AS RNUM
+				FROM PAYMENT
+				ORDER BY PAY_NO DESC)
+				WHERE RNUM = 1)
+			,DEFAULT
+			,SYSDATE
+		) 
+	</insert>
+	
+	
+	
+	 <!-- 리뷰 리스트 -->
+	<select id="ReviewList"   parameterType="Search" resultMap="ReviewResultSet">
+	  <bind name="sv" value="'%' + _parameter.getSearchValue() + '%'"/>  
+		SELECT 
+				O.*
+		  FROM  
+				PR_REVIEW O
+			LEFT OUTER JOIN PR_PAY_WHICH C ON O.PURCHASE_NUMBER = C.PURCHASE_NUMBER
+			LEFT OUTER JOIN SUB P ON O.SUBSCRIBE_CODE = P.SUBSCRIBE_CODE
+		 WHERE
+				C.PR_CODE LIKE #{sv} OR P.PR_CODE LIKE #{sv}  
+		    
+	</select>
+	
+	
+		<select id="selectReviewCount"  parameterType="Search" resultType="_int"  >
+	  <bind name="sv" value="'%' + _parameter.getSearchValue() + '%'"/>  
+	 
+		SELECT 
+				COUNT(*)
+		  FROM  
+				PR_REVIEW O
+			LEFT OUTER JOIN PR_PAY_WHICH C ON O.PURCHASE_NUMBER = C.PURCHASE_NUMBER
+			LEFT OUTER JOIN SUB P ON O.SUBSCRIBE_CODE = P.SUBSCRIBE_CODE
+	   <where> 
+			<choose> 
+				<otherwise>
+				 AND 
+					C.PR_CODE LIKE #{sv} OR P.PR_CODE LIKE #{sv}  
+				</otherwise>
+			</choose>
+		</where>
+	</select> 
 </mapper>

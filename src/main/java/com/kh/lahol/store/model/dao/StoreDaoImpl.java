@@ -8,12 +8,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.lahol.cafe.bus.model.vo.Cafe;
+import com.kh.lahol.mypage.normal.model.vo.StoreReview;
 import com.kh.lahol.store.model.vo.PageInfo;
 import com.kh.lahol.store.model.vo.Payment;
 import com.kh.lahol.store.model.vo.Pr_pay_w;
 import com.kh.lahol.store.model.vo.Prpay;
-import com.kh.lahol.store.model.vo.Search; 
+import com.kh.lahol.store.model.vo.Search;
+import com.kh.lahol.store.model.vo.Sh_status;
 import com.kh.lahol.store.model.vo.Store;
+import com.kh.lahol.store.model.vo.StoreReview2;
 import com.kh.lahol.store.model.vo.Sub;
 import com.kh.lahol.store.model.vo.storeA;
 import com.kh.lahol.store.model.vo.storeQ;
@@ -169,6 +172,21 @@ public class StoreDaoImpl implements StoreDao{
 	@Override
 	public int prpay2(Prpay pa) {
 		return sqlSession.insert("storeMapper.insertPrpay2",pa); 
+	}
+	@Override
+	public int sh(Sh_status st) {
+		return sqlSession.insert("storeMapper.insertStatus",st); 
+	}
+	//리뷰리스트
+	@Override
+	public List<StoreReview2> ReviewList(Search sc, PageInfo pi) {
+		int offset =(pi.getCurrentPage() -1) *pi.getStoreLimit(); 
+		RowBounds rowBounds = new RowBounds(offset,pi.getStoreLimit());
+		return sqlSession.selectList("storeMapper.ReviewList", sc ,  rowBounds );
+	}
+	@Override
+	public int selectReviewCount(Search sc) {
+		return sqlSession.selectOne("storeMapper.selectReviewCount", sc);
 	}
 	
  
