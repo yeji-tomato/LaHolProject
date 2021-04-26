@@ -35,12 +35,6 @@ public class CafeBizServiceImpl implements CafeBizService{
 	}
 
 	@Override
-	public int deleteCafeInfo(String caCode) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
 	public Cafe selectCafeInfo(String caCode) {
 		
 		return caBizDao.selectCafeInfo(caCode);
@@ -89,6 +83,22 @@ public class CafeBizServiceImpl implements CafeBizService{
 	@Override
 	public List<CafeRes> selectCafeResList(String id) {
 		return caBizDao.selectCafeResList(id);
+	}
+
+	@Override
+	public List<CafeRes> selectOrderList(String id) {
+		return caBizDao.selectOrderList(id);
+	}
+
+	@Override
+	public int deleteCafeInfo(String caCode) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int coffeeStatus(CafeRes cr) {
+		return caBizDao.coffeeStatus(cr);
 	}
 
 

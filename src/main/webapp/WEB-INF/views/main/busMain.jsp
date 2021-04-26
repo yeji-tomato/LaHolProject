@@ -43,8 +43,8 @@
               </div>
               <div class="card-tags">
                 <a href="${ contextPath }/cafe/home"  class="card-tags__item">HOME</a>
-                <a href="${ contextPath }/cafe/order" class="card-tags__item">ORDER</a>
-                <a href="${ contextPath }/cafe/res" class="card-tags__item">RESERVATION</a>
+                <a href="${ contextPath }/cafe/biz/order" class="card-tags__item">ORDER</a>
+                <a href="${ contextPath }/cafe/biz/res" class="card-tags__item">RESERVATION</a>
                 <a href="${ contextPath }/cafe/biz/write" class="card-tags__item">WRITE</a>
                 <a href="${ contextPath }/cafe/biz/confirm"  class="card-tags__item">CONFIRM</a>
               </div>

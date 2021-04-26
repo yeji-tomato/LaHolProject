@@ -40,6 +40,8 @@ import com.kh.lahol.cafe.bus.model.vo.PageInfo;
 import com.kh.lahol.cafe.user.model.exception.CafeException;
 import com.kh.lahol.cafe.user.model.service.CafeService;
 import com.kh.lahol.cafe.user.model.vo.CafeRes;
+import com.kh.lahol.common.model.exception.CartException;
+import com.kh.lahol.common.model.vo.Coupon;
 import com.kh.lahol.member.model.vo.Member;
 
 @Controller
@@ -477,5 +479,43 @@ public class CafeBizController {
 		
 
 	}
+	
+	
+	@GetMapping("/order")
+	public ModelAndView cafeOrderList(ModelAndView mv, @SessionAttribute("loginUser") Member m) {
+
+		String Id = m.getId();
+		List<CafeRes> cafeOrderlist = caBizService.selectOrderList(Id);
+        System.out.println(cafeOrderlist);
+		
+		if(cafeOrderlist != null) {
+			mv.addObject("cafeOrderlist", cafeOrderlist);
+			mv.setViewName("cafe/bus/order");
+		}else {
+			mv.addObject("msg", "해당하는 카페 조회에 실패하였습니다.");
+			mv.setViewName("common/error");
+		}
+			
+		return mv;
+
+	}
+	
+	@PostMapping("/ing")
+	public String coffeeStatus(@ModelAttribute CafeRes cr, 
+						String caResing, String caResNo) throws CafeException{
+		 // System.out.println(caResing);
+		  cr.setCaResNo(caResNo);
+		  cr.setCaResIng(caResing);
+		 // System.out.println(cr);
+		  int result = caBizService.coffeeStatus(cr);
+		  
+		  if(result > 0) { 
+			  return "redirect:/cafe/biz/order"; 
+		  }else { 
+			  throw new CafeException("음료 상태를 변경하는데 실패하였습니다."); 
+		  }
+		
+	}
+	
 
 }

@@ -47,4 +47,8 @@ public interface CafeBizService {
 
 	public List<CafeRes> selectCafeResList(String id);
 
+	public List<CafeRes> selectOrderList(String id);
+
+	public int coffeeStatus(CafeRes cr);
+
 }

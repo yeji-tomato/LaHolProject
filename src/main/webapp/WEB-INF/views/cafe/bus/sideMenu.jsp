@@ -34,7 +34,7 @@ $(function() {
 	//주문 내역
 	const cafeOrd = document.getElementById("cafeOrd");
 	cafeOrd.addEventListener("click", function(){
-	    location.href='${ contextPath }/cafe/order';
+	    location.href='${ contextPath }/cafe/biz/order';
 	});
 	
 	
