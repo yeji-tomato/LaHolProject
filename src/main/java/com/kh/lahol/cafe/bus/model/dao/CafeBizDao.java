@@ -7,6 +7,7 @@ import com.kh.lahol.cafe.bus.model.vo.Cafe;
 import com.kh.lahol.cafe.bus.model.vo.Caphoto;
 import com.kh.lahol.cafe.bus.model.vo.Coffee;
 import com.kh.lahol.cafe.bus.model.vo.PageInfo;
+import com.kh.lahol.cafe.user.model.vo.CafeRes;
 
 public interface CafeBizDao {
 	// 카페 정보 insert
@@ -33,6 +34,8 @@ public interface CafeBizDao {
 	public int cafeDelete(String caCode);
 
 	public int selectCoffeeCount(String Cacode);
+
+	public List<CafeRes> selectCafeResList(String id);
 
 	//public int insetCafeInfoPhoto(ArrayList<Caphoto> photoList);
 	

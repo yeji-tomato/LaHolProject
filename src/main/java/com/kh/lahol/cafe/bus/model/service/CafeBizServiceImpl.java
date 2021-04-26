@@ -12,6 +12,7 @@ import com.kh.lahol.cafe.bus.model.vo.Caphoto;
 import com.kh.lahol.cafe.bus.model.vo.Coffee;
 import com.kh.lahol.cafe.bus.model.vo.PageInfo;
 import com.kh.lahol.cafe.user.model.dao.CafeDao;
+import com.kh.lahol.cafe.user.model.vo.CafeRes;
 
 @Service
 public class CafeBizServiceImpl implements CafeBizService{
@@ -83,6 +84,11 @@ public class CafeBizServiceImpl implements CafeBizService{
 	@Override
 	public int selectCoffeeCount(String caCode) {
 		return caBizDao.selectCoffeeCount(caCode);
+	}
+
+	@Override
+	public List<CafeRes> selectCafeResList(String id) {
+		return caBizDao.selectCafeResList(id);
 	}
 
 

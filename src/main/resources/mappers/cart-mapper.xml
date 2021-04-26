@@ -152,9 +152,7 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 				NULL,
 				SYSDATE,
 				#{buyId},
-				(SELECT C_RES 
-                FROM CORES
-                WHERE CF_RES = #{cafeRes}),
+				#{cafeRes},
 				NULL,
 				NULL,
 				NULL,
