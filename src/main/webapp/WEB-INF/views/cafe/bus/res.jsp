@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -65,6 +68,8 @@
         </div>
         <%@include file="./sideMenu.jsp" %>
     </div>
+    
+   
     <div class="res-container">
         <div id="pd" class="col-cf">
             <!-- 캘린더 -->
@@ -72,9 +77,14 @@
                 <div id='calendar' style="padding: 2%;"></div>
             </div>
         </div>
-    </div>
+  		
+    </div>    
+    
+    
+    
     <script>
-
+    
+    
     document.addEventListener('DOMContentLoaded', function() {
         var calendarEl = document.getElementById('calendar');
         
@@ -83,7 +93,9 @@
         var year = date.getFullYear();
         var month = ("0" + (1 + date.getMonth())).slice(-2);
         var day = ("0" + date.getDate()).slice(-2);
-
+        
+        
+        
         var calendar = new FullCalendar.Calendar(calendarEl, {
         headerToolbar: {
             left: 'prev,next today',
@@ -93,75 +105,45 @@
         initialDate: year + "-" + month + "-" + day,
         navLinks: true, // can click day/week names to navigate views
         nowIndicator: true,
-
         weekNumbers: true,
         weekNumberCalculation: 'ISO',
-
         editable: true,
         selectable: true,
         dayMaxEvents: true, // allow "more" link when too many events
+        
         events: [
+        	<c:forEach items="${cafeReslist}" var="res">
+        	
+        	<fmt:formatDate  var="date" value="${res.caResDate}" pattern="yyyy-MM-dd"/>
+			<c:set var="hereTogo" value="${ res.caResType }" />
+			<c:set var="hereTime" value="${ res.caResHereTime }" />
+			<c:set var="hereTimesplit" value="${fn:split(hereTime, '-')}" />
+			<c:set var="ht1" value="${fn:trim(hereTimesplit[0])}" />
+			<c:set var="ht2" value="${fn:trim(hereTimesplit[1])}" />
+			
+			<c:if test="${ hereTogo eq '매장' }">
             {
-            title: 'All Day Event',
-            start: '15 April, 2021'
+            title: '[${ hereTogo }]${ res.userId }(${res.caResPer}명)',
+            start: '${ date }T${ht1}',
+            end : '${ date }T${ht2}'
             },
+            </c:if>
+            <c:if test="${ hereTogo eq '포장' }">
             {
-            title: 'Long Event',
-            start: '2021-03-07',
-            end: '2021-03-10'
+            title: '[${ hereTogo }]${ res.userId }님의 예약',
+            start: '${ date }T${res.caResGoTime}'
             },
-            {
-            groupId: 999,
-            title: 'Repeating Event',
-            start: '2021-03-09T16:00:00'
-            },
-            {
-            groupId: 999,
-            title: 'Repeating Event',
-            start: '2021-03-16T16:00:00'
-            },
-            {
-            title: 'Conference',
-            start: '2021-03-11',
-            end: '2021-03-13'
-            },
-            {
-            title: 'Meeting',
-            start: '2021-03-12T10:30:00',
-            end: '2021-03-12T12:30:00'
-            },
-            {
-            title: 'Lunch',
-            start: '2021-03-12T12:00:00'
-            },
-            {
-            title: 'Meeting',
-            start: '2021-03-12T14:30:00'
-            },
-            {
-            title: 'Happy Hour',
-            start: '2021-03-12T17:30:00'
-            },
-            {
-            title: 'Dinner',
-            start: '2021-03-12T20:00:00'
-            },
-            {
-            title: 'Birthday Party',
-            start: '2021-03-13T07:00:00'
-            },
-            {
-            title: 'Click for Google',
-            url: 'http://google.com/',
-            start: '2021-03-28'
-            }
+            </c:if>
+        </c:forEach>
         ]
+        
         });
 
         calendar.render();
+        
     });
-
     </script>
+   
     
     <!-- footer -->
 	<jsp:include page="/WEB-INF/views/common/footer2.jsp"/>

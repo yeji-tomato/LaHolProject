@@ -2,6 +2,7 @@ package com.kh.lahol.cafe.bus.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -9,6 +10,7 @@ import java.util.List;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,6 +30,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
 import com.kh.lahol.cafe.bus.model.page.Pagination;
 import com.kh.lahol.cafe.bus.model.service.CafeBizService;
 import com.kh.lahol.cafe.bus.model.vo.Cafe;
@@ -434,7 +437,45 @@ public class CafeBizController {
 		
 	}
 	
+//	private List<CafeRes> cafeReslist;
 	
 	
+	// 예약 정보 select
+	/*
+	 * @GetMapping("/reservation") public void cafeResList(ModelAndView
+	 * mv, @SessionAttribute("loginUser") Member m, HttpServletResponse response) {
+	 * 
+	 * response.setContentType("application/json; charset=utf-8");
+	 * 
+	 * String Id = m.getId(); try { cafeReslist =
+	 * caBizService.selectCafeResList(Id); System.out.println(cafeReslist);
+	 * PrintWriter out = response.getWriter(); out.print(new
+	 * Gson().toJson(cafeReslist)); } catch (IOException e) { // TODO Auto-generated
+	 * catch block e.printStackTrace(); }
+	 * 
+	 * }
+	 */
+	
+	@GetMapping("/res")
+	public ModelAndView cafeResList(ModelAndView mv, @SessionAttribute("loginUser") Member m) {
+
+		String Id = m.getId();
+		List<CafeRes> cafeReslist = caBizService.selectCafeResList(Id);
+//		System.out.println(cafeReslist);
+		
+		if(cafeReslist != null) {
+			mv.addObject("cafeReslist", cafeReslist);
+			mv.setViewName("cafe/bus/res");
+		}else {
+			mv.addObject("msg", "해당하는 카페 조회에 실패하였습니다.");
+			mv.setViewName("common/error");
+		}
+		
+		
+		
+		return mv;
+		
+
+	}
 
 }

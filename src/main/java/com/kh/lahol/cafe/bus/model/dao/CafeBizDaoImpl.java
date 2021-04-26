@@ -11,6 +11,7 @@ import com.kh.lahol.cafe.bus.model.vo.Cafe;
 import com.kh.lahol.cafe.bus.model.vo.Caphoto;
 import com.kh.lahol.cafe.bus.model.vo.Coffee;
 import com.kh.lahol.cafe.bus.model.vo.PageInfo;
+import com.kh.lahol.cafe.user.model.vo.CafeRes;
 
 @Repository
 public class CafeBizDaoImpl implements CafeBizDao{
@@ -75,6 +76,11 @@ public class CafeBizDaoImpl implements CafeBizDao{
 	@Override
 	public int selectCoffeeCount(String caCode) {
 		return sqlSession.selectOne("cafeMapper.cafeCoffeeCount", caCode);
+	}
+
+	@Override
+	public List<CafeRes> selectCafeResList(String id) {
+		return sqlSession.selectList("cafeMapper.selectCafeResList", id);
 	}
 
 

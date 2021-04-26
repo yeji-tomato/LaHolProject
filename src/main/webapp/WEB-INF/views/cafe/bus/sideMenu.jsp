@@ -41,7 +41,7 @@ $(function() {
 	//예약 내역
 	const cafeRes= document.getElementById("cafeRes");
 	cafeRes.addEventListener("click", function() {
-	 location.href='${ contextPath }/cafe/res';
+	 location.href='${ contextPath }/cafe/biz/res';
 	});
 	
 	//카페 등록

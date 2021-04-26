@@ -121,7 +121,7 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 			    ISUSED
 			FROM COUPON
 			WHERE ID = #{id}
-			AND ISUSED = 'Y'
+			AND ISUSED = 'N'
 		</select>
 	
 		<!-- 카페 결제 정보 insert -->
@@ -152,9 +152,7 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 				NULL,
 				SYSDATE,
 				#{buyId},
-				(SELECT C_RES 
-                FROM CORES
-                WHERE CF_RES = #{cafeRes}),
+				#{cafeRes},
 				NULL,
 				NULL,
 				NULL,
@@ -209,7 +207,7 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 		UPDATE
 			COUPON
 		SET
-			ISUSED = 'N'
+			ISUSED = 'Y'
 		WHERE COUPON_CODE = #{couponCode}
 		</update>
 	
