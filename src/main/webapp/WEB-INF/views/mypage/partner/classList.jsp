@@ -96,6 +96,10 @@
 
             height: 30px !important;
         }
+        
+        .content-div #list-table tr sub {
+        	font-family: 'NEXON Lv1 Gothic OTF';
+        }
 
         .content-div #list-table tr:first-child td:nth-child(1) {
             width : 80px;
@@ -110,11 +114,11 @@
         }
 
         .content-div #list-table tr:first-child td:nth-child(4) {
-            width : 250px;
+            width : 150px;
         }
 
         .content-div #list-table tr:first-child td:nth-child(5) {
-            width : 250px;
+            width : 200px;
         }
 
         .content-div #list-table tr:first-child td:nth-child(6) {
@@ -129,7 +133,7 @@
             width : 100px;
         }
         
-        .content-div #list-table tr td b {
+        .clickTd {
         	cursor : pointer;
         }
 
@@ -313,8 +317,8 @@
                             <td>클래스명</td>
                             <td>강사명</td>
                             <td>장소</td>
-                            <td>일정</td>
-                            <td>신청자 수</td>
+                            <td colspan="3">일정<sub>(클릭 시, 일정별 신청자 확인 가능)</sub></td>
+                            <td>전체 인원</td>
                             <td>진행상태</td>
                         </tr>
                         <c:if test="${ empty list }">
@@ -329,8 +333,20 @@
 	                            <td>${ cl.cl_name }</td>
 	                            <td>${ cl.tr_name }</td>
 	                            <td>${ cl.c_name }</td>
-	                            <td>${ cl.cl_date }, ${ cl.cl_time }(${ cl.cl_runtime })</td>
-	                            <td onclick="selectClassMember('${ cl.class_no }');"><b>${ cl.people }</b></td>
+	                            <c:if test="${ cl.cl_time2 eq null && cl.cl_time3 eq null}">
+	                            <td class="clickTd" colspan="3" style="font-size:12px;" onclick="selectClassMember('${ cl.class_no }','${ cl.cl_time }');">${ cl.cl_date },<br>${ cl.cl_time }(${ cl.cl_runtime })</td>
+	                            </c:if>
+	                            <c:if test="${ cl.cl_time2 ne null && cl.cl_time3 ne null}">
+	                            <td class="clickTd" style="font-size:12px;" onclick="selectClassMember('${ cl.class_no }','${ cl.cl_time }');">${ cl.cl_date },<br>${ cl.cl_time }(${ cl.cl_runtime })</td>
+	                            <td class="clickTd" style="font-size:12px;" onclick="selectClassMember('${ cl.class_no }','${ cl.cl_time2 }');">${ cl.cl_date },<br>${ cl.cl_time2 }(${ cl.cl_runtime })</td>
+	                            <td class="clickTd" style="font-size:12px;" onclick="selectClassMember('${ cl.class_no }','${ cl.cl_time3 }');">${ cl.cl_date },<br>${ cl.cl_time3 }(${ cl.cl_runtime })</td>
+	                            </c:if>
+	                            <c:if test="${ cl.cl_time2 ne null && cl.cl_time3 eq null}">
+	                            <td class="clickTd" style="font-size:12px;" onclick="selectClassMember('${ cl.class_no }','${ cl.cl_time }');">${ cl.cl_date },<br>${ cl.cl_time }(${ cl.cl_runtime })</td>
+	                            <td class="clickTd" style="font-size:12px;" onclick="selectClassMember('${ cl.class_no }','${ cl.cl_time2 }');">${ cl.cl_date },<br>${ cl.cl_time2 }(${ cl.cl_runtime })</td>
+	                            <td></td>
+	                            </c:if>
+	                            <td><b>${ cl.people }</b></td>
 	                            <td>${ cl.cl_status }</td>
 	                        </tr>
                         </c:forEach>
@@ -392,8 +408,8 @@
         </div>
     </div>
     <script>
-    	function selectClassMember(class_no) {
-    		location.href="${ contextPath }/pMypage/classMember?class_no=" + class_no;
+    	function selectClassMember(class_no, cl_time) {
+    		location.href="${ contextPath }/pMypage/classMember?class_no=" + class_no + "&cl_time=" + cl_time;
     	}
     
         var modal = document.getElementById("menuModal");
@@ -440,6 +456,14 @@
                 modal2.style.display = "none";
             }
         }
+        
+        $(function(){
+        	$(".clickTd").mouseenter(function(){
+        		$(this).css({"background":"#FADFAD"});
+        	}).mouseout(function(){
+        		$(this).css({"background" : "#FFF"});
+        	});
+        });
     </script>
     <!-- footer -->
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"/>

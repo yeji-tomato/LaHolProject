@@ -17,7 +17,7 @@ public class CoffeeClass {
 	private String blind;
 	private String cl_status;
 	private String bus_no;
-	private String cl_shortDes;
+	private String cl_shortdes;
 	private String cl_time;
 	private String cl_time2;
 	private String cl_time3;
@@ -37,15 +37,15 @@ public class CoffeeClass {
 	private String c_lo;
 	
 	// 신청자 수 조회 뷰 추가했을 때
-	private int people;
+	private Integer people;
 	
 	public CoffeeClass() {}
 
 	public CoffeeClass(String class_no, String c_code, String cl_name, String cl_des, String tr_name, String tr_intro,
 			String cl_curi, int cl_max, Date cl_date, String cl_loca, int cl_price, String blind, String cl_status,
-			String bus_no, String cl_shortDes, String cl_time, String cl_time2, String cl_time3, String cl_level,
+			String bus_no, String cl_shortdes, String cl_time, String cl_time2, String cl_time3, String cl_level,
 			String cl_runtime, String class_photo, String cl_thumbnail, String tr_photo, String cl_writer,
-			String c_name, String c_owner, String c_address, String c_la, String c_lo, int people) {
+			String c_name, String c_owner, String c_address, String c_la, String c_lo, Integer people) {
 		super();
 		this.class_no = class_no;
 		this.c_code = c_code;
@@ -61,7 +61,7 @@ public class CoffeeClass {
 		this.blind = blind;
 		this.cl_status = cl_status;
 		this.bus_no = bus_no;
-		this.cl_shortDes = cl_shortDes;
+		this.cl_shortdes = cl_shortdes;
 		this.cl_time = cl_time;
 		this.cl_time2 = cl_time2;
 		this.cl_time3 = cl_time3;
@@ -81,7 +81,7 @@ public class CoffeeClass {
 
 	public CoffeeClass(String class_no, String c_code, String cl_name, String cl_des, String tr_name, String tr_intro,
 			String cl_curi, int cl_max, Date cl_date, String cl_loca, int cl_price, String blind, String cl_status,
-			String bus_no, String cl_shortDes, String cl_time, String cl_time2, String cl_time3, String cl_level,
+			String bus_no, String cl_shortdes, String cl_time, String cl_time2, String cl_time3, String cl_level,
 			String cl_runtime, String class_photo, String cl_thumbnail, String tr_photo, String cl_writer,
 			String cl_category) {
 		super();
@@ -99,7 +99,7 @@ public class CoffeeClass {
 		this.blind = blind;
 		this.cl_status = cl_status;
 		this.bus_no = bus_no;
-		this.cl_shortDes = cl_shortDes;
+		this.cl_shortdes = cl_shortdes;
 		this.cl_time = cl_time;
 		this.cl_time2 = cl_time2;
 		this.cl_time3 = cl_time3;
@@ -224,12 +224,12 @@ public class CoffeeClass {
 		this.bus_no = bus_no;
 	}
 
-	public String getCl_shortDes() {
-		return cl_shortDes;
+	public String getCl_shortdes() {
+		return cl_shortdes;
 	}
 
-	public void setCl_shortDes(String cl_shortDes) {
-		this.cl_shortDes = cl_shortDes;
+	public void setCl_shortDes(String cl_shortdes) {
+		this.cl_shortdes = cl_shortdes;
 	}
 
 	public String getCl_time() {
@@ -344,11 +344,11 @@ public class CoffeeClass {
 		this.c_lo = c_lo;
 	}
 
-	public int getPeople() {
+	public Integer getPeople() {
 		return people;
 	}
 
-	public void setPeople(int people) {
+	public void setPeople(Integer people) {
 		this.people = people;
 	}
 
@@ -365,7 +365,7 @@ public class CoffeeClass {
 		return "CoffeeClass [class_no=" + class_no + ", c_code=" + c_code + ", cl_name=" + cl_name + ", cl_des="
 				+ cl_des + ", tr_name=" + tr_name + ", tr_intro=" + tr_intro + ", cl_curi=" + cl_curi + ", cl_max="
 				+ cl_max + ", cl_date=" + cl_date + ", cl_loca=" + cl_loca + ", cl_price=" + cl_price + ", blind="
-				+ blind + ", cl_status=" + cl_status + ", bus_no=" + bus_no + ", cl_shortDes=" + cl_shortDes
+				+ blind + ", cl_status=" + cl_status + ", bus_no=" + bus_no + ", cl_shortDes=" + cl_shortdes
 				+ ", cl_time=" + cl_time + ", cl_time2=" + cl_time2 + ", cl_time3=" + cl_time3 + ", cl_level="
 				+ cl_level + ", cl_runtime=" + cl_runtime + ", class_photo=" + class_photo + ", cl_thumbnail="
 				+ cl_thumbnail + ", tr_photo=" + tr_photo + ", cl_writer=" + cl_writer + ", cl_category=" + cl_category

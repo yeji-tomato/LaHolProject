@@ -81,15 +81,15 @@ public class pMypageDaoImpl implements pMypageDao{
 	}
 
 	@Override
-	public int selectClassMemberCount(String class_no) {
-		return sqlSession.selectOne("mypageMapper.selectClassMemberCount", class_no);
+	public int selectClassMemberCount(List<String> list) {
+		return sqlSession.selectOne("mypageMapper.selectClassMemberCount", list);
 	}
 
 	@Override
-	public List<Member> selectClassMember(String class_no, PageInfo pi) {
+	public List<Member> selectClassMember(List<String> list, PageInfo pi) {
 		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
-		return sqlSession.selectList("mypageMapper.selectClassMember", class_no, rowBounds);
+		return sqlSession.selectList("mypageMapper.selectClassMember", list, rowBounds);
 	}
 
 	@Override

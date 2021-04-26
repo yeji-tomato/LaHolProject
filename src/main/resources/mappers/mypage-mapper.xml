@@ -482,7 +482,7 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 		     , CL_STATUS
 		     , BUS_NO
 		     , CL_SHORTDES
-		     , CL_TIME
+		     , C.CL_TIME
 		     , CL_TIME2
 		     , CL_TIME3
 		     , CL_LEVEL
@@ -498,16 +498,16 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 		     , C_LA
 		     , C_LO
 		  FROM
-		       COFFEECLASS
+		       COFFEECLASS C
 		  JOIN
 		       CAFE USING(C_CODE)
-		  JOIN
+     LEFT JOIN
 		       CL_PEOPLE USING(CLASS_NO)
 		 WHERE
 		       ID = #{id}
 	  ORDER BY REGEXP_REPLACE(CLASS_NO, '[0-9]'), TO_NUMBER(REGEXP_REPLACE(CLASS_NO, '[^0-9]')) DESC
 	</select>
-	<select id="selectClassMemberCount" parameterType="string" resultType="_int">
+	<select id="selectClassMemberCount" parameterType="java.util.List" resultType="_int">
 		SELECT
 		       COUNT(*)
 		  FROM 
@@ -517,9 +517,10 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 		  JOIN 
 		       CL_ORDER USING(CL_PAY_NO)
 		 WHERE
-		       CLASS_NO = #{class_no}
+		       CLASS_NO = #{list[0]}
+		   AND CL_TIME = #{list[1]}
 	</select>
-	<select id="selectClassMember" parameterType="string" resultMap="classMemberResultSet">
+	<select id="selectClassMember" parameterType="java.util.List" resultMap="classMemberResultSet">
 		SELECT
 		       ID
 		     , NAME
@@ -533,7 +534,8 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 		  JOIN 
 		       CL_ORDER USING(CL_PAY_NO)
 		 WHERE
-		       CLASS_NO = #{class_no}
+		       CLASS_NO = #{list[0]}
+		   AND CL_TIME = #{list[1]}
 	</select>
 	<select id="selectClassByNo" parameterType="string" resultMap="classResultSet">
 		SELECT
