@@ -641,10 +641,12 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 		(SELECT C_CODE
 		FROM CAFE
 		WHERE ID = #{Id}),
-		ID,
+		CAR.ID,
 		C_HERETIME,
 		C_GOTIME
-	FROM CARES
+	FROM CARES CAR
+    INNER JOIN CAFE C ON(CAR.C_CODE = C.C_CODE)
+    WHERE C.ID = #{Id}
     </select>
     
     <!-- 카페 주문 리스트 보기(사업자) -->
