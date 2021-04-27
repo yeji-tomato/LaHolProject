@@ -59,4 +59,11 @@ public class CartServiceImpl implements CartService{
 		return cartDao.successCart(id);
 	}
 
+	
+	// 카트 장바구니
+	@Override
+	public int classcartInsert(Cart ct) {
+		return cartDao.classcartInsert(ct);
+	}
+
 }

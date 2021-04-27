@@ -70,30 +70,22 @@
                       <tr>
                       <tr>
                         <td>연계 카페명</td> <!-- cafeNo를 통해 이름 불러오기 -->
-                        <td> ${ mycafe.caName }</td>
-                        <!--마우스 오버시 등장하는 정보-->              
+                        <td onclick="location.href='${ contextPath }/cafe/detail?caCode=${ coffeeclass.cafeNo }'"> <button style="background-color :none; border:0px;"> ☕☕이동하기 </button></td>             
                       </tr>
-                        <%-- <div class="help-tip" style="float:right;">
-                          <div class="info">
-                          <p>카페이름 : ${ coffeeclass.cafeNo } </p> <!-- cafeNo를 통해 이름 불러오기 -->
-                          <p>카페 위치 :  ${ coffeeclass.cafeNo }   </p> <!-- cafeNo를 통해  -->
-                          <a href = "${ ContextPath }/cafe/user/here">☕카페보러가기</a>
-                          </div>
-                        </div> --%>
                       <tr>
-                        <td>
+                        <td style="width : 30px;">
                           <ul>
                             <li>난이도</li>
                             <li>${ coffeeclass.classLvl }</li>
                           </ul>
                         </td>
-                        <td>
+                        <td style="width : 30px;">
                           <ul style="border-left: 2px solid black;">
                             <li>소요시간</li>
                             <li>${ coffeeclass.clRuntime }</li>
                           </ul>
                         </td>
-                        <td>
+                        <td style="width : 30px;"> 
                           <ul style="border-left: 2px solid black;">
                             <li>수강정원</li>
                             <li>${ coffeeclass.studentMax }</li>
@@ -109,17 +101,14 @@
                       <tr>
                         <td>시간</td>
                         <td colspan="2">
-                          <select style="width: 80%;">
-                            <option value="" class = "selecttime" disabled="disabled" selected>시간</option>
-                          	<c:forEach var="time" items="${ classTimes }">
-                           		<option class = "selecttime" name="classTime" value="${ time }">${ time }</option>
-                        	</c:forEach>
-                        	<option class = "selecttime" name="classTime" value="${ coffeeclass.classTime }">${ coffeeclass.classTime }</option>
+                          <select style="width: 80%;" >
+                            <option class = "selecttime" disabled="disabled">시간</option>
+                        	<option class = "selecttime" name="classTime"  value="dd">${ coffeeclass.classTime }</option>
                         	<c:if test="${ !empty coffeeclass.classTime2 }">
-                        	<option class = "selecttime" name="classTime2" value="${ coffeeclass.classTime2 }">${ coffeeclass.classTime2 }</option>
+                        	<option class = "selecttime" value="${ coffeeclass.classTime2 }">${ coffeeclass.classTime2 }</option>
                         	</c:if>
                         	<c:if test="${ !empty coffeeclass.classTime3 }">
-                        	<option class = "selecttime" name="classTime3" value="${ coffeeclass.classTime3 }">${ coffeeclass.classTime3 }</option>
+                        	<option class = "selecttime" value="${ coffeeclass.classTime3 }">${ coffeeclass.classTime3 }</option>
                         	</c:if>
                         </select>          
                         </td>
@@ -133,13 +122,28 @@
                     </tbody>
                   </table>
                   <div class="btnDiv" id = "classupdate">
-                    <form action="${ contextPath }/coffeeclass/register" method="POST">
-                    	<input type="hidden" id="user_id" name="buyerId" value="${ sessionScope.loginUser.id }">
+                  
+                  <script>
+				function submitForm() {
+					if( $('select[name=classTime]:checked').val() == 'dd'){
+				    document.getElementById("envselection").submit();
+					
+				    
+				}
+				</script>
+                  
+                  
+                  
+                  
+                  	<!-- 바로결제 -->
+                  								
+                    <form id ="cl_register" action="${ contextPath }/coffeeclass/register"  method="GET">
                     	<input type="hidden" id= "class_no" name="classNo" value="${ coffeeclass.classNo }">
+                    	<%-- <input type="hidden" id="user_id" name="buyerId" value="${ sessionScope.loginUser.id }">
                     	<input type="hidden" id= "class_name" name="className" value="${ coffeeclass.className }">
                     	<input type="hidden" id="cl_price" name="clPrice" value="${ coffeeclass.clPrice}">
 	                    <input type="hidden" id = "cl_date" name="classDate" value = "${ coffeeclass.classDate }">
-	                    <input type="hidden" id = "cl_time" name="classTime" value = "${ coffeeclass.classTime }">
+	                    <input type="hidden" id = "cl_time" name="classTime" value = "${ coffeeclass.classTime }"> --%>
                     </form>
                     
                      <!-- 일반사용자들에게 보여지는 버튼 or 자신의 사업장이 아닌 클래스 열람시 보여지는 버튼 -->
@@ -148,10 +152,20 @@
 	                    	  수강신청
 	                      <i class="fa fa-credit-card-alt" aria-hidden="true"></i>
 	                    </button> 
-	                    <button type="button" class="btn" id = "cart-btn" onclick="location.href='${contextPath}/cart/main'">
+	                    <button type="button" class="btn" id = "cart-btn">
 	                      	  장바구니
 	                      <i class="fa fa-shopping-cart" aria-hidden="true"></i>
 	                    </button>
+	                    <!-- 장바구니 -->
+	                    <form id = "cartclass" action="${ contextPath }/cart/cartclass" method="post">
+	                    <input type="hidden" id="user_id" name="buyerId" value="${ sessionScope.loginUser.id }">
+                    	<input type="hidden" id= "class_no" name="classNo" value="${ coffeeclass.classNo }">
+                    	<input type="hidden" id= "class_name" name="className" value="${ coffeeclass.className }">
+                    	<input type="hidden" id="cl_price" name="clPrice" value="${ coffeeclass.clPrice}">
+	                    <input type="hidden" id = "cl_date" name="classDate" value = "${ coffeeclass.classDate }">
+	                    <input type="hidden" id = "cl_time" name="classTime" value = "${ coffeeclass.classTime }">
+	                    </form>
+	                    
 	                     <!--클래스 신고-->                    
 	                    <button style="border:transparent; background-color:transparent;">
 	                      <div class="report" style="margin-bottom: 3vh;">
@@ -160,6 +174,8 @@
 	                    </button>
                      </c:if>
                     </div> 
+                    
+                    
                     
                     <!-- 클래스 개설한 당사자에게만 보여지는 버튼 -->
                     <c:if test="${ loginUser != NULL && loginUser.id eq coffeeclass.clWriter }">
@@ -251,10 +267,29 @@
 	<!-- 모달 (신고, 삭제) -->
 	<jsp:include page="/WEB-INF/views/coffeeclass/class_detail_modal.jsp"/>
 	
-	<!-- 바로결제
-	KG이니시스 
+	<!-- 장바구니 insert -->
+	function
+	
+	
+	
 	<script>	
-	$("#register-btn").click(function () {
+	$(document).on("click", "#cart-btn", function(){
+		alert("장바구니에 추가되었습니다.");
+		$("#cartclass").submit();
+	});
+	
+	$(document).on("click", "#register-btn", function(){
+		alert("결제페이지로 이동합니다");
+		$("#cl_register").submit();
+	});
+	
+	
+	</script>
+	
+	
+	<%-- 
+	 KG이니시스
+	 $("#register-btn").click(function () {
         var IMP = window.IMP; // 생략가능
         IMP.init('imp85155473');
         // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
@@ -352,10 +387,10 @@
 	        alert(msg);
         }
       }); // end of ajax
-    }); // end of onclick
+    }); // end of onclick 
+ --%>
 
 
-	</script> -->
       
 </body>
 </html>

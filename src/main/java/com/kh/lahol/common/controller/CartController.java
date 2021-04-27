@@ -2,6 +2,9 @@ package com.kh.lahol.common.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -25,6 +28,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.lahol.common.model.vo.Cart;
 import com.google.gson.Gson;
+import com.kh.lahol.coffeeclass.model.service.CoffeeClassSerivce;
 import com.kh.lahol.common.model.exception.CartException;
 import com.kh.lahol.common.model.service.CartService;
 import com.kh.lahol.common.model.vo.Coupon;
@@ -45,6 +49,9 @@ public class CartController{
 	
 	@Autowired
 	private StoreService sService;
+	
+	@Autowired
+	private CoffeeClassSerivce clService;
 	
 	
 	private static final Logger logger = LoggerFactory.getLogger(BusMainController.class);
@@ -235,6 +242,42 @@ public class CartController{
 		  }else { 
 			  throw new CartException("장바구니 비우기를 실패하였습니다."); 
 		  }
+		
+	}
+	
+	// 클래스 장바구니
+	@PostMapping("/cartclass")
+	public String classCart(@ModelAttribute Cart ct, int clPrice,
+							String classNo, String className, String classDate, String buyerId, 
+							int classTime, HttpSession session) throws CartException {
+
+		
+		ct.setUserId(buyerId);
+		
+		DateFormat sdFormat = new SimpleDateFormat(classDate);
+		Date nowDate = new Date();
+		String tempDate = sdFormat.format(nowDate);
+
+		
+		System.out.println("날짜" + tempDate);
+		
+		ct.setCartRes(tempDate);
+		//ct.setShipFee(classTime);
+		ct.setCartName(className);
+		
+		
+		System.out.println("제품값 :" +  clPrice);
+		ct.setCartPrice(clPrice);
+		int result = cartService.classcartInsert(ct);
+		
+		ct.setCartName(className);		
+		
+		if(result > 0) {
+			return "coffeeclass/class_main";
+		} else {
+			return "";
+		}
+	
 		
 	}
 }

@@ -19,12 +19,13 @@ public class ClassQnA {
 	
 	private String qnaNo;
 	private String classNo;
-	private String question;
 	private String userId;
+	private String question;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date askDate;
 	private String answer;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date answerDate;
+	private String status;
 	
 }

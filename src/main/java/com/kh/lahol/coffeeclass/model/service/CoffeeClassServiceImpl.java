@@ -12,6 +12,8 @@ import com.kh.lahol.coffeeclass.model.vo.ClassRegister;
 import com.kh.lahol.coffeeclass.model.vo.ClassSearch;
 import com.kh.lahol.coffeeclass.model.vo.CoffeeClass;
 import com.kh.lahol.coffeeclass.model.vo.PageInfo;
+import com.kh.lahol.coffeeclass.model.vo.Paging;
+import com.kh.lahol.common.model.vo.Cart;
 
 @Service
 public class CoffeeClassServiceImpl implements CoffeeClassSerivce{
@@ -76,8 +78,8 @@ public class CoffeeClassServiceImpl implements CoffeeClassSerivce{
 
 	// 클래스 신청
 	@Override
-	public int registerClass(ClassRegister clRegi) {
-		return clDao.registerClass(clRegi);
+	public int registerClass(String classNo) {
+		return clDao.registerClass(classNo);
 	}
 
 	// 검색
@@ -104,13 +106,25 @@ public class CoffeeClassServiceImpl implements CoffeeClassSerivce{
 		return clDao.selectQnA(classqna);
 	}
 
-	// 클래스 Qna 질문,답변 등록
+	// 클래스 QnA 질문 등록
 	@Override
 	public int askClass(ClassQnA qna) {
 		return clDao.askClass(qna);
 	}
 
+	// 클래스 QnA 답변등록
+	@Override
+	public int answerClass(ClassQnA qna) {
+		return clDao.answerClass(qna);
+	}
 
+	// new 페이징
+	@Override
+	public List<CoffeeClass> selectListWithPaging(Paging paging) {
+		return clDao.selectListWithPaging(paging);
+	}
+
+	
 
 
 
