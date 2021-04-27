@@ -61,6 +61,7 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 		<result property="askDate" column="CL_ASKDATE"/>
 		<result property="answer" column="CL_ANSWER"/>
 		<result property="answerDate" column="CL_ANS_DATE"/>
+		<result property="status" column="CL_STATUS"/>
 	</resultMap>
 	<!-- 조회수증가-->
 	<select id="selectListCount" resultType="_int">
@@ -377,15 +378,14 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 				*
 		  FROM  COFFEECLASS
 		 WHERE
-		 		1=1
 		 		<if test="searchCategory != null">
 		 			<if test="searchCategory != 'all'">
-		 			AND cl_category = #{searchCategory}
+		 			AND CL_CATEGORY = #{searchCategory}
 		 			</if>
 		 		</if>
 		 		<if test="searchLocation != null">
 		 			<if test="searchLocation != 'all'">
-		 			  AND CL_LOCA LIKE '%' || #{searchLocation} || '%'
+		 			   CL_LOCA LIKE '%' || #{searchLocation} || '%'
 		 			</if>
 		 		</if>
 	   ORDER BY DESC
@@ -420,6 +420,9 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 	 		   , USER_ID
 	 		   , CL_QUESTION
 	 		   , CL_ASKDATE
+	 		   , CLASS_NO
+	 		   , CL_ANSWER
+	 		   , CL_STATUS
 		FROM    CL_QNA
 		WHERE   CLASS_NO = #{classNo}
 	 </select>
@@ -430,7 +433,6 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 	 			(	  CL_QNA_NO
 	 			    , CLASS_NO
 	 			    , USER_ID
-	 			    , CL_QUESTION
 	 			    , CL_ASKDATE    
 	 			 )
 	 			VALUES
@@ -442,5 +444,52 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 	 			)
 	 </insert>
 	 <!-- 답변입력 -->
+	 <update id="answerClass" parameterType="ClassQnA">
+	 	UPDATE CL_QNA
+		   SET 
+				  CL_ANSWER= #{answer}
+				, CL_ANS_DATE = SYSDATE
+				, CL_STATUS= 'Y'
+		  WHERE   CL_QNA_NO = #{qnaNo}
+	 </update>
+	 <!-- 메인페이지 페이징 -->
+	<select id="selectListWithPaging" resultMap="clResultSet" parameterType="com.kh.lahol.coffeeclass.model.vo.Paging">
+		SELECT *
+		FROM (
+		         SELECT ROWNUM NO, A.*
+		         FROM (
+		            SELECT 
+		    			CLASS_NO
+                      , C_CODE
+                      , CL_NAME
+                      , CL_DES
+                      , TR_NAME
+                      , TR_INTRO
+                      , CL_CURI
+                      , CL_MAX
+                      , CL_DATE
+                      , CL_LOCA
+                      , CL_PRICE
+                      , BLIND
+                      , CL_STATUS
+                      , BUS_NO
+                      , CL_SHORTDES
+                      , CL_TIME
+                      , CL_LEVEL
+                      , CL_RUNTIME
+                      , CL_THUMBNAIL
+                      , TR_PHOTO
+                      , CLASS_PHOTO
+                      , CL_WRITER 
+		            FROM 
+		                COFFEECLASS
+		            WHERE	
+		                CL_STATUS='Y'
+		            ORDER BY
+                CLASS_NO DESC) A)
+		WHERE   NO <![CDATA[>]]> (#{pageNum})-1) * #{pageSize}
+    		AND ROWNUM <![CDATA[<=]]> #{pageSize}
+	</select>
+
 	 
 </mapper>

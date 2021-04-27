@@ -70,30 +70,23 @@
                       <tr>
                       <tr>
                         <td>연계 카페명</td> <!-- cafeNo를 통해 이름 불러오기 -->
-                        <td> ${ mycafe.caName }</td>
+                        <td onclick="${contextPath}//detail?${Cafe.caCode}"> ${ Cafe.caName }</td>
                         <!--마우스 오버시 등장하는 정보-->              
                       </tr>
-                        <%-- <div class="help-tip" style="float:right;">
-                          <div class="info">
-                          <p>카페이름 : ${ coffeeclass.cafeNo } </p> <!-- cafeNo를 통해 이름 불러오기 -->
-                          <p>카페 위치 :  ${ coffeeclass.cafeNo }   </p> <!-- cafeNo를 통해  -->
-                          <a href = "${ ContextPath }/cafe/user/here">☕카페보러가기</a>
-                          </div>
-                        </div> --%>
                       <tr>
-                        <td>
+                        <td style="width : 30px;">
                           <ul>
                             <li>난이도</li>
                             <li>${ coffeeclass.classLvl }</li>
                           </ul>
                         </td>
-                        <td>
+                        <td style="width : 30px;">
                           <ul style="border-left: 2px solid black;">
                             <li>소요시간</li>
                             <li>${ coffeeclass.clRuntime }</li>
                           </ul>
                         </td>
-                        <td>
+                        <td style="width : 30px;"> 
                           <ul style="border-left: 2px solid black;">
                             <li>수강정원</li>
                             <li>${ coffeeclass.studentMax }</li>
@@ -144,11 +137,11 @@
                     
                      <!-- 일반사용자들에게 보여지는 버튼 or 자신의 사업장이 아닌 클래스 열람시 보여지는 버튼 -->
                      <c:if test="${ loginUser == NULL || loginUser.id ne coffeeclass.clWriter }">
-	                     <button class="btn" id = "register-btn">
+	                     <button class="btn" id = "register-btn" onclick="${ contextPath }/coffeeclass/class_register.jsp">
 	                    	  수강신청
 	                      <i class="fa fa-credit-card-alt" aria-hidden="true"></i>
 	                    </button> 
-	                    <button type="button" class="btn" id = "cart-btn" onclick="location.href='${contextPath}/cart/main'">
+	                    <button type="button" class="btn" id = "cart-btn" onclick="commonCart()">
 	                      	  장바구니
 	                      <i class="fa fa-shopping-cart" aria-hidden="true"></i>
 	                    </button>
@@ -250,6 +243,9 @@
 	
 	<!-- 모달 (신고, 삭제) -->
 	<jsp:include page="/WEB-INF/views/coffeeclass/class_detail_modal.jsp"/>
+	
+	<!-- 장바구니 insert -->
+	function
 	
 	<!-- 바로결제
 	KG이니시스 

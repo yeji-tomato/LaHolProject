@@ -8,6 +8,7 @@ import com.kh.lahol.coffeeclass.model.vo.ClassRegister;
 import com.kh.lahol.coffeeclass.model.vo.ClassSearch;
 import com.kh.lahol.coffeeclass.model.vo.CoffeeClass;
 import com.kh.lahol.coffeeclass.model.vo.PageInfo;
+import com.kh.lahol.coffeeclass.model.vo.Paging;
 
 public interface CoffeeClassDao {
 	
@@ -53,8 +54,14 @@ public interface CoffeeClassDao {
 		// 13. 클래스 정보 불러오기
 		public List<ClassQnA> selectQnA(ClassQnA classqna);
 		
-		// 14. 클래스 QnA질문
+		// 14. 클래스 QnA 질문
 		public int askClass(ClassQnA qna);
+
+		// 15. 클래스 QnA 답변
+		public int answerClass(ClassQnA qna);
+
+		// 16. new 페이징
+		public List<CoffeeClass> selectListWithPaging(Paging paging);
 
 
 		

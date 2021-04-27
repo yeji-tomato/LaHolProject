@@ -248,11 +248,14 @@
 				</h5>
 				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
+				
 				<div class="modal-body">
 				
 				<h5  style="text-align: center; padding: 5vh;"> 질문내용 <br>${ qna.question }</h5>
-					<%-- <form action="${ contextPath }/coffeeclass/answer" method="post"> --%>
-                   	<input type="hidden" name="askDate">
+					<form action="${ contextPath }/coffeeclass/answer" method="post"> 
+					<input type="text" name="classNo" value="${ coffeeclass.classNo }">
+					<input type="text" name="qnaNo" value="${ qna.qnaNo }">
+                   	<input type="hidden" name="answerDate" value="${ qna.answerDate }">                  	
 					<table style="width: 100%;">
 						<tr>			
 							<td>답변내용</td>
@@ -273,7 +276,7 @@
 						<button type="submit" class="btn btn-danger">답변등록</button>
 						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
 					</div>
-					<!-- </form> -->
+					</form>
 					
 			</div>
 			</div>
