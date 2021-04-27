@@ -108,7 +108,7 @@
 						</tr>
 						<tr>
 							<td colspan="2">
-								<textarea name="rpDeets" style="width: 100%; line-height: 15vh;"></textarea>
+								<textarea name="rpDeets" style="width: 100%; resize:none; height: 150px;"></textarea>
 							</td>
 						</tr>
 					</table>

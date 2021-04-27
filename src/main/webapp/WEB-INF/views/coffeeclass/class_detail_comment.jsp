@@ -112,9 +112,9 @@
 				  <c:forEach var="qna" items="${ qnalist }">
 				    <!-- 질문 -->
 				    <tr>									 
-				      <th scope="row" style="font-size : 20px;">Q 
-					      <c:if test="${ qna.status eq 'N' }">&nbsp; &nbsp; <p style="font-size : 10px; color : brown;">답변대기<p> </c:if>
-					      <c:if test="${ qna.status eq 'Y' }">&nbsp; &nbsp; <p style="font-size : 10px; color : blue;">답변완료</p></c:if>
+				      <th scope="row" style="font-size : 20px;"> 
+					      <c:if test="${ qna.status eq 'N' }"> <p style="font-size : 15px; color : brown;">Q &nbsp; &nbsp; 답변대기<p> </c:if>
+					      <c:if test="${ qna.status eq 'Y' }"> <p style="font-size : 15px; color : blue;"> Q &nbsp; &nbsp; 답변완료</p></c:if>
 				      </th>
 				      <td colspan="2">${ qna.question }</td>
 				      <td id="userId">${ qna.userId }</td>

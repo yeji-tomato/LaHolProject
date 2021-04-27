@@ -32,12 +32,6 @@ public class CartServiceImpl implements CartService{
 		return cartDao.couponSelectList(id);
 	}//00
 
-	@Override
-	public int cafeCartPayment(Payment pay) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
 	//스토아 카트
 	@Override
 	public int storeCartInsert(Cart ct) {
@@ -63,6 +57,13 @@ public class CartServiceImpl implements CartService{
 	@Override
 	public int successCart(String id) {
 		return cartDao.successCart(id);
+	}
+
+	
+	// 카트 장바구니
+	@Override
+	public int classcartInsert(Cart ct) {
+		return cartDao.classcartInsert(ct);
 	}
 
 }

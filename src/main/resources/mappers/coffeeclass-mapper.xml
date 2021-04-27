@@ -377,7 +377,7 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 	     SELECT	
 				*
 		  FROM  COFFEECLASS
-		 WHERE
+		 <where>
 		 		<if test="searchCategory != null">
 		 			<if test="searchCategory != 'all'">
 		 			AND CL_CATEGORY = #{searchCategory}
@@ -385,10 +385,11 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 		 		</if>
 		 		<if test="searchLocation != null">
 		 			<if test="searchLocation != 'all'">
-		 			   CL_LOCA LIKE '%' || #{searchLocation} || '%'
+		 			 AND CL_LOCA LIKE '%' || #{searchLocation} || '%'
 		 			</if>
 		 		</if>
-	   ORDER BY DESC
+		 </where>
+	   ORDER BY CLASS_NO DESC
 	  </select>
 	
 	 <select id="selectCafeInfoById" parameterType="string" resultMap="cafeResultSet">
@@ -433,6 +434,7 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 	 			(	  CL_QNA_NO
 	 			    , CLASS_NO
 	 			    , USER_ID
+	 			    , CL_QUESTION
 	 			    , CL_ASKDATE    
 	 			 )
 	 			VALUES

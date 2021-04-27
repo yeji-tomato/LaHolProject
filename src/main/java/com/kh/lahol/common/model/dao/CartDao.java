@@ -25,5 +25,8 @@ public interface CartDao {
 
 	int successCart(String id);
 
+	// 클래스 장바구니
+	int classcartInsert(Cart ct);
+
 
 }

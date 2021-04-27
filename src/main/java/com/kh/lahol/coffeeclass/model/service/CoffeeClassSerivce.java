@@ -9,6 +9,7 @@ import com.kh.lahol.coffeeclass.model.vo.ClassSearch;
 import com.kh.lahol.coffeeclass.model.vo.CoffeeClass;
 import com.kh.lahol.coffeeclass.model.vo.PageInfo;
 import com.kh.lahol.coffeeclass.model.vo.Paging;
+import com.kh.lahol.common.model.vo.Cart;
 
 
 public interface CoffeeClassSerivce {

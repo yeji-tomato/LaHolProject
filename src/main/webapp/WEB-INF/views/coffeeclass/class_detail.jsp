@@ -70,8 +70,7 @@
                       <tr>
                       <tr>
                         <td>연계 카페명</td> <!-- cafeNo를 통해 이름 불러오기 -->
-                        <td onclick="${contextPath}//detail?${Cafe.caCode}"> ${ Cafe.caName }</td>
-                        <!--마우스 오버시 등장하는 정보-->              
+                        <td onclick="location.href='${ contextPath }/cafe/detail?caCode=${ coffeeclass.cafeNo }'"> <button style="background-color :none; border:0px;"> ☕☕이동하기 </button></td>             
                       </tr>
                       <tr>
                         <td style="width : 30px;">
@@ -105,7 +104,8 @@
                           <select style="width: 80%;">
                             <option value="" class = "selecttime" disabled="disabled" selected>시간</option>
                           	<c:forEach var="time" items="${ classTimes }">
-                           		<option class = "selecttime" name="classTime" value="${ time }">${ time }</option>
+                           		<option class = 
+                           		"selecttime" name="classTime" value="${ time }">${ time }</option>
                         	</c:forEach>
                         	<option class = "selecttime" name="classTime" value="${ coffeeclass.classTime }">${ coffeeclass.classTime }</option>
                         	<c:if test="${ !empty coffeeclass.classTime2 }">
@@ -126,6 +126,7 @@
                     </tbody>
                   </table>
                   <div class="btnDiv" id = "classupdate">
+                  	<!-- 바로결제 -->
                     <form action="${ contextPath }/coffeeclass/register" method="POST">
                     	<input type="hidden" id="user_id" name="buyerId" value="${ sessionScope.loginUser.id }">
                     	<input type="hidden" id= "class_no" name="classNo" value="${ coffeeclass.classNo }">
@@ -137,14 +138,24 @@
                     
                      <!-- 일반사용자들에게 보여지는 버튼 or 자신의 사업장이 아닌 클래스 열람시 보여지는 버튼 -->
                      <c:if test="${ loginUser == NULL || loginUser.id ne coffeeclass.clWriter }">
-	                     <button class="btn" id = "register-btn" onclick="${ contextPath }/coffeeclass/class_register.jsp">
+	                     <button class="btn" id = "register-btn">
 	                    	  수강신청
 	                      <i class="fa fa-credit-card-alt" aria-hidden="true"></i>
 	                    </button> 
-	                    <button type="button" class="btn" id = "cart-btn" onclick="commonCart()">
+	                    <button type="button" class="btn" id = "cart-btn">
 	                      	  장바구니
 	                      <i class="fa fa-shopping-cart" aria-hidden="true"></i>
 	                    </button>
+	                    <!-- 장바구니 -->
+	                    <form id = "cartclass" action="${ contextPath }/cart/cartclass" method="post">
+	                    <input type="hidden" id="user_id" name="buyerId" value="${ sessionScope.loginUser.id }">
+                    	<input type="hidden" id= "class_no" name="classNo" value="${ coffeeclass.classNo }">
+                    	<input type="hidden" id= "class_name" name="className" value="${ coffeeclass.className }">
+                    	<input type="hidden" id="cl_price" name="clPrice" value="${ coffeeclass.clPrice}">
+	                    <input type="hidden" id = "cl_date" name="classDate" value = "${ coffeeclass.classDate }">
+	                    <input type="hidden" id = "cl_time" name="classTime" value = "${ coffeeclass.classTime }">
+	                    </form>
+	                    
 	                     <!--클래스 신고-->                    
 	                    <button style="border:transparent; background-color:transparent;">
 	                      <div class="report" style="margin-bottom: 3vh;">
@@ -153,6 +164,8 @@
 	                    </button>
                      </c:if>
                     </div> 
+                    
+                    
                     
                     <!-- 클래스 개설한 당사자에게만 보여지는 버튼 -->
                     <c:if test="${ loginUser != NULL && loginUser.id eq coffeeclass.clWriter }">
@@ -247,10 +260,21 @@
 	<!-- 장바구니 insert -->
 	function
 	
-	<!-- 바로결제
-	KG이니시스 
+	
+	
 	<script>	
-	$("#register-btn").click(function () {
+	$(document).on("click", "#cart-btn", function(){
+		alert("장바구니에 추가되었습니다.");
+		$("#cartclass").submit();
+	});
+	
+	
+	</script>
+	
+	
+	<%-- 
+	 KG이니시스
+	 $("#register-btn").click(function () {
         var IMP = window.IMP; // 생략가능
         IMP.init('imp85155473');
         // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
@@ -348,10 +372,10 @@
 	        alert(msg);
         }
       }); // end of ajax
-    }); // end of onclick
+    }); // end of onclick 
+ --%>
 
 
-	</script> -->
       
 </body>
 </html>

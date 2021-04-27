@@ -63,7 +63,7 @@ public interface CoffeeClassDao {
 		// 16. new 페이징
 		public List<CoffeeClass> selectListWithPaging(Paging paging);
 
-
+	
 		
 		
 

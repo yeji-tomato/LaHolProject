@@ -152,7 +152,7 @@
 	                                                        <span class="warning"></span>
 	                                                    </label>
 	                                                </div>
-	                                                <div class="img"><img src="${ contextPath }/resources/img/store/${ crt.photoName }" width="100"></div>
+	                                                <div class="img"><img src="${ contextPath }/resources/nuploadFiles/classImg/${ crt.photoName }" width="100"></div>
 	                                                <div class="pname">
 	                                                    <span>${ crt.cartName }</span>
 	                                                </div>

@@ -52,10 +52,16 @@ public class CartDaoImpl implements CartDao{
 	public int CartPayment(Payment pay) {
 		return sqlSession.insert("cartMapper.CartPayment", pay);
 	}
-
+	
 	@Override
 	public int successCart(String id) {
 		return sqlSession.delete("cartMapper.successCart", id);
+	}
+
+	// 클래스 장바구니
+	@Override
+	public int classcartInsert(Cart ct) {
+		return sqlSession.insert("cartMapper.classCart", ct);
 	}
 
 	
