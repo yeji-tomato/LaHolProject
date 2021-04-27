@@ -348,6 +348,7 @@
 		const rest = $('#rest-text');
 		const expired = $('#expired-text');
 		const used = $('#used-text');
+		const totalPrice = $('#total-price');
 		
 		var issuedAccu = 0;
 		var expiredAccu = 0;
@@ -397,6 +398,72 @@
 		        	success : function(data) {
 		        		dataTable.attr('data', JSON.stringify(data)).trigger("create");
 		        		console.log(data);
+		        		
+		        		// 발급
+		        		var sumIssued = 0;
+		        		// 가용
+		        		var sumAvailable= 0;
+		        		// 만료
+		        		var sumExpired = 0;
+		        		// 사용
+		        		var sumUsed = 0;
+		        		
+		        		for(var e in data) {
+		        			 sumIssued += data[e].limit * data[e].issued;
+		        			 sumAvailable += data[e].limit * (data[e].issued - data[e].used - data[e].expired);
+		        			 sumExpired += data[e].limit * data[e].expired;
+		        		};
+		        		 sumUsed = sumIssued - sumAvailable - sumExpired;
+		        		
+	        			 console.log("발급 : " + sumIssued);
+	        			 console.log("가용 : " + sumAvailable);
+	        			 console.log("만료 : " + sumExpired);
+	        			 console.log("사용 : " + sumUsed);
+		        	
+	        			 // 세 자리 콤마찍기 함수
+	        			 function numberWithCommas(x) {
+	        			     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+	        			 };
+	        			 
+		        		rest.text('₩ ' + numberWithCommas(sumAvailable));
+		        		expired.text('₩ ' + numberWithCommas(sumExpired));
+		        		used.text('₩ ' + numberWithCommas(sumUsed));
+		        		totalPrice.text('₩ ' + numberWithCommas(sumIssued));
+		        		
+		        		/* 하프 도넛 차트 */
+		        		$(document).ready(function(){
+		        			var options = {
+		        				// legend: false,
+		        				responsive: false
+		        			};
+		        			new Chart($("#big-doughnut"), {
+		        				type: 'doughnut',
+		        				tooltipFillColor: "rgba(51, 51, 51, 0.55)",
+		        				data: {
+		        				labels: [
+		        					"가용",
+		        					"사용",
+		        		            "만료"
+		        				],
+		        				datasets: [{
+		        				data: [sumAvailable, sumUsed, sumExpired],
+		        				backgroundColor: [
+		        					"rgb(54, 162, 235)",
+		        					"rgb(255, 205, 86)",
+		        		            "#ff6384"
+		        				],
+		        				hoverBackgroundColor: [
+		        					"rgb(54, 162, 235)",
+		        					"rgb(255, 205, 86)",
+		        		           "#ff6384"
+		        				]
+		        				}]
+		        			},
+		        				options: { responsive: true,
+		        		            rotation: 1 * Math.PI,
+		        		            circumference: 1 * Math.PI}
+		        			});           
+		        		});
 		        	},
 		        	error : function(e) {
 		        		console.log(e);
@@ -453,43 +520,6 @@
 		    $('#custom-period').html('');
 		});
 
-		/* 하프 도넛 차트 */
-		$(document).ready(function(){
-			var options = {
-				// legend: false,
-				responsive: false
-			};
-			new Chart($("#big-doughnut"), {
-				type: 'doughnut',
-				tooltipFillColor: "rgba(51, 51, 51, 0.55)",
-				data: {
-				labels: [
-					"가용",
-					"사용",
-		            "만료"
-				],
-				datasets: [{
-				data: [],
-				backgroundColor: [
-					"rgb(54, 162, 235)",
-					"rgb(255, 205, 86)",
-		            "#ff6384"
-				],
-				hoverBackgroundColor: [
-					"rgb(54, 162, 235)",
-					"rgb(255, 205, 86)",
-		           "#ff6384"
-				]
-				}]
-			},
-				options: { responsive: true,
-		            rotation: 1 * Math.PI,
-		            circumference: 1 * Math.PI}
-			});           
-		});
-		
-		
-		
 		</script>
 		<script src="${ contextPath }/resources/js/admin/darkMode.js"></script>
 	</body>

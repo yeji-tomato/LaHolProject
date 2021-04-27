@@ -76,8 +76,6 @@ public class AdminDaoImpl implements AdminDao{
 		return sqlSession.selectList("adminMapper.selectCompletedPartnerList");
 	}
 
-
-
 	@Override
 	public List<Report_N> selectReportedUserList() {
 		return sqlSession.selectList("adminMapper.selectReportedUserList");
@@ -103,5 +101,26 @@ public class AdminDaoImpl implements AdminDao{
 		sqlSession.update("adminMapper.updatePartnerReportInvalid", ap);
 	}
 
+	@Override
+	public List<CafeList> selectCafeListByTerm(Map<String, Object> dates) {
+		return sqlSession.selectList("adminMapper.selectCafeListByTerm", dates);
+	}
+
+	@Override
+	public void updateUserWarned(Report_N an) {
+		sqlSession.update("adminMapper.updateUserWarned", an);
+		
+	}
+
+	@Override
+	public void updateUserReportStatus(Report_N an) {
+		sqlSession.update("adminMapper.updateUserReportStatus", an);
+	}
+
+	@Override
+	public void updateUserReportInvalid(Report_N an) {
+		sqlSession.update("adminMapper.updateUserReportInvalid", an);
+	}
+	
 
 }

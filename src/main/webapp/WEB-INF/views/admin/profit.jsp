@@ -381,11 +381,15 @@
 		  });
 
 		$('#calendar').on('apply.daterangepicker', function(ev, picker) {
-		    $('#custom-period').html(picker.startDate.format('YYYY.MM.DD') + ' - ' + picker.endDate.format('YYYY.MM.DD'));
-		});
-
-		$('#calendar').on('cancel.daterangepicker', function(ev, picker) {
-		    $('#custom-period').html('');
+			$('#graph-box').hide();
+			$('#graph-alternative').show();
+			$('#graph-alternative').text('기간 조회는 그래프를 제공하지 않습니다');
+			
+		    var startDate = picker.startDate.format('YY-MM-DD');
+		    var endDate = picker.endDate.format('YY-MM-DD');
+		    
+		    $('.dateBtn').removeClass('selected');
+		    $('#custom-period').html(startDate + ' ~ ' + endDate);
 		});
 
 		$('.period').click(function(){
@@ -594,6 +598,7 @@
 			if(criteria == 'day') {
 				$('#graph-box').hide();
 				$('#graph-alternative').show();
+				$('#graph-alternative').text('일별 조회는 그래프를 제공하지 않습니다');
 			} else {
 				$('#graph-box').show();
 				$('#graph-alternative').hide();

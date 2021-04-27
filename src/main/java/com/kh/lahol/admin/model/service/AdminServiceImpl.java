@@ -101,6 +101,26 @@ public class AdminServiceImpl implements AdminService{
 	public void updatePartnerReportInvalid(Report_P ap) {
 		adminDao.updatePartnerReportInvalid(ap);
 	}
+	
+	@Override
+	public List<CafeList> selectCafeListByTerm(Map<String, Object> dates) {
+		return adminDao.selectCafeListByTerm(dates);
+	}
+
+	@Override
+	public void updateUserWarned(Report_N an) {
+		adminDao.updateUserWarned(an);
+	}
+
+	@Override
+	public void updateUserReportStatus(Report_N an) {
+		adminDao.updateUserReportStatus(an);
+	}
+
+	@Override
+	public void updateUserReportInvalid(Report_N an) {
+		adminDao.updateUserReportInvalid(an);
+	}
 
 
 }

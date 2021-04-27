@@ -218,31 +218,147 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 		  WHERE
 		  	    REPORT_NO = #{reportNo}
 		</update>
-		<select id="selectReportedUserList" resultType="A_Report_N">
-<!-- 		SELECT
-			   REPORT_NO AS REPORTNO
-		     , REPORT_TYPE AS REPORTTYPE
-             , REPORT_REASON AS REPORTREASON
-		     , CASE WHEN REPORT_NO LIKE 'STRP%' THEN '스토어'
-					WHEN REPORT_NO LIKE 'CLRP%' THEN '클래스'
-					WHEN REPORT_NO LIKE 'CARP%' THEN '카페'
-					END AS SERVICE
-	         , CONCAT(BLIND, '건') AS ACCU
+ 		<select id="selectReportedUserList" resultType="A_Report_N">
+		SELECT 
+	           REPORT_NO AS REPORTNO
+	         , REPORT_TYPE AS REPORTTYPE
+	         , REPORT_REASON AS REPORTREASON
+         	 , CONCAT(NVL(BLIND, '0'), '건') AS ACCU
+	         , IMGNAME
+	         , NVL2(IMGNAME, 'O', 'X') AS HASIMG
+	         , IMGPATH
+	         , IMGCHNAME
 	         , REPORTER_ID AS REPORTER
 	         , REPORTEE_ID AS REPORTEE
-	         , AS HASIMG
-	         , AS IMGPATH
-	         , AS IMGCHNAME
-		  FROM
-		 	   REPORT R
-    INNER JOIN
-		 	   MEMBER M ON(R.REPORTEE_ID = M.ID)
-    INNER JOIN
-   			   CAFE C ON(R.REPORTEE_ID = C.ID)
-    INNER JOIN  
-   			   M_PARTNER P ON(R.REPORTEE_ID = P.ID)
-		 WHERE 
-			   ISCHECKED = 'F'	 -->	 
+	         , ITEM_CODE AS ITEMCODE
+	         , NVL(REVIEW_CONTENT, ' ') AS STOREREVIEWCONTENT
+	         , NVL(C_REV_CON, ' ') AS CAFEREVIEWCONTENT
+	         , NVL(CL_REVIEW, ' ') AS CLASSREVIEWCONTENT
+		 FROM
+	          REPORT R
+	     JOIN
+	     	  MEMBER M ON(R.REPORTEE_ID = M.ID)
+	LEFT JOIN
+		      PR_REVIEW STRV ON (R.REPORTEE_ID = STRV.ID)
+	LEFT JOIN
+		 	  CAREVIEW CARV ON(R.REPORTEE_ID = CARV.ID)
+	LEFT JOIN
+			  CL_REVIEW CLRV ON (R.REPORTEE_ID = CLRV.WRITER_ID)
+		WHERE
+			  GRADE = 'N'
+		  AND
+		  	  ISCHECKED = 'F'
 		</select>
-		<select id="selectCompletedUserList" resultType="A_Report_N"></select>
+		<select id="selectCompletedUserList" resultType="A_Report_N">
+		SELECT 
+	          REPORT_NO AS REPORTNO
+	        , REPORT_TYPE AS REPORTTYPE
+	        , REPORT_REASON AS REPORTREASON
+	        , CONCAT(NVL(BLIND, '0'), '건') AS ACCU
+	        , IMGNAME
+	        , NVL2(IMGNAME, 'O', 'X') AS HASIMG
+	        , IMGPATH
+	        , IMGCHNAME
+	        , REPORTER_ID AS REPORTER
+	        , REPORTEE_ID AS REPORTEE
+	        , ITEM_CODE AS ITEMCODE
+	        , REVIEW_CONTENT AS STOREREVIEWCONTENT
+	        , C_REV_CON AS CAFEREVIEWCONTENT
+	        , CL_REVIEW AS CLASSREVIEWCONTENT
+	        , CASE ISWARNED WHEN 'T' THEN '../../resources/img/admin/icon/blind.svg'
+             				 ELSE '../../resources/img/admin/icon/restore.svg'
+	          END AS ISWARNED
+		 FROM
+		      REPORT R
+		 JOIN
+		 	  MEMBER M ON(R.REPORTEE_ID = M.ID)
+	LEFT JOIN 
+			  PR_REVIEW STRV ON (R.REPORTEE_ID = STRV.ID)
+	LEFT JOIN
+			  CAREVIEW CARV ON(R.REPORTEE_ID = CARV.ID)
+	LEFT JOIN
+			  CL_REVIEW CLRV ON (R.REPORTEE_ID = CLRV.WRITER_ID)
+		WHERE
+			  GRADE = 'N'
+		  AND
+		  	  ISCHECKED = 'T'		
+		</select>
+		<select id="selectCafeList" resultType="A_CafeList">
+	    SELECT
+	          C_NAME AS CAFENAME
+	        , PHONE 
+	        , SUM(CASE WHEN REGEXP_REPLACE(PAY_NO, '[0-9]') = 'STP' THEN PAY_TOTAL ELSE '0' END ) AS STORESALES
+	        , SUM(CASE WHEN REGEXP_REPLACE(PAY_NO, '[0-9]') = 'CL' THEN PAY_TOTAL ELSE '0' END ) AS CLASSSALES
+	        , SUM(CASE WHEN REGEXP_REPLACE(PAY_NO, '[0-9]') = 'CAP' THEN PAY_TOTAL ELSE '0' END ) AS CAFESALES
+	        , SUM(PAY_TOTAL) TOTALSALES
+	        , TO_CHAR(OPENDATE,'yyyy-mm-dd') AS OPENDATE
+	     FROM
+	          M_PAY_LIST MV
+   INNER JOIN
+	          M_PARTNER P ON (MV.ID = P.ID)ef
+   INNER JOIN
+	          MEMBER M ON (MV.ID = M.ID) 
+   INNER JOIN
+	          CAFE C ON(MV.ID = C.ID) 
+	<choose>
+     		<when test="_parameter == 'day'">WHERE TO_DATE(SYSDATE,'yy-mm-dd') - TO_DATE(PAY_DATE, 'yy-mm-dd') = 0</when>
+     		<when test="_parameter == 'week'">WHERE PAY_DATE <![CDATA[>=]]> TRUNC(SYSDATE, 'IW')
+									  		  AND PAY_DATE <![CDATA[<]]> TRUNC(SYSDATE, 'IW') + 7</when>
+     		<when test="_parameter == 'month'">WHERE PAY_DATE <![CDATA[>=]]> TRUNC(SYSDATE, 'MM')
+											   AND PAY_DATE <![CDATA[<]]> LAST_DAY(SYSDATE)</when>
+			<when test="_parameter == 'year'">WHERE EXTRACT(YEAR FROM PAY_DATE) = EXTRACT(YEAR FROM SYSDATE)</when>
+   		</choose>		            
+	 GROUP BY
+			  C_NAME, PHONE, TO_CHAR(OPENDATE,'yyyy-mm-dd'), PHONE
+		</select>
+		<select id="selectCafeListByTerm" parameterType="map" resultType="A_CafeList">
+	    SELECT
+	          C_NAME AS CAFENAME
+	        , PHONE 
+	        , SUM(CASE WHEN REGEXP_REPLACE(PAY_NO, '[0-9]') = 'STP' THEN PAY_TOTAL ELSE '0' END ) AS STORESALES
+	        , SUM(CASE WHEN REGEXP_REPLACE(PAY_NO, '[0-9]') = 'CL' THEN PAY_TOTAL ELSE '0' END ) AS CLASSSALES
+	        , SUM(CASE WHEN REGEXP_REPLACE(PAY_NO, '[0-9]') = 'CAP' THEN PAY_TOTAL ELSE '0' END ) AS CAFESALES
+	        , SUM(PAY_TOTAL) TOTALSALES
+	        , TO_CHAR(OPENDATE,'yyyy-mm-dd') AS OPENDATE
+	     FROM
+	          M_PAY_LIST MV
+   INNER JOIN
+	          M_PARTNER P ON (MV.ID = P.ID)
+   INNER JOIN
+	          MEMBER M ON (MV.ID = M.ID) 
+   INNER JOIN
+	          CAFE C ON(MV.ID = C.ID) 
+		WHERE
+			  PAY_DATE <![CDATA[>]]> #{startDate}
+      	  AND
+      	  	  PAY_DATE <![CDATA[<]]> #{endDate}
+     GROUP BY
+     		  C_NAME, PHONE, TO_CHAR(OPENDATE,'yyyy-mm-dd')
+		</select>
+		<update id="updateUserWarned" parameterType="A_Report_N">
+		 UPDATE 
+	    	    M_NORMAL
+	    	SET
+	    		BLIND = BLIND + 1
+	      WHERE
+	      		ID = #{reportee}
+		</update>
+		<update id="updateUserReportStatus" parameterType="A_Report_N">
+		  UPDATE
+		 	 	REPORT
+		 	SET
+		 		ISCHECKED = 'T'
+		 	  , ISWARNED = 'T'
+		  WHERE
+		  	    REPORT_NO = #{reportNo}
+		</update>
+		<update id="updateUserReportInvalid" parameterType="A_Report_N">
+		  UPDATE
+		 	 	REPORT
+		 	SET
+		 		ISCHECKED = 'T'
+		 	  , ISWARNED = 'F'
+		  WHERE
+		  	    REPORT_NO = #{reportNo}
+		</update>
 </mapper>

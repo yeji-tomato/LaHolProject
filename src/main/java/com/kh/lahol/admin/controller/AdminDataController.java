@@ -72,7 +72,7 @@ public class AdminDataController {
 	}
 	
 	// 일반회원 신고처리 대기리스트 조회
-	@GetMapping("/admin/report/NormalList/waiting")
+	@GetMapping("/admin/report/normalList/waiting")
 	public List<Report_N> selectReportedUserList(){
 		return adminService.selectReportedUserList(); 
 	}
