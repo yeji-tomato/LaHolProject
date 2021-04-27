@@ -321,6 +321,8 @@
 				type: "get",
 				success: function(data){
 					waitingList.attr('data', JSON.stringify(data)).trigger("create");
+					// 승인리스트도 같이 호출
+					selectConfirmedList();
 				},
 				error: function(e){
 					console.log(e);
@@ -328,8 +330,8 @@
 			});		
 		});
 		
-		// 광고 승인리스트 조회
-		$(function(){
+		// 광고 승인리스트 조회 함수
+		function selectConfirmedList() {
 			const confirmedList = $('#confirmed-list');
 			$.ajax({
 				url: "${ pageContext.request.contextPath }/admin/promo/confirmed",
@@ -342,7 +344,7 @@
 					console.log(e);
 				}
 			});		
-		});
+		};
 		
 		
 		// 대기리스트 Row 클릭

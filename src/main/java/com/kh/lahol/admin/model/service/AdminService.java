@@ -44,4 +44,13 @@ public interface AdminService {
 	List<Report_N> selectCompletedUserList();
 	
 	void updatePartnerReportInvalid(Report_P ap);
+	
+	List<CafeList> selectCafeListByTerm(Map<String, Object> dates);
+
+	void updateUserWarned(Report_N an);
+	
+	void updateUserReportStatus(Report_N an);
+	
+	void updateUserReportInvalid(Report_N an);
+
 }

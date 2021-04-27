@@ -43,6 +43,14 @@ body {
     overflow: hidden;
 }
 
+.swal2-confirm,
+.swal2-cancel,
+.swal2-html-container,
+.swal2-title,
+.swal2-validation-message {
+	font-family: 'NEXON Lv1 Gothic OTF';
+}
+
 /*전체 컨테이너*/
 #whole-container {
     display: flex;

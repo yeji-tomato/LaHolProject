@@ -306,6 +306,7 @@
 					waitingList.attr('data', JSON.stringify(data)).trigger("create");
 					console.log(data);
 					console.log("대기리스트 조회 성공이당");
+					selectCompletedList();
 				},
 				error: function(e){
 					console.log(e);
@@ -313,8 +314,8 @@
 			});		
 		});
 		
-		/* 신고처리 완료리스트 조회 */
-		$(function(){
+		/* 신고 처리완료 리스트 호출 함수 */
+		function selectCompletedList() {
 			const completedList = $('#completed-list');
 			$.ajax({
 				url: "${ pageContext.request.contextPath }/admin/report/partnerList/completed",
@@ -328,11 +329,11 @@
 				error: function(e){
 					console.log(e);
 				}
-			});		
-		});
+			});	
+		}
 				
 		// 대기리스트 Row 클릭
-		var waitingList = document.querySelector("#waiting-list");
+	 	var waitingList = document.querySelector("#waiting-list");
 		
 		waitingList.addEventListener('row:click', function(e) { // !! THE VERY START
 			console.log(e.detail.ZGData.data);
@@ -341,6 +342,7 @@
 			var reportee = e.detail.ZGData.data.reportee;
 			var reportNo = e.detail.ZGData.data.reportNo;
 			// 모달에 띄울 변수
+			var imgName = e.detail.ZGData.data.imgName;
 			var reportType = e.detail.ZGData.data.reportType;
 			var reportReason = e.detail.ZGData.data.reportReason;
 			
@@ -358,10 +360,10 @@
 				}).then((result) => {
 				  if (result.isConfirmed) {	// 경고 버튼 선택 시 
 					 Swal.fire('경고처리 되었습니다', '', 'success')
-					 location.href='${ pageContext.request.contextPath }/admin/updatePartnerWarned?reportNo='+reportNo+'&reportee='+reportee;
+					 location.href='${ pageContext.request.contextPath }/admin/updateUserWarned?reportNo='+reportNo+'&reportee='+reportee;
 				  } else if (result.isDenied) { // 해제 버튼 선택 시
 					 Swal.fire('경고가 해제되었습니다', '', 'info')
-					 location.href='${ pageContext.request.contextPath }/admin/updatePartnerReportInvalid?reportNo='+reportNo;
+					 location.href='${ pageContext.request.contextPath }/admin/updateUserReportInvalid?reportNo='+reportNo;
 				  }
 				}); // -- SWAL END
 		
