@@ -264,7 +264,7 @@ public class CoffeClassController {
 				 */ 
 			  model.addAttribute("qnalist", qnalist);
 			  model.addAttribute("classTimes", cl.bringTimes());
-			  System.out.println(classqna.getQnaNo());
+			  // System.out.println(classqna.getQnaNo());
 			  // 연계 카페 이동 : model.addAttribute("Cafe", ca);
 			  return "coffeeclass/class_detail";
 		  } else {
@@ -454,21 +454,42 @@ public class CoffeClassController {
 
 	  
 	
-	  // 클래스 수강신청
-	  @PostMapping("/coffeeclass/register")
+	  // 클래스 수강신청 페이지 이동
+	  @GetMapping("/coffeeclass/register")
 	  							// ajax사용시
-	  public String registerClass(@RequestBody ClassRegister clRegi,			  					
-			  					   Model model) {
-		  System.out.println(clRegi);
-		  int result = clService.registerClass(clRegi); 
-		  if(result > 0) {
-			  return "coffeeclass/class_detail";
-		  } else {
-			  model.addAttribute("msg", "결제에 실패하였습니다.");
-			  return "common/error";
-		  } 
+	  public String registerClass(Model model, String classNo ,String classTime) {
+		  
+		  System.out.println("클래스" + classNo);
+		  System.out.println("시간"+classTime );
+		  CoffeeClass cl = clService.bringClassInfo(classNo);
+		  
+		  System.out.println(classNo);
+		  
+		  System.out.println(cl.getClassName());
+		  
+		  // view에서 보여질 변수명, 컨트롤러 변수명
+		  model.addAttribute("cl", cl);
+		  // 주소 잘라서 가져오기
+		  model.addAttribute("clAddresses", cl.bringAddress());
+		  // 강의 시간 잘라서 가져오기
+		  model.addAttribute("classTimes", cl.bringTimes());
+		  
+		  return "coffeeclass/class_register";
+		  
 		 
 	  }
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
 		
 	  // 클래스 문의,질문 등록
 	  @PostMapping("/coffeeclass/ask")
@@ -525,17 +546,7 @@ public class CoffeClassController {
 	  
 	  // 장바구니
 	  
-	  
-	  // 바로결제 (한 품목만 결제 페이지 이동 후 결제)
-	  @GetMapping("/coffeeclass/purchase")
-	  public String purchaseClass(@ModelAttribute CoffeeClass cl, 
-				HttpServletRequest request,
-				Model model,
-				RedirectAttributes rd) {
-		  
-		  return"coffeeclass/class_register";
-	  }
-	  
+	
 	  
 	  
 	  

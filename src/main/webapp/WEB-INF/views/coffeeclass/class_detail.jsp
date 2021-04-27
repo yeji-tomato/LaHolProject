@@ -101,18 +101,14 @@
                       <tr>
                         <td>시간</td>
                         <td colspan="2">
-                          <select style="width: 80%;">
-                            <option value="" class = "selecttime" disabled="disabled" selected>시간</option>
-                          	<c:forEach var="time" items="${ classTimes }">
-                           		<option class = 
-                           		"selecttime" name="classTime" value="${ time }">${ time }</option>
-                        	</c:forEach>
-                        	<option class = "selecttime" name="classTime" value="${ coffeeclass.classTime }">${ coffeeclass.classTime }</option>
+                          <select style="width: 80%;" >
+                            <option class = "selecttime" disabled="disabled">시간</option>
+                        	<option class = "selecttime" name="classTime"  value="dd">${ coffeeclass.classTime }</option>
                         	<c:if test="${ !empty coffeeclass.classTime2 }">
-                        	<option class = "selecttime" name="classTime2" value="${ coffeeclass.classTime2 }">${ coffeeclass.classTime2 }</option>
+                        	<option class = "selecttime" value="${ coffeeclass.classTime2 }">${ coffeeclass.classTime2 }</option>
                         	</c:if>
                         	<c:if test="${ !empty coffeeclass.classTime3 }">
-                        	<option class = "selecttime" name="classTime3" value="${ coffeeclass.classTime3 }">${ coffeeclass.classTime3 }</option>
+                        	<option class = "selecttime" value="${ coffeeclass.classTime3 }">${ coffeeclass.classTime3 }</option>
                         	</c:if>
                         </select>          
                         </td>
@@ -126,14 +122,28 @@
                     </tbody>
                   </table>
                   <div class="btnDiv" id = "classupdate">
+                  
+                  <script>
+				function submitForm() {
+					if( $('select[name=classTime]:checked').val() == 'dd'){
+				    document.getElementById("envselection").submit();
+					
+				    
+				}
+				</script>
+                  
+                  
+                  
+                  
                   	<!-- 바로결제 -->
-                    <form action="${ contextPath }/coffeeclass/register" method="POST">
-                    	<input type="hidden" id="user_id" name="buyerId" value="${ sessionScope.loginUser.id }">
+                  								
+                    <form id ="cl_register" action="${ contextPath }/coffeeclass/register"  method="GET">
                     	<input type="hidden" id= "class_no" name="classNo" value="${ coffeeclass.classNo }">
+                    	<%-- <input type="hidden" id="user_id" name="buyerId" value="${ sessionScope.loginUser.id }">
                     	<input type="hidden" id= "class_name" name="className" value="${ coffeeclass.className }">
                     	<input type="hidden" id="cl_price" name="clPrice" value="${ coffeeclass.clPrice}">
 	                    <input type="hidden" id = "cl_date" name="classDate" value = "${ coffeeclass.classDate }">
-	                    <input type="hidden" id = "cl_time" name="classTime" value = "${ coffeeclass.classTime }">
+	                    <input type="hidden" id = "cl_time" name="classTime" value = "${ coffeeclass.classTime }"> --%>
                     </form>
                     
                      <!-- 일반사용자들에게 보여지는 버튼 or 자신의 사업장이 아닌 클래스 열람시 보여지는 버튼 -->
@@ -266,6 +276,11 @@
 	$(document).on("click", "#cart-btn", function(){
 		alert("장바구니에 추가되었습니다.");
 		$("#cartclass").submit();
+	});
+	
+	$(document).on("click", "#register-btn", function(){
+		alert("결제페이지로 이동합니다");
+		$("#cl_register").submit();
 	});
 	
 	

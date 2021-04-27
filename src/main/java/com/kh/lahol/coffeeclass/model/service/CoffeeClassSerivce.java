@@ -42,7 +42,7 @@ public interface CoffeeClassSerivce {
 	public int reportClComment(CoffeeClass cl);
 
 	// 10. 클래스 수강신청
-	public int registerClass(ClassRegister clRegi);
+	public int registerClass(String classNo);
 
 	// 11. 검색
 	public List<ClassSearch> searchList(ClassSearch search);

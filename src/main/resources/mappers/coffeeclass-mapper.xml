@@ -327,27 +327,11 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 	  	  		PAYMENT
 	  </select>  -->
 	  <!-- 개별 클래스 수강신청 -->
-	  <insert id="registerClass" parameterType="ClassRegister">
-	  	INSERT
-	  	  INTO	PAYMENT
-	  	  (
-	  	  		  PAY_NO
-	  	  		, PAY_ITEM
-	  	  		, PAY_PRICE
-	  	  		, PAY_DATE
-	  	  		, BUYER_ID
-	  	  		, CL_PAY_NO 	
-	  	  )
-	  	  VALUES
-	  	  (
-	  	  		  'CLPAY'||CLPAY.NEXTVAL
-	  	  		, #{className}
-	  	  		, #{classPrice}
-	  	  		, SYSDATE
-	  	  		, 'user001'
-	  	  		, #{classNo}	  	  
-	  	  )
-	  </insert>
+	  <select id="registerClass" resultMap="clResultSet">
+	  	SELECT *
+	  	  FROM	COFFEECLASS
+	  	 WHERE  CLASS_NO = #{classNo}		  	
+	  </select>
 	  <!-- 메인페이지 검색 -->
 	  <select id = "searchClass" parameterType="ClassSearch" resultMap="clResultSet">
 	     <bind name="sv" value="'%' + _parameter.getSearchValue() +  '%'"/>

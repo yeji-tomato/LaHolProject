@@ -79,8 +79,8 @@ public class CoffeeClassDaoImpl implements CoffeeClassDao{
 
 	// 클래스 수강신청
 	@Override
-	public int registerClass(ClassRegister clRegi) {
-		return sqlSession.insert("clMapper.registerClass", clRegi);
+	public int registerClass(String classNo) {
+		return sqlSession.selectOne("clMapper.registerClass", classNo);
 	}
 
 	// 검색
