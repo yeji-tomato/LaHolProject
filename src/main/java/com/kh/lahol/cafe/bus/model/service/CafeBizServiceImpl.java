@@ -41,8 +41,8 @@ public class CafeBizServiceImpl implements CafeBizService{
 	}
 
 	@Override
-	public List<Coffee> selectCoffeeList(PageInfo pi) {
-		return caBizDao.selectCoffeeList(pi);
+	public List<Coffee> selectCoffeeList(PageInfo pi, String caCode) {
+		return caBizDao.selectCoffeeList(pi, caCode);
 	}
 
 	@Override

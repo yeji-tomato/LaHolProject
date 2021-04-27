@@ -19,5 +19,4 @@ public class PageInfo {
 	private int startPage;
 	private int endPage;
 	private int coffeeLimit;
-	private String caCode;
 }

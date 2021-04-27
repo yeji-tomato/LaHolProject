@@ -26,7 +26,7 @@ public interface CafeBizService {
 	public Cafe selectCafeInfo(String caCode);
 	
 	// 카페 시퀀스를 통한 커피 조회
-	public List<Coffee> selectCoffeeList(PageInfo pi);
+	public List<Coffee> selectCoffeeList(PageInfo pi, String caCode);
 	
 	// 카페 등록을 하기 위한 select
 	public Cafe caWriteSelect(String Id);
@@ -50,5 +50,7 @@ public interface CafeBizService {
 	public List<CafeRes> selectOrderList(String id);
 
 	public int coffeeStatus(CafeRes cr);
+
+	
 
 }

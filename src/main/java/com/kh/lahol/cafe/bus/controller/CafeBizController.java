@@ -290,9 +290,9 @@ public class CafeBizController {
 		// System.out.println(caCode + "caCode");
 		int listCount = caBizService.selectCoffeeCount(caCode);
 		System.out.println(listCount);
-		PageInfo pi = Pagination.getPageInfo(currentPage, listCount, caCode);
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 		System.out.println(pi);
-		List<Coffee> Coffeelist = caBizService.selectCoffeeList(pi);
+		List<Coffee> Coffeelist = caBizService.selectCoffeeList(pi, caCode);
 		System.out.println(Coffeelist);
 		
 		

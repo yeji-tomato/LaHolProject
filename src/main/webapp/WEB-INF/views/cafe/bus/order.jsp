@@ -9,6 +9,7 @@
 <link rel="stylesheet" href="${ contextPath }/resources/css/cafe/bus/order.css" type="text/css">
 <link rel="stylesheet" href="${ contextPath }/resources/css/cafe/bus/sideMenu.css" type="text/css">
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script src="https://cdn.jsdelivr.net/npm/datepickk@1.4.0/src/js/datepickk.min.js"></script>
 </head>
 <body>
 
@@ -78,9 +79,11 @@
                        </button>
                        &nbsp;
                        <b style="font-size: 20px;">2016-03-04</b>&nbsp;
-                       <button class="btnOrd arrowBtn">
+                       <button class="btnOrd arrowBtn" onclick="datepickerShow();">
                            <i class="fa fa-chevron-right" aria-hidden="true"></i>
                        </button>
+                       <div class="datepickker"></div>
+						
                    </td>
                </tr>
                <tr> 
