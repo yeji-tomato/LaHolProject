@@ -3,6 +3,7 @@ package com.kh.lahol.cafe.bus.model.dao;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -39,8 +40,10 @@ public class CafeBizDaoImpl implements CafeBizDao{
 	}
 
 	@Override
-	public List<Coffee> selectCoffeeList(PageInfo pi) {
-		return sqlSession.selectList("cafeMapper.selectCoffeeList", pi);
+	public List<Coffee> selectCoffeeList(PageInfo pi, String caCode) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getCoffeeLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getCoffeeLimit());
+		return sqlSession.selectList("cafeMapper.selectCoffeeList", caCode, rowBounds);
 	}
 
 	@Override

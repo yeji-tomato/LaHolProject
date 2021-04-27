@@ -19,7 +19,7 @@ public interface CafeBizDao {
 
 	public int updateCafeInfo(Cafe c);
 
-	public List<Coffee> selectCoffeeList(PageInfo pi);
+	public List<Coffee> selectCoffeeList(PageInfo pi, String caCode);
 
 	public Cafe caWriteSelect(String Id);
 

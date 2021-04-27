@@ -4,7 +4,7 @@ import com.kh.lahol.cafe.bus.model.vo.PageInfo;
 
 public class Pagination {
 	// PageInfo 객체를 리턴하는 static 메소드
-		public static PageInfo getPageInfo(int currentPage, int listCount, String caCode) {
+		public static PageInfo getPageInfo(int currentPage, int listCount) {
 		PageInfo pi = null;	// 페이지 정보를 담아 줄 PageInfo 참조변수 선언
 		
 		int pageLimit = 4;	// 한 페이지에 보여질 페이징바의 갯수
@@ -19,7 +19,7 @@ public class Pagination {
 			endPage = maxPage;
 		}
 		
-		pi = new PageInfo(currentPage, listCount, pageLimit, maxPage, startPage, endPage, coffeeLimit, caCode);
+		pi = new PageInfo(currentPage, listCount, pageLimit, maxPage, startPage, endPage, coffeeLimit);
 		
 		return pi;
 	}

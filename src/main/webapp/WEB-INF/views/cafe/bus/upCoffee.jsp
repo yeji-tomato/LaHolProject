@@ -125,8 +125,8 @@
 		                </div>
 					    </div>
 					    <div class="col">
-					      <input type="text" name="cfNo" value="${ Coffee.cfNo }"/>
-					      <input type="text" name="caNo" value="${ Coffee.caNo }"/>
+					      <input type="hidden" name="cfNo" value="${ Coffee.cfNo }"/>
+					      <input type="hidden" name="caNo" value="${ Coffee.caNo }"/>
 			                <div class="category" id="upCoffeeForm">
 			                    <h5 class="coffee-title">카테고리</h5> 
 			                    <input type="radio" name="cfCategory" value="COFFEE" class="radioModal" <c:if test="${ Coffee.cfCategory eq 'COFFEE' }">checked</c:if>>COFFEE
