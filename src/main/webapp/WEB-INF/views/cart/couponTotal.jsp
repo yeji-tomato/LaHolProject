@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,7 +11,7 @@
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>    
 </head>
 <body>
-	<div class="row py-5 p-4 rounded shadow-sm">
+	<div class="row py-5 p-4 rounded shadow-sm" style="margin: 5%">
      <div class="col-lg-6">
        <div class="rounded-pill px-4 py-3 text-uppercase font-weight-bold" style="background: #F3EFEB;">적용 가능한 할인쿠폰</div>
        <div class="p-4">
@@ -37,32 +38,40 @@
        <div class="rounded-pill px-4 py-3 text-uppercase font-weight-bold" style="background: #F3EFEB;">결제 정보</div>
        <div class="p-4">
          <ul class="list-unstyled mb-4">
-           <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">상품금액 </strong><strong id="sumPrice"><c:out value="${total}"/></strong></li>
+           <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">상품금액 </strong><strong id="sumPrice"><c:out value="${totalPrice}"/></strong></li>
            <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">배송비</strong><strong>2,500</strong></li>
            <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">할인금액</strong><strong id="couponPrice">0</strong></li>
            <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">결제금액</strong>
-            
-             <h5 class="font-weight-bold" id="resultPrice"><c:out value="${total}"/></h5>
+            <fmt:parseNumber var="sumPrice" type="number" value="${ total + 2500 }" />
+			<fmt:formatNumber type="number" maxFractionDigits="3" value="${ sumPrice }" var="totalPrice" />
+             <h5 class="font-weight-bold" id="resultPrice"><c:out value="${totalPrice}"/></h5>
            </li>
          </ul>
          <button id="check_module" class="btn rounded-pill py-2 btn-block" style="background: #5A452E; color: white; width : 100%" type="button">결제하기</button>
        </div>
      </div>
    </div>
-   <input type="hidden" id="cartName" value="${ name }"/>
+   
    <input type="hidden" id="id" value="${ sessionScope.loginUser.id }"/>
    <script>
 		
 		$("#check_module").click(function () {
 			
-		var cfName = $("#cartName").val(); // 물품명
+		//var cfNameArr = new Array();
+		var cfName = $("#cafeName").text(); // 물품명
+		// for(int i = 0; i < )
+		console.log(cfName);
+		
+		
+		
+		
+		
 		var cfSum = $("#sumPrice").text();	// 결제 금액
 		var cafeResNo = $("#cResNo").val();
 		var couponPrice = $("#couponPrice").text();
 		var resultPrice = $("#resultPrice").text();
 		
 		var couponNo = $("#couponSequence").text();
-		
 		var id = $("id").val();
 			
 			

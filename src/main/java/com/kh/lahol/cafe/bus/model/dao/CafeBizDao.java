@@ -3,9 +3,12 @@ package com.kh.lahol.cafe.bus.model.dao;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.ibatis.session.RowBounds;
+
 import com.kh.lahol.cafe.bus.model.vo.Cafe;
 import com.kh.lahol.cafe.bus.model.vo.Caphoto;
 import com.kh.lahol.cafe.bus.model.vo.Coffee;
+import com.kh.lahol.cafe.bus.model.vo.Order;
 import com.kh.lahol.cafe.bus.model.vo.PageInfo;
 import com.kh.lahol.cafe.user.model.vo.CafeRes;
 
@@ -41,7 +44,9 @@ public interface CafeBizDao {
 
 	public int coffeeStatus(CafeRes cr);
 
-	//public int insetCafeInfoPhoto(ArrayList<Caphoto> photoList);
+	public List<CafeRes> orderDate(Order ord);
+
+
 	
 	
 

@@ -25,5 +25,7 @@ public interface CartDao {
 
 	int successCart(String id);
 
+	int cartNum(String id);
+
 
 }

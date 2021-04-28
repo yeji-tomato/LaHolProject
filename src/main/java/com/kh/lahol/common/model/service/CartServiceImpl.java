@@ -59,4 +59,9 @@ public class CartServiceImpl implements CartService{
 		return cartDao.successCart(id);
 	}
 
+	@Override
+	public int cartNum(String id) {
+		return cartDao.cartNum(id);
+	}
+
 }

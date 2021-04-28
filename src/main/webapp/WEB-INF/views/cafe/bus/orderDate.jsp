@@ -84,17 +84,8 @@
                 	<td colspan="8" style="text-align:center;">
                 	<jsp:useBean id="now" class="java.util.Date" />
                 	<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="today" />
-            		<form action="${ contextPath }/cafe/biz/orderDate" method="get">
-            		<c:choose>
-            			<c:when test="${!empty check}">
-            				<input type="date" id="date" name="checkDate" value="${ param.checkDate }" style="border:0; font-size:20px; color: #e3a259;">
-            			</c:when>
-            			<c:otherwise>
-            				<input type="date" id="date" name="checkDate" value="${today}" style="border:0; font-size:20px; color: #e3a259;">
-            			</c:otherwise>
-            		</c:choose>
-            		<button type="submit" class="lookup">조회</button>
-            		</form>
+            		<input type="date" id="date" value="${ checkDate }" style="border:0; font-size:20px; color: #e3a259;">
+            		<button onclick="changeDate()" class="lookup">조회</button>
             		</td>
                 </tr>
                <tr> 
@@ -209,10 +200,7 @@
        </table>
        </div>
        
-
-       
-       
-       <!-- <script>
+       <script>
        function changeDate(){
     	   var checkDate = $("#date").val();
 /*     	   const strArr = strDate.split('-');	
@@ -225,14 +213,7 @@
       			 checkDate : checkDate
       		   },
       		   success : function(data){
-      			 
-      			   var str = '';
-      			   
-      			   for(var i in data)
-      			   
-      			   
-      			   
-      			   
+      			 location.href="${ contextPath }/cafe/biz/order?checkdate=checkDate";
       		   },
       		 	error : function(e){
 					console.log(e);
@@ -241,7 +222,7 @@
       	   
       	   
        }
-       </script> -->
+       </script>
        
        
        <!-- Modal -->

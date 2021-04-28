@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.kh.lahol.cafe.bus.model.vo.Cafe;
 import com.kh.lahol.cafe.bus.model.vo.Caphoto;
 import com.kh.lahol.cafe.bus.model.vo.Coffee;
+import com.kh.lahol.cafe.bus.model.vo.Order;
 import com.kh.lahol.cafe.bus.model.vo.PageInfo;
 import com.kh.lahol.cafe.user.model.vo.CafeRes;
 
@@ -96,7 +97,12 @@ public class CafeBizDaoImpl implements CafeBizDao{
 		return sqlSession.update("cafeMapper.coffeeStatus", cr);
 	}
 
+	@Override
+	public List<CafeRes> orderDate(Order ord) {
+		return sqlSession.selectList("cafeMapper.orderDate", ord);
+	}
 
-	
+
+
 
 }

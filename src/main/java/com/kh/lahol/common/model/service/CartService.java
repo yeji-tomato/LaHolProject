@@ -29,5 +29,7 @@ public interface CartService {
 
 	int successCart(String id);
 
+	int cartNum(String id);
+
 
 }
