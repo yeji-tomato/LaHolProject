@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.kh.lahol.admin.model.service.AdminService;
 import com.kh.lahol.admin.model.vo.CafeList;
+import com.kh.lahol.admin.model.vo.Profit;
 import com.kh.lahol.admin.model.vo.Promotion;
 import com.kh.lahol.admin.model.vo.Report_N;
 import com.kh.lahol.admin.model.vo.Report_P;
@@ -81,5 +82,11 @@ public class AdminDataController {
 	@GetMapping("/admin/report/normalList/completed")
 	public List<Report_N> selectCompletedUserList() {
 		return adminService.selectCompletedUserList();
+	}
+	
+	// 수익 날짜 별 조회
+	@GetMapping("/admin/profit/{date}")
+	public List<Profit> selectProfitByDate(@PathVariable String date) {
+		return adminService.selectProfitByDate(date);
 	}
 }

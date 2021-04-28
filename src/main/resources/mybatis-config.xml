@@ -39,6 +39,7 @@
 		<typeAlias type="com.kh.lahol.admin.model.vo.CafeList" alias="A_CafeList"/>
 		<typeAlias type="com.kh.lahol.admin.model.vo.Report_P" alias="A_Report_P"/>
 		<typeAlias type="com.kh.lahol.admin.model.vo.Report_N" alias="A_Report_N"/>
+		<typeAlias type="com.kh.lahol.admin.model.vo.Profit" alias="A_Profit"/>
 		<!-- 쿠폰 -->
 		<typeAlias type="com.kh.lahol.member.model.vo.Coupon" alias="Coupon"/>
 		<!-- 회원가입 시 Cafe -->

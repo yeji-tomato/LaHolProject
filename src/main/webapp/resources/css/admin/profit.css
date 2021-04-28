@@ -43,6 +43,10 @@ body {
     overflow: hidden;
 }
 
+*:focus {
+    outline: none;
+}
+
 /*전체 컨테이너*/
 #whole-container {
     display: flex;

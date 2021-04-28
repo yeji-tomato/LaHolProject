@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.kh.lahol.admin.model.vo.CafeList;
+import com.kh.lahol.admin.model.vo.Profit;
 import com.kh.lahol.admin.model.vo.Promotion;
 import com.kh.lahol.admin.model.vo.Report_N;
 import com.kh.lahol.admin.model.vo.Report_P;
@@ -52,4 +53,6 @@ public interface AdminDao {
 	void updateUserReportStatus(Report_N an);
 	
 	void updateUserReportInvalid(Report_N an);
+	
+	List<Profit> selectProfitByDate(String date);
 }

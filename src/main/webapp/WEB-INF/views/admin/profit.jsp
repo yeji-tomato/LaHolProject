@@ -396,141 +396,7 @@
 		    $('#custom-period').html('');
 		});
 
-		/* charts.js */
-
-		/* 큰 도넛 */
-		$(document).ready(function(){
-			var options = {
-				// legend: false,
-				responsive: false
-			};
-			new Chart($("#big-doughnut"), {
-				type: 'doughnut',
-				tooltipFillColor: "rgba(51, 51, 51, 0.55)",
-				data: {
-				labels: [
-					"수수료",
-					"광고"
-				],
-				datasets: [{
-				data: [1300000, 400000],
-				backgroundColor: [
-					"rgb(54, 162, 235)",
-					"rgb(255, 205, 86)"
-				],
-				hoverBackgroundColor: [
-					"rgb(54, 162, 235)",
-					"rgb(255, 205, 86)"
-				]
-				}]
-			},
-				options: { 
-		                responsive: true
-		                }                   
-			});           
-		});
-
-
-		/* 작은 도넛 */
-		/* 1. 스토어 도넛 */
-		var storeValue = 50;
-
-		$(document).ready(function(){
-			var options = {
-				// legend: false,
-				responsive: false
-			};
-			new Chart($("#store-donut"), {
-				type: 'doughnut',
-				tooltipFillColor: "rgba(51, 51, 51, 0.55)",
-				data: {
-				labels: [
-					"스토어"
-				],
-				datasets: [{
-				data: [storeValue, 100-storeValue],
-				backgroundColor: [
-					"#F8964C",
-		            "#fafafa"
-				],
-				hoverBackgroundColor: [
-					"#F8964C",
-		            "#fafafa"
-				]
-				}]
-			},
-				options: { 
-		                responsive: true
-		                }                   
-			});           
-		});
-
-		/* 2. 클래스 도넛 */
-		var classValue = 30;
-
-		$(document).ready(function(){
-			var options = {
-				// legend: false,
-				responsive: false
-			};
-			new Chart($("#class-donut"), {
-				type: 'doughnut',
-				tooltipFillColor: "rgba(51, 51, 51, 0.55)",
-				data: {
-				labels: [
-					"클래스"
-				],
-				datasets: [{
-				data: [classValue, 100-classValue],
-				backgroundColor: [
-					"#22A447",
-		            "#fafafa"
-				],
-				hoverBackgroundColor: [
-					"#22A447",
-		            "#fafafa"
-				]
-				}]
-			},
-				options: { 
-		                responsive: true
-		                }                   
-			});           
-		});
-
-		/* 3. 커피 도넛 */
-		var coffeeValue = 20;
-
-		$(document).ready(function(){
-			var options = {
-				// legend: false,
-				responsive: false
-			};
-			new Chart($("#coffee-donut"), {
-				type: 'doughnut',
-				tooltipFillColor: "rgba(51, 51, 51, 0.55)",
-				data: {
-				labels: [
-					"커피"
-				],
-				datasets: [{
-				data: [coffeeValue, 100-coffeeValue],
-				backgroundColor: [
-					"#70A6E8",
-		            "#fafafa"
-				],
-				hoverBackgroundColor: [
-					"#70A6E8",
-		            "#fafafa"
-				]
-				}]
-			},
-				options: { 
-		                responsive: true
-		                }                   
-			});           
-		});
-
+		
 		/* 라인 그래프 */
 		var ctx = document.getElementById('line-graph').getContext("2d");
 
@@ -603,6 +469,180 @@
 				$('#graph-box').show();
 				$('#graph-alternative').hide();
 			}
+		});
+		
+		/* 날짜 버튼 클릭 시 */
+		$(function(){
+		    $(".dateBtn").click(function(event) {
+		        var date = event.target.id;
+		        
+		        $.ajax({
+		        	url : "${ pageContext.request.contextPath }/admin/profit/" + date,
+		        	dataType : "json",
+		        	type : "get",
+		        	success : function(data) {
+		        		console.log("data : " + data);
+
+		        		const feeText = $('#fee-text');
+		        		const adText = $('#ad-text');
+		        		
+		        		var ad = data[0].ad;
+		        		var fee = data[0].fee;
+		        		
+		        		console.log("ad : "+ ad);
+		        		console.log("fee : " + fee);
+		        		
+	        			 // 세 자리 콤마찍기 함수
+	        			 function numberWithCommas(x) {
+	        			     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+	        			 };
+	        			 
+		        		adText.text('₩ ' + numberWithCommas(ad));
+		        		feeText.text('₩ ' + numberWithCommas(fee));
+		        		
+		        		/* charts.js */
+
+		        		/* 큰 도넛 */
+		        		$(document).ready(function(){
+		        			var options = {
+		        				// legend: false,
+		        				responsive: false
+		        			};
+		        			new Chart($("#big-doughnut"), {
+		        				type: 'doughnut',
+		        				tooltipFillColor: "rgba(51, 51, 51, 0.55)",
+		        				data: {
+		        				labels: [
+		        					"수수료",
+		        					"광고"
+		        				],
+		        				datasets: [{
+		        				data: [ad, fee],
+		        				backgroundColor: [
+		        					"rgb(54, 162, 235)",
+		        					"rgb(255, 205, 86)"
+		        				],
+		        				hoverBackgroundColor: [
+		        					"rgb(54, 162, 235)",
+		        					"rgb(255, 205, 86)"
+		        				]
+		        				}]
+		        			},
+		        				options: { 
+		        		                responsive: true
+		        		        }                   
+		        			});           
+		        		});
+		        		
+		        		
+		        		
+
+		        		/* 작은 도넛 */
+		        		/* 1. 스토어 도넛 */
+		        		var storeValue = data[0].storeFee;
+
+		        		$(document).ready(function(){
+		        			var options = {
+		        				// legend: false,
+		        				responsive: false
+		        			};
+		        			new Chart($("#store-donut"), {
+		        				type: 'doughnut',
+		        				tooltipFillColor: "rgba(51, 51, 51, 0.55)",
+		        				data: {
+		        				labels: [
+		        					"스토어"
+		        				],
+		        				datasets: [{
+		        				data: [(fee - storeValue) * 0.01, (fee) * 0.01],
+		        				backgroundColor: [
+		        					"#F8964C",
+		        		            "#fafafa"
+		        				],
+		        				hoverBackgroundColor: [
+		        					"#F8964C",
+		        		            "#fafafa"
+		        				]
+		        				}]
+		        			},
+		        				options: { 
+		        		                responsive: true
+		        		           }                   
+		        			});           
+		        		});
+
+		        		/* 2. 클래스 도넛 */
+		        		var classValue = data[0].classFee;
+
+		        		$(document).ready(function(){
+		        			var options = {
+		        				// legend: false,
+		        				responsive: false
+		        			};
+		        			new Chart($("#class-donut"), {
+		        				type: 'doughnut',
+		        				tooltipFillColor: "rgba(51, 51, 51, 0.55)",
+		        				data: {
+		        				labels: [
+		        					"클래스"
+		        				],
+		        				datasets: [{
+		        				data: [(fee - classValue) * 0.01, (fee) * 0.01],
+		        				backgroundColor: [
+		        					"#22A447",
+		        		            "#fafafa"
+		        				],
+		        				hoverBackgroundColor: [
+		        					"#22A447",
+		        		            "#fafafa"
+		        				]
+		        				}]
+		        			},
+		        				options: { 
+		        		                responsive: true
+		        		                }                   
+		        			});           
+		        		});
+
+		        		/* 3. 커피 도넛 */
+		        		var cafeValue = data[0].cafeFee;
+
+		        		$(document).ready(function(){
+		        			var options = {
+		        				// legend: false,
+		        				responsive: false
+		        			};
+		        			new Chart($("#coffee-donut"), {
+		        				type: 'doughnut',
+		        				tooltipFillColor: "rgba(51, 51, 51, 0.55)",
+		        				data: {
+		        				labels: [
+		        					"커피"
+		        				],
+		        				datasets: [{
+		        				data: [(fee - cafeValue) * 0.01, (fee) * 0.01],
+		        				backgroundColor: [
+		        					"#70A6E8",
+		        		            "#fafafa"
+		        				],
+		        				hoverBackgroundColor: [
+		        					"#70A6E8",
+		        		            "#fafafa"
+		        				]
+		        				}]
+		        			},
+		        				options: { 
+		        		                responsive: true
+		        		                }                   
+		        			});           
+		        		});
+		        		
+		        	},// -- AJAX SUCCESS CODE ENDS HERE
+		        	error : function(e) {
+		        		console.log(e);
+		        	}
+		        })
+		    });    
 		});
 		</script>
 		<script src="${ contextPath }/resources/js/admin/darkMode.js"></script>

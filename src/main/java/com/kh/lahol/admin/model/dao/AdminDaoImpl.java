@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.lahol.admin.model.vo.CafeList;
+import com.kh.lahol.admin.model.vo.Profit;
 import com.kh.lahol.admin.model.vo.Promotion;
 import com.kh.lahol.admin.model.vo.Report_N;
 import com.kh.lahol.admin.model.vo.Report_P;
@@ -120,6 +121,11 @@ public class AdminDaoImpl implements AdminDao{
 	@Override
 	public void updateUserReportInvalid(Report_N an) {
 		sqlSession.update("adminMapper.updateUserReportInvalid", an);
+	}
+
+	@Override
+	public List<Profit> selectProfitByDate(String date) {
+		return sqlSession.selectList("adminMapper.selectProfitByDate", date);
 	}
 	
 

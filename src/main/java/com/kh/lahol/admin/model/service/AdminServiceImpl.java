@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.lahol.admin.model.dao.AdminDao;
 import com.kh.lahol.admin.model.vo.CafeList;
+import com.kh.lahol.admin.model.vo.Profit;
 import com.kh.lahol.admin.model.vo.Promotion;
 import com.kh.lahol.admin.model.vo.Report_N;
 import com.kh.lahol.admin.model.vo.Report_P;
@@ -120,6 +121,11 @@ public class AdminServiceImpl implements AdminService{
 	@Override
 	public void updateUserReportInvalid(Report_N an) {
 		adminDao.updateUserReportInvalid(an);
+	}
+
+	@Override
+	public List<Profit> selectProfitByDate(String date) {
+		return adminDao.selectProfitByDate(date);
 	}
 
 
