@@ -54,8 +54,8 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 	
 	 <resultMap id="PayResultSet" type="Payment">
 		<id property="pay_no" column="PAY_NO"/>
-		<result property="PAY_ITEM" column="PAY_ITEM"/>
-		<result property="pay_price" column="PAY_PRICE"/>
+		<result property="payItem" column="PAY_ITEM"/>
+		<result property="payPrice" column="PAY_PRICE"/>
 		<result property="subscribe" column="SUBSCRIBE"/>  
 		<result property="pay_date" column="PAY_DATE"/>  
 		<result property="id" column="BUYER_ID"/>  
@@ -109,7 +109,26 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 		<result property="id" column="ID"/> 
 	</resultMap>
 	 
-	
+	 
+	 <resultMap id="prpReportResultSet" type="Pr_Report">
+		<id property="report_no" column="REPORT_NO"/>
+		<result property="pr_code" column="PR_CODE"/> 			
+	</resultMap>
+	 
+	 
+	<resultMap id="prReportResultSet" type="Report">
+		<id property="reportNo" column="REPORT_NO"/>
+		<result property="reportType" column="REPORT_TYPE"/>
+		<result property="reportReason" column="REPORT_REASON"/>
+		<result property="iswarned" column="ISWARNED"/>
+		<result property="ischecked" column="ISCHECKED"/>
+		<result property="imgName" column="IMGNAME"/>
+		<result property="imgPath" column="IMGPATH"/>	
+		<result property="imgChName" column="IMGCHNAME"/>
+		<result property="reporterId" column="REPORTER_ID"/>
+		<result property="itemCode" column="ITEM_CODE"/>
+		<result property="reporteeId" column="REPORTEE_ID"/>			
+	</resultMap>
 	<!-- 
 PR_CODE	VARCHAR2(30 BYTE)	No		1	제품코드
 ST_CATAGORY	VARCHAR2(100 BYTE)	No		2	스토어카케고리
@@ -676,8 +695,8 @@ C_CODE	VARCHAR2(30 BYTE)	No		18	카페코드
 		VALUES
 		(
 		       'STP'||STP.NEXTVAL
-		     , #{PAY_ITEM}
-		     , #{pay_price}
+		     , #{payItem}
+		     , #{payPrice}
 		     , #{subscribe}
 		     , SYSDATE
 		     , #{id}
@@ -692,7 +711,7 @@ C_CODE	VARCHAR2(30 BYTE)	No		18	카페코드
 				WHERE RNUM = 1)
 		     , NULL
 		     , 0
-		     , #{pay_price}
+		     , #{payPrice}
 		     , NULL
 		)
 	
@@ -754,8 +773,8 @@ C_CODE	VARCHAR2(30 BYTE)	No		18	카페코드
 		VALUES
 		(
 		       'STP'||STP.NEXTVAL
-		     , #{PAY_ITEM}
-		     , #{pay_price}
+		     , #{payItem}
+		     , #{payPrice}
 		     , #{subscribe}
 		     , SYSDATE
 		     , #{id}
@@ -769,12 +788,13 @@ C_CODE	VARCHAR2(30 BYTE)	No		18	카페코드
 				WHERE RNUM = 1)
 		     , NULL
 		     , NULL
-		     , 0
-		     , #{pay_price}
+		     , #{pay_dc}
+		     , #{pay_total}
 		     , NULL
 		)
 	
 	</insert>
+		 
 	
 	<!-- 바로구매용 결제 상세 -->
 	<insert id="insertPrpay2" parameterType="string">
@@ -866,7 +886,10 @@ C_CODE	VARCHAR2(30 BYTE)	No		18	카페코드
 			LEFT OUTER JOIN PR_PAY_WHICH C ON O.PURCHASE_NUMBER = C.PURCHASE_NUMBER
 			LEFT OUTER JOIN SUB P ON O.SUBSCRIBE_CODE = P.SUBSCRIBE_CODE
 		 WHERE
-				C.PR_CODE LIKE #{sv} OR P.PR_CODE LIKE #{sv}  
+				(C.PR_CODE LIKE #{sv} AND REVIEW_STATUS = 'Y')
+				OR 
+				(P.PR_CODE LIKE #{sv} AND REVIEW_STATUS = 'Y')
+		
 		    
 	</select>
 	
@@ -889,4 +912,97 @@ C_CODE	VARCHAR2(30 BYTE)	No		18	카페코드
 			</choose>
 		</where>
 	</select> 
+	
+	
+	
+	
+	<!-- <insert id="prReportin" parameterType="string">
+			INSERT 
+			INTO PR_REPORT
+			(
+				REPORT_NO,
+				PR_CODE 
+			)
+			VALUES
+			(
+				'STRP' || STRP.NEXTVAL,
+				#{pr_code}  
+			)
+	</insert>  -->
+	
+	
+		<!--  제품에대한 신고 -->
+	 <insert id="prReport" parameterType="string">
+			INSERT 
+			INTO REPORT
+			(
+				REPORT_NO,
+				REPORT_TYPE,
+				REPORT_REASON,
+				ISWARNED,
+				ISCHECKED,
+				IMGNAME,
+				IMGPATH,
+				IMGCHNAME,
+				REPORTER_ID,
+				ITEM_CODE,
+				REPORTEE_ID
+			)
+			VALUES
+			(
+				'STRP' || STRP.NEXTVAL,
+				#{reportType},
+				#{reportReason},
+				DEFAULT,
+				DEFAULT,
+				NULL,
+				NULL,
+				NULL,
+				#{reporterId},
+				#{itemCode},
+				(SELECT ID
+					FROM
+				         CAFE
+				    WHERE
+				    C_CODE LIKE #{reporteeId})
+			)
+	</insert> 
+	
+
+			<!--  리뷰에대한 신고 -->
+	 <insert id="PrPReport" parameterType="string">
+			INSERT 
+			INTO REPORT
+			(
+				REPORT_NO,
+				REPORT_TYPE,
+				REPORT_REASON,
+				ISWARNED,
+				ISCHECKED,
+				IMGNAME,
+				IMGPATH,
+				IMGCHNAME,
+				REPORTER_ID,
+				ITEM_CODE,
+				REPORTEE_ID
+			)
+			VALUES
+			(
+				'USRP' || USRP.NEXTVAL,
+				#{reportType},
+				#{reportReason},
+				DEFAULT,
+				DEFAULT,
+				NULL,
+				NULL,
+				NULL,
+				#{reporterId},
+				#{itemCode},
+				(SELECT ID
+					FROM
+				         PR_REVIEW
+				    WHERE
+				    REVIEW_NO LIKE #{reporteeId})
+			)
+	</insert> 
 </mapper>

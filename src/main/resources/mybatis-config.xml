@@ -27,6 +27,8 @@
 		<typeAlias type="com.kh.lahol.store.model.vo.Pr_pay_w" alias="Pr_pay_w"/>
 		<typeAlias type="com.kh.lahol.store.model.vo.Sh_status" alias="Sh_status"/>
 		<typeAlias type="com.kh.lahol.store.model.vo.StoreReview2" alias="StoreReview2"/>
+		<!-- 스토어 신고 -->
+		<typeAlias type="com.kh.lahol.store.model.vo.pr_re" alias="Pr_Report"/> 
 		<!-- 일반회원 -->
 		<typeAlias type="com.kh.lahol.member.model.vo.M_Normal" alias="Member_N"/>
 		<!-- 사업자회원 -->

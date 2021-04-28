@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.lahol.cafe.bus.model.vo.Cafe;
+import com.kh.lahol.common.model.vo.Report;
 import com.kh.lahol.mypage.normal.model.vo.StoreReview;
 import com.kh.lahol.store.model.dao.StoreDao;
 import com.kh.lahol.store.model.vo.PageInfo;
@@ -17,6 +18,7 @@ import com.kh.lahol.store.model.vo.Sh_status;
 import com.kh.lahol.store.model.vo.Store;
 import com.kh.lahol.store.model.vo.StoreReview2;
 import com.kh.lahol.store.model.vo.Sub;
+import com.kh.lahol.store.model.vo.pr_re;
 import com.kh.lahol.store.model.vo.storeA;
 import com.kh.lahol.store.model.vo.storeQ;
 
@@ -184,6 +186,17 @@ public class StoreServiceImpl implements StoreService {
 	@Override
 	public int selectReviewCount(Search sc) {
 		return sDao.selectReviewCount(sc );
+	}
+
+	@Override
+	public int prReport(Report rep) {
+		return sDao.prReport(rep);
+	}
+
+ 
+	@Override
+	public int PrRReport(Report rep) {
+		return sDao.PrRReport(rep);
 	}
 
  

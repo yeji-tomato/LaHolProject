@@ -15,7 +15,10 @@
 <link rel="stylesheet" href="${ contextPath }/resources/css/basket/storeAddress.css" type="text/css">
  <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
-
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> 
+</head>
 
 
 </head>
@@ -85,7 +88,7 @@
                                                 <div class="num">
                                                     <div class="updown" style="float: left;margin-left: 30px;" >&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp수량
                                                         <input   readonly name="p_num1" id="p_num1" size="2" maxlength="4" class="p_num" value="${ su }" style="height: 26px; height: 26px;border-top-width: 0px;border-bottom-width: 0px;border-right-width: 0px;border-left-width: 0px;"onkeyup="javascript:basket.changePNum(1);">
-                                                 
+                                                 <c:set var="cfSum" value="${ su*pr }"/>
                                                     </div>  
                                                 </div>  
                                                 <div class="sum" style=" width: 80px;"> <input type="hidden" name="sum" size="11" readonly  value=""  > ${ su*pr }   </div>
@@ -102,8 +105,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <c:set var= "totalCount" value=""/>
-                                        <c:set var= "total" value="${s.PR_PRICE }"/>
+                                        <c:set var= "totalCount" value=""/> 
                                     
                                  
                                 
@@ -162,14 +164,15 @@
 			        
 			            </form>
 					</div>
-						
-                        <form   id="terms_form" action="${ contextPath }/store/storecart2"  method="post"  >    
+					
+					 
+						<c:set var= "total" value="${ su*pr }"/>
+                      
                         
-                        <input type="hidden"  name="num" value="${su}">
-                        <input type="hidden"  name="price"  value="${s.PR_PRICE}">
-                        <input type="hidden"  name="name" value="${s.PR_NAME}">
-                        <input type="hidden"  name="pr_code" value="${s.PR_CODE}">
-                        <input type="hidden"  name="Coupon" value="0">
+                      
+                         <input type="hidden" id="cfName"  value="${s.PR_NAME}">
+                         <input type="text" id="pr_code"  value="${s.PR_CODE}">
+                         <input type="text" id="su"  value="${su}"> 
                         
                        <div>
                            <!-- 쿠폰 및 전체 금액 -->
@@ -178,19 +181,18 @@
 						       <div class="rounded-pill px-4 py-3 text-uppercase font-weight-bold" style="background: #F3EFEB;">적용 가능한 할인쿠폰</div>
 						       <div class="p-4">
 						         <div class="input-group mb-4 border rounded-pill p-2">
-						           <input type="text" placeholder="Apply coupon" aria-describedby="button-addon3" class="form-control border-0" id="applyCoupon">
+						           <input type="text" placeholder="Apply coupon" name="Coupons" value="" aria-describedby="button-addon3" class="form-control border-0" id="applyCoupon">
 						           <div class="input-group-append border-0">
 						             <button id="button-addon3" type="button" class="btn px-4 rounded-pill" style="background: #5A452E; color: white;" onclick="winPopup();"><i class="fa fa-gift mr-2"></i>coupon</button>
 						           </div>
 						         </div>
+						         <p id="couponSequence" style="color: white"></p>
 						       </div>
 						       <script type="text/javascript">
 								    function winPopup() {
-								        var popUrl = "${contextPath}/cart/coupon?total=${total}";
+								        var popUrl = "${contextPath}/cart/coupon?total=${su*pr}";
 								        var popOption = "width=10vw,height=10vh";
-								        window.open(popUrl, popOption, "_blank");
-								        
-								       
+								        window.open(popUrl, popOption, "_blank"); 
 								    }
 								</script>
 						     </div>
@@ -199,72 +201,162 @@
 						       <div class="p-4">
 						         <ul class="list-unstyled mb-4">      <div  type="hidden" class="bigtext right-align sumcount" id="sum_p_num"> </div>
             
-						           <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">상품금액 </strong><div class="bigtext right-align box blue summoney" id="sum_p_price"> <a> ${ su*pr } 원</a>  </div></li>
-						           <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">할인금액</strong><strong id="couponPrice">0</strong></li>
-						           <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">결제금액</strong> ${ su*pr } 원
-						             <h5 class="font-weight-bold" id="resultPrice">   </h5>     
+						           <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">상품금액 </strong><strong id="sumPrice"><c:out value="${total}"/></strong></li>
+						           <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">할인금액</strong><strong id="couponPrice"><input type="hidden" name="payDC"></strong></li>
+						           <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">결제금액</strong>
+						             <h5 class="font-weight-bold" id="resultPrice" name="total" ><c:out  value="${total}"/></h5> 
 						           </li>  
 						         </ul>
-						         <button id="check_module" class="btn rounded-pill py-2 btn-block" style="background: #5A452E; color: white; width : 100%" type="button" onclick="onSubmit();">결제하기</button>
+						         <button id="check_module" class="btn rounded-pill py-2 btn-block" style="background: #5A452E; color: white; width : 100%" type="button"  >결제하기</button>
 						        
 						       </div>
 						     </div>
 						   </div>
           </div>
-          	   </form>
+          	 
              
           </div>
 			
-			  <script>
-			 	 function onSubmit() {
-			 		 
-					 var IMP = window.IMP; // 생략가능
-				       IMP.init('imp37495715'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
-				       
-				       IMP.request_pay({
-				           pg : 'kakaopay',
-				           pay_method : 'card',
-				           merchant_uid : 'merchant_' + new Date().getTime(),
-				           name : '${ s.PR_NAME}',
-				        /*    if( $('input:radio[name=SUBSCRIPTIONS]:checked').val() == '3'){
-				        	   amount : ${  ((s.PR_PRICE*9)- ((s.PR_PRICE*9)*0.05)) /3  }
-				           }else if( $('input:radio[name=SUBSCRIPTIONS]:checked').val() == '6'){
-				        	   amount : ${  ((s.PR_PRICE*9)- ((s.PR_PRICE*9)*0.15)) /6  }
-				           }else if( $('input:radio[name=SUBSCRIPTIONS]:checked').val() == '9'){
-				        	   amount : ${  ((s.PR_PRICE*9)- ((s.PR_PRICE*9)*0.15)) /9  }
-				           }   일단 100원*/
-				           amount : '100' ,
-				           buyer_email : ' ',
-				           buyer_name : '${ loginUser.name } ',
-				           buyer_email: '${ sessionScope.loginUser.email }',
-						
-						   buyer_name: '${ sessionScope.loginUser.name }',
+			<script>
+				$("#check_module").click(function () {
 					
-						   buyer_tel: '${ sessionScope.loginUser.phone }',
+				var cfName = $("#cfName").val(); // 물품명
+				var cfSum = $("#sumPrice").text();	// 결제 금액
+				 
+				var couponPrice = $("#couponPrice").text();
+				var resultPrice = $("#resultPrice").text(); 
+				var couponNo = $("#couponSequence").text();
+				var su = $("#su").text();
+				var pr_code = $("#pr_code").text();
+				
+				var IMP = window.IMP; // 생략가능
+				IMP.init('imp85155473');
+				// 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
+				// i'mport 관리자 페이지 -> 내정보 -> 가맹점식별코드
+				IMP.request_pay({
+				pg: 'html5_inicis', // version 1.1.0부터 지원.
+				pay_method: 'card',
+				merchant_uid: 'merchant_' + new Date().getTime(),
+				name: cfName,
+				amount: 100,
+				
+				//임대인의 이메일
+				buyer_email: '${ sessionScope.loginUser.email }',
+				//임대인의 이름
+				buyer_name: '${ sessionScope.loginUser.name }',
+				//임대인의 휴대전화
+				buyer_tel: '${ sessionScope.loginUser.phone }',
+				//임대인의주소
+				buyer_addr: '${ addr[1] }' + '${ addr[2] }',
+				
+				buyer_postcode: '${ addr[0] }',
+				m_redirect_url: 'https://www.yourdomain.com/payments/complete'
+				}, function (rsp) {
+				console.log(rsp);
+				if (rsp.success) {
+		
+				var msg = '결제가 완료되었습니다.';
+				/* msg += '고유ID : ' + rsp.imp_uid;
+				msg += '상점 거래ID : ' + rsp.merchant_uid;
+				msg += '결제 금액 : ' + rsp.paid_amount;
+				msg += '카드 승인번호 : ' + rsp.apply_num; */
+				Swal.fire({
+					title : msg,
+					icon : 'success'
+				}).then(function(result){
 					
-						   buyer_addr: '${ addr[1] }' + '${ addr[2] }',
-				       }, function(rsp) {
-				    	   console.log(rsp);
-				          if (rsp.success) { 
-				                  var msg = '결제가 완료되었습니다.';
-				                  msg += '\n고유ID : ' + rsp.imp_uid;
-				                  msg += '\n상점 거래ID : ' + rsp.merchant_uid;
-				                  msg += '\n결제 금액 : ' + rsp.paid_amount;
-				                  msg += '\n카드 승인번호 : ' + rsp.apply_num;
-				                  $("#terms_form").submit();
-				          } else {
-				               var msg = '결제에 실패하였습니다.';
-				               msg += '에러내용 : ' + rsp.error_msg;
-				               //실패시 이동할 페이지 
-				               $("#terms_form").submit();
-				                
-				           } 
-				           alert(msg);
-				       });		
-			 		 }
-			  
-					 
-			</script>    
+					
+					$.ajax({
+		       			url:"${ contextPath }/store/storecart2",
+		        		type : "post",
+		        		data : {
+		        			payItem : cfName,
+		        			cafeRes : cafeResNo,
+		        			payPrice : cfSum,
+		        			pay_dc : couponPrice,
+		        			pay_total : resultPrice,	
+		        			su : ${su},
+		        			pr_code : pr_code
+		        		},
+		        		success : function(data){
+		        			location.href="${ contextPath }";
+		        		},
+		        		error : function(e){
+							console.log(e);
+						}
+		        		
+		       		});
+					
+					
+					$.ajax({
+		       			url:"${ contextPath }/cart/coupon/use",
+		        		type : "post",
+		        		data : {
+		        			couponCode : couponNo
+		        		},
+		        		success : function(data){
+		        			location.href="${ contextPath }";
+		        		},
+		        		error : function(e){
+							console.log(e);
+						}
+		        		
+		       		});
+					
+				});
+				} else {
+				var msg = '결제에 실패하였습니다.';
+				msg += '에러내용 : ' + rsp.error_msg;
+				
+				Swal.fire({
+					title : msg,
+					icon : 'warning'
+				}).then(function(result){
+					
+					
+					$.ajax({
+		       			url:"${ contextPath }/store/storecart2",
+		        		type : "post",
+		        		data : {
+		        			payItem : cfName, 
+		        			payPrice : cfSum,
+		        			pay_dc : couponPrice,
+		        			pay_total : resultPrice,	
+		        			su : ${su},
+		        			pr_code : ${s.PR_CODE}
+		        		},
+		        		success : function(data){
+		        			location.href="${ contextPath }";
+		        		},
+		        		error : function(e){
+							console.log(e);
+						}
+		        		
+		       		});
+					
+					
+					$.ajax({
+		       			url:"${ contextPath }/cart/coupon/use",
+		        		type : "post",
+		        		data : {
+		        			couponCode : couponNo
+		        		},
+		        		success : function(data){
+		        			location.href="${ contextPath }";
+		        		},
+		        		error : function(e){
+							console.log(e);
+						}
+		        		
+		       		});
+					
+				});
+				
+				};
+				
+				});
+				});
+			</script>
 
 
         <script>
@@ -375,6 +467,24 @@
 				      	     }
 				      	  }
 				 }
+				</script>
+				
+				<script>
+				$.ajax({
+	       			url:"${ contextPath }/cart/coupon/use",
+	        		type : "post",
+	        		data : {
+	        			couponCode : couponNo
+	        		},
+	        		success : function(data){
+	        			location.href="${ contextPath }";
+	        		},
+	        		error : function(e){
+						console.log(e);
+					}
+	        		
+	       		});
+				
 				</script>
 
             

@@ -145,11 +145,29 @@
                  
                   
           		  </div>  
+          		  
+          		  
+          		  
+          		
+          		  
+          		  
+          		  
+          		  
+          		  
+          		  
+          		  
+          		  
+          		  
+          		  
+          		  
+          		  
+          		  
             </div>	
-         
+           
+          		  
     	 
     </section>
-    
+ 
     <script>
 		function selectStore(PR_CODE){
 			location.href='${contextPath}/store/storedetail?PR_CODE=' + PR_CODE + '&page=${ pi.currentPage }'+'&k=0';
@@ -157,7 +175,7 @@
 		}
 	</script>
 	
- 
+
  
 		 
 </body>

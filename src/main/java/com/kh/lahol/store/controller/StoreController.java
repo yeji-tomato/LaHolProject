@@ -35,10 +35,13 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.kh.lahol.cafe.bus.model.vo.Cafe;
+import com.kh.lahol.cafe.user.model.exception.CafeException;
 import com.kh.lahol.cafe.user.model.vo.CoffeeCart;
 import com.kh.lahol.common.model.exception.CartException;
 import com.kh.lahol.common.model.service.CartService;
 import com.kh.lahol.common.model.vo.Cart;
+import com.kh.lahol.common.model.vo.Coupon;
+import com.kh.lahol.common.model.vo.Report;
 import com.kh.lahol.member.model.vo.M_Partner;
 import com.kh.lahol.member.model.vo.Member;
 import com.kh.lahol.mypage.normal.model.vo.StoreReview;
@@ -53,6 +56,7 @@ import com.kh.lahol.store.model.vo.Sh_status;
 import com.kh.lahol.store.model.vo.Store;
 import com.kh.lahol.store.model.vo.StoreReview2;
 import com.kh.lahol.store.model.vo.Sub;
+import com.kh.lahol.store.model.vo.pr_re;
 import com.kh.lahol.store.model.vo.storeA;
 import com.kh.lahol.store.model.vo.storeQ;
 import com.kh.lahol.store.page.Pagination;
@@ -475,10 +479,11 @@ public class StoreController {
 			System.out.println("아이디"+CafeCode);
 			
 			
-			 
+		 	
 		
 			if(s != null   ) {
 				model.addAttribute("s", s); 
+				model.addAttribute("a", a); 
 				model.addAttribute("QsearchList", QsearchList); 
 				model.addAttribute("Alist", Alist); 
 				model.addAttribute("CafeCode", CafeCode); 
@@ -755,7 +760,7 @@ public class StoreController {
 			
 			// System.out.println("총 가격"+b);
 			sb.setPay(b);
-			py.setPay_price(b);
+			py.setPayPrice(b);
 			py.setPay_total(b);
 			
 		}else if(pr == 6) {
@@ -764,7 +769,7 @@ public class StoreController {
 			
 			 
 			sb.setPay(b);
-			py.setPay_price(b);
+			py.setPayPrice(b);
 			py.setPay_total(b);
 
 		}else if(pr == 9) {
@@ -772,9 +777,10 @@ public class StoreController {
 			double a = ((PR_PRICE*9)- ((PR_PRICE*9)* 0.15))/9;
 			String b = Double.toString(a);
 			
+			System.out.println("9개월 선택");
 			 
 			sb.setPay(b);
-			py.setPay_price(b);
+			py.setPayPrice(b);
 			py.setPay_total(b);
 		}
 		
@@ -794,7 +800,7 @@ public class StoreController {
 		 String dd = "Y"; //구독
 		 System.out.println(PR_NAME);
 		 
-		 py.setPAY_ITEM(PR_NAME); 
+		 py.setPayItem(PR_NAME);
 		 py.setSubscribe(dd);
 		 py.setId(id);
 		 py.setSubscribe_code(PR_CODE); 
@@ -895,8 +901,8 @@ public class StoreController {
 		}
 		
 		@PostMapping("/storecart2")
-		public String storeCartInsert(@ModelAttribute Pr_pay_w py,@ModelAttribute Sh_status st,@ModelAttribute Payment pay ,@ModelAttribute Prpay pa  ,String price, String Coupon,
-				String num  ,String pr_code,String name,  HttpSession session) throws CartException {
+		public String storeCartInsert(@ModelAttribute Pr_pay_w py,@ModelAttribute Sh_status st,@ModelAttribute Payment pay ,@ModelAttribute Prpay pa  ,  
+				 String su  ,String pr_code,  HttpSession session,HttpServletRequest request) throws CartException {
 			
 			
 		
@@ -905,53 +911,43 @@ public class StoreController {
 			 
 			String id = loginUser.getId();
 			
-			int pr =  Integer.parseInt(price);
+			 
+			System.out.println("결제됬나?");
 			
-			int su = Integer.parseInt(num);
-			int cu =  Integer.parseInt(Coupon);
+			System.out.println("갯수는"+su);
+			System.out.println("상품코드는?" + pr_code);
+			int num = Integer.parseInt(su);
 			 
-		
-			 int total=pr*su;
-			 int totalprice =total-cu;
-			
-			 String a = Integer.toString(total);
-			 String b = Integer.toString(cu);
 			 
-			 String c = null;
-		 
-			System.out.println("제품가격"+pr);
-			 
+	 
 			py.setPr_code(pr_code);
-			py.setPr_count(su);
-			
+			py.setPr_count(num);
+			//주문상세
 			int result = sService.storepayInsert(py);
 			
 			
-			System.out.println("전체가격"+total);
-			System.out.println("할인가격"+totalprice);
-			
-			 String dd = "N"; //구독여부
-			 
-			 pay.setPAY_ITEM(name); 
-			 pay.setSubscribe(dd);
-			 pay.setId(id);
-			 pay.setSubscribe_code(pr_code); 
-			 pay.setPay_price(a);
-			 pay.setPay_total(b);
-			 pay.setPay_dc(Coupon);
-			 pay.setSubscribe_code(c);
+		 
 		 
 			 
-			   
-			 pa.setPuNum(pr_code);
-			 int result2 = sService.paymnet(pay); 	
 			 
+			 
+				 
+				 String dd = "N"; //구독여부 
+			 
+				 pay.setSubscribe(dd);
+				 pay.setId(id);
+				 pay.setSubscribe_code(pr_code); 
+		
+				 
+				 int result2 = sService.paymnet(pay); 	
+				 
+			 
+			 //결세상세
 			 int result3 = sService.prpay2(pa); 	
 			 
 			 
-			 
+			 //배송현황
 			 int result4 = sService.sh(st); 	 
-		 
 		 
 			 
 			
@@ -964,5 +960,65 @@ public class StoreController {
 		
 			
 		}
+		
+		
+		
+		// 제품 신고 
+		@PostMapping("/report")
+		public String PrReport(@ModelAttribute Report rep , @ModelAttribute pr_re rp , int PR_CODE,String c_code,  HttpSession session,HttpServletRequest request) throws CafeException{
+			
+	 
+			
+			System.out.println("카페코드"+c_code);
+			Member loginUser = (Member)session.getAttribute("loginUser"); 
+			String id = loginUser.getId();
+			String code = request.getParameter("PR_CODE");
+			
+			
+			
+			/*
+			 * rp.setPr_code(code); int result2 = sService.prReportin(rp);
+			 */
+			
+			
+			
+			rep.setItemCode(code);
+			rep.setReporterId(id);
+			rep.setReporteeId(c_code);
+			int result = sService.prReport(rep);
+			
+			
+			if(result > 0) {
+				return "redirect:/store/storedetail?&k=0&PR_CODE="+PR_CODE;
+			}else {
+				throw new CafeException("제품 신고에 실패하였습니다.");
+			}	
+		}
+		
+		// 제품 리뷰신고 
+				@PostMapping("/report2")
+				public String PrRReport(@ModelAttribute Report rep  , int PR_CODE, String r_no,  HttpSession session,HttpServletRequest request) throws CafeException{
+					
+			 
+					
+					System.out.println("리뷰번호"+r_no);
+					Member loginUser = (Member)session.getAttribute("loginUser"); 
+					String id = loginUser.getId();
+				 
+					 
+					
+					rep.setItemCode(r_no);
+					rep.setReporterId(id);
+					rep.setReporteeId(r_no);
+					int result = sService.PrRReport(rep);
+					
+					
+					if(result > 0) {
+						return "redirect:/store/storedetail?&k=0&PR_CODE="+PR_CODE;
+					}else {
+						throw new CafeException("리뷰 신고에 실패하였습니다.");
+					}	
+				}
+		
 	 
 }

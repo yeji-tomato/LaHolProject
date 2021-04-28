@@ -3,6 +3,7 @@ package com.kh.lahol.store.model.dao;
 import java.util.List;
 
 import com.kh.lahol.cafe.bus.model.vo.Cafe;
+import com.kh.lahol.common.model.vo.Report;
 import com.kh.lahol.mypage.normal.model.vo.StoreReview;
 import com.kh.lahol.store.model.vo.PageInfo;
 import com.kh.lahol.store.model.vo.Payment;
@@ -13,6 +14,7 @@ import com.kh.lahol.store.model.vo.Sh_status;
 import com.kh.lahol.store.model.vo.Store;
 import com.kh.lahol.store.model.vo.StoreReview2;
 import com.kh.lahol.store.model.vo.Sub;
+import com.kh.lahol.store.model.vo.pr_re;
 import com.kh.lahol.store.model.vo.storeA;
 import com.kh.lahol.store.model.vo.storeQ;
 
@@ -74,6 +76,12 @@ public interface StoreDao {
 	public List<StoreReview2> ReviewList(Search sc, PageInfo pi);
 
 	public int selectReviewCount(Search sc);
+
+	public int prReport(Report rep);
+
+	 
+
+	public int PrRReport(Report rep);
 
 	 
  

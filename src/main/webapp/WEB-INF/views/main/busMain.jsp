@@ -28,7 +28,7 @@
                 <a href="${ contextPath }/store/list2"  class="card-tags__item">HOME</a>  
                 <a href="${ contextPath }/store/create" class="card-tags__item">CREATE</a>
                 <a href="${contextPath}/pMypage/orderView" class="card-tags__item">DELIVERY</a>
-                <a href="#" target="_blank" class="card-tags__item">Fluffy</a>
+                <a href="${contextPath}/pMypage/storeView" target="_blank" class="card-tags__item">STATISTICS</a>
                 <a href="#" target="_blank" class="card-tags__item">Awesome</a>
               </div>
             </div><img src="https://images.unsplash.com/photo-1517231925375-bf2cb42917a5?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1051&q=80" alt="" class="card__image">

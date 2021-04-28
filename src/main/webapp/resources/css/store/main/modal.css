@@ -1,0 +1,49 @@
+@font-face {
+    font-family: 'ELAND_Nice_M';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts-20-12@1.0/ELAND_Nice_M.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+	}
+
+*{
+    font-family: 'ELAND_Nice_M';
+}
+
+    .modal-header{
+    background-color: #4B654A;
+    }
+    
+    .logoimg{
+        width : 30px; 
+        height: 30px;
+        }
+
+    .sorry-text{
+    text-align: center; 
+    padding: 5vh;
+    }
+    
+    .rp_reason_table{
+    width : 100%;
+    }
+    
+    .evidence{
+    width: 100%; 
+    line-height: 15vh;
+    }
+    
+    .ihateyou{
+    width: 100%; 
+    line-height: 15vh;
+    }
+    
+    .alert-text{
+    color:rgb(170, 42, 42); 
+    font-size: 12px;
+    }
+    
+    .modal-footer{
+    background-color: #4B654A;
+    }
+    
+    

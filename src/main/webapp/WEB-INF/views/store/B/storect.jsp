@@ -14,7 +14,9 @@
 <style>
 
  background-color: #f6ebdb;
-  
+  .body{
+   font-family: 'NEXON Lv1 Gothic OTF Bold';
+  }
        
        
 </style>
@@ -27,7 +29,7 @@
 	
 	<div id="aa">
  <div class="banner" style="  height: 100px; ">
-        <h1 style="padding-top: 18vh;">라홀의 가족이 되시는 것을 환영합니다</h1>
+        <h1 style="padding-top: 18vh; font-family: 'NEXON Lv1 Gothic OTF Bold';">라홀의 가족이 되시는 것을 환영합니다</h1>
     </div>
     <div>
         	
@@ -40,7 +42,7 @@
                 <h2 class = "intro5">
                     라홀 제품 등록
                 </h2>
-                <pre class = "intro" id="intro5-sub">
+                <pre class = "intro" id="intro5-sub" style=" font-family: 'NEXON Lv1 Gothic OTF Bold';">
                    제품 등록전에 판매 약관을 읽어보시고 동의하여 주십시요 . 차후에 약관정보 미숙지 및 약관 정보를 
                    위배하시면 불이익일 생기실수있습니다.
                 </pre>
@@ -154,7 +156,7 @@
                                         </table>
                                         <tr>  제품 판매약관
                                                 
-                                            <pre style="height: 271px; white-space: pre-wrap; font-family: Nanum Gothic;">  라홀 서비스 및 제품(이하 ‘서비스’)을 이용해 주셔서 감사합니다. 본 약관은 다양한 라홀 서비스의 이용과 관련하여 네이버 서비스를 제공하는 네이버 주식회사(이하 ‘라홀)와 이를 이용하는 라홀 서비스 회원(이하 ‘회원’) 또는 비회원과의 관계를 설명하며, 아울러 여러분의 라홀 서비스 이용에 도움이 될 수 있는 유익한 정보를 포함하고 있습니다.
+                                            <pre style="height: 271px; white-space: pre-wrap;  font-family: 'NEXON Lv1 Gothic OTF Bold';">  라홀 서비스 및 제품(이하 ‘서비스’)을 이용해 주셔서 감사합니다. 본 약관은 다양한 라홀 서비스의 이용과 관련하여 네이버 서비스를 제공하는 네이버 주식회사(이하 ‘라홀)와 이를 이용하는 라홀 서비스 회원(이하 ‘회원’) 또는 비회원과의 관계를 설명하며, 아울러 여러분의 라홀 서비스 이용에 도움이 될 수 있는 유익한 정보를 포함하고 있습니다.
                                                 
            라홀 서비스를 이용하시거나 라홀서비스 회원으로 가입하실 경우 여러분은 본 약관 및 관련 운영 정책을 확인하거나 동의하게 되므로, 잠시 시간을 내시어 주의 깊게 살펴봐 주시기 바랍니다
                                                 
