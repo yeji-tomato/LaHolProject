@@ -1100,6 +1100,7 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 		       AD
 		 WHERE (POSTDATE+DURATION) <![CDATA[>=]]> SYSDATE
            AND POSTDATE <![CDATA[<=]]> SYSDATE
+           AND AD_STATUS LIKE '%' || '완료' || '%'
 	  ORDER BY TO_NUMBER(AD_CODE) DESC
 	</select>
 </mapper>
