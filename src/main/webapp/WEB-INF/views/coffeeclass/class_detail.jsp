@@ -68,11 +68,6 @@
                     </thead>
                     <tbody>
                       <tr>
-                      <tr>
-                        <td>연계 카페명</td> <!-- cafeNo를 통해 이름 불러오기 -->
-                        <td onclick="location.href='${ contextPath }/cafe/detail?caCode=${ coffeeclass.cafeNo }'"> <button style="background-color :none; border:0px;"> ☕☕이동하기 </button></td>             
-                      </tr>
-                      <tr>
                         <td style="width : 30px;">
                           <ul>
                             <li>난이도</li>
@@ -94,7 +89,7 @@
                       </tr>
                       <tr>
                         <td>날짜</td>
-                        <td>
+                        <td name="classDate">
                           ${ coffeeclass.classDate }  
                         </td>
                       </tr>
@@ -118,6 +113,10 @@
                         <td colspan="2">
                           ${ coffeeclass.clPrice }원
                         </td>
+                      </tr>
+                      <tr></tr>
+                      <tr colspan="3">
+                        <td style="background-color :none; border:0px; cursor: pointer;" onclick="location.href='${ contextPath }/cafe/detail?caCode=${ coffeeclass.cafeNo }'"> ☕☕연계 카페로 이동하기</td>             
                       </tr>
                     </tbody>
                   </table>
@@ -180,7 +179,7 @@
                     <!-- 클래스 개설한 당사자에게만 보여지는 버튼 -->
                     <c:if test="${ loginUser != NULL && loginUser.id eq coffeeclass.clWriter }">
                     <div class="btnDiv">
-	                    <button type="button" class= "btn" id = "register-btn"
+	                    <button type="button" class= "btn" id="changeinfo"
 	                     onclick="location.href='${ contextPath }/coffeeclass/updateclass?classNo=${ coffeeclass.classNo }'">
 	                      	클래스 정보수정
 	                      <i class="fa fa-wrench" aria-hidden="true"></i>

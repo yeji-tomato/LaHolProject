@@ -37,13 +37,17 @@
         <main>
 			<div id="searchArea">
 			<form action="${ contextPath }/coffeeclass/search" method="get">
-				<input id="searchValue" placeholder="에티오피아 커피유학생과 수업하고싶다면?"
+				<input id="searchValue" placeholder="에티오피아 커피유학생과 수업하고싶다면?" style="font-size : 18px; vertical-align:middle; "
 				type="search" name="searchValue" <c:if test="${ !empty param.searchValue }">value="${ param.searchValue }"</c:if>>
 				<button onclick="searchClass()" class="searchBtn">
 					<i class="fa fa-search" aria-hidden="true"></i>
 				</button>
 			</form>
 			</div>
+			<c:if test="${ loginUser != NULL && loginUser.grade eq 'P' }">
+			<button id = "cr8btn" onclick="location.href ='${ contextPath }/coffeeclass/createclass'" ><img src="${ contextPath }/resources/img/coffeeclass/newbtn.png"></button>
+			</c:if>
+			
 		</main>
 			
 		<script>
@@ -67,78 +71,31 @@
     <hr style="margin-top: 5%;">
     <!-- 정렬 방식 -->
     <section class="class-content-sc">
-    
-    
-    
-    <!-- 클래스 정렬 -->
-    <%--  <div class="classes">
-      <h2>마이 클래스</h2>
-      <div class="row">	
-      
-       <div class="col">
-              <img src="${ contextPath }/resources/img/coffeeclass/classphoto/class2.png" class ="card-img-top" onclick="location.href='classdetail.html'">
-              <h4>[원두]기후에 따른 커피맛의 변화 알아보기</h4>
-              <p>30000원</p>
-              <div class="rating">
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star-half"></i>
-              </div>
-          </div>
-          <div class="col">
-              <img src="${ contextPath }/resources/img/coffeeclass/classphoto/class10.jpg" class ="card-img-top" onclick="location.href='classdetail.html'">
-              <h4>[자격증]바리스타 자격증 일주일만에 쌉가능</h4>
-              <p>80000원</p>
-              <div class="rating">
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star-half"></i>
-              </div>
-          </div>
-          
-           </div>
-			<nav aria-label="Page navigation example">
-				<ul class="pagination d-flex justify-content-center">
-					<li class="page-item"><a class="page-link" href="#">Previous</a></li>
-					<li class="page-item"><a class="page-link" href="#">1</a></li>
-					<li class="page-item"><a class="page-link" href="#">2</a></li>
-					<li class="page-item"><a class="page-link" href="#">3</a></li>
-					<li class="page-item"><a class="page-link" href="#">Next</a></li>
-				</ul>
-			</nav>
-		</div>
- --%>
+ 
   	<div class="small-container classes">
       <h2>진행중인 클래스</h2>
       <!-- 필터 검색 -->
-    <div class="filter">
+      
+    <div class="filter select animated">
      <form action="${ contextPath }/coffeeclass/filter" method="get">
-      <select class= "category" name="searchCategory">
+      <select class= "category options animated popInTo" name="searchCategory">
              <option disabled="disabled" selected>카테고리</option>
-             <option value="all">전체</option>
-             <option value="coffee">로스팅/원두</option>
-             <option value="art">라테아트/디자인</option>
-             <option value="dessert">디저트</option>
-             <option value="certi">자격증</option>
-             <option value="etc">기타</option>
+             <option class ="option" value="all">전체</option>
+             <option class ="option" value="coffee">로스팅/원두</option>
+             <option class ="option" value="art">라테아트/디자인</option>
+             <option class ="option" value="dessert">디저트</option>
+             <option class ="option" value="certi">자격증</option>
+             <option class ="option" value="etc">기타</option>
        </select>
-       <select class ="classLoca" name="searchLocation">
+       <select class ="classLoca options animated popInTo" name="searchLocation">
              <option disabled="disabled" selected>지역</option>
-             <option value="all">전체</option>
-             <option value="서울">서울</option>
-             <option value="경기">경기</option>
-             <option value="강원">강원</option>
-             <option value="부산">부산</option>
-             <option value="제주">제주</option>
+             <option class ="option" value="all">전체</option>
+             <option class ="option" value="서울">서울</option>
+             <option class ="option" value="경기">경기</option>
+             <option class ="option" value="강원">강원</option>
+             <option class ="option" value="부산">부산</option>
+             <option class ="option" value="제주">제주</option>
         </select>
-        <!--  <input type="date" value="날짜"> -->
-        <%--  <select class ="clPrice" name="searchCondition">
-             <option disabled="disabled" selected>가격대</option>
-             <option value="<50000">50000원 미만</option>
-             <option value="50000~100000">5~10만원</option>
-             <option value=">=100000">100,000원 이상</option>
-        </select> --%>
          <button id="filterbtn" type="submit"><i class="fa fa-arrow-right" aria-hidden="true">GO</i></button>
        </form>
      </div>
@@ -150,10 +107,11 @@
               	<img src="${ contextPath }/resources/nuploadFiles/classImg/${ cl.trPhoto }" class ="card-img-top" onclick="">
               	<h4>${ cl.className }</h4>
          	  	<p>${ cl.clPrice }원</p>
-         	  	<!-- 별점 -->
+         	  	 <!-- 별점 -->
          	  	 <div class="rating">
+         	  	 <% for(int i = 1 ; i <= Math.random()*4+1; i++){ %>
 	             <i class="fa fa-star"></i>
-	             <i class="fa fa-star-half"></i>
+	             <%} %>
 	             </div>
          	  </div>
       	  </c:forEach>

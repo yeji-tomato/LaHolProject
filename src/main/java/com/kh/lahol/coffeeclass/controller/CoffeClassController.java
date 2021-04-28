@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -507,10 +508,9 @@ public class CoffeClassController {
 	  
 	  
 		
-	  // 클래스 수강신청 페이지 이동
+	  // 클래스 수강신청(바로결제) 페이지 이동
 	  @GetMapping("/coffeeclass/register")
-	  							// ajax사용시
-	  public String registerClass(Model model, String classNo , HttpServletRequest request) {
+	  public String registerClass(Model model, String classNo , Date classDate, HttpServletRequest request) {
 		  
 		  CoffeeClass cl = clService.bringClassInfo(classNo); 
 		  
@@ -521,13 +521,26 @@ public class CoffeClassController {
 		  System.out.println("시간"+ selectedTime);		  
 		  
 		  System.out.println("클래스이름 : " + cl.getClassName());
+
+		  System.out.println("포맷 지정 전 : " + classDate); 
+		  SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy년 MM월 dd일"); 
+		  //원하는 데이터 포맷 지정 
+		  String strNowDate = simpleDateFormat.format(classDate); 
+		  //지정한 포맷으로 변환 
+		  System.out.println("포맷 지정 후 : " + strNowDate);
+
+	
+	
+		
 		  
+			/*
+			 * DateFormat sdFormat = new SimpleDateFormat(classDate); Date nowDate = new
+			 * Date(); String tempDate = sdFormat.format(nowDate);
+			 */
 		  // view에서 보여질 변수명, 컨트롤러 변수명
 		  model.addAttribute("cl", cl);
 		  // 주소 잘라서 가져오기
 		  model.addAttribute("clAddresses", cl.bringAddress());
-		  // 강의 시간 잘라서 가져오기
-		  model.addAttribute("classTimes", cl.bringTimes());
 		  
 		  return "coffeeclass/class_register";
 		  
@@ -535,7 +548,11 @@ public class CoffeClassController {
 	  }
 	
 	  
-	  
+	  // 댓글 불러오기
+	  @GetMapping("/coffeeclass/bringcomments")
+	  public String bringComments() {
+		  return "";
+	  }
 	  
 	  
 	  

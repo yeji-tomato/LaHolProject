@@ -5,13 +5,16 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>카페 주문 내역서</title>
+<title>클래스 수강신청</title>
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
 <link rel="stylesheet" href="${ contextPath }/resources/css/basket/basket.css" type="text/css">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
 <!-- iamport.payment.js -->
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>  
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>  
+<style>
+
+</style>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/common/menubar.jsp"/>
@@ -19,6 +22,8 @@
 	<%@include file="/WEB-INF/views/cart/cartJS.jsp" %>
 	<section id="content" class="content_css" >
             <div class="outer1">
+            
+            <h1 style="text-align:center;">클래스 수강신청 페이지</h1><br><br><br>
               
                 <div class="cart">
                     <div class="store1"> 
@@ -29,19 +34,16 @@
                                         <div class="row head">
                                             <div class="subdiv">
                                                 <div class="check">선택</div>
-                                                <div class="img">이미지</div>
+                                                <div class="img"></div>
                                                 <div class="pname">상품명</div>
                                             </div>
                                             <div class="subdiv">
                                                 <div class="basketprice">가격</div> 
-                                                <div class="date">날짜</div>
-                                                <div class="time">시간</div>
-                                                <div class="del">자세히 보기</div>
+                                                <div class="date" style="width : 220px;">강의일자</div>
+                                                <div class="time" style="width : 220px;">시간</div>
+                                                
                                             </div>
-                                            <div class="subdiv">
-                            
-                                                <div class="basketcmd">삭제</div>
-                                            </div>
+                                            
                                             <div class="split"></div>
                                         </div>
                                         
@@ -54,50 +56,32 @@
                                                         <span class="warning"></span>
                                                     </label>
                                                 </div>
-                                                <div class="img"><img src="${ contextPath }/resources/nuploadFiles/classImg/${ cl.clThumbnail }" width="100"></div>
-                                                <div class="pname">
-                                                    <span>${ cl.className }</span>
+                                                <div class="img"><img style="height:100px; width:100px;" src="${ contextPath }/resources/nuploadFiles/classImg/${ cl.clThumbnail }" width="100"></div>
+                                                 <div class="pname">
+                                                    <span><p style="text-align:center;">${ cl.className }</p></span>
                                                 </div>
                                             </div>
                                             <div class="subdiv">
                                             	
                                                 <div class="basketprice">${ cl.clPrice }</div>
-                                                <div class="date">
+                                                <div class="date" style="width : 220px;">
                                                     ${ cl.classDate }
                                                 </div>
                                                 <div class="time">
-                                                
+                                                	${ selectedTime }
                                                 </div>
-                                               <div class="del">
-                                               	<button style="border: 0; background: white;"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></button>
-                                               </div>
+                                               
                                             </div>
-                                            <div class="subdiv">
-                                             
-                                                <div class="basketcmd">
-                                                
-                                                <a href="javascript:void(0)" class="abutton" onclick="javascript:basket.delItem();">
-                                                   x
-                                                </a>
-                                                </div>
-                                            </div>
+                                           
                                         </div>
                                         <%-- <c:set var= "totalCount" value="${totalCount + cor.cfResAmount}"/> --%>
                                        <%--  <c:set var= "totalCount" value="${totalCount + 1}"/>
                                         <c:set var= "total" value="${total + cfSum}"/> --%>
                                         <%-- <input type="hidden" id="cfName"  value="${ cor.cfName }">
 						               <input type="hidden" id="cfNo"  value="${ cor.cfResNo }"> --%>
-                                        
-                                        
-                                
-                                    </div>
-                  
-                            
-                                  
-                                    <div class="bigtext right-align sumcount" id="sum_p_num">상품갯수: <c:out value="${totalCount}"/>개</div>
-                                  
-                               
-                               
+                                        <input type="hidden" id="className" value="${ cl.className }">
+                                        <input type="hidden" id="classNo" value="${ cl.classNo }">
+                                    </div>                                                             
                             </div>
                             </div><!-- /store1 -->
                             </div><!-- /cart -->
@@ -136,28 +120,37 @@
 						       <div class="rounded-pill px-4 py-3 text-uppercase font-weight-bold" style="background: #F3EFEB;">결제 정보</div>
 						       <div class="p-4">
 						         <ul class="list-unstyled mb-4">
-						           <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">상품금액 </strong><strong id="sumPrice"><c:out value="${total}"/></strong></li>
+						           <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">상품금액 </strong><strong id="sumPrice"><c:out value="${cl.clPrice}"/></strong></li>
 						           <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">할인금액</strong><strong id="couponPrice">0</strong></li>
 						           <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">결제금액</strong>
 						             <h5 class="font-weight-bold" id="resultPrice"><c:out value="${total}"/></h5>
 						           </li>
 						         </ul>
-						         <button id="check_module" class="btn rounded-pill py-2 btn-block" style="background: #5A452E; color: white; width : 100%" type="button">결제하기</button>
-						        
+						         <c:choose>
+
+									<c:when test="${loginUser != null}"> ... 
+							         <button id="check_module" class="btn rounded-pill py-2 btn-block" style="background: #5A452E; color: white; width : 100%" type="button">결제하기</button>
+									</c:when>
+									<c:when test="${loginUser == null}"> 
+									 	<button id="check_module" class="btn rounded-pill py-2 btn-block nonlog" style="background: #5A452E; color: white; width : 100%" 
+										 type="button" disabled="disable">결제하기</button>
+									 <div class="onlyLoginUser"><p style="text-align: center; color:gray;">로그인한 회원만 클래스 수강이 가능합니다.</p></div>
+									</c:when>
+								</c:choose>
+						         
 						       </div>
 						     </div>
 						   </div>
-          </div>
-          	   
-               
-          </div>
+	          </div>     
+	          </div>
+
 			
 			<script>
 				$("#check_module").click(function () {
 					
-				var cfName = $("#cfName").val(); // 물품명
+				var cfName = $("#className").val(); // 물품명
 				var cfSum = $("#sumPrice").text();	// 결제 금액
-				var cafeResNo = $("#cfNo").val();
+				var cafeResNo = $("#classNo").val();
 				var couponPrice = $("#couponPrice").text();
 				var resultPrice = $("#resultPrice").text();
 				
@@ -202,17 +195,17 @@
 					
 					
 					$.ajax({
-		       			url:"${ contextPath }/cart/cafe/payment",
+		       			url:"${contextPath}/coffeeclass/register",
 		        		type : "post",
 		        		data : {
 		        			payItem : cfName,
 		        			cafeRes : cafeResNo,
-		        			payPrice : cfSum,
+		        			payPrice : '${cl.clPrice}',
 		        			payDC : couponPrice,
 		        			payTotal : resultPrice	
 		        		},
 		        		success : function(data){
-		        			location.href="${ contextPath }";
+		        			location.href="${ contextPath }/coffeeclass/class_detail?classNo="+${cl.classNo};
 		        		},
 		        		error : function(e){
 							console.log(e);
@@ -251,8 +244,9 @@
 				});
 				});
 			</script>
-
-
+			<!-- 비회원은 결제 불가 -->
+			$(){
+			}
 
             
         </section>

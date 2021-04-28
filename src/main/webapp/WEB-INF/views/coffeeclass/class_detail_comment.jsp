@@ -22,81 +22,19 @@
 
       <!-- 후기 -->
         <div class="tab-pane fade" id="review" role="tabpanel" aria-labelledby="review-tab">
-          <div style="padding-top: 3vh;">
-          <div class="clcomment">
-            <table>
-              <tr>
-                <td>
-                  <i class="fa fa-star" aria-hidden="true"></i>
-                  <i class="fa fa-star" aria-hidden="true"></i>
-                  <i class="fa fa-star" aria-hidden="true"></i>
-                  <i class="fa fa-star" aria-hidden="true"></i>
-                  <i class="fa fa-star" aria-hidden="true"></i>
-                </td>
-                <td>
-                  작성일자|
-                </td>
-                <td>
-                  2020.04.20
-                </td>
-                <td>
-                  <button class = "iconbtn" style="background-color: transparent; border: 0px;" data-bs-toggle="modal" data-bs-target="#commentModal" >
-                  <img src = "${ contextPath }/resources/img/coffeeclass/report.png" class="reportbtn">
-                </button>
-              </td>
-              </tr>
-              <tr>
-                <td>구매자아이디</td>
-              </tr>
-              <tr>
-                <td>내용</td>
-              </tr>
-            </table>
-          </div>
-          <div class="clcomment">
-            <table>
-                <tbody>
-              <tr>
-                <td>
-                  <i class="fa fa-star" aria-hidden="true"></i>
-                  <i class="fa fa-star" aria-hidden="true"></i>
-                  <i class="fa fa-star" aria-hidden="true"></i>
-                  <i class="fa fa-star" aria-hidden="true"></i>
-                  <i class="fa fa-star" aria-hidden="true"></i>
-                </td>
-                <td>
-                  작성일자|
-                <td>
-                <td>
-                  2020.04.20
-                <td>
-                  <button class = "iconbtn" style="background-color: transparent; border: 0px;" data-bs-toggle="modal" data-bs-target="#commentModal" >
-                  <img src = "${ contextPath }/resources/img/coffeeclass/report.png" class="reportbtn">
-                </button>
-              </td>
-              </tr>
-              <tr>
-                <td>dayoon1004</td>
-              </tr>
-              <tr>
-                <td>아 진짜 별로에요 묻는거 대답 하나도 못하시고.. </td>
-              </tr>
-            </tbody>
-            </table>
-        </div>
-      </div>
-     </div>
+          
+     	</div>
 
 
 	 <!-- Q&A -->
-	<div class="tab-pane fade" id="qa" role="tabpanel" aria-labelledby="qa-tab">
+		<div class="tab-pane fade" id="qa" role="tabpanel" aria-labelledby="qa-tab">
           <div class="qa-content">
             <div class="writeBtn">
               <button id="askBtn" class="btn btn-warning" type="button" aria-hidden="true" data-bs-toggle="modal" data-bs-target="#askModal">문의하기</button>
             </div>
             <br>
             <br>
-             <table class="table table-hover" id="recruit">
+            <table class="table table-hover" id="recruit">
 				<thead>
 				    <tr>
 				      <th scope="col" style="width : 200px;">답변상태</th>

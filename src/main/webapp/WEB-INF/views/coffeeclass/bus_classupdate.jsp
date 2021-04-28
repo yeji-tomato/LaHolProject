@@ -25,7 +25,7 @@
 	<jsp:include page="/WEB-INF/views/common/menubar.jsp" />
 	
     <div class="banner">
-        <h1 style="padding-top: 18vh;">클래스 수정하기</h1>
+        <h1 style="padding-top: 18vh;">클래스 수정 페이지</h1>
     </div>
     <div>
         
@@ -65,11 +65,10 @@
 					</tr>
 					<tr>
 						<td>강사소개</td>
-						<td class="answer"><input type="text" style="height: 200px;"
-							class="classdes" name="trIntro" value = "${ coffeeclass.trIntro }"></td>
+						<td class="answer"><textarea style="height: 200px; resize: none;"
+							class="classdes" name="trIntro">${ coffeeclass.trIntro }</textarea></td>
 					</tr>
-
-				<tr>
+					<tr>
 						<td>주최카페</td>
 						<td class="answer">
 								<input type="text" id="linkedcafe" value="${ mycafe.caName }" readonly>
@@ -109,16 +108,14 @@
 						<td class="answer" style="text-align: left;"><input
 							type="date" class="classdate end classdes" name="classDate" value="${ coffeeclass.classDate }"></td>
 					</tr>
-					
 					<tr>
-						<td>강의 시간</td>
+					<td>강의 시간</td>
 						<td class="answer">
-						<input type="text" class="classdes" name="classTime" value = "${ classTimes[0] }"> 
-						<input type="text" class="classdes" name="classTime" value = "${ classTimes[1] }">
-						<input type="text" class="classdes" name="classTime" value = "${ classTimes[2] }">
+						<input type="text" placeholder="하루 최대 3타임 운영가능" class="classdes" name="classTime" value = "${ coffeeclass.classTime }"> 
+						<input type="text" placeholder="예시 ) 10:00 - 12:00" class="classdes" name="classTime2" value = "${ coffeeclass.classTime2 }">
+						<input type="text" placeholder="예시 ) 19:00 - 21:00" class="classdes" name="classTime3" value = "${ coffeeclass.classTime3 }">
 						</td>
 					</tr>
-					
 			        <tr>    
 			            <tr>
 			            <td>강의장소</td>
