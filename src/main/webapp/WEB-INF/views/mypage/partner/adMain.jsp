@@ -381,7 +381,8 @@
     <script>
    		$(".datepicker-here").datepicker({
    			language : 'ko',
-   			minDate : new Date()
+   			minDate : new Date(),
+   			autoClose : true
     	});
     </script>
     <!-- footer -->

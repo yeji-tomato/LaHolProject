@@ -339,7 +339,7 @@
 	                            </c:if>
 	                            <td>${ o.sub }</td>
 	                            <td>
-	                                <select id="shipping" onchange="updateShipping(${ o.shipping_code }, event);">
+	                                <select id="shipping" onchange="updateShipping(${ o.shipping_code }, event, ${ o.subscribe_code });">
 	                                	<option value="" selected>----</option>
 	                                    <option value="ready">상품준비중</option>
 	                                    <option value="transfer">상품인계</option>
@@ -393,10 +393,11 @@
         
     </div>
     <script>
-        function updateShipping(shipping_code, event) {
+        function updateShipping(shipping_code, event, subscribe_code) {
         	console.log(event.target);
         	console.log($(event.target).parent().next());
         	var code = shipping_code;
+        	var subCode = subscribe_code;
         	var val = event.target.value;
         	Swal.fire({
 				title : '배송 현황을 변경합니다.',
@@ -415,14 +416,13 @@
 					}).then(function(result) {
 						$.ajax({
 							url : "${ contextPath }/pMypage/updateShipping",
-							data : {code : code, val : val},
+							data : {code : code, val : val, subCode : subCode},
 							type : "post",
 							dataType : "json",
 							success : function(data) {
-								console.log(data);
 								
-								$("#shipping").val("");
 								$(event.target).parent().next().html(data.shipping_status + '<br>' + data.shipping_date);
+								$(event.target).parent().prev().prev().html(data.delivery + ' / ' + data.subs_month);
 							},
 							error : function(e) {
 								console.log(e);

@@ -433,7 +433,7 @@
 	                                </c:if>
 	                                <td>${ p.pay_item }</td>
 	                                <c:if test="${ fn:contains(p.pay_no, 'CA') }">
-	                                <td>세부 내용 확인</td>
+	                                <td>-</td>
 	                                </c:if>
 	                                <c:if test="${ !fn:contains(p.pay_no, 'CA') }">
 	                                <td>${ p.pr_count }</td>
@@ -647,10 +647,12 @@
     </div>
     <script>
         $("#date1").datepicker({
-    	    language: 'ko'
+    	    language: 'ko',
+    	    autoClose : true
         });
         $("#date2").datepicker({
-    	    language: 'ko'
+        	language: 'ko',
+    	    autoClose : true
         });
         
         var category = document.getElementById("pay-category");

@@ -160,4 +160,14 @@ public class pMypageServiceImpl implements pMypageService{
 		return pDao.selectShip(ship);
 	}
 
+	@Override
+	public int updateDelivery(String subCode) {
+		return pDao.updateDelivery(subCode);
+	}
+
+	@Override
+	public List<Ad> selectAdAll() {
+		return pDao.selectAdAll();
+	}
+
 }
