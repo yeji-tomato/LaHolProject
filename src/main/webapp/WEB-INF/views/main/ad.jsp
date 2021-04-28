@@ -10,6 +10,7 @@
 <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
 <!-- JavaScript -->
 <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <link rel="stylesheet" href="${ contextPath }/resources/css/main/ad.css" type="text/css">
 </head>
 <body>
@@ -55,12 +56,20 @@
             			var adSlider = $(".adSlider");
             			adDiv.html("");
             			adSlider.html("");
-            			if(data != null) {
+            			if(data.length != 0) {
             				
             				for(var i in data){
-	            				var imgDiv = $("<div class='carousel-cell' style='background-image:url(" + data[i].image + ")'>");
-	            				// imgDiv.css('background', 'url(' + data[i].image + ')');
+	            				// var imgDiv = $("<div class='carousel-cell' style='background-image:url(" + data[i].image + ")' onclick='location.href=" + "\"" + data[i].url + "\"" +"'>");
+	            				// imgDiv.css({'background-size':'contain', 'background-repeat':'no-repeat', 'background-position': 'center'});
 	            				
+	            				if(data[i].url == null) {
+		            				var imgDiv = $("<div class='carousel-cell'>");
+	            				} else {
+	            					var imgDiv = $("<div class='carousel-cell' onclick='moveUrl(" + "\"" + data[i].url + "\")'" + ">");
+	            				}
+	            				var img = $("<img src='" + data[i].image + "' style='width:100%; height:100%;'>");
+	            				
+	            				imgDiv.append(img);
 	            				adDiv.append(imgDiv);
             				}
             				adSlider.append(adDiv);
@@ -83,6 +92,25 @@
             	});
             	
             });
+            
+            function moveUrl(url) {
+            	Swal.fire({
+					title : '등록된 URL로 이동합니다!',
+					text : url,
+					icon : 'warning',
+					showCancelButton : true,
+					confirmButtonColor : '#4B654A',
+					cancelButtonColor : '#d33',
+					confirmButtonText : '확인',
+					cancelButtonText : '취소'
+				}).then(function(result) {
+					if(result.isConfirmed) {
+						location.href = url;
+					} else {
+						
+					}
+				});
+            }
         </script>
     </section>
 </body>
