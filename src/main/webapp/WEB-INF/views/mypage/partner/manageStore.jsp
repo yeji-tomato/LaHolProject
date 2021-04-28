@@ -433,7 +433,7 @@
 	                                </c:if>
 	                                <td>${ p.pay_item }</td>
 	                                <c:if test="${ fn:contains(p.pay_no, 'CA') }">
-	                                <td>세부 내용 확인</td>
+	                                <td>-</td>
 	                                </c:if>
 	                                <c:if test="${ !fn:contains(p.pay_no, 'CA') }">
 	                                <td>${ p.pr_count }</td>
