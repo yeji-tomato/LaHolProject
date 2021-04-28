@@ -15,46 +15,10 @@
     <!-- bootstrap js -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
     <!-- jQuery-->
-    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-	<style>
-	/* 아코디언 */
-.accordionMenu{
-    padding-top: 5%;
-}
-.accordion-button:not(.collapsed) {
-    color: #060b11;
-    background-color: #e1d7ca;
-}
-
-@media (min-width: 1920px){
-	.review-content{
-		height: 70vh;
-	}
+    <script src="https://code.jquery.com/jquery-1.10.2.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 	
-	.modal-wrap{
-		max-height : 40vh
-	}
-}
-
-@media (max-width: 1280px){
-	#ForHere, #ToGo{
-		height : 40vh
-	}
-	
-}
-
-@media (min-width: 1920px){
-	#ForHere, #ToGo{
-		height : 45vh
-	}
-	
-}
-	
-	</style>
-
 </head>
 <body>
-
 
       <!-- 후기 -->
         <div class="tab-pane fade" id="review" role="tabpanel" aria-labelledby="review-tab">
@@ -128,10 +92,11 @@
 	<div class="tab-pane fade" id="qa" role="tabpanel" aria-labelledby="qa-tab">
           <div class="qa-content">
             <div class="writeBtn">
-              <button id="askBtn" type="button" aria-hidden="true" data-bs-toggle="modal" data-bs-target="#askModal">문의하기</button>
+              <button id="askBtn" class="btn btn-warning" type="button" aria-hidden="true" data-bs-toggle="modal" data-bs-target="#askModal">문의하기</button>
             </div>
-            
-            <table class="table table-hover" id="qnatable">
+            <br>
+            <br>
+             <table class="table table-hover" id="recruit">
 				<thead>
 				    <tr>
 				      <th scope="col" style="width : 200px;">답변상태</th>
@@ -145,42 +110,64 @@
 				  </thead>
 				  <tbody>
 				  <c:forEach var="qna" items="${ qnalist }">
-				    <tr>
-				      <th scope="row">답변완료</th>
+				    <!-- 질문 -->
+				    <tr>									 
+				      <th scope="row" style="font-size : 20px;"> 
+					      <c:if test="${ qna.status eq 'N' }"> <p style="font-size : 15px; color : brown;">Q &nbsp; &nbsp; 답변대기<p> </c:if>
+					      <c:if test="${ qna.status eq 'Y' }"> <p style="font-size : 15px; color : blue;"> Q &nbsp; &nbsp; 답변완료</p></c:if>
+				      </th>
 				      <td colspan="2">${ qna.question }</td>
-				      <td>${ qna.userId }</td>
+				      <td id="userId">${ qna.userId }</td>
 				      <td>${ qna.askDate }</td>
-				      <c:if test="${ loginUser != NULL && loginUser.id eq coffeeclass.clWriter }">
+				      	  <c:if test="${ loginUser != NULL && loginUser.id eq coffeeclass.clWriter }">
 				      <th scope="col" style="width : 100px">
-				      <button id="answerBtn" type="button" data-bs-toggle="modal" data-bs-target="#answerModal${qna.qnaNo}">답변하기</button>
+				          <button id="answerBtn" type="button" data-bs-toggle="modal" data-bs-target="#answerModal${qna.qnaNo}">답변하기</button>
 				      </th>
 				      </c:if>
 				    </tr>
-				  </c:forEach>
 				    
+				    <!-- 답변 -->
+				    	<c:if test="${ qna.answer != null }">
+				    <tr class="hide">
+				      <th style="font-size : 20px;">A 
+				      </th>
+				      <td colspan="2"> ☞${ qna.answer }</td>
+				      <td> ${ coffeeclass.trName } 강사님</td>
+				      <td>${ qna.answerDate }</td>
+				    </tr>
+				    </c:if>
+				  </c:forEach>  
 				  </tbody>
-			</table>
-			
-			<div class="accordion" id="accordionExample">
-			  <div class="accordion-item">
-			    <h2 class="accordion-header" id="headingOne">
-			      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-			        Accordion Item #1
-			      </button>
-			    </h2>
-			      <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-			       <div class="accordion-body">
-			        <strong>This is the first item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-			       </div>
-			      </div>
-			  </div>
-            
-         </div>
+			</table> 
+       
      </div>    
    </div> 
-         
+    <!-- 아이디 정규표현식 -->
+	<script>	
 	
+	var userId=document.getElementById("userId");
+	
+	return userId.replace(/\w{4}$/g, "****");
+	
+	</script>
+	<!-- 아코디언메뉴 -->
+	<script>
+    $(function(){
+         var article = (".recruit .show1"); 
+         $(".recruit .question  td").click(function() { 
+             var myArticle =$(this).parents().next("tr"); 
+             if($(myArticle).hasClass('hide')) { 
+                 $(article).removeClass('show1').addClass('hide'); 
+                 $(myArticle).removeClass('hide').addClass('show1'); 
+             } 
+             else { 
+                 $(myArticle).addClass('hide').removeClass('show1'); 
+             } 
+         }); 
+     });
+	</script>
   		
+  	
   
   		
 

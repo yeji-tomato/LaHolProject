@@ -152,6 +152,26 @@
 	                                                </a>
 	                                                </div>
 	                                            </div>
+
+	                                            <input type="hidden" id="cResNo"  value="${ crt.cres }">
+	                                        </div>
+                                        	</c:when>
+                                        	
+                                        	<c:when test="${ crt.classNo != null }">
+                                        	<!-- 클래스 -->
+                                        	<div class="row data">
+	                                            <div class="subdiv">
+	                                                <div class="check">
+	                                                    <label class="checkbox">
+	                                                        <input type="checkbox" id="checkB" name="buy" value="260" checked/>
+	                                                        <span class="warning"></span>
+	                                                    </label>
+	                                                </div>
+	                                                <div class="img"><img src="${ contextPath }/resources/nuploadFiles/classImg/${ crt.photoName }" width="100"></div>
+	                                                <div class="pname">
+	                                                    <span>${ crt.cartName }</span>
+	                                                </div>
+
 	                                            </div>
 	                                            <c:set var= "storeTotal" value="${ storeTotal + ProSum}"/>
 	                                            </c:if>

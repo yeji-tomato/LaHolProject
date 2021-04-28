@@ -13,6 +13,7 @@ import com.kh.lahol.coffeeclass.model.vo.ClassRegister;
 import com.kh.lahol.coffeeclass.model.vo.ClassSearch;
 import com.kh.lahol.coffeeclass.model.vo.CoffeeClass;
 import com.kh.lahol.coffeeclass.model.vo.PageInfo;
+import com.kh.lahol.coffeeclass.model.vo.Paging;
 
 @Repository
 public class CoffeeClassDaoImpl implements CoffeeClassDao{
@@ -78,8 +79,8 @@ public class CoffeeClassDaoImpl implements CoffeeClassDao{
 
 	// 클래스 수강신청
 	@Override
-	public int registerClass(ClassRegister clRegi) {
-		return sqlSession.insert("clMapper.registerClass", clRegi);
+	public int registerClass(String classNo) {
+		return sqlSession.selectOne("clMapper.registerClass", classNo);
 	}
 
 	// 검색
@@ -110,6 +111,18 @@ public class CoffeeClassDaoImpl implements CoffeeClassDao{
 	@Override
 	public int askClass(ClassQnA qna) {
 		return sqlSession.insert("clMapper.askClass", qna);
+	}
+
+	// 클래스 QnA 답변
+	@Override
+	public int answerClass(ClassQnA qna) {
+		return sqlSession.insert("clMapper.answerClass", qna);
+	}
+
+	// new 페이징
+	@Override
+	public List<CoffeeClass> selectListWithPaging(Paging paging) {
+		return sqlSession.selectList("clMapper.selectListWithPaging", paging);
 	}
 
 

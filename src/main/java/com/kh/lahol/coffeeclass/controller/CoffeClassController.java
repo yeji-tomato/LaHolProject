@@ -40,6 +40,7 @@ import com.kh.lahol.coffeeclass.model.vo.ClassRegister;
 import com.kh.lahol.coffeeclass.model.vo.ClassSearch;
 import com.kh.lahol.coffeeclass.model.vo.CoffeeClass;
 import com.kh.lahol.coffeeclass.model.vo.PageInfo;
+import com.kh.lahol.coffeeclass.model.vo.Paging;
 import com.kh.lahol.coffeeclass.page.Pagination;
 import com.kh.lahol.member.model.vo.Member;
 import com.kh.lahol.store.model.vo.Search;
@@ -50,13 +51,15 @@ import com.kh.lahol.store.page.Pagination3;
 
 
 @Controller
-@SessionAttributes({"loginUser"})
+@SessionAttributes({"loginUser", "selectedTimes"})
 public class CoffeClassController {
 
 	@Autowired
 	private CoffeeClassSerivce clService;
 	@Autowired
 	private CafeBizService cafeService;
+	@Autowired 
+	private CafeBizService caBizService;
 	
 
 	// 사용자 메인페이지
@@ -70,6 +73,13 @@ public class CoffeClassController {
 		// 요청 페이지에 맞는 클래스 리스트 조회
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 		List<CoffeeClass> list = clService.selectList(pi);
+		
+		// new페이징
+		/*
+		 * Paging paging = new Paging(1, 5); // 첫 페이지에서 5개의 값을 보여준다. List <CoffeeClass>
+		 * list = clService.selectListWithPaging(paging);
+		 */
+		
 
 		if (list != null) {
 			mv.addObject("list", list);
@@ -82,7 +92,7 @@ public class CoffeClassController {
 
 		return mv;
 	}
-	
+
 	  
 	// 검색 기능
 	@GetMapping("coffeeclass/search")
@@ -102,8 +112,9 @@ public class CoffeClassController {
 	public String filterClass(@ModelAttribute ClassSearch search,
 							   Model model) {
 		
-		System.out.println(search.toString());
 		
+		System.out.println(search);
+
 		List<ClassSearch> filterList = clService.filterList(search);
 		
 		model.addAttribute("list", filterList);
@@ -125,9 +136,13 @@ public class CoffeClassController {
 		// Cafe cafe = cafeService.selectCafeInfo("CA21");
 		Member loginUser = (Member)request.getSession().getAttribute("loginUser"); // 을 통해서 controller에서 가지고 나온다
 		Cafe cafe = clService.selectCafeInfoById(loginUser.getId());
+		
 		// selectMyCafe라는 메소드 만들고, 
-		// Cafe mycafe = cafeService.selectMyCafe(loginUser);
+		//Cafe mycafe = cafeService.selectMyCafe(loginUser);
+		
 		model.addAttribute("mycafe", cafe);
+		
+		
 		return "coffeeclass/bus_create";
 	}
 	    
@@ -228,16 +243,17 @@ public class CoffeClassController {
 			  					@ModelAttribute ClassQnA classqna,
 			  					Model model,
 			  					HttpServletRequest request) {
-		  		  
+		  
 		  CoffeeClass cl = clService.selectCoffeeClass(classNo);
+		  
+		  //연계카페 이동 : Cafe ca = caBizService.selectCafeInfo(caCode);
+			
 		  
 		  // 카페 이름과 url불러오는 코드짜기
 		  //Cafe thiscafe = clService.selectCafeNameById(cl.getCafeNo());
 		  
 		  // QnA리스트 출력
 		  List <ClassQnA> qnalist = clService.selectQnA(classqna);
-		  
-		  // System.out.println(qnalist);
 		  
 		  if(cl != null) {	    //키값 : 뷰에서 보여질 변수명, 밸류: 컨트롤러에서 실제 쓰이는 변수명
 			  model.addAttribute("coffeeclass", cl);
@@ -248,7 +264,8 @@ public class CoffeClassController {
 				 */ 
 			  model.addAttribute("qnalist", qnalist);
 			  model.addAttribute("classTimes", cl.bringTimes());
-			  System.out.println(classqna.getQnaNo());
+			  // System.out.println(classqna.getQnaNo());
+			  // 연계 카페 이동 : model.addAttribute("Cafe", ca);
 			  return "coffeeclass/class_detail";
 		  } else {
 			  model.addAttribute("errorMsg", "클래스를 불러오는데 실패했습니다.");
@@ -435,49 +452,6 @@ public class CoffeClassController {
 		  
 		  }
 
-	  
-	
-	  // 클래스 수강신청
-	  @PostMapping("/coffeeclass/register")
-	  							// ajax사용시
-	  public String registerClass(@RequestBody ClassRegister clRegi,			  					
-			  					   Model model) {
-		  System.out.println(clRegi);
-		  int result = clService.registerClass(clRegi); 
-		  if(result > 0) {
-			  return "coffeeclass/class_detail";
-		  } else {
-			  model.addAttribute("msg", "결제에 실패하였습니다.");
-			  return "common/error";
-		  } 
-		 
-	  }
-	 
-	  // 클래스 QnA 출력
-	  /*// 사용자 메인페이지
-	@GetMapping("/coffeeclass/classqna")
-	public ModelAndView coffeeClassList(ModelAndView mv,
-			@RequestParam(value = "page", required = false, defaultValue = "1") int currentPage) { // 메뉴바 클릭시 파라미터가 따로
-																									// 없으므로 1로 설정(1페이지)
-
-		int listCount = clService.selectListCount(); // 게시글 갯수
-
-		// 요청 페이지에 맞는 클래스 리스트 조회
-		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
-		List<CoffeeClass> list = clService.selectList(pi);
-
-		if (list != null) {
-			mv.addObject("list", list);
-			mv.addObject("pi", pi);
-			mv.setViewName("coffeeclass/class_main");
-		} else {
-			mv.addObject("msg", "클래스 페이지에 접근할 수 없습니다.");
-			mv.setViewName("common/errorPage");
-		}
-
-		return mv;
-	}*/
-	
 	  // 클래스 문의,질문 등록
 	  @PostMapping("/coffeeclass/ask")
 	  public String askClass(@ModelAttribute ClassQnA qna, 
@@ -494,7 +468,7 @@ public class CoffeClassController {
 		  String id = loginUser.getId();
 		  String classNo = request.getParameter("classNo");
 		  
-		  System.out.println(loginUser + id + classNo);
+		  // System.out.println(loginUser + id + classNo);
 		  
 		  qna.setClassNo(classNo);
 		  qna.setUserId(id);
@@ -514,9 +488,52 @@ public class CoffeClassController {
 	  }
 	  
 	  // 클래스 답변 등록
+	  @PostMapping("/coffeeclass/answer")
+	  public String answerClass(@ModelAttribute ClassQnA qna, Model model, HttpServletRequest request) {
+		  
+		  String classNo = qna.getClassNo();
+		  
+		  System.out.println(classNo);
+		  
+		  int result = clService.answerClass(qna);
+
+		  if(result > 0) {
+			  return "redirect:/coffeeclass/classdetail?classNo=" + classNo;
+		  } else {
+			  return "";
+		  }
+		  
+	  }
 	  
 	  
-	  
+		
+	  // 클래스 수강신청 페이지 이동
+	  @GetMapping("/coffeeclass/register")
+	  							// ajax사용시
+	  public String registerClass(Model model, String classNo , HttpServletRequest request) {
+		  
+		  CoffeeClass cl = clService.bringClassInfo(classNo); 
+		  
+		  System.out.println("클래스" + classNo);
+		  
+		  String selectedTime = request.getParameter("selectedTime");
+		  
+		  System.out.println("시간"+ selectedTime);		  
+		  
+		  System.out.println("클래스이름 : " + cl.getClassName());
+		  
+		  // view에서 보여질 변수명, 컨트롤러 변수명
+		  model.addAttribute("cl", cl);
+		  // 주소 잘라서 가져오기
+		  model.addAttribute("clAddresses", cl.bringAddress());
+		  // 강의 시간 잘라서 가져오기
+		  model.addAttribute("classTimes", cl.bringTimes());
+		  
+		  return "coffeeclass/class_register";
+		  
+		 
+	  }
+	
 	  
 	  
 	  

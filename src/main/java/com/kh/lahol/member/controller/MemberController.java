@@ -118,7 +118,7 @@ public class MemberController {
 		int result = mService.insertnMember(m);
 		
 		if(result > 0) {
-			rd.addFlashAttribute("msg", "회원 가입이 완료 되었습니다. 로그인 해주세요.");
+			rd.addFlashAttribute("msg", "회원 가입이 완료 되었습니다.\n로그인 해주세요.");
 			return "redirect:/member/loginView";
 		} else {
 			model.addAttribute("msg", "회원가입에 실패하였습니다.");
@@ -167,14 +167,14 @@ public class MemberController {
 					int result2 = mService.insertCafe(c);
 					
 					if(result2 > 0) {
-						rd.addFlashAttribute("msg", "회원 가입이 완료 되었습니다. 로그인 해주세요.");
+						rd.addFlashAttribute("msg", "회원 가입이 완료 되었습니다.\n로그인 해주세요.");
 						return "redirect:/member/loginView";
 					} else {
 						model.addAttribute("msg", "회원가입에 실패하였습니다.");
 						return "member/signUp_P";
 					}
 				} else {
-					rd.addFlashAttribute("msg", "회원 가입이 완료 되었습니다. 로그인 해주세요.");
+					rd.addFlashAttribute("msg", "회원 가입이 완료 되었습니다. \n로그인 해주세요.");
 					return "redirect:/member/loginView";
 				}
 			} else {

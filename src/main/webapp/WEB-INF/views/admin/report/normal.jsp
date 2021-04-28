@@ -10,6 +10,7 @@
 		<link rel="stylesheet" href="${ contextPath }/resources/css/common/fonts.css" />
 		<link rel="stylesheet" href="${ contextPath }/resources/css/admin/styles/button.css" />
 		<script src="https://cdn.zinggrid.com/zinggrid.min.js" defer></script>
+		<script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 	</head>
 	<body data-theme="light">
 		<!--!! 최상단 컨테이너-->
@@ -228,10 +229,11 @@
 								data=''
 							>
 								<zg-colgroup>
-									<zg-column index="id" header="ID"></zg-column>
-									<zg-column index="reportReason" header="신고사유"></zg-column>
-									<zg-column index="image" header="이미지"></zg-column>
-									<zg-column index="accu" header="경고"></zg-column>
+									<zg-column index="reportee" header="ID"></zg-column>
+									<zg-column index="reporter" header="신고자ID"></zg-column>
+									<zg-column index="reportType" header="신고유형"></zg-column>
+									<zg-column index="hasImg" header="이미지"></zg-column>
+									<zg-column index="accu" header="누적블라인드"></zg-column>
 								</zg-colgroup>
 							</zing-grid>
 						</div>
@@ -247,12 +249,13 @@
 								data=''
 							>
 								<zg-colgroup>
-									<zg-column index="id" header="ID"></zg-column>
-									<zg-column index="reportReason" header="신고사유"></zg-column>
-									<zg-column index="image" header="이미지"></zg-column>
-									<zg-column index="accu" header="경고"></zg-column>
+									<zg-column index="reportee" header="ID"></zg-column>
+									<zg-column index="reporter" header="신고자ID"></zg-column>
+									<zg-column index="reportType" header="신고사유"></zg-column>
+									<zg-column index="hasImg" header="이미지"></zg-column>
+									<zg-column index="accu" header="누적블라인드"></zg-column>
 									<zg-column
-										index="status"
+										index="isWarned"
 										header="결과"
 										type="image"
 										type-image-alt="불러오기 실패"
@@ -328,6 +331,8 @@
 					waitingList.attr('data', JSON.stringify(data)).trigger("create");
 					console.log(data);
 					console.log("대기리스트 조회 성공이라네");
+					// 완료조회 함수도 같이 호출
+					selectCompletedList();
 				},
 				error: function(e){
 					console.log(e);
@@ -335,23 +340,65 @@
 			});		
 		});
 		
-		/* 신고처리 완료리스트 조회 */
-		$(function(){
-			const waitingList = $('#completed-list');
+		/* 신고 처리완료 리스트 호출 함수 */
+		function selectCompletedList() {
+			const completedList = $('#completed-list');
 			$.ajax({
 				url: "${ pageContext.request.contextPath }/admin/report/normalList/completed",
 				dataType: "json",
 				type: "get",
 				success: function(data){
-					waitingList.attr('data', JSON.stringify(data)).trigger("create");
+					completedList.attr('data', JSON.stringify(data)).trigger("create");
 					console.log(data);
-					console.log("완료리스트 조회 성공이라네");
+					console.log("완료리스트 조회 성공이당");
 				},
 				error: function(e){
 					console.log(e);
 				}
-			});		
-		});
+			});	
+		};
+		
+ 		// 대기리스트 Row 클릭
+		var waitingList = document.querySelector("#waiting-list");
+		
+		waitingList.addEventListener('row:click', function(e) { // !! THE VERY START
+			console.log(e.detail.ZGData.data);
+		
+			// 업데이트에 필요한 변수
+			var reportee = e.detail.ZGData.data.reportee;
+			var reportNo = e.detail.ZGData.data.reportNo;
+			
+			// 모달에 띄울 변수
+			var imgPath = e.detail.ZGData.data.imgPath;
+			var storeReviewContent = e.detail.ZGData.data.storeReviewContent;
+			var cafeReviewContent = e.detail.ZGData.data.cafeReviewContent;
+			var classReviewContent = e.detail.ZGData.data.classReviewContent;
+			var reportType = e.detail.ZGData.data.reportType;
+			var reportReason = e.detail.ZGData.data.reportReason;
+			
+			Swal.fire({
+				  imageUrl: imgPath,
+				  imageAlt: '신고된 리뷰의 사진',
+				  title: reportType,
+				  html: reportReason + "<br/><br/>" + "<span style='color:#bbbbbb'>" +storeReviewContent + cafeReviewContent + classReviewContent + "</span>",
+				  showCancelButton: true,
+				  confirmButtonText: '경고',
+				  confirmButtonColor: '#DC143C',
+				  showDenyButton: true,
+				  denyButtonText: '해제',
+				  denyButtonColor: '#34bdeb',
+				  cancelButtonText: '취소'
+				}).then((result) => {
+				  if (result.isConfirmed) {	// 경고 버튼 선택 시 
+					 Swal.fire('경고처리 되었습니다', '', 'success')
+					 location.href='${ pageContext.request.contextPath }/admin/updateUserWarned?reportNo='+reportNo+'&reportee='+reportee;
+				  } else if (result.isDenied) { // 해제 버튼 선택 시
+					 Swal.fire('경고가 해제되었습니다', '', 'info')
+		 			 location.href='${ pageContext.request.contextPath }/admin/updateUserReportInvalid?reportNo='+reportNo; 
+				  }
+				}); // -- SWAL END
+		
+		}); // !! THE VERY END  
 		    
 		</script>
 		<script src="${ contextPath }/resources/js/admin/darkMode.js"></script>

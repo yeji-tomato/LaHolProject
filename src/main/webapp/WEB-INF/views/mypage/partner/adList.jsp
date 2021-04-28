@@ -163,6 +163,17 @@
             display: flex;                       
             flex-direction: column;
         }
+        
+        .modal-content4 {
+        	border-radius: 15px;
+            background-color: #fefefe;
+            margin: 15% auto; /* 15% from the top and centered */
+            padding: 20px;
+            border: 1px solid #888;
+            width: 40%; /* Could be more or less, depending on screen size */
+            display: flex;                       
+            flex-direction: column;
+        }
         /* The Close Button */
         .modal-close2,
         .modal-close3 {
@@ -408,7 +419,7 @@
     </div>
     
     <div id="imageModal" class="modal3">
-        <div class="modal-content3">
+        <div class="modal-content4">
             <img id="image">
         </div>
     </div>

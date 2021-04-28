@@ -153,4 +153,14 @@ public class pMypageDaoImpl implements pMypageDao{
 		return sqlSession.selectOne("mypageMapper.selectShip", ship);
 	}
 
+	@Override
+	public int updateDelivery(String subCode) {
+		return sqlSession.update("mypageMapper.updateDelivery", subCode);
+	}
+
+	@Override
+	public List<Ad> selectAdAll() {
+		return sqlSession.selectList("mypageMapper.selectAdAll");
+	}
+
 }

@@ -372,9 +372,9 @@
 						return;
 					}
 				});
+        	} else {
+	        	$("#review_form").submit();
         	}
-        	
-        	$("#review_form").submit();
         }
     </script>
 </body>

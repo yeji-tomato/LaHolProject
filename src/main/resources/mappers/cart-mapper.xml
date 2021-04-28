@@ -255,8 +255,6 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 			)
 		</insert>
 		
-	 
-	
 
 		<!-- 장바구니 결제 성공 시 장바구니 비우기 -->
 		<delete id="successCart" parameterType="Cart">
@@ -272,5 +270,45 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 		FROM CART
 		WHERE ID = #{id}
 		</select>
+
+		<!-- 클래스 장바구니(카트) -->
+		<insert id="classCart" parameterType="Cart">
+		INSERT
+			INTO CART
+			(
+				CART_NO,
+				CART_NAME,
+				CART_PRICE,
+				CART_COUNT,
+				CART_RES,
+				SHIP_FEE,
+				CLASS_NO,
+				ID,
+				PURCHASE_NO,
+				C_RES,
+				PHOTONAME,
+				TODAY
+			)
+			VALUES
+			(
+				  'CAT'|| CAT.NEXTVAL
+				, #{cartName}
+				, #{cartPrice}
+				, NULL
+				, NULL
+				, #{classtime}
+				, #{classNo}
+				, #{userId}
+				, NULL
+				, NULL
+				,(
+					SELECT CL_THUMBNAIL
+					FROM COFFEECLASS
+					WHERE CLASS_NO = #{classNo}
+                ),
+				SYSDATE
+			)
+		
+		</insert>
 
 </mapper>

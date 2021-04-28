@@ -61,4 +61,8 @@ public interface pMypageService {
 
 	Shipping selectShip(Shipping ship);
 
+	int updateDelivery(String subCode);
+
+	List<Ad> selectAdAll();
+
 }

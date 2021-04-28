@@ -28,6 +28,7 @@ import com.kh.lahol.admin.model.service.AdminService;
 import com.kh.lahol.admin.model.service.AdminServiceImpl;
 import com.kh.lahol.admin.model.vo.CafeList;
 import com.kh.lahol.admin.model.vo.Promotion;
+import com.kh.lahol.admin.model.vo.Report_N;
 import com.kh.lahol.admin.model.vo.Report_P;
 import com.kh.lahol.member.model.vo.Coupon;
 
@@ -130,14 +131,37 @@ public class AdminController {
 	public String updatePartnerReportInvalid(String reportNo,
 									   @ModelAttribute Report_P ap) {
 		ap.setReportNo(reportNo);
-		
 		adminService.updatePartnerReportInvalid(ap);
-		
 		return "redirect:/admin/report/partner";
-		
 	}
 	
+	// 커스텀 기간에 따른 카페리스트 + 매출 조회
+	@RequestMapping(value="/cafe/selectCafeListByTerm", method=RequestMethod.POST)
+	@ResponseBody
+	public List<CafeList> selectCafeListByTerm(@RequestBody Map<String, Object> dates) {
+		return adminService.selectCafeListByTerm(dates);
+	}
 	
+	// 일반회원 경고 + 1
+	@RequestMapping(value="/updateUserWarned", method=RequestMethod.GET)
+	public String updateAsWarned(String reportNo, String reportee,
+								 @ModelAttribute Report_N an) {
+		an.setReportNo(reportNo);
+		an.setReportee(reportee);
 		
+		adminService.updateUserWarned(an);
+		adminService.updateUserReportStatus(an);
+		return "redirect:/admin/report/normal";
+	}
 	
+	// 일반회원 경고 무효처리
+	@RequestMapping(value="/updateUserReportInvalid", method=RequestMethod.GET)
+	public String updateUserReportInvalid(String reportNo,
+										  @ModelAttribute Report_N an) {
+		an.setReportNo(reportNo);
+		
+		adminService.updateUserReportInvalid(an);
+		return "redirect:/admin/report/normal";
+	}
 }
+ 

@@ -268,8 +268,8 @@
 								data=''
 							>
 								<zg-colgroup>
-									<zg-column index="cafe" header="카페"></zg-column>
-									<zg-column index="sales" header="매출"></zg-column>
+									<zg-column index="cafeName" header="카페"></zg-column>
+									<zg-column index="totalSales" header="매출"></zg-column>
 									<zg-column index="phone" header="연락처"></zg-column>
 									<zg-column index="openDate" header="입점일"></zg-column>
 								</zg-colgroup>
@@ -292,7 +292,7 @@
  								<div id="graph-box">
 									<canvas id="line-graph" width="60" height="25"></canvas>			
 								</div>
-								<div id="graph-alternative">일별 조회는 데이터를 제공하지 않습니다</div>
+								<div id="graph-alternative">일별 조회는 그래프를 제공하지 않습니다</div>
 							</div>
 						</div>
 					</div>
@@ -380,107 +380,127 @@
 		    $('#custom-period').html('');
 		});
 
+		
+		// 카페리스트 row 클릭 시 
+		var completedList = document.querySelector("#dataTable");
+		
+		completedList.addEventListener('row:click', function(e) { // !! THE VERY START		
+			console.log(e.detail.ZGData.data);
+			
+			// 도넛에 반영할 변수
+			var storeSales = e.detail.ZGData.data.storeSales;
+			var classSales = e.detail.ZGData.data.classSales;
+			var cafeSales = e.detail.ZGData.data.cafeSales;
+			
+			var totalSales = e.detail.ZGData.data.totalSales;
+			
+			/* charts.js */
 
-		/* charts.js */
+			// 1. 스토어 도넛 
+			var storeValue = (storeSales)/100;
 
-		/* 1. 스토어 도넛 */
-		var storeValue = 0;
+			$(document).ready(function(){
+				var options = {
+					// legend: false,
+					responsive: false
+				};
+				new Chart($("#store-donut"), {
+					type: 'doughnut',
+					tooltipFillColor: "rgba(51, 51, 51, 0.55)",
+					data: {
+					labels: [
+						"스토어"
+					],
+					datasets: [{
+					data: [storeValue,(totalSales/100)-storeValue],
+					backgroundColor: [
+						"#F8964C",
+			            "#fafafa"
+					],
+					hoverBackgroundColor: [
+						"#F8964C",
+			            "#fafafa"
+					]
+					}]
+				},
+					options: { 
+			                responsive: true
+			                }                   
+				});           
+			});
+			
+			// 2. 클래스 도넛
+			var classValue = (classSales)/100;
 
-		$(document).ready(function(){
-			var options = {
-				// legend: false,
-				responsive: false
-			};
-			new Chart($("#store-donut"), {
-				type: 'doughnut',
-				tooltipFillColor: "rgba(51, 51, 51, 0.55)",
-				data: {
-				labels: [
-					"스토어"
-				],
-				datasets: [{
-				data: [storeValue, 100-storeValue],
-				backgroundColor: [
-					"#F8964C",
-		            "#fafafa"
-				],
-				hoverBackgroundColor: [
-					"#F8964C",
-		            "#fafafa"
-				]
-				}]
-			},
-				options: { 
-		                responsive: true
-		                }                   
-			});           
-		});
+			$(document).ready(function(){
+				var options = {
+					// legend: false,
+					responsive: false
+				};
+				new Chart($("#class-donut"), {
+					type: 'doughnut',
+					tooltipFillColor: "rgba(51, 51, 51, 0.55)",
+					data: {
+					labels: [
+						"클래스"
+					],
+					datasets: [{
+					data: [classValue, (totalSales/100)-classValue],
+					backgroundColor: [
+						"#22A447",
+			            "#fafafa"
+					],
+					hoverBackgroundColor: [
+						"#22A447",
+			            "#fafafa"
+					]
+					}]
+				},
+					options: { 
+			                responsive: true
+			                }                   
+				});           
+			});
 
-		/* 2. 클래스 도넛 */
-		var classValue = 0;
+			/* 3. 커피 도넛 */
+			var cafeValue = (cafeSales)/100;
 
-		$(document).ready(function(){
-			var options = {
-				// legend: false,
-				responsive: false
-			};
-			new Chart($("#class-donut"), {
-				type: 'doughnut',
-				tooltipFillColor: "rgba(51, 51, 51, 0.55)",
-				data: {
-				labels: [
-					"클래스"
-				],
-				datasets: [{
-				data: [classValue, 100-classValue],
-				backgroundColor: [
-					"#22A447",
-		            "#fafafa"
-				],
-				hoverBackgroundColor: [
-					"#22A447",
-		            "#fafafa"
-				]
-				}]
-			},
-				options: { 
-		                responsive: true
-		                }                   
-			});           
-		});
+			$(document).ready(function(){
+				var options = {
+					// legend: false,
+					responsive: false
+				};
+				new Chart($("#coffee-donut"), {
+					type: 'doughnut',
+					tooltipFillColor: "rgba(51, 51, 51, 0.55)",
+					data: {
+					labels: [
+						"커피"
+					],
+					datasets: [{
+					data: [cafeValue, (totalSales/100)-cafeValue],
+					backgroundColor: [
+						"#70A6E8",
+			            "#fafafa"
+					],
+					hoverBackgroundColor: [
+						"#70A6E8",
+			            "#fafafa"
+					]
+					}]
+				},
+					options: { 
+			                responsive: true
+			                }                   
+				});           
+			});
 
-		/* 3. 커피 도넛 */
-		var coffeeValue = 0;
+		}); // !! THE VERY END 
+		
 
-		$(document).ready(function(){
-			var options = {
-				// legend: false,
-				responsive: false
-			};
-			new Chart($("#coffee-donut"), {
-				type: 'doughnut',
-				tooltipFillColor: "rgba(51, 51, 51, 0.55)",
-				data: {
-				labels: [
-					"커피"
-				],
-				datasets: [{
-				data: [coffeeValue, 100-coffeeValue],
-				backgroundColor: [
-					"#70A6E8",
-		            "#fafafa"
-				],
-				hoverBackgroundColor: [
-					"#70A6E8",
-		            "#fafafa"
-				]
-				}]
-			},
-				options: { 
-		                responsive: true
-		                }                   
-			});           
-		});
+
+
+
 
 		/* 라인 그래프 */
 		var ctx = document.getElementById('line-graph').getContext("2d");
@@ -488,7 +508,7 @@
 		var myChart = new Chart(ctx, {
 		    type: 'line',
 		    data: {
-		        labels: ["월","화","수","목","금","토","일"],
+		        labels: [],
 		        datasets: [{
 		            label: "Data",
 		            borderColor: "#ff6384",
@@ -502,7 +522,7 @@
 		            pointRadius: 3,
 		            fill: false,
 		            borderWidth: 4,
-		            data: [160, 120, 150, 170, 500, 170, 160]
+		            data: []
 		        }]
 		    },
 		    options: {
@@ -541,7 +561,7 @@
 		});
 		
 		/* 카페리스트 데이터테이블에 출력 */
-/* 		$(function(){
+ 		$(function(){
 		    $(".dateBtn").click(function(event) {
 		    	const dataTable = $('#dataTable');
 		        var date = event.target.id;
@@ -551,15 +571,16 @@
 		        	dataType : "json",
 		        	type : "get",
 		        	success : function(data) {
-		        		dataTable.attr('data', JSON.stringify(data)).trigger("create");
 		        		console.log(data);
+		        		dataTable.attr('data', JSON.stringify(data)).trigger("create");
+
 		        	},
 		        	error : function(e) {
 		        		console.log(e);
 		        	}
 		        })
 		    });    
-		}); */
+		}); 
 	
 		/* 라인그래프 라벨 세트 */
 		var labelSet = [
@@ -567,15 +588,6 @@
 			['월초', '월말'],
 			['1월', '3월', '6월', '9월', '12월']
 		];
-		
-		/* 그래프 업데이트 */
-		function updateChartLabel(chart, label, data){
-			chart.data.labels.push(label);
-		    chart.data.datasets.forEach((dataset) => {
-		        dataset.data.push(data);
-		    });
-		    chart.update();
-		};
 		
 		/* 날짜 버튼 클릭 시 UI 변경 */
 		$('.dateBtn').click(function(e){
@@ -585,10 +597,44 @@
 			if(criteria == 'day') {
 				$('#graph-box').hide();
 				$('#graph-alternative').show();
+				$('#graph-alternative').text('일별 조회는 그래프를 제공하지 않습니다');
 			} else {
 				$('#graph-box').show();
 				$('#graph-alternative').hide();
 			}
+		});
+		
+		/* 캘린더 적용 클릭 시 */
+		$('#calendar').on('apply.daterangepicker', function(ev, picker) {
+			
+			const dataTable = $('#dataTable');
+			
+			$('#graph-box').hide();
+			$('#graph-alternative').show();
+			$('#graph-alternative').text('기간 조회는 그래프를 제공하지 않습니다')
+			
+		    var startDate = picker.startDate.format('YY-MM-DD');
+		    var endDate = picker.endDate.format('YY-MM-DD');
+		    
+		    $('.dateBtn').removeClass('selected');
+		    $('#custom-period').html(startDate + ' ~ ' + endDate);
+		    
+		    var dates = { "startDate": startDate, "endDate": endDate };
+		    		    
+		    $.ajax({
+		    	url: "selectCafeListByTerm",
+		    	type : "post",
+		    	data : JSON.stringify(dates),
+	        	dataType : "json",
+ 	    		contentType : "application/json; charset=utf-8",
+	        	success : function(data) {
+	        		console.log(data);
+	        		dataTable.attr('data', JSON.stringify(data)).trigger("create");
+	        	},
+	        	error : function(e) {
+	        		console.log(e);
+	        	}
+		    })
 		});
 		
 		</script>

@@ -10,6 +10,7 @@
 <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
 <!-- JavaScript -->
 <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <link rel="stylesheet" href="${ contextPath }/resources/css/main/ad.css" type="text/css">
 </head>
 <body>
@@ -28,9 +29,9 @@
 
             <div class="adSlider">
                 <div class="carousel" data-flickity='{ "autoPlay": true }'>
-                    <div class="carousel-cell" style="background-image:url(https://images.unsplash.com/photo-1516007359037-f8f56dd361ff?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80)"></div>
+                    <!-- <div class="carousel-cell" style="background-image:url(https://images.unsplash.com/photo-1516007359037-f8f56dd361ff?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80)"></div>
                     <div class="carousel-cell" style="background-image:url(https://images.unsplash.com/photo-1598378002013-e374463ca9a1?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=675&q=80)"></div>
-                    <div class="carousel-cell" style="background-image:url(https://images.unsplash.com/photo-1508766917616-d22f3f1eea14?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80)"></div>
+                    <div class="carousel-cell" style="background-image:url(https://images.unsplash.com/photo-1508766917616-d22f3f1eea14?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80)"></div> -->
                 </div>
             </div>
 
@@ -42,6 +43,74 @@
                 speed: 100,
                 loop: true
                 }).go();
+            
+            $(function() {
+            	$.ajax({
+            		url : '${ contextPath }/pMypage/selectAd',
+            		dataType : "json",
+            		success : function(data) {
+            			console.log(data);
+            			
+            			var adDiv = $("<div class='carousel' data-flickity='{ autoPlay: true }'>");
+            			
+            			var adSlider = $(".adSlider");
+            			adDiv.html("");
+            			adSlider.html("");
+            			if(data.length != 0) {
+            				
+            				for(var i in data){
+	            				// var imgDiv = $("<div class='carousel-cell' style='background-image:url(" + data[i].image + ")' onclick='location.href=" + "\"" + data[i].url + "\"" +"'>");
+	            				// imgDiv.css({'background-size':'contain', 'background-repeat':'no-repeat', 'background-position': 'center'});
+	            				
+	            				if(data[i].url == null) {
+		            				var imgDiv = $("<div class='carousel-cell'>");
+	            				} else {
+	            					var imgDiv = $("<div class='carousel-cell' onclick='moveUrl(" + "\"" + data[i].url + "\")'" + ">");
+	            				}
+	            				var img = $("<img src='" + data[i].image + "' style='width:100%; height:100%;'>");
+	            				
+	            				imgDiv.append(img);
+	            				adDiv.append(imgDiv);
+            				}
+            				adSlider.append(adDiv);
+            				
+            			} else {
+            				var imgDiv = $("<div class='carousel-cell' style='background-image:url(https://bit.ly/3vq9x6w)'>");
+            				adDiv.append(imgDiv);
+            				adSlider.append(adDiv);
+            			}
+            			$(".carousel").flickity({
+                    		cellAlign : 'left',
+                    		contain : true,
+                    		autoPlay : true
+                    	});
+            		},
+            		error : function(e) {
+            			alert("code : " + e.status + "\n" + "message : "
+								+ e.responseText);
+            		}
+            	});
+            	
+            });
+            
+            function moveUrl(url) {
+            	Swal.fire({
+					title : '등록된 URL로 이동합니다!',
+					text : url,
+					icon : 'warning',
+					showCancelButton : true,
+					confirmButtonColor : '#4B654A',
+					cancelButtonColor : '#d33',
+					confirmButtonText : '확인',
+					cancelButtonText : '취소'
+				}).then(function(result) {
+					if(result.isConfirmed) {
+						location.href = url;
+					} else {
+						
+					}
+				});
+            }
         </script>
     </section>
 </body>
