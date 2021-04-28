@@ -15,6 +15,7 @@ import lombok.ToString;
 @ToString
 public class Shipping {
 	private String shipping_code;
+	private String subscribe_code;
 	private String pay_no;
 	private String pay_item;
 	private String shipping_status;

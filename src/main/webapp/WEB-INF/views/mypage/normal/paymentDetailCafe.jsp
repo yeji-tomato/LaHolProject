@@ -233,7 +233,7 @@
                                 <tr><td></td></tr>
                                 <tr>
                                     <td colspan="2">
-	                                    <textarea style="resize: none;">
+	                                    <textarea style="resize: none;" disabled>
 1. 카폐 예약 인원 : ${ list[0].c_res_per }명
 2. 커피 예약 내역
 	                                    <c:forEach var="co" items="${ list }">

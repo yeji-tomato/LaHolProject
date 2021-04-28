@@ -241,7 +241,7 @@
                             <td>한도</td>
                             <td>발급일</td>
                             <td>사용기한</td>
-                            <td>상태</td>
+                            <td>사용여부</td>
                         </tr>
                         <c:if test="${ !empty list }">
                         <c:forEach var="c" items="${ list }">

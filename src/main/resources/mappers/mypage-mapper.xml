@@ -125,6 +125,7 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 	</resultMap>
 	<resultMap id="shippingResultSet" type="M_Shipping">
 		<id property="shipping_code" column="SHIPPING_CODE"/>
+		<result property="subscribe_code" column="SUBSCRIBE_CODE"/>
 		<result property="pay_no" column="PAY_NO"/>
 		<result property="pay_item" column="PAY_ITEM"/>
 		<result property="shipping_status" column="SHIPPING_STATUS"/>
@@ -686,6 +687,7 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 	<select id="selectOrderList" parameterType="string" resultMap="shippingResultSet">
 		SELECT
 		       SHIPPING_CODE
+		     , SUBSCRIBE_CODE
 		     , PAY_NO
 		     , PAY_ITEM
 		     , SHIPPING_STATUS
@@ -1071,5 +1073,33 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 		       ID = #{id}
 		   AND C_CODE = #{c_code}
 		   AND C_RES = #{c_res}
+	</select>
+	<update id="updateDelivery" parameterType="string">
+		UPDATE
+		       SUB
+		   SET
+		       DELIVERY = DELIVERY + 1
+		 WHERE
+		       SUBSCRIBE_CODE = #{subCode}
+	</update>
+	<select id="selectAdAll" resultMap="adResultSet">
+		SELECT
+		       AD_CODE
+		     , APPLYDATE
+		     , POSTDATE
+		     , DURATION
+		     , ORIGIN_IMAGE
+		     , RENAME_IMAGE
+		     , IMAGE
+		     , URL
+		     , AD_STATUS
+		     , AD_REJECT
+		     , ID
+		     , BN_CODE
+		  FROM
+		       AD
+		 WHERE (POSTDATE+DURATION) <![CDATA[>=]]> SYSDATE
+           AND POSTDATE <![CDATA[<=]]> SYSDATE
+	  ORDER BY TO_NUMBER(AD_CODE) DESC
 	</select>
 </mapper>

@@ -270,7 +270,7 @@ public class pMypageController {
 			if(loginUser != null) {
 				model.addAttribute("loginUser", loginUser);
 				rd.addFlashAttribute("msg", "회원 정보가 수정 되었습니다.");
-				return "redirect:/";
+				return "redirect:/pMypage/homeView";
 			} else {
 				model.addAttribute("msg", "로그인 정보를 불러오지 못했습니다.");
 				return "mypage/partner/updateMember";
@@ -459,7 +459,7 @@ public class pMypageController {
 	}
 	
 	@PostMapping(value="/updateShipping", produces="application/json; charset=utf-8")
-	public @ResponseBody String updateShipping(String code, String val, HttpServletResponse response, HttpServletRequest request) {
+	public @ResponseBody String updateShipping(String code, String val, String subCode, HttpServletResponse response, HttpServletRequest request) {
 		Shipping ship = new Shipping();
 		String id = ((Member)request.getSession().getAttribute("loginUser")).getId();
 
@@ -478,11 +478,27 @@ public class pMypageController {
 		if(result > 0) {
 			ship.setShipping_code(code);
 			ship.setId(id);
+			if(status.equals("배송완료")) {
+				int result1 = pService.updateDelivery(subCode);
+			}
 			Shipping updateShip = pService.selectShip(ship);
 			Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 			return gson.toJson(updateShip);
 		} else {
 			return null;
 		}
+	}
+	
+	@GetMapping(value="/selectAd", produces="application/json; charset=utf-8")
+	public @ResponseBody String selectAd() {
+		List<Ad> list = pService.selectAdAll();
+		
+		if(list != null) {
+			Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+			return gson.toJson(list);
+		} else {
+			return null;
+		}
+		
 	}
 }

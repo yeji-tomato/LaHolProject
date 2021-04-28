@@ -647,10 +647,12 @@
     </div>
     <script>
         $("#date1").datepicker({
-    	    language: 'ko'
+    	    language: 'ko',
+    	    autoClose : true
         });
         $("#date2").datepicker({
-    	    language: 'ko'
+        	language: 'ko',
+    	    autoClose : true
         });
         
         var category = document.getElementById("pay-category");

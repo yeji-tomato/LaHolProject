@@ -128,7 +128,7 @@ public class nMypageController {
 			if(loginUser != null) {
 				model.addAttribute("loginUser", loginUser);
 				rd.addFlashAttribute("msg", "회원 정보가 수정 되었습니다.");
-				return "redirect:/";
+				return "redirect:/nMypage/homeView";
 			} else {
 				model.addAttribute("msg", "로그인 정보를 불러오지 못했습니다.");
 				return "mypage/normal/updateMember";

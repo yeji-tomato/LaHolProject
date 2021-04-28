@@ -28,9 +28,9 @@
 
             <div class="adSlider">
                 <div class="carousel" data-flickity='{ "autoPlay": true }'>
-                    <div class="carousel-cell" style="background-image:url(https://images.unsplash.com/photo-1516007359037-f8f56dd361ff?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80)"></div>
+                    <!-- <div class="carousel-cell" style="background-image:url(https://images.unsplash.com/photo-1516007359037-f8f56dd361ff?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80)"></div>
                     <div class="carousel-cell" style="background-image:url(https://images.unsplash.com/photo-1598378002013-e374463ca9a1?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=675&q=80)"></div>
-                    <div class="carousel-cell" style="background-image:url(https://images.unsplash.com/photo-1508766917616-d22f3f1eea14?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80)"></div>
+                    <div class="carousel-cell" style="background-image:url(https://images.unsplash.com/photo-1508766917616-d22f3f1eea14?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80)"></div> -->
                 </div>
             </div>
 
@@ -42,6 +42,47 @@
                 speed: 100,
                 loop: true
                 }).go();
+            
+            $(function() {
+            	$.ajax({
+            		url : '${ contextPath }/pMypage/selectAd',
+            		dataType : "json",
+            		success : function(data) {
+            			console.log(data);
+            			
+            			var adDiv = $("<div class='carousel' data-flickity='{ autoPlay: true }'>");
+            			
+            			var adSlider = $(".adSlider");
+            			adDiv.html("");
+            			adSlider.html("");
+            			if(data != null) {
+            				
+            				for(var i in data){
+	            				var imgDiv = $("<div class='carousel-cell' style='background-image:url(" + data[i].image + ")'>");
+	            				// imgDiv.css('background', 'url(' + data[i].image + ')');
+	            				
+	            				adDiv.append(imgDiv);
+            				}
+            				adSlider.append(adDiv);
+            				
+            			} else {
+            				var imgDiv = $("<div class='carousel-cell' style='background-image:url(https://bit.ly/3vq9x6w)'>");
+            				adDiv.append(imgDiv);
+            				adSlider.append(adDiv);
+            			}
+            			$(".carousel").flickity({
+                    		cellAlign : 'left',
+                    		contain : true,
+                    		autoPlay : true
+                    	});
+            		},
+            		error : function(e) {
+            			alert("code : " + e.status + "\n" + "message : "
+								+ e.responseText);
+            		}
+            	});
+            	
+            });
         </script>
     </section>
 </body>
