@@ -11,7 +11,7 @@
 <link rel="stylesheet" href="${ contextPath }/resources/css/basket/storeAddress.css" type="text/css">
 </head>
 <body>
-	<div class="contact-form">
+	<div class="contact-form" style="padding-top : 20%;">
             <div class="contact-image">
                 <!-- <img src="https://image.ibb.co/kUagtU/rocket_contact.png" alt="rocket_contact"/> -->
             	<i class="fa fa-rocket" aria-hidden="true"></i>

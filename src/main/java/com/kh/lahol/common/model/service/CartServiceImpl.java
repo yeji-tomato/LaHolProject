@@ -63,7 +63,7 @@ public class CartServiceImpl implements CartService{
 	@Override
 	public int cartNum(String id) {
 		return cartDao.cartNum(id);
-
+	}
 	
 	// 카트 장바구니
 	@Override
