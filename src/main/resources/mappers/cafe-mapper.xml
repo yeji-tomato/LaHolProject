@@ -641,10 +641,12 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 		(SELECT C_CODE
 		FROM CAFE
 		WHERE ID = #{Id}),
-		ID,
+		CAR.ID,
 		C_HERETIME,
 		C_GOTIME
-	FROM CARES
+	FROM CARES CAR
+    INNER JOIN CAFE C ON(CAR.C_CODE = C.C_CODE)
+    WHERE C.ID = #{Id}
     </select>
     
     <!-- 카페 주문 리스트 보기(사업자) -->
@@ -666,7 +668,7 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 	INNER JOIN COFFEE CO ON(CO.CF_NO = COR.CF_NO)
 	INNER JOIN MEMBER M ON(CAR.ID = M.ID)
 	WHERE CAR.C_CODE = (SELECT C_CODE FROM CAFE WHERE ID = #{Id})
-	AND CAR.C_RES_DATE >= SYSDATE
+	AND CAR.C_RES_DATE = SYSDATE
 	ORDER BY CAR.C_RES_DATE, CAR.C_HERETIME, CAR.C_GOTIME
     </select>
     
@@ -677,5 +679,28 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 			C_RES_ING = #{caResIng}
 	WHERE C_RES = #{caResNo}
     </update>
+    
+     <!-- 카페 날짜 별 주문 리스트 보기(사업자) -->
+    <select id="orderDate" resultMap="cafeOrderResultSet">
+    SELECT
+	    CAR.C_RES,
+	    CAR.C_RES_TYPE,
+	    CAR.C_RES_DATE,
+	    CAR.C_CODE,
+	    CAR.ID,
+	    CAR.C_RES_ING,
+	    CAR.C_HERETIME,
+	    CAR.C_GOTIME,
+	    CO.CF_NAME,
+	    M.NAME,
+	    M.PHONE
+	FROM CARES CAR
+	INNER JOIN CORES COR ON(COR.C_RES = CAR.C_RES)
+	INNER JOIN COFFEE CO ON(CO.CF_NO = COR.CF_NO)
+	INNER JOIN MEMBER M ON(CAR.ID = M.ID)
+	WHERE CAR.C_CODE = (SELECT C_CODE FROM CAFE WHERE ID = #{id})
+	AND CAR.C_RES_DATE = #{checkDate}
+	ORDER BY CAR.C_RES_DATE, CAR.C_HERETIME, CAR.C_GOTIME
+    </select>
    
 </mapper>

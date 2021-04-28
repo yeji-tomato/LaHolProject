@@ -3,6 +3,7 @@ package com.kh.lahol.cafe.bus.model.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,6 +11,7 @@ import com.kh.lahol.cafe.bus.model.dao.CafeBizDao;
 import com.kh.lahol.cafe.bus.model.vo.Cafe;
 import com.kh.lahol.cafe.bus.model.vo.Caphoto;
 import com.kh.lahol.cafe.bus.model.vo.Coffee;
+import com.kh.lahol.cafe.bus.model.vo.Order;
 import com.kh.lahol.cafe.bus.model.vo.PageInfo;
 import com.kh.lahol.cafe.user.model.dao.CafeDao;
 import com.kh.lahol.cafe.user.model.vo.CafeRes;
@@ -100,6 +102,12 @@ public class CafeBizServiceImpl implements CafeBizService{
 	public int coffeeStatus(CafeRes cr) {
 		return caBizDao.coffeeStatus(cr);
 	}
+
+	@Override
+	public List<CafeRes> OrderDate(Order ord) {
+		return caBizDao.orderDate(ord);
+	}
+
 
 
 

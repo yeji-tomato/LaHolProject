@@ -76,15 +76,23 @@
 		        	 console.log(radioLabel);
 		        	 var couponValue = parseInt(radioLabel.substring(0,2));
 		        	 var totalValue = $("#total").val();
+		        	 // 할인금액
 		        	 var discountValue = totalValue*(couponValue/100);
+		        	 // 총 금액
 		        	 var resultPrice = totalValue - discountValue;
+		        	 
+		        	// 세 자리 콤마찍기 함수
+        			 function numberWithCommas(x) {
+        			     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        			 };
+		        	 
 		        	 
 		        	 $("#couponSequence", opener.document).text(radioVal);
 		        	 
 		        	 $("#applyCoupon", opener.document).val(radioLabel);
 		        	 
-			          $("#couponPrice", opener.document).text(discountValue);
-			          $("#resultPrice", opener.document).text(resultPrice);
+			          $("#couponPrice", opener.document).text(numberWithCommas(discountValue));
+			          $("#resultPrice", opener.document).text(numberWithCommas(resultPrice));
 	            	  	window.self.close();
 		          
 		          

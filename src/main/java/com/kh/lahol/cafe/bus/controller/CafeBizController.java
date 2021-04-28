@@ -12,6 +12,7 @@ import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.ibatis.session.RowBounds;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +37,9 @@ import com.kh.lahol.cafe.bus.model.service.CafeBizService;
 import com.kh.lahol.cafe.bus.model.vo.Cafe;
 import com.kh.lahol.cafe.bus.model.vo.Caphoto;
 import com.kh.lahol.cafe.bus.model.vo.Coffee;
+import com.kh.lahol.cafe.bus.model.vo.Order;
 import com.kh.lahol.cafe.bus.model.vo.PageInfo;
+import com.kh.lahol.cafe.bus.model.vo.Order;
 import com.kh.lahol.cafe.user.model.exception.CafeException;
 import com.kh.lahol.cafe.user.model.service.CafeService;
 import com.kh.lahol.cafe.user.model.vo.CafeRes;
@@ -486,7 +489,7 @@ public class CafeBizController {
 
 		String Id = m.getId();
 		List<CafeRes> cafeOrderlist = caBizService.selectOrderList(Id);
-        System.out.println(cafeOrderlist);
+        //System.out.println(cafeOrderlist);
 		
 		if(cafeOrderlist != null) {
 			mv.addObject("cafeOrderlist", cafeOrderlist);
@@ -515,6 +518,33 @@ public class CafeBizController {
 			  throw new CafeException("음료 상태를 변경하는데 실패하였습니다."); 
 		  }
 		
+	}
+	
+	
+	@GetMapping("/orderDate")
+	public ModelAndView cafeOrderDateList(ModelAndView mv, @SessionAttribute("loginUser") Member m,
+											@RequestParam(name="checkDate") String checkDate,
+											@ModelAttribute Order ord) {
+
+		String id = m.getId();
+		ord.setId(id);
+		ord.setCheckDate(checkDate);		
+		System.out.println("선택한 날짜 : "+ checkDate);
+		System.out.println("ord" + ord);
+		List<CafeRes> OrderDate = caBizService.OrderDate(ord);
+        System.out.println("불러오는 리스트" + OrderDate);
+		
+		if(OrderDate != null) {
+			mv.addObject("cafeOrderlist", OrderDate);
+			mv.addObject("check", ord);
+			mv.setViewName("cafe/bus/order");
+		}else {
+			mv.addObject("msg", "해당하는 날짜 주문 조회에 실패하였습니다.");
+			mv.setViewName("common/error");
+		}
+			
+		return mv;
+
 	}
 	
 

@@ -263,6 +263,14 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 		WHERE ID = #{id}
 		</delete>
 		
+		
+		<!-- 컬럼 수 조회하기 -->
+		<select id="cartNum" resultType="_int">
+		SELECT COUNT(*)
+		FROM CART
+		WHERE ID = #{id}
+		</select>
+
 		<!-- 클래스 장바구니(카트) -->
 		<insert id="classCart" parameterType="Cart">
 		INSERT

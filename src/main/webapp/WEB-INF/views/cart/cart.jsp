@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,7 +18,7 @@
 	<%@include file="./cartJS.jsp" %>
 	<section id="content" class="content_css" >
             <div class="outer1">
-                <form name="orderform" id="orderform" method="post" class="orderform" action="/Page">      
+                     
                 <div class="cart">
                     <div class="store1"> 
                         <div class="oder">
@@ -43,6 +44,9 @@
                                             </div>
                                             <div class="split"></div>
                                         </div>
+                                        
+                                        
+                                        <input type="text" value="${ cartNum }">
                                         
                                         
                                         <!-- 상품 --> 
@@ -71,12 +75,14 @@
 	                                                <div class="img"><img src="${ contextPath }/resources/nuploadFiles/cafeImg/${ crt.photoName }" width="100"></div>
 	                                                <c:set var= "name" value="${ crt.cartName }"/>
 	                                                <div class="pname">
-	                                                    <span>${ crt.cartName }</span>
+	                                                    <span id="cafeName">${ crt.cartName }</span>
 	                                                </div>
 	                                            </div>
 	                                            <div class="subdiv">
+	                                            <fmt:parseNumber var="cartSum" type="number" value="${ crt.cartPrice }" />
+	                                            <fmt:formatNumber type="number" maxFractionDigits="3" value="${ cartSum }" var="cafeSum" />
 	                                                <div class="basketprice">
-	                                                	${ crt.cartPrice }
+	                                                	${ cafeSum }원
 	                                                </div>
 	                                                <div class="num">
 	                                                    <div class="updown">
@@ -86,9 +92,8 @@
                                                     	<button style="border: 0; background: white;"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></button>
                                                     </div>
 	                                                </div>
-	                                                <c:set var="cartSum" value="${ crt.cartPrice }"/>
-	                                                 
-	                                                <div class="sum">${ cartSum }원</div>
+	                                                
+	                                                <div class="sum">${ cafeSum }원</div>
 	                                                <div class="del">${ crt.cartRes }</div> 
 	                                            </div>
 	                                            <div class="subdiv">
@@ -99,9 +104,14 @@
 	                                                </div>
 	                                            </div>
 	                                        </div>
+	                                        <c:set var="cartTotal" value="${ cartTotal + cartSum}"/>
+
                                         	</c:when>
+                                        	</c:choose>
+                                        	</c:forEach> 
                                         	
-                                        	<c:when test="${ crt.purchaseNo != null }">
+                                        	<c:forEach var="crt" items="${ cartlist }">
+                                        	<c:if test="${ crt.purchaseNo != null }">
                                         	<!-- 스토어 -->
                                         	<div class="row data">
 	                                            <div class="subdiv">
@@ -111,26 +121,30 @@
 	                                                        <span class="warning"></span>
 	                                                    </label>
 	                                                </div>
-	                                                <div class="img"><img src="${ contextPath }/resources/img/store/${ crt.photoName }" width="100"></div>
+	                                                <div class="img"><img src="${ contextPath }/resources/img/store/${ crt.photoName }" width="100" height="100"></div>
 	                                                <div class="pname">
 	                                                    <span>${ crt.cartName }</span>
 	                                                </div>
 	                                            </div>
 	                                            <div class="subdiv">
+	                                            <fmt:parseNumber var="cartSum" type="number" value="${ crt.cartPrice }" />
+	                                            <fmt:formatNumber type="number" maxFractionDigits="3" value="${ cartSum }" var="storeSum" />
 	                                                <div class="basketprice">
-	                                                	${ crt.cartPrice }원
+	                                                	${ storeSum }원
 	                                                </div>
-	                                                <div class="num">
-	                                                    <div class="updown">
-                                                        <input type="text" name="p_num2" id="p_num2" size="2" maxlength="4" class="p_num" value="1" onkeyup="javascript:basket.changePNum(3);">
-                                                        <span onclick="javascript:basket.changePNum(2);"><i class="fas fa-arrow-alt-circle-up up"></i></span>
-                                                        <span onclick="javascript:basket.changePNum(2);"><i class="fas fa-arrow-alt-circle-down down"></i></span>
-                                                    </div>
-	                                                </div>
-	                                                <c:set var= "sum" value="${totalCount + crt.cartCount}"/>
-	                                                <div class="sum">${ crt.cartPrice }원</div>
-	                                                <div class="del">${ crt.cartRes }</div> 
+	                                                <div class="num">${ crt.cartCount }</div>
+	                                                <c:set var="ProSum" value="${ crt.cartPrice *crt.cartCount }"/>
+	                                                <fmt:parseNumber var="pro" type="number" value="${ ProSum }" />
+	                                                <fmt:formatNumber type="number" maxFractionDigits="3" value="${ pro }" var="storedelSum" />
+                                                    <div class="sum">${ storedelSum }원</div>
+                                                    <fmt:parseNumber var="del" type="number" value="${ crt.shipFee }" />
+	                                                <fmt:formatNumber type="number" maxFractionDigits="3" value="${ del }" var="delPrice" />
+	                                                <div class="del">${ delPrice }원</div> 
+	                                                
 	                                            </div>
+	                                               
+	                                                <%-- <div class="sum">${ crt.cartPrice *crt.cartCount }원</div> --%>
+	                                                
 	                                            <div class="subdiv">
 	                                                <div class="basketcmd">
 	                                                <a href="javascript:void(0)" class="abutton" onclick="javascript:basket.delItem();">
@@ -138,6 +152,7 @@
 	                                                </a>
 	                                                </div>
 	                                            </div>
+
 	                                            <input type="hidden" id="cResNo"  value="${ crt.cres }">
 	                                        </div>
                                         	</c:when>
@@ -156,54 +171,27 @@
 	                                                <div class="pname">
 	                                                    <span>${ crt.cartName }</span>
 	                                                </div>
-	                                            </div>
-	                                            <div class="subdiv">
-	                                                <div class="basketprice">
-	                                                	${ crt.cartPrice }원
-	                                                </div>
-	                                                <div class="num">
-	                                                    <div class="updown">
-                                                        <input type="text" name="p_num3" id="p_num3" size="2" maxlength="4" class="p_num" value="1" onkeyup="javascript:basket.changePNum(3);">
-                                                        <span onclick="javascript:basket.changePNum(3);"><i class="fas fa-arrow-alt-circle-up up"></i></span>
-                                                        <span onclick="javascript:basket.changePNum(3);"><i class="fas fa-arrow-alt-circle-down down"></i></span>
-                                                    </div>
-	                                                </div>
-	                                                <div class="sum">${ crt.cartPrice }원</div>
-	                                                <div class="del">${ crt.cartRes }</div> 
-	                                            </div>
-	                                            <div class="subdiv">
-	                                                <div class="basketcmd">
-	                                                <a href="javascript:void(0)" class="abutton" onclick="javascript:basket.delItem();">
-	                                                    X
-	                                                </a>
-	                                                </div>
-	                                            </div>
-	                                        </div>
-                                        	
-                                        	</c:when>
-                                        </c:choose>
-                                        
-                                        <c:set var= "totalCount" value="${totalCount + crt.cartCount}"/>
-                                        <!-- 최종합계 -->
-                                        <c:set var= "total" value="${total + cartSum}"/>
-                                        </c:forEach> 
-                                        
-                                        
 
+	                                            </div>
+	                                            <c:set var= "storeTotal" value="${ storeTotal + ProSum}"/>
+	                                            </c:if>
+	                                            </c:forEach>
+
+	                                    </div>
                                         
-                                
                                     </div>
                             
-                            
-                                  
-                                    <div class="bigtext right-align sumcount" id="sum_p_num">합계: <c:out value="${total}"/></div>
+                                    <c:set var= "total" value="${ total + cartTotal + storeTotal }"/>
+                                  	<fmt:parseNumber var="t" type="number" value="${ total }" />
+	                                <fmt:formatNumber type="number" maxFractionDigits="3" value="${ t }" var="totalPrice" />
+                                    <div class="bigtext right-align sumcount" id="sum_p_num">합계: <c:out value="${totalPrice}"/></div>
                                   
                                
                                
                             </div>
                             </div><!-- /store1 -->
                             </div><!-- /cart -->
-                        </form>
+                       
                         
                         
 

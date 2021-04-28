@@ -63,11 +63,13 @@ public class CartController{
 			ModelAndView mv) {
 		
 		String id = m.getId();
-		System.out.println(id);
+		// System.out.println(id);
 		List<Cart> cartlist = cartService.cartSelectList(id);
-		System.out.println(cartlist);
+		// System.out.println(cartlist);
+		int cartNum = cartService.cartNum(id);
 		
 		mv.addObject("cartlist", cartlist);
+		mv.addObject("cartNum", cartNum);
 		mv.setViewName("cart/cart");
 		
 		

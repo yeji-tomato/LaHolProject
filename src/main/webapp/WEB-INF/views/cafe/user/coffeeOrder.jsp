@@ -46,7 +46,7 @@
                                         </div>
                                         
                                         <!-- 상품 -->  
-                                        <c:forEach var="cor" items="${ CoffeeOrder }">   
+                                        <c:forEach var="cor" items="${ OrderDate }">   
                                         <div class="row data">
                                             <div class="subdiv">
                                                 <div class="check">
