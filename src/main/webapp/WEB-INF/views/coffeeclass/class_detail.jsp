@@ -101,16 +101,16 @@
                       <tr>
                         <td>시간</td>
                         <td colspan="2">
-                          <select style="width: 80%;" >
+                          <select style="width: 80%;" name = "selectedTime">
                             <option class = "selecttime" disabled="disabled">시간</option>
-                        	<option class = "selecttime" name="classTime"  value="dd">${ coffeeclass.classTime }</option>
+                        	<option class = "selecttime" value="${ coffeeclass.classTime }">${ coffeeclass.classTime }</option>
                         	<c:if test="${ !empty coffeeclass.classTime2 }">
                         	<option class = "selecttime" value="${ coffeeclass.classTime2 }">${ coffeeclass.classTime2 }</option>
                         	</c:if>
                         	<c:if test="${ !empty coffeeclass.classTime3 }">
                         	<option class = "selecttime" value="${ coffeeclass.classTime3 }">${ coffeeclass.classTime3 }</option>
                         	</c:if>
-                        </select>          
+                        </select>        
                         </td>
                       </tr>
                       <tr>
