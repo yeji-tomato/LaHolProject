@@ -395,199 +395,13 @@
 		$('.period').click(function(){
 		    $('#custom-period').html('');
 		});
-
-		/* charts.js */
-
-		/* 큰 도넛 */
-		$(document).ready(function(){
-			var options = {
-				// legend: false,
-				responsive: false
-			};
-			new Chart($("#big-doughnut"), {
-				type: 'doughnut',
-				tooltipFillColor: "rgba(51, 51, 51, 0.55)",
-				data: {
-				labels: [
-					"수수료",
-					"광고"
-				],
-				datasets: [{
-				data: [1300000, 400000],
-				backgroundColor: [
-					"rgb(54, 162, 235)",
-					"rgb(255, 205, 86)"
-				],
-				hoverBackgroundColor: [
-					"rgb(54, 162, 235)",
-					"rgb(255, 205, 86)"
-				]
-				}]
-			},
-				options: { 
-		                responsive: true
-		                }                   
-			});           
-		});
-
-
-		/* 작은 도넛 */
-		/* 1. 스토어 도넛 */
-		var storeValue = 50;
-
-		$(document).ready(function(){
-			var options = {
-				// legend: false,
-				responsive: false
-			};
-			new Chart($("#store-donut"), {
-				type: 'doughnut',
-				tooltipFillColor: "rgba(51, 51, 51, 0.55)",
-				data: {
-				labels: [
-					"스토어"
-				],
-				datasets: [{
-				data: [storeValue, 100-storeValue],
-				backgroundColor: [
-					"#F8964C",
-		            "#fafafa"
-				],
-				hoverBackgroundColor: [
-					"#F8964C",
-		            "#fafafa"
-				]
-				}]
-			},
-				options: { 
-		                responsive: true
-		                }                   
-			});           
-		});
-
-		/* 2. 클래스 도넛 */
-		var classValue = 30;
-
-		$(document).ready(function(){
-			var options = {
-				// legend: false,
-				responsive: false
-			};
-			new Chart($("#class-donut"), {
-				type: 'doughnut',
-				tooltipFillColor: "rgba(51, 51, 51, 0.55)",
-				data: {
-				labels: [
-					"클래스"
-				],
-				datasets: [{
-				data: [classValue, 100-classValue],
-				backgroundColor: [
-					"#22A447",
-		            "#fafafa"
-				],
-				hoverBackgroundColor: [
-					"#22A447",
-		            "#fafafa"
-				]
-				}]
-			},
-				options: { 
-		                responsive: true
-		                }                   
-			});           
-		});
-
-		/* 3. 커피 도넛 */
-		var coffeeValue = 20;
-
-		$(document).ready(function(){
-			var options = {
-				// legend: false,
-				responsive: false
-			};
-			new Chart($("#coffee-donut"), {
-				type: 'doughnut',
-				tooltipFillColor: "rgba(51, 51, 51, 0.55)",
-				data: {
-				labels: [
-					"커피"
-				],
-				datasets: [{
-				data: [coffeeValue, 100-coffeeValue],
-				backgroundColor: [
-					"#70A6E8",
-		            "#fafafa"
-				],
-				hoverBackgroundColor: [
-					"#70A6E8",
-		            "#fafafa"
-				]
-				}]
-			},
-				options: { 
-		                responsive: true
-		                }                   
-			});           
-		});
-
-		/* 라인 그래프 */
-		var ctx = document.getElementById('line-graph').getContext("2d");
-
-		var myChart = new Chart(ctx, {
-		    type: 'line',
-		    data: {
-		        labels: ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL"],
-		        datasets: [{
-		            label: "Data",
-		            borderColor: "#ff6384",
-		            pointBorderColor: "#ff6384",
-		            pointBackgroundColor: "#ff6384",
-		            pointHoverBackgroundColor: "#ff6384",
-		            pointHoverBorderColor: "#ff6384",
-		            pointBorderWidth: 5,
-		            pointHoverRadius: 5,
-		            pointHoverBorderWidth: 1,
-		            pointRadius: 3,
-		            fill: false,
-		            borderWidth: 4,
-		            data: [160, 120, 150, 170, 500, 170, 160]
-		        }]
-		    },
-		    options: {
-		        legend: {
-		            position: "bottom",
-		            display: false
-		        },
-		        scales: {
-		            yAxes: [{
-		                ticks: {
-		                    fontColor: "rgba(0,0,0,0.5)",
-		                    fontStyle: "bold",
-		                    beginAtZero: true,
-		                    maxTicksLimit: 5,
-		                    padding: 5,
-		                    display: false
-		                },
-		                gridLines: {
-		                    drawTicks: false,
-		                    display: false
-		                }
-
-		            }],
-		            xAxes: [{
-		                gridLines: {
-		                    zeroLineColor: "transparent"
-		                },
-		                ticks: {
-		                    padding: 2,
-		                    fontColor: "rgba(0,0,0,0.5)",
-		                    fontStyle: "bold"
-		                }
-		            }]
-		        }
-		    }
-		});
+		
+		
+		
+		var labelName = [];
+		var dataValue = [];
+		
+		
 		
 		
 		/* 날짜 버튼 클릭 시 UI 변경 */
@@ -603,6 +417,250 @@
 				$('#graph-box').show();
 				$('#graph-alternative').hide();
 			}
+		});
+		
+		
+		
+		/* 날짜 버튼 클릭 시 */
+		$(function(){
+		    $(".dateBtn").click(function(event) {
+		        var date = event.target.id;
+		        
+		        $.ajax({
+		        	url : "${ pageContext.request.contextPath }/admin/profit/" + date,
+		        	dataType : "json",
+		        	type : "get",
+		        	success : function(data) {
+		        		console.log(data);
+
+		        		const feeText = $('#fee-text');
+		        		const adText = $('#ad-text');
+		        		
+		        		var ad = data.list[0].ad;
+		        		var fee = data.list[0].fee;
+		        		
+		        		if(date == 'week') {
+		        			labelName = ['Mon', 'Wed', 'Fri', 'Sun'];
+		        			dataValue = [data.mon, data.wed, data.fri, data.sun];
+		        		} else if(date == 'month') {
+		        			labelName = ['firstDay', 'midDay', 'lastDay'];
+		        			dataValue = [data.firstDay, data.midDay, data.lastDay];
+		        		} else if(date == 'year') {
+		        			labelName = ['Jan', 'Apr', 'Jul', 'Oct', 'Dec'];
+		        			dataValue = [data.jan, data.apr, data.jul, data.oct, data.dec];
+		        		}
+		        		
+		        		console.log("ad : "+ ad);
+		        		console.log("fee : " + fee);
+		        		
+	        			 // 세 자리 콤마찍기 함수
+	        			 function numberWithCommas(x) {
+	        			     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+	        			 };
+	        			 
+		        		adText.text('₩ ' + numberWithCommas(ad));
+		        		feeText.text('₩ ' + numberWithCommas(fee));
+		        		
+		        		/* charts.js */
+
+		        		/* 큰 도넛 */
+		        		$(document).ready(function(){
+		        			var options = {
+		        				// legend: false,
+		        				responsive: false
+		        			};
+		        			new Chart($("#big-doughnut"), {
+		        				type: 'doughnut',
+		        				tooltipFillColor: "rgba(51, 51, 51, 0.55)",
+		        				data: {
+		        				labels: [
+		        					"수수료",
+		        					"광고"
+		        				],
+		        				datasets: [{
+		        				data: [ad, fee],
+		        				backgroundColor: [
+		        					"rgb(54, 162, 235)",
+		        					"rgb(255, 205, 86)"
+		        				],
+		        				hoverBackgroundColor: [
+		        					"rgb(54, 162, 235)",
+		        					"rgb(255, 205, 86)"
+		        				]
+		        				}]
+		        			},
+		        				options: { 
+		        		                responsive: true
+		        		        }                   
+		        			});           
+		        		});
+		        		
+
+		        		/* 작은 도넛 */
+		        		/* 1. 스토어 도넛 */
+		        		var storeValue = data.list[0].storeFee;
+
+		        		$(document).ready(function(){
+		        			var options = {
+		        				// legend: false,
+		        				responsive: false
+		        			};
+		        			new Chart($("#store-donut"), {
+		        				type: 'doughnut',
+		        				tooltipFillColor: "rgba(51, 51, 51, 0.55)",
+		        				data: {
+		        				labels: [
+		        					"스토어"
+		        				],
+		        				datasets: [{
+		        				data: [(fee - storeValue) * 0.01, (fee) * 0.01],
+		        				backgroundColor: [
+		        					"#F8964C",
+		        		            "#fafafa"
+		        				],
+		        				hoverBackgroundColor: [
+		        					"#F8964C",
+		        		            "#fafafa"
+		        				]
+		        				}]
+		        			},
+		        				options: { 
+		        		                responsive: true
+		        		           }                   
+		        			});           
+		        		});
+
+		        		/* 2. 클래스 도넛 */
+		        		var classValue = data.list[0].classFee;
+
+		        		$(document).ready(function(){
+		        			var options = {
+		        				// legend: false,
+		        				responsive: false
+		        			};
+		        			new Chart($("#class-donut"), {
+		        				type: 'doughnut',
+		        				tooltipFillColor: "rgba(51, 51, 51, 0.55)",
+		        				data: {
+		        				labels: [
+		        					"클래스"
+		        				],
+		        				datasets: [{
+		        				data: [(fee - classValue) * 0.01, (fee) * 0.01],
+		        				backgroundColor: [
+		        					"#22A447",
+		        		            "#fafafa"
+		        				],
+		        				hoverBackgroundColor: [
+		        					"#22A447",
+		        		            "#fafafa"
+		        				]
+		        				}]
+		        			},
+		        				options: { 
+		        		                responsive: true
+		        		                }                   
+		        			});           
+		        		});
+
+		        		/* 3. 커피 도넛 */
+		        		var cafeValue = data.list[0].cafeFee;
+
+		        		$(document).ready(function(){
+		        			var options = {
+		        				// legend: false,
+		        				responsive: false
+		        			};
+		        			new Chart($("#coffee-donut"), {
+		        				type: 'doughnut',
+		        				tooltipFillColor: "rgba(51, 51, 51, 0.55)",
+		        				data: {
+		        				labels: [
+		        					"커피"
+		        				],
+		        				datasets: [{
+		        				data: [(fee - cafeValue) * 0.01, (fee) * 0.01],
+		        				backgroundColor: [
+		        					"#70A6E8",
+		        		            "#fafafa"
+		        				],
+		        				hoverBackgroundColor: [
+		        					"#70A6E8",
+		        		            "#fafafa"
+		        				]
+		        				}]
+		        			},
+		        				options: { 
+		        		                responsive: true
+		        		                }                   
+		        			});           
+		        		});
+		        		/* 라인 그래프 */
+		        		var ctx = document.getElementById('line-graph').getContext("2d");
+
+		        		var myChart = new Chart(ctx, {
+		        		    type: 'line',
+		        		    data: {
+		        		        labels: labelName,
+		        		        datasets: [{
+		        		            label: "Data",
+		        		            borderColor: "#ff6384",
+		        		            pointBorderColor: "#ff6384",
+		        		            pointBackgroundColor: "#ff6384",
+		        		            pointHoverBackgroundColor: "#ff6384",
+		        		            pointHoverBorderColor: "#ff6384",
+		        		            pointBorderWidth: 5,
+		        		            pointHoverRadius: 5,
+		        		            pointHoverBorderWidth: 1,
+		        		            pointRadius: 3,
+		        		            fill: false,
+		        		            borderWidth: 4,
+		        		            data: dataValue
+		        		        }]
+		        		    },
+		        		    options: {
+		        		        legend: {
+		        		            position: "bottom",
+		        		            display: false
+		        		        },
+		        		        scales: {
+		        		            yAxes: [{
+		        		                ticks: {
+		        		                    fontColor: "rgba(0,0,0,0.5)",
+		        		                    fontStyle: "bold",
+		        		                    beginAtZero: true,
+		        		                    maxTicksLimit: 5,
+		        		                    padding: 5,
+		        		                    display: false
+		        		                },
+		        		                gridLines: {
+		        		                    drawTicks: false,
+		        		                    display: false
+		        		                }
+
+		        		            }],
+		        		            xAxes: [{
+		        		                gridLines: {
+		        		                    zeroLineColor: "transparent"
+		        		                },
+		        		                ticks: {
+		        		                    padding: 2,
+		        		                    fontColor: "rgba(0,0,0,0.5)",
+		        		                    fontStyle: "bold"
+		        		                }
+		        		            }]
+		        		        }
+		        		    }
+		        		});
+		        	},// -- AJAX SUCCESS CODE ENDS HERE
+		        	error : function(e) {
+		        		console.log(e);
+		        	}
+		        	
+		        	
+		        	
+		        })
+		    });  // AJAX's VERY END
 		});
 		</script>
 		<script src="${ contextPath }/resources/js/admin/darkMode.js"></script>

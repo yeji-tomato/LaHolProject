@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -397,7 +398,7 @@
 			/* charts.js */
 
 			// 1. 스토어 도넛 
-			var storeValue = (storeSales)/100;
+			var storeValue = (storeSales/totalSales) * 100;
 
 			$(document).ready(function(){
 				var options = {
@@ -412,7 +413,7 @@
 						"스토어"
 					],
 					datasets: [{
-					data: [storeValue,(totalSales/100)-storeValue],
+					data: [storeValue, 100-storeValue],
 					backgroundColor: [
 						"#F8964C",
 			            "#fafafa"
@@ -430,7 +431,7 @@
 			});
 			
 			// 2. 클래스 도넛
-			var classValue = (classSales)/100;
+			var classValue = (classSales/totalSales) * 100;
 
 			$(document).ready(function(){
 				var options = {
@@ -445,7 +446,7 @@
 						"클래스"
 					],
 					datasets: [{
-					data: [classValue, (totalSales/100)-classValue],
+					data: [classValue, 100-classValue],
 					backgroundColor: [
 						"#22A447",
 			            "#fafafa"
@@ -463,7 +464,7 @@
 			});
 
 			/* 3. 커피 도넛 */
-			var cafeValue = (cafeSales)/100;
+			var cafeValue = (cafeSales/totalSales) * 100;;
 
 			$(document).ready(function(){
 				var options = {
@@ -478,7 +479,7 @@
 						"커피"
 					],
 					datasets: [{
-					data: [cafeValue, (totalSales/100)-cafeValue],
+					data: [cafeValue, 100-cafeValue],
 					backgroundColor: [
 						"#70A6E8",
 			            "#fafafa"
