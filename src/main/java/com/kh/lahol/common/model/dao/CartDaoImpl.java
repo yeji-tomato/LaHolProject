@@ -62,6 +62,7 @@ public class CartDaoImpl implements CartDao{
 	@Override
 	public int cartNum(String id) {
 		return sqlSession.selectOne("cartMapper.cartNum", id);
+	}
 
 	// 클래스 장바구니
 	@Override

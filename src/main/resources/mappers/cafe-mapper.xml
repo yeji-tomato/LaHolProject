@@ -680,6 +680,20 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 	WHERE C_RES = #{caResNo}
     </update>
     
+    <!-- 변경된 날짜 번호 구하기 -->
+   <select id="selectOrderCount" resultType="_int">
+   SELECT 
+            COUNT(*)
+          FROM
+               CARES CAR
+    INNER JOIN CORES COR ON(COR.C_RES = CAR.C_RES)
+	INNER JOIN COFFEE CO ON(CO.CF_NO = COR.CF_NO)
+	INNER JOIN MEMBER M ON(CAR.ID = M.ID)
+	WHERE CAR.C_CODE = (SELECT C_CODE FROM CAFE WHERE ID = #{id})
+	AND CAR.C_RES_DATE = #{checkDate}
+	ORDER BY CAR.C_RES_DATE, CAR.C_HERETIME, CAR.C_GOTIME
+   </select>
+    
      <!-- 카페 날짜 별 주문 리스트 보기(사업자) -->
     <select id="orderDate" resultMap="cafeOrderResultSet">
     SELECT
@@ -702,5 +716,7 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 	AND CAR.C_RES_DATE = #{checkDate}
 	ORDER BY CAR.C_RES_DATE, CAR.C_HERETIME, CAR.C_GOTIME
     </select>
+   
+   	
    
 </mapper>

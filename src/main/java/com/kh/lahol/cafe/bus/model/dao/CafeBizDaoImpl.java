@@ -96,12 +96,21 @@ public class CafeBizDaoImpl implements CafeBizDao{
 	public int coffeeStatus(CafeRes cr) {
 		return sqlSession.update("cafeMapper.coffeeStatus", cr);
 	}
+	
 
 	@Override
-	public List<CafeRes> orderDate(Order ord) {
-		return sqlSession.selectList("cafeMapper.orderDate", ord);
+	public int selectOrderCount(Order ord) {
+		System.out.println(ord);
+		return sqlSession.selectOne("cafeMapper.selectOrderCount", ord);
 	}
 
+
+	@Override
+	public List<CafeRes> orderDate(Order ord, PageInfo pi) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getCoffeeLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getCoffeeLimit());
+		return sqlSession.selectList("cafeMapper.orderDate", ord, rowBounds);
+	}
 
 
 
