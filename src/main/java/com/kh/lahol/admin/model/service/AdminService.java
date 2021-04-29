@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.kh.lahol.admin.model.vo.CafeList;
+import com.kh.lahol.admin.model.vo.Game;
 import com.kh.lahol.admin.model.vo.Profit;
 import com.kh.lahol.admin.model.vo.Promotion;
 import com.kh.lahol.admin.model.vo.Report_N;
@@ -55,5 +56,13 @@ public interface AdminService {
 	void updateUserReportInvalid(Report_N an);
 	
 	List<Profit> selectProfitByDate(String date);
+	
+	void insertCouponToUser(Game gm);
+
+	String selectWeeklySales(int i);
+
+	String selectMonthlySales(String i);
+
+	String selectYearlySales(String s);	
 
 }

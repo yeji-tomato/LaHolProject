@@ -1,7 +1,5 @@
 package com.kh.lahol.admin.controller;
 
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.Date;
 import java.util.List;
 import java.util.Locale;
@@ -27,6 +25,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.kh.lahol.admin.model.service.AdminService;
 import com.kh.lahol.admin.model.service.AdminServiceImpl;
 import com.kh.lahol.admin.model.vo.CafeList;
+import com.kh.lahol.admin.model.vo.Game;
 import com.kh.lahol.admin.model.vo.Promotion;
 import com.kh.lahol.admin.model.vo.Report_N;
 import com.kh.lahol.admin.model.vo.Report_P;
@@ -162,6 +161,18 @@ public class AdminController {
 		
 		adminService.updateUserReportInvalid(an);
 		return "redirect:/admin/report/normal";
+	}
+	
+	// 쿠폰 발급 인서트
+	@RequestMapping(value="/game/insertCoupon", method=RequestMethod.GET)
+	public void insertCouponToUser(String id, String couponName, String couponLimit, String issuedBy,
+								   @ModelAttribute Game gm) {
+		gm.setId(id);
+		gm.setCouponName(couponName);
+		gm.setCouponLimit(couponLimit);
+		gm.setCouponName(couponName);
+		
+		adminService.insertCouponToUser(gm);
 	}
 }
  

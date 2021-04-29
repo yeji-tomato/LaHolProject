@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.lahol.admin.model.vo.CafeList;
+import com.kh.lahol.admin.model.vo.Game;
 import com.kh.lahol.admin.model.vo.Profit;
 import com.kh.lahol.admin.model.vo.Promotion;
 import com.kh.lahol.admin.model.vo.Report_N;
@@ -127,6 +128,24 @@ public class AdminDaoImpl implements AdminDao{
 	public List<Profit> selectProfitByDate(String date) {
 		return sqlSession.selectList("adminMapper.selectProfitByDate", date);
 	}
-	
 
+	@Override
+	public void insertCouponToUser(Game gm) {
+		sqlSession.insert("adminMapper.insertCouponToUser", gm);
+	}
+
+	@Override
+	public String selectWeeklySales(int i) {
+		return sqlSession.selectOne("adminMapper.selectWeeklySales", i);
+	}
+
+	@Override
+	public String selectMonthlySales(String i) {
+		return sqlSession.selectOne("adminMapper.selectMonthlySales", i);
+	}
+
+	@Override
+	public String selectYearlySales(String s) {
+		return sqlSession.selectOne("adminMapper.selectYearlySales", s);
+	}
 }

@@ -295,7 +295,7 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 	     FROM
 	          M_PAY_LIST MV
    INNER JOIN
-	          M_PARTNER P ON (MV.ID = P.ID)ef
+	          M_PARTNER P ON (MV.ID = P.ID)
    INNER JOIN
 	          MEMBER M ON (MV.ID = M.ID) 
    INNER JOIN
@@ -378,5 +378,80 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 											   AND PAY_DATE <![CDATA[<]]> LAST_DAY(SYSDATE)</when>
 			<when test="_parameter == 'year'">WHERE EXTRACT(YEAR FROM PAY_DATE) = EXTRACT(YEAR FROM SYSDATE)</when>
    			</choose>
+		</select>
+		<insert id="insertCouponToUser" parameterType="A_Coupon">
+		INSERT
+		  INTO COUPON
+		  (
+		       COUPON_CODE
+		     , ID
+		     , COUPON_NAME
+		     , LIMIT
+		     , ISSUEDBY
+		     , ISSUEDATE
+		     , EXPDATE
+		     , ISUSED
+		  )
+		VALUES
+		  (
+		       'CPN' || CPN.NEXTVAL
+			 , #{id}
+			 , #{couponName}
+			 , #{couponLimit}
+			 , #{issuedBy}
+			 , DEFAULT
+			 , DEFAULT
+			 , DEFAULT
+		  )		 
+		</insert>
+		<select id="selectWeeklySales" parameterType="_int" resultType="string">
+		SELECT
+			   NVL(SUM(PAY_TOTAL), 0)
+		  FROM
+		  	   PAYMENT
+		 WHERE
+		   	   PAY_DATE = TRUNC(NEXT_DAY(TRUNC(NEXT_DAY(SYSDATE, 1)) - INTERVAL '7' DAY, #{i}))		 
+		</select>
+		<select id="selectMonthlySales" parameterType="string" resultType="string">
+		SELECT
+			   NVL(SUM(PAY_TOTAL), 0)
+		  FROM
+		  	   PAYMENT	
+	 	 WHERE
+		 <choose>
+		 	<when test='_parameter.equals("1")'>
+		      TO_DATE(PAY_DATE) = TO_DATE(TRUNC(SYSDATE, 'MONTH'))
+		 	</when>
+		 	<when test='_parameter.equals("3")'>
+		 	  TO_DATE(PAY_DATE) = TO_DATE(TRUNC(SYSDATE, 'MONTH') + INTERVAL '14' DAY)
+		 	</when>
+		 	<when test='_parameter.equals("5")'>
+		 	  TO_DATE(PAY_DATE) = TO_DATE(LAST_DAY(SYSDATE))
+		 	</when>
+		 </choose>
+		</select>
+		<select id="selectYearlySales" parameterType="string" resultType="string">
+		SELECT
+		       NVL(SUM(PAY_TOTAL), 0)
+		  FROM 
+		       PAYMENT
+		 WHERE
+		 <choose>
+		 	<when test='_parameter.equals("")'>
+		 		EXTRACT(MONTH FROM PAY_DATE) - EXTRACT(MONTH FROM TRUNC(SYSDATE, 'YEAR')) = 0
+		 	</when>
+		 	<when test='_parameter.equals("3")'>
+		 		EXTRACT(MONTH FROM PAY_DATE) - EXTRACT(MONTH FROM TRUNC(SYSDATE, 'YEAR') + INTERVAL '3' MONTH) = 0
+		 	</when>
+		 	<when test='_parameter.equals("6")'>
+		 		EXTRACT(MONTH FROM PAY_DATE) - EXTRACT(MONTH FROM TRUNC(SYSDATE, 'YEAR') + INTERVAL '6' MONTH) = 0
+		 	</when>
+		 	<when test='_parameter.equals("9")'>
+		 		EXTRACT(MONTH FROM PAY_DATE) - EXTRACT(MONTH FROM TRUNC(SYSDATE, 'YEAR') + INTERVAL '9' MONTH) = 0
+		 	</when>
+		 	<when test='_parameter.equals("11")'>
+		 		EXTRACT(MONTH FROM PAY_DATE) - EXTRACT(MONTH FROM TRUNC(SYSDATE, 'YEAR') + INTERVAL '11' MONTH) = 0
+		 	</when>
+		 </choose>
 		</select>
 </mapper>

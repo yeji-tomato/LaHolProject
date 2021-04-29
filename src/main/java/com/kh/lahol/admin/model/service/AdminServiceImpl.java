@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.lahol.admin.model.dao.AdminDao;
 import com.kh.lahol.admin.model.vo.CafeList;
+import com.kh.lahol.admin.model.vo.Game;
 import com.kh.lahol.admin.model.vo.Profit;
 import com.kh.lahol.admin.model.vo.Promotion;
 import com.kh.lahol.admin.model.vo.Report_N;
@@ -126,6 +127,26 @@ public class AdminServiceImpl implements AdminService{
 	@Override
 	public List<Profit> selectProfitByDate(String date) {
 		return adminDao.selectProfitByDate(date);
+	}
+
+	@Override
+	public void insertCouponToUser(Game gm) {
+		 adminDao.insertCouponToUser(gm);
+	}
+
+	@Override
+	public String selectWeeklySales(int i) {
+		return adminDao.selectWeeklySales(i);
+	}
+
+	@Override
+	public String selectMonthlySales(String i) {
+		return adminDao.selectMonthlySales(i);
+	}
+
+	@Override
+	public String selectYearlySales(String s) {
+		return adminDao.selectYearlySales(s);
 	}
 
 
