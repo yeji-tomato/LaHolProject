@@ -52,7 +52,7 @@
     background-color: #f6ebdb;
     color: #4B654A;
 }
-#tbody tr:hover{
+#tbody .orderTr:hover{
     background: linear-gradient(147deg,  #F3D798  0%, #f1d1ac  74%);
 }
 .dropdown-menu{
@@ -96,10 +96,11 @@
     width: 100%;
     height: 100%;
     position: fixed;
+    z-index: 90;
     /* position:sticky; */
     top: 0; 
     left: 0;
-    background: rgba(0, 0, 0, 0.404);
+    background: rgba(0, 0, 0, 0.1);
     visibility: hidden;
     opacity: 0;
     transition: all 0.25s ease-in-out;
@@ -175,6 +176,10 @@
     .redCard{
         color: #810B0B;
     }
+    
+.blackColor{
+	color : black;
+}
 
 /* 페이징 바 */
 .cafe-order-page{

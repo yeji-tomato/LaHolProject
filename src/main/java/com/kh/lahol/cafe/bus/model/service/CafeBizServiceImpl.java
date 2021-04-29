@@ -13,8 +13,10 @@ import com.kh.lahol.cafe.bus.model.vo.Caphoto;
 import com.kh.lahol.cafe.bus.model.vo.Coffee;
 import com.kh.lahol.cafe.bus.model.vo.Order;
 import com.kh.lahol.cafe.bus.model.vo.PageInfo;
+import com.kh.lahol.cafe.bus.model.vo.bevOrder;
 import com.kh.lahol.cafe.user.model.dao.CafeDao;
 import com.kh.lahol.cafe.user.model.vo.CafeRes;
+import com.kh.lahol.cafe.user.model.vo.CoffeeRes;
 
 @Service
 public class CafeBizServiceImpl implements CafeBizService{
@@ -88,11 +90,6 @@ public class CafeBizServiceImpl implements CafeBizService{
 	}
 
 	@Override
-	public List<CafeRes> selectOrderList(String id) {
-		return caBizDao.selectOrderList(id);
-	}
-
-	@Override
 	public int deleteCafeInfo(String caCode) {
 		// TODO Auto-generated method stub
 		return 0;
@@ -111,6 +108,37 @@ public class CafeBizServiceImpl implements CafeBizService{
 	@Override
 	public int selectOrderCount(Order ord) {
 		return caBizDao.selectOrderCount(ord);
+	}
+
+	@Override
+	public List<bevOrder> beverageOrder(String caResNo) {
+		System.out.println("service : "+ caResNo);
+		return caBizDao.beverageOrder(caResNo);
+	}
+
+	@Override
+	public List<CafeRes> selectOrderList(String id, PageInfo pi) {
+		return caBizDao.selectOrderList(id, pi);
+	}
+
+	@Override
+	public Cafe cafeHome(String id) {
+		return caBizDao.cafeHome(id);
+	}
+
+	@Override
+	public int countBefore(String id) {
+		return caBizDao.countBefore(id);
+	}
+
+	@Override
+	public int countMiddle(String id) {
+		return caBizDao.countMiddle(id);
+	}
+
+	@Override
+	public int countAfter(String id) {
+		return caBizDao.countAfter(id);
 	}
 
 

@@ -42,7 +42,7 @@
                 <div class="card-meta__line"></div>
               </div>
               <div class="card-tags">
-                <a href="${ contextPath }/cafe/home"  class="card-tags__item">HOME</a>
+                <a href="${ contextPath }/cafe/biz/home"  class="card-tags__item">HOME</a>
                 <a href="${ contextPath }/cafe/biz/order" class="card-tags__item">ORDER</a>
                 <a href="${ contextPath }/cafe/biz/res" class="card-tags__item">RESERVATION</a>
                 <a href="${ contextPath }/cafe/biz/write" class="card-tags__item">WRITE</a>

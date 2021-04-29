@@ -119,6 +119,19 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 		<result property="phone" column="PHONE"/>			
 	</resultMap>
 	
+	<resultMap id="bizCoffeeOrderResultSet" type="bizCoffeeOrderList">
+		<id property="cfNo" column="CF_NO"/>
+		<result property="cfCategory" column="CF_CATEGORY"/>
+		<result property="cfIname" column="CF_INAME"/>
+		<result property="cfIchname" column="CF_ICHNAME"/>
+		<result property="chIpath" column="CF_IPATH"/>
+		<result property="cfName" column="CF_NAME"/>
+		<result property="cfPrice" column="CF_PRICE"/>
+		<result property="cfCount" column="CF_COUNT"/>	
+		<result property="caNo" column="C_CODE"/>	
+		<result property="cfIchname" column="CF_ICHNAME"/>
+		<result property="cfName" column="CF_NAME"/>
+	</resultMap>
 	
 	<!-- 입력을 위한 카페 정보 가져오기 -->
 	<select id="selectCafeWrite" resultMap="cafeResultSet">
@@ -667,8 +680,8 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 	INNER JOIN CORES COR ON(COR.C_RES = CAR.C_RES)
 	INNER JOIN COFFEE CO ON(CO.CF_NO = COR.CF_NO)
 	INNER JOIN MEMBER M ON(CAR.ID = M.ID)
-	WHERE CAR.C_CODE = (SELECT C_CODE FROM CAFE WHERE ID = #{Id})
-	AND CAR.C_RES_DATE = SYSDATE
+	WHERE CAR.C_CODE = (SELECT C_CODE FROM CAFE WHERE ID = #{id})
+	AND CAR.C_RES_DATE = (SELECT TO_CHAR(SYSDATE, 'YYYY-MM-DD') FROM DUAL)
 	ORDER BY CAR.C_RES_DATE, CAR.C_HERETIME, CAR.C_GOTIME
     </select>
     
@@ -717,6 +730,59 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 	ORDER BY CAR.C_RES_DATE, CAR.C_HERETIME, CAR.C_GOTIME
     </select>
    
+   <select id="beverageOrder" resultMap="bizCoffeeOrderResultSet">
+   SELECT
+	    CF_RES,
+	    CF_RES_HI,
+	    CF_RES_CAP,
+	    CF_RES_CUP,
+	    C_RES,
+	    CF_AMOUNT,
+	    COR.CF_NO,
+	    CF_ICHNAME,
+	    CF_NAME
+	FROM CORES COR
+	INNER JOIN COFFEE CO ON(CO.CF_NO = COR.CF_NO)
+	WHERE C_RES = #{caResNo}
+   </select>
    	
+   	<select id="cafeHome" resultMap="cafeResultSet">
+   	SELECT
+        C_NAME,
+        C_MESSAGE,
+        MAINPHOTO
+	FROM CAFE
+	WHERE ID = #{id}
+   	</select>
+   
+   	<select id="countBefore" resultType="_int">
+   	SELECT
+        COUNT(*)
+	FROM CARES
+	WHERE C_RES_ING = '제조 전'
+	AND  C_CODE =  (SELECT C_CODE FROM CAFE WHERE ID = #{id})
+	AND C_RES_DATE = (SELECT TO_CHAR(SYSDATE, 'YYYY-MM-DD') FROM DUAL)
+   	
+   	</select>
+   	
+   	<select id="countMiddle" resultType="_int">
+   	SELECT
+        COUNT(*)
+	FROM CARES
+	WHERE C_RES_ING = '제조 중'
+	AND  C_CODE =  (SELECT C_CODE FROM CAFE WHERE ID = #{id})
+	AND C_RES_DATE = (SELECT TO_CHAR(SYSDATE, 'YYYY-MM-DD') FROM DUAL)
+   	
+   	</select>
+   	
+   	<select id="countAfter" resultType="_int">
+   	SELECT
+        COUNT(*)
+	FROM CARES
+	WHERE C_RES_ING = '제조 완료'
+	AND  C_CODE =  (SELECT C_CODE FROM CAFE WHERE ID = #{id})
+	AND C_RES_DATE = (SELECT TO_CHAR(SYSDATE, 'YYYY-MM-DD') FROM DUAL)
+   	</select>
+   
    
 </mapper>
