@@ -234,7 +234,7 @@
 					<!-- 날짜 -->
 					<div id="date-container">
 						<div id="date-box">
-							<a class="period dateBtn" id="day" href="">Day</a>
+							<a class="period dateBtn" id="day">Day</a>
 
 							<a class="period dateBtn" id="week">Week</a>
 
@@ -269,14 +269,7 @@
 								page-size="5"
 								page-size-options="5"
 								viewport-stop
-								data='[{
-								 "coupon_name" : "데이터 없음",
-								 "issuedBy" : "데이터 없음",
-								 "limit" : "데이터 없음",
-								 "issued" : "데이터 없음",
-								 "expired" : "데이터 없음",
-								 "used" : "사용완료"
-										}]'
+								data=''
 							>
 								<zg-colgroup>
 									<zg-column index="coupon_name" header="쿠폰명"></zg-column>
@@ -294,9 +287,9 @@
 							</div>
 							<div id="graph-desc-container">
 								<div id="percent-container">
-									<div class="percent"><span id="rest-text">₩ 560,000 (47%)</span></div>
-									<div class="percent"><span id="used-text">₩ 170,000 (38%)</span></div>
-									<div class="percent"><span id="expired-text">₩ 380,000 (17%)</span></div>
+									<div class="percent"><span id="rest-text"></span></div>
+									<div class="percent"><span id="used-text"></span></div>
+									<div class="percent"><span id="expired-text"></span></div>
 								</div>
 								<div id="total-container">
 									<span id="total-title">총 발급액</span>
@@ -318,8 +311,6 @@
 
 		
 		$(function() {
-		    $('#day').trigger('click');
-		    $('#day').trigger('focus');
 		    
 		    // 서브카테고리 기본 숨김처리
 		    $('.sub-category').hide();
@@ -519,6 +510,12 @@
 		$('.period').click(function(){
 		    $('#custom-period').html('');
 		});
+		
+		$(function() {
+		    $('#day').trigger('click');
+		    $('#day').trigger('focus');
+		});
+
 
 		</script>
 		<script src="${ contextPath }/resources/js/admin/darkMode.js"></script>

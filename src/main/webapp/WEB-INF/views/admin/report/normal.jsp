@@ -405,11 +405,7 @@
 		}); // !! THE VERY END  
 		    
 		
-		
-		
-		
-		
-	
+
 			// 완료리스트 row 클릭 시 
 		var completedList = document.querySelector("#completed-list");
 		

@@ -39,6 +39,10 @@
 				</button>
 			</div>
 		</div>
+		<form>
+			<input type="hidden" value="${sessionScope.loginUser.id}" id="userId">
+		</form>
+		
 		<script>
 		const board = document.querySelector('.board');
 		const clone = document.querySelector('.clone');
@@ -53,24 +57,8 @@
 		};
 
 		reset.addEventListener('click', () => {
-		  // if (state.boardLocked) return;
-		  // resetGame();
-		  // 홈버튼 클릭 시 이곳에
+			location.href='${ contextPath }';
 		});
-
-		function resetGame() {
-		  // state.boardLocked = true;
-		  // state.selections = [];
-		  // state.matches = 0;
-
-		  // document.querySelectorAll('.cube').forEach(tile => {
-		  //   tile.removeEventListener('click', () => selectTile(tile));
-		  //   tile.remove();
-		  // });
-
-		  // overlay.classList.add('hidden');
-		  // createBoard();
-		}
 
 		function createBoard() {
 		  const tiles = shuffleArray([...tileOptions, ...tileOptions]);
@@ -114,10 +102,7 @@
 		    });
 		  }
 
-		  /* =================================*
-		   *      Welcome to Timeout City     *
-		   *  Time since last incident: 300ms *
-		   * =================================*/
+		  
 		  if (state.selections.length === 2) {
 		    if (state.selections[0].tile === state.selections[1].tile) {
 		      window.setTimeout(() => {
@@ -127,12 +112,50 @@
 		        state.boardLocked = false;
 		        state.matches = state.matches + 1;
 		        
-		        if (state.matches === tileOptions.length) {
+		        // 게임 오버 시 
+		        if (state.matches === tileOptions.length) { // GAME OVER STARTS HERE
 		          window.setTimeout(() => {
 		            overlay.classList.remove('hidden');
 		            document.querySelector('.audio-win').play();
 		          }, 600);
-		        }
+		          console.log("게임 끝!");
+				  // 쿠폰 리스트
+				  var couponList = [["10% 할인쿠폰", "3000"], ["15% 할인쿠폰", "4000"], ["20% 할인쿠폰", "5000"], ["30% 할인쿠폰", "5000"], ["40% 할인쿠폰", "6000"], ["50% 할인쿠폰", "7000"]];
+				  // 랜덤으로 쿠폰 발행
+				  let random = Math.floor(Math.random() * couponList.length);
+				  var issuedCoupon = couponList[random];
+				  
+				  var couponName = issuedCoupon[0];
+				  var couponLimit = issuedCoupon[1];
+				  console.log("couponName : " + couponName);
+				  console.log("couponLimit : " + couponLimit);
+
+				// 출력
+				$('#result-text').html(couponName + ' 획득 🥳');
+		          var id = $("#userId").val();
+		          
+		  		$(function(){
+					$.ajax({
+						url: "${ pageContext.request.contextPath }/admin/game/insertCoupon",
+						data: { id : id,
+								couponName: couponName,
+								couponLimit : couponLimit,
+								issuedBy : "플레이그라운드"
+								},
+						dataType: "json",
+						type: "get",
+						success: function(data){
+							console.log("쿠폰이 인서트 되었당");
+						},
+						error: function(e){
+							console.log(e);
+						}
+					});		
+				});
+		  		
+		      } // GAME OVER ENDS HERE
+		        
+		        
 		        state.selections = [];
 		        document.querySelector(`.audio-${selectedTile.dataset.tile}`).play();
 		      }, 600);
@@ -159,15 +182,6 @@
 		}
 
 		createBoard();
-
-		// 쿠폰 리스트
-		var couponList = ["10% 쿠폰", "15% 쿠폰", "20% 쿠폰", "30% 쿠폰", "40% 쿠폰", "50% 쿠폰"];
-
-		// 랜덤으로 쿠폰 발행
-		let random = Math.floor(Math.random() * couponList.length);
-
-		// 출력
-		$('#result-text').html(couponList[random] + ' 획득 🥳');
 
 		</script>
 	</body>
