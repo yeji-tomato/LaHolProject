@@ -263,6 +263,15 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 		WHERE ID = #{id}
 		</delete>
 		
+		<!-- 장바구니 선택삭세지  -->
+		<delete id="deleteCart" parameterType="Cart">
+		DELETE
+		FROM CART
+		WHERE 
+			CART_NO = #{sT}
+		</delete>
+	 
+		
 		
 		<!-- 컬럼 수 조회하기 -->
 		<select id="cartNum" resultType="_int">

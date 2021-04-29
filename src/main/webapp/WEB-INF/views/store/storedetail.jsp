@@ -293,11 +293,17 @@
 	                </div>
 	                
 	                
-	                
+	         
 	                <script>
 	                $(document).on('click', '#cart-btn', function(){
-	                	Swal.fire("장바구니추가되었습니다"); 
-	                    $("#terms_form").submit();
+	                	Swal.fire("장바구니추가되었습니다") .then(function(result) {
+	    					if(result.isConfirmed) {
+	    						 $("#terms_form").submit();
+	    					} else {
+	    						return;
+	    					}
+	    				}); 
+	                   
 	            	});
 	                </script>
 	                 <script>

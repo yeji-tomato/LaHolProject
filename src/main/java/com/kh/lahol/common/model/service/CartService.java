@@ -35,6 +35,9 @@ public interface CartService {
 	// 클래스 카트
 	int classcartInsert(Cart ct);
 
+	//장바구니 삭제
+	int deleteCart(String sT);
+
 
 
 }

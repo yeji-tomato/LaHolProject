@@ -30,6 +30,8 @@ public interface CartDao {
 	// 클래스 장바구니
 	int classcartInsert(Cart ct);
 
+	int deleteCart(String sT);
+
 
 
 }
