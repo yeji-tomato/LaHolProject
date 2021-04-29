@@ -54,7 +54,9 @@ public interface CafeBizService {
 
 	public int coffeeStatus(CafeRes cr);
 
-	public List<CafeRes> OrderDate(Order ord);
+	public List<CafeRes> OrderDate(Order ord, PageInfo pi);
+
+	public int selectOrderCount(Order ord);
 
 
 

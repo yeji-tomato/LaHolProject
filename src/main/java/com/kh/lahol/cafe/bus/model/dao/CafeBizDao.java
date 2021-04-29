@@ -44,7 +44,9 @@ public interface CafeBizDao {
 
 	public int coffeeStatus(CafeRes cr);
 
-	public List<CafeRes> orderDate(Order ord);
+	public int selectOrderCount(Order ord);
+
+	List<CafeRes> orderDate(Order ord, PageInfo pi);
 
 
 	

@@ -33,6 +33,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 import com.kh.lahol.cafe.bus.model.page.Pagination;
+import com.kh.lahol.cafe.bus.model.page.PaginationOrder;
 import com.kh.lahol.cafe.bus.model.service.CafeBizService;
 import com.kh.lahol.cafe.bus.model.vo.Cafe;
 import com.kh.lahol.cafe.bus.model.vo.Caphoto;
@@ -441,25 +442,7 @@ public class CafeBizController {
 		
 		
 	}
-	
-//	private List<CafeRes> cafeReslist;
-	
-	
-	// 예약 정보 select
-	/*
-	 * @GetMapping("/reservation") public void cafeResList(ModelAndView
-	 * mv, @SessionAttribute("loginUser") Member m, HttpServletResponse response) {
-	 * 
-	 * response.setContentType("application/json; charset=utf-8");
-	 * 
-	 * String Id = m.getId(); try { cafeReslist =
-	 * caBizService.selectCafeResList(Id); System.out.println(cafeReslist);
-	 * PrintWriter out = response.getWriter(); out.print(new
-	 * Gson().toJson(cafeReslist)); } catch (IOException e) { // TODO Auto-generated
-	 * catch block e.printStackTrace(); }
-	 * 
-	 * }
-	 */
+
 	
 	@GetMapping("/res")
 	public ModelAndView cafeResList(ModelAndView mv, @SessionAttribute("loginUser") Member m) {
@@ -524,19 +507,24 @@ public class CafeBizController {
 	@GetMapping("/orderDate")
 	public ModelAndView cafeOrderDateList(ModelAndView mv, @SessionAttribute("loginUser") Member m,
 											@RequestParam(name="checkDate") String checkDate,
-											@ModelAttribute Order ord) {
+											@ModelAttribute Order ord,
+											@RequestParam(value="page", required=false, defaultValue="1") int currentPage) {
 
 		String id = m.getId();
 		ord.setId(id);
-		ord.setCheckDate(checkDate);		
-		System.out.println("선택한 날짜 : "+ checkDate);
-		System.out.println("ord" + ord);
-		List<CafeRes> OrderDate = caBizService.OrderDate(ord);
+		ord.setCheckDate(checkDate);	
+		System.out.println(ord);
+		int listCount = caBizService.selectOrderCount(ord);
+		System.out.println(listCount);
+		PageInfo pi = PaginationOrder.getPageInfo(currentPage, listCount);
+		System.out.println(pi);
+		List<CafeRes> OrderDate = caBizService.OrderDate(ord, pi);
         System.out.println("불러오는 리스트" + OrderDate);
 		
 		if(OrderDate != null) {
 			mv.addObject("cafeOrderlist", OrderDate);
 			mv.addObject("check", ord);
+			mv.addObject("pi", pi);
 			mv.setViewName("cafe/bus/order");
 		}else {
 			mv.addObject("msg", "해당하는 날짜 주문 조회에 실패하였습니다.");
@@ -546,6 +534,8 @@ public class CafeBizController {
 		return mv;
 
 	}
+	
+
 	
 
 }

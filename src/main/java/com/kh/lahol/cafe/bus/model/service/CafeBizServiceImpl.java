@@ -104,8 +104,13 @@ public class CafeBizServiceImpl implements CafeBizService{
 	}
 
 	@Override
-	public List<CafeRes> OrderDate(Order ord) {
-		return caBizDao.orderDate(ord);
+	public List<CafeRes> OrderDate(Order ord, PageInfo pi) {
+		return caBizDao.orderDate(ord, pi);
+	}
+
+	@Override
+	public int selectOrderCount(Order ord) {
+		return caBizDao.selectOrderCount(ord);
 	}
 
 
