@@ -311,6 +311,7 @@
                             <div class="col-8">
                                 <!-- 메세지 -->
                                 <h3 class="write-title">메세지</h3>
+                                <input type="hidden" name="message" value="${ Cafe.message }">
                                 <textarea id="ta">${ Cafe.message }</textarea>
                                 <div id="ta_cnt" style="float: right;">(0 / 100)</div>
                             <script>

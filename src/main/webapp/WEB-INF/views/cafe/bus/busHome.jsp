@@ -65,7 +65,7 @@
         <div class="row row-cols-2" id="cf-row">
             <!-- 주문 -->
             <div class="col col-cf" id="order">
-                <table class="order-cf">
+                <table class="order-cf" style="margin-top: 5%">
                 <thead>
                     <tr>
                         <th colspan="4" id="order-status">주문 상태</th>
@@ -73,31 +73,46 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td colspan="2">신규주문</td>
-                        <td class="nu" style="text-align: right;">0</td>
-                        <td>건</td>
-                    </tr>
-                    <tr>
                         <td colspan="2">제조 전</td>
-                        <td class="nu" style="text-align: right;">0</td>
-                        <td>건</td>
+                        <td class="nu" style="text-align: right;"></td>
+                        <td style="text-align: right;">${ countBefore }&nbsp;&nbsp;
+                        	건 &nbsp;</td>
                     </tr>
                     <tr>
                         <td colspan="2">제조 중</td>
-                        <td class="nu" style="text-align: right;">0</td>
-                        <td>건</td>
+                        <td class="nu" style="text-align: right;"></td>
+                        <td style="text-align: right;">${ countMiddle }&nbsp;&nbsp;
+                        	건 &nbsp;</td>
                     </tr>
                     <tr>
                         <td colspan="2">제조 완료</td>
-                        <td class="nu" style="text-align: right;">0</td>
-                        <td>건</td>
+                        <td class="nu" style="text-align: right;"></td>
+                        <td style="text-align: right;">${ countAfter }&nbsp;&nbsp;
+                        	건 &nbsp;</td>
                     </tr>
                 </tbody>
                 </table>
             </div>
             <div class="col col-cf" id="my-cafe">
-                <a>
-                    <div class="wrapper" id="cafe-my-wrapper">
+            <c:choose>
+            	<c:when test="${!empty ca}">
+					<div class="wrapper" id="cafe-my-wrapper">
+                        <div class="cafe-img">
+                            <img src="${ contextPath }/resources/nuploadFiles/cafeImg/${ ca.mainPhoto }">
+                        </div>
+                        <div class="cafe-info">
+                            <div class="cafe-text">
+                                <h1>${ ca.caName }</h1>
+                                <pre>${ ca.message }</pre>
+                            </div>
+                        <div class="cafe-btn" >
+                            <button type="button" onclick='location.href="${ contextPath }/cafe/biz/confirm"' id="dtBtn" >자세히 보러가기 →</button>
+                        </div>
+                        </div>
+                    </div>
+				</c:when>
+				<c:otherwise>
+					<div class="wrapper" id="cafe-my-wrapper">
                         <div class="cafe-img">
                             <img src="https://i.pinimg.com/564x/e5/7e/5a/e57e5aecc658ba0b205a807d965f9e85.jpg">
                         </div>
@@ -105,14 +120,16 @@
                             <div class="cafe-text">
                                 <h1>CAFE</h1>
                                 <p>등록된 카페가 아직 존재하지 않습니다! <br>
-                                    카페를 등록해주세요!</p>
+                                    	카페를 등록해주세요!</p>
                             </div>
-                        <div class="cafe-btn">
-                            <button type="button" id="dtBtn">자세히 보러가기 →</button>
+                        <div class="cafe-btn" onclick="${ contextPath }/cafe/biz/write">
+                            <button type="button" id="dtBtn">등록하러가기 →</button>
                         </div>
                         </div>
                     </div>
-                </a>
+				</c:otherwise>
+            </c:choose>	
+             
             </div>
             <div class="col col-cf" id="answer">
                 <div class="ans_table">
