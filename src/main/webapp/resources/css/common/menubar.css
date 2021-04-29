@@ -154,6 +154,11 @@ transition: all 0.5s linear;
     height : 20px;
 }
 
+#admin-icon {
+	text-decoration: none;
+	color: #4B654A;
+}
+
 #loginId{
 	color :#E5BD62;
 }
