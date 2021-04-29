@@ -9,6 +9,7 @@ import com.kh.lahol.coffeeclass.model.vo.ClassSearch;
 import com.kh.lahol.coffeeclass.model.vo.CoffeeClass;
 import com.kh.lahol.coffeeclass.model.vo.PageInfo;
 import com.kh.lahol.coffeeclass.model.vo.Paging;
+import com.kh.lahol.common.model.vo.Payment;
 
 public interface CoffeeClassDao {
 	
@@ -40,7 +41,7 @@ public interface CoffeeClassDao {
 		public int reportClComment(CoffeeClass cl);
 
 		// 10. 클래스 수강신청
-		public int registerClass(String classNo);
+		public int registerClass(Payment classPay);
 
 		// 11. 검색
 		public List<ClassSearch> selectClassSearch(ClassSearch search);

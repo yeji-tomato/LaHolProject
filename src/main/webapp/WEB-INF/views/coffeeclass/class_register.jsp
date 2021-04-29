@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,7 +30,7 @@
                     <div class="store1"> 
                         <div class="oder">
                                     <input type="hidden" name="cmd" value="order">
-                                    <div class="basketdiv" id="basket">
+                                    <div class="basketdiv" id="basket" style="cursor:default;" >
 
                                         <div class="row head">
                                             <div class="subdiv">
@@ -47,8 +48,11 @@
                                             <div class="split"></div>
                                         </div>
                                         
+                                        
+                                        
                                         <!-- 상품 -->  
-                                        <div class="row data">
+                                        <form id="reisterClass" action="${ contextPath }/coffeeclass/registser/insert" method="post">
+                                        <div class="row data" style="cursor:default;">
                                             <div class="subdiv">
                                                 <div class="check">
                                                     <label class="checkbox">
@@ -58,29 +62,32 @@
                                                 </div>
                                                 <div class="img"><img style="height:100px; width:100px;" src="${ contextPath }/resources/nuploadFiles/classImg/${ cl.clThumbnail }" width="100"></div>
                                                  <div class="pname">
-                                                    <span><p style="text-align:center;">${ cl.className }</p></span>
+                                                   <span><p style="text-align:center;">${ cl.className }</p></span>
                                                 </div>
                                             </div>
+                                            <fmt:formatDate var="Date" value="${ cl.classDate }" pattern="yyyy-MM-dd[E]"/>
                                             <div class="subdiv">
                                             	
                                                 <div class="basketprice">${ cl.clPrice }</div>
                                                 <div class="date" style="width : 220px;">
-                                                    ${ cl.classDate }
+                                                    ${ Date }   
                                                 </div>
                                                 <div class="time">
                                                 	${ selectedTime }
-                                                </div>
-                                               
+                                                </div> 
                                             </div>
-                                           
                                         </div>
-                                        <%-- <c:set var= "totalCount" value="${totalCount + cor.cfResAmount}"/> --%>
-                                       <%--  <c:set var= "totalCount" value="${totalCount + 1}"/>
-                                        <c:set var= "total" value="${total + cfSum}"/> --%>
-                                        <%-- <input type="hidden" id="cfName"  value="${ cor.cfName }">
-						               <input type="hidden" id="cfNo"  value="${ cor.cfResNo }"> --%>
-                                        <input type="hidden" id="className" value="${ cl.className }">
-                                        <input type="hidden" id="classNo" value="${ cl.classNo }">
+                                        
+	                                        <c:set var= "total" value="${total + cl.clPrice }"/> 
+											<input type="hidden" name="buyid" value="${ sessionScope.loginUser.id }">
+					                    	<input type="hidden" name="payPrice" value="${ cl.clPrice}">
+					                    	<input type="hidden" name="clPayNo" value="${ cl.classNo }">
+					                    	<input type="hidden" name="clTime" value="${ selectedTime }">
+					                    	
+					                    	
+                                        </form>
+                                       
+						               
                                     </div>                                                             
                             </div>
                             </div><!-- /store1 -->
@@ -89,8 +96,7 @@
                         
                         
 						
-						<!-- 카페 주소 -->
-						<%-- <%@include file="./cafeAddress.jsp" %> --%>
+						
                            
                        <div>
                            <!-- 쿠폰 및 전체 금액 -->
@@ -100,9 +106,18 @@
 						       <div class="p-4">
 						         <div class="input-group mb-4 border rounded-pill p-2">
 						           <input type="text" placeholder="Apply coupon" aria-describedby="button-addon3" class="form-control border-0" id="applyCoupon">
-						           <div class="input-group-append border-0">
-						             <button id="button-addon3" type="button" class="btn px-4 rounded-pill" style="background: #5A452E; color: white;" onclick="winPopup();"><i class="fa fa-gift mr-2"></i>coupon</button>
-						           </div>
+						           <c:choose>
+							           <c:when test="${ loginUser!= null }">
+							           <div class="input-group-append border-0">
+							             <button id="button-addon3" type="button" class="btn px-4 rounded-pill" style="background: #5A452E; color: white;" onclick="winPopup();"><i class="fa fa-gift mr-2"></i>coupon</button>
+							           </div>
+							           </c:when>
+							           <c:when test="${ loginUser == null }">
+							           <div class="input-group-append border-0">
+							             <button id="button-addon3" type="button" class="btn px-4 rounded-pill" style="background: #5A452E; color: white;" onclick="alert('쿠폰사용을 위해 로그인을 해주세요 :)')"><i class="fa fa-gift mr-2"></i>coupon</button>
+							           </div>
+							           </c:when>
+						           </c:choose>
 						         </div>
 						         <p id="couponSequence" style="color: white"></p>
 						       </div>
@@ -110,12 +125,13 @@
 								    function winPopup() {
 								        var popUrl = "${contextPath}/cart/coupon?total=${total}";
 								        var popOption = "width=10vw,height=10vh";
-								        window.open(popUrl, popOption, "_blank");
-								        
-								       
+								        window.open(popUrl, popOption, "_blank");						       
 								    }
 								</script>
 						     </div>
+						     
+						     
+						     
 						     <div class="col-lg-6">
 						       <div class="rounded-pill px-4 py-3 text-uppercase font-weight-bold" style="background: #F3EFEB;">결제 정보</div>
 						       <div class="p-4">
@@ -128,7 +144,7 @@
 						         </ul>
 						         <c:choose>
 
-									<c:when test="${loginUser != null}"> ... 
+									<c:when test="${loginUser != null}">  
 							         <button id="check_module" class="btn rounded-pill py-2 btn-block" style="background: #5A452E; color: white; width : 100%" type="button">결제하기</button>
 									</c:when>
 									<c:when test="${loginUser == null}"> 
@@ -149,8 +165,8 @@
 				$("#check_module").click(function () {
 					
 				var cfName = $("#className").val(); // 물품명
-				var cfSum = $("#sumPrice").text();	// 결제 금액
 				var cafeResNo = $("#classNo").val();
+				var cfSum = $("#sumPrice").text();	// 결제 금액
 				var couponPrice = $("#couponPrice").text();
 				var resultPrice = $("#resultPrice").text();
 				
@@ -165,8 +181,8 @@
 				pg: 'html5_inicis', // version 1.1.0부터 지원.
 				pay_method: 'card',
 				merchant_uid: 'merchant_' + new Date().getTime(),
-				name: cfName,
-				amount: 100,
+				name: cfName,  // 이니시스 앱에서 보여질 상품명
+				amount: 100,  // 이니시스 앱에서 보여질 가격 : 추후 resultPrice 로 바꾸기
 				
 				//임대인의 이메일
 				buyer_email: '${ sessionScope.loginUser.email }',

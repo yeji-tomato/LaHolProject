@@ -10,6 +10,7 @@ import com.kh.lahol.coffeeclass.model.vo.CoffeeClass;
 import com.kh.lahol.coffeeclass.model.vo.PageInfo;
 import com.kh.lahol.coffeeclass.model.vo.Paging;
 import com.kh.lahol.common.model.vo.Cart;
+import com.kh.lahol.common.model.vo.Payment;
 
 
 public interface CoffeeClassSerivce {
@@ -42,7 +43,7 @@ public interface CoffeeClassSerivce {
 	public int reportClComment(CoffeeClass cl);
 
 	// 10. 클래스 수강신청
-	public int registerClass(String classNo);
+	public int registerClass(Payment classPay);
 
 	// 11. 검색
 	public List<ClassSearch> searchList(ClassSearch search);

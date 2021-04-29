@@ -96,8 +96,10 @@
                       <tr>
                         <td>시간</td>
                         <td colspan="2">
+                          <form id ="cl_register" action="${ contextPath }/coffeeclass/register"  method="GET">
+                          <input type="hidden" id= "class_no" name="classNo" value="${ coffeeclass.classNo }">
                           <select style="width: 80%;" name = "selectedTime">
-                            <option class = "selecttime" disabled="disabled">시간</option>
+                            <option class = "selecttime" disabled="disabled" selected>시간</option>
                         	<option class = "selecttime" value="${ coffeeclass.classTime }">${ coffeeclass.classTime }</option>
                         	<c:if test="${ !empty coffeeclass.classTime2 }">
                         	<option class = "selecttime" value="${ coffeeclass.classTime2 }">${ coffeeclass.classTime2 }</option>
@@ -105,7 +107,8 @@
                         	<c:if test="${ !empty coffeeclass.classTime3 }">
                         	<option class = "selecttime" value="${ coffeeclass.classTime3 }">${ coffeeclass.classTime3 }</option>
                         	</c:if>
-                        </select>        
+                          </select> 
+                          </form>       
                         </td>
                       </tr>
                       <tr>
@@ -136,14 +139,15 @@
                   
                   	<!-- 바로결제 -->
                   								
-                    <form id ="cl_register" action="${ contextPath }/coffeeclass/register"  method="GET">
-                    	<input type="hidden" id= "class_no" name="classNo" value="${ coffeeclass.classNo }">
-                    	<%-- <input type="hidden" id="user_id" name="buyerId" value="${ sessionScope.loginUser.id }">
+                   <%--  <form id ="cl_register" action="${ contextPath }/coffeeclass/register"  method="GET">
+                    	-<input type="hidden" id= "class_no" name="classNo" value="${ coffeeclass.classNo }">
+                    	<input type="hidden" id = "cl_time" name="selectedTime" value = "${ coffeeclass.classTime }">
+                    	 <input type="hidden" id="user_id" name="buyerId" value="${ sessionScope.loginUser.id }">
                     	<input type="hidden" id= "class_name" name="className" value="${ coffeeclass.className }">
                     	<input type="hidden" id="cl_price" name="clPrice" value="${ coffeeclass.clPrice}">
 	                    <input type="hidden" id = "cl_date" name="classDate" value = "${ coffeeclass.classDate }">
-	                    <input type="hidden" id = "cl_time" name="classTime" value = "${ coffeeclass.classTime }"> --%>
-                    </form>
+	                    
+                    </form> --%>
                     
                      <!-- 일반사용자들에게 보여지는 버튼 or 자신의 사업장이 아닌 클래스 열람시 보여지는 버튼 -->
                      <c:if test="${ loginUser == NULL || loginUser.id ne coffeeclass.clWriter }">

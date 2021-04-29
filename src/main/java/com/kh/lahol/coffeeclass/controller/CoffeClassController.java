@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
@@ -43,8 +44,13 @@ import com.kh.lahol.coffeeclass.model.vo.CoffeeClass;
 import com.kh.lahol.coffeeclass.model.vo.PageInfo;
 import com.kh.lahol.coffeeclass.model.vo.Paging;
 import com.kh.lahol.coffeeclass.page.Pagination;
+import com.kh.lahol.common.model.exception.CartException;
+import com.kh.lahol.common.model.vo.Payment;
 import com.kh.lahol.member.model.vo.Member;
+import com.kh.lahol.store.model.vo.Pr_pay_w;
+import com.kh.lahol.store.model.vo.Prpay;
 import com.kh.lahol.store.model.vo.Search;
+import com.kh.lahol.store.model.vo.Sh_status;
 import com.kh.lahol.store.model.vo.storeA;
 import com.kh.lahol.store.model.vo.storeQ;
 import com.kh.lahol.store.page.Pagination3;
@@ -510,43 +516,31 @@ public class CoffeClassController {
 		
 	  // 클래스 수강신청(바로결제) 페이지 이동
 	  @GetMapping("/coffeeclass/register")
-	  public String registerClass(Model model, String classNo , Date classDate, HttpServletRequest request) {
+	  public String registerClass(Model model, String classNo , 
+			  					HttpServletRequest request, String selectedTime) {
 		  
+		  // 클래스 수정 로직 사용 (불러오는 정보가 같음)
 		  CoffeeClass cl = clService.bringClassInfo(classNo); 
 		  
-		  System.out.println("클래스" + classNo);
-		  
-		  String selectedTime = request.getParameter("selectedTime");
-		  
-		  System.out.println("시간"+ selectedTime);		  
-		  
-		  System.out.println("클래스이름 : " + cl.getClassName());
-
-		  System.out.println("포맷 지정 전 : " + classDate); 
-		  SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy년 MM월 dd일"); 
-		  //원하는 데이터 포맷 지정 
-		  String strNowDate = simpleDateFormat.format(classDate); 
-		  //지정한 포맷으로 변환 
-		  System.out.println("포맷 지정 후 : " + strNowDate);
-
-	
-	
-		
-		  
-			/*
-			 * DateFormat sdFormat = new SimpleDateFormat(classDate); Date nowDate = new
-			 * Date(); String tempDate = sdFormat.format(nowDate);
-			 */
 		  // view에서 보여질 변수명, 컨트롤러 변수명
 		  model.addAttribute("cl", cl);
+		  model.addAttribute("selectedTime", selectedTime);
 		  // 주소 잘라서 가져오기
 		  model.addAttribute("clAddresses", cl.bringAddress());
 		  
-		  return "coffeeclass/class_register";
+		  Date clDate = cl.getClassDate();
 		  
+		  
+		  return "coffeeclass/class_register"; 
 		 
 	  }
-	
+	  
+	  // 클래스 수강신청(DB INSERT)
+	  @PostMapping("/coffeeclass/registser/insert")
+	  public String reisterClass(@ModelAttribute Payment clp) {
+			
+		  return "";
+	  }
 	  
 	  // 댓글 불러오기
 	  @GetMapping("/coffeeclass/bringcomments")

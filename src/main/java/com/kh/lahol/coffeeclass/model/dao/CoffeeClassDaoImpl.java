@@ -14,6 +14,7 @@ import com.kh.lahol.coffeeclass.model.vo.ClassSearch;
 import com.kh.lahol.coffeeclass.model.vo.CoffeeClass;
 import com.kh.lahol.coffeeclass.model.vo.PageInfo;
 import com.kh.lahol.coffeeclass.model.vo.Paging;
+import com.kh.lahol.common.model.vo.Payment;
 
 @Repository
 public class CoffeeClassDaoImpl implements CoffeeClassDao{
@@ -79,8 +80,8 @@ public class CoffeeClassDaoImpl implements CoffeeClassDao{
 
 	// 클래스 수강신청
 	@Override
-	public int registerClass(String classNo) {
-		return sqlSession.selectOne("clMapper.registerClass", classNo);
+	public int registerClass(Payment classPay) {
+		return sqlSession.selectOne("clMapper.registerClass", classPay);
 	}
 
 	// 검색

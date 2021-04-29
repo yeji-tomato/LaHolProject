@@ -63,6 +63,25 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 		<result property="answerDate" column="CL_ANS_DATE"/>
 		<result property="status" column="CL_STATUS"/>
 	</resultMap>
+	<resultMap id="regiClResultSet" type="Payment">
+		<id property="payNo" column="PAY_NO"/>
+		<result property="payItem" column="PAY_ITEM"/>
+		<result property="payPrice" column="PAY_PRICE"/>
+		<result property="subscribe" column="SUBSCRIBE"/>  
+		<result property="payDate" column="PAY_DATE"/>  
+		<result property="buyid" column="BUYER_ID"/>  
+		<result property="cafeRes" column="CAFE_RES"/> 
+		<result property="adCode" column="AD_CODE"/>
+		<result property="purchaseNumber" column="PURCHASE_NUMBER"/>  
+		<result property="subscribeCode" column="SUBSCRIBE_CODE"/> 
+		<result property="clPayNo" column="CL_PAY_NO"/> 
+		<result property="payDc" column="PAY_DC"/> 
+		<result property="payTotal" column="PAY_TOTA"/> 
+		<result property="clTime" column="CL_TIME"/> 
+	</resultMap>
+	
+	
+	
 	<!-- 조회수증가-->
 	<select id="selectListCount" resultType="_int">
 		SELECT
@@ -311,27 +330,7 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 	    		  <!-- #{reportee} -->
 	    )
 	  </insert>
-<!--  	  <insert id="registerMember" parameterType="ClassRegister">
-	      INSERT INTO PAYMENT (PAY_NO, PAY_ITEM, PAY_PRICE, PAY_DATE, ID, CL_PAY_NO)
-          VALUES ('CLPAY'||CLPAY.NEXTVAL, '커피', 8000, SYSDATE, 'user001', 'CL24')
-	  </insert> -->
-	<!--   <select id="registerMember" resultMap="clResultSet">
-	  	SELECT
-	  			 PAY_NO
-	  		 	   , PAY_ITEM
-	  		 	   , PAY_PRICE
-	  		 	   , PAY_DATE
-	  		 	   , USER_ID
-	  		 	   , CL_PAY_NO
-	  	  FROM
-	  	  		PAYMENT
-	  </select>  -->
-	  <!-- 개별 클래스 수강신청 -->
-	  <select id="registerClass" resultMap="clResultSet">
-	  	SELECT *
-	  	  FROM	COFFEECLASS
-	  	 WHERE  CLASS_NO = #{classNo}		  	
-	  </select>
+	  
 	  <!-- 메인페이지 검색 -->
 	  <select id = "searchClass" parameterType="ClassSearch" resultMap="clResultSet">
 	     <bind name="sv" value="'%' + _parameter.getSearchValue() +  '%'"/>
@@ -476,6 +475,53 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 		WHERE   NO <![CDATA[>]]> (#{pageNum})-1) * #{pageSize}
     		AND ROWNUM <![CDATA[<=]]> #{pageSize}
 	</select>
+	
+	  <!-- 수강신청 시 정보 결제페이지로 넘겨주기 -->
+	 <!--  <select id="registerClass" resultMap="clResultSet">
+	  	SELECT *
+	  	  FROM	COFFEECLASS
+	  	 WHERE  CLASS_NO = #{classNo}		  	
+	  </select> -->
+	  
+	  <!-- 바로결제에서 결제하기 -->
+	  <insert id="registerClass" parameterType="Payment">
+		  INSERT
+				  INTO
+				       PAYMENT
+				  (
+				       PAY_NO
+				     , PAY_ITEM
+				     , PAY_PRICE
+				     , SUBSCRIBE
+				     , PAY_DATE
+				     , BUYER_ID
+				     , CAFE_RES
+				     , AD_CODE
+				     , PURCHASE_NUMBER
+				     , SUBSCRIBE_CODE
+				     , CL_PAY_NO
+				     , PAY_DC
+				     , PAY_TOTAL
+				     , CL_TIME
+				  )
+			VALUES
+			(
+				       'CLP'||CLP.NEXTVAL
+				     , #{PAY_ITEM}
+				     , #{pay_price}
+				     , NULL
+				     , SYSDATE
+				     , #{id}
+				     , NULL
+				     , NULL
+				     , NULL
+				     , NULL
+				     , #{classNo}
+				     , #{couponPrice}
+				     , #{total}
+				     , #{selectedTime}
+			)
+	  </insert>
 
 	 
 </mapper>
