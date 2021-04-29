@@ -12,6 +12,28 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
     
 </head>
+<style>
+
+
+ #cke{
+    border-left-width: 0px;
+    border-top-width: 0px;
+    border-bottom-width: 0px;
+  
+    padding-top: 0px;
+    padding-bottom: 0px;
+    padding-left: 0px;
+    border-right-width: 0px;
+    padding-right: 0px;
+    margin-top: 0px;
+    margin-left: 0px;
+    margin-bottom: 0px;
+    margin-right: 0px; 
+    height: 0px;
+    margin-top: 0px;
+ 
+}
+</style>
 <body>
 	<jsp:include page="/WEB-INF/views/common/menubar.jsp"/>
 	
@@ -85,13 +107,28 @@
                                    <div class="sum">${ cafeSum }원</div>
                                    <div class="del">${ crt.cartRes }</div> 
                                </div>
-                               <div class="subdiv">
+                               
+                               
+                               
+                               
+                               
+                             <div class="subdiv">
                                    <div class="basketcmd">
-                                   <a href="javascript:void(0)" class="abutton" onclick="javascript:basket.delItem();">
-                                       X
-                                   </a>
+                                     <button  class="abutton" id="cke" onclick="location.href='${ contextPath }/cart/cart/delete?sT=${ crt.cartNo }'">
+                                     x 
+                                   </button>
                                    </div>
                                </div>
+                               
+                               
+                               
+                               
+                               
+                               
+                               
+                               
+                    
+                               
                            </div>
                            <c:set var="cartTotal" value="${ cartTotal + cartSum}"/>
                           	</c:if>
@@ -130,16 +167,20 @@
                                    <div class="del">${ delPrice }원</div> 
                                    
                                </div>
-                                  
+                               
                                    <%-- <div class="sum">${ crt.cartPrice *crt.cartCount }원</div> --%>
                                    
                                <div class="subdiv">
                                    <div class="basketcmd">
-                                   <a href="javascript:void(0)" class="abutton" onclick="javascript:basket.delItem();">
-                                       X
-                                   </a>
+                                   <button  class="abutton"  id="cke" onclick="location.href='${ contextPath }/cart/cart/delete?sT=${ crt.cartNo }'">
+                                     x
+                                   </button>
                                    </div>
-                               </div>
+                               </div> 
+ 
+	      		 	
+				 
+ 
 
                                <input type="hidden" id="cResNo"  value="${ crt.cres }">
                            </div>
@@ -184,11 +225,18 @@
                                    
                                <div class="subdiv">
                                    <div class="basketcmd">
-                                   <a href="javascript:void(0)" class="abutton" onclick="javascript:basket.delItem();">
+                                     <button  class="abutton" id="cke" onclick="location.href='${ contextPath }/cart/cart/delete?sT=${ crt.cartNo }'">
                                        X
-                                   </a>
+                                   </button>
                                    </div>
                                </div>
+                               
+                 
+							                               
+                               
+                               
+                               
+                               
 
                                <input type="hidden" id="cResNo"  value="${ crt.cres }">
                            </div>
@@ -220,8 +268,57 @@
              
               </div><!-- /store1 -->
               </div><!-- /cart -->
-         
-          
+     
+          			 <script>
+	      				       $(document).on('click', '#check', function(){
+	               					
+	                   				var cfName = $("#check").val(); // 제품정보
+	                   				// var cfSum = $("#st").text();    
+	                   				$.ajax({
+						       			url:"${ contextPath }/cart/cart/delete",
+						        		type : "get",
+						        		data : {
+						        			sT : cfName 
+						        			 
+						        		},
+						        		success : function(data){
+						        			alert("상품이 삭제되었습니다.");
+						        			location.href="${ contextPath }/cart/main";
+						        		},
+						        		error : function(e){
+											console.log(e);
+										}
+						        		
+						       		});
+									    
+	      				     	});
+	      				       
+	      				     $(document).on('click', '#checkc', function(){
+	               					
+	                   				var cfName = $("#checkc").val(); // 제품정보
+	                   				// var cfSum = $("#st").text();    
+	                   				$.ajax({
+						       			url:"${ contextPath }/cart/cart/delete",
+						        		type : "get",
+						        		data : {
+						        			sT : cfName 
+						        			 
+						        		},
+						        		success : function(data){
+						        			alert("상품이 삭제되었습니다.");
+						        			location.href="${ contextPath }/cart/main";
+						        		},
+						        		error : function(e){
+											console.log(e);
+										}
+						        		
+						       		});
+									    
+	      				     	});
+	      				       
+	      				       
+	      				       
+						 </script> 
           
 
           <!-- 배송지 입력 -->

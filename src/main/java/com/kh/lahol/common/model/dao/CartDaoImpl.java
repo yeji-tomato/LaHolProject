@@ -71,6 +71,11 @@ public class CartDaoImpl implements CartDao{
 
 	}
 
+	@Override
+	public int deleteCart(String sT) {
+		return sqlSession.delete("cartMapper.deleteCart", sT);
+	}
+
 	
 
 }

@@ -91,7 +91,7 @@
                                             </tr>
         
                                             <tr>
-                                                <th>원산지</th>
+                                                <th>원산지/제조국</th>
                                                 <td><input type="text" class="form-control"
                                                     name="ORIGIN" required   ></td>
                                             </tr>
