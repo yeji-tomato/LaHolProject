@@ -247,7 +247,7 @@
 					var maplo = parseFloat(document.getElementById('lo').value);
 					var mapContainer = document.getElementById('map'), // 지도의 중심좌표
 				    mapOption = { 
-				        center: new kakao.maps.LatLng(maplo, mapla), // 지도의 중심좌표
+				        center: new kakao.maps.LatLng(mapla, maplo), // 지도의 중심좌표
 				        level: 5 // 지도의 확대 레벨
 				    }; 
 				
@@ -256,7 +256,7 @@
 					// 지도에 마커를 표시합니다 
 					var marker = new kakao.maps.Marker({
 					    map: map, 
-					    position: new kakao.maps.LatLng(maplo, mapla)
+					    position: new kakao.maps.LatLng(mapla, maplo)
 					});
 				
 					// 커스텀 오버레이에 표시할 컨텐츠 입니다

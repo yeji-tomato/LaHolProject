@@ -18,10 +18,10 @@
    
      <div class="accordionMenu">
       <c:forEach var="qa" items="${ caQnA }">
-       <div class="accordion accordion-flush" id="accordionFlushExample${ qa.qaNo }">
+       <div class="accordion accordion-flush" id="accordionFlushExample">
          <div class="accordion-item">
-           <h2 class="accordion-header" id="flush-headingOne">
-             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+           <h2 class="accordion-header"  id="heading${ qa.qaNo }">
+             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse${ qa.qaNo }" aria-expanded="false" aria-controls="collapse${ qa.qaNo }">
                <table class="qaTable">
                  <tr>
                    <td style="width: 10vw">${ qa.qaNo }</td>
@@ -34,7 +34,7 @@
                </table>
              </button>
            </h2>
-           <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample${ qa.qaNo }">
+           <div id="collapse${ qa.qaNo }" class="accordion-collapse collapse" aria-labelledby="heading${ qa.qaNo }" data-bs-parent="#accordionFlushExample">
              <div class="accordion-body">
                <div class="qaAnswer">
                  <div>

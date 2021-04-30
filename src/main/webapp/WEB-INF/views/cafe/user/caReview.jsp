@@ -15,29 +15,100 @@
             <thead>
               <tr>
                 <td>
-                  <i class="fa fa-user-circle" aria-hidden="true"></i>
-                  <!-- 별점 -->
-                      <i class="fa fa-star" aria-hidden="true"></i>
-                      <i class="fa fa-star" aria-hidden="true"></i>
-                      <i class="fa fa-star" aria-hidden="true"></i>
-                      <i class="fa fa-star-half-o" aria-hidden="true"></i>
-                      <i class="fa fa-star-o" aria-hidden="true"></i>
-                    <button id="userReport" data-bs-toggle="modal" data-bs-target="#userModal">
-                      <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
-                    </button>
+                <i class="far fa-user-circle"></i>
+                  	<!-- 별점 -->
+                  	<c:choose>
+                  		<c:when test="${ cr.crevGra eq 0.5 }">
+                  			<i class="fas fa-star-half-alt"></i>
+                  			<i class="far fa-star"></i>
+                  			<i class="far fa-star"></i>
+                  			<i class="far fa-star"></i>
+                  			<i class="far fa-star"></i>
+                  		</c:when>
+                  		<c:when test="${ cr.crevGra eq 1.0 }">
+                  			<i class="fas fa-star"></i>
+                  			<i class="far fa-star"></i>
+                  			<i class="far fa-star"></i>
+                  			<i class="far fa-star"></i>
+                  			<i class="far fa-star"></i>
+                  		</c:when>
+                  		<c:when test="${ cr.crevGra eq 1.5 }">
+                  			<i class="fas fa-star"></i>
+                  			<i class="fas fa-star-half-alt"></i>
+                  			<i class="far fa-star"></i>
+                  			<i class="far fa-star"></i>
+                  			<i class="far fa-star"></i>
+                  		</c:when>
+                  		<c:when test="${ cr.crevGra eq 2.0 }">
+                  			<i class="fas fa-star"></i>
+                  			<i class="fas fa-star"></i>
+                  			<i class="far fa-star"></i>
+                  			<i class="far fa-star"></i>
+                  			<i class="far fa-star"></i>
+                  		</c:when>
+                  		<c:when test="${ cr.crevGra eq 2.5 }">
+                  			<i class="fas fa-star"></i>
+                  			<i class="fas fa-star"></i>
+                  			<i class="fas fa-star-half-alt"></i>
+                  			<i class="far fa-star"></i>
+                  			<i class="far fa-star"></i>
+                  		</c:when>
+                  		<c:when test="${ cr.crevGra eq 3.0 }">
+                  			<i class="fas fa-star"></i>
+                  			<i class="fas fa-star"></i>
+                  			<i class="fas fa-star"></i>
+                  			<i class="far fa-star"></i>
+                  			<i class="far fa-star"></i>
+                  		</c:when>
+                  		<c:when test="${ cr.crevGra eq 3.5 }">
+                  			<i class="fas fa-star"></i>
+                  			<i class="fas fa-star"></i>
+                  			<i class="fas fa-star"></i>
+                  			<i class="fas fa-star-half-alt"></i>
+                  			<i class="far fa-star"></i>
+                  		</c:when>
+                  		<c:when test="${ cr.crevGra eq 4.0 }">
+                  			<i class="fas fa-star"></i>
+                  			<i class="fas fa-star"></i>
+                  			<i class="fas fa-star"></i>
+                  			<i class="fas fa-star"></i>
+                  			<i class="far fa-star"></i>
+                  		</c:when>
+                  		<c:when test="${ cr.crevGra eq 4.5 }">
+                  			<i class="fas fa-star"></i>
+                  			<i class="fas fa-star"></i>
+                  			<i class="fas fa-star"></i>
+                  			<i class="fas fa-star"></i>
+                  			<i class="fas fa-star-half-alt"></i>
+                  		</c:when>
+                  		<c:when test="${ cr.crevGra eq 5.0 }">
+                  			<i class="fas fa-star"></i>
+                  			<i class="fas fa-star"></i>
+                  			<i class="fas fa-star"></i>
+                  			<i class="fas fa-star"></i>
+                  			<i class="fas fa-star"></i>
+                  		</c:when>
+                  	</c:choose>
+                    
                 </td>
               </tr>
             </thead>
             <tbody>
               <tr>
               <fmt:formatDate var="date" value="${ cr.crevDate }" pattern="yyyy-MM-dd"/>
-                <td>${ cr.id } &nbsp; | &nbsp; ${ date }</td>
+                <td>${ cr.id } &nbsp; | &nbsp; ${ date }
+                <button id="userReport" data-bs-toggle="modal" data-bs-target="#userModal">
+                      <!-- <i class="fas fa-bullhorn"></i> -->
+                      <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                </button>
+                </td>
+                
               </tr>
               <tr>
                 <td>
-                  <img src="${ contextPath }/resources/nuploadFiles/cafeImg/${ cr.crevIchName }" id="reviewImg">
+                  <img src="${ contextPath }/resources/muploadFiles/review/${ cr.crevIchName }" id="reviewImg">
                 </td>
-                <td style="padding-left: 3%;">
+                <td>
                   <div id="rv-content">
                       <p id="rv-pre">
 						${ cr.crevCon }

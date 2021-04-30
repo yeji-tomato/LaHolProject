@@ -773,6 +773,7 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
    	
    	<select id="cafeHome" resultMap="cafeResultSet">
    	SELECT
+   		C_CODE,
         C_NAME,
         C_MESSAGE,
         MAINPHOTO
@@ -863,5 +864,23 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 	WHERE C_CODE = #{caCode}
    </select>
    
+   <select id="answerQnAList" resultMap="cafeQnAResultSet">
+    SELECT *
+	FROM CAFE_QA
+	WHERE C_CODE = (SELECT C_CODE FROM CAFE WHERE ID = #{userId})
+	AND QA_STATUS = '답변 대기'
+   </select>
+   
+   
+   <update id="updateQAanswer" parameterType="cafeQnA">
+   UPDATE
+		CAFE_QA
+	SET
+		ID_BUSIN = #{bizId},
+        C_QA_ANSWER = #{qaAnswer},
+        QA_STATUS = '답변 완료'
+	WHERE
+		C_QA_NO = #{qaNo}
+   </update>
    
 </mapper>

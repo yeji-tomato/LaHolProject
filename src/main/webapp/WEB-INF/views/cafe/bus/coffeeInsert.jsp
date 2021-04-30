@@ -19,7 +19,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <input type="text" name="caNo" value="${ param.caCode }"/>
+                <input type="hidden" name="caNo" value="${ param.caCode }"/>
                 <div class="modalForm category">
                     <h5 class="coffee-title">카테고리</h5> 
                     <input type="radio" name="cfCategory" value="COFFEE" class="radioModal">COFFEE

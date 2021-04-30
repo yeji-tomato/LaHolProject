@@ -14,6 +14,7 @@ import com.kh.lahol.cafe.bus.model.vo.Coffee;
 import com.kh.lahol.cafe.bus.model.vo.Order;
 import com.kh.lahol.cafe.bus.model.vo.PageInfo;
 import com.kh.lahol.cafe.bus.model.vo.bevOrder;
+import com.kh.lahol.cafe.user.model.vo.CafeQnA;
 import com.kh.lahol.cafe.user.model.vo.CafeRes;
 import com.kh.lahol.cafe.user.model.vo.CoffeeRes;
 
@@ -140,6 +141,16 @@ public class CafeBizDaoImpl implements CafeBizDao{
 	@Override
 	public int countAfter(String id) {
 		return sqlSession.selectOne("cafeMapper.countAfter", id);
+	}
+
+	@Override
+	public List<CafeQnA> answerQnAList(String id) {
+		return sqlSession.selectList("cafeMapper.answerQnAList", id);
+	}
+
+	@Override
+	public int updateQAanswer(CafeQnA ans) {
+		return sqlSession.update("cafeMapper.updateQAanswer", ans);
 	}
 
 

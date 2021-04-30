@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -95,18 +96,18 @@
             </div>
             <div class="col col-cf" id="my-cafe">
             <c:choose>
-            	<c:when test="${!empty ca}">
+            	<c:when test="${!empty ca.mainPhoto }">
 					<div class="wrapper" id="cafe-my-wrapper">
                         <div class="cafe-img">
-                            <img src="${ contextPath }/resources/nuploadFiles/cafeImg/${ ca.mainPhoto }">
+                            <img src="${ contextPath }/resources/nuploadFiles/cafeImg/${ ca.mainPhoto }" style="height: 315px">
                         </div>
                         <div class="cafe-info">
                             <div class="cafe-text">
                                 <h1>${ ca.caName }</h1>
-                                <pre>${ ca.message }</pre>
+                                <p>${ ca.message }</pre>
                             </div>
                         <div class="cafe-btn" >
-                            <button type="button" onclick='location.href="${ contextPath }/cafe/biz/confirm"' id="dtBtn" >자세히 보러가기 →</button>
+                            <button type="button" onclick='location.href="${ contextPath }/cafe/detail?caCode=${ca.caCode}"' id="dtBtn" >자세히 보러가기 →</button>
                         </div>
                         </div>
                     </div>
@@ -114,7 +115,7 @@
 				<c:otherwise>
 					<div class="wrapper" id="cafe-my-wrapper">
                         <div class="cafe-img">
-                            <img src="https://i.pinimg.com/564x/e5/7e/5a/e57e5aecc658ba0b205a807d965f9e85.jpg">
+                            <img src="https://i.pinimg.com/564x/e5/7e/5a/e57e5aecc658ba0b205a807d965f9e85.jpg" style="height: 315px">
                         </div>
                         <div class="cafe-info">
                             <div class="cafe-text">
@@ -122,7 +123,7 @@
                                 <p>등록된 카페가 아직 존재하지 않습니다! <br>
                                     	카페를 등록해주세요!</p>
                             </div>
-                        <div class="cafe-btn" onclick="${ contextPath }/cafe/biz/write">
+                        <div class="cafe-btn" onclick='location.href="${ contextPath }/cafe/biz/write"'>
                             <button type="button" id="dtBtn">등록하러가기 →</button>
                         </div>
                         </div>
@@ -137,24 +138,20 @@
                         <thead>
                             <tr>
                                 <th colspan="6" id="answer-status">미답변 문의(Q&A)</th>
-                                <th class="delete">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#810B0B" viewBox="0 0 24 24">
-                                        <path fill="#810B0B" d="M15 3C15.5523 3 16 3.44772 16 4L18 4C18.5523 4 19 4.44772 19 5C19 5.55229 18.5523 6 18 6L6 6C5.44772 6 5 5.55228 5 5C5 4.44772 5.44772 4 6 4L8 4C8 3.44772 8.44772 3 9 3H15Z"/>
-                                        <path fill="#810B0B" fill-rule="evenodd" d="M6 7H18V19C18 20.1046 17.1046 21 16 21H8C6.89543 21 6 20.1046 6 19V7ZM9.5 9C9.22386 9 9 9.22386 9 9.5V18.5C9 18.7761 9.22386 19 9.5 19C9.77614 19 10 18.7761 10 18.5V9.5C10 9.22386 9.77614 9 9.5 9ZM14.5 9C14.2239 9 14 9.22386 14 9.5V18.5C14 18.7761 14.2239 19 14.5 19C14.7761 19 15 18.7761 15 18.5V9.5C15 9.22386 14.7761 9 14.5 9Z" clip-rule="evenodd"/>
-                                    </svg>
-                                </th>
+                                
                             </tr>
                         </thead>
                         <tbody>
+                        <c:forEach var="ans" items="${ caAnswer }">
                         <tr>
-                            <th><input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked></th>
-                            <th>1</th>
-                            <td>답변 대기</td>
-                            <td>카페 프라푸치노는 다시 안나오나요?</td>
-                            <td>dd****</td>
-                            <td>2020-12-25</td>
+                            <th>${ ans.qaNo }</th>
+                            <td>${ ans.qaStatus }</td>
+                            <td>${ ans.qaTitle }</td>
+                            <td>${ ans.userId }</td>
+                             <fmt:formatDate var="date" value="${ ans.qaDate }" pattern="yyyy-MM-dd"/>
+                            <td>${ date }</td>
                             <td>
-                                <button id="detail" onclick="detail()">
+                                <button id="detail" data-bs-toggle="modal" data-bs-target="#answerModal${ans.qaNo}">
                                     <svg xmlns="http://www.w3.org/2000/svg" height="48" viewBox="0 0 48 48" width="48">
                                         <path d="M0 0h48v48h-48z" fill="none"/>
                                         <path d="M24 8l-2.83 2.83 11.17 11.17h-24.34v4h24.34l-11.17 11.17 2.83 2.83 16-16z"/>
@@ -162,13 +159,60 @@
                                 </button>
                             </td>
                         </tr>
+                        </c:forEach>
                         </tbody>
                     </table>
                 </div>
+                 <c:forEach var="ans" items="${ caAnswer }">
+                 <div class="modal fade" id="answerModal${ans.qaNo}" tabindex="-1" aria-labelledby="answerModalLabel" aria-hidden="true">
+						<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header" style="background-color: #F3D798;">
+							<h5 class="modal-title" id="answerModalLabel" style="color: white;">
+								<img src="${ contextPath }/resources/img/common/logo-green.png" style="width : 30px; height: 30px;">
+								답변하기
+							</h5>
+							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+							</div>
+							<div class="modal-body">
+							<h5  style="text-align: center; padding: 5vh;"> 질문내용 <br>${ ans.qaTitle }</h5>     	
+								<form action="${ contextPath }/cafe/biz/answer" method="post"> 
+								<input type="hidden" name="qaNo" value="${ ans.qaNo }"> 
+								<table style="width: 100%;">
+									<tr>			
+										<td>답변내용</td>
+									</tr>
+									<tr>
+										<td colspan="2">
+											<textarea style="width: 100%; height:20vh; resize:none;" name="qaAnswer"></textarea>
+										</td>
+									</tr>
+								</table>
+								
+								<br>
+								<p class="alert-text" style="color:rgb(170, 42, 42); font-size: 13px;">
+								답변하기 어려운 점이 있다면 언제든지 저희 고객센터에 전화해주세요!<br> 가이드라인을 제시해드립니다. 
+								<br>라홀 CS 번호 : 02-3389-2813
+								</p>
+								<div class="modal-footer"  style="background-color: #F3D798;">
+									<button type="submit" class="btn btn-danger">답변등록</button>
+									<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+								</div>
+								</form>
+								
+							</div>
+						</div>
+						</div>
+						</div>
+                </c:forEach>
             </div>
         </div>
+        
+        
     </div>
     </div>
+    
+    
     
     <!-- footer -->
 	<jsp:include page="/WEB-INF/views/common/footer2.jsp"/>

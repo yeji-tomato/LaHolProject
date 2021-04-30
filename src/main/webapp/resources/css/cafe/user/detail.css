@@ -181,21 +181,25 @@ cursor: pointer;
     background: #e4d4cd;
     
 }
-.fa-user-circle, .fa-exclamation-triangle{
-    font-size: 2vw;
+.fa-siren{
+    font-size: 1.5vw;
+    background: black;
 }
 /* 회원 신고 */
 #userReport{
     background-color: transparent;
     border: 0;
 }
-.fa-exclamation-triangle:hover{
+.fa-siren:hover{
     color: #4B654A;
 }
+.fa-user-circle{
+	font-size: 1.5vw;
+}
 /* 별점 */
-.fa-star, .fa-star-half-o, .fa-star-o{
+.fa-star, .fa-star-half-o, .fa-star-o, .fa-star-half-alt{
     color: #E5BD62;
-    font-size: 2vw;
+    font-size: 1.5vw;
 }
 .fa-exclamation-triangle{
     color: #810B0B;
@@ -211,11 +215,13 @@ cursor: pointer;
     border: 3px solid #5a462f;
     border-radius: 5vw;
     background-color : rgba(255,255,255,0.5);
+    padding-left: 5%;
 }
 #rv-pre{
-    white-space: pre;
     font-size: 20px;
     float: left;
+    padding-left: 10%;
+     padding-top: 10%;
 }
 #reviewLeft{
     float: left;
@@ -243,6 +249,7 @@ cursor: pointer;
 .qa-content{
     padding: 3%;
 }
+
 
 .writeBtn{
     float: right;
