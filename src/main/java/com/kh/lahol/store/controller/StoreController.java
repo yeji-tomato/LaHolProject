@@ -149,6 +149,16 @@ public class StoreController {
 		List<Store> list = sService.myselectList(pi,Id);
 		
 		
+		
+		
+		
+		
+		//
+		
+		
+		 
+		
+		//
 		 
 		 
 		if(list !=null) {
@@ -755,7 +765,7 @@ public class StoreController {
 		
 		
 		if(pr ==3) {
-			double a = ((PR_PRICE*3)- ((PR_PRICE*3)* 0.05))/3;
+			double a = (PR_PRICE*3)- ((PR_PRICE*3)* 0.05);
 			String b = Double.toString(a);
 			
 			// System.out.println("총 가격"+b);
@@ -764,7 +774,7 @@ public class StoreController {
 			py.setPay_total(b);
 			
 		}else if(pr == 6) {
-			double a = ((PR_PRICE*6)- ((PR_PRICE*6)* 0.1))/6;
+			double a = (PR_PRICE*6)- ((PR_PRICE*6)* 0.1);
 			String b = Double.toString(a);
 			
 			 
@@ -774,7 +784,7 @@ public class StoreController {
 
 		}else if(pr == 9) {
 			
-			double a = ((PR_PRICE*9)- ((PR_PRICE*9)* 0.15))/9;
+			double a = (PR_PRICE*9)- ((PR_PRICE*9)* 0.15);
 			String b = Double.toString(a);
 			
 			System.out.println("9개월 선택");
@@ -969,7 +979,7 @@ public class StoreController {
 			
 	 
 			
-			System.out.println("카페코드"+c_code);
+			System.out.println("카페코드 신고"+c_code);
 			Member loginUser = (Member)session.getAttribute("loginUser"); 
 			String id = loginUser.getId();
 			String code = request.getParameter("PR_CODE");
