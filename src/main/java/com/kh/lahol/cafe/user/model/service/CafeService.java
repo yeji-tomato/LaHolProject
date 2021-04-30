@@ -46,5 +46,7 @@ public interface CafeService {
 	public int cafeQask(CafeQnA cq);
 	
 	public List<CafeQnA> selectQnAList(String caCode);
+	
+	public int cafeUserReport(Report rep);
 
 }

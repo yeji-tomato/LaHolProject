@@ -99,6 +99,13 @@ public class CafeServiceImpl implements CafeService{
 	public List<CafeQnA> selectQnAList(String caCode) {
 		return caDao.selectQnAList(caCode);
 	}
+
+	@Override
+	public int cafeUserReport(Report rep) {
+		return caDao.cafeUserReport(rep);
+	}
+
+	
 	
 
 }

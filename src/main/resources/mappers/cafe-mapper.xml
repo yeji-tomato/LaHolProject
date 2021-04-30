@@ -883,4 +883,37 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 		C_QA_NO = #{qaNo}
    </update>
    
+   
+   <insert id="cafeUserReport" parameterType="Report">
+   INSERT 
+	INTO REPORT
+	(
+		REPORT_NO,
+		REPORT_TYPE,
+		REPORT_REASON,
+		ISWARNED,
+		ISCHECKED,
+		IMGNAME,
+		IMGPATH,
+		IMGCHNAME,
+		REPORTER_ID,
+		ITEM_CODE,
+		REPORTEE_ID
+	)
+	VALUES
+	(
+		'CARP' || CARP.NEXTVAL,
+		#{reportType},
+		#{reportReason},
+		DEFAULT,
+		DEFAULT,
+		#{imgName},
+		#{imgPath},
+		#{imgChName},
+		#{reporterId},
+		#{itemCode},
+		#{reporteeId}
+	) 
+   </insert>
+   
 </mapper>

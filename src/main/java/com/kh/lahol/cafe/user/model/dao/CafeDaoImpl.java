@@ -104,4 +104,9 @@ public class CafeDaoImpl implements CafeDao {
 		return sqlSession.selectList("cafeMapper.selectQnAList", caCode);
 	}
 
+	@Override
+	public int cafeUserReport(Report rep) {
+		return sqlSession.insert("cafeMapper.cafeUserReport", rep);
+	}
+
 }
