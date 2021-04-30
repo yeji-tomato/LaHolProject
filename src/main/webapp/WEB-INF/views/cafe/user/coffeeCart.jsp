@@ -7,6 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>장바구니</title>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <!-- coffeeCart css -->
 <%-- <link rel="stylesheet" href="${ contextPath }/resources/css/cafe/user/coffeeCart.css"> --%>
 </head>
@@ -75,26 +76,42 @@
        		var total = $("#toPrice").text();
        		var userId = $("#userId").val();
        		var cartCount = $("#cartCount").val();
-       		$.ajax({
-       			url:"${ contextPath }/cart/cafe/insert",
-        		type : "post",
-        		data : {
-        			cres : cRes,
-        			cartName : cartName,
-        			cartRes : cartRes,
-        			total : total,
-        			userId : userId,
-        			cartCount : cartCount
-        		},
-        		success : function(data){
-        			alert("장바구니에 추가되었습니다.");
-        			location.href="${ contextPath }/cart/main";
-        		},
-        		error : function(e){
+       		
+       	 $.ajax({
+    			url:"${ contextPath }/cart/cafe/insert",
+     		type : "post",
+     		data : {
+     			cres : cRes,
+     			cartName : cartName,
+     			cartRes : cartRes,
+     			total : total,
+     			userId : userId,
+     			cartCount : cartCount
+     		},
+     		success : function(data){
+     			Swal.fire({
+  				  title: '장바구니에 추가되었습니다!',
+  				  icon: 'success',
+  				  confirmButtonColor: '#E5BD62',
+  				  confirmButtonText: '확인'
+  				}).then((result) => {
+  				  if (result.isConfirmed) {
+  					location.href="${ contextPath }/cart/main";
+  				  }
+  			});
+     			
+     			
+     		},
+     		error : function(e){
 					console.log(e);
 				}
-        		
-       		});
+     		
+    		});
+       		
+       		
+       		
+       		
+       		
        	}
        	
        	</script>
@@ -111,7 +128,7 @@
 	    $(".shopping-cart").fadeToggle("fast");
 	  });
 	  
-	})();
+	});
 </script>
 
 </body>

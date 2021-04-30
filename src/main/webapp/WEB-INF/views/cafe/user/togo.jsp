@@ -154,10 +154,11 @@
 				success : function(data){
 					Swal.fire({
 		    			  text: '포장 예약이 완료되었습니다!',
-		    			  imageUrl: 'https://images.unsplash.com/photo-1607473129381-ca8345af56ac?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80',
+		    			  imageUrl: '${ contextPath }/resources/nuploadFiles/cafeImg/${ cafeInfo.photo2 }',
 		    			  imageWidth: 400,
 		    			  imageHeight: 200,
 		    			  imageAlt: 'Custom image',
+		    			  confirmButtonColor: '#E5BD62',
 		    		}).then((result) => {
 			 			location.href='${ contextPath }/cafe/beverage?caCode=${ param.caCode }';
 		    		})

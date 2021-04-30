@@ -7,12 +7,16 @@ import org.springframework.stereotype.Service;
 
 import com.kh.lahol.cafe.bus.model.vo.Cafe;
 import com.kh.lahol.cafe.bus.model.vo.Coffee;
+import com.kh.lahol.cafe.bus.model.vo.PageInfo;
 import com.kh.lahol.cafe.user.model.dao.CafeDao;
+import com.kh.lahol.cafe.user.model.vo.CaReview;
+import com.kh.lahol.cafe.user.model.vo.CafeQnA;
 import com.kh.lahol.cafe.user.model.vo.CafeRes;
 import com.kh.lahol.cafe.user.model.vo.CoffeeCart;
 import com.kh.lahol.cafe.user.model.vo.CoffeeOrder;
 import com.kh.lahol.cafe.user.model.vo.CoffeeRes;
 import com.kh.lahol.common.model.vo.Report;
+import com.kh.lahol.mypage.normal.model.vo.CafeReview;
 import com.kh.lahol.store.model.vo.Search;
 
 @Service
@@ -73,6 +77,27 @@ public class CafeServiceImpl implements CafeService{
 	@Override
 	public List<Cafe> cafeSearch(Search search) {
 		return caDao.cafeSearch(search);
+	}
+
+	@Override
+	public List<CaReview> selectReviewList(String caCode, PageInfo pi) {
+		return caDao.selectReviewList(caCode, pi);
+	}
+
+	@Override
+	public int reviewCount(String caCode) {
+		return caDao.reviewCount(caCode);
+	}
+
+	@Override
+	public int cafeQask(CafeQnA cq) {
+		System.out.println("서비스 : " + cq);
+		return caDao.cafeQask(cq);
+	}
+
+	@Override
+	public List<CafeQnA> selectQnAList(String caCode) {
+		return caDao.selectQnAList(caCode);
 	}
 	
 

@@ -46,7 +46,7 @@
                                         </div>
                                         
                                         <!-- 상품 -->  
-                                        <c:forEach var="cor" items="${ OrderDate }">   
+                                        <c:forEach var="cor" items="${ CoffeeOrder }">   
                                         <div class="row data">
                                             <div class="subdiv">
                                                 <div class="check">
@@ -87,7 +87,7 @@
                                         <c:set var= "totalCount" value="${totalCount + cor.cfResAmount}"/>
                                         <c:set var= "total" value="${total + cfSum}"/>
                                         <input type="hidden" id="cfName"  value="${ cor.cfName }">
-						               <input type="text" id="cfNo"  value="${ cor.caResNo }">
+						               <input type="hidden" id="cfNo"  value="${ cor.caResNo }">
                                         </c:forEach>
                                         
                                 

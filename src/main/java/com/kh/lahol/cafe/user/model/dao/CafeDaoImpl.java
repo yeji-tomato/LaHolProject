@@ -2,17 +2,22 @@ package com.kh.lahol.cafe.user.model.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.lahol.cafe.bus.model.vo.Cafe;
 import com.kh.lahol.cafe.bus.model.vo.Coffee;
+import com.kh.lahol.cafe.bus.model.vo.PageInfo;
+import com.kh.lahol.cafe.user.model.vo.CaReview;
+import com.kh.lahol.cafe.user.model.vo.CafeQnA;
 import com.kh.lahol.cafe.user.model.vo.CafeRes;
 import com.kh.lahol.cafe.user.model.vo.CoffeeCart;
 import com.kh.lahol.cafe.user.model.vo.CoffeeOrder;
 import com.kh.lahol.cafe.user.model.vo.CoffeeRes;
 import com.kh.lahol.common.model.vo.Report;
+import com.kh.lahol.mypage.normal.model.vo.CafeReview;
 import com.kh.lahol.store.model.vo.Search;
 
 @Repository
@@ -74,6 +79,29 @@ public class CafeDaoImpl implements CafeDao {
 	@Override
 	public List<Cafe> cafeSearch(Search search) {
 		return sqlSession.selectList("cafeMapper.cafeSearch", search);
+	}
+
+	@Override
+	public int reviewCount(String caCode) {
+		return sqlSession.selectOne("cafeMapper.reviewCount", caCode);
+	}
+	
+	@Override
+	public List<CaReview> selectReviewList(String caCode, PageInfo pi) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getCoffeeLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getCoffeeLimit());
+		return sqlSession.selectList("cafeMapper.selectReviewList", caCode, rowBounds);
+	}
+
+	@Override
+	public int cafeQask(CafeQnA cq) {
+		System.out.println("dao : "+ cq);
+		return sqlSession.insert("cafeMapper.cafeQask", cq);
+	}
+
+	@Override
+	public List<CafeQnA> selectQnAList(String caCode) {
+		return sqlSession.selectList("cafeMapper.selectQnAList", caCode);
 	}
 
 }
