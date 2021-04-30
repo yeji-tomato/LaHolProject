@@ -535,12 +535,14 @@ C_CODE	VARCHAR2(30 BYTE)	No		18	카페코드
 				<when test="searchCondition == 'PR_CODE'">
 				AND 
 					PR_CODE LIKE #{sv} 
+					ORDER BY QNA_NO
 				</when>
 				 
 				 
 				<otherwise>
 				 AND 
 					PR_CODE LIKE #{sv} 
+						ORDER BY QNA_NO
 				</otherwise>
 			</choose>
 		</where>

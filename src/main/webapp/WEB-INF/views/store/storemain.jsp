@@ -128,7 +128,7 @@
 	                        <div class="if" style="float:left; width: 350px;  ">
 	                        <center>
 	                        <h5 onclick="selectStore(${s.PR_CODE});" ><a style="color:red;" ><인기></a>${ s.PR_NAME }</h5>
-	                            <h5 style="color: #810B0B"> ${ s.PR_PRICE }원</h5>
+	                            <h5 style="color: #810B0B"><fmt:formatNumber value="${ s.PR_PRICE }" pattern="#,###"/>원</h5>
 	                            <h6 ><%-- <c:if test="${  s.SUBSCRIPTIONS eq 'Y' && !empty sessionScope.loginUser   }">        
 	                             <a style="color:#RED; ">#구독가능 </a>   </c:if> --%> <a style="color:#935039; ">#${ s.ORIGIN }</a> <a style="color:#96877D "> #${ s.ST_CATAGORY} </a></h6> 
 	                          </a></h6> 
@@ -146,7 +146,7 @@
                 
                 
                 </div>
-                
+               
                 
                <hr style=" margin-top: 530px;   ">
       
@@ -163,7 +163,7 @@
                         <div class="if" style="float:left; width: 350px;  ">
                         <center>
                         <h4   onclick="selectStore(${s.PR_CODE});">${ s.PR_NAME }</h4>
-                            <h5 style="color: #810B0B"> ${ s.PR_PRICE } 원</h5>
+                            <h5 style="color: #810B0B"> <fmt:formatNumber value="${ s.PR_PRICE }" pattern="#,###"/> 원</h5>
                               <h6 ><%-- <c:if test="${  s.SUBSCRIPTIONS eq 'Y' && !empty sessionScope.loginUser  }">        
 	                             <a style="color:#RED;">#구독가능 </a>   </c:if> --%> <a style="color:#935039 ">#${ s.ORIGIN }</a> <a style="color:#96877D "> #${ s.ST_CATAGORY} </a></h6> 
 	                          </a></h6> 

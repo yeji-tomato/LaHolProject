@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -188,17 +189,17 @@
 	                    
 					<div class="rvt"
 						style="top: 10px;left: 550px;width: 422px;height: 402px;">
-						<span><a style="font-size: 25px;  margin-left: 150px;" >  ${s.PR_NAME } <button data-bs-toggle="modal" data-bs-target="#PrModal"
-						style="background-color:white;	color: red; border-left-width: 0px; border-top-width: 0px;border-right-width: 0px; border-bottom-width: 0px;"> <i class="fa fa-bullhorn" aria-hidden="true"></i></button><p style="margin-left:40%;">  </p></a>
+						<span><a style="font-size: 25px;  margin-left: 150px;" >  ${s.PR_NAME }  <c:if test="${ !empty sessionScope.loginUser }"> <button data-bs-toggle="modal" data-bs-target="#PrModal"
+						style="background-color:white;	color: red; border-left-width: 0px; border-top-width: 0px;border-right-width: 0px; border-bottom-width: 0px;"> <i class="fa fa-bullhorn" aria-hidden="true"></i></button></c:if><p style="margin-left:40%;">  </p></a>
 						
-	                        &nbsp <i class="fa fa-bullhorn" aria-hidden="true" style="font-size: 15px; color: rgb(190, 130, 51); "> <a>  ※ ${s.PR_EVENT }</a></i>
+	                        &nbsp <i class="fa fa-bullhorn" aria-hidden="true" style="font-size: 15px; color: rgb(190, 130, 51); "> <a>  ※ ${s.PR_EVENT }</a></i> 
 					     </span>
 						<table id="info">
 							<br>
 							<br>
 							<td>
 							<tr>
-								<p class="store_info"   > &nbsp 카테고리: ${s.ST_CATAGORY }  
+								<p class="store_info"   > &nbsp 카테고리: ${s.ST_CATAGORY }   
 								</p>	 
 							</tr>
 							<br>
@@ -208,7 +209,7 @@
 							</tr>
 							<br>
 							<tr>
-								<p class="store_info"  > &nbsp 가격:  ${s.PR_PRICE }
+								<p class="store_info"  > &nbsp 가격:  <fmt:formatNumber value="${ s.PR_PRICE }" pattern="#,###"/>
 								</p>
 							</tr>
 							<br>
@@ -352,9 +353,9 @@
 	                                "><img class="d-block rounded-3"  src="${ contextPath }/resources/img/store/${ s.STORE_PHOTO1 }"  style="width: 600px; height:auto; "alt="Image"></div>
 	                                    <!--설명-->
 	                                    <div class="col-lg-4 col-md-6 offset-lg-1 py-4 order-md-1">
-	                                    <h2 class="h3 mb-4 pb-2">제품명</h2>
-	                                    <h6 class="fs-base mb-3">제품소개</h6>
-	                                    <p class="fs-sm text-muted pb-2">제품 소개 상세 :${s.PR_IF }.</p>
+	                                    <h2 class="h3 mb-4 pb-2">${s.PR_NAME } </h2>
+	                                    <h6 class="fs-base mb-3"> </h6>
+	                                    <p class="fs-sm text-muted pb-2"> ${s.PR_IF }.</p>
 	                                    </div>
 	                                </div>
 	                                <!-- Product description section 2-->
@@ -362,7 +363,7 @@
 	                                <div class="col-lg-5 col-md-6 offset-lg-1"><img class="d-block rounded-3"  src="${ contextPath }/resources/img/store/${ s.STORE_PHOTO2 }"  style="width: 500px;"alt="Map"></div>
 	                                <div class="col-lg-4 col-md-6 offset-lg-1 py-4">
 	                                <h2 class="h3 mb-4 pb-2">제품 기능</h2>
-	                                <h6 class="fs-base mb-3">기능 설명</h6>
+	                                <h6 class="fs-base mb-3"> </h6>
 	                                <p class="fs-sm text-muted pb-md-2"> ${s.PR_INF } </p>
 	                                </div>
 	                                </div>
@@ -374,8 +375,8 @@
 	                            "><img class="d-block rounded-3"  src="${ contextPath }/resources/img/store/${ s.STORE_PHOTO3 }"   style="width: 550px;"alt="Image"></div>
 	                                <!--설명-->
 	                                <div class="col-lg-4 col-md-6 offset-lg-1 py-4 order-md-1">
-	                                <h2 class="h3 mb-4 pb-2">제품 유의사항</h2>
-	                                <h6 class="fs-base mb-3">유의사항 </h6>
+	                                <h2 class="h3 mb-4 pb-2">제품 주의사항</h2>
+	                                <h6 class="fs-base mb-3"> </h6>
 	                                <p class="fs-sm text-muted pb-2"> ${s.PR_NOTICE }  </p>
 	                                </div>
 	                            </div>
@@ -458,15 +459,16 @@
 												     	  
 												     	 
 												    </div>
-									               
+									               <input type="hidden" value="${ loginUser.id }" id="userId">
 									               </td>
-									               <td style="padding-top: 16px; padding-left: 250px;  ">  ${  r.review_date }  <button data-bs-toggle="modal" 
+									               <td style="padding-top: 16px; padding-left: 250px;  ">  ${  r.review_date }   <c:if test="${ !empty sessionScope.loginUser }"> <button data-bs-toggle="modal" 
 									               data-bs-target="#PrRModal${r.review_no}"style="background-color:white;	
 									               color: red; border-left-width: 0px; border-top-width: 0px;border-right-width: 0px; border-bottom-width: 0px;">
-									                <i class="fa fa-bullhorn" aria-hidden="true"></i></button> </td> 
+									               
+									                <i class="fa fa-bullhorn" aria-hidden="true"></i></button></c:if> </td> 
 									            </tr>
 									            <tr> 
-									                <td style="width: 110px;">${ r.id  } ||</td>
+									                <td style="width: 110px;">${ r.id  } </td>
 									                <td>${  r.review_content}</td>
 									            
 									                 <c:if test="${ r.review_photo ne null }">  
@@ -839,7 +841,7 @@
 					 <c:forEach var="q" items="${ QsearchList }"> 
 			    	 	   	 	 <!-- Modal 답변 -->
 							<div class="modal fade" id="exampleModal${ q.qnaNo}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-								<form action="${ contextPath }/store/anser?qnaNo=${ q.qnaNo }&PR_CODE=${ s.PR_CODE }&k=1"  method="post" >
+								<form   action="${ contextPath }/store/anser?qnaNo=${ q.qnaNo }&PR_CODE=${ s.PR_CODE }&k=1"  method="post" >
 								<input type="hidden"  name="qnaNo" value="${ q.qnaNo }">
 								<div class="modal-dialog">
 								<div class="modal-content">
@@ -876,7 +878,7 @@
 										
 										</div>
 										<div class="modal-footer" >
-										<button type="submit"   class="btn btn-danger"   >등록</button>
+										<button type="submit"  class="btn btn-danger"   >등록</button>
 										<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
 										</div>
 									</table>
@@ -885,11 +887,25 @@
 								</form>
 							</div>
 			
-				</c:forEach>
+					</c:forEach>
+					
+					
+						  <script>
+			                $(document).on('click', '#modalAbt', function(){
+			                	Swal.fire("답변이 등록되었습니다.") .then(function(result) {
+			    					if(result.isConfirmed) {
+			    						 $("#modalA").submit();
+			    					} else {
+			    						return;
+			    					}
+			    				}); 
+			                   
+			            	});
+			                </script>
 			
 					 	 <!-- Modal 질문하기 -->
 							<div class="modal fade" id="QModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-								<form action="${ contextPath }/store/question?PR_CODE=${ s.PR_CODE }"  method="post" >
+								<form  id="modalQ"action="${ contextPath }/store/question?PR_CODE=${ s.PR_CODE }"  method="post" >
 								<input type="hidden"  name="PR_CODE" value="${ s.PR_CODE }">
 								<div class="modal-dialog">
 								<div class="modal-content">
@@ -944,7 +960,7 @@
 										
 										</div>
 										<div class="modal-footer" >
-										<button type="submit"   class="btn btn-danger"   >등록</button>
+										<button type="button"  id="modalQbt"  class="btn btn-danger"   >등록</button>
 										<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
 										</div>
 									</table>
@@ -952,6 +968,20 @@
 								</div>
 								</form>
 							</div>
+							
+							
+							  <script>
+			                $(document).on('click', '#modalQbt', function(){
+			                	Swal.fire("질문이 등록되었습니다.").then(function(result) {
+			    					if(result.isConfirmed) {
+			    						 $("#modalQ").submit();
+			    					} else {
+			    						return;
+			    					}
+			    				}); 
+			                   
+			            	});
+			                </script>
 							
 							
 							
@@ -965,7 +995,7 @@
 									<div class="modal-header">
 									<h5 class="modal-title" id="exampleModalLabel" style="color: white;">
 									<img src="${ contextPath }/resources/img/common/whiteLogo.png" class = "logoimg">
-										제품 질문
+										제품 신고
 									</h5>
 									<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 									</div>
@@ -1031,6 +1061,9 @@
 					                	 var reportType = document.getElementById("reportType");
 								         var reportReason = document.getElementById("reportReason");
 
+								         
+								        
+								         
 								            if (reportType.value == "--신고사유선택--") {
 								            	 Swal.fire({
 													title : '신고유형을 선택하세요.',
@@ -1046,15 +1079,21 @@
 								            	reportReason.focus();
 								                return;
 								            } else{
-								            Swal.fire("신고가 완료되었습니다."); 
-								            }
-								            $("#insert").submit();
+								            Swal.fire("제품 신고가 완료되었습니다.").then(function(result) {
+							    					if(result.isConfirmed) {
+							    					 $("#insert").submit();
+							    				} else {
+							    					return;
+							    				}
+							    			}); 
+					            		 
+					            	} 
 					            	});
 	                </script>
 	                
 	                
 	                
-	                
+	              <%--   
 	                 <!-- Modal 제품신고하기 -->
 							<div class="modal fade" id="PrModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 								<form  id="insert" action="${ contextPath }/store/report?PR_CODE=${ s.PR_CODE }"  method="post" >
@@ -1125,7 +1164,7 @@
 								</div>
 								</form>
 							</div>
-							
+							 --%>
 							
 							 <!-- Modal 리뷰신고하기 -->
 							 <c:forEach var="r" items="${ ReviewList }"  >
@@ -1138,7 +1177,7 @@
 									<div class="modal-header">
 									<h5 class="modal-title" id="exampleModalLabel" style="color: white;">
 									<img src="${ contextPath }/resources/img/common/whiteLogo.png" class = "logoimg">
-										제품 질문
+										리뷰신고
 									</h5>
 									<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 									</div>
@@ -1199,70 +1238,55 @@
 								</form>
 							</div>
 							</c:forEach>
-							
-							
-							
-							
-							
-							
-							
-							
 							 <script>
-					                $(document).on('click', '#report', function(){
-					                	 
-					                	 var reportType = document.getElementById("reportType");
-								         var reportReason = document.getElementById("reportReason");
-
-								            if (reportType.value == "--신고사유선택--") {
-								            	 Swal.fire({
-													title : '신고유형을 선택하세요.',
-													icon : 'warning'
-												});
-								            	reportType.focus();
-								                return;
-								            } 
-								            if (reportReason.value == "") {
-								            	 Swal.fire({
-													title : '신고 사유를 작성해주세요.',
-													icon : 'warning'
-												});
-								            	reportReason.focus();
-								                return;
-								            } else{
-								            Swal.fire("신고가 완료되었습니다."); 
-								            }
-								            $("#insert").submit();
-					            	});
-	                </script>
-	                
-	                <script>
 					                $(document).on('click', '#report2', function(){
 					                	 
 					                	 var reportType2 = document.getElementById("reportType2");
 								         var reportReason2 = document.getElementById("reportReason2");
+								      
+								     	 
+								     
 
-								            if (reportType2.value == "--신고유형선택--") {
-								            	 Swal.fire({
-													title : '신고유형을 선택하세요.',
-													icon : 'warning'
-												});
-								            	reportType2.focus();
-								                return;
-								            } 
-								            
-								            if (reportReason2.value == "") {
-								            	 Swal.fire({
-													title : '신고 사유를 작성해주세요.',
-													icon : 'warning'
-												});
-								            	reportReason2.focus();
-								                return;
-								            } else{
-								            Swal.fire("신고가 완료되었습니다."); 
-								            }
-								            $("#insert2").submit();
-					            	});
-	                </script>
+							            if (reportType2.value == "--신고유형선택--") {
+							            	 Swal.fire({
+												title : '신고유형을 선택하세요.',
+												icon : 'warning'
+											});
+							            	reportType2.focus();
+							                return;
+							            } 
+							            
+							            if (reportReason2.value == "") {
+							            	 Swal.fire({
+												title : '신고 사유를 작성해주세요.',
+												icon : 'warning'
+											});
+							            	reportReason2.focus();
+							                return;
+							            } else{
+								            Swal.fire("리뷰 신고가 완료되었습니다.").then(function(result) {
+							    					if(result.isConfirmed) {
+							    					 $("#insert2").submit();
+							    				} else {
+							    					return;
+							    				}
+								        	}); 
+					            		 
+					            	} 
+							               
+								     	 
+						            	});
+	              	  </script>
+							
+							
+							
+							
+							
+							
+							
+							 
+	                
+	              	 
 						 
 	 
 		</section>

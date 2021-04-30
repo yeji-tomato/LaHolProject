@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -58,11 +59,11 @@
                                                 <div class="basketprice">가격</div> 
                                                 <div class="num">수량</div>
                                                 <div class="sum">합계</div>
-                                                <div class="del">수량변경 </div>
+                                                <div class="del">수량변경 </div> 
                                             </div>
                                             <div class="subdiv">
                             
-                                                <div class="basketcmd"> </div>
+                                                <div class="basketcmd" style=" width: 60px;">배송비 </div>
                                             </div>
                                             <div class="split"></div>
                                         </div>
@@ -83,14 +84,14 @@
                                                 </div>
                                             </div>
                                             <div class="subdiv"> 
-                                                <div class="basketprice"> ${s.PR_PRICE }</div> 
+                                                <div class="basketprice"> <fmt:formatNumber value="${ s.PR_PRICE }" pattern="#,###"/></div> 
                                                  <div class="basketprice" style=" width: 0px;"><input type="hidden" name="p_price" id="p_price1" class="p_price" value="${s.PR_PRICE }"> </div>
                                                 <div class="num">
                                                     <div class="updown" style="float: left;margin-left: 30px;" >&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp수량
                                                         <input   readonly name="p_num1" id="p_num1" size="2" maxlength="4" class="p_num" value="${ su }" style="height: 26px; height: 26px;border-top-width: 0px;border-bottom-width: 0px;border-right-width: 0px;border-left-width: 0px;"onkeyup="javascript:basket.changePNum(1);">
                                                  <c:set var="cfSum" value="${ su*pr }"/>
                                                     </div>  
-                                                </div>  
+                                                </div> 
                                                 <div class="sum" style=" width: 80px;"> <input type="hidden" name="sum" size="11" readonly  value=""  > ${ su*pr }   </div>
                                        
                                                <div class="del">
@@ -99,10 +100,14 @@
                                             </div>
                                             <div class="subdiv">
                                              
-                                                <div class="basketcmd">
-                                                
-                                                
-                                                </div>
+			                                                   
+			                             <div class="subdiv" style=" padding-left: 0px;width: 62px;">
+			                                   <div class="basketcmd" >
+			                                     <div>
+			                                     2,500
+			                                   </div>
+			                                   </div>
+			                               </div>
                                             </div>
                                         </div>
                                         <c:set var= "totalCount" value=""/> 
@@ -165,8 +170,8 @@
 			            </form>
 					</div>
 					
-					 
-						<c:set var= "total" value="${ su*pr }"/>
+					 	 
+						<c:set var= "total" value="${ (su*pr)+2500 }"/>
                       
                         
                       
@@ -200,11 +205,12 @@
 						       <div class="rounded-pill px-4 py-3 text-uppercase font-weight-bold" style="background: #F3EFEB;">결제 정보</div>
 						       <div class="p-4">
 						         <ul class="list-unstyled mb-4">      <div  type="hidden" class="bigtext right-align sumcount" id="sum_p_num"> </div>
-            
-						           <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">상품금액 </strong><strong id="sumPrice"><c:out value="${total}"/></strong></li>
+
+						           <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">상품금액 </strong><strong id="sumPrice">            <fmt:formatNumber value="${ total }" pattern="#,###"/></strong></li>
+						           <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">배송비</strong><strong>2,500</strong></li>
 						           <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">할인금액</strong><strong id="couponPrice"><input type="hidden" name="payDC"></strong></li>
 						           <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">결제금액</strong>
-						             <h5 class="font-weight-bold" id="resultPrice" name="total" ><c:out  value="${total}"/></h5> 
+						             <h5 class="font-weight-bold" id="resultPrice" name="total" > <fmt:formatNumber value="${ total }" pattern="#,###"/></h5> 
 						           </li>  
 						         </ul>
 						         <button id="check_module" class="btn rounded-pill py-2 btn-block" style="background: #5A452E; color: white; width : 100%" type="button"  >결제하기</button>
@@ -279,7 +285,7 @@
 		        			pr_code : pr_code
 		        		},
 		        		success : function(data){
-		        			location.href="${ contextPath }";
+		        			location.href="${ contextPath }/store/list";
 		        		},
 		        		error : function(e){
 							console.log(e);
@@ -314,7 +320,7 @@
 				}).then(function(result){
 					
 					
-					$.ajax({
+			/* 		$.ajax({
 		       			url:"${ contextPath }/store/storecart2",
 		        		type : "post",
 		        		data : {
@@ -326,7 +332,7 @@
 		        			pr_code : ${s.PR_CODE}
 		        		},
 		        		success : function(data){
-		        			location.href="${ contextPath }";
+		        			location.href="${ contextPath }/store/list";
 		        		},
 		        		error : function(e){
 							console.log(e);
@@ -348,7 +354,7 @@
 							console.log(e);
 						}
 		        		
-		       		});
+		       		}); */
 					
 				});
 				
