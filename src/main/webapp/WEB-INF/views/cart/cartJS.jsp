@@ -72,6 +72,9 @@
 		    },
 		    delItem: function () {
 		        event.target.parentElement.parentElement.parentElement.remove();
+		        
+		       
+		        
 		    }
 		}
 
@@ -84,5 +87,6 @@
 		    return nstr;
 		};
 	</script>
+	
 </body>
 </html>

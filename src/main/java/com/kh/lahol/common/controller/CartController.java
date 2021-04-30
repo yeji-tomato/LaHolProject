@@ -60,14 +60,19 @@ public class CartController{
 	// 장바구니 들어갔을 시 정보들 select
 	@GetMapping("/main")
 	public ModelAndView cartSelectList(@SessionAttribute("loginUser") Member m,
-			ModelAndView mv) {
+			ModelAndView mv,
+		    @RequestParam(value="page" , required=false, defaultValue="1")int currentPage) {
 		
 		String id = m.getId();
-		System.out.println(id);
+		// System.out.println(id);
 		List<Cart> cartlist = cartService.cartSelectList(id);
-		System.out.println(cartlist);
+		// System.out.println(cartlist);
+		int cartNum = cartService.cartNum(id);
+		
+		
 		
 		mv.addObject("cartlist", cartlist);
+		mv.addObject("cartNum", cartNum);
 		mv.setViewName("cart/cart");
 		
 		
@@ -228,6 +233,46 @@ public class CartController{
 		  }
 		
 	}
+	 
+	@GetMapping("/cart/delete")
+	public String cartdelete(  @ModelAttribute Cart bc, String sT,
+				@SessionAttribute("loginUser") Member m, String couponCode) throws CartException{
+		
+		 
+		
+		    System.out.println("제품번호"+sT);
+		    
+		    
+		     int result = cartService.deleteCart(sT); 
+		     System.out.println(result);
+		     
+		     
+		   
+				
+		     return "redirect:/cart/main?page=1";
+		   
+		   
+	}
+	
+	/*
+	 * @GetMapping("/deltecart") public ModelAndView
+	 * deltecart(@SessionAttribute("loginUser") Member m, ModelAndView mv) {
+	 * 
+	 * String id = m.getId();
+	 * 
+	 * List<Cart> cartlist = cartService.cartSelectList(id);
+	 * 
+	 * int cartNum = cartService.cartNum(id);
+	 * 
+	 * mv.addObject("cartlist", cartlist); mv.addObject("cartNum", cartNum);
+	 * mv.setViewName("cart/cart");
+	 * 
+	 * 
+	 * return mv;
+	 * 
+	 * 
+	 * }
+	 */
 	
 	// 결제 성공 시 장바구니 비우기
 	@PostMapping("/success")

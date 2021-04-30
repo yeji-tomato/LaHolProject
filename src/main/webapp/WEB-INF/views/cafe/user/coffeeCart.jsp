@@ -108,7 +108,7 @@
 	$(function(){
 	 
 	  $("#selectItem").on("click", function() {
-	    $(".shopping-cart").fadeToggle( "fast");
+	    $(".shopping-cart").fadeToggle("fast");
 	  });
 	  
 	})();

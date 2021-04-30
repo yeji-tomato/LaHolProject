@@ -3,11 +3,16 @@ package com.kh.lahol.cafe.bus.model.dao;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.ibatis.session.RowBounds;
+
 import com.kh.lahol.cafe.bus.model.vo.Cafe;
 import com.kh.lahol.cafe.bus.model.vo.Caphoto;
 import com.kh.lahol.cafe.bus.model.vo.Coffee;
+import com.kh.lahol.cafe.bus.model.vo.Order;
 import com.kh.lahol.cafe.bus.model.vo.PageInfo;
+import com.kh.lahol.cafe.bus.model.vo.bevOrder;
 import com.kh.lahol.cafe.user.model.vo.CafeRes;
+import com.kh.lahol.cafe.user.model.vo.CoffeeRes;
 
 public interface CafeBizDao {
 	// 카페 정보 insert
@@ -37,11 +42,25 @@ public interface CafeBizDao {
 
 	public List<CafeRes> selectCafeResList(String id);
 
-	public List<CafeRes> selectOrderList(String id);
+	public List<CafeRes> selectOrderList(String id, PageInfo pi);
 
 	public int coffeeStatus(CafeRes cr);
 
-	//public int insetCafeInfoPhoto(ArrayList<Caphoto> photoList);
+	public int selectOrderCount(Order ord);
+
+	List<CafeRes> orderDate(Order ord, PageInfo pi);
+
+	public List<bevOrder> beverageOrder(String caResNo);
+
+	public Cafe cafeHome(String id);
+
+	public int countBefore(String id);
+
+	public int countMiddle(String id);
+
+	public int countAfter(String id);
+
+
 	
 	
 

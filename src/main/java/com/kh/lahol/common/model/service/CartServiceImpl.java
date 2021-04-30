@@ -59,11 +59,22 @@ public class CartServiceImpl implements CartService{
 		return cartDao.successCart(id);
 	}
 
+
+	@Override
+	public int cartNum(String id) {
+		return cartDao.cartNum(id);
+	}
 	
 	// 카트 장바구니
 	@Override
 	public int classcartInsert(Cart ct) {
 		return cartDao.classcartInsert(ct);
+
+	}
+
+	@Override
+	public int deleteCart(String sT) {
+		return cartDao.deleteCart(sT);
 	}
 
 }

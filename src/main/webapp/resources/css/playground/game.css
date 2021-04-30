@@ -127,9 +127,8 @@
 	 color: #2e2e2e;
 	 display: flex;
 	 font-family: 'NEXON Lv1 Gothic OTF';
-	 font-size: 3.2vh;
 	 height: 20%;
-	 width: 30%;
+	 width: 35%;
 	 justify-content: space-between;
 	 padding: 0 10px 0 30px;
 	 transform: translateY(0);
@@ -139,7 +138,10 @@
 
 #result-text {
 	padding-top: 5%;
-	margin-left: 5%;
+	margin-left: 15%;
+	font-size : 3vh;
+	text-align: center;
+	display: inline-block;
 }
 
  .reset {

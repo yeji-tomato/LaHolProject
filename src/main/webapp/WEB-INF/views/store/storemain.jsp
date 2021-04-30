@@ -137,7 +137,7 @@
 	                        </div>
 	                  <!--       <button  id="ifb">바로구매 <i class="fa fa-credit-card-alt" aria-hidden="true"></i></button> -->  
 	                       <c:if test="${  s.SUBSCRIPTIONS eq 'Y' && !empty sessionScope.loginUser   }"> 
-                        <button  id="ifb" onClick="location.href=' ${ contextPath }/store/subW?PR_CODE=${ s.PR_CODE }'" >정기구독 <i class="fa fa-credit-card-alt" aria-hidden="true"></i></button> </c:if>  
+                        <button  id="ifb" onClick="location.href=' ${ contextPath }/store/subW?PR_CODE=${ s.PR_CODE }'" >정기구독  </button> </c:if>  
 	                    </div> 
                     
              

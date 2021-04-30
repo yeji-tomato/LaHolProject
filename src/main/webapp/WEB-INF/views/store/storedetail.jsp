@@ -12,6 +12,8 @@
  
 <!-- 스토어 css -->
 <link rel="stylesheet" href="${ contextPath }/resources/css/store/main/detail.css?a">
+<!-- 모달 css -->
+<link rel="stylesheet" href="${ contextPath }/resources/css/store/main/modal.css">
 <!-- 스토어q css -->
 <link rel="stylesheet" href="${ contextPath }/resources/css/store/Q&A/Q&A.css?s">
 <!-- 제이쿼리 CDN -->
@@ -186,7 +188,9 @@
 	                    
 					<div class="rvt"
 						style="top: 10px;left: 550px;width: 422px;height: 402px;">
-						<span><a style="font-size: 25px;  margin-left: 150px;" >  ${s.PR_NAME }<p style="margin-left:40%;"> </p></a>
+						<span><a style="font-size: 25px;  margin-left: 150px;" >  ${s.PR_NAME } <button data-bs-toggle="modal" data-bs-target="#PrModal"
+						style="background-color:white;	color: red; border-left-width: 0px; border-top-width: 0px;border-right-width: 0px; border-bottom-width: 0px;"> <i class="fa fa-bullhorn" aria-hidden="true"></i></button><p style="margin-left:40%;">  </p></a>
+						
 	                        &nbsp <i class="fa fa-bullhorn" aria-hidden="true" style="font-size: 15px; color: rgb(190, 130, 51); "> <a>  ※ ${s.PR_EVENT }</a></i>
 					     </span>
 						<table id="info">
@@ -194,8 +198,8 @@
 							<br>
 							<td>
 							<tr>
-								<p class="store_info"   > &nbsp 카테고리: ${s.ST_CATAGORY }
-								</p>
+								<p class="store_info"   > &nbsp 카테고리: ${s.ST_CATAGORY }  
+								</p>	 
 							</tr>
 							<br>
 							<tr>
@@ -289,11 +293,17 @@
 	                </div>
 	                
 	                
-	                
+	         
 	                <script>
 	                $(document).on('click', '#cart-btn', function(){
-	                	Swal.fire("장바구니추가되었습니다"); 
-	                    $("#terms_form").submit();
+	                	Swal.fire("장바구니추가되었습니다") .then(function(result) {
+	    					if(result.isConfirmed) {
+	    						 $("#terms_form").submit();
+	    					} else {
+	    						return;
+	    					}
+	    				}); 
+	                   
 	            	});
 	                </script>
 	                 <script>
@@ -310,22 +320,22 @@
 	                <div>
 	                    <ul class="nav nav-tabs" id="myTab" role="tablist">
 	                        <li class="nav-item" role="presentation">
-	                            <button class="${ sa }" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">
+	                            <button  style="font-family: 'NEXON Lv1 Gothic OTF Bold'; " class="${ sa }" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">
 	                                상세정보
 	                            </button>
 	                        </li>
 	                        <li class="nav-item" role="presentation">
-	                            <button class="${ sa2 }" id="review-tab" data-bs-toggle="tab" data-bs-target="#review" type="button" role="tab" aria-controls="review" aria-selected="false">
+	                            <button style="font-family: 'NEXON Lv1 Gothic OTF Bold'; " class="${ sa2 }" id="review-tab" data-bs-toggle="tab" data-bs-target="#review" type="button" role="tab" aria-controls="review" aria-selected="false">
 	                                후기
 	                            </button>
 	                        </li>
 	                        <li class="nav-item" role="presentation">
-	                            <button class="${ sa1 }" id="qa-tab" data-bs-toggle="tab" data-bs-target="#qa" type="button" role="tab" aria-controls="qa" aria-selected="false">
+	                            <button style="font-family: 'NEXON Lv1 Gothic OTF Bold'; " class="${ sa1 }" id="qa-tab" data-bs-toggle="tab" data-bs-target="#qa" type="button" role="tab" aria-controls="qa" aria-selected="false">
 	                                Q&A
 	                            </button>
 	                        </li>
 	                        <li class="nav-item" role="presentation">
-	                            <button class="nav-link" id="de-tab" data-bs-toggle="tab" data-bs-target="#de" type="button" role="tab" aria-controls="de" aria-selected="false">
+	                            <button style="font-family: 'NEXON Lv1 Gothic OTF Bold'; " class="nav-link" id="de-tab" data-bs-toggle="tab" data-bs-target="#de" type="button" role="tab" aria-controls="de" aria-selected="false">
 	                               배송/반품
 	                            </button>
 	                        </li>
@@ -450,7 +460,10 @@
 												    </div>
 									               
 									               </td>
-									               <td style="padding-top: 16px; padding-left: 250px;  ">  ${  r.review_date } </td>
+									               <td style="padding-top: 16px; padding-left: 250px;  ">  ${  r.review_date }  <button data-bs-toggle="modal" 
+									               data-bs-target="#PrRModal${r.review_no}"style="background-color:white;	
+									               color: red; border-left-width: 0px; border-top-width: 0px;border-right-width: 0px; border-bottom-width: 0px;">
+									                <i class="fa fa-bullhorn" aria-hidden="true"></i></button> </td> 
 									            </tr>
 									            <tr> 
 									                <td style="width: 110px;">${ r.id  } ||</td>
@@ -827,7 +840,7 @@
 			    	 	   	 	 <!-- Modal 답변 -->
 							<div class="modal fade" id="exampleModal${ q.qnaNo}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 								<form action="${ contextPath }/store/anser?qnaNo=${ q.qnaNo }&PR_CODE=${ s.PR_CODE }&k=1"  method="post" >
-								<input type="hidden"  name="qnaNo" vale="${ q.qnaNo }">
+								<input type="hidden"  name="qnaNo" value="${ q.qnaNo }">
 								<div class="modal-dialog">
 								<div class="modal-content">
 									<div class="modal-header">
@@ -877,7 +890,7 @@
 					 	 <!-- Modal 질문하기 -->
 							<div class="modal fade" id="QModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 								<form action="${ contextPath }/store/question?PR_CODE=${ s.PR_CODE }"  method="post" >
-								<input type="hidden"  name="PR_CODE" vale="${ s.PR_CODE }">
+								<input type="hidden"  name="PR_CODE" value="${ s.PR_CODE }">
 								<div class="modal-dialog">
 								<div class="modal-content">
 									<div class="modal-header">
@@ -891,7 +904,7 @@
 									<h5 class="sorry-text">제품에대한 질문을 해주세요 <br> 질문이 접수되면 3일내로 처리됩니다. </h5>
 										<table class="rp_reason_table">
 											<tr>
-												<td>제품명</td>
+												<td style="width: 102px;">제품명</td>
 												<td aria-readonly="true">${ s.PR_NAME }</td>
 											</tr>
 											<tr>
@@ -940,8 +953,320 @@
 								</form>
 							</div>
 							
+							
+							
+							 <!-- Modal 제품신고하기 -->
+							<div class="modal fade" id="PrModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+								<form  id="insert" action="${ contextPath }/store/report?PR_CODE=${ s.PR_CODE }"  method="post" >
+								<input type="hidden"  name="PR_CODE" value="${ s.PR_CODE }"> 
+								<input type="hidden"  name="c_code" value="${a}"> 
+								<div class="modal-dialog">
+								<div class="modal-content">
+									<div class="modal-header">
+									<h5 class="modal-title" id="exampleModalLabel" style="color: white;">
+									<img src="${ contextPath }/resources/img/common/whiteLogo.png" class = "logoimg">
+										제품 질문
+									</h5>
+									<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+									</div>
+									<div class="modal-body">
+									<h5 class="sorry-text">페이지 사용에 불편을 드려 죄송합니다. <br> 신고가 접수되면 3일내로 처리됩니다. </h5>
+										<table class="rp_reason_table">
+											<tr>
+												<td>제품명</td>
+												<td aria-readonly="true">${ s.PR_NAME }</td>
+											</tr>
+											<tr>
+												<td>신고사유</td>
+												<td>
+													<select name="reportType" id="reportType"> 
+													 <option>--신고사유선택--</option>
+													<option>
+														원산지 불일치
+													</option>
+													<option>
+														이미지와 많이 다름 (하자포함)
+													</option>
+													<option>
+														배송오류
+													</option>
+													<option>
+														과도한 배송 지연(2주이상)
+													</option>
+													<option>
+														기타
+													</option>
+													</select>
+											</td>
+											</tr>
+											<tr>
+												<td>신고 내용</td>
+											</tr>
+											<tr>
+												<td colspan="2"> 
+													<textarea class="evidence" name="reportReason" id="reportReason"></textarea>
+												</td>
+											</tr>
+										</table>
+										<p>
+											<br>
+											<p class="alert-text">
+											허위신고일 경우, 신고자의 활동이 제한될 수 있으니 신중하게 신고해주세요. 
+											</p>
+										</p>
+										
+										</div>
+										<div class="modal-footer" >
+										<button  type="button" class="btn btn-danger"  id="report" onclick="onSubmit();"  >신고</button>
+										<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+										</div>
+									</table>
+								</div>
+								</div>
+								</form>
+							</div>
+							 <script>
+					                $(document).on('click', '#report', function(){
+					                	 
+					                	 var reportType = document.getElementById("reportType");
+								         var reportReason = document.getElementById("reportReason");
+
+								            if (reportType.value == "--신고사유선택--") {
+								            	 Swal.fire({
+													title : '신고유형을 선택하세요.',
+													icon : 'warning'
+												});
+								            	reportType.focus();
+								                return;
+								            } else if (reportReason.value == "") {
+								            	 Swal.fire({
+													title : '신고 사유를 작성해주세요.',
+													icon : 'warning'
+												});
+								            	reportReason.focus();
+								                return;
+								            } else{
+								            Swal.fire("신고가 완료되었습니다."); 
+								            }
+								            $("#insert").submit();
+					            	});
+	                </script>
+	                
+	                
+	                
+	                
+	                 <!-- Modal 제품신고하기 -->
+							<div class="modal fade" id="PrModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+								<form  id="insert" action="${ contextPath }/store/report?PR_CODE=${ s.PR_CODE }"  method="post" >
+								<input type="hidden"  name="PR_CODE" value="${ s.PR_CODE }"> 
+								<input type="hidden"  name="c_code" value="${a}"> 
+								<div class="modal-dialog">
+								<div class="modal-content">
+									<div class="modal-header">
+									<h5 class="modal-title" id="exampleModalLabel" style="color: white;">
+									<img src="${ contextPath }/resources/img/common/whiteLogo.png" class = "logoimg">
+										제품 질문
+									</h5>
+									<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+									</div>
+									<div class="modal-body">
+									<h5 class="sorry-text">페이지 사용에 불편을 드려 죄송합니다. <br> 신고가 접수되면 3일내로 처리됩니다. </h5>
+										<table class="rp_reason_table">
+											<tr>
+												<td>제품명</td>
+												<td aria-readonly="true">${ s.PR_NAME }</td>
+											</tr>
+											<tr>
+												<td>신고사유</td>
+												<td>
+													<select name="reportType" id="reportType"> 
+													 <option>--신고사유선택--</option>
+													<option>
+														원산지 불일치
+													</option>
+													<option>
+														이미지와 많이 다름 (하자포함)
+													</option>
+													<option>
+														배송오류
+													</option>
+													<option>
+														과도한 배송 지연(2주이상)
+													</option>
+													<option>
+														기타
+													</option>
+													</select>
+											</td>
+											</tr>
+											<tr>
+												<td>신고 내용</td>
+											</tr>
+											<tr>
+												<td colspan="2"> 
+													<textarea class="evidence" name="reportReason" id="reportReason"></textarea>
+												</td>
+											</tr>
+										</table>
+										<p>
+											<br>
+											<p class="alert-text">
+											허위신고일 경우, 신고자의 활동이 제한될 수 있으니 신중하게 신고해주세요. 
+											</p>
+										</p>
+										
+										</div>
+										<div class="modal-footer" >
+										<button  type="button" class="btn btn-danger"  id="report"  >신고</button>
+										<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+										</div>
+									</table>
+								</div>
+								</div>
+								</form>
+							</div>
+							
+							
+							 <!-- Modal 리뷰신고하기 -->
+							 <c:forEach var="r" items="${ ReviewList }"  >
+							<div class="modal fade" id="PrRModal${r.review_no}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+								<form  id="insert2" action="${ contextPath }/store/report2?PR_CODE=${ s.PR_CODE }"  method="post" >
+								<input type="hidden"  name="PR_CODE" value="${ s.PR_CODE }"> 
+								<input type="hidden"  name="r_no"  value="${ r.review_no }"> 
+								<div class="modal-dialog">
+								<div class="modal-content">
+									<div class="modal-header">
+									<h5 class="modal-title" id="exampleModalLabel" style="color: white;">
+									<img src="${ contextPath }/resources/img/common/whiteLogo.png" class = "logoimg">
+										제품 질문
+									</h5>
+									<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+									</div>
+									<div class="modal-body">
+									<h5 class="sorry-text">페이지 사용에 불편을 드려 죄송합니다. <br> 신고가 접수되면 3일내로 처리됩니다. </h5>
+										<table class="rp_reason_table">
+											<tr>
+												<td>리뷰제품명</td>
+												<td aria-readonly="true">${ s.PR_NAME }</td>
+											</tr>
+											<tr>
+												<td>신고사유</td>
+												<td>
+													<select name="reportType" id="reportType2"> 
+														<option>--신고유형선택--</option>
+														<option>
+															욕설/비방
+														</option>
+														<option>
+															음란/부적절 언어사용
+														</option>
+														<option>
+															허위사실 유포
+														</option>
+														<option>
+															광고/도배
+														</option>
+														<option>
+															기타
+														</option>
+													</select>
+											</td>
+											</tr>
+											<tr>
+												<td>신고 내용</td>
+											</tr>
+											<tr>
+												<td colspan="2"> 
+													<textarea class="evidence" name="reportReason" id="reportReason2"></textarea>
+												</td>
+											</tr>
+										</table>
+										<p>
+											<br>
+											<p class="alert-text">
+											허위신고일 경우, 신고자의 활동이 제한될 수 있으니 신중하게 신고해주세요. 
+											</p>
+										</p>
+										
+										</div>
+										<div class="modal-footer" >
+										<button  type="button" class="btn btn-danger"  id="report2"   >신고</button>
+										<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+										</div>
+									</table>
+								</div>
+								</div>
+								</form>
+							</div>
+							</c:forEach>
+							
+							
+							
+							
+							
+							
+							
+							
+							 <script>
+					                $(document).on('click', '#report', function(){
+					                	 
+					                	 var reportType = document.getElementById("reportType");
+								         var reportReason = document.getElementById("reportReason");
+
+								            if (reportType.value == "--신고사유선택--") {
+								            	 Swal.fire({
+													title : '신고유형을 선택하세요.',
+													icon : 'warning'
+												});
+								            	reportType.focus();
+								                return;
+								            } 
+								            if (reportReason.value == "") {
+								            	 Swal.fire({
+													title : '신고 사유를 작성해주세요.',
+													icon : 'warning'
+												});
+								            	reportReason.focus();
+								                return;
+								            } else{
+								            Swal.fire("신고가 완료되었습니다."); 
+								            }
+								            $("#insert").submit();
+					            	});
+	                </script>
+	                
+	                <script>
+					                $(document).on('click', '#report2', function(){
+					                	 
+					                	 var reportType2 = document.getElementById("reportType2");
+								         var reportReason2 = document.getElementById("reportReason2");
+
+								            if (reportType2.value == "--신고유형선택--") {
+								            	 Swal.fire({
+													title : '신고유형을 선택하세요.',
+													icon : 'warning'
+												});
+								            	reportType2.focus();
+								                return;
+								            } 
+								            
+								            if (reportReason2.value == "") {
+								            	 Swal.fire({
+													title : '신고 사유를 작성해주세요.',
+													icon : 'warning'
+												});
+								            	reportReason2.focus();
+								                return;
+								            } else{
+								            Swal.fire("신고가 완료되었습니다."); 
+								            }
+								            $("#insert2").submit();
+					            	});
+	                </script>
+						 
 	 
 		</section>
+					
 			 
 </body>
 </html>

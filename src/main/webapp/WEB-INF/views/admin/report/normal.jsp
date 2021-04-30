@@ -376,6 +376,10 @@
 			var reportType = e.detail.ZGData.data.reportType;
 			var reportReason = e.detail.ZGData.data.reportReason;
 			
+			console.log("스토어 리뷰 : " + storeReviewContent);
+			console.log("카페 리뷰 : " +cafeReviewContent);
+			console.log("클래스 리뷰 : " +classReviewContent);
+			
 			Swal.fire({
 				  imageUrl: imgPath,
 				  imageAlt: '신고된 리뷰의 사진',
@@ -399,6 +403,34 @@
 				}); // -- SWAL END
 		
 		}); // !! THE VERY END  
+		    
+		
+
+			// 완료리스트 row 클릭 시 
+		var completedList = document.querySelector("#completed-list");
+		
+		completedList.addEventListener('row:click', function(e) { // !! THE VERY START		
+			console.log(e.detail.ZGData.data);	
+		
+			// 모달에 띄울 변수
+			var imgPath = e.detail.ZGData.data.imgPath;
+			var storeReviewContent = e.detail.ZGData.data.storeReviewContent;
+			var cafeReviewContent = e.detail.ZGData.data.cafeReviewContent;
+			var classReviewContent = e.detail.ZGData.data.classReviewContent;
+			var reportType = e.detail.ZGData.data.reportType;
+			var reportReason = e.detail.ZGData.data.reportReason;
+			
+			console.log("스토어 리뷰 : " + storeReviewContent);
+			console.log("카페 리뷰 : " +cafeReviewContent);
+			console.log("클래스 리뷰 : " +classReviewContent);
+			
+			Swal.fire({
+				  imageUrl: imgPath,
+				  imageAlt: '신고된 리뷰의 사진',
+				  title: reportType,
+				  html: reportReason + "<br/><br/>" + "<span style='color:#bbbbbb'>" +storeReviewContent + cafeReviewContent + classReviewContent + "</span>"
+			})
+		}); // !! THE VERY END 
 		    
 		</script>
 		<script src="${ contextPath }/resources/js/admin/darkMode.js"></script>

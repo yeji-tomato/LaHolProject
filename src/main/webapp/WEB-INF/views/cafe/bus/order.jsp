@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,7 +10,16 @@
 <link rel="stylesheet" href="${ contextPath }/resources/css/cafe/bus/order.css" type="text/css">
 <link rel="stylesheet" href="${ contextPath }/resources/css/cafe/bus/sideMenu.css" type="text/css">
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-<script src="https://cdn.jsdelivr.net/npm/datepickk@1.4.0/src/js/datepickk.min.js"></script>
+<style>
+.lookup{
+	background: #F3D798;
+	color: black;
+	border: 0;
+}
+.lookup:hover{
+	background : #f1d1ac;
+}
+</style>
 </head>
 <body>
 
@@ -64,28 +74,29 @@
     </div>
     <%@include file="./sideMenu.jsp" %>
     
-    
-<div class="res-container" style="height: 100vh">
+<div class="res-container" style="height: 120vh">
     <div id="od" class="col-cf">
         <div class="order_table">
             <h2>주문 내역</h2>
                 <table class="table" id="orderTB">
-                
-                    <thead>
-                    <tr>
-                        <td colspan="9" style="text-align: center;">
-                       <button class="btnOrd arrowBtn">
-                           <i class="fa fa-chevron-left" aria-hidden="true"></i>
-                       </button>
-                       &nbsp;
-                       <b style="font-size: 20px;">2016-03-04</b>&nbsp;
-                       <button class="btnOrd arrowBtn" onclick="datepickerShow();">
-                           <i class="fa fa-chevron-right" aria-hidden="true"></i>
-                       </button>
-                       <div class="datepickker"></div>
-						
-                   </td>
-               </tr>
+                <thead>
+                <tr>
+                	<td colspan="8" style="text-align:center;">
+                	<jsp:useBean id="now" class="java.util.Date" />
+                	<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="today" />
+            		<form action="${ contextPath }/cafe/biz/orderDate" method="get">
+            		<c:choose>
+            			<c:when test="${!empty check}">
+            				<input type="date" id="date" name="checkDate" value="${ param.checkDate }" style="border:0; font-size:20px; color: #e3a259;">
+            			</c:when>
+            			<c:otherwise>
+            				<input type="date" id="date" name="checkDate" value="${today}" style="border:0; font-size:20px; color: #e3a259;">
+            			</c:otherwise>
+            		</c:choose>
+            		<button type="submit" class="lookup">조회</button>
+            		</form>
+            		</td>
+                </tr>
                <tr> 
                    <td scope="col">#</td>
                    <td scope="col">주문명</td>
@@ -98,8 +109,10 @@
                </tr>
                </thead>
                <tbody id="tbody">
-               <c:forEach var="ord" items="${ cafeOrderlist }">
-                       <tr>
+               <c:choose>
+               	 <c:when test="${!empty cafeOrderlist}">
+               	 	<c:forEach var="ord" items="${ cafeOrderlist }">
+                       <tr class="orderTr">
                        <td>${ ord.caResNo }</td>
                        <td>${ ord.cfName }</td>
                        <td>${ ord.name }</td>
@@ -112,9 +125,30 @@
 				        <c:if test="${ hereTogo eq '포장' }">
 				        	<td>${ ord.caGoTime }</td>
 				        </c:if> 
-                       <td class="mod trigger">
+				       
+                       <td class="mod trigger" onclick="coffeeInfoOpen('${ ord.caResNo }')">
                            <i class="fa fa-arrow-right" aria-hidden="true"></i>
+                       		<script>
+						       // Modal
+						       function coffeeInfoOpen(caResNo){
+						    	    console.log(caResNo);
+						    	    $.ajax({
+						    	    	url:"${ contextPath }/cafe/biz/order/beverage",
+					    				type : "post",
+					    				data : { caResNo : caResNo },
+					    				success: function(data){
+					    					 $('.modal-wrapper').toggleClass('open');
+					    				},
+					    				error : function(e){
+					    					console.log(e);
+					    				}
+						    	    });
+						       		
+						       	}
+					   		</script>
+					   		<%@include file="./orderModal.jsp" %>
                        </td>
+                       
                        <td>
                            <div class="btn-group" role="group">
                                <button disabled style="color: black;" class="btnOrd">
@@ -146,7 +180,7 @@
                                    	  text : "(으)로 바꾸시겠습니까?",
                                    	  icon: 'question',
                                    	  showCancelButton: true,
-                                   	  confirmButtonColor: '#4B654A',
+                                  	  confirmButtonColor: '#4B654A',
                                    	  cancelButtonColor: '#810B0B',
                                    	  confirmButtonText: 'Yes'
                                    	}).then((result) => {
@@ -183,210 +217,109 @@
                        </td>
                        </tr>
                </c:forEach>
+               	 </c:when>
+               	 <c:otherwise>
+               	 <tr>
+               	 	<td colspan="8" style='text-align:center;'>주문 된 내역이 존재하지 않습니다.</td>
+               	 </tr>
+               	 </c:otherwise>
+               </c:choose>
+               
            </tbody>
            
        </table>
-       <!-- Modal -->
-       <div class="modal-wrapper">
-           <div class="modalCafe">
-           <div class="headModal">
-               <h5 class="headerM">음료 주문 내역</h5>
-               <a class="mod-close trigger headerM" href="#">
-                   <i class="fa fa-times" id="closeIcon" aria-hidden="true"></i>
-               </a>
-           </div>
-           <div class="contentMod">
-               <div class="container">
-                   <div class="row row-cols-1 row-cols-md-2">
-                   <!-- col -->
-                   <div class="col">
-                       <div class="card mb-4">
-                           <div class="row g-0">
-                               <div class="col-md-4" id="cardImg">
-                               <img src="https://image.istarbucks.co.kr/upload/store/skuimg/2021/02/[9200000001635]_20210225092236748.jpg" alt="음료주문사진">
-                               </div>
-                               <div class="col-md-8">
-                               <div class="card-body">
-                                   <table class="card-table">
-                                       <thead>
-                                           <tr><td colspan="2"><h5 class="card-title">콜드 브루 플로트</h5></td></tr>
-                                       </thead>
-                                       <tbody>
-                                           <tr>
-                                               <td>수량</td>
-                                               <td class="redCard">1</td>
-                                           </tr>
-                                           <tr>
-                                               <td>종류 </td>
-                                               <td class="redCard">ICE</td>
-                                           </tr>
-                                           <tr>
-                                               <td>용량</td>
-                                               <td class="redCard">Tall</td>
-                                           </tr>
-                                           <tr>
-                                               <td>컵</td>
-                                               <td class="redCard">매장컵</td>
-                                           </tr>
-                                       </tbody>
-                                   </table>
-                               </div>
-                               </div>
-                           </div>
-                           </div>
-                   </div>
-                   <!-- col -->
-                   <div class="col">
-                       <div class="card mb-4">
-                           <div class="row g-0">
-                               <div class="col-md-4" id="cardImg">
-                               <img src="https://image.istarbucks.co.kr/upload/store/skuimg/2015/08/[128192]_20150803101501786.jpg" alt="음료주문사진">
-                               </div>
-                               <div class="col-md-8">
-                               <div class="card-body">
-                                   <table class="card-table">
-                                       <thead>
-                                           <tr><td><h5 class="card-title">화이트 초콜릿 모카</h5></td></tr>
-                                       </thead>
-                                       <tbody>
-                                           <tr>
-                                               <td>수량</td>
-                                               <td class="redCard">1</td>
-                                           </tr>
-                                           <tr>
-                                               <td>종류 </td>
-                                               <td class="redCard">ICE</td>
-                                           </tr>
-                                           <tr>
-                                               <td>용량</td>
-                                               <td class="redCard">Tall</td>
-                                           </tr>
-                                           <tr>
-                                               <td>컵</td>
-                                               <td class="redCard">매장컵</td>
-                                           </tr>
-                                       </tbody>
-                                   </table>
-                               </div>
-                               </div>
-                           </div>
-                           </div>
-                   </div>
-                   <!-- col -->
-                   <div class="col">
-                       <div class="card mb-4">
-                           <div class="row g-0">
-                               <div class="col-md-4" id="cardImg">
-                               <img src="https://image.istarbucks.co.kr/upload/store/skuimg/2021/02/[9200000001635]_20210225092236748.jpg" alt="음료주문사진">
-                               </div>
-                               <div class="col-md-8">
-                               <div class="card-body">
-                                   <table class="card-table">
-                                       <thead>
-                                           <tr><td colspan="2"><h5 class="card-title">콜드 브루 플로트</h5></td></tr>
-                                       </thead>
-                                       <tbody>
-                                           <tr>
-                                               <td>수량</td>
-                                               <td class="redCard">1</td>
-                                           </tr>
-                                           <tr>
-                                               <td>종류 </td>
-                                               <td class="redCard">ICE</td>
-                                           </tr>
-                                           <tr>
-                                               <td>용량</td>
-                                               <td class="redCard">Tall</td>
-                                           </tr>
-                                           <tr>
-                                               <td>컵</td>
-                                               <td class="redCard">매장컵</td>
-                                           </tr>
-                                       </tbody>
-                                   </table>
-                               </div>
-                               </div>
-                           </div>
-                           </div>
-                   </div>
-                   <!-- col -->
-                   <div class="col">
-                       <div class="card mb-4">
-                           <div class="row g-0">
-                               <div class="col-md-4" id="cardImg">
-                               <img src="https://image.istarbucks.co.kr/upload/store/skuimg/2015/08/[128192]_20150803101501786.jpg" alt="음료주문사진">
-                               </div>
-                               <div class="col-md-8">
-                               <div class="card-body">
-                                   <table class="card-table">
-                                       <thead>
-                                           <tr><td><h5 class="card-title">화이트 초콜릿 모카</h5></td></tr>
-                                       </thead>
-                                       <tbody>
-                                           <tr>
-                                               <td>수량</td>
-                                               <td class="redCard">1</td>
-                                           </tr>
-                                           <tr>
-                                               <td>종류 </td>
-                                               <td class="redCard">ICE</td>
-                                           </tr>
-                                           <tr>
-                                               <td>용량</td>
-                                               <td class="redCard">Tall</td>
-                                           </tr>
-                                           <tr>
-                                               <td>컵</td>
-                                               <td class="redCard">매장컵</td>
-                                           </tr>
-                                       </tbody>
-                                   </table>
-                               </div>
-                               </div>
-                           </div>
-                           </div>
-                   </div>
-                   
-                   </div>
-               </div>
-               
-           </div>
-
        </div>
-       <!-- 페이징 바 -->
-           <div aria-label="Page navigation" class="cafe-order-page">
-               <ul class="pagination">
-                   <li class="page-item">
-                   <a class="page-link" id="page-color" href="#" aria-label="Previous">
-                       <span aria-hidden="true">&laquo;</span>
-                   </a>
-                   </li>
-                   <li class="page-item" id="page-hover"><a class="page-link" id="page-color" href="#">1</a></li>
-                   <li class="page-item"><a class="page-link" id="page-color" href="#">2</a></li>
-                   <li class="page-item"><a class="page-link" id="page-color" href="#">3</a></li>
-                   <li class="page-item">
-                   <a class="page-link" id="page-color" href="#" aria-label="Next">
-                       <span aria-hidden="true">&raquo;</span>
-                   </a>
-                   </li>
-               </ul>
-               </div>
-           </div>
-       <script>
-           
-
-            // Modal
-            $( document ).ready(function() {
-            $('.trigger').on('click', function() {
-                $('.modal-wrapper').toggleClass('open');
-                return false;
-            });
-});
-        </script>
-
+       <c:choose>
+      <c:when test="${!empty check}">
+		<!-- 페이징 바 -->
+ 		<div aria-label="Page navigation" class="cafe-order-page">
+     <ul class="pagination">
+         <c:if test="${ pi.currentPage > 1 }">
+         <li class="page-item">
+         <c:url var="before" value="/cafe/biz/orderDate?checkDate=${ param.checkDate }">
+        	<c:param name="page" value="${ pi.currentPage -1 }" />
+     	 </c:url>
+         <a class="page-link" id="page-color" href="${ before }"   aria-label="Previous">
+             <span aria-hidden="true">&laquo;</span>
+         </a>
+         </li>
+         </c:if>
+		<!-- 페이징 숫자 -->
+        <c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+    		<c:if test="${ p eq pi.currentPage }">
+       		<li class="page-item" id="page-hover"><a class="page-link" id="page-color">${ p }</a></li>
+    		</c:if>	
+    		<c:if test="${ p ne pi.currentPage }">
+    		<c:url var="pagination" value="/cafe/biz/orderDate?checkDate=${ param.checkDate }">
+          	<c:param name="page" value="${ p }"/>
+       	</c:url>
+       	 <li class="page-item"><a class="page-link" id="page-color" href="${ pagination }">${ p }</a></li>
+    		 </c:if>
+ 			</c:forEach>
+    	 <c:if test="${ pi.currentPage < pi.maxPage }">
+    	 <c:url var="after" value="/cafe/biz/orderDate?checkDate=${ param.checkDate }">
+          <c:param name="page" value="${ pi.currentPage + 1 }" />
+     </c:url>
+     <li class="page-item">
+         <a class="page-link" id="page-color"  href="${ after }"  aria-label="Next">
+             <span aria-hidden="true">&raquo;</span>
+         </a>
+     </li>
+      </c:if>   
+    </ul>
+ </div>
+</c:when>
+<c:otherwise>
+			<!-- 페이징 바 -->
+ 		<div aria-label="Page navigation" class="cafe-order-page">
+     <ul class="pagination">
+         <c:if test="${ pi.currentPage > 1 }">
+         <li class="page-item">
+         <c:url var="before" value="/cafe/biz/orderDate?checkDate=${ param.checkDate }">
+        	<c:param name="page" value="${ pi.currentPage -1 }" />
+     	 </c:url>
+         <a class="page-link" id="page-color" href="${ before }"   aria-label="Previous">
+             <span aria-hidden="true">&laquo;</span>
+         </a>
+         </li>
+         </c:if>
+		<!-- 페이징 숫자 -->
+        <c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+    		<c:if test="${ p eq pi.currentPage }">
+       		<li class="page-item" id="page-hover"><a class="page-link" id="page-color">${ p }</a></li>
+    		</c:if>	
+    		<c:if test="${ p ne pi.currentPage }">
+    		<c:url var="pagination" value="/cafe/biz/order">
+          	<c:param name="page" value="${ p }"/>
+       	</c:url>
+       	 <li class="page-item"><a class="page-link" id="page-color" href="${ pagination }">${ p }</a></li>
+    		 </c:if>
+ 			</c:forEach>
+    	 <c:if test="${ pi.currentPage < pi.maxPage }">
+    	 <c:url var="after" value="/cafe/biz/order">
+          <c:param name="page" value="${ pi.currentPage + 1 }" />
+     </c:url>
+     <li class="page-item">
+         <a class="page-link" id="page-color"  href="${ after }"  aria-label="Next">
+             <span aria-hidden="true">&raquo;</span>
+         </a>
+     </li>
+      </c:if>   
+    </ul>
+ </div>
+</c:otherwise>
+</c:choose>
+ 	
+	
+<!-- 	<script type="text/javascript">
+   $( document ).ready(function() {	
+       $('.trigger').on('click', function() {
+           $('.modal-wrapper').toggleClass('open');
+           return false;
+       });
+   </script> -->
 
         </div>
-    </div>
     </div>
     </div>
     <!-- footer -->

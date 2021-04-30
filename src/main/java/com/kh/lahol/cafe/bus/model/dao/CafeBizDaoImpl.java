@@ -11,8 +11,11 @@ import org.springframework.stereotype.Repository;
 import com.kh.lahol.cafe.bus.model.vo.Cafe;
 import com.kh.lahol.cafe.bus.model.vo.Caphoto;
 import com.kh.lahol.cafe.bus.model.vo.Coffee;
+import com.kh.lahol.cafe.bus.model.vo.Order;
 import com.kh.lahol.cafe.bus.model.vo.PageInfo;
+import com.kh.lahol.cafe.bus.model.vo.bevOrder;
 import com.kh.lahol.cafe.user.model.vo.CafeRes;
+import com.kh.lahol.cafe.user.model.vo.CoffeeRes;
 
 @Repository
 public class CafeBizDaoImpl implements CafeBizDao{
@@ -87,16 +90,59 @@ public class CafeBizDaoImpl implements CafeBizDao{
 	}
 
 	@Override
-	public List<CafeRes> selectOrderList(String id) {
-		return sqlSession.selectList("cafeMapper.selectOrderList", id);
+	public List<CafeRes> selectOrderList(String id, PageInfo pi) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getCoffeeLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getCoffeeLimit());
+		return sqlSession.selectList("cafeMapper.selectOrderList", id, rowBounds);
 	}
 
 	@Override
 	public int coffeeStatus(CafeRes cr) {
 		return sqlSession.update("cafeMapper.coffeeStatus", cr);
 	}
-
-
 	
+
+	@Override
+	public int selectOrderCount(Order ord) {
+		System.out.println(ord);
+		return sqlSession.selectOne("cafeMapper.selectOrderCount", ord);
+	}
+
+
+	@Override
+	public List<CafeRes> orderDate(Order ord, PageInfo pi) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getCoffeeLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getCoffeeLimit());
+		return sqlSession.selectList("cafeMapper.orderDate", ord, rowBounds);
+	}
+
+	@Override
+	public List<bevOrder> beverageOrder(String caResNo) {
+		System.out.println("Dao : "+ caResNo);
+		return sqlSession.selectList("cafeMapper.beverageOrder", caResNo);
+	}
+
+	@Override
+	public Cafe cafeHome(String id) {
+		return sqlSession.selectOne("cafeMapper.cafeHome", id);
+	}
+
+	@Override
+	public int countBefore(String id) {
+		return sqlSession.selectOne("cafeMapper.countBefore", id);
+	}
+
+	@Override
+	public int countMiddle(String id) {
+		return sqlSession.selectOne("cafeMapper.countMiddle", id);
+	}
+
+	@Override
+	public int countAfter(String id) {
+		return sqlSession.selectOne("cafeMapper.countAfter", id);
+	}
+
+
+
 
 }

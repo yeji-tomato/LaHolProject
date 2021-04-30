@@ -262,15 +262,14 @@ body {
     flex: 1.3;
     display: flex;
     justify-content: center;
-    align-items: center;
     flex-direction: column;
+    text-align: center;
 }
 
 .percent {
     font-family: 'NEXON Lv1 Gothic OTF';
     font-size: 2vw;
     display: flex;
-
     line-height: 250%;
 }
 

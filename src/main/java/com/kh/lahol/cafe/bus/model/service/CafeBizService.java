@@ -3,11 +3,16 @@ package com.kh.lahol.cafe.bus.model.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.ibatis.session.RowBounds;
+
 import com.kh.lahol.cafe.bus.model.vo.Cafe;
 import com.kh.lahol.cafe.bus.model.vo.Caphoto;
 import com.kh.lahol.cafe.bus.model.vo.Coffee;
+import com.kh.lahol.cafe.bus.model.vo.Order;
 import com.kh.lahol.cafe.bus.model.vo.PageInfo;
+import com.kh.lahol.cafe.bus.model.vo.bevOrder;
 import com.kh.lahol.cafe.user.model.vo.CafeRes;
+import com.kh.lahol.cafe.user.model.vo.CoffeeRes;
 
 public interface CafeBizService {
 	// 카페 정보 insert
@@ -47,9 +52,26 @@ public interface CafeBizService {
 
 	public List<CafeRes> selectCafeResList(String id);
 
-	public List<CafeRes> selectOrderList(String id);
+	public List<CafeRes> selectOrderList(String id, PageInfo pi);
 
 	public int coffeeStatus(CafeRes cr);
+
+	public List<CafeRes> OrderDate(Order ord, PageInfo pi);
+
+	public int selectOrderCount(Order ord);
+
+	public List<bevOrder> beverageOrder(String caResNo);
+
+	// home 페이지 등록된 카페가 존재하면 출력
+	public Cafe cafeHome(String id);
+	// home 제조 전
+	public int countBefore(String id);
+
+	public int countMiddle(String id);
+
+	public int countAfter(String id);
+
+
 
 	
 

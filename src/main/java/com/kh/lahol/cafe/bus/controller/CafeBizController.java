@@ -12,6 +12,7 @@ import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.ibatis.session.RowBounds;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,14 +33,19 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 import com.kh.lahol.cafe.bus.model.page.Pagination;
+import com.kh.lahol.cafe.bus.model.page.PaginationOrder;
 import com.kh.lahol.cafe.bus.model.service.CafeBizService;
 import com.kh.lahol.cafe.bus.model.vo.Cafe;
 import com.kh.lahol.cafe.bus.model.vo.Caphoto;
 import com.kh.lahol.cafe.bus.model.vo.Coffee;
+import com.kh.lahol.cafe.bus.model.vo.Order;
 import com.kh.lahol.cafe.bus.model.vo.PageInfo;
+import com.kh.lahol.cafe.bus.model.vo.bevOrder;
+import com.kh.lahol.cafe.bus.model.vo.Order;
 import com.kh.lahol.cafe.user.model.exception.CafeException;
 import com.kh.lahol.cafe.user.model.service.CafeService;
 import com.kh.lahol.cafe.user.model.vo.CafeRes;
+import com.kh.lahol.cafe.user.model.vo.CoffeeRes;
 import com.kh.lahol.common.model.exception.CartException;
 import com.kh.lahol.common.model.vo.Coupon;
 import com.kh.lahol.member.model.vo.Member;
@@ -52,6 +58,29 @@ public class CafeBizController {
 	@Autowired private CafeBizService caBizService;
 	
 	private static final Logger logger = LoggerFactory.getLogger(CafeBizController.class);
+	
+	@GetMapping("/home")
+	public ModelAndView homeList(Model model, ModelAndView mv, @SessionAttribute("loginUser") Member m) {
+		String id = m.getId();
+		
+		Cafe ca = caBizService.cafeHome(id);
+		int countBefore = caBizService.countBefore(id);
+		int countMiddle = caBizService.countMiddle(id);
+		int countAfter = caBizService.countAfter(id);
+		
+		if(ca != null) {
+			mv.addObject("ca", ca);
+			mv.addObject("countBefore", countBefore);
+			mv.addObject("countMiddle", countMiddle);
+			mv.addObject("countAfter", countAfter);
+			mv.setViewName("cafe/bus/busHome");
+		}else {
+			mv.addObject("msg", "해당하는 카페 조회에 실패하였습니다.");
+			mv.setViewName("common/error");
+		}
+		
+		return mv;
+	}
 	
 	@GetMapping("/write")
 	public String caWriteSelect(Model model, @SessionAttribute("loginUser") Member m) {
@@ -350,7 +379,7 @@ public class CafeBizController {
 	public String cfDetail(@RequestParam String cfNo,
 							Model model) {
 		
-		System.out.println("cfNo : "+ cfNo);
+		// System.out.println("cfNo : "+ cfNo);
 		
 		 Coffee co = caBizService.selectCoffeeInfo(cfNo);
 		 
@@ -438,25 +467,7 @@ public class CafeBizController {
 		
 		
 	}
-	
-//	private List<CafeRes> cafeReslist;
-	
-	
-	// 예약 정보 select
-	/*
-	 * @GetMapping("/reservation") public void cafeResList(ModelAndView
-	 * mv, @SessionAttribute("loginUser") Member m, HttpServletResponse response) {
-	 * 
-	 * response.setContentType("application/json; charset=utf-8");
-	 * 
-	 * String Id = m.getId(); try { cafeReslist =
-	 * caBizService.selectCafeResList(Id); System.out.println(cafeReslist);
-	 * PrintWriter out = response.getWriter(); out.print(new
-	 * Gson().toJson(cafeReslist)); } catch (IOException e) { // TODO Auto-generated
-	 * catch block e.printStackTrace(); }
-	 * 
-	 * }
-	 */
+
 	
 	@GetMapping("/res")
 	public ModelAndView cafeResList(ModelAndView mv, @SessionAttribute("loginUser") Member m) {
@@ -482,14 +493,20 @@ public class CafeBizController {
 	
 	
 	@GetMapping("/order")
-	public ModelAndView cafeOrderList(ModelAndView mv, @SessionAttribute("loginUser") Member m) {
+	public ModelAndView cafeOrderList(ModelAndView mv, @SessionAttribute("loginUser") Member m,
+									@ModelAttribute Order ord,
+			@RequestParam(value="page", required=false, defaultValue="1") int currentPage) {
 
-		String Id = m.getId();
-		List<CafeRes> cafeOrderlist = caBizService.selectOrderList(Id);
-        System.out.println(cafeOrderlist);
+		String id = m.getId();
+        //System.out.println(cafeOrderlist);
+		int listCount = caBizService.selectOrderCount(ord);
+		PageInfo pi = PaginationOrder.getPageInfo(currentPage, listCount);
+		List<CafeRes> cafeOrderlist = caBizService.selectOrderList(id, pi);
+		//System.out.println("오늘 날짜 : "+ cafeOrderlist);
 		
 		if(cafeOrderlist != null) {
 			mv.addObject("cafeOrderlist", cafeOrderlist);
+			mv.addObject("pi", pi);
 			mv.setViewName("cafe/bus/order");
 		}else {
 			mv.addObject("msg", "해당하는 카페 조회에 실패하였습니다.");
@@ -515,6 +532,50 @@ public class CafeBizController {
 			  throw new CafeException("음료 상태를 변경하는데 실패하였습니다."); 
 		  }
 		
+	}
+	
+	
+	@GetMapping("/orderDate")
+	public ModelAndView cafeOrderDateList(ModelAndView mv, @SessionAttribute("loginUser") Member m,
+											@RequestParam(name="checkDate") String checkDate,
+											@ModelAttribute Order ord,
+											@RequestParam(value="page", required=false, defaultValue="1") int currentPage) {
+
+		String id = m.getId();
+		ord.setId(id);
+		ord.setCheckDate(checkDate);	
+		int listCount = caBizService.selectOrderCount(ord);
+		PageInfo pi = PaginationOrder.getPageInfo(currentPage, listCount);
+		List<CafeRes> OrderDate = caBizService.OrderDate(ord, pi);
+
+		if(OrderDate != null) {
+			mv.addObject("cafeOrderlist", OrderDate);
+			mv.addObject("check", ord);
+			mv.addObject("pi", pi);
+			mv.setViewName("cafe/bus/order");
+		}else {
+			mv.addObject("msg", "해당하는 날짜 주문 조회에 실패하였습니다.");
+			mv.setViewName("common/error");
+		}
+			
+		return mv;
+
+	}
+	
+
+	@PostMapping("/order/beverage")
+	public ModelAndView beverageOrderList(ModelAndView mv, String caResNo) {
+		
+		System.out.println("번호 출력 : "+ caResNo);
+		List<bevOrder> beverageOrder = caBizService.beverageOrder(caResNo);
+		System.out.println(beverageOrder);
+		if(beverageOrder != null) {
+			mv.addObject("beverageOrder", beverageOrder);
+			mv.setViewName("cafe/bus/orderModal");
+		}
+		
+		
+		return mv;
 	}
 	
 

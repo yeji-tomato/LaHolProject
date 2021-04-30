@@ -18,6 +18,7 @@ scope="application"/>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
 <!-- 아이콘 cdn -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<!-- SweetAlert2 -->
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <style>
 </style>
@@ -38,7 +39,7 @@ scope="application"/>
                 <ul>
                     <li><a href="${ contextPath }/store/list2">STORE</a></li>
                     <li><a href="${ contextPath }/coffeeclass">CLASS</a></li>
-                    <li><a href="${ contextPath }/cafe/home">CAFE</a></li>
+                    <li><a href="${ contextPath }/cafe/biz/home">CAFE</a></li>
                 </ul>
             </div>
             <div class="logoArea">
@@ -77,6 +78,11 @@ scope="application"/>
 								<i class="fa fa-shopping-cart" aria-hidden="true"></i>&nbsp;CART
 							</a>
 						</p>
+						</c:if>
+						<c:if test="${ sessionScope.loginUser.grade eq '1' }">
+							<a href="${ contextPath }/admin/user/normalList" id="admin-icon">
+								<i class="fas fa-user-cog" aria-hidden="true"></i>&nbsp;ADMIN
+							</a>
 						</c:if>
 					</c:if>
                 </div>

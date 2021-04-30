@@ -360,10 +360,10 @@
 				}).then((result) => {
 				  if (result.isConfirmed) {	// 경고 버튼 선택 시 
 					 Swal.fire('경고처리 되었습니다', '', 'success')
-					 location.href='${ pageContext.request.contextPath }/admin/updateUserWarned?reportNo='+reportNo+'&reportee='+reportee;
+					 location.href='${ pageContext.request.contextPath }/admin/updatePartnerWarned?reportNo='+reportNo+'&reportee='+reportee;
 				  } else if (result.isDenied) { // 해제 버튼 선택 시
 					 Swal.fire('경고가 해제되었습니다', '', 'info')
-					 location.href='${ pageContext.request.contextPath }/admin/updateUserReportInvalid?reportNo='+reportNo;
+					 location.href='${ pageContext.request.contextPath }/admin/updatePartnerReportInvalid?reportNo='+reportNo;
 				  }
 				}); // -- SWAL END
 		

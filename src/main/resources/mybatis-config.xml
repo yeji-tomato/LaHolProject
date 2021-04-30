@@ -27,6 +27,8 @@
 		<typeAlias type="com.kh.lahol.store.model.vo.Pr_pay_w" alias="Pr_pay_w"/>
 		<typeAlias type="com.kh.lahol.store.model.vo.Sh_status" alias="Sh_status"/>
 		<typeAlias type="com.kh.lahol.store.model.vo.StoreReview2" alias="StoreReview2"/>
+		<!-- 스토어 신고 -->
+		<typeAlias type="com.kh.lahol.store.model.vo.pr_re" alias="Pr_Report"/> 
 		<!-- 일반회원 -->
 		<typeAlias type="com.kh.lahol.member.model.vo.M_Normal" alias="Member_N"/>
 		<!-- 사업자회원 -->
@@ -39,6 +41,8 @@
 		<typeAlias type="com.kh.lahol.admin.model.vo.CafeList" alias="A_CafeList"/>
 		<typeAlias type="com.kh.lahol.admin.model.vo.Report_P" alias="A_Report_P"/>
 		<typeAlias type="com.kh.lahol.admin.model.vo.Report_N" alias="A_Report_N"/>
+		<typeAlias type="com.kh.lahol.admin.model.vo.Profit" alias="A_Profit"/>
+		<typeAlias type="com.kh.lahol.admin.model.vo.Game" alias="A_Coupon"/>
 		<!-- 쿠폰 -->
 		<typeAlias type="com.kh.lahol.member.model.vo.Coupon" alias="Coupon"/>
 		<!-- 회원가입 시 Cafe -->
@@ -59,9 +63,11 @@
 		<typeAlias type="com.kh.lahol.cafe.bus.model.vo.Cafe" alias="Cafe"/>
 		<typeAlias type="com.kh.lahol.cafe.bus.model.vo.Coffee" alias="Coffee"/>
 		<typeAlias type="com.kh.lahol.cafe.bus.model.vo.OrderList" alias="OrderList"/>
+		<typeAlias type="com.kh.lahol.cafe.bus.model.vo.bevOrder" alias="bizCoffeeOrderList"/>
 		<typeAlias type="com.kh.lahol.cafe.user.model.vo.CafeRes" alias="CafeRes"/>
 		<typeAlias type="com.kh.lahol.cafe.user.model.vo.CoffeeRes" alias="CoffeeRes"/>
 		<typeAlias type="com.kh.lahol.cafe.user.model.vo.CoffeeCart" alias="CoffeeCart"/>
+		
 		
 		<!-- 마이페이지 쿠폰 -->
 		<typeAlias type="com.kh.lahol.mypage.normal.model.vo.Coupon" alias="M_Coupon"/>

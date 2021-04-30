@@ -28,7 +28,7 @@ $(function() {
 	// home
 	   const cafeHome = document.getElementById("cafeHome");
 	   cafeHome.addEventListener("click", function() {
-	       location.href='${ contextPath }/cafe/home';
+	       location.href='${ contextPath }/cafe/biz/home';
 	   });
 
 	//주문 내역

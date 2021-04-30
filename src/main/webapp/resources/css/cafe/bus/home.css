@@ -40,14 +40,15 @@ body{
 #order{
     width: 35vw;
     /* height: 40vh; */
-    height: 300px;
+    height: 42vh;
     margin-left: 7%;
     border-radius: 30px;
     background-color: #5a462fb9;
+    font-size: 18px;
 }
 #order-status{
     border-bottom: 2px solid #ad8c65;
-    font-size: large;
+    font-size: 23px;
 }
 .order-cf{
     width: 100%;
@@ -60,7 +61,7 @@ body{
 
 /* 나의 카페 */
 #cafe-my-wrapper {
-    height: 300px;
+    height: 42vh;
     width: 654px;
     /* margin: 50px auto; */
     margin-left: 1%;
@@ -118,7 +119,6 @@ body{
 .cafe-btn {
     height: 103px;
     width: 327px;
-    margin-top: 17px;
     position: relative;
 }
 
