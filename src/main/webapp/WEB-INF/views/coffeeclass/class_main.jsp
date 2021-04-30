@@ -56,16 +56,8 @@
 		    	location.href="${ ContextPath}/coffeeclass/search?searchValue" + searchValue;
 		    	
 		    }
-		
 		</script>
 	</section>
-    
-  <%--     <!-- 클래스 개설 버튼 -->
-     <c:if test="${ loginUser.id eq ='ADMIN' }">
-     <div style="margin-top: 80px; text-align: center;">
-     	<a href="${ contextPath }/coffeeclass/createclass" class="create-btn" id = "createclass">클래스 개설하기</a>
-     </div>
-     </c:if> --%>
     
     
     <hr style="margin-top: 5%;">
@@ -100,21 +92,24 @@
        </form>
      </div>
       
-      <div class="row">
-         <!-- 키값 -->
-      	  <c:forEach var="cl" items="${ list }">
-      	  	  <div class="col" id="classdetail" onclick="selectClass('${cl.classNo}');" style="max-width: 200px;">
-              	<img src="${ contextPath }/resources/nuploadFiles/classImg/${ cl.trPhoto }" class ="card-img-top" onclick="">
-              	<h4>${ cl.className }</h4>
-         	  	<p>${ cl.clPrice }원</p>
-         	  	 <!-- 별점 -->
-         	  	 <div class="rating">
-         	  	 <% for(int i = 1 ; i <= Math.random()*4+1; i++){ %>
-	             <i class="fa fa-star"></i>
-	             <%} %>
-	             </div>
-         	  </div>
-      	  </c:forEach>
+	<h2>${ nothing }</h2>
+	<div class="row">
+	
+	<!-- 키값 -->
+	<c:forEach var="cl" items="${ list }">
+	<div class="col" id="classdetail" onclick="selectClass('${cl.classNo}');" style="max-width: 200px;">
+ 		<img src="${ contextPath }/resources/nuploadFiles/classImg/${ cl.trPhoto }" class ="card-img-top" onclick="">
+		<h4>${ cl.className }</h4>
+		<p>${ cl.clPrice }원</p>
+		
+		<!-- 별점 -->
+		<div class="rating">
+			<c:forEach var = "i" begin="1" end="${ cl.avggrade}">
+	       	 <i class="fa fa-star"></i>
+			</c:forEach>
+		</div>
+	</div>
+	</c:forEach>
       
       <nav aria-label="Page navigation example">
 				<ul class="pagination d-flex justify-content-center">
@@ -130,7 +125,7 @@
   
 
   
-   <div class="classes">
+   <%-- <div class="classes">
       <h2>진행예정 / 종료된 클래스</h2>
       <div class="row">
           <div class="col" style="max-width: 200px;">
@@ -152,26 +147,14 @@
 					<li class="page-item"><a class="page-link" href="#">Next</a></li>
 				</ul>
 			</nav>
-  </div> 
+  </div>  --%>
 
-	<!-- 상세페이지 이동 -->
-	<!-- <script>
-       const detail = document.getElementById("classdetail");
-       detail.addEventListener("click", function(){
-           location.href='${ contextPath }/coffeeclass/classdetail';
-       });
-  	</script> -->
   	<script>
   		function selectClass(classNo){
   			location.href='${contextPath}/coffeeclass/classdetail?classNo='+classNo;
   		}
   		
-  		// 필터 정렬
-  	/* 	function filterOn(){
-  			var searchCondition1 = $("#searchCondition1").val();
-  			var searchCondition2 = $("#searchCondition2").val();
-	    	location.href="${ ContextPath}/coffeeclass/search?searchCondition1" + searchCondition1 + "&searchCondition2" + searchCondtion2;
-  		} */
+ 
   	</script>
   	
 

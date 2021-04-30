@@ -57,7 +57,7 @@
            
             <!--오른쪽-->
             <div class="col">
-              <div class="cl-info">
+              <div class="cl-info" style="max-width : 22vw;">
                   <table class="cl-table">
                     <thead>
                       <tr>
@@ -172,7 +172,7 @@
 	                     <!--클래스 신고-->                    
 	                    <button style="border:transparent; background-color:transparent;">
 	                      <div class="report" style="margin-bottom: 3vh;">
-	                        <i class="fa fa-bullhorn" aria-hidden="true" id="reportclass" data-bs-toggle="modal" data-bs-target="#exampleModal"></i>
+	                        <i class="fa fa-bullhorn" aria-hidden="true" id="reportclass" data-bs-toggle="modal" data-bs-target="#commentModal"></i>
 	                      </div>
 	                    </button>
                      </c:if>

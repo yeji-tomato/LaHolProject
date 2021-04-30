@@ -202,7 +202,12 @@ public class nMypageController {
 	public String detailClass(@RequestParam("pay_no") String pay_no,
 			                  Model model,
 			                  RedirectAttributes rd) {
+		
 		ClassDetail classDetail = nService.selectClass(pay_no);
+		
+		System.out.println("pay_no: " + pay_no);
+		System.out.println("classDetail : " + classDetail);
+		
 		if(classDetail != null) {
 			model.addAttribute("detail", classDetail);
 			return "mypage/normal/paymentDetailClass";

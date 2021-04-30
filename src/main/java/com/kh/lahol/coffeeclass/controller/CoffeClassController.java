@@ -47,6 +47,7 @@ import com.kh.lahol.coffeeclass.page.Pagination;
 import com.kh.lahol.common.model.exception.CartException;
 import com.kh.lahol.common.model.vo.Payment;
 import com.kh.lahol.member.model.vo.Member;
+import com.kh.lahol.mypage.normal.model.vo.ClassReview;
 import com.kh.lahol.store.model.vo.Pr_pay_w;
 import com.kh.lahol.store.model.vo.Prpay;
 import com.kh.lahol.store.model.vo.Search;
@@ -55,8 +56,10 @@ import com.kh.lahol.store.model.vo.storeA;
 import com.kh.lahol.store.model.vo.storeQ;
 import com.kh.lahol.store.page.Pagination3;
 
+import lombok.extern.slf4j.Slf4j;
 
 
+@Slf4j
 @Controller
 @SessionAttributes({"loginUser", "selectedTimes"})
 public class CoffeClassController {
@@ -71,15 +74,18 @@ public class CoffeClassController {
 
 	// 사용자 메인페이지
 	@GetMapping("/coffeeclass")
-	public ModelAndView coffeeClassList(ModelAndView mv,
+	public ModelAndView coffeeClassList(ModelAndView mv, 
 			@RequestParam(value = "page", required = false, defaultValue = "1") int currentPage) { // 메뉴바 클릭시 파라미터가 따로
 																									// 없으므로 1로 설정(1페이지)
 
-		int listCount = clService.selectListCount(); // 게시글 갯수
+		// 게시글 갯수 구하기
+		int listCount = clService.selectListCount(); 
+		System.out.println(listCount);
 
 		// 요청 페이지에 맞는 클래스 리스트 조회
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 		List<CoffeeClass> list = clService.selectList(pi);
+		
 		
 		// new페이징
 		/*
@@ -107,7 +113,10 @@ public class CoffeClassController {
 							  Model model) {
 		  
 		List<ClassSearch> searchList = clService.searchList(search);
-		
+		if(searchList.size() == 0) {
+			String nothing = String.format("%s에 대한 검색 결과가 없습니다.", search.getSearchValue());
+			model.addAttribute("nothing", nothing);
+		}
 		model.addAttribute("list", searchList);
 		
 		return "coffeeclass/class_main";
@@ -253,14 +262,14 @@ public class CoffeClassController {
 		  
 		  CoffeeClass cl = clService.selectCoffeeClass(classNo);
 		  
-		  //연계카페 이동 : Cafe ca = caBizService.selectCafeInfo(caCode);
-			
-		  
-		  // 카페 이름과 url불러오는 코드짜기
-		  //Cafe thiscafe = clService.selectCafeNameById(cl.getCafeNo());
-		  
 		  // QnA리스트 출력
 		  List <ClassQnA> qnalist = clService.selectQnA(classqna);
+
+		  // 후기 리스트 출력
+		  List <ClassReview> rvlist = clService.selectReviews(classNo);
+		  
+		  log.info("rvlist: {}", rvlist);
+		  
 		  
 		  if(cl != null) {	    //키값 : 뷰에서 보여질 변수명, 밸류: 컨트롤러에서 실제 쓰이는 변수명
 			  model.addAttribute("coffeeclass", cl);
@@ -271,6 +280,7 @@ public class CoffeClassController {
 				 */ 
 			  model.addAttribute("qnalist", qnalist);
 			  model.addAttribute("classTimes", cl.bringTimes());
+			  model.addAttribute("rvlist", rvlist);
 			  // System.out.println(classqna.getQnaNo());
 			  // 연계 카페 이동 : model.addAttribute("Cafe", ca);
 			  return "coffeeclass/class_detail";
@@ -309,11 +319,16 @@ public class CoffeClassController {
 	  
 	  // 클래스 댓글 신고
 	  @PostMapping("/coffeeclass/commentreport")
-	  public String commentReport(@ModelAttribute CoffeeClass cl, HttpServletRequest request,
-							  Model model) {
+	  public String commentReport(@ModelAttribute CoffeeClass cl, @ModelAttribute ClassReview clr, HttpServletRequest request,
+							  Model model, String cl_writer) {
 	  
 	  Member loginUser = (Member)request.getSession().getAttribute("loginUser");
+	  model.addAttribute("clr", clr);
+	  
+	  
+	  
 	  int result = clService.reportClComment(cl);
+	  
 	 		
 	  if(result > 0) {
 		 return "redirect:/coffeeclass/classdetail?classNo=" + cl.getClassNo(); 
@@ -490,8 +505,6 @@ public class CoffeClassController {
 			  return "common/error";
 		  }
 		  
-		  
-		  
 	  }
 	  
 	  // 클래스 답변 등록
@@ -537,20 +550,27 @@ public class CoffeClassController {
 	  
 	  // 클래스 수강신청(DB INSERT)
 	  @PostMapping("/coffeeclass/registser/insert")
-	  public String reisterClass(@ModelAttribute Payment clp) {
+	  public String reisterClass(@ModelAttribute Payment clp, Model model, 
+			  					 HttpServletRequest request, HttpSession session, RedirectAttributes rttr,
+			  					 String clTime, String buyerId) {
 			
-		  return "";
+		  Member loginUser = (Member)session.getAttribute("loginUser");
+		  String classNo = request.getParameter("classNo");		   
+		  clp.setClTime(clTime);
+		  clp.setClPayNo(classNo);
+		  clp.setBuyId(buyerId);
+		  
+		  int result = clService.registerClass(clp);
+		  
+		  if(result > 0) {
+				return"mypage/normal/paymentList";
+			} else {
+			model.addAttribute("msg", "결제에 실패하였습니다.");
+			return "common/error";
+			}  
 	  }
 	  
-	  // 댓글 불러오기
-	  @GetMapping("/coffeeclass/bringcomments")
-	  public String bringComments() {
-		  return "";
-	  }
-	  
-	  
-	  
-	  
+	 
 	  
 	  
 	  

@@ -127,11 +127,11 @@
 		</div>
 		
 		 <!-- 댓글 신고Modal -->
-		<div class="modal fade" id="commentModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal fade" id="commentModal" tabindex="-1" aria-labelledby="commentModalLabel" aria-hidden="true">
 			<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header" style="background-color: #4B654A;">
-				<h5 class="modal-title" id="exampleModalLabel" style="color: white;">
+				<h5 class="modal-title" id="commentModalLabel" style="color: white;">
 					<img src="${ contextPath }/resources/img/common/logo-lahol2.png" style="width : 30px; height: 30px;">
 					댓글신고
 				</h5>
@@ -141,10 +141,11 @@
 				<h5  style="text-align: center; padding: 5vh;">페이지 사용에 불편을 드려 죄송합니다. <br> 신고가 접수되면 3일내로 처리됩니다. </h5>
 					<form action = "${ contextPath }/coffeeclass/commentreport" method="post">
 					<td><input name ="classNo" type="hidden" value="${ coffeeclass.classNo }"></td>
+					<input name="reporter" type="hidden" value="${ sessionScope.loginUser.id }">
 					<table style="width: 100%;">					
 						<tr>
 							<td>신고 대상</td>
-							<td aria-readonly="true" name="reportee" value="${  sessionScope.loginUser.id }">${  sessionScope.loginUser.id }</td>
+							<td aria-readonly="true" name="reportee" value="${ clr.writer_id  }">${ clr.writer_id }</td>
 						</tr>
 						<tr>
 							<td>신고사유</td>

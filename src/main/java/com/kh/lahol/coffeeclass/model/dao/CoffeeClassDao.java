@@ -10,6 +10,7 @@ import com.kh.lahol.coffeeclass.model.vo.CoffeeClass;
 import com.kh.lahol.coffeeclass.model.vo.PageInfo;
 import com.kh.lahol.coffeeclass.model.vo.Paging;
 import com.kh.lahol.common.model.vo.Payment;
+import com.kh.lahol.mypage.normal.model.vo.ClassReview;
 
 public interface CoffeeClassDao {
 	
@@ -63,6 +64,9 @@ public interface CoffeeClassDao {
 
 		// 16. new 페이징
 		public List<CoffeeClass> selectListWithPaging(Paging paging);
+
+		// 17. 클래스 후기 불러오기
+		public List<ClassReview> selectReviews(String classNo);
 
 	
 		

@@ -22,6 +22,49 @@
 
       <!-- 후기 -->
         <div class="tab-pane fade" id="review" role="tabpanel" aria-labelledby="review-tab">
+          <h4 style="text-align : center; margin-top:10vh;">클래스 후기</h4>
+          <div>
+          <h6 style="text-align : center; color : gray;">클래스를 수강하신 분들이 남긴 후기입니다. 후기는 마이페이지에서 등록할 수 있습니다.</h6>
+          <button style="text-align : right;">후기남기기</button>
+          </div>
+          <table class="table table-hover" id="recruit">
+				<thead>
+				    <tr>
+				      <th scope="col" style="width : 200px;">사용자평점</th>
+				      <th scope="col" colspan="2" style="text-align:center;">답변내용</th>
+				      <th scope="col" style="width : 200px;">작성자</th>
+				      <th scope="col" style="width : 200px;">등록일자</th> 
+				      <th scope="col" style="width : 50px;"></th>
+				    </tr>
+				  </thead>
+				  <tbody>
+				  <!-- 후기 -->
+				  <c:forEach var="clr" items="${ rvlist }">
+				  <c:set var="star-rating" value="${ clr.cl_grade }" />
+				    <tr>
+				      <td id="userId">
+				       <div class="rating">
+				       	 <c:forEach var = "i" begin="1" end="${ clr.cl_grade }">
+				       	 <i class="fa fa-star"></i>
+						 </c:forEach>
+			           </div>
+				      </td>								 
+				      <td colspan="2">${ clr.cl_review }</td>
+				      <td id="userId">${ clr.writer_id }</td>
+				      <td>${ clr.cl_rev_date }</td>
+				      <td>
+				       <button style="border:transparent; background-color:transparent;">
+	                      <div class="report" style="margin-bottom: 3vh;">
+	                        <i class="fa fa-bullhorn" aria-hidden="true" id="reportComment" data-bs-toggle="modal" data-bs-target="#commntModal"></i>
+	                      </div>
+	                   </button>
+				      </td>
+				    </tr>
+				  </c:forEach>  
+				  </tbody>
+			</table> 
+          
+          
           
      	</div>
 
@@ -80,16 +123,13 @@
        
      </div>    
    </div> 
-    <!-- 아이디 정규표현식 -->
 	<script>	
+    <!-- 아이디 정규표현식 -->
+	var userId=document.getElementById("userId"){
+	return userId.replace(/\w{4}$/g, "****")
+	}
 	
-	var userId=document.getElementById("userId");
-	
-	return userId.replace(/\w{4}$/g, "****");
-	
-	</script>
-	<!-- 아코디언메뉴 -->
-	<script>
+	<!-- 아코디언메뉴-->
     $(function(){
          var article = (".recruit .show1"); 
          $(".recruit .question  td").click(function() { 
@@ -102,7 +142,8 @@
                  $(myArticle).addClass('hide').removeClass('show1'); 
              } 
          }); 
-     });
+     });    
+    
 	</script>
   		
   	
