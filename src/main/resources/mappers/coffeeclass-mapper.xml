@@ -91,7 +91,11 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 		<result property="blind" column="BLIND"/>
 		<result property="cl_rev_date" column="CL_REV_DATE"/>  
 	</resultMap>
-	
+	<resultMap id="reportResultSet" type="Report">
+		<result property="reporteeId" column="REPORTEE_ID"/>
+		<result property="iswarned" column="ISWARNED"/>
+		<result property="ischecked" column="ISCHECKED"/>
+	</resultMap>
 	<!-- 페이징-->
 	<select id="selectListCount" resultType="_int">
 		SELECT
@@ -111,6 +115,7 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 			     FROM      CL_REVIEW
 			     GROUP BY  CLASS_NO)
 		  USING (CLASS_NO)
+	   ORDER BY  CLASS_NO DESC
 	</select>
 	<insert id="insertClass" parameterType="CoffeeClass">	<!-- insert라 리턴타입없음 -->
 	   INSERT
@@ -271,6 +276,7 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 	     		CLASS_NO = #{classNo}
 	
 	</update>
+	<!-- 클래스 신고 -->
 	<insert id = "reportClass" parameterType="CoffeeClass">
 		INSERT
 	      INTO    REPORT
@@ -285,7 +291,7 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 	   	 )
 	    VALUES
 	    (
-	    		    'CL' || CL_REPORT_SEQ.NEXTVAL
+	    		    'CLRP' || CL_REPORT_SEQ.NEXTVAL
 	    		  , #{rpReason}
 	    		  , #{rpDeets}
 	    		  , DEFAULT
@@ -294,6 +300,7 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 	    		  , #{classNo}
 	    )
 	  </insert>
+	  <!-- 클래스 후기(댓글) 신고 -->
 	  <insert id = "reportClComment" parameterType="CoffeeClass">
 		INSERT
 	      INTO    REPORT
@@ -309,7 +316,7 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 	   	 )
 	    VALUES
 	    (
-	    		    'CLRP' || CL_REPORT_SEQ.NEXTVAL
+	    		    'USRP' || CL_REPORT_SEQ.NEXTVAL
 	    		  , #{rpReason}
 	    		  , #{rpDeets}
 	    		  , DEFAULT
@@ -383,7 +390,7 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 	 <!-- QNA 출력 -->
 	 <select id="selectQnA" resultMap="qnaResultSet">
 	 	SELECT   CL_QNA_NO
-	 		   , USER_ID
+	 		   , RPAD(SUBSTR(USER_ID, 1, 3), LENGTH(USER_ID), '*') AS USER_ID
 	 		   , CL_QUESTION
 	 		   , CL_ASKDATE
 	 		   , CLASS_NO
@@ -391,7 +398,7 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 	 		   , CL_STATUS
 		FROM    CL_QNA
 		WHERE   CLASS_NO = #{classNo}
-	 </select>
+	 </select>	 
 	 <!-- 질문입력 -->
 	 <insert id="askClass" parameterType="ClassQnA">
 	 	INSERT 
@@ -512,5 +519,6 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 		 FROM   CL_REVIEW
 		 WHERE  CLASS_NO = #{classNo}
 	</select>
+	
 	 
 </mapper>

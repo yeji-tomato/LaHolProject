@@ -1,15 +1,15 @@
 @charset "UTF-8";
 
-        /* 이랜드 나이스체 */
-        @font-face {
-            font-family: 'ELAND_Nice_M';
-            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts-20-12@1.0/ELAND_Nice_M.woff') format('woff');
-            font-weight: normal;
-            font-style: normal;
-        }   
+        /* 넥슨 고딕 Bold */
+		@font-face {
+		    font-family: 'NEXON Lv1 Gothic OTF Bold';
+		    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF Bold.woff') format('woff');
+		    font-weight: normal;
+		    font-style: normal;
+		}   
 
         *{
-            font-family: 'ELAND_Nice_M';
+            font-family: 'NEXON Lv1 Gothic OTF Bold';
         }
 
        

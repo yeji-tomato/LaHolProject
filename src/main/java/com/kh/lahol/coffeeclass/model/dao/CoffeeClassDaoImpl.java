@@ -31,8 +31,11 @@ public class CoffeeClassDaoImpl implements CoffeeClassDao{
 	// 클래스 메인화면 불러오기 
 	@Override
 	public List<CoffeeClass> selectList(PageInfo pi) {
-		int offset = (pi.getCurrentPage() - 1)* pi.getBoardLimit();
-		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		int offset = (pi.getCurrentPage() - 1)* pi.getClassLimit(); // ClassLimit : 한페이지에서 보여질 게시글 갯수
+		// RowBounds는 myBatis가 제공하는 메소드 
+		// offset : 몇개를 건너 뛸 것인가?
+		// 총 몇개를 출력할 것인가? currentPage가 몇 번째냐에 따라 건너뛴 갯수가 정해짐
+		RowBounds rowBounds = new RowBounds(offset, pi.getClassLimit());
 		
 		return sqlSession.selectList("clMapper.selectList", null, rowBounds);
 	}

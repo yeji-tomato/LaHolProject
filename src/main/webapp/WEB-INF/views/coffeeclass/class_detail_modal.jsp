@@ -126,74 +126,76 @@
 			</div>
 		</div>
 		
-		 <!-- 댓글 신고Modal -->
+		<!-- 댓글 신고Modal -->
+		<c:forEach var="clr" items="${ rvlist }">
 		<div class="modal fade" id="commentModal" tabindex="-1" aria-labelledby="commentModalLabel" aria-hidden="true">
 			<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header" style="background-color: #4B654A;">
-				<h5 class="modal-title" id="commentModalLabel" style="color: white;">
-					<img src="${ contextPath }/resources/img/common/logo-lahol2.png" style="width : 30px; height: 30px;">
-					댓글신고
-				</h5>
-				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				<div class="modal-content">
+					<div class="modal-header" style="background-color: #4B654A;">
+					<h5 class="modal-title" id="commentModalLabel" style="color: white;">
+						<img src="${ contextPath }/resources/img/common/logo-lahol2.png" style="width : 30px; height: 30px;">
+						댓글신고
+					</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+					<h5  style="text-align: center; padding: 5vh;">페이지 사용에 불편을 드려 죄송합니다. <br> 신고가 접수되면 3일내로 처리됩니다. </h5>
+						<form action = "${ contextPath }/coffeeclass/commentreport" method="post">
+						<td><input name ="classNo" type="hidden" value="${ coffeeclass.classNo }"></td>
+						<input name="reporter" type="hidden" value="${ sessionScope.loginUser.id }">
+						<table style="width: 100%;">					
+							<tr>
+								<td>신고 대상</td>
+								<td aria-readonly="true"><input type="hidden" name="reportee" value="${ clr.writer_id }">${ clr.writer_id }</td>
+							</tr>
+							<tr>
+								<td>신고사유</td>
+								<td>
+									<select name="rpReason">
+									<option disabled="disabled" selected>
+										--신고사유선택--
+									</option>
+									<option>
+										욕설/비방
+									</option>
+									<option>
+										음란/부적절 언어사용
+									</option>
+									<option>
+										허위사실 유포
+									</option>
+									<option>
+										광고/도배
+									</option>
+									<option>
+										기타
+									</option>
+								</select>
+								</td>
+							</tr>
+							<tr>
+								<td>사유 상세 설명</td>
+							</tr>
+							<tr>
+								<td colspan="2">
+									<textarea name="rpDeets" style="width: 100%; resize:none; height: 150px;"></textarea>
+								</td>
+							</tr>
+						</table>
+							<br>
+							<p class="alert-text" style="color:rgb(170, 42, 42); font-size: 12px;">
+							허위신고일 경우, 신고자의 활동이 제한될 수 있으니 신중하게 신고해주세요. 
+							</p>					
+						<div class="modal-footer"  style="background-color: #4B654A;">
+						<button type="submit" class="btn btn-danger">신고</button>
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+						</div>
+						</form>
+						</div>
 				</div>
-				<div class="modal-body">
-				<h5  style="text-align: center; padding: 5vh;">페이지 사용에 불편을 드려 죄송합니다. <br> 신고가 접수되면 3일내로 처리됩니다. </h5>
-					<form action = "${ contextPath }/coffeeclass/commentreport" method="post">
-					<td><input name ="classNo" type="hidden" value="${ coffeeclass.classNo }"></td>
-					<input name="reporter" type="hidden" value="${ sessionScope.loginUser.id }">
-					<table style="width: 100%;">					
-						<tr>
-							<td>신고 대상</td>
-							<td aria-readonly="true" name="reportee" value="${ clr.writer_id  }">${ clr.writer_id }</td>
-						</tr>
-						<tr>
-							<td>신고사유</td>
-							<td>
-								<select name="rpReason">
-								<option disabled="disabled" selected>
-									--신고사유선택--
-								</option>
-								<option>
-									욕설/비방
-								</option>
-								<option>
-									음란/부적절 언어사용
-								</option>
-								<option>
-									허위사실 유포
-								</option>
-								<option>
-									광고/도배
-								</option>
-								<option>
-									기타
-								</option>
-							</select>
-							</td>
-						</tr>
-						<tr>
-							<td>사유 상세 설명</td>
-						</tr>
-						<tr>
-							<td colspan="2">
-								<textarea name="rpDeets" style="width: 100%; resize:none; height: 150px;"></textarea>
-							</td>
-						</tr>
-					</table>
-						<br>
-						<p class="alert-text" style="color:rgb(170, 42, 42); font-size: 12px;">
-						허위신고일 경우, 신고자의 활동이 제한될 수 있으니 신중하게 신고해주세요. 
-						</p>					
-					<div class="modal-footer"  style="background-color: #4B654A;">
-					<button type="submit" class="btn btn-danger">신고</button>
-					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-					</div>
-					</form>
-					</div>
-			</div>
 			</div>
 		</div>
+		</c:forEach>
 		
 	  <!-- 질문 모달 -->
 	  <div class="modal fade" id="askModal" tabindex="-1" aria-labelledby="askModalLabel" aria-hidden="true">

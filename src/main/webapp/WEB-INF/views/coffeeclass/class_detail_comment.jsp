@@ -25,7 +25,7 @@
           <h4 style="text-align : center; margin-top:10vh;">클래스 후기</h4>
           <div>
           <h6 style="text-align : center; color : gray;">클래스를 수강하신 분들이 남긴 후기입니다. 후기는 마이페이지에서 등록할 수 있습니다.</h6>
-          <button style="text-align : right;">후기남기기</button>
+          <button style="text-align : right;" class="btn-warning" id="leaveRv">후기남기기</button>
           </div>
           <table class="table table-hover" id="recruit">
 				<thead>
@@ -55,7 +55,7 @@
 				      <td>
 				       <button style="border:transparent; background-color:transparent;">
 	                      <div class="report" style="margin-bottom: 3vh;">
-	                        <i class="fa fa-bullhorn" aria-hidden="true" id="reportComment" data-bs-toggle="modal" data-bs-target="#commntModal"></i>
+	                        <i class="fa fa-bullhorn" aria-hidden="true" id="reportComment" data-bs-toggle="modal" data-bs-target="#commentModal"></i>
 	                      </div>
 	                   </button>
 				      </td>
@@ -129,8 +129,9 @@
 	return userId.replace(/\w{4}$/g, "****")
 	}
 	
-	<!-- 아코디언메뉴-->
-    $(function(){
+ /*   아코디언 메뉴
+ 
+	 $(function(){
          var article = (".recruit .show1"); 
          $(".recruit .question  td").click(function() { 
              var myArticle =$(this).parents().next("tr"); 
@@ -142,7 +143,7 @@
                  $(myArticle).addClass('hide').removeClass('show1'); 
              } 
          }); 
-     });    
+     });    */ 
     
 	</script>
   		

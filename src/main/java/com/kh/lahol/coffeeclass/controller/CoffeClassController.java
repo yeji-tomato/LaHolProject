@@ -46,6 +46,7 @@ import com.kh.lahol.coffeeclass.model.vo.Paging;
 import com.kh.lahol.coffeeclass.page.Pagination;
 import com.kh.lahol.common.model.exception.CartException;
 import com.kh.lahol.common.model.vo.Payment;
+import com.kh.lahol.common.model.vo.Report;
 import com.kh.lahol.member.model.vo.Member;
 import com.kh.lahol.mypage.normal.model.vo.ClassReview;
 import com.kh.lahol.store.model.vo.Pr_pay_w;
@@ -83,16 +84,9 @@ public class CoffeClassController {
 		System.out.println(listCount);
 
 		// 요청 페이지에 맞는 클래스 리스트 조회
-		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount); // currentPage - 현재 페이지, listCount - 총 게시글 수
 		List<CoffeeClass> list = clService.selectList(pi);
-		
-		
-		// new페이징
-		/*
-		 * Paging paging = new Paging(1, 5); // 첫 페이지에서 5개의 값을 보여준다. List <CoffeeClass>
-		 * list = clService.selectListWithPaging(paging);
-		 */
-		
+		System.out.println(list);
 
 		if (list != null) {
 			mv.addObject("list", list);
@@ -319,14 +313,12 @@ public class CoffeClassController {
 	  
 	  // 클래스 댓글 신고
 	  @PostMapping("/coffeeclass/commentreport")
-	  public String commentReport(@ModelAttribute CoffeeClass cl, @ModelAttribute ClassReview clr, HttpServletRequest request,
+	  public String commentReport(@ModelAttribute CoffeeClass cl, @ModelAttribute Report r,
+			  				  HttpServletRequest request,
 							  Model model, String cl_writer) {
 	  
 	  Member loginUser = (Member)request.getSession().getAttribute("loginUser");
-	  model.addAttribute("clr", clr);
-	  
-	  
-	  
+
 	  int result = clService.reportClComment(cl);
 	  
 	 		

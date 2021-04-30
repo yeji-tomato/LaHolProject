@@ -17,6 +17,7 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 			<result property="cres" column="C_RES"/>
 			<result property="photoName" column="PHOTONAME"/>
 			<result property="today" column="TODAY"/>
+			<result property="clTime" column="CL_TIME"/>
 		</resultMap>
 
 		<resultMap id="cartCouponResultSet" type="Cart_Coupon">
