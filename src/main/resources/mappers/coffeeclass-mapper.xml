@@ -31,6 +31,7 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 		<result property="rpReason" column="REPORT_TYPE"/>
 		<result property="rpDeets" column="REPORT_REASON"/>
 		<result property="category" column="CL_CATEGORY"/>
+		<result property="avggrade" column="AVGGRADE"/>
 	</resultMap>
 	<resultMap id="cafeResultSet" type="Cafe">
 		<id property="caCode" column="C_CODE"/>
@@ -63,7 +64,35 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 		<result property="answerDate" column="CL_ANS_DATE"/>
 		<result property="status" column="CL_STATUS"/>
 	</resultMap>
-	<!-- 조회수증가-->
+	<resultMap id="regiClResultSet" type="Payment">
+		<id property="payNo" column="PAY_NO"/>
+		<result property="payItem" column="PAY_ITEM"/>
+		<result property="payPrice" column="PAY_PRICE"/>
+		<result property="subscribe" column="SUBSCRIBE"/>  
+		<result property="payDate" column="PAY_DATE"/>  
+		<result property="buyid" column="BUYER_ID"/>  
+		<result property="cafeRes" column="CAFE_RES"/> 
+		<result property="adCode" column="AD_CODE"/>
+		<result property="purchaseNumber" column="PURCHASE_NUMBER"/>  
+		<result property="subscribeCode" column="SUBSCRIBE_CODE"/> 
+		<result property="clPayNo" column="CL_PAY_NO"/> 
+		<result property="payDc" column="PAY_DC"/> 
+		<result property="payTotal" column="PAY_TOTA"/> 
+		<result property="clTime" column="CL_TIME"/> 
+	</resultMap>
+	<resultMap id="clrvResultSet" type="ClassReview">
+		<id property="cl_review_no" column="CL_REVIEW_NO"/>
+		<result property="cl_pay_no" column="CL_PAY_NO"/>
+		<result property="class_no" column="CLASS_NO"/>
+		<result property="writer_id" column="WRITER_ID"/>  
+		<result property="cl_grade" column="CL_GRADE"/>  
+		<result property="cl_rev_img" column="CL_REV_IMG"/>  
+		<result property="cl_review" column="CL_REVIEW"/> 
+		<result property="blind" column="BLIND"/>
+		<result property="cl_rev_date" column="CL_REV_DATE"/>  
+	</resultMap>
+	
+	<!-- 페이징-->
 	<select id="selectListCount" resultType="_int">
 		SELECT
 				COUNT(*)
@@ -74,35 +103,14 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 	</select>
 	<!-- 메인페이지 불러오기 -->
 	<select id="selectList" resultMap="clResultSet">
-		SELECT 
-				  CLASS_NO
-				, C_CODE
-				, CL_NAME
-				, CL_DES
-				, TR_NAME
-				, TR_INTRO
-				, CL_CURI
-				, CL_MAX
-				, CL_DATE
-				, CL_LOCA
-				, CL_PRICE
-				, BLIND
-				, CL_STATUS
-				, BUS_NO
-				, CL_SHORTDES
-				, CL_TIME
-				, CL_LEVEL
-				, CL_RUNTIME
-				, CL_THUMBNAIL
-				, TR_PHOTO
-				, CLASS_PHOTO
-				, CL_WRITER
-		 FROM 
-				COFFEECLASS
-		WHERE	
-				CL_STATUS='Y'
-	 ORDER BY
-				CLASS_NO DESC
+		 SELECT *
+		   FROM COFFEECLASS
+	  LEFT JOIN        
+			    (SELECT    CLASS_NO 
+			             , AVG(CL_GRADE) AS AVGGRADE
+			     FROM      CL_REVIEW
+			     GROUP BY  CLASS_NO)
+		  USING (CLASS_NO)
 	</select>
 	<insert id="insertClass" parameterType="CoffeeClass">	<!-- insert라 리턴타입없음 -->
 	   INSERT
@@ -297,7 +305,7 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 				  , ISCHECKED
 				  , REPORTER_ID
 				  , ITEM_CODE
-				  <!-- ,REPORTEE_ID -->
+				  , REPORTEE_ID 
 	   	 )
 	    VALUES
 	    (
@@ -308,42 +316,15 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 	    		  , DEFAULT 	
 	    		  , #{reporter}
 	    		  , #{classNo}
-	    		  <!-- #{reportee} -->
+	    		  , #{reportee}
 	    )
 	  </insert>
-<!--  	  <insert id="registerMember" parameterType="ClassRegister">
-	      INSERT INTO PAYMENT (PAY_NO, PAY_ITEM, PAY_PRICE, PAY_DATE, ID, CL_PAY_NO)
-          VALUES ('CLPAY'||CLPAY.NEXTVAL, '커피', 8000, SYSDATE, 'user001', 'CL24')
-	  </insert> -->
-	<!--   <select id="registerMember" resultMap="clResultSet">
-	  	SELECT
-	  			 PAY_NO
-	  		 	   , PAY_ITEM
-	  		 	   , PAY_PRICE
-	  		 	   , PAY_DATE
-	  		 	   , USER_ID
-	  		 	   , CL_PAY_NO
-	  	  FROM
-	  	  		PAYMENT
-	  </select>  -->
-	  <!-- 개별 클래스 수강신청 -->
-	  <select id="registerClass" resultMap="clResultSet">
-	  	SELECT *
-	  	  FROM	COFFEECLASS
-	  	 WHERE  CLASS_NO = #{classNo}		  	
-	  </select>
+	  
 	  <!-- 메인페이지 검색 -->
 	  <select id = "searchClass" parameterType="ClassSearch" resultMap="clResultSet">
 	     <bind name="sv" value="'%' + _parameter.getSearchValue() +  '%'"/>
 	     SELECT
-	     		  CLASS_NO
-				, CL_NAME
-				, CL_DES
-				, TR_NAME
-				, TR_INTRO
-				, CL_CURI
-				, CL_LOCA
-				, CL_SHORTDES
+				*
 		  FROM  COFFEECLASS
 		<where>				
 				   CL_NAME LIKE #{sv}
@@ -476,6 +457,60 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 		WHERE   NO <![CDATA[>]]> (#{pageNum})-1) * #{pageSize}
     		AND ROWNUM <![CDATA[<=]]> #{pageSize}
 	</select>
-
+	
+	  <!-- 수강신청 시 정보 결제페이지로 넘겨주기 -->
+	 <!--  <select id="registerClass" resultMap="clResultSet">
+	  	SELECT *
+	  	  FROM	COFFEECLASS
+	  	 WHERE  CLASS_NO = #{classNo}		  	
+	  </select> -->
+	  
+	  <!-- 바로결제에서 결제하기 -->
+	  <insert id="registerClass" parameterType="Payment">
+		  INSERT
+				  INTO
+				       PAYMENT
+				  (
+				       PAY_NO
+				     , PAY_ITEM
+				     , PAY_PRICE
+				     , SUBSCRIBE
+				     , PAY_DATE
+				     , BUYER_ID
+				     , CAFE_RES
+				     , AD_CODE
+				     , PURCHASE_NUMBER
+				     , SUBSCRIBE_CODE
+				     , CL_PAY_NO
+				     , PAY_DC
+				     , PAY_TOTAL
+				     , CL_TIME
+				  )
+			VALUES
+			(
+				       'CLP'||CLP.NEXTVAL
+				     , #{PAY_ITEM}
+				     , #{pay_price}
+				     , NULL
+				     , SYSDATE
+				     , #{id}
+				     , NULL
+				     , NULL
+				     , NULL
+				     , NULL
+				     , #{classNo}
+				     , #{couponPrice}
+				     , #{total}
+				     , #{selectedTime}
+			)
+	  </insert>
+	<!-- 클래스 후기(댓글) 불러오기 -->
+	<select id="selectReviews" resultMap="clrvResultSet" parameterType="string">
+		SELECT
+		        CL_REVIEW_NO, CL_PAY_NO, CLASS_NO, CL_GRADE, CL_REVIEW, BLIND, CL_REV_DATE,
+				RPAD(SUBSTR(WRITER_ID, 1, 3), LENGTH(WRITER_ID), '*') AS WRITER_ID
+		 FROM   CL_REVIEW
+		 WHERE  CLASS_NO = #{classNo}
+	</select>
 	 
 </mapper>

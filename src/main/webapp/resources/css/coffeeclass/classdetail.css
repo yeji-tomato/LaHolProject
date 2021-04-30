@@ -92,12 +92,12 @@
        text-align: center;
      }
 
-     #register-btn{
+     #register-btn, #changeinfo{
       background-color: #935039;
       color: white;
      }
 
-     #register-btn:hover{
+     #register-btn:hover, #changeinfo{
       background-color: #c9a89c;
       color: black;
      }

@@ -95,7 +95,8 @@ public class CartController{
 		}
 		
 	}
-	
+
+
 	@PostMapping("/storecart")
 	public String storeCartInsert(@ModelAttribute Cart ct,@ModelAttribute Pr_pay_w py,String price,
 			String p_num1  ,String pr_code,String name, HttpSession session) throws CartException {
@@ -322,7 +323,21 @@ public class CartController{
 		} else {
 			return "";
 		}
-	
-		
+
 	}
+	
+	
+	/*
+	 * // 클래스 장바구니 담기
+	 * 
+	 * @PostMapping("/coffeeclass/insert") public String
+	 * classCartInsert(@ModelAttribute Cart bc, String total) { int price =
+	 * Integer.parseInt(total); bc.setCartPrice(price);
+	 * System.out.println("controller : "+ bc);
+	 * 
+	 * int result = cartService.classCartInsert(bc);
+	 * 
+	 * if(result > 0) { return "cart/cart"; }else { throw new
+	 * CartException("장바구니에 값 넣는 것을 실패하였습니다."); } }
+	 */
 }

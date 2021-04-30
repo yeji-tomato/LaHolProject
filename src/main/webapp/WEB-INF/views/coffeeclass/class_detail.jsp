@@ -57,7 +57,7 @@
            
             <!--오른쪽-->
             <div class="col">
-              <div class="cl-info">
+              <div class="cl-info" style="max-width : 22vw;">
                   <table class="cl-table">
                     <thead>
                       <tr>
@@ -67,11 +67,6 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                      <tr>
-                        <td>연계 카페명</td> <!-- cafeNo를 통해 이름 불러오기 -->
-                        <td onclick="location.href='${ contextPath }/cafe/detail?caCode=${ coffeeclass.cafeNo }'"> <button style="background-color :none; border:0px;"> ☕☕이동하기 </button></td>             
-                      </tr>
                       <tr>
                         <td style="width : 30px;">
                           <ul>
@@ -94,15 +89,17 @@
                       </tr>
                       <tr>
                         <td>날짜</td>
-                        <td>
+                        <td name="classDate">
                           ${ coffeeclass.classDate }  
                         </td>
                       </tr>
                       <tr>
                         <td>시간</td>
                         <td colspan="2">
+                          <form id ="cl_register" action="${ contextPath }/coffeeclass/register"  method="GET">
+                          <input type="hidden" id= "class_no" name="classNo" value="${ coffeeclass.classNo }">
                           <select style="width: 80%;" name = "selectedTime">
-                            <option class = "selecttime" disabled="disabled">시간</option>
+                            <option class = "selecttime" disabled="disabled" selected>시간</option>
                         	<option class = "selecttime" value="${ coffeeclass.classTime }">${ coffeeclass.classTime }</option>
                         	<c:if test="${ !empty coffeeclass.classTime2 }">
                         	<option class = "selecttime" value="${ coffeeclass.classTime2 }">${ coffeeclass.classTime2 }</option>
@@ -110,7 +107,8 @@
                         	<c:if test="${ !empty coffeeclass.classTime3 }">
                         	<option class = "selecttime" value="${ coffeeclass.classTime3 }">${ coffeeclass.classTime3 }</option>
                         	</c:if>
-                        </select>        
+                          </select> 
+                          </form>       
                         </td>
                       </tr>
                       <tr>
@@ -118,6 +116,10 @@
                         <td colspan="2">
                           ${ coffeeclass.clPrice }원
                         </td>
+                      </tr>
+                      <tr></tr>
+                      <tr colspan="3">
+                        <td style="background-color :none; border:0px; cursor: pointer;" onclick="location.href='${ contextPath }/cafe/detail?caCode=${ coffeeclass.cafeNo }'"> ☕☕연계 카페로 이동하기</td>             
                       </tr>
                     </tbody>
                   </table>
@@ -137,14 +139,15 @@
                   
                   	<!-- 바로결제 -->
                   								
-                    <form id ="cl_register" action="${ contextPath }/coffeeclass/register"  method="GET">
-                    	<input type="hidden" id= "class_no" name="classNo" value="${ coffeeclass.classNo }">
-                    	<%-- <input type="hidden" id="user_id" name="buyerId" value="${ sessionScope.loginUser.id }">
+                   <%--  <form id ="cl_register" action="${ contextPath }/coffeeclass/register"  method="GET">
+                    	-<input type="hidden" id= "class_no" name="classNo" value="${ coffeeclass.classNo }">
+                    	<input type="hidden" id = "cl_time" name="selectedTime" value = "${ coffeeclass.classTime }">
+                    	 <input type="hidden" id="user_id" name="buyerId" value="${ sessionScope.loginUser.id }">
                     	<input type="hidden" id= "class_name" name="className" value="${ coffeeclass.className }">
                     	<input type="hidden" id="cl_price" name="clPrice" value="${ coffeeclass.clPrice}">
 	                    <input type="hidden" id = "cl_date" name="classDate" value = "${ coffeeclass.classDate }">
-	                    <input type="hidden" id = "cl_time" name="classTime" value = "${ coffeeclass.classTime }"> --%>
-                    </form>
+	                    
+                    </form> --%>
                     
                      <!-- 일반사용자들에게 보여지는 버튼 or 자신의 사업장이 아닌 클래스 열람시 보여지는 버튼 -->
                      <c:if test="${ loginUser == NULL || loginUser.id ne coffeeclass.clWriter }">
@@ -169,7 +172,7 @@
 	                     <!--클래스 신고-->                    
 	                    <button style="border:transparent; background-color:transparent;">
 	                      <div class="report" style="margin-bottom: 3vh;">
-	                        <i class="fa fa-bullhorn" aria-hidden="true" id="reportclass" data-bs-toggle="modal" data-bs-target="#exampleModal"></i>
+	                        <i class="fa fa-bullhorn" aria-hidden="true" id="reportclass" data-bs-toggle="modal" data-bs-target="#commentModal"></i>
 	                      </div>
 	                    </button>
                      </c:if>
@@ -180,7 +183,7 @@
                     <!-- 클래스 개설한 당사자에게만 보여지는 버튼 -->
                     <c:if test="${ loginUser != NULL && loginUser.id eq coffeeclass.clWriter }">
                     <div class="btnDiv">
-	                    <button type="button" class= "btn" id = "register-btn"
+	                    <button type="button" class= "btn" id="changeinfo"
 	                     onclick="location.href='${ contextPath }/coffeeclass/updateclass?classNo=${ coffeeclass.classNo }'">
 	                      	클래스 정보수정
 	                      <i class="fa fa-wrench" aria-hidden="true"></i>

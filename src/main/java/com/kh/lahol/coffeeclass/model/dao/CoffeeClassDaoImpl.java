@@ -14,12 +14,15 @@ import com.kh.lahol.coffeeclass.model.vo.ClassSearch;
 import com.kh.lahol.coffeeclass.model.vo.CoffeeClass;
 import com.kh.lahol.coffeeclass.model.vo.PageInfo;
 import com.kh.lahol.coffeeclass.model.vo.Paging;
+import com.kh.lahol.common.model.vo.Payment;
+import com.kh.lahol.mypage.normal.model.vo.ClassReview;
 
 @Repository
 public class CoffeeClassDaoImpl implements CoffeeClassDao{
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 
+	// 페이징
 	@Override
 	public int selectListCount() {
 		return sqlSession.selectOne("clMapper.selectListCount");
@@ -79,8 +82,8 @@ public class CoffeeClassDaoImpl implements CoffeeClassDao{
 
 	// 클래스 수강신청
 	@Override
-	public int registerClass(String classNo) {
-		return sqlSession.selectOne("clMapper.registerClass", classNo);
+	public int registerClass(Payment classPay) {
+		return sqlSession.selectOne("clMapper.registerClass", classPay);
 	}
 
 	// 검색
@@ -123,6 +126,12 @@ public class CoffeeClassDaoImpl implements CoffeeClassDao{
 	@Override
 	public List<CoffeeClass> selectListWithPaging(Paging paging) {
 		return sqlSession.selectList("clMapper.selectListWithPaging", paging);
+	}
+
+	// 클래스 후기 불러오기
+	@Override
+	public List<ClassReview> selectReviews(String classNo) {
+		return sqlSession.selectList("clMapper.selectReviews", classNo);
 	}
 
 
