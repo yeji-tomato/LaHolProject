@@ -67,7 +67,8 @@
 		<typeAlias type="com.kh.lahol.cafe.user.model.vo.CafeRes" alias="CafeRes"/>
 		<typeAlias type="com.kh.lahol.cafe.user.model.vo.CoffeeRes" alias="CoffeeRes"/>
 		<typeAlias type="com.kh.lahol.cafe.user.model.vo.CoffeeCart" alias="CoffeeCart"/>
-		
+		<typeAlias type="com.kh.lahol.cafe.user.model.vo.CaReview" alias="CaReview"/>
+		<typeAlias type="com.kh.lahol.cafe.user.model.vo.CafeQnA" alias="cafeQnA"/>
 		
 		<!-- 마이페이지 쿠폰 -->
 		<typeAlias type="com.kh.lahol.mypage.normal.model.vo.Coupon" alias="M_Coupon"/>

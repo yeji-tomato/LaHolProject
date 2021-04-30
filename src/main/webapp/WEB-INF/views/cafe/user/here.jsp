@@ -30,6 +30,7 @@
             <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
                 <div class="carousel-inner" id="caroselLeft">
                 <div class="carousel-item active" data-bs-interval="10000">
+                <input type="hidden" id="mainPhoto" value="${ cafeInfo.mainPhoto }">
                     <img src="${ contextPath }/resources/nuploadFiles/cafeImg/${ cafeInfo.mainPhoto }" class="d-block w-100" alt="...">
                 </div>
                 <div class="carousel-item" data-bs-interval="2000">
@@ -207,6 +208,7 @@
     			const Date = $("#date").val();
         		var caResHereTime = $("select[name=caResHereTime] option:selected").text();
         		var caResPer = $(".numBox").val();
+        		var mainPhoto = $("#mainPhoto").val();
         		
     			$.ajax({
     				url:"${ contextPath }/cafe/here/insert",
@@ -221,10 +223,11 @@
     				success : function(data){
     					Swal.fire({
     		    			  text: '매장 예약이 완료되었습니다!',
-    		    			  imageUrl: 'https://images.unsplash.com/photo-1607473129381-ca8345af56ac?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80',
-    		    			  imageWidth: 400,
+    		    			  imageUrl: '${ contextPath }/resources/nuploadFiles/cafeImg/${ cafeInfo.photo3 }',
+    		    			  imageWidth: 500,
     		    			  imageHeight: 200,
     		    			  imageAlt: 'Custom image',
+    		    			  confirmButtonColor: '#E5BD62',
     		    		}).then((result) => {
     		    			location.href='${ contextPath }/cafe/beverage?caCode=${ cafeInfo.caCode }';
     		    		})

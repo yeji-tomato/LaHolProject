@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
 <link rel="stylesheet" href="${ contextPath }/resources/css/basket/basket.css" type="text/css">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
-    
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 </head>
 <style>
 
@@ -44,95 +44,82 @@
    <div class="cart">
       <div class="store1"> 
           <div class="oder">
-                      <input type="hidden" name="cmd" value="order">
-                      <div class="basketdiv" id="basket">
+          			
+        <input type="hidden" name="cmd" value="order">
+        <div class="basketdiv" id="basket">
 
-                          <div class="row head">
-                              <div class="subdiv">
-                                  <div class="check">선택</div>
-                                  <div class="img">이미지</div>
-                                  <div class="pname">상품명</div>
-                              </div>
-                              <div class="subdiv">
-                                  <div class="basketprice">가격</div> 
-                                  <div class="num">수량</div>
-                                  <div class="sum">합계</div>
-                                  <div class="del">배송비/예약</div>
-                              	
-                              </div>
-                              <div class="subdiv">
-              
-                                  <div class="basketcmd">삭제</div>
-                              </div>
-                              <div class="split"></div>
-                          </div>
-                          
-                          
-                          <input type="text" value="${ cartNum }">
-                          
-                          <c:choose>
-                          	<c:when test="${!empty cartlist }">
-                          <!-- 카페 상품 -->
-                          <c:forEach var="crt" items="${ cartlist }">
-                          	<c:if test="${ crt.cres != null }">
-                          		<div class="row data">
-                               <div class="subdiv">
-                                   <div class="check">
-                                       <label class="checkbox">
-                                           <input type="checkbox" id="checkB" name="buy" value="260" checked/>
-                                           <span class="warning"></span>
-                                       </label>
-                                   </div>
-                                   <div class="img"><img src="${ contextPath }/resources/nuploadFiles/cafeImg/${ crt.photoName }" width="100"></div>
-                                   <c:set var= "name" value="${ crt.cartName }"/>
-                                   <div class="pname">
-                                       <span id="cafeName">${ crt.cartName }</span>
-                                   </div>
-                               </div>
-                               <div class="subdiv">
-                               <fmt:parseNumber var="cartSum" type="number" value="${ crt.cartPrice }" />
-                               <fmt:formatNumber type="number" maxFractionDigits="3" value="${ cartSum }" var="cafeSum" />
-                                   <div class="basketprice">
-                                   	${ cafeSum }원
-                                   </div>
-                                   <div class="num">
-                                       <div class="updown">
-                                          <%-- <input type="text" name="p_num1" id="p_num1" size="2" maxlength="4" class="p_num" value="${ crt.cartCount }" onkeyup="javascript:basket.changePNum(3);"> --%>
-                                          <!-- <span onclick="javascript:basket.changePNum(1);"><i class="fas fa-arrow-alt-circle-up up"></i></span>
-                                          <span onclick="javascript:basket.changePNum(1);"><i class="fas fa-arrow-alt-circle-down down"></i></span> -->
-                                      	<button style="border: 0; background: white;"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></button>
-                                      </div>
-                                   </div>
-                                   
-                                   <div class="sum">${ cafeSum }원</div>
-                                   <div class="del">${ crt.cartRes }</div> 
-                               </div>
-                               
-                               
-                               
-                               
-                               
-                             <div class="subdiv">
-                                   <div class="basketcmd">
-                                     <button  class="abutton" id="cke" onclick="location.href='${ contextPath }/cart/cart/delete?sT=${ crt.cartNo }'">
-                                     x 
-                                   </button>
-                                   </div>
-                               </div>
-                               
-                               
-                               
-                               
-                               
-                               
-                               
-                               
-                    
-                               
-                           </div>
-                           <c:set var="cartTotal" value="${ cartTotal + cartSum}"/>
-                          	</c:if>
-                          	</c:forEach> 
+            <div class="row head">
+                <div class="subdiv">
+                    <div class="check">선택</div>
+                    <div class="img">이미지</div>
+                    <div class="pname">상품명</div>
+                </div>
+                <div class="subdiv">
+                    <div class="basketprice">가격</div> 
+                    <div class="num">수량</div>
+                    <div class="sum">합계</div>
+                    <div class="del">배송비/예약</div>
+                	
+                </div>
+                <div class="subdiv">
+
+                    <div class="basketcmd">삭제</div>
+                </div>
+                <div class="split"></div>
+            </div>
+            
+            <!-- 상품 갯수 -->
+            <input type="hidden" value="${ cartNum }">
+            
+            <c:choose>
+            	<c:when test="${!empty cartlist }">
+            <!-- 카페 상품 -->
+            <c:forEach var="crt" items="${ cartlist }">
+            	<c:if test="${ crt.cres != null }">
+            		<div class="row data">
+                 <div class="subdiv">
+                     <div class="check">
+                         <label class="checkbox">
+                             <input type="checkbox" id="checkB" name="buy" value="260" checked/>
+                             <span class="warning"></span>
+                         </label>
+                     </div>
+                     <div class="img"><img src="${ contextPath }/resources/nuploadFiles/cafeImg/${ crt.photoName }" width="100"></div>
+                     <c:set var= "name" value="${ crt.cartName }"/>
+                     <div class="pname">
+                         <span id="cafeName">${ crt.cartName }</span>
+                     </div>
+                 </div>
+                 <div class="subdiv">
+                 <fmt:parseNumber var="cartSum" type="number" value="${ crt.cartPrice }" />
+                 <fmt:formatNumber type="number" maxFractionDigits="3" value="${ cartSum }" var="cafeSum" />
+                     <div class="basketprice">
+                     	${ cafeSum }원
+                     </div>
+                     <div class="num">
+                         <div class="updown">
+                            <%-- <input type="text" name="p_num1" id="p_num1" size="2" maxlength="4" class="p_num" value="${ crt.cartCount }" onkeyup="javascript:basket.changePNum(3);"> --%>
+                            <!-- <span onclick="javascript:basket.changePNum(1);"><i class="fas fa-arrow-alt-circle-up up"></i></span>
+                            <span onclick="javascript:basket.changePNum(1);"><i class="fas fa-arrow-alt-circle-down down"></i></span> -->
+                        	<button style="border: 0; background: white;"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></button>
+                        </div>
+                     </div>
+                     
+                     <div class="sum">${ cafeSum }원</div>
+                     <div class="del">${ crt.cartRes }</div> 
+                 </div>
+               <div class="subdiv">
+                     <div class="basketcmd">
+                       <button  class="abutton" id="cke" onclick="location.href='${ contextPath }/cart/cart/delete?sT=${ crt.cartNo }'">
+                       x 
+                     </button>
+                     </div>
+               </div>
+               
+                </div>
+                <c:set var="cartTotal" value="${ cartTotal + cartSum}"/>
+               	</c:if>
+               	</c:forEach> 
                           	
                           	
                           	<!-- 스토어 -->
@@ -269,7 +256,7 @@
               </div><!-- /store1 -->
               </div><!-- /cart -->
      
-          			 <script>
+          			<script>
 	      				       $(document).on('click', '#check', function(){
 	               					
 	                   				var cfName = $("#check").val(); // 제품정보
@@ -318,14 +305,56 @@
 	      				       
 	      				       
 	      				       
-						 </script> 
-          
-
-          <!-- 배송지 입력 -->
-		<%-- <%@include file="./storeAddress.jsp" %> --%>
-
-<!-- 카페 주소 -->
-<%-- <%@include file="./cafeAddress.jsp" %> --%>
+						 </script>
+						 
+          		  <!-- Yeji cart delete alert -->
+				<!-- <script>
+				 $(document).on('click', '#checkc', function(){
+					var cfName = $("#check").val(); // 제품정보
+					console.log(cartNo);
+					Swal.fire({
+					  title: '삭제하시겠습니까?',
+					  text: "장바구니에서 제외됩니다!",
+					  icon: 'warning',
+					  showCancelButton: true,
+					  confirmButtonColor: '#E5BD62',
+					  cancelButtonColor: '#810B0B',
+					  confirmButtonText: '삭제하기',
+					  cancelButtonText : '취소하기'
+					}).then((result) => {
+					  if (result.isConfirmed) {
+					    Swal.fire({
+					    	confirmButtonColor: '#E5BD62',
+					    	title: '삭제되었습니다!!!',
+					    	icon: 'success'
+					    }).then((result) => {
+					    	$.ajax({
+				       			url:"${ contextPath }/cart/cart/delete",
+				        		type : "get",
+				        		data : {
+				        			sT : cfName 
+				        			 
+				        		},
+				        		success : function(data){
+				        			alert("상품이 삭제되었습니다.");
+				        			location.href="${ contextPath }/cart/main";
+				        		},
+				        		error : function(e){
+									console.log(e);
+								}
+				        		
+				       		});
+							    
+  				     	});
+					    }
+					    	
+					    })
+					   
+					  })
+					
+				}
+				});
+				</script>    -->
              
          <div>
              

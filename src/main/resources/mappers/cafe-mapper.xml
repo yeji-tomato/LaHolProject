@@ -133,6 +133,31 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 		<result property="cfName" column="CF_NAME"/>
 	</resultMap>
 	
+	<resultMap id="cafeReviewResultSet" type="CaReview">
+		<id property="crevNo" column="C_REV_NO"/>
+		<result property="crevDate" column="C_REV_DATE"/>
+		<result property="crevGra" column="C_REV_GRA"/>
+		<result property="crevCon" column="C_REV_CON"/>
+		<result property="crevIname" column="C_REV_INAME"/>
+		<result property="crevIchName" column="C_REV_ICHNAME"/>
+		<result property="crevIpath" column=" C_REV_IPATH"/>
+		<result property="crevSta" column="C_REV_STA"/>	
+		<result property="caCode" column="C_CODE"/>
+		<result property="id" column="ID"/>	
+		<result property="caRes" column="C_RES"/>		
+	</resultMap>
+	
+	<resultMap id="cafeQnAResultSet" type="cafeQnA">
+		<id property="qaNo" column="C_QA_NO"/>
+		<result property="qaTitle" column="C_QA_TITLE"/>
+		<result property="caCode" column="C_CODE"/>
+		<result property="userId" column="ID_USER"/>
+		<result property="bizId" column="ID_BUSIN"/>
+		<result property="qaAnswer" column="C_QA_ANSWER"/>	
+		<result property="qaStatus" column="QA_STATUS"/>
+		<result property="qaDate" column="QA_DATE"/>	
+	</resultMap>
+	
 	<!-- 입력을 위한 카페 정보 가져오기 -->
 	<select id="selectCafeWrite" resultMap="cafeResultSet">
 	SELECT	
@@ -783,6 +808,60 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 	AND  C_CODE =  (SELECT C_CODE FROM CAFE WHERE ID = #{id})
 	AND C_RES_DATE = (SELECT TO_CHAR(SYSDATE, 'YYYY-MM-DD') FROM DUAL)
    	</select>
+   	
+   	<!-- 후기 조회 -->
+   	<select id="selectReviewList" resultMap="cafeReviewResultSet">
+   	SELECT
+	        C_REV_NO,
+	        C_REV_DATE,
+	        C_REV_GRA,
+	        C_REV_CON,
+	        C_REV_INAME,
+	        C_REV_ICHNAME,
+	        C_REV_IPATH,
+	        C_REV_STA,
+	        C_CODE,
+	        ID,
+	        C_RES
+	FROM CAREVIEW
+	WHERE C_CODE = #{caCode}   	
+   	</select>
+   
+   <select id="reviewCount" resultType="_int">
+   SELECT COUNT(*)
+   FROM CAREVIEW
+   WHERE C_CODE = #{caCode}
+   </select>
+   
+   <insert id="cafeQask" parameterType="cafeQnA">
+   	INSERT INTO CAFE_QA
+        (
+        C_QA_NO,
+        C_QA_TITLE,
+        C_CODE,
+        ID_USER,
+        ID_BUSIN,
+        C_QA_ANSWER,
+        QA_STATUS,
+        QA_DATE
+        )
+	VALUES( 
+        'CAQ' || CAQ.NEXTVAL,
+        #{qaTitle},
+        #{caCode},
+        #{userId},
+        #{bizId},
+        #{qaAnswer},
+        DEFAULT,
+        SYSDATE
+	)
+   </insert>
+   
+   <select id="selectQnAList" resultMap="cafeQnAResultSet">
+    SELECT *
+	FROM CAFE_QA
+	WHERE C_CODE = #{caCode}
+   </select>
    
    
 </mapper>

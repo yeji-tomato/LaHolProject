@@ -30,13 +30,18 @@ import org.springframework.web.servlet.ModelAndView;
 import com.google.gson.Gson;
 import com.kh.lahol.cafe.bus.model.vo.Cafe;
 import com.kh.lahol.cafe.bus.model.vo.Coffee;
+import com.kh.lahol.cafe.bus.model.vo.PageInfo;
 import com.kh.lahol.cafe.user.model.exception.CafeException;
+import com.kh.lahol.cafe.user.model.page.PaginationReview;
 import com.kh.lahol.cafe.user.model.service.CafeService;
+import com.kh.lahol.cafe.user.model.vo.CaReview;
+import com.kh.lahol.cafe.user.model.vo.CafeQnA;
 import com.kh.lahol.cafe.user.model.vo.CafeRes;
 import com.kh.lahol.cafe.user.model.vo.CoffeeCart;
 import com.kh.lahol.cafe.user.model.vo.CoffeeRes;
 import com.kh.lahol.common.model.vo.Report;
 import com.kh.lahol.member.model.vo.Member;
+
 import com.kh.lahol.store.model.vo.Search;
 
 @Controller
@@ -83,17 +88,27 @@ public class CafeUserController {
 	
 	// 검색 세부 페이지로 이동
 	@GetMapping("/detail")
-	public String searchDetail(@RequestParam String caCode, Model model) {
+	public ModelAndView searchDetail(@RequestParam String caCode, Model model, ModelAndView mv,
+			@RequestParam(value="page", required=false, defaultValue="1") int currentPage) {
 		
 		Cafe cafeInfo = caService.searchDetail(caCode);
+		int listCount = caService.reviewCount(caCode);
+		PageInfo pi = PaginationReview.getPageInfo(currentPage, listCount);
+		List <CaReview> caReview = caService.selectReviewList(caCode, pi);
+		List <CafeQnA> caQnA = caService.selectQnAList(caCode);
+		System.out.println("리뷰 : "+ caReview);
 		
 		if(cafeInfo != null) {
-			model.addAttribute("cafeInfo", cafeInfo);
-			return "/cafe/user/detail";
+			mv.addObject("cafeInfo", cafeInfo);
+			mv.addObject("caReview", caReview);
+			mv.addObject("pi", pi);
+			mv.addObject("caQnA", caQnA);
+			mv.setViewName("/cafe/user/detail");
 		}else {
-			model.addAttribute("msg", "등록된 카페 보기에 실패하였습니다.");
-			return "common/error";
+			mv.addObject("msg", "등록된 카페 보기에 실패하였습니다.");
+			mv.setViewName("common/error");
 		}
+		return mv;
 	}
 	
 	// 매장 페이지 이동
@@ -262,7 +277,25 @@ public class CafeUserController {
 		}	
 	}
 	
-	
+	// Q&A insert
+	@PostMapping("/ask")
+	public String cafeQask(@ModelAttribute CafeQnA qa, @SessionAttribute("loginUser") Member m) throws CafeException{
+		
+		
+		String id = m.getId();
+		String caCode = qa.getCaCode();
+		qa.setUserId(id);
+		System.out.println(qa);
+		int result = caService.cafeQask(qa);
+
+		
+		 if(result > 0) { 
+			 return "redirect:/cafe/detail?caCode="+caCode; 
+		 }
+		 else { 
+			 throw new CafeException("카페 질문 등록에 실패하였습니다."); }
+		 
+	}
 	
 	
 	

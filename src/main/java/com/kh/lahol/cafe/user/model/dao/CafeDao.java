@@ -4,11 +4,15 @@ import java.util.List;
 
 import com.kh.lahol.cafe.bus.model.vo.Cafe;
 import com.kh.lahol.cafe.bus.model.vo.Coffee;
+import com.kh.lahol.cafe.bus.model.vo.PageInfo;
+import com.kh.lahol.cafe.user.model.vo.CaReview;
+import com.kh.lahol.cafe.user.model.vo.CafeQnA;
 import com.kh.lahol.cafe.user.model.vo.CafeRes;
 import com.kh.lahol.cafe.user.model.vo.CoffeeCart;
 import com.kh.lahol.cafe.user.model.vo.CoffeeOrder;
 import com.kh.lahol.cafe.user.model.vo.CoffeeRes;
 import com.kh.lahol.common.model.vo.Report;
+import com.kh.lahol.mypage.normal.model.vo.CafeReview;
 import com.kh.lahol.store.model.vo.Search;
 
 public interface CafeDao {
@@ -34,5 +38,13 @@ public interface CafeDao {
 	int cafeReport(Report rep);
 	
 	List<Cafe> cafeSearch(Search search);
+	
+	int reviewCount(String caCode);
+	
+	List<CaReview> selectReviewList(String caCode, PageInfo pi);
+	
+	int cafeQask(CafeQnA cq);
+	
+	List<CafeQnA> selectQnAList(String caCode);
 
 }
