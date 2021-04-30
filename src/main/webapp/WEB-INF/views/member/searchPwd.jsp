@@ -243,7 +243,10 @@
 <body>
 	<c:if test="${ !empty msg }">
 		<script>
-			Swal.fire('${msg}');
+			Swal.fire({
+				title : '${msg}',
+				icon : 'warning'
+			});
 		</script>
 		<c:remove var="msg"/>
 	</c:if>

@@ -422,7 +422,11 @@
 							success : function(data) {
 								
 								$(event.target).parent().next().html(data.shipping_status + '<br>' + data.shipping_date);
-								$(event.target).parent().prev().prev().html(data.delivery + ' / ' + data.subs_month);
+								if(data.sub == 'Y'){
+									$(event.target).parent().prev().prev().html(data.delivery + ' / ' + data.subs_month);
+								} else {
+									$(event.target).parent().prev().prev().html(data.count);
+								}
 							},
 							error : function(e) {
 								console.log(e);

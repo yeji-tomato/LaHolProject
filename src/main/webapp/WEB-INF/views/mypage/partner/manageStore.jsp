@@ -550,6 +550,13 @@
                             }]
                         },
                         options: {
+                        	 tooltips: {
+                                 callbacks: {
+                                     label: function (tooltipItem, data) {
+                                         return Number(tooltipItem.yLabel).toFixed(2);
+                                     }
+                                 }
+                             },
                         	legend: {
             		            position: "bottom",
             		            display: false
@@ -606,6 +613,13 @@
                 		        }]
                 		    },
                 		    options: {
+                		    	tooltips: {
+                                    callbacks: {
+                                        label: function (tooltipItem, data) {
+                                            return Number(tooltipItem.yLabel).toFixed(2);
+                                        }
+                                    }
+                                },
                 		        legend: {
                 		            position: "bottom",
                 		            display: false
