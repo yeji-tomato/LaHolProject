@@ -278,23 +278,27 @@
 						</div>
 						<div id="right-contents">
 							<div id="top-container" class="graphArea" style="width: 90%; height:40%">
-								<div id="store-chart-box" >
-									<canvas id="store-donut" height="70" width="70"></canvas>
+								<div class="graph-alternative" id="donut-alt">&lt; 좌측의 행을 클릭해주세요 </div>
+									<div id="big-doughnut-box">
+										<canvas id="big-doughnut" width="400" height="400"></canvas>
+									</div>
+<!-- 								<div id="store-chart-box" class="donut-box" >
+									<canvas id="store-donut"></canvas>
 								</div>
-								<div id="class-chart-box">
-									<canvas id="class-donut" height="70" width="70"></canvas>
+								<div id="class-chart-box" class="donut-box">
+									<canvas id="class-donut"></canvas>
 								</div>
-								<div id="coffee-chart-box">
-									<canvas id="coffee-donut" height="70" width="70"></canvas>
-								</div>
+								<div id="coffee-chart-box" class="donut-box">
+									<canvas id="coffee-donut"></canvas>
+								</div> -->
 							</div>
-							<hr id="hr-bar" class="graphArea" />
-							<div id="bottom-container" class="graphArea" style="width: 80%; height:70%">
+<!--							<hr id="hr-bar" class="graphArea" />
+ 							<div id="bottom-container" class="graphArea" style="width: 80%; height:70%">
  								<div id="graph-box">
 									<canvas id="line-graph" width="60" height="25"></canvas>			
 								</div>
-								<div id="graph-alternative">일별 조회는 그래프를 제공하지 않습니다</div>
-							</div>
+								<div class="graph-alternative" id="line-alt">일별 조회는 그래프를 제공하지 않습니다</div>
+							</div> -->
 						</div>
 					</div>
 				</div>
@@ -385,7 +389,12 @@
 		// 카페리스트 row 클릭 시 
 		var completedList = document.querySelector("#dataTable");
 		
-		completedList.addEventListener('row:click', function(e) { // !! THE VERY START		
+		completedList.addEventListener('row:click', function(e) { // !! THE VERY START
+			
+			$('#big-doughnut-box').show();
+			$('.donut-box').show();
+			$('#donut-alt').hide();
+
 			console.log(e.detail.ZGData.data);
 			
 			// 도넛에 반영할 변수
@@ -397,7 +406,7 @@
 			
 			/* charts.js */
 
-			// 1. 스토어 도넛 
+/* 			// 1. 스토어 도넛 
 			var storeValue = (storeSales/totalSales) * 100;
 
 			$(document).ready(function(){
@@ -426,7 +435,7 @@
 				},
 					options: { 
 			                responsive: true
-			                }                   
+			              }                   
 				});           
 			});
 			
@@ -448,11 +457,11 @@
 					datasets: [{
 					data: [classValue, 100-classValue],
 					backgroundColor: [
-						"#22A447",
+						"#F8964C",
 			            "#fafafa"
 					],
 					hoverBackgroundColor: [
-						"#22A447",
+						"#F8964C",
 			            "#fafafa"
 					]
 					}]
@@ -461,10 +470,10 @@
 			                responsive: true
 			                }                   
 				});           
-			});
+			}); */
 
 			/* 3. 커피 도넛 */
-			var cafeValue = (cafeSales/totalSales) * 100;;
+	/*		var cafeValue = (cafeSales/totalSales) * 100;;
 
 			$(document).ready(function(){
 				var options = {
@@ -494,7 +503,42 @@
 			                responsive: true
 			                }                   
 				});           
-			});
+			}); */
+			
+			/* 큰 도넛 */
+    		$(document).ready(function(){
+    			var options = {
+    				// legend: false,
+    				responsive: true
+    			};
+    			new Chart($("#big-doughnut"), {
+    				type: 'doughnut',
+    				tooltipFillColor: "rgba(51, 51, 51, 0.55)",
+    				data: {
+    				labels: [
+    					"스토어",
+    					"클래스",
+    					"카페"
+    				],
+    				datasets: [{
+    				data: [ storeSales, classSales, cafeSales ],
+    				backgroundColor: [
+    					"#a8d8ea",
+    					"#aa96da",
+    					"#fcbad3"
+    				],
+    				hoverBackgroundColor: [
+    					"#a8d8ea",
+    					"#aa96da",
+    					"#fcbad3"
+    				]
+    				}]
+    			},
+    				options: { 
+    		                responsive: true
+    		        }                   
+    			});           
+    		});
 
 		}); // !! THE VERY END 
 		
@@ -504,7 +548,7 @@
 
 
 		/* 라인 그래프 */
-		var ctx = document.getElementById('line-graph').getContext("2d");
+/*		var ctx = document.getElementById('line-graph').getContext("2d");
 
 		var myChart = new Chart(ctx, {
 		    type: 'line',
@@ -559,7 +603,7 @@
 		            }]
 		        }
 		    }
-		});
+		}); */
 		
 		/* 카페리스트 데이터테이블에 출력 */
  		$(function(){
@@ -583,12 +627,6 @@
 		    });    
 		}); 
 	
-		/* 라인그래프 라벨 세트 */
-		var labelSet = [
-			['월','화','수','목','금','토','일'],
-			['월초', '월말'],
-			['1월', '3월', '6월', '9월', '12월']
-		];
 		
 		/* 날짜 버튼 클릭 시 UI 변경 */
 		$('.dateBtn').click(function(e){
@@ -597,13 +635,15 @@
 			
 			if(criteria == 'day') {
 				$('#graph-box').hide();
-				$('#graph-alternative').show();
-				$('#graph-alternative').text('일별 조회는 그래프를 제공하지 않습니다');
+				$('#line-alt').show();
+				$('#line-alt').text('일별 조회는 그래프를 제공하지 않습니다');
 			} else {
 				$('#graph-box').show();
-				$('#graph-alternative').hide();
+				$('#line-alt').hide();
 			}
 		});
+		
+		
 		
 		/* 캘린더 적용 클릭 시 */
 		$('#calendar').on('apply.daterangepicker', function(ev, picker) {
@@ -611,8 +651,8 @@
 			const dataTable = $('#dataTable');
 			
 			$('#graph-box').hide();
-			$('#graph-alternative').show();
-			$('#graph-alternative').text('기간 조회는 그래프를 제공하지 않습니다')
+			$('#line-alt').show();
+			$('#line-alt').text('기간 조회는 그래프를 제공하지 않습니다')
 			
 		    var startDate = picker.startDate.format('YY-MM-DD');
 		    var endDate = picker.endDate.format('YY-MM-DD');
@@ -629,6 +669,7 @@
 	        	dataType : "json",
  	    		contentType : "application/json; charset=utf-8",
 	        	success : function(data) {
+	        		console.log("커스텀 날짜로 카페리스트 데려오기");
 	        		console.log(data);
 	        		dataTable.attr('data', JSON.stringify(data)).trigger("create");
 	        	},
