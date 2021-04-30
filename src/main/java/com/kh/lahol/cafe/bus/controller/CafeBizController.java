@@ -44,6 +44,7 @@ import com.kh.lahol.cafe.bus.model.vo.bevOrder;
 import com.kh.lahol.cafe.bus.model.vo.Order;
 import com.kh.lahol.cafe.user.model.exception.CafeException;
 import com.kh.lahol.cafe.user.model.service.CafeService;
+import com.kh.lahol.cafe.user.model.vo.CafeQnA;
 import com.kh.lahol.cafe.user.model.vo.CafeRes;
 import com.kh.lahol.cafe.user.model.vo.CoffeeRes;
 import com.kh.lahol.common.model.exception.CartException;
@@ -67,12 +68,14 @@ public class CafeBizController {
 		int countBefore = caBizService.countBefore(id);
 		int countMiddle = caBizService.countMiddle(id);
 		int countAfter = caBizService.countAfter(id);
+		List<CafeQnA> caAnswer = caBizService.answerQnAList(id);
 		
 		if(ca != null) {
 			mv.addObject("ca", ca);
 			mv.addObject("countBefore", countBefore);
 			mv.addObject("countMiddle", countMiddle);
 			mv.addObject("countAfter", countAfter);
+			mv.addObject("caAnswer", caAnswer);
 			mv.setViewName("cafe/bus/busHome");
 		}else {
 			mv.addObject("msg", "해당하는 카페 조회에 실패하였습니다.");
@@ -576,6 +579,21 @@ public class CafeBizController {
 		
 		
 		return mv;
+	}
+	
+	@PostMapping("/answer")
+	public String updateQAanswer(@ModelAttribute CafeQnA ans, @SessionAttribute("loginUser") Member m) throws CafeException {
+		
+		String id = m.getId();
+		ans.setBizId(id);
+		
+		int result = caBizService.updateQAanswer(ans);
+		
+		if(result > 0) {
+			return "redirect:/cafe/biz/home";
+		}else {
+			throw new CafeException("카페 답변 작성에 실패하였습니다.");
+		}
 	}
 	
 

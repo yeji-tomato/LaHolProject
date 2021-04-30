@@ -11,6 +11,7 @@ import com.kh.lahol.cafe.bus.model.vo.Coffee;
 import com.kh.lahol.cafe.bus.model.vo.Order;
 import com.kh.lahol.cafe.bus.model.vo.PageInfo;
 import com.kh.lahol.cafe.bus.model.vo.bevOrder;
+import com.kh.lahol.cafe.user.model.vo.CafeQnA;
 import com.kh.lahol.cafe.user.model.vo.CafeRes;
 import com.kh.lahol.cafe.user.model.vo.CoffeeRes;
 
@@ -59,6 +60,10 @@ public interface CafeBizDao {
 	public int countMiddle(String id);
 
 	public int countAfter(String id);
+
+	public List<CafeQnA> answerQnAList(String id);
+
+	public int updateQAanswer(CafeQnA ans);
 
 
 	

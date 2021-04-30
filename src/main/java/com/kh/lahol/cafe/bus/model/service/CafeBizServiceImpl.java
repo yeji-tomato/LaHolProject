@@ -15,6 +15,7 @@ import com.kh.lahol.cafe.bus.model.vo.Order;
 import com.kh.lahol.cafe.bus.model.vo.PageInfo;
 import com.kh.lahol.cafe.bus.model.vo.bevOrder;
 import com.kh.lahol.cafe.user.model.dao.CafeDao;
+import com.kh.lahol.cafe.user.model.vo.CafeQnA;
 import com.kh.lahol.cafe.user.model.vo.CafeRes;
 import com.kh.lahol.cafe.user.model.vo.CoffeeRes;
 
@@ -139,6 +140,16 @@ public class CafeBizServiceImpl implements CafeBizService{
 	@Override
 	public int countAfter(String id) {
 		return caBizDao.countAfter(id);
+	}
+
+	@Override
+	public List<CafeQnA> answerQnAList(String id) {
+		return caBizDao.answerQnAList(id);
+	}
+
+	@Override
+	public int updateQAanswer(CafeQnA ans) {
+		return caBizDao.updateQAanswer(ans);
 	}
 
 
