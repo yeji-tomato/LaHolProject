@@ -257,6 +257,15 @@
     </style>
 </head>
 <body>
+	<c:if test="${ !empty msg }">
+		<script>
+			Swal.fire({
+				title : '${msg}',
+				icon : 'warning'
+			});
+		</script>
+		<c:remove var="msg"/>
+	</c:if>
     <div id="cover_1"></div>
     <div class="bg" id="bg1"></div>
     <div id="cover"></div>
