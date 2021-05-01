@@ -163,12 +163,12 @@
 	                    </button>
 	                    <!-- 장바구니 -->
 	                    <form id = "cartclass" action="${ contextPath }/cart/cartclass" method="post">
-	                    <input type="hidden" id="user_id" name="buyerId" value="${ sessionScope.loginUser.id }">
+	                 
                     	<input type="hidden" id= "class_no" name="classNo" value="${ coffeeclass.classNo }">
-                    	<input type="hidden" id= "class_name" name="className" value="${ coffeeclass.className }">
-                    	<input type="hidden" id="cl_price" name="clPrice" value="${ coffeeclass.clPrice}">
-	                    <input type="hidden" id = "cl_date" name="classDate" value = "${ coffeeclass.classDate }">
-	                    <input type="hidden" id = "cl_time" name="classTime" value = "${ coffeeclass.classTime }">
+                    	<input type="hidden" id= "class_name" name="cartName" value="${ coffeeclass.className }">
+                    	<input type="hidden" id="cl_price" name="cartPrice" value="${ coffeeclass.clPrice}">
+	                  <%--   <input type="hidden" id = "cl_date" name="shipFee" value = "${ coffeeclass.classDate }"> --%>
+	                    <input type="hidden" id = "cl_time" name="clTime" value = "${  coffeeclass.classDate }">
 	                    </form>
 	                    
 	                     <!--클래스 신고-->                    

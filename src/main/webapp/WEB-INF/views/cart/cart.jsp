@@ -116,6 +116,7 @@
           </button>
           </div>
     </div>
+   		 <input type="hidden" class="cres"  value="${ crt.cres }">
     	 <c:set var="cartTotal" value="${ cartTotal + cartSum}"/>
      </div>
     
@@ -178,7 +179,7 @@
 
 
 
-        <input type="hidden" id="cResNo"  value="${ crt.cres }">
+        <input type="hidden" class="purchaseNo"  value="${ crt.purchaseNo }">
     </div>
 
       <c:set var= "storeTotal" value="${ storeTotal + ProSum}"/>
@@ -219,6 +220,8 @@
             </button>
             </div>
         </div>
+        
+         <input type="hidden" class="classNo"  value="${ crt.classNo }">
     </div>
       <c:set var= "classTotal" value="${ classTotal + classCartSum }"/>
       </c:if>
