@@ -24,6 +24,7 @@
          </div>
           <p id="couponSequence" style="color: white"></p>
            	<input type="hidden" id="cfName"  value="${ cor.cfName }">
+          <p id="discountTwo" style="color: white"></p>
        </div>
        <script type="text/javascript">
 		    function winPopup() {
@@ -73,7 +74,43 @@
 		
 		var couponNo = $("#couponSequence").text();
 		var id = $("id").val();
-			
+		var discountTwo = $("#discountTwo").text();
+		
+		
+		//$("#cafeCart").submit();
+		// var cafePayment = $("form[id=cafeCart]").serialize();
+		
+		// 카페 데이터
+		var payItem = $("input[name=payItem]").val();
+		var payPrice = $("input[name=payPrice]").val();
+		var buyId = $("input[name=buyId]").val();
+		var cafeRes = $("input[name=cafeRes]").val();
+		
+		// 여기부분 주석 풀어서 수정 우선 카페 payment insert
+		/* $.ajax({
+       			url:"${ contextPath }/cart/cafe/cartPayment",
+        		type : "post",
+        		dataType : 'json',
+        		data : {
+        			 discountTwo : discountTwo,
+        			 payItem : payItem,
+        			 payPrice : payPrice,
+        			 buyId : buyId,
+        			 cafeRes : cafeRes
+        		},
+        		success : function(data){
+        			location.href="${ contextPath }";
+        		},
+        		error : function(e){
+					console.log(e);
+				}
+        		
+       		}); */
+		
+		
+		
+		
+		
 			
 		var IMP = window.IMP; // 생략가능
 		IMP.init('imp85155473');
@@ -110,7 +147,7 @@
 		}).then(function(result){
 			
 			
-			$.ajax({
+			/* $.ajax({
        			url:"${ contextPath }/cart/payment",
         		type : "post",
         		data : {
@@ -127,7 +164,9 @@
 					console.log(e);
 				}
         		
-       		});
+       		}); */
+       		
+       		/* $("#cafeCart").submit(discountTwo); */
 			
 			
 			$.ajax({

@@ -1,7 +1,9 @@
 package com.kh.lahol.cafe.user.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -25,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
@@ -96,7 +99,7 @@ public class CafeUserController {
 		PageInfo pi = PaginationReview.getPageInfo(currentPage, listCount);
 		List <CaReview> caReview = caService.selectReviewList(caCode, pi);
 		List <CafeQnA> caQnA = caService.selectQnAList(caCode);
-		System.out.println("리뷰 : "+ caReview);
+		//System.out.println("리뷰 : "+ caReview);
 		
 		if(cafeInfo != null) {
 			mv.addObject("cafeInfo", cafeInfo);
@@ -296,6 +299,36 @@ public class CafeUserController {
 			 throw new CafeException("카페 질문 등록에 실패하였습니다."); }
 		 
 	}
+	
+	// 회원 신고 insert
+	@PostMapping("/userReport")
+	public String cafeUserReport(@ModelAttribute Report rep,
+			@RequestParam(name="imgName") String imgName, HttpServletRequest request
+			) throws CafeException{
+		
+		String itemCode = rep.getItemCode();
+		
+		rep.setImgName(imgName);
+		rep.setImgChName(imgName);
+		rep.setImgPath("/muploadFiles/review/");
+		
+
+		System.out.println(rep);
+		
+		 int result = caService.cafeUserReport(rep);
+		 
+		 
+		  if(result > 0) { 
+			  return "redirect:/cafe/detail?caCode="+itemCode; 
+		  }else { 
+			  throw new CafeException("카페 회원 신고에 실패하였습니다."); 
+		  }
+		 
+		
+		 
+	}
+	
+	
 	
 	
 	
