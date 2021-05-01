@@ -142,11 +142,11 @@
 					<h5  style="text-align: center; padding: 5vh;">페이지 사용에 불편을 드려 죄송합니다. <br> 신고가 접수되면 3일내로 처리됩니다. </h5>
 						<form action = "${ contextPath }/coffeeclass/commentreport" method="post">
 						<td><input name ="classNo" type="hidden" value="${ coffeeclass.classNo }"></td>
-						<input name="reporter" type="hidden" value="${ sessionScope.loginUser.id }">
+						<input id="userId" name="reporter" type="hidden" value="${ sessionScope.loginUser.id }">
 						<table style="width: 100%;">					
 							<tr>
 								<td>신고 대상</td>
-								<td aria-readonly="true"><input type="hidden" name="reportee" value="${ clr.writer_id }">${ clr.writer_id }</td>
+								<td aria-readonly="true"><input id="userReport" type="hidden" name="reportee" value="${ clr.writer_id }">${ clr.writer_id }</td>
 							</tr>
 							<tr>
 								<td>신고사유</td>
@@ -196,7 +196,28 @@
 			</div>
 		</div>
 		</c:forEach>
-		
+		<script>
+		//신고 모달
+	    const loginId = $("#userId").val();
+	   
+	        const userReport = document.getElementById("userReport");
+	        userReport.addEventListener("click", function(){
+	           console.log(loginId);         
+	           if(loginId == ""){
+	                Swal.fire({
+	                     text: '로그인이 필요한 서비스입니다.로그인을해주세요',
+	                     imageUrl: 'https://user-images.githubusercontent.com/59958929/115962683-89f1e000-a557-11eb-9a02-289523c91e1c.png',
+	                     imageWidth: 400,
+	                     imageHeight: 200,
+	                     imageAlt: 'Custom image',
+	                     confirmButtonColor: '#4B654A',
+	                }).then((result) => {
+	                   location.href='${ contextPath }/member/loginView';
+	                })
+	                
+	             }
+	          });
+        </script>
 	  <!-- 질문 모달 -->
 	  <div class="modal fade" id="askModal" tabindex="-1" aria-labelledby="askModalLabel" aria-hidden="true">
 			<div class="modal-dialog">

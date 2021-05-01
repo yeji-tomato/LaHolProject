@@ -80,8 +80,8 @@ public class CoffeeClassServiceImpl implements CoffeeClassSerivce{
 
 	// 클래스 신청
 	@Override
-	public int registerClass(Payment classPay) {
-		return clDao.registerClass(classPay);
+	public int registerClass(List<Object> list) {
+		return clDao.registerClass(list);
 	}
 
 	// 검색

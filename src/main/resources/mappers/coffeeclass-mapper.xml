@@ -473,7 +473,7 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 	  </select> -->
 	  
 	  <!-- 바로결제에서 결제하기 -->
-	  <insert id="registerClass" parameterType="Payment">
+	  <insert id="registerClass" parameterType="java.util.List">
 		  INSERT
 				  INTO
 				       PAYMENT
@@ -496,19 +496,19 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 			VALUES
 			(
 				       'CLP'||CLP.NEXTVAL
-				     , #{PAY_ITEM}
-				     , #{pay_price}
+				     , #{list[0].payItem}
+				     , #{list[0].payPrice}
 				     , NULL
 				     , SYSDATE
-				     , #{id}
+				     , #{list[0].buyId}
 				     , NULL
 				     , NULL
 				     , NULL
 				     , NULL
-				     , #{classNo}
-				     , #{couponPrice}
-				     , #{total}
-				     , #{selectedTime}
+				     , #{list[0].clPayNo}
+				     , #{list[1]}
+				     , #{list[2]}
+				     , #{list[0].clTime}
 			)
 	  </insert>
 	<!-- 클래스 후기(댓글) 불러오기 -->

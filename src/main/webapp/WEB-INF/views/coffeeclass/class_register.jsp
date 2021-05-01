@@ -51,7 +51,7 @@
                                         
                                         
                                         <!-- 상품 -->  
-                                        <form id="reisterClass" action="${ contextPath }/coffeeclass/registser/insert" method="post">
+                                        <form id="registerClass" action="${ contextPath }/coffeeclass/registser/insert" method="post">
                                         <div class="row data" style="cursor:default;">
                                             <div class="subdiv">
                                                 <div class="check">
@@ -62,28 +62,28 @@
                                                 </div>
                                                 <div class="img"><img style="height:100px; width:100px;" src="${ contextPath }/resources/nuploadFiles/classImg/${ cl.clThumbnail }" width="100"></div>
                                                  <div class="pname">
-                                                   <span><p style="text-align:center;">${ cl.className }</p></span>
+                                                   <span><input type="hidden" id="className" name="payItem" value="${ cl.className }"><p style="text-align:center;">${ cl.className }</p></span>
                                                 </div>
                                             </div>
                                             <fmt:formatDate var="Date" value="${ cl.classDate }" pattern="yyyy-MM-dd[E]"/>
                                             <div class="subdiv">
                                             	
-                                                <div class="basketprice">${ cl.clPrice }</div>
+                                                <div class="basketprice"><input type="hidden" name="payPrice" value="${ cl.clPrice }">${ cl.clPrice }</div>
                                                 <div class="date" style="width : 220px;">
                                                     ${ Date }   
                                                 </div>
                                                 <div class="time">
+                                                <input type="hidden" name="clTime" value="${ selectedTime }">
                                                 	${ selectedTime }
-                                                </div> 
+                                                </div>
+                                                <input type="hidden" id="cpnTotal" name="couponPrice">
+                                                <input type="hidden" id="tPrice" name="total">
                                             </div>
                                         </div>
                                         
 	                                        <c:set var= "total" value="${total + cl.clPrice }"/> 
-											<input type="hidden" name="buyid" value="${ sessionScope.loginUser.id }">
-					                    	<input type="hidden" name="payPrice" value="${ cl.clPrice}">
+											<input type="hidden" name="buyId" value="${ sessionScope.loginUser.id }">
 					                    	<input type="hidden" name="clPayNo" value="${ cl.classNo }">
-					                    	<input type="hidden" name="clTime" value="${ selectedTime }">
-					                    	
 					                    	
                                         </form>
                                        
@@ -209,8 +209,13 @@
 					icon : 'success'
 				}).then(function(result){
 					
+					$("#cpnTotal").val(couponPrice);
+					$("#tPrice").val(resultPrice);
 					
-					$.ajax({
+					console.log($("#cpnTotal").val(couponPrice));
+					console.log($("#tPrice").val(resultPrice));
+					
+					/* $.ajax({
 		       			url:"${contextPath}/coffeeclass/register",
 		        		type : "post",
 		        		data : {
@@ -227,7 +232,7 @@
 							console.log(e);
 						}
 		        		
-		       		});
+		       		}); */
 					
 					
 					$.ajax({
@@ -237,7 +242,7 @@
 		        			couponCode : couponNo
 		        		},
 		        		success : function(data){
-		        			location.href="${ contextPath }";
+		        			$("#registerClass").submit();
 		        		},
 		        		error : function(e){
 							console.log(e);
