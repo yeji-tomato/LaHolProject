@@ -137,6 +137,16 @@ public class CoffeeClassDaoImpl implements CoffeeClassDao{
 		return sqlSession.selectList("clMapper.selectReviews", classNo);
 	}
 
+	@Override
+	public int registerClOrder(String clPayNo) {
+		return sqlSession.insert("clMapper.registerClOrder", clPayNo);
+	}
+
+	@Override
+	public int registerClPay() {
+		return sqlSession.insert("clMapper.registerClPay");
+	}
+
 
 
 }

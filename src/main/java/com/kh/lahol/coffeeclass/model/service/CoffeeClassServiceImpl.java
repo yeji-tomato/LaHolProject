@@ -132,8 +132,14 @@ public class CoffeeClassServiceImpl implements CoffeeClassSerivce{
 		return clDao.selectReviews(classNo);
 	}
 
-	
+	@Override
+	public int registerClOrder(String clPayNo) {
+		return clDao.registerClOrder(clPayNo);
+	}
 
-
+	@Override
+	public int registerClPay() {
+		return clDao.registerClPay();
+	}
 
 }

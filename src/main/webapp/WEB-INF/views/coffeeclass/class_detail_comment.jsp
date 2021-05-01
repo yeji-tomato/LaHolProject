@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,7 +27,6 @@
           <h4 style="text-align : center; margin-top:10vh;">클래스 후기</h4>
           <div>
           <h6 style="text-align : center; color : gray;">클래스를 수강하신 분들이 남긴 후기입니다. 후기는 마이페이지에서 등록할 수 있습니다.</h6>
-          <button style="text-align : right;" class="btn-warning" id="leaveRv">후기남기기</button>
           </div>
           <table class="table table-hover" id="recruit">
 				<thead>
@@ -34,7 +35,7 @@
 				      <th scope="col" colspan="2" style="text-align:center;">답변내용</th>
 				      <th scope="col" style="width : 200px;">작성자</th>
 				      <th scope="col" style="width : 200px;">등록일자</th> 
-				      <th scope="col" style="width : 50px;"></th>
+				      <th scope="col" style="width : 50px;">신고</th>
 				    </tr>
 				  </thead>
 				  <tbody>
@@ -50,7 +51,10 @@
 			           </div>
 				      </td>								 
 				      <td colspan="2">${ clr.cl_review }</td>
-				      <td id="userId">${ clr.writer_id }</td>
+				      <c:set var="id" value="${ clr.writer_id }"/>
+               		  <c:set var="idLength" value="${ fn:length(id) - 3 }"/>
+               		  <fmt:parseNumber var="ri" type="number" value="${ idLength }"/>
+				      <td id="userId">${ fn:substring(id, 0, 3) }<c:forEach begin="0" end="${ri-1}">*</c:forEach></td>
 				      <td>${ clr.cl_rev_date }</td>
 				      <td>
 				       <button style="border:transparent; background-color:transparent;">
@@ -62,14 +66,34 @@
 				    </tr>
 				  </c:forEach>  
 				  </tbody>
-			</table> 
-          
-          
-          
+			</table>   
      	</div>
+     	
+     	<script>
+     	//신고 모달
+        const loginId = $("#reportComment").val();
+       
+            const userReport = document.getElementById("reportComment");
+            userReport.addEventListener("click", function(){
+               console.log(loginId);         
+               if(loginId == ""){
+                    Swal.fire({
+                         text: '로그인이 필요한 서비스입니다.로그인을해주세요',
+                         imageUrl: 'https://user-images.githubusercontent.com/59958929/115962683-89f1e000-a557-11eb-9a02-289523c91e1c.png',
+                         imageWidth: 400,
+                         imageHeight: 200,
+                         imageAlt: 'Custom image',
+                         confirmButtonColor: '#4B654A',
+                    }).then((result) => {
+                       location.href='${ contextPath }/member/loginView';
+                    })
+                    
+                 }
+              });
+     	</script>
 
 
-	 <!-- Q&A -->
+	 	<!-- Q&A -->
 		<div class="tab-pane fade" id="qa" role="tabpanel" aria-labelledby="qa-tab">
           <div class="qa-content">
             <div class="writeBtn">
@@ -98,7 +122,10 @@
 					      <c:if test="${ qna.status eq 'Y' }"> <p style="font-size : 15px; color : blue;"> Q &nbsp; &nbsp; 답변완료</p></c:if>
 				      </th>
 				      <td colspan="2">${ qna.question }</td>
-				      <td id="userId">${ qna.userId }</td>
+				      <c:set var="id1" value="${ qna.userId }"/>
+               		  <c:set var="idLength1" value="${ fn:length(id1) - 3 }"/>
+               		  <fmt:parseNumber var="ri1" type="number" value="${ idLength1 }"/>
+				      <td id="userId">${ fn:substring(id1, 0, 3) }<c:forEach begin="0" end="${ri1-1}">*</c:forEach></td>
 				      <td>${ qna.askDate }</td>
 				      	  <c:if test="${ loginUser != NULL && loginUser.id eq coffeeclass.clWriter }">
 				      <th scope="col" style="width : 100px">
