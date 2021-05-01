@@ -215,7 +215,7 @@
 							<br>
 							</td>
 							<tr>
-								<p class="store_info"  > &nbsp 배송비: 2,500원
+								<p class="store_info"  > &nbsp 택배사: ${s.DY_COMPANY} 
 								</p>
 							</tr>
 	                        <br>
@@ -545,7 +545,7 @@
 												<!-- 페이지 숫자 -->
 												<c:forEach var="p" begin="${ pi2.startPage }" end="${ pi2.endPage }">
 													<c:if test="${ p eq pi2.currentPage }">
-														<font color="red" size="4"><b>[${ p }]</b></font> &nbsp;
+														<font color="red" size="4"><b  style="color: #F3D798">[${ p }]</b></font> &nbsp;
 													</c:if>
 													<c:if test="${ p ne pi2.currentPage  }">
 														<c:url var="pagination" value="${ loc}">
@@ -762,7 +762,7 @@
 							<!-- 페이지 숫자 -->
 							<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
 								<c:if test="${ p eq pi.currentPage }">
-									<font color="red" size="4"><b>[${ p }]</b></font> &nbsp;
+									<font color="red" size="4"><b  style="color: #F3D798">[${ p }]</b></font> &nbsp;
 								</c:if>
 								<c:if test="${ p ne pi.currentPage  }">
 									<c:url var="pagination" value="${ loc}">

@@ -216,12 +216,7 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 				NULL,
 				NULL,
 			    NULL,
-				(SELECT
-				    CART_PRICE
-				FROM 
-				    CART
-				    WHERE
-				    PURCHASE_NO = #{payTotal}),
+				#{payTotal},
 				NULL
 			)
 		</insert>

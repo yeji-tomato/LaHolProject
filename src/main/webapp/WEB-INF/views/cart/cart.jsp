@@ -58,7 +58,7 @@
                <div class="basketprice">가격</div> 
                <div class="num">수량</div>
                <div class="sum">합계</div>
-               <div class="del">배송비/예약</div>
+               <div class="del">배송/예약</div>
            	
            </div>
            <div class="subdiv">
@@ -161,7 +161,7 @@
                <div class="sum">${ storedelSum }원</div>
                <fmt:parseNumber var="del" type="number" value="${ crt.shipFee }" />
             <fmt:formatNumber type="number" maxFractionDigits="3" value="${ del }" var="delPrice" />
-            <div class="del">${ delPrice }원</div> 
+            <div class="del">일반배송</div> 
             
         </div>
         
@@ -177,8 +177,8 @@
 
 
 
-
-
+		<input type="hidden" class="psu"  value="${ crt.cartCount }">
+		<input type="hidden" class="ptotal"  value="${ crt.cartPrice *crt.cartCount }">
         <input type="hidden" class="purchaseNo"  value="${ crt.purchaseNo }">
     </div>
 
