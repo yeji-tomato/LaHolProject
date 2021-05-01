@@ -64,4 +64,6 @@ public interface AdminDao {
 	String selectMonthlySales(String i);
 
 	String selectYearlySales(String s);
+
+	List<Profit> selectProfitByTerm(Map<String, Object> dates);
 }

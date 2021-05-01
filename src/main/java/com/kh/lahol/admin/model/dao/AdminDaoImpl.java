@@ -148,4 +148,9 @@ public class AdminDaoImpl implements AdminDao{
 	public String selectYearlySales(String s) {
 		return sqlSession.selectOne("adminMapper.selectYearlySales", s);
 	}
+
+	@Override
+	public List<Profit> selectProfitByTerm(Map<String, Object> dates) {
+		return sqlSession.selectList("adminMapper.selectProfitByTerm", dates);
+	}
 }

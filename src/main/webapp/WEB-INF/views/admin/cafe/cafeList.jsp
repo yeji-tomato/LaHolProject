@@ -34,7 +34,7 @@
 				<!--왼쪽 컨테이너-->
 				<div id="left-container">
 					<!--로고 컨테이너-->
-					<div id="logo-container">
+					<a id="logo-container" href="/lahol">
 						<img
 							id="logo"
 							src="${ contextPath }/resources/img/admin/common/logo_lightyellow.png"
@@ -42,7 +42,7 @@
 							width="62%"
 							height="auto"
 						/>
-					</div>
+					</a>
 					<!--카테고리 컨테이너-->
 					<div id="category-container">
 						<!-- 카테고리 리스트-->
