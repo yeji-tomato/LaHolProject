@@ -76,14 +76,17 @@
 	               		  <c:forEach var="s" items="${ list }">   
 		                    <div class="product"    > 
 		 		                 <div class="scale"  onclick="selectStore(${s.PR_CODE});"> 
-		 		                 <div style="font-weight: bold;position: absolute;z-index:10;width: 350px;" >  <a style="color:#810B0B;">제품 코드:${ s.PR_CODE }<BR>   카테고리:${ s.ST_CATAGORY } <BR> 제품명:${ s.PR_NAME }<BR>  가격:${ s.PR_PRICE}<BR>
-                                                                       원산지:${ s.ORIGIN } <BR> 구독여부:${ s.SUBSCRIPTIONS} <BR> 제품등록일: ${ s.PR_DATE}<BR> 택배사: ${ s.DY_COMPANY}</a></div> 
+		 		                 <div style="font-weight: bold;position: absolute;z-index:10;width: 350px;" >  <a style="color:#810B0B;">  카테고리:${ s.ST_CATAGORY }  <BR>
+                                                                       원산지/제조국:${ s.ORIGIN } </a></div> 
 		                            <img  src="${ contextPath }/resources/img/store/${ s.STORE_PHOTO1 }" width="350px" height="300px " >  
 		                        </div>    
 		                        <div class="if" style="float:left; witdh: 50px;">
 		                        <center>
 		                        <h4 >${ s.PR_NAME }</h4>
 		                            <h5 style="color: #96877D"> <fmt:formatNumber value="${ s.PR_PRICE }" pattern="#,###"/>원</h5>  
+		                            <c:if   test="${ s.SUBSCRIPTIONS eq 'Y' }" >
+		                            <h6 style="color: #96877D"> 구독상품 </h6>  
+		                            </c:if>
 		                        </center>
 		                        </div>
 		                        <button  id="ifs" onclick="location.href='${ contextPath }/store/updatepage?PR_CODE=${ s.PR_CODE }'" >수정</button>   
@@ -111,7 +114,7 @@
 								<!-- 페이지 숫자 -->
 								<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
 									<c:if test="${ p eq pi.currentPage }">
-										<font color="red" size="4"><b>[${ p }]</b></font> &nbsp;
+										<font color="red" size="4"><b style="color: #F3D798">[${ p }]</b></font> &nbsp;
 									</c:if>
 									<c:if test="${ p ne pi.currentPage }">
 										<c:url var="pagination" value="/store/list2">

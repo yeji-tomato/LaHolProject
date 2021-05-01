@@ -37,6 +37,8 @@ import com.kh.lahol.common.model.vo.Payment;
 import com.kh.lahol.member.model.vo.Member;
 import com.kh.lahol.store.model.service.StoreService;
 import com.kh.lahol.store.model.vo.Pr_pay_w;
+import com.kh.lahol.store.model.vo.Prpay;
+import com.kh.lahol.store.model.vo.Sh_status;
 
 
 
@@ -202,7 +204,7 @@ public class CartController{
 	
 	// 장바구니 결제
 	@PostMapping("/payment")
-	public String CartPayment(@ModelAttribute Payment pay,  String purchaseNo, String cres, String classNo,
+	public String CartPayment(@ModelAttribute Payment pay,  String purchaseNo, String cres, String classNo,@ModelAttribute Prpay pa  ,  @ModelAttribute Sh_status st,String psu,String ptotal,
 				@SessionAttribute("loginUser") Member m) throws CartException{
 		
 		 
@@ -211,14 +213,30 @@ public class CartController{
 			 */
 		  
 		  
-		  	if(purchaseNo != null) {
-		   pay.setPayPrice(purchaseNo);
-		   pay.setPayTotal(purchaseNo);
-		   pay.setBuyId(purchaseNo);
+		   if(purchaseNo != null) {
+			 int su = Integer.parseInt(psu);
+			 int tot = Integer.parseInt(ptotal);
+			 
+			System.out.println("갯수"+psu);
+			int total = su*tot;   
+			String to = Integer.toString(total);
+			
+		   System.out.println("총가격"+to);
+		   
+		   System.out.println("제품번호 " +purchaseNo);
 		   pay.setPayItem(purchaseNo);
+		   pay.setPayPrice(purchaseNo);
+		   pay.setPayTotal(to);
+		   pay.setBuyId(purchaseNo); 
+		
 		   pay.setPurchaseNumber(purchaseNo);
 		   
-		   int result = cartService.CartPayment(pay); 
+		   int result = cartService.CartPayment(pay);  
+		   //결제상세
+		   int result2 = sService.prpay2(pa); 
+		   //배송현황
+		   int result3 = sService.sh(st); 	
+		    
 		  	}
 		  	
 			if(cres != null) {
@@ -228,6 +246,7 @@ public class CartController{
 				   pay.setPayItem(cres);
 				   pay.setCafeRes(cres);  
 				   int result2 = cartService.CartPayment2(pay);
+				   
 				   
 			}
 			
@@ -325,21 +344,7 @@ public class CartController{
 		return null;	
 	}
 	
-	// 결제 성공 시 장바구니 비우기
-	@PostMapping("/success")
-	public String successCart(@SessionAttribute("loginUser") Member m) throws CartException{
-		
-		   
-		String id = m.getId(); 
-		   int result = cartService.successCart(id);
-		  
-		  if(result > 0) { 
-			  return "cart/cart"; 
-		  }else { 
-			  throw new CartException("장바구니 비우기를 실패하였습니다."); 
-		  }
-		
-	}
+
 	
 	// 클래스 장바구니 insert
 	@PostMapping("/cartclass")
@@ -357,6 +362,23 @@ public class CartController{
 			return "";
 		}
 
+	}
+	
+	
+	// 결제 성공 시 장바구니 비우기
+	@PostMapping("/success")
+	public String successCart(@SessionAttribute("loginUser") Member m) throws CartException{
+		
+		   
+		String id = m.getId(); 
+		   int result = cartService.successCart(id);
+		  
+		  if(result > 0) { 
+			  return "cart/cart"; 
+		  }else { 
+			  throw new CartException("장바구니 비우기를 실패하였습니다."); 
+		  }
+		
 	}
 	
 	

@@ -40,10 +40,10 @@
        <div class="p-4">
          <ul class="list-unstyled mb-4">
            <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">상품금액 </strong><strong id="sumPrice"><c:out value="${totalPrice}"/></strong></li>
-           <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">배송비</strong><strong>2,500</strong></li>
+      
            <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">할인금액</strong><strong id="couponPrice">0</strong></li>
            <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">결제금액</strong>
-            <fmt:parseNumber var="sumPrice" type="number" value="${ total + 2500 }" />
+            <fmt:parseNumber var="sumPrice" type="number" value="${ total }" />
 			<fmt:formatNumber type="number" maxFractionDigits="3" value="${ sumPrice }" var="totalPrice" />
              <h5 class="font-weight-bold" id="resultPrice"><c:out value="${totalPrice}"/></h5>
            </li>
@@ -86,6 +86,8 @@
 		var buyId = $("input[name=buyId]").val();
 		var cafeRes = $("input[name=cafeRes]").val();
 		var purchaseNo = document.getElementsByClassName("purchaseNo");
+		var psu = document.getElementsByClassName("psu");
+		var ptotal = document.getElementsByClassName("ptotal");
 		var cres = document.getElementsByClassName("cres");          
 		var classNo = document.getElementsByClassName("classNo");
 	/* 	var purchaseNo = document.getElementsByClassName("purchaseNo");
@@ -172,19 +174,22 @@
        		 */
        		
      		
-        	 
+       	 
         	 if(purchaseNo != null){
         		for(var i in purchaseNo) {
         			var purchaseNo2 = purchaseNo[i].value;
-        			 
-        			 
+        			var psu2 = psu[i].value;
+        			var ptotal2 = ptotal[i].value; 
         			 $.ajax({
              			url:"${ contextPath }/cart/payment",
               		type : "post",
               		dataType : 'json',
               		data : {
               			 
-              			 purchaseNo : purchaseNo2
+              			 
+              			purchaseNo : purchaseNo2,
+              			psu : psu2,
+              			ptotal : ptotal2
               		},
               		success : function(data){
               			location.href="${ contextPath }";
@@ -262,7 +267,7 @@
         		
        		});
 			
-			$.ajax({
+			/* $.ajax({
        			url:"${ contextPath }/cart/success",
         		type : "post",
         		data : {
@@ -275,10 +280,10 @@
 					console.log(e);
 				}
         		
-       		});
+       		});*/
 			
 			
-		});
+		}); 
 		
 		
 		

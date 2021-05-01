@@ -15,7 +15,9 @@
 <link rel="stylesheet" href="${ contextPath }/resources/css/store/main/main.css?sddsd">
 </head>
 <style>  
- 
+ 	.ca button{
+ 	font-family: 'NEXON Lv1 Gothic OTF Bold';
+ 	}
  
     </style>
 <body>
@@ -134,10 +136,10 @@
 	                          </a></h6> 
 	                              
 	                        </center>
-	                        </div>
-	                  <!--       <button  id="ifb">바로구매 <i class="fa fa-credit-card-alt" aria-hidden="true"></i></button> -->  
+	                        </div><c:if test="${   !empty sessionScope.loginUser   }"> 
+	                     <button  id="ifb">바로구매 <i class="fa fa-credit-card-alt" aria-hidden="true"></i></button>  </c:if>
 	                       <c:if test="${  s.SUBSCRIPTIONS eq 'Y' && !empty sessionScope.loginUser   }"> 
-                        <button  id="ifb" onClick="location.href=' ${ contextPath }/store/subW?PR_CODE=${ s.PR_CODE }'" >정기구독  </button> </c:if>  
+                        <button  id="ifb" onClick="location.href=' ${ contextPath }/store/subW?PR_CODE=${ s.PR_CODE }'" style="margin-top: 45px; background-color:#96877D;">정기구독  </button> </c:if>  
 	                    </div> 
                     
              
@@ -171,12 +173,11 @@
                         </div>
                         
                         
-                  <!--       <button  id="ifb">바로구매 <i class="fa fa-credit-card-alt" aria-hidden="true"></i></button>  -->
-                        
-                        
-                        
+             		<c:if test="${   !empty sessionScope.loginUser   }"> 
+	                     <button  id="ifb">바로구매 <i class="fa fa-credit-card-alt" aria-hidden="true"></i></button>  </c:if>
+                         
                         <c:if test="${   s.SUBSCRIPTIONS eq 'Y' && !empty sessionScope.loginUser   }"> 
-                        <button  id="ifb" onClick="location.href='${ contextPath }/store/subW?PR_CODE=${ s.PR_CODE }'" >정기구독 <i class="fa fa-credit-card-alt" aria-hidden="true"></i></button> </c:if>  
+                        <button  id="ifb" onClick="location.href='${ contextPath }/store/subW?PR_CODE=${ s.PR_CODE }'" style="margin-top: 45px;background-color:#96877D;" >정기구독 <i class="fa fa-credit-card-alt" aria-hidden="true"></i></button> </c:if>  
                     </div> 
                     
              
@@ -213,7 +214,7 @@
 							<!-- 페이지 숫자 -->
 							<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
 								<c:if test="${ p eq pi.currentPage }">
-									<font color="red" size="4"><b>[${ p }]</b></font> &nbsp;
+									<font color="red" size="4"><b style="color: #F3D798">[${ p }]</b></font> &nbsp;
 								</c:if>
 								<c:if test="${ p ne pi.currentPage }">
 									<c:url var="pagination" value="${ loc}">
@@ -223,7 +224,7 @@
 												<c:param name="searchValue" value="${ param.searchValue}  "/>
 									     </c:if>
 									</c:url>
-									<a href="${ pagination }">${ p }</a> &nbsp;
+									<a href="${ pagination }" >${ p }</a> &nbsp;
 								</c:if>
 							</c:forEach>
 							

@@ -63,7 +63,7 @@
                                             </div>
                                             <div class="subdiv">
                             
-                                                <div class="basketcmd" style=" width: 60px;">배송비 </div>
+                                                <div class="basketcmd" style=" width: 60px;">배송</div>
                                             </div>
                                             <div class="split"></div>
                                         </div>
@@ -104,7 +104,7 @@
 			                             <div class="subdiv" style=" padding-left: 0px;width: 62px;">
 			                                   <div class="basketcmd" >
 			                                     <div>
-			                                     2,500
+			                                		  일반배송
 			                                   </div>
 			                                   </div>
 			                               </div>
@@ -206,11 +206,11 @@
 						       <div class="p-4">
 						         <ul class="list-unstyled mb-4">      <div  type="hidden" class="bigtext right-align sumcount" id="sum_p_num"> </div>
 
-						           <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">상품금액 </strong><strong id="sumPrice">            <fmt:formatNumber value="${ total }" pattern="#,###"/></strong></li>
-						           <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">배송비</strong><strong>2,500</strong></li>
+						           <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">상품금액 </strong><strong id="sumPrice"><c:out value="${ total }" /></strong></li>
+						        
 						           <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">할인금액</strong><strong id="couponPrice"><input type="hidden" name="payDC"></strong></li>
 						           <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">결제금액</strong>
-						             <h5 class="font-weight-bold" id="resultPrice" name="total" > <fmt:formatNumber value="${ total }" pattern="#,###"/></h5> 
+						             <h5 class="font-weight-bold" id="resultPrice" name="total" > <c:out  value="${ total }" /></h5> 
 						           </li>  
 						         </ul>
 						         <button id="check_module" class="btn rounded-pill py-2 btn-block" style="background: #5A452E; color: white; width : 100%" type="button"  >결제하기</button>
@@ -225,16 +225,19 @@
 			
 			<script>
 				$("#check_module").click(function () {
+					 
 					
-				var cfName = $("#cfName").val(); // 물품명
-				var cfSum = $("#sumPrice").text();	// 결제 금액
-				 
-				var couponPrice = $("#couponPrice").text();
-				var resultPrice = $("#resultPrice").text(); 
-				var couponNo = $("#couponSequence").text();
-				var su = $("#su").text();
-				var pr_code = $("#pr_code").text();
-				
+					
+					var cfName = $("#cfName").val(); // 물품명
+									var cfSum = $("#sumPrice").text();	// 결제 금액
+									 
+									var couponPrice = $("#couponPrice").text();
+									var resultPrice = $("#resultPrice").text(); 
+									var couponNo = $("#couponSequence").text();
+									var su = $("#su").text();
+									var pr_code = $("#pr_code").text();	
+					
+					
 				var IMP = window.IMP; // 생략가능
 				IMP.init('imp85155473');
 				// 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
@@ -243,7 +246,7 @@
 				pg: 'html5_inicis', // version 1.1.0부터 지원.
 				pay_method: 'card',
 				merchant_uid: 'merchant_' + new Date().getTime(),
-				name: cfName,
+				name: '${s.PR_NAME }',
 				amount: 100,
 				
 				//임대인의 이메일
@@ -254,110 +257,58 @@
 				buyer_tel: '${ sessionScope.loginUser.phone }',
 				//임대인의주소
 				buyer_addr: '${ addr[1] }' + '${ addr[2] }',
-				
-				buyer_postcode: '${ addr[0] }',
+				buyer_postcode: '123-456',
 				m_redirect_url: 'https://www.yourdomain.com/payments/complete'
-				}, function (rsp) {
-				console.log(rsp);
-				if (rsp.success) {
-		
-				var msg = '결제가 완료되었습니다.';
-				/* msg += '고유ID : ' + rsp.imp_uid;
-				msg += '상점 거래ID : ' + rsp.merchant_uid;
-				msg += '결제 금액 : ' + rsp.paid_amount;
-				msg += '카드 승인번호 : ' + rsp.apply_num; */
-			
-					
-					
-					$.ajax({
-		       			url:"${ contextPath }/store/storecart2",
-		        		type : "post",
-		        		data : {
-		        			payItem : cfName,
-		        			cafeRes : cafeResNo,
-		        			payPrice : cfSum,
-		        			pay_dc : couponPrice,
-		        			pay_total : resultPrice,	
-		        			su : ${su},
-		        			pr_code : pr_code
-		        		},
-		        		success : function(data){
-		        			location.href="${ contextPath }/store/list";
-		        		},
-		        		error : function(e){
-							console.log(e);
-						}
-		        		
-		       		});
-					
-					
-					$.ajax({
-		       			url:"${ contextPath }/cart/coupon/use",
-		        		type : "post",
-		        		data : {
-		        			couponCode : couponNo
-		        		},
-		        		success : function(data){
-		        			location.href="${ contextPath }";
-		        		},
-		        		error : function(e){
-							console.log(e);
-						}
-		        		
-		       		});
-				} else {	
-			
-				var msg = '결제에 실패하였습니다.';
-				msg += '에러내용 : ' + rsp.error_msg;
-				
-				Swal.fire({
-					title : msg,
-					icon : 'warning'
-				}).then(function(result){
-					
-					
-			/* 		$.ajax({
-		       			url:"${ contextPath }/store/storecart2",
-		        		type : "post",
-		        		data : {
-		        			payItem : cfName, 
-		        			payPrice : cfSum,
-		        			pay_dc : couponPrice,
-		        			pay_total : resultPrice,	
-		        			su : ${su},
-		        			pr_code : ${s.PR_CODE}
-		        		},
-		        		success : function(data){
-		        			location.href="${ contextPath }/store/list";
-		        		},
-		        		error : function(e){
-							console.log(e);
-						}
-		        		
-		       		});
-					
-					
-					$.ajax({
-		       			url:"${ contextPath }/cart/coupon/use",
-		        		type : "post",
-		        		data : {
-		        			couponCode : couponNo
-		        		},
-		        		success : function(data){
-		        			location.href="${ contextPath }";
-		        		},
-		        		error : function(e){
-							console.log(e);
-						}
-		        		
-		       		}); */
-					
-				});
-				
-				};
-				
-				});
-				});
+				 }, function(rsp) {
+			    	   console.log(rsp);
+			          if (rsp.success) {
+			                  var msg = '결제가 완료되었습니다.';
+
+			                  $.ajax({
+			                  		       			url:"${ contextPath }/store/storecart2",
+			                  		        		type : "post",
+			                  		        		data : {
+			                  		        			payItem : cfName, 
+			                  		        			payPrice : cfSum,
+			                  		        			pay_dc : couponPrice,
+			                  		        			pay_total : resultPrice,	
+			                  		        			su : ${su},
+			                  		        			pr_code : ${s.PR_CODE}
+			                  		        		},
+			                  		        		success : function(data){
+			                  		        			location.href="${ contextPath }/store/list";
+			                  		        		},
+			                  		        		error : function(e){
+			                  							console.log(e);
+			                  						}
+			                  		        		
+			                  		       		});
+			                  					
+			                  					
+			                  					$.ajax({
+			                  		       			url:"${ contextPath }/cart/coupon/use",
+			                  		        		type : "post",
+			                  		        		data : {
+			                  		        			couponCode : couponNo
+			                  		        		},
+			                  		        		success : function(data){
+			                  		        			location.href="${ contextPath }";
+			                  		        		},
+			                  		        		error : function(e){
+			                  							console.log(e);
+			                  						}
+			                  		        		
+			                  		       		});
+				               
+			          } else {
+			               var msg = '결제에 실패하였습니다.';
+			               msg += '에러내용 : ' + rsp.error_msg;
+			          
+			               
+			           } 
+			           alert(msg);
+			       });	 
+			 	});
 			</script>
 
 

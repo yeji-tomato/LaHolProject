@@ -340,6 +340,7 @@
 			 			Swal.fire("구독할 개월수를 체크해주세요");
   
 			 		 }else{
+			 			 
 					 var IMP = window.IMP; // 생략가능
 				       IMP.init('imp37495715'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
 				      
