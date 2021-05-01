@@ -85,31 +85,34 @@
 		var payPrice = $("input[name=payPrice]").val();
 		var buyId = $("input[name=buyId]").val();
 		var cafeRes = $("input[name=cafeRes]").val();
+		var purchaseNo = document.getElementsByClassName("purchaseNo");
+		var cres = document.getElementsByClassName("cres");          
+		var classNo = document.getElementsByClassName("classNo");
+	/* 	var purchaseNo = document.getElementsByClassName("purchaseNo");
+       		console.log(purchaseNo);
+       		for(var i in purchaseNo) {
+       			var purchaseNo2 = purchaseNo[i].value;
+       			 
+       			 
+       			 $.ajax({
+            			url:"${ contextPath }/cart/payment",
+             		type : "post",
+             		dataType : 'json',
+             		data : {
+             			 purchaseNo : purchaseNo2
+             		},
+             		success : function(data){
+             			location.href="${ contextPath }";
+             		},
+             		error : function(e){
+     					console.log(e);
+     				}
+             		
+            		}); 
+       		}; */
 		
-		// 여기부분 주석 풀어서 수정 우선 카페 payment insert
-		/* $.ajax({
-       			url:"${ contextPath }/cart/cafe/cartPayment",
-        		type : "post",
-        		dataType : 'json',
-        		data : {
-        			 discountTwo : discountTwo,
-        			 payItem : payItem,
-        			 payPrice : payPrice,
-        			 buyId : buyId,
-        			 cafeRes : cafeRes
-        		},
-        		success : function(data){
-        			location.href="${ contextPath }";
-        		},
-        		error : function(e){
-					console.log(e);
-				}
-        		
-       		}); */
-		
-		
-		
-		
+       		// 여기부분 주석 풀어서 수정 우선 카페 payment insert
+    	
 		
 			
 		var IMP = window.IMP; // 생략가능
@@ -147,7 +150,7 @@
 		}).then(function(result){
 			
 			
-			/* $.ajax({
+		/* 	$.ajax({
        			url:"${ contextPath }/cart/payment",
         		type : "post",
         		data : {
@@ -155,7 +158,8 @@
         			cafeRes : cafeResNo,
         			payPrice : cfSum,
         			payDC : couponPrice,
-        			payTotal : resultPrice	
+        			payTotal : resultPrice,	
+        			purchaseNo : purchaseNo
         		},
         		success : function(data){
         			location.href="${ contextPath }";
@@ -164,11 +168,85 @@
 					console.log(e);
 				}
         		
-       		}); */
+       		}); 
+       		 */
        		
-       		/* $("#cafeCart").submit(discountTwo); */
-			
-			
+     		
+        	 
+        	 if(purchaseNo != null){
+        		for(var i in purchaseNo) {
+        			var purchaseNo2 = purchaseNo[i].value;
+        			 
+        			 
+        			 $.ajax({
+             			url:"${ contextPath }/cart/payment",
+              		type : "post",
+              		dataType : 'json',
+              		data : {
+              			 
+              			 purchaseNo : purchaseNo2
+              		},
+              		success : function(data){
+              			location.href="${ contextPath }";
+              		},
+              		error : function(e){
+      					console.log(e);
+      				}
+              		
+             		}); 
+        		};
+        	 }
+       		 
+        	 if(cres != null){
+         		for(var i in cres) {
+         			var cres2 = cres[i].value;
+         			 
+         			 
+         			 $.ajax({
+              			url:"${ contextPath }/cart/payment",
+               		type : "post",
+               		dataType : 'json',
+               		data : {
+               			 
+               			cres : cres2
+               		},
+               		success : function(data){
+               			location.href="${ contextPath }";
+               		},
+               		error : function(e){
+       					console.log(e);
+       				}
+               		
+              		}); 
+         		};
+         	 }
+        	 
+         	 if(classNo != null){
+          		for(var i in classNo) {
+          			var classNo2 = classNo[i].value;
+          			 
+          			 
+          			 $.ajax({
+               			url:"${ contextPath }/cart/payment",
+                		type : "post",
+                		dataType : 'json',
+                		data : {
+                			 
+                			classNo : classNo2
+                		},
+                		success : function(data){
+                			location.href="${ contextPath }";
+                		},
+                		error : function(e){
+        					console.log(e);
+        				}
+                		
+               		}); 
+          		};
+          	 }
+       		 
+       		 
+       		 
 			$.ajax({
        			url:"${ contextPath }/cart/coupon/use",
         		type : "post",
@@ -210,6 +288,11 @@
 		msg += '에러내용 : ' + rsp.error_msg;
 		}
 		alert(msg);
+		
+		
+		
+		
+		
 		});
 		});
 	</script>

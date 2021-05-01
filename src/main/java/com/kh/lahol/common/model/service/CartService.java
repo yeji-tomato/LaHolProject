@@ -24,9 +24,16 @@ public interface CartService {
  
 
 	int couponUse(Coupon cop);
-
+	//스토어 결제
 	int CartPayment(Payment pay);
+ 
+	//커피 결제
+	int CartPayment2(Payment pay);
 
+	//클래스 결제
+	int CartPayment3(Payment pay);
+	
+	
 	int successCart(String id);
 
 
@@ -37,6 +44,10 @@ public interface CartService {
 
 	//장바구니 삭제
 	int deleteCart(String sT);
+
+	int insertClOrder(String classNo);
+
+	
 
 
 

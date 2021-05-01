@@ -55,6 +55,18 @@ public class CartServiceImpl implements CartService{
 	}
 
 	@Override
+	public int CartPayment2(Payment pay) {
+		return cartDao.CartPayment2(pay);
+	}
+	
+	@Override
+	public int CartPayment3(Payment pay) {
+		return cartDao.CartPayment3(pay);
+	}
+
+	
+	
+	@Override
 	public int successCart(String id) {
 		return cartDao.successCart(id);
 	}
@@ -76,5 +88,13 @@ public class CartServiceImpl implements CartService{
 	public int deleteCart(String sT) {
 		return cartDao.deleteCart(sT);
 	}
+
+	@Override
+	public int insertClOrder(String classNo) {
+		return cartDao.insertClOrder(classNo);
+	}
+
+	
+	
 
 }

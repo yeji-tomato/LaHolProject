@@ -178,13 +178,18 @@ public class CartController{
 	
 	// 카페 직접 결제 payment
 	@PostMapping("/cafe/payment")
-	public String cafeCartPayment(@ModelAttribute Payment pay, 
+	public String cafeCartPayment(@ModelAttribute Payment pay,
 				@SessionAttribute("loginUser") Member m) throws CartException{
 		
 		
 		   String id = m.getId(); 
 		   pay.setBuyId(id);
 		   System.out.println(pay);
+		   
+		 
+		   
+		   
+		   
 		   int result = cartService.cafeCartPayment(pay);
 		  
 		  if(result > 0) { 
@@ -197,20 +202,60 @@ public class CartController{
 	
 	// 장바구니 결제
 	@PostMapping("/payment")
-	public String CartPayment(@ModelAttribute Payment pay, 
+	public String CartPayment(@ModelAttribute Payment pay,  String purchaseNo, String cres, String classNo,
 				@SessionAttribute("loginUser") Member m) throws CartException{
 		
-		
-		   String id = m.getId(); 
-		   pay.setBuyId(id);
-		   System.out.println(pay);
-		   int result = cartService.CartPayment(pay);
+		 
+			/*
+			 * String id = m.getId(); pay.setBuyId(id);
+			 */
 		  
-		  if(result > 0) { 
-			  return "cart/cart"; 
-		  }else { 
-			  throw new CartException("결제 테이블에 값 넣는 것을 실패하였습니다."); 
-		  }
+		  
+		  	if(purchaseNo != null) {
+		   pay.setPayPrice(purchaseNo);
+		   pay.setPayTotal(purchaseNo);
+		   pay.setBuyId(purchaseNo);
+		   pay.setPayItem(purchaseNo);
+		   pay.setPurchaseNumber(purchaseNo);
+		   
+		   int result = cartService.CartPayment(pay); 
+		  	}
+		  	
+			if(cres != null) {
+				   pay.setPayPrice(cres);
+				   pay.setPayTotal(cres);
+				   pay.setBuyId(cres);
+				   pay.setPayItem(cres);
+				   pay.setCafeRes(cres);  
+				   int result2 = cartService.CartPayment2(pay);
+				   
+			}
+			
+			if(classNo != null) {
+				System.out.println("클래스번호"+classNo);
+				int clOrder = cartService.insertClOrder(classNo);
+				if(clOrder > 0) {
+					pay.setPayPrice(classNo);
+					pay.setPayTotal(classNo);
+					pay.setBuyId(classNo);
+					pay.setPayItem(classNo);
+					pay.setClPayNo(classNo);
+					int result3 = cartService.CartPayment3(pay);
+					
+				} else {
+					return "";
+				}
+				   
+			}
+			
+		   
+		   
+		    
+		  return "cart/cart"; 
+			   
+		   
+		   
+		 	 
 		
 	}
 	
@@ -295,10 +340,13 @@ public class CartController{
 	
 	// 클래스 장바구니 insert
 	@PostMapping("/cartclass")
-	public String classCart(@ModelAttribute Cart ct, HttpSession session) throws CartException {
+	public String classCart(@ModelAttribute Cart ct, HttpSession session,@SessionAttribute("loginUser") Member m) throws CartException {
 		
+		
+		System.out.println("클래스 정보" +ct);
+		String id = m.getId(); 
+		ct.setUserId(id);
 		int result = cartService.classcartInsert(ct);
-			
 		
 		if(result > 0) {
 			return "coffeeclass/class_main";

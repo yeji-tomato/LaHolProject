@@ -22,6 +22,8 @@ public interface CartDao {
 	int couponUse(Coupon cop);
 
 	int CartPayment(Payment pay);
+	
+	int CartPayment2(Payment pay);
 
 	int successCart(String id);
 
@@ -31,6 +33,12 @@ public interface CartDao {
 	int classcartInsert(Cart ct);
 
 	int deleteCart(String sT);
+
+	int CartPayment3(Payment pay);
+
+	int insertClOrder(String classNo);
+
+
 
 
 

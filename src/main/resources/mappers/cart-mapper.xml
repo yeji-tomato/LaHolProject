@@ -167,7 +167,7 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 			)
 		</insert>
 		
-		<!-- 장바구니 결제 정보 insert -->
+		<!-- 장바구니  스토어 결제 정보 insert -->
 		<insert id="CartPayment" parameterType="Cart_Payment">
 			INSERT
 			INTO PAYMENT
@@ -189,19 +189,154 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 			)
 			VALUES
 			(
-				'CRTP'|| CRTP.NEXTVAL,
-				#{payItem},
-				#{payPrice},
+				'STP'|| STP.NEXTVAL,
+				(SELECT
+				    CART_NAME
+				FROM 
+				    CART
+				    WHERE
+				    PURCHASE_NO = #{payItem}),
+				(SELECT
+				    CART_PRICE
+				FROM 
+				    CART
+				    WHERE
+				    PURCHASE_NO = #{payPrice}),
 				NULL,
 				SYSDATE,
-				#{buyId},
+				(SELECT
+				   ID
+				FROM 
+				    CART
+				    WHERE
+				    PURCHASE_NO = #{buyId}),
+				NULL,
+				NULL,
+				#{purchaseNumber},
+				NULL,
+				NULL,
+			    NULL,
+				(SELECT
+				    CART_PRICE
+				FROM 
+				    CART
+				    WHERE
+				    PURCHASE_NO = #{payTotal}),
+				NULL
+			)
+		</insert>
+		
+		<!-- 장바구니  카페 결제 정보 insert -->
+		<insert id="CartPayment2" parameterType="Cart_Payment">
+			INSERT
+			INTO PAYMENT
+			(
+				PAY_NO,
+				PAY_ITEM,
+				PAY_PRICE,
+				SUBSCRIBE,
+				PAY_DATE,
+				BUYER_ID,
+				CAFE_RES,
+				AD_CODE,
+				PURCHASE_NUMBER,
+				SUBSCRIBE_CODE,
+				CL_PAY_NO,
+				PAY_DC,
+				PAY_TOTAL,
+				CL_TIME
+			)
+			VALUES
+			(
+				'CAP'|| CAP.NEXTVAL,
+				(SELECT
+				    CART_NAME
+				FROM 
+				    CART
+				    WHERE
+				    C_RES = #{payItem}),
+				(SELECT
+				    CART_PRICE
+				FROM 
+				    CART
+				    WHERE
+				   	C_RES = #{payPrice}),
+				NULL,
+				SYSDATE,
+				(SELECT
+				   ID
+				FROM 
+				    CART
+				    WHERE
+				    C_RES = #{buyId}),
 				#{cafeRes},
 				NULL,
 				NULL,
 				NULL,
 				NULL,
-				#{payDC},
-				#{payTotal},
+			    NULL,
+				(SELECT
+				    CART_PRICE
+				FROM 
+				    CART
+				    WHERE
+				    C_RES = #{payTotal}),
+				NULL
+			)
+		</insert>
+		
+		
+	 	<!-- 장바구니  클래스 결제 정보 insert -->
+		<insert id="CartPayment3" parameterType="Cart_Payment">
+			INSERT
+			INTO PAYMENT
+			(
+				PAY_NO,
+				PAY_ITEM,
+				PAY_PRICE,
+				SUBSCRIBE,
+				PAY_DATE,
+				BUYER_ID,
+				CAFE_RES,
+				AD_CODE,
+				PURCHASE_NUMBER,
+				SUBSCRIBE_CODE,
+				CL_PAY_NO,
+				PAY_DC,
+				PAY_TOTAL,
+				CL_TIME
+			)
+			VALUES
+			(
+				'CLP'|| CLP.NEXTVAL
+				,'CL21'
+				,
+				(SELECT
+				    CART_PRICE
+				FROM 
+				    CART
+				    WHERE
+				    CLASS_NO = #{payPrice}),
+				NULL,
+				SYSDATE,
+				(SELECT
+				   ID
+				FROM 
+				    CART
+				    WHERE
+				    CLASS_NO = #{buyId}),
+				NULL,
+				NULL,
+				NULL,
+				NULL,
+				CLO.CURRVAL,
+			    NULL,
+				(SELECT
+				    CART_PRICE
+				FROM 
+				    CART
+				    WHERE
+				    CLASS_NO = #{payTotal}),
 				NULL
 			)
 		</insert>
@@ -246,9 +381,8 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 				,#{userId}
 				,(SELECT PURCHASE_NUMBER
 				FROM
-				(SELECT PURCHASE_NUMBER, ROWNUM AS RNUM
-				FROM PR_PAY_WHICH
-				ORDER BY PURCHASE_NUMBER DESC)
+				(SELECT PURCHASE_NUMBER, RANK() OVER(ORDER BY TO_NUMBER(PURCHASE_NUMBER) DESC) AS RNUM
+				FROM PR_PAY_WHICH)
 				WHERE RNUM = 1)
 				,NULL
 				,(
@@ -327,5 +461,18 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 			)
 		
 		</insert>
-
+	<insert id="insertClOrder" parameterType="string">
+		INSERT
+		  INTO
+		       CL_ORDER
+		  (
+		       CL_PAY_NO
+		     , CLASS_NO
+		  )
+		VALUES
+		(
+		       CLO.NEXTVAL
+		     , #{classNo}
+		)
+	</insert>
 </mapper>
