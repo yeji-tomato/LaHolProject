@@ -199,7 +199,8 @@ h1{
 }
 /* 페이징 바 */
 .cafe-order-page{
-    margin-top: 5%;
+    margin-top: 2%;
+    margin-bottom: 2%;
     display: flex;
     justify-content: center;
     align-items: center;

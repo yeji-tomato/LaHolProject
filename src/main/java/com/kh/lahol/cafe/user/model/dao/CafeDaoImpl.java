@@ -36,8 +36,10 @@ public class CafeDaoImpl implements CafeDao {
 	}
 
 	@Override
-	public List<Cafe> cafeMainList() {
-		return sqlSession.selectList("cafeMapper.cafeMainList");
+	public List<Cafe> cafeMainList(PageInfo pi) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getCoffeeLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getCoffeeLimit());
+		return sqlSession.selectList("cafeMapper.cafeMainList", null, rowBounds);
 	}
 
 	@Override
@@ -107,6 +109,11 @@ public class CafeDaoImpl implements CafeDao {
 	@Override
 	public int cafeUserReport(Report rep) {
 		return sqlSession.insert("cafeMapper.cafeUserReport", rep);
+	}
+
+	@Override
+	public int mainCount() {
+		return sqlSession.selectOne("cafeMapper.mainCount");
 	}
 
 }

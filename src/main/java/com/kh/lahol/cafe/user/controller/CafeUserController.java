@@ -35,6 +35,7 @@ import com.kh.lahol.cafe.bus.model.vo.Cafe;
 import com.kh.lahol.cafe.bus.model.vo.Coffee;
 import com.kh.lahol.cafe.bus.model.vo.PageInfo;
 import com.kh.lahol.cafe.user.model.exception.CafeException;
+import com.kh.lahol.cafe.user.model.page.PaginationCafeMain;
 import com.kh.lahol.cafe.user.model.page.PaginationReview;
 import com.kh.lahol.cafe.user.model.service.CafeService;
 import com.kh.lahol.cafe.user.model.vo.CaReview;
@@ -59,12 +60,16 @@ public class CafeUserController {
 	
 	// 메인 페이지로 이동
 	@GetMapping("/user")
-	public ModelAndView cafeMain(ModelAndView mv) {
+	public ModelAndView cafeMain(ModelAndView mv, 
+			@RequestParam(value="page", required=false, defaultValue="1") int currentPage) {
 		
-		List<Cafe> CafeMainList = caService.cafeMainList();
+		int listCount = caService.mainCount();
+		PageInfo pi = PaginationCafeMain.getPageInfo(currentPage, listCount);
+		List<Cafe> CafeMainList = caService.cafeMainList(pi);
 		
 		if(CafeMainList != null) {
 			mv.addObject("CafeMainList", CafeMainList);
+			mv.addObject("pi", pi);
 			mv.setViewName("cafe/user/cafeMain");
 		}else {
 			mv.addObject("msg", "해당하는 카페 조회에 실패하였습니다.");

@@ -916,4 +916,13 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 	) 
    </insert>
    
+   <!-- 사용자 cafeList 페이징 처리를 위한 갯수 구하기 -->
+   <select id="mainCount" resultType="_int">
+      SELECT 
+            COUNT(*)
+      FROM CAFE
+	  WHERE C_STATUS = 'Y'
+	  ORDER BY C_CODE DESC
+    </select>
+   
 </mapper>

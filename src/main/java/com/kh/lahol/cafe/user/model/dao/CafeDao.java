@@ -21,7 +21,7 @@ public interface CafeDao {
 	// 2. 카페 포장 예약 insert
 	int togoInsertRes(CafeRes r);
 	// 3. 카페 검색 전 리스트
-	List<Cafe> cafeMainList();
+	List<Cafe> cafeMainList(PageInfo pi);
 	// 4. 카페 디테일
 	public Cafe searchDetail(String caCode);
 	
@@ -48,5 +48,7 @@ public interface CafeDao {
 	List<CafeQnA> selectQnAList(String caCode);
 	
 	int cafeUserReport(Report rep);
+	
+	int mainCount();
 
 }

@@ -35,8 +35,8 @@ public class CafeServiceImpl implements CafeService{
 	}
 
 	@Override
-	public List<Cafe> cafeMainList() {
-		return caDao.cafeMainList();
+	public List<Cafe> cafeMainList(PageInfo pi) {
+		return caDao.cafeMainList(pi);
 	}
 
 	@Override
@@ -103,6 +103,11 @@ public class CafeServiceImpl implements CafeService{
 	@Override
 	public int cafeUserReport(Report rep) {
 		return caDao.cafeUserReport(rep);
+	}
+
+	@Override
+	public int mainCount() {
+		return caDao.mainCount();
 	}
 
 	

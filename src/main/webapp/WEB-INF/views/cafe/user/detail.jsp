@@ -323,7 +323,7 @@
 				<button type="button" class="btn btn-danger">신고</button>
 				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
 				</div>
-			</table>
+			
 		</div>
 		</div>
 	</div>
