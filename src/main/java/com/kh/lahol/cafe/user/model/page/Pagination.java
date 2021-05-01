@@ -2,7 +2,7 @@ package com.kh.lahol.cafe.user.model.page;
 
 import com.kh.lahol.cafe.bus.model.vo.PageInfo;
 
-public class PaginationReview {
+public class Pagination {
 	// PageInfo 객체를 리턴하는 static 메소드
 	public static PageInfo getPageInfo(int currentPage, int listCount) {
 	PageInfo pi = null;	// 페이지 정보를 담아 줄 PageInfo 참조변수 선언

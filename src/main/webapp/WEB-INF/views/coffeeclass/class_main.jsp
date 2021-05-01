@@ -111,17 +111,47 @@
 	</div>
 	</c:forEach>
       
-      <nav aria-label="Page navigation example">
-				<ul class="pagination d-flex justify-content-center">
-					<li class="page-item"><a class="page-link" href="#">Previous</a></li>
-					<li class="page-item"><a class="page-link" href="#">1</a></li>
-					<li class="page-item"><a class="page-link" href="#">2</a></li>
-					<li class="page-item"><a class="page-link" href="#">3</a></li>
-					<li class="page-item"><a class="page-link" href="#">Next</a></li>
-				</ul>
-			</nav>
-  		</div>
+	<!-- 페이징 처리 -->
+	<tr>
+		<td colspan="6">
+		<!-- 이전 -->
+		<c:if test="${ pi.currentPage <= 1}">
+			[이전] &nbsp;
+		</c:if>
+		<c:if test="${ pi.currentPage > 1 }">
+			<c:url var="before" value="/coffeeclass">
+				<c:param name="page" value="${ pi.currrentPage -1 }"/>
+			</c:url>
+			<a href="${ before }">[이전]</a> &nbsp;
+		</c:if>
+		
+		<!-- 페이지 숫자 -->
+		<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+			<c:if test="${ p eq pi.currentPage }">
+				<font color="red" size="4"><b>[${ p }]</b></font>
+			</c:if>
+			<c:if test="${ p ne pi.currentPage }">
+				<c:url var="pagination" value="/coffeeclass">
+					<c:param name="page" value="${ p }"/>
+				</c:url>
+				<a href="${ pagination }">${ p }</a> &nbsp;
+			</c:if>	
+		</c:forEach>
+	
+		<!-- 다음 -->
+		<c:if test="${ pi.currentPage >= pi.maxPage}">
+			[다음]
+		</c:if>
+		<c:if test="${ pi.currentPage < pi.maxPage }">
+			<c:url var="after" value="/coffeeclass">
+				<c:param name="page" value="${ pi.currentPage + 1 }"/>
+			</c:url>
+			<a href="${ after }">[다음]</a>
+		</c:if>
+		</td>
+		</tr>
   	</div>
+  </div>
   
 
   

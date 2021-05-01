@@ -64,6 +64,7 @@
      <div style="margin-top: 80px; text-align: center;">
      <!-- 클래스 개설 버튼 -->
      	<a href="${ contextPath }/coffeeclass/createclass" class="create-btn" id = "createclass">클래스 개설하기</a>
+     <!-- 온라인 클래스 버튼? -->
      <!-- 클래스 메인페이지 이동 버튼 -->
      	<a href="${ contextPath }/coffeeclass" class="create-btn" id = "createclass">클래스 둘러보기</a>
      </div>

@@ -219,20 +219,23 @@ public class CartController{
 	public String couponUse(@ModelAttribute Coupon cop, 
 				@SessionAttribute("loginUser") Member m, String couponCode) throws CartException{
 		
-		
-		   String id = m.getId(); 
-		   cop.setId(id);
-		   cop.setCouponCode(couponCode);
-		 
-		   //System.out.println("쿠폰 사용 "+ cop);
-		   //System.out.println(couponCode);
-		   int result = cartService.couponUse(cop);
-		  
-		  if(result > 0) { 
-			  return "cart/cart"; 
-		  }else { 
-			  throw new CartException("쿠폰 사용을 실패하였습니다."); 
-		  }
+		   String id = m.getId();
+		   if(!couponCode.equals("")) {
+			   cop.setId(id);
+			   cop.setCouponCode(couponCode);
+			   
+			   System.out.println("쿠폰 사용 "+ cop);
+			   System.out.println(couponCode);
+			   int result = cartService.couponUse(cop);
+			   
+			   if(result > 0) { 
+				   return "cart/cart"; 
+			   }else { 
+				   throw new CartException("쿠폰 사용을 실패하였습니다."); 
+			   }
+		   }
+		   
+		   return "cart/cart";
 		
 	}
 	 

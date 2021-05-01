@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>  
@@ -87,10 +88,11 @@
                           </ul>
                         </td>
                       </tr>
+                      <fmt:formatDate var="Date" value="${ coffeeclass.classDate }" pattern="yyyy-MM-dd[E]"/>
                       <tr>
                         <td>날짜</td>
                         <td name="classDate">
-                          ${ coffeeclass.classDate }  
+                          ${ Date }  
                         </td>
                       </tr>
                       <tr>
@@ -172,7 +174,7 @@
 	                     <!--클래스 신고-->                    
 	                    <button style="border:transparent; background-color:transparent;">
 	                      <div class="report" style="margin-bottom: 3vh;">
-	                        <i class="fa fa-bullhorn" aria-hidden="true" id="reportclass" data-bs-toggle="modal" data-bs-target="#commentModal"></i>
+	                        <i class="fa fa-bullhorn" aria-hidden="true" id="reportclass" data-bs-toggle="modal" data-bs-target="#exampleModal"></i>
 	                      </div>
 	                    </button>
                      </c:if>

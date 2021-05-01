@@ -26,5 +26,5 @@ public class Cart {
 	private String cres;		// 카페예약번호
 	private String photoName; 	// 대표사진
 	private Date today;			// 장바구니에 담은 날짜
-	private String clTime;      // 클래스 시간
+	private String clTime;		// 클래스타임
 }

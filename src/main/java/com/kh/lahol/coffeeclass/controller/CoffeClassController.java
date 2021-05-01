@@ -2,32 +2,21 @@ package com.kh.lahol.coffeeclass.controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
-import java.net.URLEncoder;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -42,19 +31,11 @@ import com.kh.lahol.coffeeclass.model.vo.ClassRegister;
 import com.kh.lahol.coffeeclass.model.vo.ClassSearch;
 import com.kh.lahol.coffeeclass.model.vo.CoffeeClass;
 import com.kh.lahol.coffeeclass.model.vo.PageInfo;
-import com.kh.lahol.coffeeclass.model.vo.Paging;
 import com.kh.lahol.coffeeclass.page.Pagination;
-import com.kh.lahol.common.model.exception.CartException;
 import com.kh.lahol.common.model.vo.Payment;
+import com.kh.lahol.common.model.vo.Report;
 import com.kh.lahol.member.model.vo.Member;
 import com.kh.lahol.mypage.normal.model.vo.ClassReview;
-import com.kh.lahol.store.model.vo.Pr_pay_w;
-import com.kh.lahol.store.model.vo.Prpay;
-import com.kh.lahol.store.model.vo.Search;
-import com.kh.lahol.store.model.vo.Sh_status;
-import com.kh.lahol.store.model.vo.storeA;
-import com.kh.lahol.store.model.vo.storeQ;
-import com.kh.lahol.store.page.Pagination3;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -83,16 +64,9 @@ public class CoffeClassController {
 		System.out.println(listCount);
 
 		// 요청 페이지에 맞는 클래스 리스트 조회
-		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+		PageInfo pi = Pagination.getPageInfo(currentPage, listCount); // currentPage - 현재 페이지, listCount - 총 게시글 수
 		List<CoffeeClass> list = clService.selectList(pi);
-		
-		
-		// new페이징
-		/*
-		 * Paging paging = new Paging(1, 5); // 첫 페이지에서 5개의 값을 보여준다. List <CoffeeClass>
-		 * list = clService.selectListWithPaging(paging);
-		 */
-		
+		System.out.println(list);
 
 		if (list != null) {
 			mv.addObject("list", list);
@@ -319,14 +293,12 @@ public class CoffeClassController {
 	  
 	  // 클래스 댓글 신고
 	  @PostMapping("/coffeeclass/commentreport")
-	  public String commentReport(@ModelAttribute CoffeeClass cl, @ModelAttribute ClassReview clr, HttpServletRequest request,
+	  public String commentReport(@ModelAttribute CoffeeClass cl, @ModelAttribute Report r,
+			  				  HttpServletRequest request,
 							  Model model, String cl_writer) {
 	  
 	  Member loginUser = (Member)request.getSession().getAttribute("loginUser");
-	  model.addAttribute("clr", clr);
-	  
-	  
-	  
+
 	  int result = clService.reportClComment(cl);
 	  
 	 		
@@ -529,7 +501,7 @@ public class CoffeClassController {
 		
 	  // 클래스 수강신청(바로결제) 페이지 이동
 	  @GetMapping("/coffeeclass/register")
-	  public String registerClass(Model model, String classNo , 
+	  public String bringClass(Model model, String classNo , 
 			  					HttpServletRequest request, String selectedTime) {
 		  
 		  // 클래스 수정 로직 사용 (불러오는 정보가 같음)
@@ -550,20 +522,24 @@ public class CoffeClassController {
 	  
 	  // 클래스 수강신청(DB INSERT)
 	  @PostMapping("/coffeeclass/registser/insert")
-	  public String reisterClass(@ModelAttribute Payment clp, Model model, 
-			  					 HttpServletRequest request, HttpSession session, RedirectAttributes rttr,
-			  					 String clTime, String buyerId) {
+	  public String reisterClass(@ModelAttribute Payment clp, Model model,
+			  					 String couponPrice, String total,
+			  					 HttpServletRequest request, HttpSession session,
+			  					 RedirectAttributes rd) {
 			
 		  Member loginUser = (Member)session.getAttribute("loginUser");
-		  String classNo = request.getParameter("classNo");		   
-		  clp.setClTime(clTime);
-		  clp.setClPayNo(classNo);
-		  clp.setBuyId(buyerId);
+		  System.out.println("클래스 수강신청 : " + clp);
 		  
-		  int result = clService.registerClass(clp);
+		  List<Object> list = new ArrayList<>();
+		  
+		  list.add(clp);
+		  list.add(couponPrice);
+		  list.add(total);
+		  
+		  int result = clService.registerClass(list);
 		  
 		  if(result > 0) {
-				return"mypage/normal/paymentList";
+				return"redirect:/nMypage/paymentView";
 			} else {
 			model.addAttribute("msg", "결제에 실패하였습니다.");
 			return "common/error";
