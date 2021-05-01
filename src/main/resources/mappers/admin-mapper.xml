@@ -454,4 +454,18 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 		 	</when>
 		 </choose>
 		</select>
+		<select id="selectProfitByTerm" parameterType="map" resultType="A_Profit">
+	    SELECT
+              (SUM(CASE WHEN REGEXP_REPLACE(PAY_NO, '[0-9]') != 'AD' THEN PAY_TOTAL ELSE '0' END)) * 0.05  AS FEE,
+              (SUM(CASE WHEN REGEXP_REPLACE(PAY_NO, '[0-9]') = 'AD' THEN PAY_TOTAL ELSE '0' END))  AS AD,
+              (SUM(CASE WHEN REGEXP_REPLACE(PAY_NO, '[0-9]') = 'STP' THEN PAY_TOTAL ELSE '0' END)) * 0.05 AS STOREFEE,
+              (SUM(CASE WHEN REGEXP_REPLACE(PAY_NO, '[0-9]') = 'CL' THEN PAY_TOTAL ELSE '0' END)) * 0.05 AS CLASSFEE, 
+              (SUM(CASE WHEN REGEXP_REPLACE(PAY_NO, '[0-9]') = 'CAP' THEN PAY_TOTAL ELSE '0' END)) * 0.05 AS CAFEFEE     
+	     FROM
+	   	  	  PAYMENT
+	    WHERE
+	    	  PAY_DATE <![CDATA[>]]> #{startDate}
+          AND
+          	  PAY_DATE <![CDATA[<]]> #{endDate}
+		</select>
 </mapper>

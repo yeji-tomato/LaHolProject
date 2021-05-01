@@ -26,6 +26,7 @@ import com.kh.lahol.admin.model.service.AdminService;
 import com.kh.lahol.admin.model.service.AdminServiceImpl;
 import com.kh.lahol.admin.model.vo.CafeList;
 import com.kh.lahol.admin.model.vo.Game;
+import com.kh.lahol.admin.model.vo.Profit;
 import com.kh.lahol.admin.model.vo.Promotion;
 import com.kh.lahol.admin.model.vo.Report_N;
 import com.kh.lahol.admin.model.vo.Report_P;
@@ -173,6 +174,13 @@ public class AdminController {
 		gm.setCouponName(couponName);
 		
 		adminService.insertCouponToUser(gm);
+	}
+	
+	// 커스텀 기간에 따른 수익 조회
+	@RequestMapping(value="/selectProfitByTerm", method=RequestMethod.POST)
+	@ResponseBody
+	public List<Profit> selectProfitByTerm(@RequestBody Map<String, Object> dates) {
+		return adminService.selectProfitByTerm(dates);
 	}
 }
  

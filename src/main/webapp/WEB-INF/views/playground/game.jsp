@@ -11,8 +11,8 @@
 		<link rel="stylesheet" href="${ contextPath }/resources/css/playground/game.css" />
 		<link rel="stylesheet" href="${ contextPath }/resources/css/common/fonts.css" />
 	</head>
-	<body style="background-color: #4B654A;">
-		<jsp:include page="/WEB-INF/views/common/menubar.jsp"/>
+	<body>
+	<jsp:include page="/WEB-INF/views/common/menubar.jsp"/>
 		<div class="board"></div>
 		<div class="clone">
 			<div class="face"></div>

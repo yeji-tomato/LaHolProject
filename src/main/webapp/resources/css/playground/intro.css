@@ -1,6 +1,5 @@
 @charset "UTF-8";
 body {
-    background-color: #4B654A;
 }
 
 #whole-container {
@@ -11,11 +10,11 @@ body {
 }
 
 #bean-container {
-    background-image: url('../../../resources/img/playground/beanbag.jpg');
+    background-image: url('../../../resources/img/playground/beancard.jpg');
 }
 
 #game-container {
-    background-image: url('../../../resources/img/playground/gamble.jpg');
+    background-image: url('../../../resources/img/playground/game2.jpg');
 }
 
 .card-container {
