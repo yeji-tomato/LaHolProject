@@ -46,5 +46,7 @@ public interface CafeDao {
 	int cafeQask(CafeQnA cq);
 	
 	List<CafeQnA> selectQnAList(String caCode);
+	
+	int cafeUserReport(Report rep);
 
 }

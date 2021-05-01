@@ -250,7 +250,7 @@ public class StoreController {
 	}
 	public String saveFile(MultipartFile file, HttpServletRequest request) {
 		String root = request.getSession().getServletContext().getRealPath("resources");
-		String savePath = root + "\\img\\store";
+		String savePath = root + "/img/store";
 		File folder = new File(savePath);
 		if(!folder.exists()) folder.mkdirs(); // -> 해당 경로가 존재하지 않는다면 디렉토리 생성
 		
@@ -261,7 +261,7 @@ public class StoreController {
 							+ (int)(Math.random() * 100000) 
 							+ originalFileName.substring(originalFileName.lastIndexOf("."));
 		
-		String renamePath = folder + "\\" + fileSystemNames; // 저장하고자하는 경로 + 파일명
+		String renamePath = folder + "/" + fileSystemNames; // 저장하고자하는 경로 + 파일명
 		
 		try {
 			file.transferTo(new File(renamePath));

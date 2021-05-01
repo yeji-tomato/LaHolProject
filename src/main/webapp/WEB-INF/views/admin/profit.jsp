@@ -33,7 +33,7 @@
 				<!--왼쪽 컨테이너-->
 				<div id="left-container">
 					<!--로고 컨테이너-->
-					<div id="logo-container">
+					<a id="logo-container" href="/lahol">
 						<img
 							id="logo"
 							src="${ contextPath }/resources/img/admin/common/logo_lightyellow.png"
@@ -41,7 +41,7 @@
 							width="62%"
 							height="auto"
 						/>
-					</div>
+					</a>
 					<!--카테고리 컨테이너-->
 					<div id="category-container">
 						<!-- 카테고리 리스트-->
@@ -315,10 +315,7 @@
 		    $(this).addClass('selected');
 		});
 		
-		$(function() {
-		    $('#day').trigger('click');
-		    $('#day').trigger('focus');
-		    
+		$(function() {		    
 		    // 서브카테고리 기본 숨김처리
 		    $('.sub-category').hide();
 		    $('#stats-category').addClass('active');
@@ -380,6 +377,8 @@
 		    },
 		  });
 
+		
+		/* 캘린더 적용 클릭 시 */
 		$('#calendar').on('apply.daterangepicker', function(ev, picker) {
 			$('#graph-box').hide();
 			$('#graph-alternative').show();
@@ -390,8 +389,177 @@
 		    
 		    $('.dateBtn').removeClass('selected');
 		    $('#custom-period').html(startDate + ' ~ ' + endDate);
+		    
+		    var dates = { "startDate": startDate, "endDate": endDate };
+		    
+		    $.ajax({
+		    	url: "selectProfitByTerm",
+		    	type : "post",
+		    	data : JSON.stringify(dates),
+	        	dataType : "json",
+ 	    		contentType : "application/json; charset=utf-8",
+	        	success : function(data) { // AJAX SUCCESS CODE STARTS HERE
+	
+        		const feeText = $('#fee-text');
+        		const adText = $('#ad-text');
+        		
+        		var ad = data[0].ad;
+        		var fee = data[0].fee;
+			        		
+       			 // 세 자리 콤마찍기 함수
+       			 function numberWithCommas(x) {
+       			     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+       			 };
+       			 
+	        		adText.text('₩ ' + numberWithCommas(ad));
+	        		feeText.text('₩ ' + numberWithCommas(fee));
+	        		console.log(data);
+	        		
+	        		/* charts.js */
+
+	        		/* 큰 도넛 */
+	        		$(document).ready(function(){
+	        			var options = {
+	        				// legend: false,
+	        				responsive: false
+	        			};
+	        			new Chart($("#big-doughnut"), {
+	        				type: 'doughnut',
+	        				tooltipFillColor: "rgba(51, 51, 51, 0.55)",
+	        				data: {
+	        				labels: [
+	        					"수수료",
+	        					"광고"
+	        				],
+	        				datasets: [{
+	        				data: [ad, fee],
+	        				backgroundColor: [
+	        					"rgb(54, 162, 235)",
+	        					"rgb(255, 205, 86)"
+	        				],
+	        				hoverBackgroundColor: [
+	        					"rgb(54, 162, 235)",
+	        					"rgb(255, 205, 86)"
+	        				]
+	        				}]
+	        			},
+	        				options: { 
+	        		                responsive: true
+	        		        }                   
+	        			});           
+	        		});
+	        		
+
+	        		/* 작은 도넛 */
+	        		/* 1. 스토어 도넛 */
+	        		var storeValue = data[0].storeFee;
+
+	        		$(document).ready(function(){
+	        			var options = {
+	        				// legend: false,
+	        				responsive: false
+	        			};
+	        			new Chart($("#store-donut"), {
+	        				type: 'doughnut',
+	        				tooltipFillColor: "rgba(51, 51, 51, 0.55)",
+	        				data: {
+	        				labels: [
+	        					"스토어"
+	        				],
+	        				datasets: [{
+	        				data: [(fee - storeValue) * 0.01, (fee) * 0.01],
+	        				backgroundColor: [
+	        					"#F8964C",
+	        		            "#fafafa"
+	        				],
+	        				hoverBackgroundColor: [
+	        					"#F8964C",
+	        		            "#fafafa"
+	        				]
+	        				}]
+	        			},
+	        				options: { 
+	        		                responsive: true
+	        		           }                   
+	        			});           
+	        		});
+
+	        		/* 2. 클래스 도넛 */
+	        		var classValue = data[0].classFee;
+
+	        		$(document).ready(function(){
+	        			var options = {
+	        				// legend: false,
+	        				responsive: false
+	        			};
+	        			new Chart($("#class-donut"), {
+	        				type: 'doughnut',
+	        				tooltipFillColor: "rgba(51, 51, 51, 0.55)",
+	        				data: {
+	        				labels: [
+	        					"클래스"
+	        				],
+	        				datasets: [{
+	        				data: [(fee - classValue) * 0.01, (fee) * 0.01],
+	        				backgroundColor: [
+	        					"#22A447",
+	        		            "#fafafa"
+	        				],
+	        				hoverBackgroundColor: [
+	        					"#22A447",
+	        		            "#fafafa"
+	        				]
+	        				}]
+	        			},
+	        				options: { 
+	        		                responsive: true
+	        		                }                   
+	        			});           
+	        		});
+
+	        		/* 3. 커피 도넛 */
+	        		var cafeValue = data[0].cafeFee;
+
+	        		$(document).ready(function(){
+	        			var options = {
+	        				// legend: false,
+	        				responsive: false
+	        			};
+	        			new Chart($("#coffee-donut"), {
+	        				type: 'doughnut',
+	        				tooltipFillColor: "rgba(51, 51, 51, 0.55)",
+	        				data: {
+	        				labels: [
+	        					"커피"
+	        				],
+	        				datasets: [{
+	        				data: [(fee - cafeValue) * 0.01, (fee) * 0.01],
+	        				backgroundColor: [
+	        					"#70A6E8",
+	        		            "#fafafa"
+	        				],
+	        				hoverBackgroundColor: [
+	        					"#70A6E8",
+	        		            "#fafafa"
+	        				]
+	        				}]
+	        			},
+	        				options: { 
+	        		                responsive: true
+	        		                }                   
+	        			});           
+	        		});
+	        		
+	        		
+	        	}, // AJAX SUCCESS CODE ENDS HERE
+	        	error : function(e) {
+	        		console.log(e);
+	        	}
+		    })
 		});
 
+		
+		
 		$('.period').click(function(){
 		    $('#custom-period').html('');
 		});
@@ -661,6 +829,13 @@
 		        	
 		        })
 		    });  // AJAX's VERY END
+		    
+		    
+	$(function() {	    
+		    $('#day').trigger('click');
+		    $('#day').trigger('focus');
+		});
+		    
 		});
 		</script>
 		<script src="${ contextPath }/resources/js/admin/darkMode.js"></script>

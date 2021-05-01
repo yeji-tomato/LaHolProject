@@ -64,7 +64,8 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 				PURCHASE_NO,
 				C_RES,
 				PHOTONAME,
-				TODAY
+				TODAY,
+				CL_TIME
 			)
 			VALUES
 			(
@@ -87,7 +88,8 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
                     FROM CAFE
                     WHERE C_CODE = #{cartName}
                 ),
-				SYSDATE
+				SYSDATE,
+				NULL
 			)
 		</insert>
 		
@@ -104,7 +106,8 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 				PURCHASE_NO,
 				C_RES,
 				PHOTONAME,
-				TODAY
+				TODAY,
+				CL_TIME
 		FROM CART
 		WHERE ID = #{id}
 		ORDER BY TODAY DESC
@@ -228,7 +231,8 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 				PURCHASE_NO,
 				C_RES,
 				PHOTONAME,
-				TODAY
+				TODAY,
+				CL_TIME
 			)
 			VALUES
 			(
@@ -253,6 +257,7 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
                     WHERE PR_NAME = #{cartName}
                 )
 				,SYSDATE
+				,NULL
 			)
 		</insert>
 		
@@ -297,16 +302,17 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 				PURCHASE_NO,
 				C_RES,
 				PHOTONAME,
-				TODAY
+				TODAY,
+				CL_TIME
 			)
 			VALUES
 			(
 				  'CAT'|| CAT.NEXTVAL
 				, #{cartName}
 				, #{cartPrice}
+				, 1
 				, NULL
 				, NULL
-				, #{classtime}
 				, #{classNo}
 				, #{userId}
 				, NULL
@@ -316,7 +322,8 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 					FROM COFFEECLASS
 					WHERE CLASS_NO = #{classNo}
                 ),
-				SYSDATE
+				SYSDATE,
+				#{clTime}
 			)
 		
 		</insert>

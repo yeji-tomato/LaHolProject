@@ -33,7 +33,7 @@
 				<!--왼쪽 컨테이너-->
 				<div id="left-container">
 					<!--로고 컨테이너-->
-					<div id="logo-container">
+					<a id="logo-container" href="/lahol">
 						<img
 							id="logo"
 							src="${ contextPath }/resources/img/admin/common/logo_lightyellow.png"
@@ -41,7 +41,7 @@
 							width="62%"
 							height="auto"
 						/>
-					</div>
+					</a>
 					<!--카테고리 컨테이너-->
 					<div id="category-container">
 						<!-- 카테고리 리스트-->
@@ -308,26 +308,22 @@
 		    $(this).addClass('selected');
 		});
 		
-
 		
 		$(function() {
 		    
 		    // 서브카테고리 기본 숨김처리
 		    $('.sub-category').hide();
 		    $('#coupon-category').addClass('active');
-
 		    $('.big-category').click(function(){
 		        var currentContent = $(this).siblings().find('li');
 		        $('.sub-category').not(currentContent).slideUp();
 		        currentContent.slideToggle();
 		    });
-
 		    $(".big-category").click(function(e) {
 		        e.preventDefault();
 		        $(".big-category").removeClass("active");
 		        $(this).addClass("active");
 		    });
-
 		    $(".sub-category").click(function(e) {
 		        e.preventDefault();
 		        $(".sub-category").removeClass("active");
@@ -363,13 +359,82 @@
 		    	data : JSON.stringify(dates),
 	        	dataType : "json",
  	    		contentType : "application/json; charset=utf-8",
-	        	success : function(data) {
+	        	success : function(data) { // AJAX SUCCESS CODE STARTS HERE
 	        		
 	        		var jData = JSON.stringify(data);
 	        		
 	        		dataTable.attr('data', jData).trigger("create");
 	        		console.log(data);
-	        	},
+	        		
+	        		// 발급
+	        		var sumIssued = 0;
+	        		// 가용
+	        		var sumAvailable= 0;
+	        		// 만료
+	        		var sumExpired = 0;
+	        		// 사용
+	        		var sumUsed = 0;
+	        		
+	        		for(var e in data) {
+	        			 sumIssued += data[e].limit * data[e].issued;
+	        			 sumAvailable += data[e].limit * (data[e].issued - data[e].used - data[e].expired);
+	        			 sumExpired += data[e].limit * data[e].expired;
+	        		};
+	        		 sumUsed = sumIssued - sumAvailable - sumExpired;
+	        		
+        			 console.log("발급 : " + sumIssued);
+        			 console.log("가용 : " + sumAvailable);
+        			 console.log("만료 : " + sumExpired);
+        			 console.log("사용 : " + sumUsed);
+	        	
+        			 // 세 자리 콤마찍기 함수
+        			 function numberWithCommas(x) {
+        			     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        			 };
+        			 
+	        		rest.text('₩ ' + numberWithCommas(sumAvailable));
+	        		expired.text('₩ ' + numberWithCommas(sumExpired));
+	        		used.text('₩ ' + numberWithCommas(sumUsed));
+	        		totalPrice.text('₩ ' + numberWithCommas(sumIssued));
+	        		
+	        		/* 하프 도넛 차트 */
+	        		$(document).ready(function(){
+	        			var options = {
+	        				// legend: false,
+	        				responsive: false
+	        			};
+	        			new Chart($("#big-doughnut"), {
+	        				type: 'doughnut',
+	        				tooltipFillColor: "rgba(51, 51, 51, 0.55)",
+	        				data: {
+	        				labels: [
+	        					"가용",
+	        					"사용",
+	        		            "만료"
+	        				],
+	        				datasets: [{
+	        				data: [sumAvailable, sumUsed, sumExpired],
+	        				backgroundColor: [
+	        					"rgb(54, 162, 235)",
+	        					"rgb(255, 205, 86)",
+	        		            "#ff6384"
+	        				],
+	        				hoverBackgroundColor: [
+	        					"rgb(54, 162, 235)",
+	        					"rgb(255, 205, 86)",
+	        		           "#ff6384"
+	        				]
+	        				}]
+	        			},
+	        				options: { responsive: true,
+	        		            rotation: 1 * Math.PI,
+	        		            circumference: 1 * Math.PI}
+	        			});           
+	        		});
+	        		
+	        		
+	        		
+	        	}, // AJAX SUCCESS CODE ENDS HERE
 	        	error : function(e) {
 	        		console.log(e);
 	        	}
@@ -462,8 +527,6 @@
 		        })
 		    });    
 		});
-
-
 		/* 캘린더 */
 		$('#calendar').daterangepicker({
 		    timePicker: false,
@@ -500,13 +563,12 @@
 		    ],
 		    },
 		  });
-
-
+		
+		
 		/* 캘린더 취소 버튼 클릭 시 */
 		$('#calendar').on('cancel.daterangepicker', function(ev, picker) {
 		    $('#custom-period').html('');
 		});
-
 		$('.period').click(function(){
 		    $('#custom-period').html('');
 		});
@@ -515,8 +577,6 @@
 		    $('#day').trigger('click');
 		    $('#day').trigger('focus');
 		});
-
-
 		</script>
 		<script src="${ contextPath }/resources/js/admin/darkMode.js"></script>
 	</body>

@@ -149,5 +149,10 @@ public class AdminServiceImpl implements AdminService{
 		return adminDao.selectYearlySales(s);
 	}
 
+	@Override
+	public List<Profit> selectProfitByTerm(Map<String, Object> dates) {
+		return adminDao.selectProfitByTerm(dates);
+	}
+
 
 }

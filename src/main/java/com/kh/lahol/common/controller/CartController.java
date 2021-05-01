@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.lahol.common.model.vo.Cart;
@@ -150,7 +151,7 @@ public class CartController{
 		// System.out.println("쿠폰 아이디" + id);
 
 		List<Coupon> couponlist = cartService.couponSelectList(id);
-		System.out.println(couponlist);
+		//System.out.println(couponlist);
 		
 		mv.addObject("couponlist", couponlist);
 		mv.setViewName("cart/coupon");
@@ -218,7 +219,6 @@ public class CartController{
 	public String couponUse(@ModelAttribute Coupon cop, 
 				@SessionAttribute("loginUser") Member m, String couponCode) throws CartException{
 		
-		
 		   String id = m.getId();
 		   if(!couponCode.equals("")) {
 			   cop.setId(id);
@@ -245,11 +245,11 @@ public class CartController{
 		
 		 
 		
-		    System.out.println("제품번호"+sT);
+		    //System.out.println("제품번호"+sT);
 		    
 		    
 		     int result = cartService.deleteCart(sT); 
-		     System.out.println(result);
+		     //System.out.println(result);
 		     
 		     
 		   
@@ -259,25 +259,26 @@ public class CartController{
 		   
 	}
 	
-	/*
-	 * @GetMapping("/deltecart") public ModelAndView
-	 * deltecart(@SessionAttribute("loginUser") Member m, ModelAndView mv) {
-	 * 
-	 * String id = m.getId();
-	 * 
-	 * List<Cart> cartlist = cartService.cartSelectList(id);
-	 * 
-	 * int cartNum = cartService.cartNum(id);
-	 * 
-	 * mv.addObject("cartlist", cartlist); mv.addObject("cartNum", cartNum);
-	 * mv.setViewName("cart/cart");
-	 * 
-	 * 
-	 * return mv;
-	 * 
-	 * 
-	 * }
-	 */
+	// 여기부분 수정 해야함
+	@PostMapping("/cafe/cartPayment")
+	public String cartPayment(@ModelAttribute Payment p, double discountTwo, double payPrice){
+
+	
+		System.out.println(payPrice);
+		double discount = (double)discountTwo;
+		System.out.println(discount);
+
+		double dc = (double)payPrice*(discount/100);
+		System.out.println(dc);
+		
+		
+		
+		System.out.println("카페 장바구니 : "+ p);
+		System.out.println("사용자가 선택한 쿠폰 : "+ discountTwo);
+		
+		
+		return null;	
+	}
 	
 	// 결제 성공 시 장바구니 비우기
 	@PostMapping("/success")
@@ -295,32 +296,12 @@ public class CartController{
 		
 	}
 	
-	// 클래스 장바구니
+	// 클래스 장바구니 insert
 	@PostMapping("/cartclass")
-	public String classCart(@ModelAttribute Cart ct, int clPrice,
-							String classNo, String className, String classDate, String buyerId, 
-							int classTime, HttpSession session) throws CartException {
-
+	public String classCart(@ModelAttribute Cart ct, HttpSession session) throws CartException {
 		
-		ct.setUserId(buyerId);
-		
-		DateFormat sdFormat = new SimpleDateFormat(classDate);
-		Date nowDate = new Date();
-		String tempDate = sdFormat.format(nowDate);
-
-		
-		System.out.println("날짜" + tempDate);
-		
-		ct.setCartRes(tempDate);
-		//ct.setShipFee(classTime);
-		ct.setCartName(className);
-		
-		
-		System.out.println("제품값 :" +  clPrice);
-		ct.setCartPrice(clPrice);
 		int result = cartService.classcartInsert(ct);
-		
-		ct.setCartName(className);		
+			
 		
 		if(result > 0) {
 			return "coffeeclass/class_main";
@@ -331,17 +312,4 @@ public class CartController{
 	}
 	
 	
-	/*
-	 * // 클래스 장바구니 담기
-	 * 
-	 * @PostMapping("/coffeeclass/insert") public String
-	 * classCartInsert(@ModelAttribute Cart bc, String total) { int price =
-	 * Integer.parseInt(total); bc.setCartPrice(price);
-	 * System.out.println("controller : "+ bc);
-	 * 
-	 * int result = cartService.classCartInsert(bc);
-	 * 
-	 * if(result > 0) { return "cart/cart"; }else { throw new
-	 * CartException("장바구니에 값 넣는 것을 실패하였습니다."); } }
-	 */
 }

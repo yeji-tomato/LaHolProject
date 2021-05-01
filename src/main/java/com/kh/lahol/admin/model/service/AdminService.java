@@ -63,6 +63,8 @@ public interface AdminService {
 
 	String selectMonthlySales(String i);
 
-	String selectYearlySales(String s);	
+	String selectYearlySales(String s);
+
+	List<Profit> selectProfitByTerm(Map<String, Object> dates);	
 
 }

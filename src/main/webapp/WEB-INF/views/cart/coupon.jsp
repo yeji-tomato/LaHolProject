@@ -88,11 +88,11 @@
 		        	 
 		        	 
 		        	 $("#couponSequence", opener.document).text(radioVal);
-		        	 
+		        	 $("#discountTwo", opener.document).text(couponValue);
 		        	 $("#applyCoupon", opener.document).val(radioLabel);
 		        	 
-			          $("#couponPrice", opener.document).text(numberWithCommas(discountValue));
-			          $("#resultPrice", opener.document).text(numberWithCommas(resultPrice));
+			          $("#couponPrice", opener.document).text(discountValue);
+			          $("#resultPrice", opener.document).text(resultPrice);
 	            	  	window.self.close();
 		          
 		          
