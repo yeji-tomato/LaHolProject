@@ -229,6 +229,9 @@
         .swal2-title {
         	font-family: 'NEXON Lv1 Gothic OTF';
         }
+        #classNametd:hover{
+        	cursor : pointer;
+        }
 
     </style>
 </head>
@@ -330,7 +333,8 @@
                         <c:forEach var="cl" items="${ list }">
 	                        <tr> <!-- 신청자 수 클릭 시 신청자 명단으로, 미답변 문의 클릭 시, 미답변 리스트 출력 -->
 	                            <td>${ cl.class_no }</td>
-	                            <td>${ cl.cl_name }</td>
+	                            <!-- 클래스명 클릭시 해당 클래스로 이동 -->
+	                            <td id="classNametd" onclick="selectClass('${cl.class_no}');">${ cl.cl_name }</td>
 	                            <td>${ cl.tr_name }</td>
 	                            <td>${ cl.c_name }</td>
 	                            <c:if test="${ cl.cl_time2 eq null && cl.cl_time3 eq null}">
@@ -464,6 +468,14 @@
         		$(this).css({"background" : "#FFF"});
         	});
         });
+    </script>
+    <script>
+    function selectClass(classNo){
+    		if(status == 'Y'){
+			location.href='${contextPath}/coffeeclass/classdetail?classNo='+classNo;
+    		}
+		}
+    }
     </script>
     <!-- footer -->
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"/>

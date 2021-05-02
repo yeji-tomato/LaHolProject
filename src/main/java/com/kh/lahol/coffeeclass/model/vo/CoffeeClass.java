@@ -46,7 +46,7 @@ public class CoffeeClass{
 	private String clPhoto;
 	private String clWriter;
 	private String category;
-	private int avggrade;
+	private double avggrade;
 	
 	// report정보
 	private String rpReason;

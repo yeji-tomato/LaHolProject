@@ -421,29 +421,22 @@ public class CoffeClassController {
 		  return "";
 	  }
 	  
-	 
-
-	  
 	  // 클래스 삭제 > 실제 삭제는 아니고 CL_STATUS를 'D'로 변경할 것
 	  @GetMapping("/coffeeclass/deleteClass")
 	  public String deleteClass(@ModelAttribute CoffeeClass cl, 
 			  					HttpServletRequest request,
-		  						Model model,
-		  						RedirectAttributes rd) {
+		  						Model model) {
 		 
-	
+		  	  String status = cl.getStatus();
 		 
 			  int result = clService.deleteClass(cl);
 			  
 			  if(result > 0) {
-				  rd.addFlashAttribute("msg", "클래스 삭제가 완료되었습니다.");
-				  return "coffeeclass/class_main";
+				  return "redirect:/coffeeclass";
 			  } else {
-				  model.addAttribute("msg", "클래스 삭제에 실패했습니다.");
-				  return "";
+				  return "common/error";
 			  }
-		    
-		  
+
 		  }
 
 	  // 클래스 문의,질문 등록

@@ -125,7 +125,7 @@
 			     </button>
 			   </h2>
 			   <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
-			     <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the third item's accordion body. Nothing more exciting happening here in terms of content, but just filling up the space to make it look, at least at first glance, a bit more representative of how this would look in a real-world application.</div>
+			     <div class="accordion-body">저희 라홀은 현재 총 5가지 카테고리로 나뉜 클래스를 제공합니다. 커피원두 로스팅클래스, 라테아트, 디저트, 학문으로써의 커피, 기타로 나뉘어있습니다. </div>
 			    </div>
 			  </div>
 			</div>

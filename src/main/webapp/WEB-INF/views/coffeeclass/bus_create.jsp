@@ -63,7 +63,7 @@
 				<table id="clTable" style="white;">
 					<tr id="clTr">
 						<td>클래스명</td>
-						<td class="answer"><input type="text" class="classdes" name="className" required></td>
+						<td class="answer"><input type="text" class="classdes" name="className" maxlength="30" placeholder="글자 수 30자 제한" required></td>
 					</tr>
 					<tr>
 						<td>사업자번호</td>
@@ -90,7 +90,6 @@
 					</tr>
 
 					<tr>
-						<!--검색으로 select-->
 						<td>주최카페</td>
 						<td class="answer" style="text-align: left;">
 						<input type="text" id="linkedcafe" value="${ mycafe.caName }" name="cafeName" readonly>
@@ -101,7 +100,7 @@
 					<tr>
 						<td>카테고리</td>
 						<td class="answer" style="text-align: left;">
-						<select name="category" style="width : 380px;" id="cate">
+						<select name="category" style="width : 380px;" id="cate" required>
 							 <option selected disabled="disabled">클래스 카테고리 선택</option>
 							 <option value="coffee">로스팅/원두</option>
 				             <option value="art">라테아트/디자인</option>
@@ -114,19 +113,19 @@
 
 					<tr>
 						<td>클래스 한 줄 소개</td>
-						<td class="answer"><input type="text" class="classdes" name="clShortDes"></td>
+						<td class="answer"><input type="text" class="classdes" name="clShortDes" required></td>
 					</tr>
 
 					<tr>
 						<td>클래스 상세 소개</td>
 						<td class="answer"><textarea
-							style="height: 200px; resize: none;" class="classdes" name="classDes" id="classDes"></textarea></td>
+							style="height: 200px; resize: none;" class="classdes" name="classDes" id="classDes" required></textarea></td>
 					</tr>
 
 					<tr>
 						<td>클래스 커리큘럼</td>
 						<td class="answer"><textarea style="height: 200px; resize: none;"
-							class="classdes" name="classCurri" placeholder="예시 : 세션1(20분) : 커피와 함께하는 커피의 역사  &#13;&#10; -휴식10분- &#13;&#10; 세션2(1시간): 현대 커피브랜드의 가치"></textarea></td>
+							class="classdes" name="classCurri" placeholder="예시 : 세션1(20분) : 커피와 함께하는 커피의 역사  &#13;&#10; -휴식10분- &#13;&#10; 세션2(1시간): 현대 커피브랜드의 가치" required></textarea></td>
 					</tr>
 
 					<tr>
@@ -143,13 +142,13 @@
 						
 						<td>강의 날짜</td>
 						<td class="answer" style="text-align: left;">
-						<input type="date" class="classdate end classdes" name="classDate" style="width : 380px;"></td>
+						<input type="date" class="classdate end classdes" name="classDate" style="width : 380px;" required></td>
 					</tr>
 					
 					<tr>
 						<td>강의 시간</td>
 						<td class="answer">
-						<input type="text" placeholder="하루 최대 3타임 운영가능" class="classdes" name="classTime"> 
+						<input type="text" placeholder="하루 최대 3타임 운영가능" class="classdes" name="classTime" required> 
 						<input type="text" placeholder="예시 ) 10:00 - 12:00" class="classdes" name="classTime2">
 						<input type="text" placeholder="예시 ) 19:00 - 21:00" class="classdes" name="classTime3">
 						</td>
@@ -184,14 +183,14 @@
 
 					<tr>
 						<td>희망 수강료</td>
-						<td class="answer"><input type="text" class="classdes" name="clPrice"></td>
+						<td class="answer"><input type="text" class="classdes" name="clPrice" required></td>
 						<td>원</td>
 					</tr>
 
 					<tr>
 						<td>수업 난이도</td>
 						<td class="answer" style="text-align: left;" class="classdes">
-						<select name="classLvl" style="width : 380px;" class="classdes">
+						<select name="classLvl" style="width : 380px;" class="classdes" required>
 								<option>난이도 선택</option>
 								<option value = "상">상</option>
 								<option value = "중">중</option>
@@ -202,12 +201,12 @@
 					<tr>
 						<td>소요시간</td>
 						<td class="answer"><input type="text"
-							placeholder="분 단위로 입력해주세요" class="classdes" name="clRuntime"></td>
+							placeholder="분 단위로 입력해주세요" class="classdes" name="clRuntime" required></td>
 						<td>분</td>
 				</table>
 				
 					<div class="btnarea">
-						<button type="button" class="submit btn" id="register" style="margin-bottom : 30px;"
+						<button type="submit" class="submit btn" id="register" style="margin-bottom : 30px;"
 						onclick="confirm('정말 제출하시겠습니까?')" >승인요청</button>
 						&nbsp;
 						<button type="button" class="btn" id="cancel" style="margin-bottom : 30px;"
