@@ -58,6 +58,11 @@
 	.reviews{
 		border-radius:0px;
 	}
+	
+		.bbb a{
+ 	color:black;
+ 	}
+ 
 </style>
 <body>
 <!-- menubar -->
@@ -522,7 +527,7 @@
 			               
 									<c:set var="loc" value="/store/storedetail?PR_CODE=${s.PR_CODE }" scope="page"/> 
 	                           <center>
-						                <table >
+						                <table class="bbb">
 						               
 							                <tr>
 												<td colspan="6">
@@ -740,7 +745,7 @@
 									<c:set var="loc" value="/store/storedetail?PR_CODE=${s.PR_CODE }" scope="page"/> 
 						                     
 					<center>
-	                <table >
+	                <table class="bbb" >
 		                <tr>
 							<td colspan="6">
 							<!-- [이전] -->
