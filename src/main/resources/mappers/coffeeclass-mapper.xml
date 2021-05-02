@@ -111,7 +111,7 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 		   FROM COFFEECLASS
 	  LEFT JOIN        
 			    (SELECT    CLASS_NO 
-			             , AVG(CL_GRADE) AS AVGGRADE
+			             , ROUND(AVG(CL_GRADE),1) AS AVGGRADE
 			     FROM      CL_REVIEW
 			     GROUP BY  CLASS_NO)
 		  USING (CLASS_NO)

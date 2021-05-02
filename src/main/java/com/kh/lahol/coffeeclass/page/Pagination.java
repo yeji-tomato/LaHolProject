@@ -7,8 +7,8 @@ public class Pagination {
 	public static PageInfo getPageInfo(int currentPage, int listCount) {
 		PageInfo pi = null; 
 		
-		int pageLimit = 10;	  
-		int classLimit = 5; 
+		int pageLimit = 3;	  
+		int classLimit = 12; 
 		
 		int maxPage = (int)Math.ceil((double)listCount / classLimit);
 		int startPage = (currentPage - 1) / pageLimit * pageLimit + 1;
