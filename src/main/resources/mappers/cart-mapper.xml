@@ -304,7 +304,12 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 			VALUES
 			(
 				'CLP'|| CLP.NEXTVAL
-				,'CL21'
+				,(SELECT
+				    CART_NAME
+				FROM 
+				    CART
+				    WHERE
+				    CLASS_NO = #{payItem})
 				,
 				(SELECT
 				    CART_PRICE
@@ -391,13 +396,6 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 		</insert>
 		
 
-		<!-- 장바구니 결제 성공 시 장바구니 비우기 -->
-		<delete id="successCart" parameterType="Cart">
-		DELETE
-		FROM CART
-		WHERE ID = #{id}
-		</delete>
-		
 		<!-- 장바구니 선택삭세지  -->
 		<delete id="deleteCart" parameterType="Cart">
 		DELETE
@@ -406,7 +404,27 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 			CART_NO = #{sT}
 		</delete>
 	 
+		<delete id="deleteCart1" parameterType="Cart">
+		DELETE
+		FROM CART
+		WHERE 
+			PURCHASE_NO = #{purchaseNo}
+		</delete>
 		
+		
+		<delete id="deleteCart2" parameterType="Cart">
+		DELETE
+		FROM CART
+		WHERE 
+			C_RES = #{cres}
+		</delete>
+		
+		<delete id="deleteCart3" parameterType="Cart">
+		DELETE
+		FROM CART
+		WHERE 
+			CLASS_NO= #{classNo}
+		</delete>
 		
 		<!-- 컬럼 수 조회하기 -->
 		<select id="cartNum" resultType="_int">
@@ -470,4 +488,19 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 		     , #{classNo}
 		)
 	</insert>
+	
+	
+	
+	
+	
+	
+	
+	
+		<!-- 장바구니 결제 성공 시 장바구니 비우기 -->
+		<delete id="successCart" parameterType="Cart">
+		DELETE
+		FROM CART
+		WHERE ID = #{id}
+		</delete>
+		
 </mapper>

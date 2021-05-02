@@ -436,6 +436,7 @@
 		
 		/* 날짜 버튼 클릭 시 */
 		$(function(){
+			$('body').attr('data-theme', sessionStorage.getItem('theme'));
 		    $(".dateBtn").click(function(event) {
 		    	const dataTable = $('#dataTable');
 		        var date = event.target.id;

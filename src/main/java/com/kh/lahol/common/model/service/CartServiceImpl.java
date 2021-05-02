@@ -66,11 +66,7 @@ public class CartServiceImpl implements CartService{
 
 	
 	
-	@Override
-	public int successCart(String id) {
-		return cartDao.successCart(id);
-	}
-
+	
 
 	@Override
 	public int cartNum(String id) {
@@ -83,18 +79,39 @@ public class CartServiceImpl implements CartService{
 		return cartDao.classcartInsert(ct);
 
 	}
+	
+	@Override
+	public int insertClOrder(String classNo) {
+		return cartDao.insertClOrder(classNo);
+	}
 
 	@Override
 	public int deleteCart(String sT) {
 		return cartDao.deleteCart(sT);
 	}
 
+	
+
 	@Override
-	public int insertClOrder(String classNo) {
-		return cartDao.insertClOrder(classNo);
+	public int successCart(String id) {
+		return cartDao.successCart(id);
 	}
 
-	
+	@Override
+	public int deleteCart1(String purchaseNo) {
+		return cartDao.deleteCart1(purchaseNo);
+	}
+
+	@Override
+	public int deleteCart2(String cres) {
+		return cartDao.deleteCart2(cres);
+	}
+
+	@Override
+	public int deleteCart3(String classNo) {
+		return cartDao.deleteCart3(classNo);
+	}
+
 	
 
 }

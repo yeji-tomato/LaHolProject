@@ -63,10 +63,7 @@ public class CartDaoImpl implements CartDao{
 		return sqlSession.insert("cartMapper.CartPayment3", pay);
 	}
 
-	@Override
-	public int successCart(String id) {
-		return sqlSession.delete("cartMapper.successCart", id);
-	}
+	
 
 
 	@Override
@@ -91,9 +88,31 @@ public class CartDaoImpl implements CartDao{
 		return sqlSession.insert("cartMapper.insertClOrder", classNo);
 	}
 
+	
+	
+	@Override
+	public int successCart(String id) {
+		return sqlSession.delete("cartMapper.successCart", id);
+	}
 
+	@Override
+	public int deleteCart1(String purchaseNo) {
+		return sqlSession.delete("cartMapper.deleteCart1", purchaseNo);
+	}
 
+	@Override
+	public int deleteCart2(String cres) {
+		return sqlSession.delete("cartMapper.deleteCart2", cres);
+	}
 
+	@Override
+	public int deleteCart3(String classNo) {
+		return sqlSession.delete("cartMapper.deleteCart3", classNo);
+	}
+
+	
+	//카트 제품 삭제
+ 
 	
 
 }

@@ -32,23 +32,30 @@ public interface CartService {
 
 	//클래스 결제
 	int CartPayment3(Payment pay);
+	// 클래스 카트
+	int classcartInsert(Cart ct);
 	
-	
-	int successCart(String id);
+	int insertClOrder(String classNo);
 
 
 	int cartNum(String id);
 
-	// 클래스 카트
-	int classcartInsert(Cart ct);
+
 
 	//장바구니 삭제
 	int deleteCart(String sT);
 
-	int insertClOrder(String classNo);
+
 
 	
+	int successCart(String id);
 
+	//제품 결제시 카드에서 삭제
+	int deleteCart1(String purchaseNo);
+
+	int deleteCart2(String cres);
+
+	int deleteCart3(String classNo);
 
 
 }

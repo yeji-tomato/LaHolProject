@@ -212,6 +212,8 @@ public class CartController{
 			 * String id = m.getId(); pay.setBuyId(id);
 			 */
 		  
+		  System.out.println("이게 무슨일이지???");
+		  
 		  
 		   if(purchaseNo != null) {
 			 int su = Integer.parseInt(psu);
@@ -226,7 +228,7 @@ public class CartController{
 		   System.out.println("제품번호 " +purchaseNo);
 		   pay.setPayItem(purchaseNo);
 		   pay.setPayPrice(purchaseNo);
-		   pay.setPayTotal(to);
+		   pay.setPayTotal(ptotal);
 		   pay.setBuyId(purchaseNo); 
 		
 		   pay.setPurchaseNumber(purchaseNo);
@@ -236,6 +238,8 @@ public class CartController{
 		   int result2 = sService.prpay2(pa); 
 		   //배송현황
 		   int result3 = sService.sh(st); 	
+		   
+		   int result4 = cartService.deleteCart1(purchaseNo); 
 		    
 		  	}
 		  	
@@ -246,7 +250,7 @@ public class CartController{
 				   pay.setPayItem(cres);
 				   pay.setCafeRes(cres);  
 				   int result2 = cartService.CartPayment2(pay);
-				   
+				   int result3 = cartService.deleteCart2(cres); 
 				   
 			}
 			
@@ -260,22 +264,14 @@ public class CartController{
 					pay.setPayItem(classNo);
 					pay.setClPayNo(classNo);
 					int result3 = cartService.CartPayment3(pay);
-					
-				} else {
-					return "";
-				}
+					 int result = cartService.deleteCart3(classNo); 
+				} 
 				   
 			}
 			
+			  return ""; 
+			
 		   
-		   
-		    
-		  return "cart/cart"; 
-			   
-		   
-		   
-		 	 
-		
 	}
 	
 	//쿠폰 사용 update
@@ -365,16 +361,18 @@ public class CartController{
 	}
 	
 	
+	
+	
 	// 결제 성공 시 장바구니 비우기
-	@PostMapping("/success")
+	@GetMapping("/success")
 	public String successCart(@SessionAttribute("loginUser") Member m) throws CartException{
 		
-		   
+		   System.out.println("장바구니삭제");
 		String id = m.getId(); 
 		   int result = cartService.successCart(id);
 		  
 		  if(result > 0) { 
-			  return "cart/cart"; 
+			  return "redirect:/"; 
 		  }else { 
 			  throw new CartException("장바구니 비우기를 실패하였습니다."); 
 		  }
