@@ -26,7 +26,7 @@
 			href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css"
 		/>
 	</head>
-	<body data-theme="light">
+	<body data-theme="">
 		<!--!! 최상단 컨테이너-->
 		<div id="whole-container">
 			<!--𖤐 왼쪽 영역-->
@@ -305,6 +305,11 @@
 			</section>
 		</div>
 		<script>
+		
+		$(function(){
+			verifyDarkMode();
+		});
+		
 		$(function() {
 		    $('#day').trigger('click');
 		    $('#day').trigger('focus');

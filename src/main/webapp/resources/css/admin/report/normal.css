@@ -200,8 +200,8 @@ body {
 }
 
 #waiting-list,
-#confirmed-list {
-    padding-top: 5%;
+#completed-list {
+    padding-top: 2%;
 }
 
 #img-container {

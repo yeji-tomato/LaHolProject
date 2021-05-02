@@ -18,9 +18,9 @@
 						<p>원두 테스트</p>
 						<br>
 						<hr />
-						
 					</div>
 					<div class="items price">
+					<br>
 					<br>
 						<p>></p>
 					</div>
@@ -33,9 +33,9 @@
 						<p>게임 플레이</p>
 						<br>
 						<hr />
-						
 					</div>
 					<div class="items price">
+					<br>
 					<br>
 						<p>></p>
 					</div>

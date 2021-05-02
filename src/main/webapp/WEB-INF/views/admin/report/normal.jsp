@@ -288,6 +288,10 @@
 		</div>
 		<script>
 		// 페이지 온 로드 박스컨텐츠 숨김
+		$(function(){
+			verifyDarkMode();
+		});
+		
 		const boxContents = $('#ad-img, #ad-text, #ad-buttons');
 		
 		$(function(){	

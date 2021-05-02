@@ -12,7 +12,7 @@
 		<script src="https://cdn.zinggrid.com/zinggrid.min.js" defer></script>
 		<script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 	</head>
-	<body data-theme="light">
+	<body data-theme="">
 		<!--!! 최상단 컨테이너-->
 		<div id="whole-container">
 			<!--𖤐 왼쪽 영역-->
@@ -277,6 +277,9 @@
 		</div>
 		
 		<script>
+		$(function(){
+			verifyDarkMode();
+		});
 		
 		// 페이지 온 로드 박스컨텐츠 숨김
 		const boxContents = $('#ad-img, #ad-text, #ad-buttons');
