@@ -89,7 +89,7 @@
 		                        </center>
 		                        </div>
 		                        <button  id="ifs" onclick="location.href='${ contextPath }/store/updatepage?PR_CODE=${ s.PR_CODE }'" >수정</button>   
-		                        <button type="submit" id="ifd" onclick="location.href='${ contextPath }/store/delete?PR_CODE=${ s.PR_CODE }'">삭제</button>  
+		                        <button    id="ifd" data-bs-toggle="modal" data-bs-target="#deleteModal${s.PR_CODE}"  >삭제</button>  
 		                    </div> 
 		                     
 		                    </c:forEach>
@@ -169,6 +169,59 @@
           		  
     	 
     </section>
+ 
+ 
+  <c:forEach var="s" items="${ list }">   
+ <div class="modal fade" id="deleteModal${s.PR_CODE}" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header" style="background-color: #4B654A;">
+				<h5 class="modal-title" id="deleteModalLabel" style="color: white;">
+					<img src="${ contextPath }/resources/img/common/logo-lahol2.png" class = "logoimg"
+					style="width : 30px; height: 30px;">
+					경고
+				</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+				
+				<h5 class="sorry-text"> 삭제 유의사항 </h5> 
+	            <h6>상품 삭제 시 업로드하신 상품의 내용과 함께 댓글과 질의응답 </h6>
+	            	<h6 style="color:red"> 모두 삭제되며 복구가 어렵습니다.한번더 삭제하는 상품의 정보를 확인하세요 </h6>
+	                <h6> 
+	                		제품명  : ${ s.PR_NAME } 
+	                </h6>
+	
+						<br>
+						<p class="alert-text">
+						정말 삭제하시겠습니까? 
+						</p>
+					</p>
+					
+					</div>
+					<div class="modal-footer" style="background-color: #4B654A;">
+					<button type="button" class="btn btn-danger"  onclick="location.href='${ contextPath }/store/delete?PR_CODE=${s.PR_CODE}'"
+					>삭제</button>
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+					</div>
+				</table>
+			</div>
+			</div>
+		</div>
+ </c:forEach>
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
  
     <script>
 		function selectStore(PR_CODE){

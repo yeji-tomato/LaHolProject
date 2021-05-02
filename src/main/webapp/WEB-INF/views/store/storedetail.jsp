@@ -231,9 +231,9 @@
 	                    
 	                             <form  id="terms_form" action="${ contextPath }/cart/storecart"  method="post"  >    
 	                             
-	                            				<input type="hidden" name="price" value="${s.PR_PRICE}">
-	                            				<input type="hidden" name="pr_code" value="${s.PR_CODE}">
-	                            			 	<input type="hidden" name="name" value="${s.PR_NAME }">
+	                            				<input type="hidden" class="price" name="price" value="${s.PR_PRICE}">
+	                            				<input type="hidden" class="pr_code" name="pr_code" value="${s.PR_CODE}">
+	                            			 	<input type="hidden" class="name" name="name" value="${s.PR_NAME }">
 	                            			 	<input type="hidden" name="photo" value="${s.STORE_PHOTO1}">
 	                            		 		
 	                                 			  <div class="subdiv">
@@ -264,8 +264,7 @@
                                    
 							 </form>
 
-	 
-							 
+	 					 
 	                        <div class="btnDiv">
 	                        
 	                        <c:if test="${ !empty sessionScope.loginUser }">
@@ -299,22 +298,67 @@
 	                </div>
 	                
 	                
+	                	
+	              
+	             
 	         
 	                <script>
 	                $(document).on('click', '#cart-btn', function(){
-	                	Swal.fire("장바구니추가되었습니다") .then(function(result) {
-	    					if(result.isConfirmed) {
-	    						 $("#terms_form").submit();
-	    					} else {
-	    						return;
-	    					}
-	    				}); 
-	                   
+	                	 
+	                	var p_num1 = $("input[name=p_num1]").val();
+	                	
+	                	Swal.fire({
+							title : '상품이 장바구니에 추가되었습니다.',
+							text : "쇼핑을 계속 하시겠습니까??",
+							icon : 'success',
+							showCancelButton : true,
+							confirmButtonColor : '#4B654A',
+							cancelButtonColor : '#d33',
+							confirmButtonText : '계속 쇼핑',
+							cancelButtonText : '장바구니로'
+						}).then(function(result) {
+							if(result.isConfirmed) {
+								 $.ajax({
+					              	    url:"${ contextPath }/cart/storecart",
+					               		type : "post",
+					               		dataType : 'json',
+					               		data : {
+					               			price :   ${ s.PR_PRICE },
+					               		 
+					               			pr_code : ${ s.PR_CODE },
+					               			
+					               			name : "${ s.PR_NAME }",
+					               			
+					               			p_num1 : p_num1 
+					               			 
+					               		},
+					               		success : function(data){
+					               			location.href="${ contextPath }/store/storemain";
+					               		},
+					               		error : function(e){
+					       					console.log(e);
+					       				}
+					               		
+					              		}); 
+							} else {
+							
+								 $("#terms_form").submit();
+							}
+						});
+	                	
+	                	
+	                 
+	         	
+	         			 
+	         			 
 	            	});
 	                </script>
 	                 <script>
 	                $(document).on('click', '#register-btn', function(){
 	                
+	                	
+	                	
+	                	
 	                    $("#cart").submit();
 	            	});
 	                </script>
@@ -405,10 +449,10 @@
 									    
 									            <tr>
 									               <c:if test="${ r.purchase_number != null }">  
-									               <td style="width: 66px;"><button id="sub" style="width:50px;">일반</button></td>
+									               <td style="width: 66px;"><button id="sub" style="width:50px;  background-color:#935039; border-color:#935039;" >일반</button></td>
 									               </c:if>
 									                <c:if test="${ r.subscribe_code != null }">  
-									               <td style="width: 66px;"><button id="sub" style="width:50px;">구독</button></td>
+									               <td style="width: 66px;"><button id="sub" style="width:50px;background-color:#935039; border-color:#935039;">구독</button></td>
 									               </c:if>
 									               <td style="width: 216px;"> <div class="wrap-star"style="margin-top: 5px;"> 
 												     	<c:if test="${ r.review_grade == 0.5 }">  
@@ -645,7 +689,7 @@
 							                       	   			<h6 style="color:blue;">답변대기
 							                       	   			 <c:forEach var="c" items="${ CafeCode }"  > 
 														 			<c:if test="${ !empty sessionScope.loginUser && c eq loginUser.id }"> 
-																	 <button type="button" id="aa" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal${ q.qnaNo}">답변 </button></h6>
+																	 <button type="button" id="aa" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal${ q.qnaNo}" style="background-color:#935039; border-color:#935039;" >답변 </button></h6>
 														 			</c:if>
 														 		</c:forEach>
 							                       	   			 <c:set var="loop_flag" value="true" />
@@ -659,7 +703,7 @@
 														 		<h6 style="color:blue;">답변대기
 														 		 <c:forEach var="c" items="${ CafeCode }"  > 
 														 			<c:if test="${ !empty sessionScope.loginUser && c eq loginUser.id }"> 
-																	 <button type="button" id="aa" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal${ q.qnaNo}">답변 </button></h6>
+																	 <button type="button" id="aa" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal${ q.qnaNo}" style="background-color:#935039; border-color:#935039;">답변 </button></h6>
 														 			</c:if>
 														 		</c:forEach>
 														 </c:if>
@@ -734,7 +778,7 @@
 	                       	 
 	                       	 
 	                       	 <c:if test="${ !empty sessionScope.loginUser }">
-	                       	  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#QModal" > 질문</button>
+	                       	  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#QModal"  style="background-color:#e3a259; border-color:#e3a259;"> 질문</button>
 	                       	 </c:if>
 	                       	 
 	                       	 
