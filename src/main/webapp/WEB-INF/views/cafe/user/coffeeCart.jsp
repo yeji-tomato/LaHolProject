@@ -89,7 +89,7 @@
      			cartCount : cartCount
      		},
      		success : function(data){
-     			Swal.fire({
+     			/* Swal.fire({
   				  title: '장바구니에 추가되었습니다!',
   				  icon: 'success',
   				  confirmButtonColor: '#E5BD62',
@@ -99,7 +99,23 @@
   					location.href="${ contextPath }/cart/main";
   				  }
   			});
-     			
+     			 */
+     			Swal.fire({
+					title : '상품이 장바구니에 추가되었습니다.',
+					text : "쇼핑을 계속 하시겠습니까??",
+					icon : 'success',
+					showCancelButton : true,
+					confirmButtonColor : '#4B654A',
+					cancelButtonColor : '#810B0B',
+					confirmButtonText : '계속 쇼핑',
+					cancelButtonText : '장바구니로'
+				}).then(function(result) {
+					if(result.isConfirmed) {
+						location.href="${ contextPath }/cafe/user";
+					} else {
+						location.href="${ contextPath }/cart/main";
+					}
+				});
      			
      		},
      		error : function(e){

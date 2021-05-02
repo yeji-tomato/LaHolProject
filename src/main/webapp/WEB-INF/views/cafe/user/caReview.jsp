@@ -149,7 +149,7 @@
        
 
         
-        <!-- 후기 신고 모달 -->
+<!-- 후기 신고 모달 -->
   <!-- 회원 신고 -->
   <!-- Modal -->
   <c:forEach var="cr" items="${ caReview }">
@@ -168,7 +168,7 @@
 			</div>
 			<div class="modal-body">
 			<h5 class="sorry-text">페이지 사용에 불편을 드려 죄송합니다. <br> 신고가 접수되면 3일내로 처리됩니다. </h5>
-				<input type="hidden" id="reporteeId" value="${ cr.id }" name="">
+				<input type="hidden" id="reporteeId" value="${ cr.id }" name="reporteeId">
 				<table class = "rp_reason_table">
 					<tr>
 						<td><i class="far fa-user-circle"></i>&nbsp;신고대상 : ${ cr.id }</td>
@@ -176,8 +176,10 @@
 					<tr>
 						<td>
 							<input type="hidden" name="imgName" value="${ cr.crevIchName }">
-							<img src="${ contextPath }/resources/muploadFiles/review/${ cr.crevIchName }">
+							<img src="${ contextPath }/resources/muploadFiles/review/${ cr.crevIchName }" style="width: 30vw; height: 40vh;" ><br>
 						</td>
+				   </tr>
+				   <tr>
 						<td>
 						 	${ cr.crevCon }
 						</td>
