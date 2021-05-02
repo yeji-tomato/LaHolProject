@@ -20,7 +20,13 @@
     <!-- jQuery-->
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
   	<!-- iamport -->
-    <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>    
+    <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script> 
+    <style>
+    .classphotos{
+    	height : 50vh; 
+    	width : 45vw;
+    }
+    </style>   
 </head>
 <body>
    	<!-- menubar -->
@@ -138,70 +144,59 @@
                   
                   
                   
-                  
-                  	<!-- 바로결제 -->
-                  								
-                   <%--  <form id ="cl_register" action="${ contextPath }/coffeeclass/register"  method="GET">
-                    	-<input type="hidden" id= "class_no" name="classNo" value="${ coffeeclass.classNo }">
-                    	<input type="hidden" id = "cl_time" name="selectedTime" value = "${ coffeeclass.classTime }">
-                    	 <input type="hidden" id="user_id" name="buyerId" value="${ sessionScope.loginUser.id }">
-                    	<input type="hidden" id= "class_name" name="className" value="${ coffeeclass.className }">
-                    	<input type="hidden" id="cl_price" name="clPrice" value="${ coffeeclass.clPrice}">
-	                    <input type="hidden" id = "cl_date" name="classDate" value = "${ coffeeclass.classDate }">
-	                    
-                    </form> --%>
+            
                     
-                     <!-- 일반사용자들에게 보여지는 버튼 or 자신의 사업장이 아닌 클래스 열람시 보여지는 버튼 -->
-                     <c:if test="${ loginUser == NULL || loginUser.id ne coffeeclass.clWriter }">
-	                     <button class="btn" id = "register-btn">
-	                    	  수강신청
-	                      <i class="fa fa-credit-card-alt" aria-hidden="true"></i>
-	                    </button> 
-	                    <button type="button" class="btn" id = "cart-btn">
-	                      	  장바구니
-	                      <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-	                    </button>
-	                    <!-- 장바구니 -->
-	                    <form id = "cartclass" action="${ contextPath }/cart/cartclass" method="post">
-	                 
-                    	<input type="hidden" id= "class_no" name="classNo" value="${ coffeeclass.classNo }">
-                    	<input type="hidden" id= "class_name" name="cartName" value="${ coffeeclass.className }">
-                    	<input type="hidden" id="cl_price" name="cartPrice" value="${ coffeeclass.clPrice}">
-	                  <%--   <input type="hidden" id = "cl_date" name="shipFee" value = "${ coffeeclass.classDate }"> --%>
-	                    <input type="hidden" id = "cl_time" name="clTime" value = "${  coffeeclass.classDate }">
-	                    </form>
-	                    
-	                     <!--클래스 신고-->                    
-	                    <button style="border:transparent; background-color:transparent;">
-	                      <div class="report" style="margin-bottom: 3vh;">
-	                        <i class="fa fa-bullhorn" aria-hidden="true" id="reportclass" data-bs-toggle="modal" data-bs-target="#exampleModal"></i>
-	                      </div>
-	                    </button>
-                     </c:if>
-                    </div> 
-                    
-                    
-                    
-                    <!-- 클래스 개설한 당사자에게만 보여지는 버튼 -->
-                    <c:if test="${ loginUser != NULL && loginUser.id eq coffeeclass.clWriter }">
-                    <div class="btnDiv">
-	                    <button type="button" class= "btn" id="changeinfo"
-	                     onclick="location.href='${ contextPath }/coffeeclass/updateclass?classNo=${ coffeeclass.classNo }'">
-	                      	클래스 정보수정
-	                      <i class="fa fa-wrench" aria-hidden="true"></i>
-	                    </button>                     
-	                    <button type="button" class="btn btn-primary" id="cart-btn" data-bs-toggle="modal" data-bs-target="#deleteModal"
-	                     >
-	                                             클래스 삭제
-	                    <i class="fa fa-trash" aria-hidden="true"></i> 
-	                    </button>
-                    </div>  
-                    </c:if>   
+                <!-- 일반사용자들에게 보여지는 버튼 or 자신의 사업장이 아닌 클래스 열람시 보여지는 버튼 -->
+                <c:if test="${ loginUser == NULL || loginUser.id ne coffeeclass.clWriter }">
+                 <button class="btn" id = "register-btn">
+                	  수강신청
+                  <i class="fa fa-credit-card-alt" aria-hidden="true"></i>
+                </button> 
+                <button type="button" class="btn" id = "cart-btn">
+                  	  장바구니
+                  <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                </button>
+                <!-- 장바구니 -->
+                <form id = "cartclass" action="${ contextPath }/cart/cartclass" method="post">
+             
+               	<input type="hidden" id= "class_no" name="classNo" value="${ coffeeclass.classNo }">
+               	<input type="hidden" id= "class_name" name="cartName" value="${ coffeeclass.className }">
+               	<input type="hidden" id="cl_price" name="cartPrice" value="${ coffeeclass.clPrice}">
+              <%--   <input type="hidden" id = "cl_date" name="shipFee" value = "${ coffeeclass.classDate }"> --%>
+                <input type="hidden" id = "cl_time" name="clTime" value = "${  coffeeclass.classDate }">
+                </form>
+                
+                 <!--클래스 신고-->                    
+                <button style="border:transparent; background-color:transparent;">
+                  <div class="report" style="margin-bottom: 3vh;">
+                    <i class="fa fa-bullhorn" aria-hidden="true" id="reportclass" data-bs-toggle="modal" data-bs-target="#exampleModal"></i>
+                  </div>
+                </button>
+                </c:if>
+               </div> 
+               
+               
+               
+               <!-- 클래스 개설한 당사자에게만 보여지는 버튼 -->
+               <c:if test="${ loginUser != NULL && loginUser.id eq coffeeclass.clWriter }">
+               <div class="btnDiv">
+                <button type="button" class= "btn" id="changeinfo"
+                 onclick="location.href='${ contextPath }/coffeeclass/updateclass?classNo=${ coffeeclass.classNo }'">
+                  	클래스 정보수정
+                  <i class="fa fa-wrench" aria-hidden="true"></i>
+                </button>                     
+                <button type="button" class="btn btn-primary" id="delete-btn" data-bs-toggle="modal" data-bs-target="#deleteModal"
+                 >
+                                         클래스 삭제
+                <i class="fa fa-trash" aria-hidden="true"></i> 
+                </button>
+               </div>  
+               </c:if>   
                    
               </div>
         </div>
-    </div>
-  </div> 
+    	</div>
+  	  </div> 
 
       <!-- tab -->
       <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -224,9 +219,9 @@
         <!-- 상세 정보 -->
         <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                 <!-- Product description section 1-->
-                <div class="row align-items-center py-md-3">
+                <div class="row align-items-center py-md-3 detailinfo">
                     <!--사진-->
-                    <div class="col-lg-5 col-md-6 offset-lg-1 order-md-2"><img class="d-block rounded-3" src="${ contextPath }/resources/nuploadFiles/classImg/${ coffeeclass.clThumbnail }" alt="Image"></div>
+                    <div class="col-lg-5 col-md-6 offset-lg-1 order-md-2" ><img class="d-block rounded-3 classphotos" src="${ contextPath }/resources/nuploadFiles/classImg/${ coffeeclass.clThumbnail }" alt="Image"></div>
                     <!--설명-->
                     <div class="col-lg-4 col-md-6 offset-lg-1 py-4 order-md-1">
                     <h2 class="h3 mb-4 pb-2">클래스 소개</h2>
@@ -240,21 +235,21 @@
                     </div>
                 </div>
               <!-- Product description section 2-->
-              <div class="row align-items-center py-4 py-lg-5">
-                <div class="col-lg-5 col-md-6 offset-lg-1"><img class="d-block rounded-3" src="${ contextPath }/resources/nuploadFiles/classImg/${ coffeeclass.clPhoto} " alt="Map"></div>
+              <div class="row align-items-center py-4 py-lg-5 detailinfo">
+                <div class="col-lg-5 col-md-6 offset-lg-1"><img class="d-block rounded-3 classphotos" src="${ contextPath }/resources/nuploadFiles/classImg/${ coffeeclass.clPhoto} " alt="Map"></div>
                 <div class="col-lg-4 col-md-6 offset-lg-1 py-4">
                 <h2 class="h3 mb-4 pb-2">클래스 커리큘럼</h2>
                 <p class="fs-sm text-muted pb-md-2" style="white-space: pre-line;"> ${ coffeeclass.classCurri }</p>
                 </div>
               </div>
               <!-- Product description section 1-->
-              <div class="row align-items-center py-md-3">
+              <div class="row align-items-center py-md-3 detailinfo">
                 <!--사진-->
-                <div class="col-lg-5 col-md-6 offset-lg-1 order-md-2"><img class="d-block rounded-3" src="${ contextPath }/resources/nuploadFiles/classImg/${ coffeeclass.trPhoto}" alt="Image"></div>
+                <div class="col-lg-5 col-md-6 offset-lg-1 order-md-2"><img class="d-block rounded-3 classphotos" src="${ contextPath }/resources/nuploadFiles/classImg/${ coffeeclass.trPhoto}" alt="Image"></div>
                 <!--설명-->
                 <div class="col-lg-4 col-md-6 offset-lg-1 py-4 order-md-1">
                 <h2 class="h3 mb-4 pb-2">강사 소개</h2>
-                <h6 class="fs-base mb-3">${ coffeeclass.trName }</h6>
+                <h6 class="fs-base mb-3">${ coffeeclass.trName }&nbsp;강사님</h6>
                 <p class="fs-sm text-muted pb-2" style="white-space: pre-line;">${ coffeeclass.trIntro }</p>
                 </div>
             </div>

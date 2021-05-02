@@ -77,7 +77,7 @@
                                                         <span class="warning"></span>
                                                     
                                                 </div>
-                                                <div class="img"><img src="${ contextPath }/resources/img/store/${ s.STORE_PHOTO1 }" width="100"></div>
+                                                <div class="img"><img src="${ contextPath }/resources/img/store/${ s.STORE_PHOTO1 }" width="100" height="100"></div>
                                                 <div class="pname">
                                                 	 
                                                     <span> ${s.PR_NAME }</span>
@@ -95,7 +95,7 @@
                                                 <div class="sum" style=" width: 80px;"> <input type="hidden" name="sum" size="11" readonly  value=""  > ${ su*pr }   </div>
                                        
                                                <div class="del">
-                                               	<button style="border: 0; background: white;" onclick="javascript:history.back();" ><i class="fa fa-long-arrow-right" aria-hidden="true"></i></button>
+                                               	<button style="border: 0; background: white;" onclick="location.href='${contextPath}/store/storedetail?PR_CODE=${s.PR_CODE}&page=1&k=0'"  ><i class="fa fa-long-arrow-right" aria-hidden="true"></i></button>
                                                </div>
                                             </div>
                                             <div class="subdiv">
@@ -176,8 +176,7 @@
                         
                       
                          <input type="hidden" id="cfName"  value="${s.PR_NAME}">
-                         <input type="text" id="pr_code"  value="${s.PR_CODE}">
-                         <input type="text" id="su"  value="${su}"> 
+                       
                         
                        <div>
                            <!-- 쿠폰 및 전체 금액 -->
