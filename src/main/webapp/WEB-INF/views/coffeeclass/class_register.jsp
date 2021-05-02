@@ -72,7 +72,7 @@
                                                 <div class="date" style="width : 220px;">
                                                     ${ Date }   
                                                 </div>
-                                                <div class="time">
+                                                <div class="time" style="text-align: center; width : 220px;">
                                                 <input type="hidden" name="clTime" value="${ selectedTime }">
                                                 	${ selectedTime }
                                                 </div>
@@ -265,9 +265,6 @@
 				});
 				});
 			</script>
-			<!-- 비회원은 결제 불가 -->
-			$(){
-			}
 
             
         </section>

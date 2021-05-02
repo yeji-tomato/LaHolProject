@@ -15,6 +15,10 @@
 #searchValue::placeholder{
 	color:#fbf8e8;
 }
+
+#pagetable{
+ color:black
+}
 </style>
 </head>
 <body>
@@ -102,8 +106,8 @@
 	<div class="row">
 	
 	<!-- 각 카페에 대한 리스트 -->
-	
 	<c:forEach var="cl" items="${ list }">
+	<c:if test="${ cl.status eq 'Y' }">
 	<div class="col" id="classdetail" onclick="selectClass('${cl.classNo}');" style="max-width: 200px; margin: 2vw;">
  		<img src="${ contextPath }/resources/nuploadFiles/classImg/${ cl.clThumbnail }" class ="card-img-top">
 		<h4 style="padding-top: 5vh; height: 40px;">${ cl.className }</h4>
@@ -111,21 +115,23 @@
 		<p style="float:left; padding-top: 7vh;">${ cl.clPrice }원 </p>
 		
 		<!-- 별점 -->
-		<c:if test="${ cl.avggrade ne 0 }">
 		<div class="rating" style="float:right; padding-top: 7vh;">
+		
 			<c:forEach var = "i" begin="1" end="${ cl.avggrade }">
 	       	 <i class="fa fa-star"></i>
 			</c:forEach>
+			<c:if test="${ cl.avggrade ne 0 }">
 			 [${ cl.avggrade }점]
+			</c:if> 
 		</div>
-		
 	</div>
-	</c:forEach>
 	</c:if>
+	</c:forEach>
+	
 	
       
 	<!-- 페이징 처리 -->
-	<table style="color="black">
+	<table id="pagetable">
 		<tr>
 			<td colspan="6"  style="text-align : center;">
 			<!-- 이전 -->

@@ -331,6 +331,7 @@
                         </c:if>
                         <c:if test="${ !empty list }">
                         <c:forEach var="cl" items="${ list }">
+                        	<c:if test="${ cl.cl_status ne 'D' }">
 	                        <tr> <!-- 신청자 수 클릭 시 신청자 명단으로, 미답변 문의 클릭 시, 미답변 리스트 출력 -->
 	                            <td>${ cl.class_no }</td>
 	                            <!-- 클래스명 클릭시 해당 클래스로 이동 -->
@@ -353,6 +354,7 @@
 	                            <td><b>${ cl.people }</b></td>
 	                            <td>${ cl.cl_status }</td>
 	                        </tr>
+	                        </c:if>
                         </c:forEach>
                         </c:if>
                     </table>
@@ -471,11 +473,8 @@
     </script>
     <script>
     function selectClass(classNo){
-    		if(status == 'Y'){
-			location.href='${contextPath}/coffeeclass/classdetail?classNo='+classNo;
-    		}
+			location.href='${contextPath}/coffeeclass/classdetail?classNo='+classNo;	
 		}
-    }
     </script>
     <!-- footer -->
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"/>

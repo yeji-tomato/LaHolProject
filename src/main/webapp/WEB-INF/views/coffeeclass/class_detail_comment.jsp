@@ -129,7 +129,8 @@
 				      <td>${ qna.askDate }</td>
 				      	  <c:if test="${ loginUser != NULL && loginUser.id eq coffeeclass.clWriter }">
 				      <th scope="col" style="width : 100px">
-				          <button id="answerBtn" type="button" data-bs-toggle="modal" data-bs-target="#answerModal${qna.qnaNo}">답변하기</button>
+				          <button id="answerBtn" class="btn btn-warning" style="font-size: 10px;" 
+				          type="button" data-bs-toggle="modal" data-bs-target="#answerModal${qna.qnaNo}">답변하기</button>
 				      </th>
 				      </c:if>
 				    </tr>

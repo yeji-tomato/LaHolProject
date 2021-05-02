@@ -88,9 +88,16 @@
      }
 
      .btnDiv{
-       margin-top: 5%;
+       margin-top: 31%;
+       width: 100%;
+       margin-left: 50%;
        text-align: center;
      }
+     
+     .btnDiv .btn {
+     	margin: 5%;
+     }
+     
 
      #register-btn, #changeinfo{
       background-color: #935039;
@@ -103,6 +110,11 @@
      }
 
      #cart-btn{
+      background-color: #e3a259;
+      color: white;
+     }
+     
+     #delete-btn{
       background-color: #e3a259;
       color: white;
      }
@@ -511,5 +523,30 @@ height: 20px;
 width:20px;
 }
 
+#home{
+	 margin-top : 10vh; 
+	 margin-bottom: 20vh;
+	
+}
 
+/*상세정보*/
+.detailinfo{
+	margin-bottom : 15vh;	
+}
+
+.detailinfo p{
+	font-size: 20px;
+	color : black;
+}
+
+.detailinfo h6{
+	font-size: 23px;
+	color : black;
+	padding-bottom : 5vh;
+}
+
+.detailinfo h2{
+	color : orange;
+	padding-bottom : 1vh;
+}
 

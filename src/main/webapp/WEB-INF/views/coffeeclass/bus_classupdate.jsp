@@ -129,24 +129,6 @@
 			                <td><input type="text" class="classdes" name="classLoca2" value = "${ clAddresses[1] }"></td> 
 			            </tr>
 			        </tr>  
-					
-
-					<!-- <tr>
-            <h4>우편번호</h4>
-            <td class = "answer"><input type="text" class = "classdes">
-			<span class="input_area">
-			<input type="text" name="post" class="postcodify_postcode5" id="postcode" readonly>
-			</span>
-			&nbsp; <button id="postcodify_search_button" type="button">검색</button>
-			<h4>도로명주소</h4>
-			<span class="input_area">
-			<input type="text" name="address1" class="postcodify_address" readonly>
-			</span>
-			<h4>상세주소</h4>
-			<span class="input_area">
-			<input type="text" name="address2" class="postcodify_details">
-			</span>
-            </tr> -->
 
 					<tr>
 						<td>수강생 정원</td>
@@ -180,8 +162,7 @@
 					<tr>
 						<td>클래스 개설자ID</td>
 							<td class="answer" > 
-								<!-- 밸류 바꾸기 : value = "${ loginUser.id }"   -->
-								<input type="text" class="classdes" name="clWriter" value="partner02" value = "${ coffeeclass.clWriter }" style="border: 0px; background-color:transparent;" readonly></td> 
+								<input type="text" class="classdes" name="clWriter" value = "${ coffeeclass.clWriter }" style="border: 0px; background-color:transparent;" readonly></td> 
 					</tr>
 				</table>				
 			<div id="files">
