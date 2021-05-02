@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,7 +29,7 @@
         }
 
 		.mp-container {
-        	height : 900px;
+        	height : 1000px;
         }
 		
         #mp{
@@ -36,7 +37,7 @@
             margin-top: 1%;
             margin-left: 5%;
             width: 80vw;
-            height: 800px;
+            height: 900px;
             justify-content: center;
             text-align: center;
             border-radius: 30px;
@@ -69,9 +70,10 @@
         }
 
         .content-table {
+        	margin-bottom : 10px;
         	display: flex;
             justify-content: center;
-            min-height: 600px;
+            /* min-height: 600px; */
         }
 
         .content-div #list-table {
@@ -118,7 +120,7 @@
         }
 
         .content-div #list-table tr:first-child td:nth-child(5) {
-            width : 200px;
+            width : 300px;
         }
 
         .content-div #list-table tr:first-child td:nth-child(6) {
@@ -126,11 +128,11 @@
         }
 
         .content-div #list-table tr:first-child td:nth-child(7) {
-            width : 150px;
+            width : 100px;
         }
 
         .content-div #list-table tr:first-child td:nth-child(8) {
-            width : 100px;
+            width : 80px;
         }
         
         .clickTd {
@@ -338,16 +340,16 @@
 	                            <td>${ cl.tr_name }</td>
 	                            <td>${ cl.c_name }</td>
 	                            <c:if test="${ cl.cl_time2 eq null && cl.cl_time3 eq null}">
-	                            <td class="clickTd" colspan="3" style="font-size:12px;" onclick="selectClassMember('${ cl.class_no }','${ cl.cl_time }');">${ cl.cl_date },<br>${ cl.cl_time }(${ cl.cl_runtime })</td>
+	                            <td class="clickTd" colspan="3" style="font-size:12px;" onclick="selectClassMember('${ cl.class_no }','${ cl.cl_time }');"><fmt:formatDate value="${ cl.cl_date }" pattern="MM월 dd일"/>,<br>${ cl.cl_time }(${ cl.cl_runtime })</td>
 	                            </c:if>
 	                            <c:if test="${ cl.cl_time2 ne null && cl.cl_time3 ne null}">
-	                            <td class="clickTd" style="font-size:12px;" onclick="selectClassMember('${ cl.class_no }','${ cl.cl_time }');">${ cl.cl_date },<br>${ cl.cl_time }(${ cl.cl_runtime })</td>
-	                            <td class="clickTd" style="font-size:12px;" onclick="selectClassMember('${ cl.class_no }','${ cl.cl_time2 }');">${ cl.cl_date },<br>${ cl.cl_time2 }(${ cl.cl_runtime })</td>
-	                            <td class="clickTd" style="font-size:12px;" onclick="selectClassMember('${ cl.class_no }','${ cl.cl_time3 }');">${ cl.cl_date },<br>${ cl.cl_time3 }(${ cl.cl_runtime })</td>
+	                            <td class="clickTd" style="font-size:11px;" onclick="selectClassMember('${ cl.class_no }','${ cl.cl_time }');"><fmt:formatDate value="${ cl.cl_date }" pattern="MM월 dd일"/>,<br>${ cl.cl_time }(${ cl.cl_runtime })</td>
+	                            <td class="clickTd" style="font-size:11px;" onclick="selectClassMember('${ cl.class_no }','${ cl.cl_time2 }');"><fmt:formatDate value="${ cl.cl_date }" pattern="MM월 dd일"/>,<br>${ cl.cl_time2 }(${ cl.cl_runtime })</td>
+	                            <td class="clickTd" style="font-size:11px;" onclick="selectClassMember('${ cl.class_no }','${ cl.cl_time3 }');"><fmt:formatDate value="${ cl.cl_date }" pattern="MM월 dd일"/>,<br>${ cl.cl_time3 }(${ cl.cl_runtime })</td>
 	                            </c:if>
 	                            <c:if test="${ cl.cl_time2 ne null && cl.cl_time3 eq null}">
-	                            <td class="clickTd" style="font-size:12px;" onclick="selectClassMember('${ cl.class_no }','${ cl.cl_time }');">${ cl.cl_date },<br>${ cl.cl_time }(${ cl.cl_runtime })</td>
-	                            <td class="clickTd" style="font-size:12px;" onclick="selectClassMember('${ cl.class_no }','${ cl.cl_time2 }');">${ cl.cl_date },<br>${ cl.cl_time2 }(${ cl.cl_runtime })</td>
+	                            <td class="clickTd" style="font-size:11px;" onclick="selectClassMember('${ cl.class_no }','${ cl.cl_time }');"><fmt:formatDate value="${ cl.cl_date }" pattern="MM월 dd일"/>,<br>${ cl.cl_time }(${ cl.cl_runtime })</td>
+	                            <td class="clickTd" style="font-size:11px;" onclick="selectClassMember('${ cl.class_no }','${ cl.cl_time2 }');"><fmt:formatDate value="${ cl.cl_date }" pattern="MM월 dd일"/>,<br>${ cl.cl_time2 }(${ cl.cl_runtime })</td>
 	                            <td></td>
 	                            </c:if>
 	                            <td><b>${ cl.people }</b></td>
@@ -471,11 +473,8 @@
     </script>
     <script>
     function selectClass(classNo){
-    		if(status == 'Y'){
-			location.href='${contextPath}/coffeeclass/classdetail?classNo='+classNo;
-    		}
-		}
-    }
+		location.href='${contextPath}/coffeeclass/classdetail?classNo='+classNo;
+	}
     </script>
     <!-- footer -->
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
