@@ -241,8 +241,8 @@
                 	<c:if test="${ review.category ne 'CLRV' }">
                     <label for="review-img">사진 업로드</label>
                     <input type="text" id="upload-name" disabled>
-                    <input type="file" id="review-img" name="review-img">
                     </c:if>
+                    <input type="file" id="review-img" name="review-img">
                     <input type="hidden" name="category" value="${ review.category }">
                     <input type="hidden" name="id" value="${ review.id }">
                     <input type="hidden" name="cl_pay_no" value="${ review.cl_pay_no }">
@@ -330,7 +330,7 @@
         	var reviewImg = document.getElementById("review-img");
         	var star = document.getElementsByClassName("on");
         	var content = document.getElementById("review-text");
-        	var rvCategory = ${ review.category };
+        	var rvCategory = '${ review.category }';
         	
         	if(star.length == 0) {
         		Swal.fire({

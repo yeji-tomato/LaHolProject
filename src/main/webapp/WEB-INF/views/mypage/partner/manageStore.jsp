@@ -36,7 +36,7 @@
         }
 		
 		.mp-container {
-        	height : 900px;
+        	height : 1000px;
         }
 
         #mp{
@@ -44,7 +44,7 @@
             margin-top: 1%;
             margin-left: 5%;
             width: 80vw;
-            height: 800px;
+            height: 900px;
             justify-content: center;
             text-align: center;
             border-radius: 30px;
@@ -136,7 +136,8 @@
         }
 
         .content-table {
-            min-height: 580px;
+        	margin-bottom : 10px;
+            /* min-height: 580px; */
         }
 
         .content-div #list-table {
@@ -285,6 +286,10 @@
         .swal2-html-container,
         .swal2-title {
         	font-family: 'NEXON Lv1 Gothic OTF';
+        }
+        
+        #list-table tr:not(:nth-child(1)) td {
+        	font-size : 12px;
         }
 
     </style>
@@ -439,7 +444,7 @@
 	                                <td>${ p.pr_count }</td>
 	                                </c:if>
 	                                <td><fmt:formatNumber value="${ p.pay_price }"/></td>
-	                                <td>${ p.pay_date }</td>
+	                                <td><fmt:formatDate value="${ p.pay_date }" pattern="MM월 dd일"/></td>
 	                            </tr>
                             </c:forEach>
                             </c:if>
