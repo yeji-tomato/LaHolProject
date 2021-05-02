@@ -12,11 +12,14 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
  
 <!-- 스토어 css -->
-<link rel="stylesheet" href="${ contextPath }/resources/css/store/main/main.css?sddsd">
+<link rel="stylesheet" href="${ contextPath }/resources/css/store/main/main.css?ddd">
 </head>
 <style>  
  	.ca button{
  	font-family: 'NEXON Lv1 Gothic OTF Bold';
+ 	}
+ 	.bbb a{
+ 	color:black;
  	}
  
     </style>
@@ -86,8 +89,8 @@
 		
 	                 <div class="cat">
 	                 <form action="${ contextPath }/store/search" method="get"  ><input name="searchCondition" value="category" style="width:0px; ,height:0px;height: 0px;padding-left: 0px;padding-bottom: 0px;border-right-width: 0px;border-left-width: 0px;border-bottom-width: 0px;padding-top: 0px;padding-right: 0px;border-top-width: 0px;">
-	                        <div class="ca">
-	                            <div id="category" style="color:white;  text-align: center;" > category</div>
+	                        <div class="ca" style="width: 100%;margin-left: 0px; ">
+	                            <div id="category" style="color:white;  width:100%;  text-align: center;" > category</div>
 	                            <button name="searchValue"  value="이벤트" >이벤트</button><button name="searchValue"  value="식품">식품</button><button name="searchValue"  value="머신">커피머신</button><button name="searchValue"  value="식기류">식기류</button><button   name="searchValue" value="텀블러" >텀블러</button><button name="searchValue"  value="커피">커피</button><button name="searchValue"  value="접시">접시</button><button name="searchValue"  value="굿즈">굿즈</button><button name="searchValue"  value="기타">기타</button><button name="searchValue"  value="원두">원두</button>      
 	 
 	                        </div> 
@@ -119,7 +122,7 @@
                    
 					<!-- 인기 상품  -->	
 					<c:forEach var="s" items="${ list2 }">
-	                    <div class="product"   >
+	                    <div class="product" style="margin-left: 80px;"  >
 	                    
 	                        <div class="scale" >  
 	                          <c:if test="${  s.SUBSCRIPTIONS eq 'Y'  }">  	<div style="font-weight: bold;position: absolute;  z-index:10;" >  <a style="color:#810B0B;">구독가능 </a></div>  </c:if>
@@ -137,7 +140,7 @@
 	                              
 	                        </center>
 	                        </div><c:if test="${   !empty sessionScope.loginUser   }"> 
-	                     <button  id="ifb">바로구매 <i class="fa fa-credit-card-alt" aria-hidden="true"></i></button>  </c:if>
+	                     <button  id="ifb"   onClick="location.href=' ${ contextPath }/store/order?PR_CODE=${ s.PR_CODE }&su=1&pr=${ s.PR_PRICE}'">바로구매 <i class="fa fa-credit-card-alt" aria-hidden="true"></i></button>  </c:if>
 	                       <c:if test="${  s.SUBSCRIPTIONS eq 'Y' && !empty sessionScope.loginUser   }"> 
                         <button  id="ifb" onClick="location.href=' ${ contextPath }/store/subW?PR_CODE=${ s.PR_CODE }'" style="margin-top: 45px; background-color:#96877D;">정기구독  </button> </c:if>  
 	                    </div> 
@@ -157,7 +160,7 @@
                     <h4>   &nbsp;&nbsp;&nbsp;일반상품</h4>
               				   
 					<c:forEach var="s" items="${ list }">
-                    <div class="product"   > 
+                    <div class="product" style="margin-left: 75px;"  > 
                         <div class="scale" > 
                             <c:if test="${  s.SUBSCRIPTIONS eq 'Y'  }">  	<div style="font-weight: bold;position: absolute;  z-index:10;" >  <a style="color:#810B0B;">구독가능 </a></div>  </c:if>
                             <img  src="${ contextPath }/resources/img/store/${ s.STORE_PHOTO1 }" width="350px" height="300px "  onclick="selectStore(${s.PR_CODE});" >  
@@ -174,7 +177,7 @@
                         
                         
              		<c:if test="${   !empty sessionScope.loginUser   }"> 
-	                     <button  id="ifb">바로구매 <i class="fa fa-credit-card-alt" aria-hidden="true"></i></button>  </c:if>
+	                     <button  id="ifb"  onClick="location.href=' ${ contextPath }/store/order?PR_CODE=${ s.PR_CODE }&su=1&pr=${ s.PR_PRICE}'" >바로구매 <i class="fa fa-credit-card-alt" aria-hidden="true"></i></button>  </c:if>
                          
                         <c:if test="${   s.SUBSCRIPTIONS eq 'Y' && !empty sessionScope.loginUser   }"> 
                         <button  id="ifb" onClick="location.href='${ contextPath }/store/subW?PR_CODE=${ s.PR_CODE }'" style="margin-top: 45px;background-color:#96877D;" >정기구독 <i class="fa fa-credit-card-alt" aria-hidden="true"></i></button> </c:if>  
@@ -192,7 +195,7 @@
 							<c:set var="loc" value="/store/search?searchCondition=${ param.searchCondition }&searchValue=${ param.searchValue}" scope="page"/> 
 					</c:if>
 					 <center>
-	                <table  >
+	                <table class="bbb" >
 		                <tr>
 							<td colspan="6">
 							<!-- [이전] -->
