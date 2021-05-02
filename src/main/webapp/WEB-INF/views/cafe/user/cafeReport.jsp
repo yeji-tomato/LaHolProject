@@ -81,19 +81,19 @@
          
           </div>
           <div class="modal-footer">
-          <button class="btn btn-danger" onclick="validate()">신고</button>
+          <button class="btn btn-danger"  id="report2">신고</button>
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
           </div>
       </div>
       
       </div>
       <script>
-      function validate(){
+      $(document).on('click', '#report2', function(){
     	 
     	 var caNo = $("#caNo").val();
     	 var reporterId = $("#id").val();
     	 var reason =  $("#reason option:selected").val();
-    	 var reportcontent = $("#reportcontent").val()
+    	 var reportcontent = $("#reportcontent").val();
     	 
     	 
     	// 신고사유, 신고내용 중 입력 되지 않은 값이 있을 시 alert 후 focus 처리 -> submit X
@@ -126,7 +126,7 @@
 					return false;
 	    		});
 			
-			}
+			} else{
 			
 			/* return true; */
 
@@ -156,10 +156,10 @@
 				}
 			});
 			
+			}
 			
 			
-			
-      }
+      });
 			
       </script>
     </div>
