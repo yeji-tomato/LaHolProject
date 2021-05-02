@@ -331,15 +331,13 @@ public class CafeUserController {
 	// 회원 신고 insert
 	@PostMapping("/userReport")
 	public String cafeUserReport(@ModelAttribute Report rep,
-			@RequestParam(name="imgName") String imgName, HttpServletRequest request
-			) throws CafeException{
+			@RequestParam(name="imgName") String imgName, HttpServletRequest request) throws CafeException{
 		
 		String itemCode = rep.getItemCode();
 		
 		rep.setImgName(imgName);
 		rep.setImgChName(imgName);
-		rep.setImgPath("/muploadFiles/review/");
-		
+		rep.setImgPath("/lahol/resources/muploadFiles/review/"+imgName);
 
 		System.out.println(rep);
 		
