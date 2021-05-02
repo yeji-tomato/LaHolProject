@@ -340,7 +340,7 @@
 			 			Swal.fire("구독할 개월수를 체크해주세요");
   
 			 		 }else{
-			 			 
+			 	   
 					 var IMP = window.IMP; // 생략가능
 				       IMP.init('imp37495715'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
 				      
@@ -369,12 +369,14 @@
 				       }, function(rsp) {
 				    	   console.log(rsp);
 				          if (rsp.success) { 
-				                  var msg = '결제가 완료되었습니다.';
-				                  msg += '\n고유ID : ' + rsp.imp_uid;
-				                  msg += '\n상점 거래ID : ' + rsp.merchant_uid;
-				                  msg += '\n결제 금액 : ' + rsp.paid_amount;
-				                  msg += '\n카드 승인번호 : ' + rsp.apply_num;
+				        	  var msg = '결제가 완료되었습니다.';  
+				                  Swal.fire({
+				          			title : msg,
+				          			icon : 'success'
+				          		}).then(function(result){
+				                  
 				                  $("#terms_form").submit();
+				          		}); 
 				          } else {
 				               var msg = '결제에 실패하였습니다.';
 				               msg += '에러내용 : ' + rsp.error_msg;

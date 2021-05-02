@@ -774,24 +774,24 @@ C_CODE	VARCHAR2(30 BYTE)	No		18	카페코드
 		  )
 		VALUES
 		(
-		       'STP'||STP.NEXTVAL
-		     , #{payItem}
-		     , #{payPrice}
-		     , #{subscribe}
-		     , SYSDATE
-		     , #{id}
-		     , NULL
-		     , #{ad_code}
-		     , (SELECT PURCHASE_NUMBER
+		      'STP'||STP.NEXTVAL
+		     ,#{payItem}
+		     ,#{payPrice}
+		     ,#{subscribe}
+		     ,SYSDATE
+		     ,#{id}
+		     ,NULL
+		     ,#{ad_code}
+		     ,(SELECT PURCHASE_NUMBER
 				FROM
 				(SELECT PURCHASE_NUMBER, RANK() OVER(ORDER BY TO_NUMBER(PURCHASE_NUMBER) DESC) AS RNUM
 				FROM PR_PAY_WHICH)
 				WHERE RNUM = 1)
-		     , NULL
-		     , NULL
-		     , #{pay_dc}
-		     , #{pay_total}
-		     , NULL
+		     ,NULL
+		     ,NULL
+		     ,#{pay_dc}
+		     ,#{pay_total}
+		     ,NULL
 		)
 	
 	</insert>

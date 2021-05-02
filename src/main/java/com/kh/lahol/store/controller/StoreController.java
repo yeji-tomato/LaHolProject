@@ -947,7 +947,7 @@ public class StoreController {
 				 pay.setSubscribe(dd);
 				 pay.setId(id);
 				 pay.setSubscribe_code(pr_code); 
-		
+				 
 				 
 				 int result2 = sService.paymnet(pay); 	
 				 
@@ -963,7 +963,7 @@ public class StoreController {
 			
 			
 			 if(result  > 0) {
-				 return "redirect:/store/storedetail?&k=0&PR_CODE="+pr_code;
+				 return "${contextPath}/nMypage/paymentView";
 			 
 			 }else { throw new
 				 CartException(" "); }

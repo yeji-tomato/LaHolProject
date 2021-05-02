@@ -104,9 +104,11 @@ public class CartController{
 	public String storeCartInsert(@ModelAttribute Cart ct,@ModelAttribute Pr_pay_w py,String price,
 			String p_num1  ,String pr_code,String name, HttpSession session) throws CartException {
 		
-		
-	
-
+		System.out.println(price);
+		System.out.println(name);
+		System.out.println(pr_code);
+		System.out.println("뭥밍");
+		System.out.println(p_num1);
 		Member loginUser = (Member)session.getAttribute("loginUser");
 		 
 		String id = loginUser.getId();
@@ -135,7 +137,7 @@ public class CartController{
 		
 		
 		 if(result2 > 0) {
-			 return "redirect:/store/storedetail?&k=0&PR_CODE="+pr_code;
+			 return "redirect:/cart/main";
 		 
 		 }else { throw new
 			 CartException("장바구니에 값 넣는 것을 실패하였습니다."); }

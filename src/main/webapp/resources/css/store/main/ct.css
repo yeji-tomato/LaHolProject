@@ -1,16 +1,5 @@
  @charset "UTF-8";
 
-/* 넥슨 고딕 Bold */
-@font-face {
-    font-family: 'NEXON Lv1 Gothic OTF Bold';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF Bold.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-}
-
-*{
-    font-family: 'NEXON Lv1 Gothic OTF Bold';
-}
  
  
 		 #aa{
@@ -22,7 +11,7 @@
             height: 50vh;
             background-image: url(../resources/images/class/121212.png);
             background-repeat: no-repeat;
-            background-size: cover;
+        
             text-align: center;
             vertical-align: middle;
         }
@@ -31,7 +20,7 @@
             color : #e3a259;
             text-align: center;
             padding: 20px;
-            font-family: 'ELAND_Nice_M';
+          
         }
 
         #intro-sub{

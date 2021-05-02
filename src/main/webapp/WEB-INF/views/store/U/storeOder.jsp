@@ -92,7 +92,7 @@
                                                  <c:set var="cfSum" value="${ su*pr }"/>
                                                     </div>  
                                                 </div> 
-                                                <div class="sum" style=" width: 80px;"> <input type="hidden" name="sum" size="11" readonly  value=""  > ${ su*pr }   </div>
+                                                <div class="sum" style=" width: 80px;"> <input type="hidden" name="sum" size="11" readonly  value=""  >${ su*pr }   </div>
                                        
                                                <div class="del">
                                                	<button style="border: 0; background: white;" onclick="location.href='${contextPath}/store/storedetail?PR_CODE=${s.PR_CODE}&page=1&k=0'"  ><i class="fa fa-long-arrow-right" aria-hidden="true"></i></button>
@@ -171,7 +171,7 @@
 					</div>
 					
 					 	 
-						<c:set var= "total" value="${ (su*pr)+2500 }"/>
+						<c:set var= "total" value="${su*pr}"/>
                       
                         
                       
@@ -205,11 +205,11 @@
 						       <div class="p-4">
 						         <ul class="list-unstyled mb-4">      <div  type="hidden" class="bigtext right-align sumcount" id="sum_p_num"> </div>
 
-						           <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">상품금액 </strong><strong id="sumPrice"><c:out value="${ total }" /></strong></li>
+						           <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">상품금액 </strong><strong id="sumPrice"><c:out value="${total}" /></strong></li>
 						        
 						           <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">할인금액</strong><strong id="couponPrice"><input type="hidden" name="payDC"></strong></li>
 						           <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">결제금액</strong>
-						             <h5 class="font-weight-bold" id="resultPrice" name="total" > <c:out  value="${ total }" /></h5> 
+						             <h5 class="font-weight-bold" id="resultPrice" name="total" ><c:out  value="${total}"/></h5> 
 						           </li>  
 						         </ul>
 						         <button id="check_module" class="btn rounded-pill py-2 btn-block" style="background: #5A452E; color: white; width : 100%" type="button"  >결제하기</button>
@@ -262,6 +262,13 @@
 			    	   console.log(rsp);
 			          if (rsp.success) {
 			                  var msg = '결제가 완료되었습니다.';
+			                  
+			              	Swal.fire({
+			        			title : msg,
+			        			icon : 'success'
+			        		}).then(function(result){       
+			                  
+			                  
 
 			                  $.ajax({
 			                  		       			url:"${ contextPath }/store/storecart2",
@@ -275,7 +282,7 @@
 			                  		        			pr_code : ${s.PR_CODE}
 			                  		        		},
 			                  		        		success : function(data){
-			                  		        			location.href="${ contextPath }/store/list";
+			                  		        			location.href="${contextPath}/nMypage/paymentView";
 			                  		        		},
 			                  		        		error : function(e){
 			                  							console.log(e);
@@ -291,13 +298,14 @@
 			                  		        			couponCode : couponNo
 			                  		        		},
 			                  		        		success : function(data){
-			                  		        			location.href="${ contextPath }";
+			                  		        			location.href="${contextPath}/nMypage/paymentView";
 			                  		        		},
 			                  		        		error : function(e){
 			                  							console.log(e);
 			                  						}
 			                  		        		
 			                  		       		});
+			        		}); 
 				               
 			          } else {
 			               var msg = '결제에 실패하였습니다.';
