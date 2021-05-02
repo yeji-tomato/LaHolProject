@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>스토어 메인리스트</title>
 
 <!-- 아이콘 cdn -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -251,6 +251,8 @@
 	                </table> 
 	               
                 </div>
+                
+                
                  </center>
                  <c:if test="${ loginUser.grade eq 'P'  }"> 
 		                 <div id="bu" style="width:60%;  height: 50px;   float:left;">
@@ -258,20 +260,22 @@
 		                  
 		                </div>
                  </c:if>
-             
+           
                  
                 
               
           		  </div> 
+          		  
+          		  
           		 
-          		 
+          		    
           		</div>
           		 
-
+				      
           		 
           		</div>
           		
-                     	  
+                  
  	  
     
        
@@ -285,8 +289,9 @@
 	
 	
 	 
+ 
       
-     
+          		 
 		 
 </body> 
 	  
