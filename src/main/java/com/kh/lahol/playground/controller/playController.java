@@ -1,16 +1,28 @@
 package com.kh.lahol.playground.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import com.kh.lahol.admin.model.service.AdminService;
+import com.kh.lahol.admin.model.vo.Game;
 
 @Controller
 public class playController {
+	
+	@Autowired
+	private AdminService adminService;
 	
 	// 플레이그라운드 인트로
 	@RequestMapping("/playground/intro")
@@ -39,15 +51,30 @@ public class playController {
 	// 플레이그라운드 게임
 	@RequestMapping("/playground/game")
 	public String game(Locale locale, Model model) {
-		
-		// 아이디, 발급경로, 발급일 체크
-		
-		// null이 아니면 메인으로
-		// null이면 게임으로
-		
-		
 		return "playground/game";
 	}
+	
+	
+	// 쿠폰 발급 인서트
+	@RequestMapping(value="/game/insertCoupon", method=RequestMethod.GET)
+	   public void insertCouponToUser(String id, String couponName, String couponLimit, String issuedBy,
+	                           @ModelAttribute Game gm, HttpServletResponse response) {
+	      gm.setId(id);
+	      gm.setCouponName(couponName);
+	      gm.setCouponLimit(couponLimit);
+	      gm.setCouponName(couponName);
+	      
+	      System.out.println(gm);
+	      
+	      adminService.insertCouponToUser(gm);
+	      
+	      try {
+	         PrintWriter out = response.getWriter();
+	         out.print("success");
+	      } catch (IOException e) {
+	         e.printStackTrace();
+	      }
+	   }
 	
 	
 }
