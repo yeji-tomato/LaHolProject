@@ -52,11 +52,11 @@
 
 			<div id="createform" style="" >
 				<div class="content-header">
-					<h2 class="intro">라홀 예비 클래스 강사님, 안녕하세요 !</h2>
-					<pre class="intro" id="intro-sub">
-			                    고객님들이 수강하기 전 고민과 걱정을 덜어들이기 위해 다양한 정보 기입을 부탁드리고 있습니다. 
+					<h2 class="intro" style="padding-top : 5vh;">라홀 예비 클래스 강사님, 안녕하세요 !</h2>
+					<p class="intro" id="intro-sub" style="text-align: center;">
+			                    고객님들이 수강하기 전 고민과 걱정을 덜어들이기 위해 다양한 정보 기입을 부탁드리고 있습니다. <br>
 			                    질문지를 빠짐없이 입력해주세요. 작성된 폼은 ‘등록예정 클래스'에 등록되지만 정식 승인은 1-2일이 소요됩니다. 
-                </pre>
+                	</p>
 				</div>
 				<form action = "${ contextPath }/coffeeclass/createclass/insert" id="wrtieForm" method="post" enctype="multipart/form-data">
 				<input type="hidden" value="${ sessionScope.loginUser.id }" name="clWriter">
@@ -101,7 +101,7 @@
 					<tr>
 						<td>카테고리</td>
 						<td class="answer" style="text-align: left;">
-						<select name="category">
+						<select name="category" style="width : 380px;" id="cate">
 							 <option selected disabled="disabled">클래스 카테고리 선택</option>
 							 <option value="coffee">로스팅/원두</option>
 				             <option value="art">라테아트/디자인</option>
@@ -142,8 +142,8 @@
 					<tr>
 						
 						<td>강의 날짜</td>
-						<td class="answer" style="text-align: left;"><input
-							type="date" class="classdate end classdes" name="classDate"></td>
+						<td class="answer" style="text-align: left;">
+						<input type="date" class="classdate end classdes" name="classDate" style="width : 380px;"></td>
 					</tr>
 					
 					<tr>
@@ -154,34 +154,28 @@
 						<input type="text" placeholder="예시 ) 19:00 - 21:00" class="classdes" name="classTime3">
 						</td>
 					</tr>
-
+					
+					<!-- 커피클래스 주소 / 카카오맵 API -->
 					<tr>
-						<td>강의 장소</td>
-						<td class="address">
-						<label>주소입력란</label>
-						<input type="text" class="classdes" name="classLoca1">
-						<label>상세주소</label>
-						<input type="text" class="classdes" name="classLoca2">
-						</td>
+					<td>강의 장소</td>
+					<td>
+			    	<input type="text" id="sample5_address" name="classLoca1" placeholder="주소" style="width : 594px;">
+					<input type="button" id="mapbtn" onclick="sample5_execDaumPostcode()" value="주소 검색"><br>
+					</td>
 					</tr>
-
-					<!-- <tr>
-            <h4>우편번호</h4>
-            <td class = "answer"><input type="text" class = "classdes">
-			<span class="input_area">
-			<input type="text" name="post" class="postcodify_postcode5" id="postcode" readonly>
-			</span>
-			&nbsp; <button id="postcodify_search_button" type="button">검색</button>
-			<h4>도로명주소</h4>
-			<span class="input_area">
-			<input type="text" name="address1" class="postcodify_address" readonly>
-			</span>
-			<h4>상세주소</h4>
-			<span class="input_area">
-			<input type="text" name="address2" class="postcodify_details">
-			</span>
-            </tr> -->
-
+					
+					<tr>
+					<td></td>
+					<td>
+					<input type="text" class="classdes" name="classLoca2" placeholder="상세주소">
+					<div style="width:680px;height:300px; margin : 5px;">
+					<div id="map" style="width:680px;height:300px;display:none"></div>
+					<p style="padding-top : 130px;">지도 미리보기 KAKAOMAP</p>
+					</div>
+					</td>
+					</tr>
+					
+					
 					<tr>
 						<td>수강생 정원</td>
 						<td class="answer"><input type="number" min="1" max="4" name="studentMax"
@@ -196,8 +190,8 @@
 
 					<tr>
 						<td>수업 난이도</td>
-						<td class="answer" style="text-align: left;">
-						<select name="classLvl">
+						<td class="answer" style="text-align: left;" class="classdes">
+						<select name="classLvl" style="width : 380px;" class="classdes">
 								<option>난이도 선택</option>
 								<option value = "상">상</option>
 								<option value = "중">중</option>
@@ -213,14 +207,70 @@
 				</table>
 				
 					<div class="btnarea">
-						<button type="submit" class="btn" id="register">승인요청</button>
+						<button type="button" class="submit btn" id="register" style="margin-bottom : 30px;"
+						onclick="confirm('정말 제출하시겠습니까?')" >승인요청</button>
 						&nbsp;
-						<button type="button" class="btn" id="cancel"
+						<button type="button" class="btn" id="cancel" style="margin-bottom : 30px;"
 							onclick="history.back()">등록취소</button>
 					</div>
 				</form>
 			</div>
 
+   		
+		
+		<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+		<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=3400cb260ccc2b8ecfb54e177422380a&libraries=services&libraries=services"></script>
+		<script>
+
+		</script>
+		<script>
+		    var mapContainer = document.getElementById('map'), // 지도를 표시할 div
+		        mapOption = {
+		            center: new daum.maps.LatLng(37.537187, 127.005476), // 지도의 중심좌표
+		            level: 5 // 지도의 확대 레벨
+		        };
+		
+		    //지도를 미리 생성
+		    var map = new daum.maps.Map(mapContainer, mapOption);
+		    //주소-좌표 변환 객체를 생성
+		    var geocoder = new daum.maps.services.Geocoder();
+		    //마커를 미리 생성
+		    var marker = new daum.maps.Marker({
+		        position: new daum.maps.LatLng(37.537187, 127.005476),
+		        map: map
+		    });
+		
+		
+		    function sample5_execDaumPostcode() {
+		        new daum.Postcode({
+		            oncomplete: function(data) {
+		                var addr = data.address; // 최종 주소 변수
+		
+		                // 주소 정보를 해당 필드에 넣는다.
+		                document.getElementById("sample5_address").value = addr;
+		                // 주소로 상세 정보를 검색
+		                geocoder.addressSearch(data.address, function(results, status) {
+		                    // 정상적으로 검색이 완료됐으면
+		                    if (status === daum.maps.services.Status.OK) {
+		
+		                        var result = results[0]; //첫번째 결과의 값을 활용
+		
+		                        // 해당 주소에 대한 좌표를 받아서
+		                        var coords = new daum.maps.LatLng(result.y, result.x);
+		                        // 지도를 보여준다.
+		                        mapContainer.style.display = "block";
+		                        map.relayout();
+		                        // 지도 중심을 변경한다.
+		                        map.setCenter(coords);
+		                        // 마커를 결과값으로 받은 위치로 옮긴다.
+		                        marker.setPosition(coords)
+		                    }
+		                });
+		            }
+		        }).open();
+		    }
+		</script>      
+			
 
 		</div>
 	</div>

@@ -55,9 +55,10 @@
 
 
         .btnarea{
-            margin-top: 5%;
-            margin-bottom: 5%;
+            margin-top: 2%;
+            margin-bottom: 8px;
             text-align: center;
+            
         }
 
         .classdate{
@@ -114,11 +115,19 @@
             color: black;
             background-color: #f8e18d;
         }
-
-        #postcode-btn{
-            color: black;
-            background-color: #f1d1ac;
+        
+        #mapbtn{
+        	color: white;
+            background-color: #f0c21b;
+            border-radius: .25rem;
+            border : 0px;
         }
+        
+        #mapbtn:hover{
+        	 color: black;
+            background-color: #f8e18d;
+        }
+
          /* 네비부분 */
          nav{
             background-color: transparent;

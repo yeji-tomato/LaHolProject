@@ -1,6 +1,12 @@
-@charset "UTF-8";
+body {}
 
-/* 넥슨 고딕 Bold */
+@font-face {
+    font-family: 'NEXON Lv1 Gothic OTF';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
 @font-face {
     font-family: 'NEXON Lv1 Gothic OTF Bold';
     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF Bold.woff') format('woff');
@@ -8,251 +14,158 @@
     font-style: normal;
 }
 
-*{
-    font-family: 'NEXON Lv1 Gothic OTF Bold';
+.buttons{
+	color: white;
+    background-color: #f0c21b;
+    border-radius: 35px;
+    border : 0px;
+    height: 7vh;
+    width : 10vw;
+    margin: 0.5vw;
 }
 
-#container, #row{
-    margin: 0;
-    padding: 0;
-    width: 100%;
+.buttons:hover{
+	color: black;
+    background-color: #f8e18d;
 }
+
+/* 메인사진 */
+
 .headSearch{
-    height: 70vh;
-    background-image: url("https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1049&q=80");
+	margin-top : 11vh;
+	/* margin-left : 26vw; */
+    height: 90vh;
+    width : 100vw;
+    background-image: url("https://i.pinimg.com/originals/38/15/fb/3815fbd3c0350e1182544e40370f6a26.gif");
     background-size: cover;
 
 }
-.cafe-title{
-    color: white;
-    font-size: 6rem;
-    display: block;
-    text-align: center;
-    padding-top: 30vh;
+
+#top-container {
+    
+    height: 80vh;
+    display: flex;
+}
+
+#left-area {
+    
+    flex: 7;
+}
+
+#bus-intro-container {
+    
+    width: 90%;
+    height: 70%;
+    margin-top: 7%;
+    margin-left: 5%;
+}
+
+#intro-title {
     font-family: 'NEXON Lv1 Gothic OTF Bold';
-}
-
-#parallelogram {
-	width: 50vw;
-	height: 100vh;
-	-webkit-transform: skew(20deg);
-	-moz-transform: skew(20deg);
-	-o-transform: skew(20deg);
-	background: #935039;
-}
-/* 검색 */
-   #searchArea{
-   width: 650px; 
-   height: 55px; 
-   border-radius: 30px; 
-   border: 2px solid black; 
-   margin-left : 70vh;
-   margin-top : 8vh;
-   }
-   
-   #searchValue{
-   margin-left: 20px; 
-   margin-top : 4px;
-   height: 40px; 
-   width: 580px; 
-   border: 0px;
-   }
-   
-   .searchBtn{
-   background-color: transparent; 
-   border: 0px;
-   }
-   
-   
-   
-/* 카페 컨텐츠 내용 */
-.content-cafe-sc{
+    font-size: 6vh;
+    
+    width: 90%;
+    height: 30%;
+    margin-left: 7%;
     margin-top: 5%;
+    display: flex;
+    align-items: center;
 }
 
-h1{
-	font-family: 'NEXON Lv1 Gothic OTF Bold';
-}
-
-#card-body{
-	font-family: 'NEXON Lv1 Gothic OTF Bold';
-}
-
-
-#rowP{
-    padding-top: 3%;
-}
-#ct-cf{
-    text-align: center;
-}
-#cardShape{
-    width: 15rem;
-    height: 20rem;
-    border: 1px solid #96877D;
-}
-#cardShape img{
-    width: 15rem;
-    height: 13rem;
-}
-/* 페이징 바 */
-.cafe-order-page{
+#intro-desc {
+    font-family: 'NEXON Lv1 Gothic OTF';
+    font-size: 2.5vh;
+    width: 90%;
+    height: 40%;
+    margin-left: 8%;
     margin-top: 5%;
+    
+    line-height: 200%;
+}
+
+#right-area {
+    
+    flex: 4;
+    display: flex;
+    justify-content: center;
+    background-image:url("../../../resources/img/coffeeclass/logo-yellow.PNG");
+	background-repeat:no-repeat;
+	background-size:100% 110%; 
+	margin-top : 10vh;
+}
+
+#bottom-container {
+    height: 67vh;
+    margin-top : 3vh;
+}
+
+#title-area {
+    font-family: 'NEXON Lv1 Gothic OTF Bold';
+    font-size: 5vh;
+    
+    height: 15%;
     display: flex;
     justify-content: center;
     align-items: center;
 }
-#page-color{
-    color: #5A452E;
-}
-#page-color:active{
-    background-color: #e3a259;
-    color: white;
-}
-#page-color:hover{
-    background-color: #e3a259;
-    color: white;
+
+#process-card-container {
+    display: flex;
+    padding-top: 3%;
 }
 
-/*클래스 한정*/
-.container{
-    margin: auto;
-    max-width: 1300px;
+.process-card {
+    flex: 3.3;
+    height: 50vh;
+    display: flex;
 }
 
-.row{
-    display : flex;
-    align-items: center;
-    flex-wrap: wrap;
+.left-box {
+    flex: 0.5;
     
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-
-.classes{
-    margin: auto;
-    padding-left : 30px;
-    padding-right: 30px;
+.icon {
+    
+    width: 50%;
+    height: 30%;
 }
 
-.classes h2{
-    margin: 80px;
+.right-box {
+    flex: 1;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.card-title {
+    
+    width: 70%;
+    height: 20%;
+    font-size: 3.5vh;
     text-align: center;
-    position: relative;
-    line-height: 60px;
+    font-family: 'NEXON Lv1 Gothic OTF Bold';
 }
 
-.classes h2::after{
-    content : '';
-    background-color: rgb(194, 182, 160);
-    width: 80px;
-    height: 3px;
-    border-radius: 2px;
-    position: absolute;
-    bottom : 0;
-    left : 50%;
-    transform: translateX(-50%);    
+.card-desc {
+    font-family: 'NEXON Lv1 Gothic OTF';
+    
+    width: 70%;
+    height: 50%;
+    font-size: 2.5vh;
+    line-height: 150%;
 }
 
-.col{
-    flex-basis : 20px;
-    padding: 10px;
-    min-width: 20%;
-    min-height: 500px;
-    margin-bottom : 50px;
-    transition: transform 0.5s;
-}
-
-.col img{
-    width : 100%;
-}
-
-.rating .fa{
-    color : rgb(170, 113, 29);
-}
-
-.col:hover{
-    transform: translateY(-15px);
-}
-
-.input{
-    width : 380px;
-    height : 38px;
-    border-radius: 30px;
-}
-
-:root{
-    --clr-primary: #ee6352;
-    --clr-body: #333;
-    --clr-bg:#ddd;
-}
-
-.search_box{
-    padding : 60px;
-    padding-top: 100px;
-    top: 600%;
-    left : 20%;
-    height: 30px;
-    text-align: center;
-}
-
-#submitbtn{
-    cursor: pointer;
-    border: 0;
-    background : 0;
-    border-radius: 50%;
-}
-
-/*필터 검색 */
-
-.filter{
-    text-align: center; 
-    font-size : 16px; 
-}
-
-.filter select{
-    border: 0;
-    margin : 15px;
-}
-
-
-#filterbtn {
-    background-color: transparent;
-    line-height: 35px;
-    border:0px;
-}
-
- #filterbtn i:hover {
-	position :relative;
-	left : 20%;
-	transition: all 0.15s linear 0.2s;
-	color : orange;
-} 
-
-.card-img-top{
-	width : 30vw;
-	height : 45vh;
-}
-
-/*클래스 개설 버튼*/
-.create-btn {
-	box-shadow: 0px 6px 0px -10px #1c1b18;
-	background-color:#F3D798;
-	border-radius:25px;
-	border:0.5px blanchedalmond;
-	cursor:pointer;
-	color:rgb(12, 39, 7);
-	font-family:Arial;
-	font-size:20px;
-	font-weight:bold;
-	padding:14px 49px;
-	text-decoration:none;
-	text-shadow:0px 1px 0px #ffffff;
-    }
-.create-btn:hover {
-    border : rgb(124, 79, 11) solid;
-    color: rgb(12, 39, 7);
-
-}
-.create-btn:active {
-    position:relative;
-    top:1px;
+/* 아코디언 */
+.accordion-item{
+	margin-left : 25vw;
+	width : 50vw;
+	height: 8vh;
+	
+	
 }

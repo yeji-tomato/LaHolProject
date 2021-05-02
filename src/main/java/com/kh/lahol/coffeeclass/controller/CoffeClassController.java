@@ -200,7 +200,7 @@ public class CoffeClassController {
 	// 사진 저장
 	public String saveFile(MultipartFile file, HttpServletRequest request) {
         String root = request.getSession().getServletContext().getRealPath("resources");
-        String savePath = root + "\\nuploadFiles\\classImg";
+        String savePath = root + "/nuploadFiles/classImg";
         File folder = new File(savePath); // 메모리상에서 객체 파일 만들기 
         if(!folder.exists()) {
            folder.mkdir(); // -> 해당 경로가 존재하지 않는다면 디렉토리 생성
@@ -213,7 +213,7 @@ public class CoffeClassController {
                        + (int)(Math.random() * 100000)
                        + originalFileName.substring(originalFileName.lastIndexOf("."));
         
-        String renamePath = folder + "\\" + renameFileName; // 저장하고자하는 경로 + 파일명
+        String renamePath = folder + "/" + renameFileName; // 저장하고자하는 경로 + 파일명
         
         
         try {
@@ -530,25 +530,32 @@ public class CoffeClassController {
 		  Member loginUser = (Member)session.getAttribute("loginUser");
 		  System.out.println("클래스 수강신청 : " + clp);
 		  
+		  int result = clService.registerClOrder(clp.getClPayNo());
+		  
 		  List<Object> list = new ArrayList<>();
 		  
 		  list.add(clp);
 		  list.add(couponPrice);
 		  list.add(total);
 		  
-		  int result = clService.registerClass(list);
-		  
 		  if(result > 0) {
-				return"redirect:/nMypage/paymentView";
-			} else {
-			model.addAttribute("msg", "결제에 실패하였습니다.");
-			return "common/error";
-			}  
+			  int result1 = clService.registerClass(list);
+			  if(result1 > 0) {
+				  int result2 = clService.registerClPay();
+				  if(result2 > 0) {
+					  return"redirect:/nMypage/paymentView";
+				  } else {
+					  model.addAttribute("msg", "결제에 실패하였습니다.");
+					  return "common/error";
+				  }
+			  } else {
+				  model.addAttribute("msg", "결제에 실패하였습니다.");
+				  return "common/error";
+			  }
+		  } else {
+			  model.addAttribute("msg", "결제에 실패하였습니다.");
+			  return "common/error";
+		  }
+		  
 	  }
-	  
-	 
-	  
-	  
-	  
-	 
 }

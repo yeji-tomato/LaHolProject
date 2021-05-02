@@ -67,6 +67,12 @@ public interface CoffeeClassSerivce {
 	// 17. 클래스 후기 불러오기 
 	public List<ClassReview> selectReviews(String classNo);
 
+	// 18. CL_ORDER INSERT
+	public int registerClOrder(String clPayNo);
+
+	// 19. CL_PAY INSERT
+	public int registerClPay();
+
 
 
 
