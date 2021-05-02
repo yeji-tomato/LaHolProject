@@ -869,7 +869,7 @@
 	                          <c:if  test="${ s.DY_COMPANY == '한진' }">  
 	                            <img  src="${ contextPath }/resources/img/store/한진.jpg" style="  margin-left: 35px; ">
 	                        </c:if>
-	                          <c:if  test="${ s.DY_COMPANY == 'cj' }">  
+	                          <c:if  test="${ s.DY_COMPANY == 'CJ' }">  
 	                            <img  src="${ contextPath }/resources/img/store/cj.jpg" style="  margin-left: 35px; ">
 	                        </c:if>
 	                          <c:if  test="${ s.DY_COMPANY == '쿠팡' }">  
