@@ -567,18 +567,25 @@ public class CafeBizController {
 	
 
 	@PostMapping("/order/beverage")
-	public ModelAndView beverageOrderList(ModelAndView mv, String caResNo) {
+	public void beverageOrderList(ModelAndView mv, String caResNo, HttpServletResponse response) {
+		
+		response.setContentType("application/json; charset=utf-8");
 		
 		System.out.println("번호 출력 : "+ caResNo);
 		List<bevOrder> beverageOrder = caBizService.beverageOrder(caResNo);
-		System.out.println(beverageOrder);
+		
+		
 		if(beverageOrder != null) {
-			mv.addObject("beverageOrder", beverageOrder);
-			mv.setViewName("cafe/bus/orderModal");
+			PrintWriter out;
+			try {
+				out = response.getWriter();
+				out.print(new Gson().toJson(beverageOrder));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
 		}
-		
-		
-		return mv;
+
 	}
 	
 	@PostMapping("/answer")

@@ -9,7 +9,7 @@
 <title>카페 주문 확인</title>
 <link rel="stylesheet" href="${ contextPath }/resources/css/cafe/bus/order.css" type="text/css">
 <link rel="stylesheet" href="${ contextPath }/resources/css/cafe/bus/sideMenu.css" type="text/css">
-<script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
 <style>
 .lookup{
 	background: #F3D798;
@@ -25,6 +25,7 @@
 
 	<!-- 사업자 menubar -->
 	<jsp:include page="/WEB-INF/views/common/menubar.jsp"/>
+	<script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
 <!-- 카페 사이드 메뉴 바 -->
 <div class="cafe-sidemenubar">
@@ -130,6 +131,85 @@
 					    				data : { caResNo : caResNo },
 					    				success: function(data){
 					    					 $('.modal-wrapper').toggleClass('open');
+					    					 var divContainer = $(".row-cols-1");
+					    					 for(var i in data) {
+					    						 var divA = $("<div class='col'>");
+					    						 var divB = $("<div class='card mb-4'>");
+					    						 var divC = $("<div class='row g-0'>");
+					    						 var divD = $("<div class='col-md-4' id='cardImg'>");
+					    						 var img = $("<img src='${contextPath}/resources/nuploadFiles/cafeImg/" + data[i].cfIchname + "' alt='음료주문사진'>");
+					    						 
+					    						 var divE = $("<div class='col-md-8'>");
+					    						 var divF = $("<div class='card-body'>");
+					    						 
+					    						 var table = $("<table class='card-table'>");
+					    						 var thead = $("<thead>");
+					    						 var trA = $("<tr>");
+					    						 var tdA = $("<td colspan='2'>");
+					    						 var h5 = $("<h5 class='blackColor'>");
+					    						 h5.text(data[i].cfName);
+					    						 
+					    						 tdA.append(h5);
+					    						 trA.append(tdA);
+					    						 thead.append(trA);
+					    						 table.append(thead);
+					    						 
+					    						 var tbody = $("<tbody>");
+					    						 var trB = $("<tr>");
+					    						 var tdB = $("<td class='blackColor'>");
+					    						 tdB.text("수량");
+					    						 var tdB1 = $("<td class='redCard'>");
+					    						 tdB1.text(data[i].cfResAmount);
+					    						 
+					    						 trB.append(tdB);
+					    						 trB.append(tdB1);
+					    						 tbody.append(trB);
+					    						 
+					    						 var trC = $("<tr>");
+					    						 var tdC = $("<td class='blackColor'>");
+					    						 tdC.text("종류");
+					    						 var tdC1 = $("<td class='redCard'>");
+					    						 tdC1.text(data[i].cfResHI);
+					    						 
+					    						 trC.append(tdC);
+					    						 trC.append(tdC1);
+					    						 tbody.append(trC);
+					    						 
+					    						 var trD = $("<tr>");
+					    						 var tdD = $("<td class='blackColor'>");
+					    						 tdD.text("용량");
+					    						 var tdD1 = $("<td class='redCard'>");
+					    						 tdD1.text(data[i].cfResCap);
+					    						 
+					    						 trD.append(tdD);
+					    						 trD.append(tdD1);
+					    						 tbody.append(trD);
+					    						 
+					    						 var trE = $("<tr>");
+					    						 var tdE = $("<td class='blackColor'>");
+					    						 tdE.text("컵");
+					    						 var tdE1 = $("<td class='redCard'>");
+					    						 tdE1.text(data[i].cfResCup);
+					    						 
+					    						 trE.append(tdE);
+					    						 trE.append(tdE1);
+					    						 tbody.append(trE);
+					    						 
+					    						 table.append(tbody);
+					    						 
+					    						 divF.append(table);
+					    						 divE.append(divF);
+					    						 divD.append(img);
+					    						 
+					    						 divC.append(divD);
+					    						 divC.append(divE);
+					    						 
+					    						 divB.append(divC);
+					    						 divA.append(divB);
+					    						 
+					    						 divContainer.append(divA);
+					    						 
+					    					 }
 					    				},
 					    				error : function(e){
 					    					console.log(e);
@@ -138,7 +218,68 @@
 						       		
 						       	}
 					   		</script>
-					   		<%@include file="./orderModal.jsp" %>
+					   		<!-- Modal -->
+<div class="modal-wrapper">
+ <div class="modalCafe">
+ <div class="headModal">
+     <h5 class="headerM">음료 주문 내역</h5>
+     <div class="mod-close trigger headerM" >
+         <i class="fa fa-times" id="closeIcon" aria-hidden="true"></i>
+     </div>
+ </div>
+ <div class="contentMod">
+     <div class="container">
+         <div class="row row-cols-1 row-cols-md-2">
+         <!-- col -->
+         
+        <%-- <c:forEach var="bOrder" items="${ beverageOrder }">
+        
+        <div class="col">
+            <div class="card mb-4">
+                <div class="row g-0">
+                    <div class="col-md-4" id="cardImg">
+                    <img src="${ contextPath }/resources/nuploadFiles/cafeImg/${ bOrder.cfIchname }" alt="음료주문사진">
+                    </div>
+                    <div class="col-md-8">
+                    <div class="card-body">
+                        <table class="card-table">
+                            <thead>
+                                <tr><td colspan="2"><h5 class="blackColor">${ bOrder.cfName }</h5></td></tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="blackColor">수량</td>
+                                    <td class="redCard">${ bOrder.cfResAmount }</td>
+                                </tr>
+                                <tr>
+                                    <td class="blackColor">종류 </td>
+                                    <td class="redCard">${ bOrder.cfResHI }</td>
+                                </tr>
+                                <tr>
+                                    <td class="blackColor">용량</td>
+                                    <td class="redCard">${ bOrder.cfResCap }</td>
+                                </tr>
+                                <tr>
+                                    <td class="blackColor">컵</td>
+                                    <td class="redCard">${ bOrder.cfResCup }</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    </div>
+                </div>
+                </div>
+        </div>
+        </c:forEach> --%>
+            
+            </div>
+        </div>
+        
+    </div>
+    
+	
+</div>
+   </div>
                        </td>
                        
                        <td>

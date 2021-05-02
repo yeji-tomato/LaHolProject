@@ -120,17 +120,15 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 	</resultMap>
 	
 	<resultMap id="bizCoffeeOrderResultSet" type="bizCoffeeOrderList">
-		<id property="cfNo" column="CF_NO"/>
-		<result property="cfCategory" column="CF_CATEGORY"/>
-		<result property="cfIname" column="CF_INAME"/>
-		<result property="cfIchname" column="CF_ICHNAME"/>
-		<result property="chIpath" column="CF_IPATH"/>
-		<result property="cfName" column="CF_NAME"/>
-		<result property="cfPrice" column="CF_PRICE"/>
-		<result property="cfCount" column="CF_COUNT"/>	
-		<result property="caNo" column="C_CODE"/>	
-		<result property="cfIchname" column="CF_ICHNAME"/>
-		<result property="cfName" column="CF_NAME"/>
+		<id property="cfResNo" column="CF_RES"/>
+		<result property="cfResHI" column="CF_RES_HI"/>
+		<result property="cfResCap" column="CF_RES_CAP"/>
+		<result property="cfResCup" column="CF_RES_CUP"/>
+		<result property="caResNo" column="C_RES"/>
+		<result property="cfResAmount" column="CF_AMOUNT"/>
+		<result property="cfNo" column="CF_NO"/>
+		<result property="cfIchname" column="CF_ICHNAME"/>	
+		<result property="cfName" column="CF_NAME"/>	
 	</resultMap>
 	
 	<resultMap id="cafeReviewResultSet" type="CaReview">
@@ -923,6 +921,14 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
       FROM CAFE
 	  WHERE C_STATUS = 'Y'
 	  ORDER BY C_CODE DESC
+    </select>
+    
+    <select id="isUseResList" resultMap="cafeResResultSet">
+    SELECT C_DATE,
+            C_HERETIME
+	FROM     CARES CAR
+	INNER JOIN CAFE C ON (CAR.C_CODE = C.C_CODE)
+	WHERE CAR.C_CODE = #{caCode}
     </select>
    
 </mapper>

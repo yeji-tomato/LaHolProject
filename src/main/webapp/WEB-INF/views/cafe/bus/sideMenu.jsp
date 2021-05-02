@@ -9,7 +9,7 @@
 <!-- 메뉴바는 어떤 페이지이든 포함하고 있으므로 contextPath 변수 선언 후 application에서 모두 사용 -->
 <c:set var="contextPath" value="${ pageContext.servletContext.contextPath }"
 scope="application"/>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script> -->
 </head>
 <body>
 
@@ -46,10 +46,11 @@ $(function() {
 	
 	//카페 등록
 	const cafeWri = document.getElementById("cafeWri");
-	cafeWri.addEventListener("click", function(){
-	 location.href='${ contextPath }/cafe/biz/write';
-	});
-	
+	if(cafeWri != null) {
+		cafeWri.addEventListener("click", function(){
+		 location.href='${ contextPath }/cafe/biz/write';
+		});
+	}
 	//카페 확인
 	const cafeCon= document.getElementById("cafeCon");
 	cafeCon.addEventListener("click", function() {

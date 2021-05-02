@@ -110,6 +110,11 @@ public class CafeServiceImpl implements CafeService{
 		return caDao.mainCount();
 	}
 
+	@Override
+	public List<CafeRes> isUseResList(String caCode) {
+		return caDao.isUseResList(caCode);
+	}
+
 	
 	
 

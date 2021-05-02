@@ -119,19 +119,42 @@ public class CafeUserController {
 		return mv;
 	}
 	
-	// 매장 페이지 이동
+	/*
+	 * // 매장 페이지 이동
+	 * 
+	 * @GetMapping("/here") public String Here(@RequestParam String caCode, Model
+	 * model) {
+	 * 
+	 * Cafe cafeInfo = caService.searchDetail(caCode);
+	 * 
+	 * 
+	 * if(cafeInfo != null) { model.addAttribute("cafeInfo", cafeInfo); return
+	 * "/cafe/user/here"; }else { model.addAttribute("msg", "등록된 카페 보기에 실패하였습니다.");
+	 * return "common/error"; }
+	 * 
+	 * }
+	 */
+	
+	
+	// 매장 페이지 이동 // 예약 조회 검사
 	@GetMapping("/here")
-	public String Here(@RequestParam String caCode, Model model) {
+	public ModelAndView Here(@RequestParam String caCode, Model model, ModelAndView mv) {
 		
 		Cafe cafeInfo = caService.searchDetail(caCode);
+		List<CafeRes> cr = caService.isUseResList(caCode);
 		
 		if(cafeInfo != null) {
-			model.addAttribute("cafeInfo", cafeInfo);
-			return "/cafe/user/here";
+			
+			mv.addObject("cafeInfo", cafeInfo);
+			mv.addObject("cr", cr);
+			mv.setViewName("cafe/user/here");
+
 		}else {
-			model.addAttribute("msg", "등록된 카페 보기에 실패하였습니다.");
-			return "common/error";
+			mv.addObject("msg", "등록된 카페 보기에 실패하였습니다.");
+			mv.setViewName("common/error");
 		}	
+		
+		return mv;
 		
 	}
 	

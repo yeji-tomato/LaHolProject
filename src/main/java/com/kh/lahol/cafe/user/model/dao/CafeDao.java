@@ -50,5 +50,7 @@ public interface CafeDao {
 	int cafeUserReport(Report rep);
 	
 	int mainCount();
+	
+	List<CafeRes> isUseResList(String caCode);
 
 }

@@ -82,7 +82,7 @@
                                 class="datepicker"
                                 name="caResDate"
                                 type="text"
-                                autofocuss
+                                autofocuss         
                                 value="DD MONTH, YYYY">
                             </td>
                         </tr>
@@ -91,7 +91,7 @@
                         </tr>
                         <tr>
                             <td class="tdHere">
-                            <c:forTokens var="timeSta" items="${ cafeInfo.caStartTime  }" delims=":" varStatus="status">
+                            <c:forTokens var="timeSta" items="${ cafeInfo.caStartTime }" delims=":" varStatus="status">
                             	<c:if test="${ status.index eq 0 }">
 	                            	<c:set var="startHH" value="${ timeSta }"/>
 	                            </c:if>
@@ -117,7 +117,7 @@
                                     <option disabled selected>예약은 2시간만 이용가능합니다.</option>
                                     <c:forEach var="i" begin="${ sum_sthh }" end="${ sum_enhh }" step="2">
                                     	<c:forEach var="j" begin="${ sum_stmm }" end="${ sum_enmm }">
-                                    		<option><fmt:formatNumber pattern="00" value="${i}" />:<fmt:formatNumber pattern="00" value="${j}" /> - <fmt:formatNumber pattern="00" value="${i+2}" />:<fmt:formatNumber pattern="00" value="${j}" /></option>
+                                    			<option><fmt:formatNumber pattern="00" value="${i}" />:<fmt:formatNumber pattern="00" value="${j}" /> - <fmt:formatNumber pattern="00" value="${i+2}" />:<fmt:formatNumber pattern="00" value="${j}" /></option>
                                     	</c:forEach>
                                     </c:forEach>
                                 </select>
@@ -163,7 +163,9 @@
     <%@include file="./pickadate/picker.date.jsp" %>
     <%@include file="./pickadate/legacy.jsp" %>       
     <script>
-        $('.datepicker').pickadate();
+        $('.datepicker').pickadate({
+        	min: 0
+        });
     </script>
     <script>
         $(".add").click(function(){

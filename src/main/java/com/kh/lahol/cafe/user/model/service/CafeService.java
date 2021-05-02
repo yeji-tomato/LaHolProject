@@ -50,5 +50,7 @@ public interface CafeService {
 	public int cafeUserReport(Report rep);
 	
 	public int mainCount();
+	
+	public List<CafeRes> isUseResList(String caCode);
 
 }

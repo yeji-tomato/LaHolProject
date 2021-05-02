@@ -116,4 +116,9 @@ public class CafeDaoImpl implements CafeDao {
 		return sqlSession.selectOne("cafeMapper.mainCount");
 	}
 
+	@Override
+	public List<CafeRes> isUseResList(String caCode) {
+		return sqlSession.selectList("cafeMapper.isUseResList", caCode);
+	}
+
 }
