@@ -164,17 +164,7 @@ public class AdminController {
 		return "redirect:/admin/report/normal";
 	}
 	
-	// 쿠폰 발급 인서트
-	@RequestMapping(value="/game/insertCoupon", method=RequestMethod.GET)
-	public void insertCouponToUser(String id, String couponName, String couponLimit, String issuedBy,
-								   @ModelAttribute Game gm) {
-		gm.setId(id);
-		gm.setCouponName(couponName);
-		gm.setCouponLimit(couponLimit);
-		gm.setCouponName(couponName);
-		
-		adminService.insertCouponToUser(gm);
-	}
+
 	
 	// 커스텀 기간에 따른 수익 조회
 	@RequestMapping(value="/selectProfitByTerm", method=RequestMethod.POST)
