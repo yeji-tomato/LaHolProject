@@ -277,8 +277,8 @@
 				
 				<h5  style="text-align: center; padding: 5vh;"> 질문내용 <br>${ qna.question }</h5>
 					<form action="${ contextPath }/coffeeclass/answer" method="post"> 
-					<input type="text" name="classNo" value="${ coffeeclass.classNo }">
-					<input type="text" name="qnaNo" value="${ qna.qnaNo }">
+					<input type="hidden" name="classNo" value="${ coffeeclass.classNo }">
+					<input type="hidden" name="qnaNo" value="${ qna.qnaNo }">
                    	<input type="hidden" name="answerDate" value="${ qna.answerDate }">                  	
 					<table style="width: 100%;">
 						<tr>			
