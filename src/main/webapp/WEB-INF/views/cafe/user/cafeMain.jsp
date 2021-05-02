@@ -114,24 +114,43 @@
             
         </div>
         
-        <!-- 페이징 바 -->
-        <div aria-label="Page navigation" class="cafe-order-page">
-            <ul class="pagination">
-                <li class="page-item">
-                <a class="page-link" id="page-color" href="#" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                </a>
-                </li>
-                <li class="page-item" id="page-hover"><a class="page-link" id="page-color" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" id="page-color" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" id="page-color" href="#">3</a></li>
-                <li class="page-item">
-                <a class="page-link" id="page-color" href="#" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                </a>
-                </li>
-            </ul>
-            </div>
+     	<!-- 페이징 바 -->
+ 	<div aria-label="Page navigation" class="cafe-order-page">
+     <ul class="pagination">
+         <c:if test="${ pi.currentPage > 1 }">
+         <li class="page-item">
+         <c:url var="before" value="/cafe/biz/orderDate?checkDate=${ param.checkDate }">
+        	<c:param name="page" value="${ pi.currentPage -1 }" />
+     	 </c:url>
+         <a class="page-link" id="page-color" href="${ before }"   aria-label="Previous">
+             <span aria-hidden="true">&laquo;</span>
+         </a>
+         </li>
+         </c:if>
+		<!-- 페이징 숫자 -->
+        <c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+    		<c:if test="${ p eq pi.currentPage }">
+       		<li class="page-item" id="page-hover"><a class="page-link" id="page-color">${ p }</a></li>
+    		</c:if>	
+    		<c:if test="${ p ne pi.currentPage }">
+    		<c:url var="pagination" value="/cafe/biz/order">
+          	<c:param name="page" value="${ p }"/>
+       	</c:url>
+       	 <li class="page-item"><a class="page-link" id="page-color" href="${ pagination }">${ p }</a></li>
+    		 </c:if>
+ 			</c:forEach>
+    	 <c:if test="${ pi.currentPage < pi.maxPage }">
+    	 <c:url var="after" value="/cafe/biz/order">
+          <c:param name="page" value="${ pi.currentPage + 1 }" />
+     </c:url>
+     <li class="page-item">
+         <a class="page-link" id="page-color"  href="${ after }"  aria-label="Next">
+             <span aria-hidden="true">&raquo;</span>
+         </a>
+     </li>
+      </c:if>   
+    </ul>
+ </div>
 
     </section>
     

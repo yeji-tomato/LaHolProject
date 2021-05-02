@@ -9,7 +9,7 @@
 <title>카페 주문 확인</title>
 <link rel="stylesheet" href="${ contextPath }/resources/css/cafe/bus/order.css" type="text/css">
 <link rel="stylesheet" href="${ contextPath }/resources/css/cafe/bus/sideMenu.css" type="text/css">
-<script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
 <style>
 .lookup{
 	background: #F3D798;
@@ -25,6 +25,7 @@
 
 	<!-- 사업자 menubar -->
 	<jsp:include page="/WEB-INF/views/common/menubar.jsp"/>
+	<script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
 <!-- 카페 사이드 메뉴 바 -->
 <div class="cafe-sidemenubar">
@@ -54,15 +55,7 @@
                 </div>
                 <p class="menu-text">예약 내역</p>
         </li>
-        <li class="side-item" id="cafeWri">
-                <div class="side-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                        <path  d="M17.864 3.60051C17.4735 3.20999 16.8403 3.20999 16.4498 3.60051L15.0356 5.01472 19.2782 9.25736 20.6924 7.84315C21.0829 7.45263 21.0829 6.81946 20.6924 6.42894L17.864 3.60051zM17.864 10.6716L13.6213 6.42894 4.72185 15.3284C4.53431 15.516 4.42896 15.7703 4.42896 16.0355L4.42896 18.864C4.42895 19.4163 4.87667 19.864 5.42896 19.864H8.25738C8.5226 19.864 8.77695 19.7586 8.96449 19.5711L17.864 10.6716z"/>
-                    </svg>
-                </div>
-                <p class="menu-text">카페 등록</p>
-        </li>
-        <li class="side-item" id="cafeCon">
+        <li class="side-item" id="cafeCon" onclick="location.href='${ contextPath }/cafe/biz/confirm'">
                 <div class="side-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                         <path  fill-rule="evenodd" d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22ZM15.5355 8.46447C15.9261 8.07394 16.5592 8.07394 16.9498 8.46447C17.3403 8.85499 17.3403 9.48816 16.9498 9.87868L11.2966 15.5318L11.2929 15.5355C11.1919 15.6365 11.0747 15.7114 10.9496 15.7602C10.7724 15.8292 10.5795 15.8459 10.3948 15.8101C10.2057 15.7735 10.0251 15.682 9.87868 15.5355L9.87489 15.5317L7.05028 12.7071C6.65975 12.3166 6.65975 11.6834 7.05028 11.2929C7.4408 10.9024 8.07397 10.9024 8.46449 11.2929L10.5858 13.4142L15.5355 8.46447Z" clip-rule="evenodd"/>
@@ -138,6 +131,85 @@
 					    				data : { caResNo : caResNo },
 					    				success: function(data){
 					    					 $('.modal-wrapper').toggleClass('open');
+					    					 var divContainer = $(".row-cols-1");
+					    					 for(var i in data) {
+					    						 var divA = $("<div class='col'>");
+					    						 var divB = $("<div class='card mb-4'>");
+					    						 var divC = $("<div class='row g-0'>");
+					    						 var divD = $("<div class='col-md-4' id='cardImg'>");
+					    						 var img = $("<img src='${contextPath}/resources/nuploadFiles/cafeImg/" + data[i].cfIchname + "' alt='음료주문사진'>");
+					    						 
+					    						 var divE = $("<div class='col-md-8'>");
+					    						 var divF = $("<div class='card-body'>");
+					    						 
+					    						 var table = $("<table class='card-table'>");
+					    						 var thead = $("<thead>");
+					    						 var trA = $("<tr>");
+					    						 var tdA = $("<td colspan='2'>");
+					    						 var h5 = $("<h5 class='blackColor'>");
+					    						 h5.text(data[i].cfName);
+					    						 
+					    						 tdA.append(h5);
+					    						 trA.append(tdA);
+					    						 thead.append(trA);
+					    						 table.append(thead);
+					    						 
+					    						 var tbody = $("<tbody>");
+					    						 var trB = $("<tr>");
+					    						 var tdB = $("<td class='blackColor'>");
+					    						 tdB.text("수량");
+					    						 var tdB1 = $("<td class='redCard'>");
+					    						 tdB1.text(data[i].cfResAmount);
+					    						 
+					    						 trB.append(tdB);
+					    						 trB.append(tdB1);
+					    						 tbody.append(trB);
+					    						 
+					    						 var trC = $("<tr>");
+					    						 var tdC = $("<td class='blackColor'>");
+					    						 tdC.text("종류");
+					    						 var tdC1 = $("<td class='redCard'>");
+					    						 tdC1.text(data[i].cfResHI);
+					    						 
+					    						 trC.append(tdC);
+					    						 trC.append(tdC1);
+					    						 tbody.append(trC);
+					    						 
+					    						 var trD = $("<tr>");
+					    						 var tdD = $("<td class='blackColor'>");
+					    						 tdD.text("용량");
+					    						 var tdD1 = $("<td class='redCard'>");
+					    						 tdD1.text(data[i].cfResCap);
+					    						 
+					    						 trD.append(tdD);
+					    						 trD.append(tdD1);
+					    						 tbody.append(trD);
+					    						 
+					    						 var trE = $("<tr>");
+					    						 var tdE = $("<td class='blackColor'>");
+					    						 tdE.text("컵");
+					    						 var tdE1 = $("<td class='redCard'>");
+					    						 tdE1.text(data[i].cfResCup);
+					    						 
+					    						 trE.append(tdE);
+					    						 trE.append(tdE1);
+					    						 tbody.append(trE);
+					    						 
+					    						 table.append(tbody);
+					    						 
+					    						 divF.append(table);
+					    						 divE.append(divF);
+					    						 divD.append(img);
+					    						 
+					    						 divC.append(divD);
+					    						 divC.append(divE);
+					    						 
+					    						 divB.append(divC);
+					    						 divA.append(divB);
+					    						 
+					    						 divContainer.append(divA);
+					    						 
+					    					 }
 					    				},
 					    				error : function(e){
 					    					console.log(e);
@@ -146,7 +218,68 @@
 						       		
 						       	}
 					   		</script>
-					   		<%@include file="./orderModal.jsp" %>
+					   		<!-- Modal -->
+<div class="modal-wrapper">
+ <div class="modalCafe">
+ <div class="headModal">
+     <h5 class="headerM">음료 주문 내역</h5>
+     <div class="mod-close trigger headerM" >
+         <i class="fa fa-times" id="closeIcon" aria-hidden="true"></i>
+     </div>
+ </div>
+ <div class="contentMod">
+     <div class="container">
+         <div class="row row-cols-1 row-cols-md-2">
+         <!-- col -->
+         
+        <%-- <c:forEach var="bOrder" items="${ beverageOrder }">
+        
+        <div class="col">
+            <div class="card mb-4">
+                <div class="row g-0">
+                    <div class="col-md-4" id="cardImg">
+                    <img src="${ contextPath }/resources/nuploadFiles/cafeImg/${ bOrder.cfIchname }" alt="음료주문사진">
+                    </div>
+                    <div class="col-md-8">
+                    <div class="card-body">
+                        <table class="card-table">
+                            <thead>
+                                <tr><td colspan="2"><h5 class="blackColor">${ bOrder.cfName }</h5></td></tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="blackColor">수량</td>
+                                    <td class="redCard">${ bOrder.cfResAmount }</td>
+                                </tr>
+                                <tr>
+                                    <td class="blackColor">종류 </td>
+                                    <td class="redCard">${ bOrder.cfResHI }</td>
+                                </tr>
+                                <tr>
+                                    <td class="blackColor">용량</td>
+                                    <td class="redCard">${ bOrder.cfResCap }</td>
+                                </tr>
+                                <tr>
+                                    <td class="blackColor">컵</td>
+                                    <td class="redCard">${ bOrder.cfResCup }</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    </div>
+                </div>
+                </div>
+        </div>
+        </c:forEach> --%>
+            
+            </div>
+        </div>
+        
+    </div>
+    
+	
+</div>
+   </div>
                        </td>
                        
                        <td>

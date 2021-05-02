@@ -21,7 +21,7 @@ public interface CafeService {
 	// 2. 카페 포장 예약 insert
 	public int togoInsertRes(CafeRes r);
 	// 3. 검색 전 카페 리스트 출력
-	public List<Cafe> cafeMainList();
+	public List<Cafe> cafeMainList(PageInfo pi);
 	// 4. 카페 디테일 보기
 	public Cafe searchDetail(String caCode);
 	
@@ -48,5 +48,9 @@ public interface CafeService {
 	public List<CafeQnA> selectQnAList(String caCode);
 	
 	public int cafeUserReport(Report rep);
+	
+	public int mainCount();
+	
+	public List<CafeRes> isUseResList(String caCode);
 
 }

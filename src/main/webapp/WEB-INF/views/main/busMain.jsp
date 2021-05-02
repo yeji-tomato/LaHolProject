@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,6 +8,7 @@
 <title>사업자 메인페이지</title>
 <link rel="stylesheet" href="${ contextPath }/resources/css/common/busMain.css" type="text/css">
 <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.3.1/css/swiper.min.css'>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 </head>
 <body>
 	<!-- menubar -->
@@ -41,13 +43,21 @@
               <div class="card-meta">
                 <div class="card-meta__line"></div>
               </div>
-              <div class="card-tags">
+              	<div class="card-tags">
                 <a href="${ contextPath }/cafe/biz/home"  class="card-tags__item">HOME</a>
                 <a href="${ contextPath }/cafe/biz/order" class="card-tags__item">ORDER</a>
                 <a href="${ contextPath }/cafe/biz/res" class="card-tags__item">RESERVATION</a>
-                <a href="${ contextPath }/cafe/biz/write" class="card-tags__item">WRITE</a>
+                <c:choose>
+                	<c:when test="${ !empty ca.mainPhoto }">
+                		<a href="${ contextPath }/cafe/biz/write" class="card-tags__item">WRITE</a>
+                	</c:when>
+                <c:otherwise>
+                	<a href="#" onclick="already()" class="card-tags__item">WRITE</a>
+                </c:otherwise>
+                </c:choose>
                 <a href="${ contextPath }/cafe/biz/confirm"  class="card-tags__item">CONFIRM</a>
               </div>
+              
             </div><img src="https://images.unsplash.com/photo-1606444190488-46cf0d72c691?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80" alt="" class="card__image">
           </div>
         </div>
@@ -132,6 +142,19 @@ $(document).ready(function() {
         })
     })
 });
+</script>
+<script>
+function already(){
+	Swal.fire({
+		  title: '이미 등록된 정보입니다!',
+		  text: '사업자 1명 당 1 카페만 등록 가능합니다.',
+		  imageUrl: 'https://i.pinimg.com/564x/6d/96/19/6d9619b5cddacfe3ced6b0104c4b6ff5.jpg',
+		  imageWidth: 400,
+		  imageHeight: 200,
+		  imageAlt: 'mainphoto',
+		  confirmButtonColor: '#4B654A',
+		});	
+}
 </script>
 </body>
 </html>

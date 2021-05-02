@@ -6,6 +6,8 @@
 <head>
 <meta charset="UTF-8">
 <title>음료 세부 내역 페이지</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
 </head>
 <body>
 <!-- Modal -->
@@ -21,7 +23,15 @@
      <div class="container">
          <div class="row row-cols-1 row-cols-md-2">
          <!-- col -->
+         <script>
+         console.log("1");
+         console.log('${beverageOrder}');
+         </script>
          <c:forEach var="bOrder" items="${ beverageOrder }">
+         	<img src="${ contextPath }/resources/nuploadFiles/cafeImg/${ bOrder.cfIchname }" alt="음료주문사진">
+         </c:forEach>
+        <%-- <c:forEach var="bOrder" items="${ beverageOrder }">
+        
         <div class="col">
             <div class="card mb-4">
                 <div class="row g-0">
@@ -58,7 +68,7 @@
                 </div>
                 </div>
         </div>
-        </c:forEach>
+        </c:forEach> --%>
             
             </div>
         </div>

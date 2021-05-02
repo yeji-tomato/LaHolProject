@@ -169,7 +169,7 @@ public class CafeBizController {
 	
 	public String saveFile(MultipartFile file, HttpServletRequest request) {
 	      String root = request.getSession().getServletContext().getRealPath("resources");
-	      String savePath = root + "\\nuploadFiles\\cafeImg";
+	      String savePath = root + "/nuploadFiles/cafeImg";
 	      File folder = new File(savePath); // 메모리상에서 객체 파일 만들기 
 	      if(!folder.exists()) {
 	    	  folder.mkdir(); // -> 해당 경로가 존재하지 않는다면 디렉토리 생성
@@ -182,7 +182,7 @@ public class CafeBizController {
 	                     + (int)(Math.random() * 100000)
 	                     + originalFileName.substring(originalFileName.lastIndexOf("."));
 	      
-	      String renamePath = folder + "\\" + renameFileName; // 저장하고자하는 경로 + 파일명
+	      String renamePath = folder + "/" + renameFileName; // 저장하고자하는 경로 + 파일명
 	      
 	      try {
 	         file.transferTo(new File(renamePath));
@@ -230,9 +230,9 @@ public class CafeBizController {
 	
 	private void deleteFile(String fileName, HttpServletRequest request) {
 	      String root = request.getSession().getServletContext().getRealPath("resources");
-	      String savePath = root + "\\buploadFiles\\cafeImg";
+	      String savePath = root + "/buploadFiles/cafeImg";
 	      
-	      File deleteFile = new File(savePath + "\\" + fileName);
+	      File deleteFile = new File(savePath + "/" + fileName);
 	      
 	      if(deleteFile.exists())
 	         deleteFile.delete();
@@ -351,7 +351,7 @@ public class CafeBizController {
 				if(renameFileName != null) {
 					co.setCfIchname(renameFileName);
 					co.setCfIname(cfIname.getOriginalFilename());
-					co.setChIpath("\\nuploadFiles\\cafeImg");
+					co.setChIpath("/nuploadFiles/cafeImg");
 				}
 
 			}
@@ -415,7 +415,7 @@ public class CafeBizController {
 			if(renameFileName != null) {
 				co.setCfIchname(renameFileName);
 				co.setCfIname(photofile.getOriginalFilename());
-				co.setChIpath("\\nuploadFiles\\cafeImg");
+				co.setChIpath("/nuploadFiles/cafeImg");
 			}	
 		 }
 		 
@@ -567,18 +567,25 @@ public class CafeBizController {
 	
 
 	@PostMapping("/order/beverage")
-	public ModelAndView beverageOrderList(ModelAndView mv, String caResNo) {
+	public void beverageOrderList(ModelAndView mv, String caResNo, HttpServletResponse response) {
+		
+		response.setContentType("application/json; charset=utf-8");
 		
 		System.out.println("번호 출력 : "+ caResNo);
 		List<bevOrder> beverageOrder = caBizService.beverageOrder(caResNo);
-		System.out.println(beverageOrder);
+		
+		
 		if(beverageOrder != null) {
-			mv.addObject("beverageOrder", beverageOrder);
-			mv.setViewName("cafe/bus/orderModal");
+			PrintWriter out;
+			try {
+				out = response.getWriter();
+				out.print(new Gson().toJson(beverageOrder));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
 		}
-		
-		
-		return mv;
+
 	}
 	
 	@PostMapping("/answer")

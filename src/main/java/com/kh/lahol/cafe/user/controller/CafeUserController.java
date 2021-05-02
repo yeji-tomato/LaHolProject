@@ -35,6 +35,7 @@ import com.kh.lahol.cafe.bus.model.vo.Cafe;
 import com.kh.lahol.cafe.bus.model.vo.Coffee;
 import com.kh.lahol.cafe.bus.model.vo.PageInfo;
 import com.kh.lahol.cafe.user.model.exception.CafeException;
+import com.kh.lahol.cafe.user.model.page.PaginationCafeMain;
 import com.kh.lahol.cafe.user.model.page.PaginationReview;
 import com.kh.lahol.cafe.user.model.service.CafeService;
 import com.kh.lahol.cafe.user.model.vo.CaReview;
@@ -59,12 +60,16 @@ public class CafeUserController {
 	
 	// 메인 페이지로 이동
 	@GetMapping("/user")
-	public ModelAndView cafeMain(ModelAndView mv) {
+	public ModelAndView cafeMain(ModelAndView mv, 
+			@RequestParam(value="page", required=false, defaultValue="1") int currentPage) {
 		
-		List<Cafe> CafeMainList = caService.cafeMainList();
+		int listCount = caService.mainCount();
+		PageInfo pi = PaginationCafeMain.getPageInfo(currentPage, listCount);
+		List<Cafe> CafeMainList = caService.cafeMainList(pi);
 		
 		if(CafeMainList != null) {
 			mv.addObject("CafeMainList", CafeMainList);
+			mv.addObject("pi", pi);
 			mv.setViewName("cafe/user/cafeMain");
 		}else {
 			mv.addObject("msg", "해당하는 카페 조회에 실패하였습니다.");
@@ -114,19 +119,42 @@ public class CafeUserController {
 		return mv;
 	}
 	
-	// 매장 페이지 이동
+	/*
+	 * // 매장 페이지 이동
+	 * 
+	 * @GetMapping("/here") public String Here(@RequestParam String caCode, Model
+	 * model) {
+	 * 
+	 * Cafe cafeInfo = caService.searchDetail(caCode);
+	 * 
+	 * 
+	 * if(cafeInfo != null) { model.addAttribute("cafeInfo", cafeInfo); return
+	 * "/cafe/user/here"; }else { model.addAttribute("msg", "등록된 카페 보기에 실패하였습니다.");
+	 * return "common/error"; }
+	 * 
+	 * }
+	 */
+	
+	
+	// 매장 페이지 이동 // 예약 조회 검사
 	@GetMapping("/here")
-	public String Here(@RequestParam String caCode, Model model) {
+	public ModelAndView Here(@RequestParam String caCode, Model model, ModelAndView mv) {
 		
 		Cafe cafeInfo = caService.searchDetail(caCode);
+		List<CafeRes> cr = caService.isUseResList(caCode);
 		
 		if(cafeInfo != null) {
-			model.addAttribute("cafeInfo", cafeInfo);
-			return "/cafe/user/here";
+			
+			mv.addObject("cafeInfo", cafeInfo);
+			mv.addObject("cr", cr);
+			mv.setViewName("cafe/user/here");
+
 		}else {
-			model.addAttribute("msg", "등록된 카페 보기에 실패하였습니다.");
-			return "common/error";
+			mv.addObject("msg", "등록된 카페 보기에 실패하였습니다.");
+			mv.setViewName("common/error");
 		}	
+		
+		return mv;
 		
 	}
 	
