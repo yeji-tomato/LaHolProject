@@ -1,17 +1,38 @@
-	
-	/* 다크모드 스위치 위 텍스트 토글*/
-	$(".toggle").click(function (e) {
-	    $(this).toggleClass("toggle-on");
-	});
 
-	/* 다크모드 토글 */
-	function toggleDarkMode() {
-	    var dataTheme = $('body').attr('data-theme');
-
-	    if(dataTheme === 'dark') {
-	        $('body').attr('data-theme', 'light');
-	    } else {
-	        $('body').attr('data-theme', 'dark');
-	    }
-	};	
 	
+
+	function toggleDarkMode()
+	{
+		var dataTheme = $('body').attr('data-theme');
+		
+		if(dataTheme === 'dark') {	
+			sessionStorage.setItem("theme", "light");
+		    sessionStorage.setItem("button","off");
+		    $('body').attr('data-theme', 'light');
+		    $(".toggle").removeClass("toggle-on");
+		} else {
+		    sessionStorage.setItem("theme", "dark");
+		    sessionStorage.setItem("button","on");
+		    $('body').attr('data-theme', 'dark');
+		    $(".toggle").addClass("toggle-on");
+		}
+	};
+	
+
+	function verifyDarkMode() {
+
+		if(sessionStorage.getItem('theme') == '' && sessionStorage.getItem('button') == '' || sessionStorage.getItem('button') == 'off')
+		{
+		    $('body').attr('data-theme', 'light');
+		    $(".toggle").removeClass("toggle-on");
+		}
+		else
+		{
+		    theme = sessionStorage.getItem('theme');
+		    button = sessionStorage.getItem('button');
+		    console.log(theme);
+		    console.log(button);
+		    $('body').attr('data-theme',theme);
+		    $('.toggle').addClass('toggle-' + button);
+		}
+	};

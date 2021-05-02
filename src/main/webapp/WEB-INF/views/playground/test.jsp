@@ -155,13 +155,6 @@
 		nope.addEventListener('click', nopeListener);
 		love.addEventListener('click', loveListener);
 		
-		
-		$(function() {
-			var count = 0;
-			
-			$('.roundBtn').click(function(){ count += 1 });
-
-		})
 		</script>
 	</body>
 </html>

@@ -305,6 +305,11 @@ body {
     color: var(--cell-txt);
 }
 
+#waiting-list,
+#completed-list {
+    padding-top: 2%;
+}
+
 
 /* 토글 */
 #switch{

@@ -9,23 +9,13 @@
 		<link rel="stylesheet" href="${ contextPath }/resources/css/admin/profit.css" />
 		<link rel="stylesheet" href="${ contextPath }/resources/css/common/fonts.css" />
 		<script src="https://cdn.zinggrid.com/zinggrid.min.js" defer></script>
-		<script
-			type="text/javascript"
-			src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"
-		></script>
-		<script
-			type="text/javascript"
-			src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"
-		></script>
+		<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+		<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
-		<link
-			rel="stylesheet"
-			type="text/css"
-			href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css"
-		/>
+		<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css"/>
 	</head>
-	<body data-theme="light">
+	<body data-theme="">
 		<!--!! 최상단 컨테이너-->
 		<div id="whole-container">
 			<!--𖤐 왼쪽 영역-->
@@ -309,6 +299,10 @@
 			</section>
 		</div>
 		<script>
+		$(function(){
+			$('body').attr('data-theme', sessionStorage.getItem('theme'));
+		    $(".toggle").toggleClass("toggle-on", sessionStorage.getItem('button'));
+		});
 		
 		$('.dateBtn').on('click', function(){
 		    $('.dateBtn').removeClass('selected');
@@ -836,6 +830,10 @@
 		    $('#day').trigger('focus');
 		});
 		    
+		});
+		
+		$(function(){
+			verifyDarkMode();
 		});
 		</script>
 		<script src="${ contextPath }/resources/js/admin/darkMode.js"></script>
