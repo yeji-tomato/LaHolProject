@@ -238,9 +238,11 @@
             <div class="content-upload-img content-div">
                 <p class="content-subTitle">사진 리뷰</p>
                 <div class="upload-div">
+                	<c:if test="${ review.category ne 'CLRV' }">
                     <label for="review-img">사진 업로드</label>
                     <input type="text" id="upload-name" disabled>
                     <input type="file" id="review-img" name="review-img">
+                    </c:if>
                     <input type="hidden" name="category" value="${ review.category }">
                     <input type="hidden" name="id" value="${ review.id }">
                     <input type="hidden" name="cl_pay_no" value="${ review.cl_pay_no }">
@@ -328,6 +330,7 @@
         	var reviewImg = document.getElementById("review-img");
         	var star = document.getElementsByClassName("on");
         	var content = document.getElementById("review-text");
+        	var rvCategory = ${ review.category };
         	
         	if(star.length == 0) {
         		Swal.fire({
@@ -354,26 +357,29 @@
         		content.focus();
         		return;
         	}
-        	
-        	if(!(reviewImg.files && reviewImg.files[0])) {
-        		Swal.fire({
-					title : '업로드 된 이미지가 없습니다.',
-					text : "이미지 없이 등록 하시겠습니까?",
-					icon : 'warning',
-					showCancelButton : true,
-					confirmButtonColor : '#4B654A',
-					cancelButtonColor : '#d33',
-					confirmButtonText : '등록',
-					cancelButtonText : '취소'
-				}).then(function(result) {
-					if(result.isConfirmed) {
-						$("#review_form").submit();
-					} else {
-						return;
-					}
-				});
+        	if(rvCategory != 'CLRV') {
+	        	if(!(reviewImg.files && reviewImg.files[0])) {
+	        		Swal.fire({
+						title : '업로드 된 이미지가 없습니다.',
+						text : "이미지 없이 등록 하시겠습니까?",
+						icon : 'warning',
+						showCancelButton : true,
+						confirmButtonColor : '#4B654A',
+						cancelButtonColor : '#d33',
+						confirmButtonText : '등록',
+						cancelButtonText : '취소'
+					}).then(function(result) {
+						if(result.isConfirmed) {
+							$("#review_form").submit();
+						} else {
+							return;
+						}
+					});
+	        	} else {
+		        	$("#review_form").submit();
+	        	}
         	} else {
-	        	$("#review_form").submit();
+        		$("#review_form").submit();
         	}
         }
     </script>
