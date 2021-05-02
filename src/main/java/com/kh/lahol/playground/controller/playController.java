@@ -37,13 +37,13 @@ public class playController {
 	}
 
 	// 플레이그라운드 원두테스트
-	@RequestMapping("/playground/test")
+	@RequestMapping("/playground/tasteTest")
 	public String beanTest(Locale locale, Model model) {
-		return "playground/test";
+		return "playground/tasteTest";
 	}
 	
 	// 플레이그라운드 원두테스트 결과
-	@RequestMapping("/playground/")
+	@RequestMapping("/playground/testResult")
 	public String beanTestResult(Locale locale, Model model) {
 		return "playground/testResult";
 	}

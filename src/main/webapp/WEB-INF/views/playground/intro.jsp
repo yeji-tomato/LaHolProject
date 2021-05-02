@@ -11,7 +11,7 @@
 	<body>
 		<jsp:include page="/WEB-INF/views/common/menubar.jsp"/>
 		<section id="whole-container">
-			<div class="card-container" id="bean-container" onclick="location.href='${ contextPath }/playground/test'">
+			<div class="card-container" id="bean-container" onclick="location.href='${ contextPath }/playground/tasteTest'">
 				<div class="overlay">
 					<div class="items"></div>
 					<div class="items head">
