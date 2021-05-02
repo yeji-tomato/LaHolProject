@@ -25,7 +25,7 @@ public interface CartDao {
 	
 	int CartPayment2(Payment pay);
 
-	int successCart(String id);
+	
 
 	int cartNum(String id);
 
@@ -34,12 +34,21 @@ public interface CartDao {
 
 	int deleteCart(String sT);
 
-	int CartPayment3(Payment pay);
-
 	int insertClOrder(String classNo);
 
+	
+	int CartPayment3(Payment pay);
 
+	
 
+	int successCart(String id);
+
+	
+	int deleteCart1(String purchaseNo);
+
+	int deleteCart2(String cres);
+
+	int deleteCart3(String classNo);
 
 
 }

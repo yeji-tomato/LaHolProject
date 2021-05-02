@@ -58,7 +58,7 @@
                <div class="basketprice">가격</div> 
                <div class="num">수량</div>
                <div class="sum">합계</div>
-               <div class="del">배송/예약</div>
+               <div class="del">배송/예약/수강</div>
            	
            </div>
            <div class="subdiv">
@@ -210,7 +210,16 @@
             </div>
             <div class="num">1</div>                        
             <div class="sum">${ classSum }원</div>
-            <div class="del">${ classSum }원</div> 
+           <%-- <fmt:formatDate var="Date" value="${ crt.clTime }" pattern="yyyy-MM-dd[E]"/> --%>
+            <div class="del"> 클래스수업 </div> 
+            
+            
+            
+            
+            
+            
+            
+            
         </div>
        
         <div class="subdiv">
