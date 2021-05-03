@@ -75,6 +75,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-top: 13%;
 }
 
 /* 카테고리 컨테이너*/
@@ -87,7 +88,7 @@ body {
 #category-list {
     list-style: none;
     padding-left: 15%;
-    padding-top: 5%;
+    padding-top: 3%;
 }
 
 #category-list a {

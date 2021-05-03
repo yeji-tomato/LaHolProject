@@ -28,7 +28,7 @@
 							id="logo"
 							src="${ contextPath }/resources/img/admin/common/logo_lightyellow.png"
 							alt=""
-							width="62%"
+							width="50%"
 							height="auto"
 						/>
 					</a>
