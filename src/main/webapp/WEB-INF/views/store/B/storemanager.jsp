@@ -54,16 +54,14 @@
               				<br>
               			 
               				<br>
-                <div id="view2"   >
-                
+                <div id="view2" > 
                 			<div class="product" onClick="location.href=' ${ contextPath }/store/create'"    > 
 		 		                 <div class="scale"  > 
 		 		                 
 		                            <img  src="${ contextPath }/resources/img/store/new.jpg" width="345px" height="300px " >  
 		                        </div>    
 		                        <div class="if" style="float:left; witdh: 50px;">
-		                       
-		                       
+		                        
 		                      
 		                        </div>
 		                        <center>
@@ -71,25 +69,23 @@
 		                       	</center>
 		                    </div> 
 		                    
-		                    
+		                     
 		                    
 	               		  <c:forEach var="s" items="${ list }">   
 		                    <div class="product"    > 
 		 		                 <div class="scale"  onclick="selectStore(${s.PR_CODE});"> 
-		 		                 <div style="font-weight: bold;position: absolute;z-index:10;width: 345px;" >  </div> 
+		 		   
 		                            <img  src="${ contextPath }/resources/img/store/${ s.STORE_PHOTO1 }" width="345px" height="300px " >  
 		                        </div>    
 		                        <div class="if" style="float:left; witdh: 50px;">
 		                        <center>
 		                        <h4 >${ s.PR_NAME }</h4>
 		                            <h5 style="color: #96877D"> <fmt:formatNumber value="${ s.PR_PRICE }" pattern="#,###"/>원</h5>  
-		                            <c:if   test="${ s.SUBSCRIPTIONS eq 'Y' }" >
-		                            <h6 style="color: #96877D"> 구독상품 </h6>  
-		                            </c:if>
+		                           
 		                        </center>
 		                        </div>
-		                        <button  id="ifs" onclick="location.href='${ contextPath }/store/updatepage?PR_CODE=${ s.PR_CODE }'" >수정</button>   
-		                        <button    id="ifd" data-bs-toggle="modal" data-bs-target="#deleteModal${s.PR_CODE}"  >삭제</button>  
+		                        <button id="ifs" onclick="location.href='${ contextPath }/store/updatepage?PR_CODE=${ s.PR_CODE }'" >수정</button>   
+		                        <button id="ifd" data-bs-toggle="modal" data-bs-target="#deleteModal${s.PR_CODE}"  >삭제</button>  
 		                    </div> 
 		                     
 		                    </c:forEach>
@@ -137,9 +133,7 @@
 			                </table>
 	                  
 			                </div> 
-				             <div id="bu" style="width:60%;  height: 50px;   float:left;">
-				              <button id="management" style="margin-top: 0px;float:left;margin-left: 1300px;"    onClick="location.href=' ${ contextPath }/store/list'" >  스토어 메인 </button>   
-				              </div> 
+				            
 				           
               		   </div>
                     </center>
