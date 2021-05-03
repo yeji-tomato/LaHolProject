@@ -97,7 +97,7 @@
                    <td scope="col">휴대폰 번호</td>
                    <td scope="col">예약</td>
                    <td scope="col">시간</td>
-                   <td scope="col">상세보기</td>
+                   <!-- <td scope="col">상세보기</td> -->
                    <td scope="col">주문상태</td>
                </tr>
                </thead>
@@ -119,7 +119,7 @@
 				        	<td>${ ord.caGoTime }</td>
 				        </c:if> 
 				       
-                       <td class="mod trigger" onclick="coffeeInfoOpen('${ ord.caResNo }')">
+                       <%-- <td class="mod trigger" onclick="coffeeInfoOpen('${ ord.caResNo }')">
                            <i class="fa fa-arrow-right" aria-hidden="true"></i>
                        		<script>
 						       // Modal
@@ -227,60 +227,12 @@
          <i class="fa fa-times" id="closeIcon" aria-hidden="true"></i>
      </div>
  </div>
- <div class="contentMod">
-     <div class="container">
-         <div class="row row-cols-1 row-cols-md-2">
-         <!-- col -->
-         
-        <%-- <c:forEach var="bOrder" items="${ beverageOrder }">
-        
-        <div class="col">
-            <div class="card mb-4">
-                <div class="row g-0">
-                    <div class="col-md-4" id="cardImg">
-                    <img src="${ contextPath }/resources/nuploadFiles/cafeImg/${ bOrder.cfIchname }" alt="음료주문사진">
-                    </div>
-                    <div class="col-md-8">
-                    <div class="card-body">
-                        <table class="card-table">
-                            <thead>
-                                <tr><td colspan="2"><h5 class="blackColor">${ bOrder.cfName }</h5></td></tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td class="blackColor">수량</td>
-                                    <td class="redCard">${ bOrder.cfResAmount }</td>
-                                </tr>
-                                <tr>
-                                    <td class="blackColor">종류 </td>
-                                    <td class="redCard">${ bOrder.cfResHI }</td>
-                                </tr>
-                                <tr>
-                                    <td class="blackColor">용량</td>
-                                    <td class="redCard">${ bOrder.cfResCap }</td>
-                                </tr>
-                                <tr>
-                                    <td class="blackColor">컵</td>
-                                    <td class="redCard">${ bOrder.cfResCup }</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    </div>
-                </div>
-                </div>
-        </div>
-        </c:forEach> --%>
-            
-            </div>
-        </div>
-        
-    </div>
+
     
 	
 </div>
    </div>
-                       </td>
+                       </td> --%>
                        
                        <td>
                            <div class="btn-group" role="group">
