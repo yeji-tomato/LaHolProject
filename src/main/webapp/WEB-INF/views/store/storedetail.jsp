@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>스토어 디테일</title>
+<title>스토어 제품 디테일</title>
 <!-- 아이콘 cdn -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
  
@@ -195,7 +195,7 @@
 					<div class="rvt"
 						style="top: 10px;left: 550px;width: 422px;height: 402px;">
 						<span><a style="font-size: 25px;  margin-left: 150px;" >  ${s.PR_NAME }  <c:if test="${ !empty sessionScope.loginUser }"> <button data-bs-toggle="modal" data-bs-target="#PrModal"
-						style="background-color:white;	color: red; border-left-width: 0px; border-top-width: 0px;border-right-width: 0px; border-bottom-width: 0px;"> <i class="fa fa-bullhorn" aria-hidden="true"></i></button></c:if><p style="margin-left:40%;">  </p></a>
+						style="background-color:white;	color: red; border-left-width: 0px; border-top-width: 0px;border-right-width: 0px; border-bottom-width: 0px;"><i class="fas fa-exclamation-triangle"></i></button></c:if><p style="margin-left:40%;">  </p></a>
 						
 	                        &nbsp <i class="fa fa-bullhorn" aria-hidden="true" style="font-size: 15px; color: rgb(190, 130, 51); "> <a>  ※ ${s.PR_EVENT }</a></i> 
 					     </span>
@@ -514,7 +514,7 @@
 									               data-bs-target="#PrRModal${r.review_no}"style="background-color:white;	
 									               color: red; border-left-width: 0px; border-top-width: 0px;border-right-width: 0px; border-bottom-width: 0px;">
 									               
-									                <i class="fa fa-bullhorn" aria-hidden="true"></i></button></c:if> </td> 
+									               <i class="fas fa-exclamation-triangle"></i></button></c:if> </td> 
 									            </tr>
 									            <tr> 
 									                <td style="width: 110px;">${ r.id  } </td>
