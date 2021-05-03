@@ -41,13 +41,13 @@
             <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
               <div class="carousel-inner" id="caroselLeft">
                 <div class="carousel-item active" data-bs-interval="7000">
-                  <img src="${ contextPath }/resources/nuploadFiles/classImg/${ coffeeclass.clThumbnail }" class="d-block w-100" alt="...">
+                  <img src="${ contextPath }/resources/nuploadFiles/classImg/${ coffeeclass.clThumbnail }" class="d-block w-100" alt="..." style="width: 400px; height:450px;">
                 </div>
                 <div class="carousel-item" data-bs-interval="3000">
-                  <img src="${ contextPath }/resources/nuploadFiles/classImg/${ coffeeclass.clPhoto }" class="d-block w-100" alt="...">
+                  <img src="${ contextPath }/resources/nuploadFiles/classImg/${ coffeeclass.clPhoto }" class="d-block w-100" alt="..." style="width: 400px; height:450px;">
                 </div>
                 <div class="carousel-item" data-bs-interval="3000">
-                  <img src="${ contextPath }/resources/nuploadFiles/classImg/${ coffeeclass.trPhoto }" alt="...">
+                  <img src="${ contextPath }/resources/nuploadFiles/classImg/${ coffeeclass.trPhoto }" alt="..." style="width: 400px; height:450px;">
                 </div>
               </div>
               <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
@@ -64,7 +64,7 @@
            
             <!--오른쪽-->
             <div class="col">
-              <div class="cl-info" style="max-width : 22vw;">
+              <div class="cl-info">
                   <table class="cl-table" style="width : 500px;">
                     <thead>
                       <tr>
@@ -97,7 +97,7 @@
                       <fmt:formatDate var="Date" value="${ coffeeclass.classDate }" pattern="yyyy-MM-dd[E]"/>
                       <tr>
                         <td>날짜</td>
-                        <td name="classDate" style="width: 100px;">
+                        <td name="classDate" style="width: 150px;">
                           ${ Date }  
                         </td>
                       </tr>
@@ -120,7 +120,7 @@
                         </td>
                       </tr>
                       <tr>
-                        <td style="width: 80px;">결제금액</td>
+                        <td>결제금액</td>
                         <td colspan="2">
                           ${ coffeeclass.clPrice }원
                         </td>
@@ -128,8 +128,8 @@
                       <tr><td></td></tr>
                       <tr><td></td></tr>
                       <tr>
-                      	<td>
-                        <td style="background-color :none; border:0px; cursor: pointer; width: 300px; color : orange;" onclick="location.href='${ contextPath }/cafe/detail?caCode=${ coffeeclass.cafeNo }'"> ☕☕연계 카페로 이동하기</td>             
+                      	
+                        <td colspan="3" style="background-color :none; border:0px; cursor: pointer; color : orange;" onclick="location.href='${ contextPath }/cafe/detail?caCode=${ coffeeclass.cafeNo }'"> ☕☕연계 카페로 이동하기</td>             
                       </tr>
                     </tbody>
                   </table>
@@ -143,13 +143,43 @@
 				    
 				}
 				</script>
-                  
-                  
-                  
-            
+              
+				<!-- 일반사용자들에게 보여지는 버튼 or 자신의 사업장이 아닌 클래스 열람시 보여지는 버튼 -->
+                <c:if test="${ loginUser == NULL || loginUser.id ne coffeeclass.clWriter }">
+                  <div class="row row-cols-auto">
+				    <div class="col">
+				      <button class="btn" id = "register-btn">
+                	  수강신청
+	                  <i class="fa fa-credit-card-alt" aria-hidden="true"></i>
+	                </button> 
+				    </div>
+				    <div class="col">
+				      <button type="button" class="btn" id = "cart-btn">
+	                  	  장바구니
+	                  <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+	                	</button>
+	                	<!-- 장바구니 -->
+		                <form id = "cartclass" action="${ contextPath }/cart/cartclass" method="post">
+		             	<input type="hidden" name="userId" value="${ sessionScope.loginUser.id }">
+		               	<input type="hidden" id= "class_no" name="classNo" value="${ coffeeclass.classNo }">
+		               	<input type="hidden" id= "class_name" name="cartName" value="${ coffeeclass.className }">
+		               	<input type="hidden" id="cl_price" name="cartPrice" value="${ coffeeclass.clPrice}">
+		              <%--   <input type="hidden" id = "cl_date" name="shipFee" value = "${ coffeeclass.classDate }"> --%>
+		                <input type="hidden" id = "cl_time" name="clTime" value = "${  coffeeclass.classDate }">
+		                </form>
+				    </div>
+				    <div class="col">
+				    <button type="button" class="btn" id="report-btn" width="200vw">
+	                  	
+	                    <i class="fa fa-bullhorn" aria-hidden="true" id="reportclass" data-bs-toggle="modal" data-bs-target="#exampleModal"></i>
+	                	</button>
+				     
+				    </div>
+  				</div>  
+            	 </c:if>
                     
                 <!-- 일반사용자들에게 보여지는 버튼 or 자신의 사업장이 아닌 클래스 열람시 보여지는 버튼 -->
-                <c:if test="${ loginUser == NULL || loginUser.id ne coffeeclass.clWriter }">
+                <%-- <c:if test="${ loginUser == NULL || loginUser.id ne coffeeclass.clWriter }">
                  <button class="btn" id = "register-btn">
                 	  수강신청
                   <i class="fa fa-credit-card-alt" aria-hidden="true"></i>
@@ -164,18 +194,18 @@
                	<input type="hidden" id= "class_no" name="classNo" value="${ coffeeclass.classNo }">
                	<input type="hidden" id= "class_name" name="cartName" value="${ coffeeclass.className }">
                	<input type="hidden" id="cl_price" name="cartPrice" value="${ coffeeclass.clPrice}">
-              <%--   <input type="hidden" id = "cl_date" name="shipFee" value = "${ coffeeclass.classDate }"> --%>
+                <input type="hidden" id = "cl_date" name="shipFee" value = "${ coffeeclass.classDate }">
                 <input type="hidden" id = "cl_time" name="clTime" value = "${  coffeeclass.classDate }">
                 </form>
                 
-                 <!--클래스 신고-->                    
+                 <!--클래스 신고-->
+                 <div class="report" style="margin-bottom: 3vh;">                    
                 <button style="border:transparent; background-color:transparent; float: right;">
-                  <div class="report" style="margin-bottom: 3vh;">
                     <i class="fa fa-bullhorn" aria-hidden="true" id="reportclass" data-bs-toggle="modal" data-bs-target="#exampleModal"></i>
-                  </div>
                 </button>
+                 </div>
                 
-                </c:if>
+                </c:if> --%>
                </div> 
                
                
