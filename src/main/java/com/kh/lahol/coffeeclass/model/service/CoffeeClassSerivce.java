@@ -61,9 +61,6 @@ public interface CoffeeClassSerivce {
 	// 15. QnA 답변 등록
 	public int answerClass(ClassQnA qna);
 
-	// 16. 페이징
-	public List<CoffeeClass> selectListWithPaging(Paging paging);
-
 	// 17. 클래스 후기 불러오기 
 	public List<ClassReview> selectReviews(String classNo);
 
@@ -72,6 +69,8 @@ public interface CoffeeClassSerivce {
 
 	// 19. CL_PAY INSERT
 	public int registerClPay();
+
+	
 
 
 

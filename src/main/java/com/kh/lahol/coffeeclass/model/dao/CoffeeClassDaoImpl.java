@@ -125,12 +125,6 @@ public class CoffeeClassDaoImpl implements CoffeeClassDao{
 		return sqlSession.insert("clMapper.answerClass", qna);
 	}
 
-	// new 페이징
-	@Override
-	public List<CoffeeClass> selectListWithPaging(Paging paging) {
-		return sqlSession.selectList("clMapper.selectListWithPaging", paging);
-	}
-
 	// 클래스 후기 불러오기
 	@Override
 	public List<ClassReview> selectReviews(String classNo) {
@@ -146,7 +140,9 @@ public class CoffeeClassDaoImpl implements CoffeeClassDao{
 	public int registerClPay() {
 		return sqlSession.insert("clMapper.registerClPay");
 	}
-
+	
+	// 검색 리스트 카운트
+	
 
 
 }

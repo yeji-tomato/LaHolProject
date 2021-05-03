@@ -169,11 +169,15 @@
                 </form>
                 
                  <!--클래스 신고-->                    
-                <button style="border:transparent; background-color:transparent; float: right;">
+                <!-- <button style="border:transparent; background-color:transparent; float: right;">
                   <div class="report" style="margin-bottom: 3vh;">
                     <i class="fa fa-bullhorn" aria-hidden="true" id="reportclass" data-bs-toggle="modal" data-bs-target="#exampleModal"></i>
                   </div>
-                </button>
+                </button> -->
+                <button class="btn" id = "register-btn">
+                	  신고 &nbsp;
+                  <i class="fa fa-bullhorn" aria-hidden="true"  style="color : white;" id="reportclass" data-bs-toggle="modal" data-bs-target="#exampleModal"></i>
+                </button> 
                 
                 </c:if>
                </div> 

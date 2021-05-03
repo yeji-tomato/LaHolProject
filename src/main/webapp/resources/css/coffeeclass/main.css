@@ -239,8 +239,8 @@ h1{
         border-radius : 50%;
         cursor: pointer;
         background-color: transparent;
-        margin-top : 20vh;
-        margin-left: 92vw; 
+        margin-top : 16vh;
+        margin-left: 85vw; 
         position:fixed; 
         z-index:1;
         width : 100px;

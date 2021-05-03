@@ -120,18 +120,13 @@ public class CoffeeClassServiceImpl implements CoffeeClassSerivce{
 		return clDao.answerClass(qna);
 	}
 
-	// new 페이징
-	@Override
-	public List<CoffeeClass> selectListWithPaging(Paging paging) {
-		return clDao.selectListWithPaging(paging);
-	}
-
 	// 클래스 리뷰 불러오기 
 	@Override
 	public List<ClassReview> selectReviews(String classNo) {
 		return clDao.selectReviews(classNo);
 	}
 
+	
 	@Override
 	public int registerClOrder(String clPayNo) {
 		return clDao.registerClOrder(clPayNo);
@@ -141,5 +136,9 @@ public class CoffeeClassServiceImpl implements CoffeeClassSerivce{
 	public int registerClPay() {
 		return clDao.registerClPay();
 	}
+
+	// 검색 리스트 페이징
+
+	
 
 }

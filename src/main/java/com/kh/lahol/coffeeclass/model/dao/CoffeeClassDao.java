@@ -13,7 +13,7 @@ import com.kh.lahol.common.model.vo.Payment;
 import com.kh.lahol.mypage.normal.model.vo.ClassReview;
 
 public interface CoffeeClassDao {
-	
+
 		// 1. 게시글 수 카운트
 		public int selectListCount();
 		
@@ -62,9 +62,6 @@ public interface CoffeeClassDao {
 		// 15. 클래스 QnA 답변
 		public int answerClass(ClassQnA qna);
 
-		// 16. new 페이징
-		public List<CoffeeClass> selectListWithPaging(Paging paging);
-
 		// 17. 클래스 후기 불러오기
 		public List<ClassReview> selectReviews(String classNo);
 
@@ -73,6 +70,8 @@ public interface CoffeeClassDao {
 
 		// 19. CL_PAY INSERT
 		public int registerClPay();
+		
+
 
 	
 		

@@ -102,9 +102,11 @@
        </form>
      </div>
     
+    <c:if test="${ !empty nothing }">
     <div style="font-size: 30px; margin : 15vh;">
 	<p style="text-align : center;">${ nothing }</p>
 	</div>
+	</c:if>
 	
 	<div class="row">	
 	<!-- 각 카페에 대한 리스트 -->
