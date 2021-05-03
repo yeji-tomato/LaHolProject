@@ -169,16 +169,17 @@
 		                </form>
 				    </div>
 				    <div class="col">
-				   	<!--  <button type="button" class="btn" id="report-btn" width="200vw">
-	                  	
-	                    <i class="fa fa-bullhorn" aria-hidden="true" id="reportclass" data-bs-toggle="modal" data-bs-target="#exampleModal"></i>
+				   	 <button type="button" class="btn" id="report-btn" style="width : 5vw; height : 8vh; background-color : #935039; color:white;">
+	                  	<p style="font-size : 17px;">신고</p>
+	                    <i class="fa fa-bullhorn" aria-hidden="true" id="reportclass" data-bs-toggle="modal" data-bs-target="#exampleModal" 
+	                    style=" color : white; margin-bottom:2px; margin-right:2px;"></i>
 	                	</button>
 				     
-				    </div> -->
-				    <button class="btn" type="button" id = "register-btn" style="width : 5vw; height : 8vh;">
+				    </div>
+				   <!--  <button class="btn" type="button" id = "register-btn" style="width : 5vw; height : 8vh;">
                      	신고 &nbsp;
                   		<i class="fa fa-bullhorn" aria-hidden="true"  style="color : white; text-align : center" id="reportclass" data-bs-toggle="modal" data-bs-target="#exampleModal"></i>
-                	</button> 
+                	</button>  -->
   					</div>  
             	 </c:if>
                     
