@@ -115,7 +115,8 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 			     FROM      CL_REVIEW
 			     GROUP BY  CLASS_NO)
 		  USING (CLASS_NO)
-	   ORDER BY  CLASS_NO DESC
+		  WHERE  CL_STATUS = 'Y'
+	   ORDER BY  REGEXP_REPLACE(CLASS_NO, '[0-9]'), TO_NUMBER(REGEXP_REPLACE(CLASS_NO, '[^0-9]')) DESC
 	</select>
 	<insert id="insertClass" parameterType="CoffeeClass">	<!-- insert라 리턴타입없음 -->
 	   INSERT
