@@ -215,6 +215,7 @@ body {
     font-size: 1.6vh;
     color: var(--cell-txt);
     opacity: 1;
+        background-color: var(--contents-bg);
     
   }
 
