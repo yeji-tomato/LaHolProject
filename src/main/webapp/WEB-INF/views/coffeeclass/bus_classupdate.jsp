@@ -43,11 +43,13 @@
 				
 					<tr id="clTr">
 						<td>클래스명</td>
-						<td class="answer"><input type="text" class="classdes" name="className" value ="${ coffeeclass.className }" required></td>
+						<td class="answer"><input type="text" class="classdes" name="className" value ="${ coffeeclass.className }" required
+						maxlength="30" placeholder="글자 수 30자 제한"></td>
 					</tr>
 					<tr>
 						<td>사업자번호</td>
-						<td class="answer"><input type="text" class="classdes" name = "busNo" value = "${ coffeeclass.busNo }" required></td>
+						<td class="answer"><input type="text" class="classdes" name = "busNo" value = "${ coffeeclass.busNo }" required
+						maxlength="10" placeholder="-없이 10자리 입력해주세요"></td>
 					</tr>
 					<tr>
 						<td>강사명</td>
@@ -81,11 +83,11 @@
 						<td class="answer" style="text-align: left;">
 						<select name="category" style="width : 380px;" id="cate" required>
 							 <option selected disabled="disabled">클래스 카테고리 선택</option>
-							 <option value="coffee">로스팅/원두</option>
-				             <option value="art">라테아트/디자인</option>
-				             <option value="dessert">디저트</option>
-				             <option value="certi">자격증</option>
-				             <option value="etc">기타</option>
+							 <option value="coffee" <c:if test="${ coffeeclass.category eq 'coffee' }"> selected </c:if>>로스팅/원두</option>
+				             <option value="art" <c:if test="${ coffeeclass.category eq 'art' }"> selected </c:if>>라테아트/디자인</option>
+				             <option value="dessert" <c:if test="${ coffeeclass.category eq 'dessert' }"> selected </c:if>>디저트</option>
+				             <option value="certi" <c:if test="${ coffeeclass.category eq 'certi' }"> selected </c:if>>자격증</option>
+				             <option value="etc" <c:if test="${ coffeeclass.category eq 'etc' }"> selected </c:if>>기타</option>
 						</select></td>
 					</tr>
 
@@ -146,7 +148,7 @@
 		            <tr>
 					<td></td>
 					<td>
-					<input type="text" class="classdes" name="classLoca2" placeholder="상세주소">
+					<input type="hidden" class="classdes" name="classLoca2">
 					<div style="width:680px;height:300px; margin : 5px;">
 					<div id="map" style="width:680px;height:300px;display:none"></div>
 					<p style="padding-top : 130px; text-align : center;">지도 미리보기 KAKAOMAP</p>
@@ -157,13 +159,13 @@
 					<tr>
 						<td>수강생 정원</td>
 						<td class="answer">
-						<input type="number" min="1" max="4" name="studentMax" class="classdes" value="${ coffeeclass.studentMax }">
+						<input type="number" min="1" max="4" name="studentMax" class="classdes" value="${ coffeeclass.studentMax }" required>
 						</td>
 					</tr>
 
 					<tr>
 						<td>희망 수강료</td>
-						<td class="answer"><input type="text" class="classdes" name="clPrice" value="${ coffeeclass.clPrice }"></td>
+						<td class="answer"><input type="text" class="classdes" name="clPrice" value="${ coffeeclass.clPrice }" required></td>
 						<td>원</td>
 					</tr>
 

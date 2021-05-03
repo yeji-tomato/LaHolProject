@@ -348,7 +348,7 @@ public class CartController{
 	
 	// 클래스 장바구니 insert
 	@PostMapping("/cartclass")
-	public String classCart(@ModelAttribute Cart ct, HttpSession session,
+	public String classCart(@ModelAttribute Cart ct, @ModelAttribute Member member, HttpSession session,
 							RedirectAttributes rttr, HttpServletRequest request) throws CartException {
 		
 		

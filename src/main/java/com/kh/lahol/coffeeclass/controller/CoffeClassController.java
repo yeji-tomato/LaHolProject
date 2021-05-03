@@ -360,8 +360,10 @@ public class CoffeClassController {
 		  
 		  String time2 = cl.getClassTime2();
 		  String time3 = cl.getClassTime3();
+		  String cate = cl.getCategory();
 		  
-		  System.out.println("시간2" + time2 + "시간3" + time3);
+		  System.out.println("시간2" + time2 + "시간3" + time3 + "카테고리" + cate);
+		  
 		
 		  return "coffeeclass/bus_classupdate";
 		

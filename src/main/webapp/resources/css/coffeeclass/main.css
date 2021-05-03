@@ -235,16 +235,27 @@ h1{
 
 /*클래스 개설 버튼1*/
 #cr8btn{
-		/* border: 2px black solid;
-         */
-        border-radius : 25px;
+		border: 2px orange solid;
+        border-radius : 50%;
         cursor: pointer;
-        border: none;
         background-color: transparent;
-        margin-left:30px; 
+        margin-top : 20vh;
+        margin-left: 92vw; 
         position:fixed; 
         z-index:1;
+        width : 100px;
+        height : 100px;
+        color : orange;
+        font-size : 14px;
 }
+
+#cr8btn2{
+		/* border: 2px black solid;
+         */
+        width : 80px;
+        height : 65px;
+}
+
 
 /*클래스 개설 버튼2*/
 #cr8class {

@@ -46,7 +46,7 @@
 					</form>
 					</div>
 					<c:if test="${ loginUser != NULL && loginUser.grade eq 'P' }">
-					<button id = "cr8btn" onclick="location.href ='${ contextPath }/coffeeclass/createclass'" ><img src="${ contextPath }/resources/img/coffeeclass/newbtn.png"></button>
+					<button id = "cr8btn" onclick="location.href ='${ contextPath }/coffeeclass/createclass'" >클래스<br>개설<img id="cr8btn2" src="${ contextPath }/resources/img/coffeeclass/logo-wobg.png"></button>
 					</c:if>	
 				</div>			
 				</main>

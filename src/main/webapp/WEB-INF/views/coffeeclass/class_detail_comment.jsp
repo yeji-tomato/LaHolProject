@@ -24,7 +24,13 @@
 
       <!-- 후기 -->
         <div class="tab-pane fade" id="review" role="tabpanel" aria-labelledby="review-tab">
-          <h4 style="text-align : center; margin-top:10vh;">클래스 후기</h4>
+          
+          <c:if test="${ empty rvlist }">
+          	<div style="padding: 150px;">
+          	<p style="font-size : 20px; text-align: center; ">등록된 후기가 없습니다</p>
+          	</div>
+          </c:if>
+          <c:if test="${ !empty rvlist }">
           <div>
           <h6 style="text-align : center; color : gray;">클래스를 수강하신 분들이 남긴 후기입니다. 후기는 마이페이지에서 등록할 수 있습니다.</h6>
           </div>
@@ -66,10 +72,11 @@
 				    </tr>
 				  </c:forEach>  
 				  </tbody>
-			</table>   
+			</table>
+			</c:if>   
      	</div>
      	
-     	<script>
+     	<!-- <script>
      	//신고 모달
         const loginId = $("#reportComment").val();
        
@@ -90,7 +97,7 @@
                     
                  }
               });
-     	</script>
+     	</script> -->
 
 
 	 	<!-- Q&A -->
@@ -101,6 +108,12 @@
             </div>
             <br>
             <br>
+            <c:if test="${ empty qnalist }">
+            <div style="padding: 100px;">
+          	<p style="font-size : 20px; text-align: center; margin-bottom : 30px;">등록된 문의가 없습니다</p>
+          	</div>
+         	</c:if>
+         	<c:if test="${ !empty qnalist }">
             <table class="table table-hover" id="recruit">
 				<thead>
 				    <tr>
@@ -148,6 +161,7 @@
 				  </c:forEach>  
 				  </tbody>
 			</table> 
+			</c:if>
        
      </div>    
    </div> 
