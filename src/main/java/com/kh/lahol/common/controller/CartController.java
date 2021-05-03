@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -26,6 +27,7 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.lahol.common.model.vo.Cart;
 import com.google.gson.Gson;
@@ -344,18 +346,24 @@ public class CartController{
 	
 	// 클래스 장바구니 insert
 	@PostMapping("/cartclass")
-	public String classCart(@ModelAttribute Cart ct, HttpSession session,@SessionAttribute("loginUser") Member m) throws CartException {
+	public String classCart(@ModelAttribute Cart ct, HttpSession session,
+							RedirectAttributes rttr, HttpServletRequest request) throws CartException {
 		
 		
-		System.out.println("클래스 정보" +ct);
-		String id = m.getId(); 
-		ct.setUserId(id);
+		Member loginUser = (Member)request.getSession().getAttribute("loginUser");
+		  
+		 if(loginUser == null) {
+			 rttr.addFlashAttribute("msg", "장바구니를 이용하시려면 로그인해주세요");
+			 return "redirect:/member/loginView";
+		 }
+		
+		
 		int result = cartService.classcartInsert(ct);
 		
 		if(result > 0) {
-			return "coffeeclass/class_main";
+			return  "redirect:/cart/main";
 		} else {
-			return "";
+			return "alert('장바구니 추가에 실패했습니다.')";
 		}
 
 	}

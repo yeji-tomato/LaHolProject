@@ -70,9 +70,23 @@
 					</tr>
 					<tr>
 						<td>주최카페</td>
-						<td class="answer">
-								<input type="text" id="linkedcafe" value="${ mycafe.caName }" readonly>
+						<td class="answer" style="text-align: left;">
+						<input type="text" id="linkedcafe" value="${ mycafe.caName }" name="cafeName" readonly>
+						<input type="hidden" id="linkedcafeNo" value="${ mycafe.caCode }" name="cafeNo">
 						</td>
+					</tr>
+					
+					<tr>
+						<td>카테고리</td>
+						<td class="answer" style="text-align: left;">
+						<select name="category" style="width : 380px;" id="cate" required>
+							 <option selected disabled="disabled">클래스 카테고리 선택</option>
+							 <option value="coffee">로스팅/원두</option>
+				             <option value="art">라테아트/디자인</option>
+				             <option value="dessert">디저트</option>
+				             <option value="certi">자격증</option>
+				             <option value="etc">기타</option>
+						</select></td>
 					</tr>
 
 					<tr>
@@ -82,31 +96,36 @@
 
 					<tr>
 						<td>클래스 상세 소개</td>
-						<td class="answer"><input type="textarea"
-							style="line-height: 200px;" class="classdes" name="classDes" value="${ coffeeclass.classDes }"></td>
+						<td>
+						<textarea style="height: 200px; resize: none;"
+							class="classdes" name="classDes" id="classDes" value="${ coffeeclass.classDes }">${ coffeeclass.classDes }</textarea>
+						</td>
+						
 					</tr>
-
+					
 					<tr>
 						<td>클래스 커리큘럼</td>
-						<td class="answer"><input type="textarea" style="height: 200px;"
-							class="classdes" name="classCurri" value="${ coffeeclass.classCurri }"></td>
+						<td class="answer">
+						<textarea style="height: 200px; resize: none;"
+							class="classdes" name="classCurri" value="${ coffeeclass.classCurri }">${ coffeeclass.classCurri }</textarea>
+						</td>
 					</tr>
 
 					<tr>
 					<tr>
 						<td>클래스 대표 이미지</td>
-						<td class="answer"><input type="file" class="classdes" name="imgfile2" value="${ coffeeclass.clThumbnail }"></td>
+						<td class="answer"><input type="file" class="classdes" name="imgfile2"></td>
 					</tr>
 					<tr>
 						<td>클래스 기타이미지</td>
-						<td class="answer"><input type="file" class="classdes" name="imgfile3" value="${ coffeeclass.clPhoto }"></td>
+						<td class="answer"><input type="file" class="classdes" name="imgfile3"></td>
 					</tr>
 
 
 					<tr>
 						<td>강의 날짜</td>
 						<td class="answer" style="text-align: left;"><input
-							type="date" class="classdate end classdes" name="classDate" value="${ coffeeclass.classDate }"></td>
+							type="date" class="classdate end classdes" name="classDate" value="${ coffeeclass.classDate }" required></td>
 					</tr>
 					<tr>
 					<td>강의 시간</td>
@@ -116,19 +135,24 @@
 						<input type="text" placeholder="예시 ) 19:00 - 21:00" class="classdes" name="classTime3" value = "${ coffeeclass.classTime3 }">
 						</td>
 					</tr>
-			        <tr>    
-			            <tr>
-			            <td>강의장소</td>
-			            </tr>
-			            <tr  class="address">
-			                <td>주소</td>
-			                <td><input type="text" class="classdes" name="classLoca1" value = "${ clAddresses[0] }"></td> 			           
-			            </tr>
-			            <tr  class="address">
-			                <td>상세주소</td>
-			                <td><input type="text" class="classdes" name="classLoca2" value = "${ clAddresses[1] }"></td> 
-			            </tr>
-			        </tr>  
+					
+					<tr>
+					<td>강의 장소</td>
+					<td>
+			    	<input type="text" id="sample5_address" class="classdes" name="classLoca1" value = "${ clAddresses[0] }" style="width : 594px;">
+					<input type="button" id="mapbtn" onclick="sample5_execDaumPostcode()" value="주소 검색"><br>
+					</td>
+					</tr>
+		            <tr>
+					<td></td>
+					<td>
+					<input type="text" class="classdes" name="classLoca2" placeholder="상세주소">
+					<div style="width:680px;height:300px; margin : 5px;">
+					<div id="map" style="width:680px;height:300px;display:none"></div>
+					<p style="padding-top : 130px; text-align : center;">지도 미리보기 KAKAOMAP</p>
+					</div>
+					</td>
+					</tr>
 
 					<tr>
 						<td>수강생 정원</td>
@@ -183,82 +207,66 @@
 		</div>
 	</div>
 
-	<script>
-		
-	</script>
 
 	<script>
 		$(function() {
 			$("#postcodify_search_button").postcodifyPopUp();
 		});
 	</script>
+	
+	<!-- 카카오맵 라이브러리 -->
+	<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=3400cb260ccc2b8ecfb54e177422380a&libraries=services&libraries=services"></script>
 
 	<!--주소 API-->
 	<script>
-		//본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
-		function sample4_execDaumPostcode() {
-			new daum.Postcode(
-					{
-						oncomplete : function(data) {
-							// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
-
-							// 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
-							// 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-							var roadAddr = data.roadAddress; // 도로명 주소 변수
-							var extraRoadAddr = ''; // 참고 항목 변수
-
-							// 법정동명이 있을 경우 추가한다. (법정리는 제외)
-							// 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
-							if (data.bname !== ''
-									&& /[동|로|가]$/g.test(data.bname)) {
-								extraRoadAddr += data.bname;
-							}
-							// 건물명이 있고, 공동주택일 경우 추가한다.
-							if (data.buildingName !== ''
-									&& data.apartment === 'Y') {
-								extraRoadAddr += (extraRoadAddr !== '' ? ', '
-										+ data.buildingName : data.buildingName);
-							}
-							// 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
-							if (extraRoadAddr !== '') {
-								extraRoadAddr = ' (' + extraRoadAddr + ')';
-							}
-
-							// 우편번호와 주소 정보를 해당 필드에 넣는다.
-							document.getElementById('sample4_postcode').value = data.zonecode;
-							document.getElementById("sample4_roadAddress").value = roadAddr;
-							document.getElementById("sample4_jibunAddress").value = data.jibunAddress;
-
-							// 참고항목 문자열이 있을 경우 해당 필드에 넣는다.
-							if (roadAddr !== '') {
-								document.getElementById("sample4_extraAddress").value = extraRoadAddr;
-							} else {
-								document.getElementById("sample4_extraAddress").value = '';
-							}
-
-							var guideTextBox = document.getElementById("guide");
-							// 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
-							if (data.autoRoadAddress) {
-								var expRoadAddr = data.autoRoadAddress
-										+ extraRoadAddr;
-								guideTextBox.innerHTML = '(예상 도로명 주소 : '
-										+ expRoadAddr + ')';
-								guideTextBox.style.display = 'block';
-
-							} else if (data.autoJibunAddress) {
-								var expJibunAddr = data.autoJibunAddress;
-								guideTextBox.innerHTML = '(예상 지번 주소 : '
-										+ expJibunAddr + ')';
-								guideTextBox.style.display = 'block';
-							} else {
-								guideTextBox.innerHTML = '';
-								guideTextBox.style.display = 'none';
-							}
-						}
-					}).open();
-		}
-	</script>
-	</script>
+		    var mapContainer = document.getElementById('map'), // 지도를 표시할 div
+		        mapOption = {
+		            center: new daum.maps.LatLng(37.537187, 127.005476), // 지도의 중심좌표
+		            level: 5 // 지도의 확대 레벨
+		        };
+		
+		    //지도를 미리 생성
+		    var map = new daum.maps.Map(mapContainer, mapOption);
+		    //주소-좌표 변환 객체를 생성
+		    var geocoder = new daum.maps.services.Geocoder();
+		    //마커를 미리 생성
+		    var marker = new daum.maps.Marker({
+		        position: new daum.maps.LatLng(37.537187, 127.005476),
+		        map: map
+		    });
+		
+		
+		    function sample5_execDaumPostcode() {
+		        new daum.Postcode({
+		            oncomplete: function(data) {
+		                var addr = data.address; // 최종 주소 변수
+		
+		                // 주소 정보를 해당 필드에 넣는다.
+		                document.getElementById("sample5_address").value = addr;
+		                // 주소로 상세 정보를 검색
+		                geocoder.addressSearch(data.address, function(results, status) {
+		                    // 정상적으로 검색이 완료됐으면
+		                    if (status === daum.maps.services.Status.OK) {
+		
+		                        var result = results[0]; //첫번째 결과의 값을 활용
+		
+		                        // 해당 주소에 대한 좌표를 받아서
+		                        var coords = new daum.maps.LatLng(result.y, result.x);
+		                        // 지도를 보여준다.
+		                        mapContainer.style.display = "block";
+		                        map.relayout();
+		                        // 지도 중심을 변경한다.
+		                        map.setCenter(coords);
+		                        // 마커를 결과값으로 받은 위치로 옮긴다.
+		                        marker.setPosition(coords)
+		                    }
+		                });
+		            }
+		        }).open();
+		    }
+	</script>   
+	
 
 <!-- footer -->
 	<jsp:include page="/WEB-INF/views/common/footer2.jsp"/>

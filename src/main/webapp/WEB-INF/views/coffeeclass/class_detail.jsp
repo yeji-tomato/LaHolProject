@@ -274,7 +274,6 @@
 	
 	<script>	
 	$(document).on("click", "#cart-btn", function(){
-		alert("장바구니에 추가되었습니다.");
 		$("#cartclass").submit();
 	});
 	

@@ -101,10 +101,12 @@
          <button id="filterbtn" type="submit"><i class="fa fa-arrow-right" aria-hidden="true">GO</i></button>
        </form>
      </div>
-      
-	<h2>${ nothing }</h2>
-	<div class="row">
+    
+    <div style="font-size: 30px; margin : 15vh;">
+	<p style="text-align : center;">${ nothing }</p>
+	</div>
 	
+	<div class="row">	
 	<!-- 각 카페에 대한 리스트 -->
 	<c:forEach var="cl" items="${ list }">
 	<c:if test="${ cl.status eq 'Y' }">
@@ -173,15 +175,14 @@
 	</table>	
   	</div>
   </div>
-
+ </section>
   	<script>
   		function selectClass(classNo){
   			location.href='${contextPath}/coffeeclass/classdetail?classNo='+classNo;
   		}
   	</script>
-  	
 
-    </section>
+   
     
    <!-- footer -->
 	<jsp:include page="/WEB-INF/views/common/footer2.jsp"/>

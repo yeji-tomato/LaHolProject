@@ -89,6 +89,7 @@ public class CoffeClassController {
 		List<ClassSearch> searchList = clService.searchList(search);
 		if(searchList.size() == 0) {
 			String nothing = String.format("%s에 대한 검색 결과가 없습니다.", search.getSearchValue());
+			System.out.println(nothing);
 			model.addAttribute("nothing", nothing);
 		}
 		model.addAttribute("list", searchList);
@@ -106,6 +107,11 @@ public class CoffeClassController {
 		System.out.println(search);
 
 		List<ClassSearch> filterList = clService.filterList(search);
+		if(filterList.size() == 0) {
+			String nothing = String.format("찾으시는 클래스가 없습니다.");
+			System.out.println(nothing);
+			model.addAttribute("nothing", nothing);
+		}
 		
 		model.addAttribute("list", filterList);
 		
@@ -144,7 +150,7 @@ public class CoffeClassController {
 							  @RequestParam(name="imgfile3") MultipartFile file3,
 							  @RequestParam(name="classLoca1") String classlocation1,
 							  @RequestParam(name="classLoca2") String classlocation2,
-							  HttpServletRequest request) throws CoffeeClassException {
+							  HttpServletRequest request, RedirectAttributes rttr) throws CoffeeClassException {
 		
 		// 주소 세팅
 		cl.setClassLoca(classlocation1 + classlocation2);
@@ -188,6 +194,7 @@ public class CoffeClassController {
 		int result = clService.insertClass(cl);
 		
 		if(result > 0) {
+			rttr.addFlashAttribute("msg", "라홀의 강사가 되신것을 환영합니다!");
 			return "redirect:/coffeeclass";
 		}else {
 			System.out.println("클래스 등록에 실패하셨습니다.");
@@ -277,32 +284,37 @@ public class CoffeClassController {
 		  return "redirect:/member/loginView";
 	  }
 	  
-	  if(loginUser.getId() != thisclass.getBuyerId()) {
-		  rttr.addFlashAttribute("msg", "수강생만 신고를 할 수 있습니다.");
-	  }
-	  
+	  String thisid = loginUser.getId();
+
 	  int result = clService.reportClass(cl);
-	 		
+	  
 	  if(result > 0) {
+		 rttr.addFlashAttribute("msg", "신고가 접수되었습니다.");
 		 return "redirect:/coffeeclass/classdetail?classNo=" + cl.getClassNo(); 
 	  } else {	
 		return "common/error";
 	  }
-			
 	  }
+	  
 	  
 	  // 클래스 댓글 신고
 	  @PostMapping("/coffeeclass/commentreport")
 	  public String commentReport(@ModelAttribute CoffeeClass cl, @ModelAttribute Report r,
-			  				  HttpServletRequest request,
+			  				  HttpServletRequest request, RedirectAttributes rttr,
 							  Model model, String cl_writer) {
 	  
 	  Member loginUser = (Member)request.getSession().getAttribute("loginUser");
 
+	  if(loginUser == null) {
+		  rttr.addFlashAttribute("msg", "로그인한 회원만 신고할 수 있습니다.");
+		  return "redirect:/member/loginView";
+	  }
+	  
 	  int result = clService.reportClComment(cl);
 	  
 	 		
 	  if(result > 0) {
+		  rttr.addFlashAttribute("msg", "신고가 접수되었습니다.");
 		 return "redirect:/coffeeclass/classdetail?classNo=" + cl.getClassNo(); 
 	  } else {	
 		return "common/error";
@@ -327,9 +339,11 @@ public class CoffeClassController {
 	  
 	  // 클래스 수정 페이지로 이동
 	  @GetMapping("/coffeeclass/updateclass")
-	  public String updateClass(@RequestParam String classNo, Model model) {
+	  public String updateClass(@RequestParam String classNo, Model model, HttpServletRequest request) {
 		 
 		  CoffeeClass cl = clService.bringClassInfo(classNo);
+		  
+		  Member loginUser = (Member)request.getSession().getAttribute("loginUser");
 		  
 		  System.out.println(classNo);
 		  
@@ -338,7 +352,16 @@ public class CoffeClassController {
 		  // 주소 잘라서 가져오기
 		  model.addAttribute("clAddresses", cl.bringAddress());
 		  // 강의 시간 잘라서 가져오기
-		  model.addAttribute("classTimes", cl.bringTimes());
+		  //model.addAttribute("classTimes", cl.bringTimes());
+		  
+		  Cafe cafe = clService.selectCafeInfoById(loginUser.getId());
+			
+		  model.addAttribute("mycafe", cafe);
+		  
+		  String time2 = cl.getClassTime2();
+		  String time3 = cl.getClassTime3();
+		  
+		  System.out.println("시간2" + time2 + "시간3" + time3);
 		
 		  return "coffeeclass/bus_classupdate";
 		
