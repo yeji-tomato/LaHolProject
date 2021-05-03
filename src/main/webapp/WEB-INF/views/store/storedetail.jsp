@@ -449,7 +449,7 @@
 									    
 									            <tr>
 									               <c:if test="${ r.purchase_number != null }">  
-									               <td style="width: 66px;"><button id="sub" style="width:50px;  background-color:#935039; border-color:#935039;" >일반</button></td>
+									               <td style="width: 66px;"><button id="sub" style="width:50px;  background-color:#F3D798; border-color:#F3D798;" >일반</button></td>
 									               </c:if>
 									                <c:if test="${ r.subscribe_code != null }">  
 									               <td style="width: 66px;"><button id="sub" style="width:50px;background-color:#935039; border-color:#935039;">구독</button></td>
@@ -897,21 +897,23 @@
 									<div class="modal-header">
 									<h5 class="modal-title" id="exampleModalLabel" style="color: white;">
 									<img src="${ contextPath }/resources/img/common/whiteLogo.png" class = "logoimg">
-										 관리자 답변
+										제품 답변
 									</h5>
 									<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 									</div>
 									<div class="modal-body">
-									<h5 class="sorry-text"> 제품 답변</h5>   <br>  </h5>
+								
 										<table class="rp_reason_table">
-											<tr>
-												<td>답변</td>
-												<td aria-readonly="true"> </td>
+											 <tr>
+												<td>문의 제품명: ${s.PR_NAME } </td>
 											</tr>
-									 
-											<tr>
-												<td>답변 상세 설명 </td>
+											 <tr>
+												<td>문의유형 : ${ q.qnaTitle } </td>
 											</tr>
+											 <tr>
+												<td> 문의내용: ${ q.qnaContent } </td>
+											</tr>
+											
 											<tr>
 												<td colspan="2"> 
 													<textarea class="evidence" name="aContent"> </textarea>
@@ -921,13 +923,13 @@
 										<p>
 											<br>
 											<p class="alert-text">
-											답변 잘 해주셈
+											배송이나 상품에 대한 잘못된 답변등은  신고당하실수 있습니다.
 											</p>
 										</p>
 										
 										</div>
 										<div class="modal-footer" >
-										<button type="submit"  class="btn btn-danger"   >등록</button>
+										<button type="submit"  class="btn btn-danger">답변</button>
 										<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
 										</div>
 									</table>
@@ -1009,7 +1011,7 @@
 										
 										</div>
 										<div class="modal-footer" >
-										<button type="button"  id="modalQbt"  class="btn btn-danger"   >등록</button>
+										<button type="button"  id="modalQbt"  class="btn btn-danger"   >문의등록</button>
 										<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
 										</div>
 									</table>

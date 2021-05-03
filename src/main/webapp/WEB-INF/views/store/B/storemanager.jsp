@@ -59,7 +59,7 @@
                 			<div class="product" onClick="location.href=' ${ contextPath }/store/create'"    > 
 		 		                 <div class="scale"  > 
 		 		                 
-		                            <img  src="${ contextPath }/resources/img/store/new.jpg" width="350px" height="300px " >  
+		                            <img  src="${ contextPath }/resources/img/store/new.jpg" width="345px" height="300px " >  
 		                        </div>    
 		                        <div class="if" style="float:left; witdh: 50px;">
 		                       
@@ -76,8 +76,8 @@
 	               		  <c:forEach var="s" items="${ list }">   
 		                    <div class="product"    > 
 		 		                 <div class="scale"  onclick="selectStore(${s.PR_CODE});"> 
-		 		                 <div style="font-weight: bold;position: absolute;z-index:10;width: 350px;" >  </div> 
-		                            <img  src="${ contextPath }/resources/img/store/${ s.STORE_PHOTO1 }" width="350px" height="300px " >  
+		 		                 <div style="font-weight: bold;position: absolute;z-index:10;width: 345px;" >  </div> 
+		                            <img  src="${ contextPath }/resources/img/store/${ s.STORE_PHOTO1 }" width="345px" height="300px " >  
 		                        </div>    
 		                        <div class="if" style="float:left; witdh: 50px;">
 		                        <center>
