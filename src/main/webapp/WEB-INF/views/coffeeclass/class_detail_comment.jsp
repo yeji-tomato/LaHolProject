@@ -23,7 +23,7 @@
 <body>
 
       <!-- 후기 -->
-        <div class="tab-pane fade" id="review" role="tabpanel" aria-labelledby="review-tab">
+        <div class="tab-pane fade" id="review" role="tabpanel" aria-labelledby="review-tab" style="padding: 5%;">
           
           <c:if test="${ empty rvlist }">
           	<div style="padding: 150px;">
