@@ -40,8 +40,8 @@
                                             </div>
                                             <div class="subdiv">
                                                 <div class="basketprice">가격</div> 
-                                                <div class="date" style="width : 220px;">강의일자</div>
-                                                <div class="time" style="width : 220px;">시간</div>
+                                                <div class="date" style="width : 180px;">강의일자</div>
+                                                <div class="time" style="width : 200px;">강의시간</div>
                                                 
                                             </div>
                                             
@@ -69,10 +69,10 @@
                                             <div class="subdiv">
                                             	
                                                 <div class="basketprice"><input type="hidden" name="payPrice" value="${ cl.clPrice }">${ cl.clPrice }</div>
-                                                <div class="date" style="width : 220px;">
+                                                <div class="date" style="width : 180px;">
                                                     ${ Date }   
                                                 </div>
-                                                <div class="time" style="text-align: center; width : 220px;">
+                                                <div class="time" style="text-align: center; width : 200px;">
                                                 <input type="hidden" name="clTime" value="${ selectedTime }">
                                                 	${ selectedTime }
                                                 </div>

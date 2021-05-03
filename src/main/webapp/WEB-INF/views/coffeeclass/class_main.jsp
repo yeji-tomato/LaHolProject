@@ -79,7 +79,7 @@
     
     <!-- 필터 검색 -->
     <div class="filter select animated">
-     <form action="${ contextPath }/coffeeclass/filter" method="get">
+     <form action="${ contextPath }/coffeeclass/filter" method="get" style="font-size: 20px;">
       <select class= "category options animated popInTo" name="searchCategory">
              <option disabled="disabled" selected>카테고리</option>
              <option class ="option" value="all">전체</option>
@@ -89,7 +89,7 @@
              <option class ="option" value="certi">자격증</option>
              <option class ="option" value="etc">기타</option>
        </select>
-       <select class ="classLoca options animated popInTo" name="searchLocation">
+       <select class ="classLoca options animated popInTo" name="searchLocation" style="font-size: 20px; width : 150px;">
              <option disabled="disabled" selected>지역</option>
              <option class ="option" value="all">전체</option>
              <option class ="option" value="서울">서울</option>
@@ -98,7 +98,7 @@
              <option class ="option" value="부산">부산</option>
              <option class ="option" value="제주">제주</option>
         </select>
-         <button id="filterbtn" type="submit"><i class="fa fa-arrow-right" aria-hidden="true">GO</i></button>
+         <button id="filterbtn" type="submit"><i class="fa fa-arrow-right" aria-hidden="true" style="font-size: 20px;">GO</i></button>
        </form>
      </div>
     
