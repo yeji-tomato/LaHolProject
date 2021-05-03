@@ -832,10 +832,10 @@ public class StoreController {
 		 int result4 = sService.sh(st); 	 
 	
 		 if(result > 0) {
-			 return "redirect:/store/list?k=0";
+			 return "redirect:/nMypage/paymentView";
 			 
 		 }else 
-		 {  return "redirect:/store/list?k=0";
+		 {  return "redirect:/nMypage/paymentView";
 		 } 
 		 
 		  
@@ -1024,7 +1024,7 @@ public class StoreController {
 					
 					
 					if(result > 0) {
-						return "redirect:/store/storedetail?&k=0&PR_CODE="+PR_CODE;
+						return "redirect:/store/storedetail?&k=2&PR_CODE="+PR_CODE+"#review";
 					}else {
 						throw new CafeException("리뷰 신고에 실패하였습니다.");
 					}	
