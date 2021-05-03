@@ -27,10 +27,11 @@
 	<div class="contact-form" style="padding-top : 20%;">
             <div class="contact-image">
                 <!-- <img src="https://image.ibb.co/kUagtU/rocket_contact.png" alt="rocket_contact"/> -->
-            	<i class="fa fa-rocket" aria-hidden="true"></i>
+            	<i class="fa fa-rocket" aria-hidden="true" style=" margin-top: 5px;"></i>
             </div>
             <form method="post">
                 <h3>배송지 정보</h3>
+                <p style="text-align: center"> 스토어제품이 없을 경우 작성하지 않으셔도 됩니다 </p>
                 <input type="checkbox" onClick="checkDisable(this.form)"  id="first">
 			                	주문자 회원정보와 동일한 주소로 주문합니다.
 			               <div class="row" id="radioDiv" >

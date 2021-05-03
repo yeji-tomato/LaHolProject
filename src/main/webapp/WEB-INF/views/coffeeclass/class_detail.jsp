@@ -65,7 +65,7 @@
             <!--오른쪽-->
             <div class="col">
               <div class="cl-info" style="max-width : 22vw;">
-                  <table class="cl-table">
+                  <table class="cl-table" style="width : 500px;">
                     <thead>
                       <tr>
                         <td colspan="3">
@@ -75,7 +75,7 @@
                     </thead>
                     <tbody>
                       <tr>
-                        <td style="width : 30px;">
+                        <td>
                           <ul>
                             <li>난이도</li>
                             <li>${ coffeeclass.classLvl }</li>
@@ -87,7 +87,7 @@
                             <li>${ coffeeclass.clRuntime }</li>
                           </ul>
                         </td>
-                        <td style="width : 30px;"> 
+                        <td> 
                           <ul style="border-left: 2px solid black;">
                             <li>수강정원</li>
                             <li>${ coffeeclass.studentMax }</li>
@@ -97,7 +97,7 @@
                       <fmt:formatDate var="Date" value="${ coffeeclass.classDate }" pattern="yyyy-MM-dd[E]"/>
                       <tr>
                         <td>날짜</td>
-                        <td name="classDate">
+                        <td name="classDate" style="width: 100px;">
                           ${ Date }  
                         </td>
                       </tr>
@@ -120,14 +120,16 @@
                         </td>
                       </tr>
                       <tr>
-                        <td>결제금액</td>
+                        <td style="width: 80px;">결제금액</td>
                         <td colspan="2">
                           ${ coffeeclass.clPrice }원
                         </td>
                       </tr>
-                      <tr></tr>
-                      <tr colspan="3">
-                        <td style="background-color :none; border:0px; cursor: pointer;" onclick="location.href='${ contextPath }/cafe/detail?caCode=${ coffeeclass.cafeNo }'"> ☕☕연계 카페로 이동하기</td>             
+                      <tr><td></td></tr>
+                      <tr><td></td></tr>
+                      <tr>
+                      	<td>
+                        <td style="background-color :none; border:0px; cursor: pointer; width: 300px; color : orange;" onclick="location.href='${ contextPath }/cafe/detail?caCode=${ coffeeclass.cafeNo }'"> ☕☕연계 카페로 이동하기</td>             
                       </tr>
                     </tbody>
                   </table>
@@ -158,7 +160,7 @@
                 </button>
                 <!-- 장바구니 -->
                 <form id = "cartclass" action="${ contextPath }/cart/cartclass" method="post">
-             
+             	<input type="hidden" name="userId" value="${ sessionScope.loginUser.id }">
                	<input type="hidden" id= "class_no" name="classNo" value="${ coffeeclass.classNo }">
                	<input type="hidden" id= "class_name" name="cartName" value="${ coffeeclass.className }">
                	<input type="hidden" id="cl_price" name="cartPrice" value="${ coffeeclass.clPrice}">
@@ -167,11 +169,12 @@
                 </form>
                 
                  <!--클래스 신고-->                    
-                <button style="border:transparent; background-color:transparent;">
+                <button style="border:transparent; background-color:transparent; float: right;">
                   <div class="report" style="margin-bottom: 3vh;">
                     <i class="fa fa-bullhorn" aria-hidden="true" id="reportclass" data-bs-toggle="modal" data-bs-target="#exampleModal"></i>
                   </div>
                 </button>
+                
                 </c:if>
                </div> 
                
@@ -268,22 +271,24 @@
 	<jsp:include page="/WEB-INF/views/coffeeclass/class_detail_modal.jsp"/>
 	
 	<!-- 장바구니 insert -->
-	function
-	
-	
-	
 	<script>	
 	$(document).on("click", "#cart-btn", function(){
-		$("#cartclass").submit();
-	});
-	
+		 if(confirm("장바구니로 이동하시겠습니까?") == true){
+			 $("#cartclass").submit();
+		    }
+		    else{
+		        return "";
+		    }
+	});	
+	</script> 
+	<!-- 바로구매 -->
+	<script>
 	$(document).on("click", "#register-btn", function(){
 		alert("결제페이지로 이동합니다");
 		$("#cl_register").submit();
 	});
-	
-	
 	</script>
+	
 	
 	
 	<%-- 

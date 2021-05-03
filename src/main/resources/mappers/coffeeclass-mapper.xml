@@ -231,12 +231,15 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 				, BUS_NO
 				, CL_SHORTDES
 				, CL_TIME
+				, CL_TIME2
+				, CL_TIME3
 				, CL_LEVEL
 				, CL_RUNTIME
 				, CL_THUMBNAIL
 				, TR_PHOTO
 				, CLASS_PHOTO
 				, CL_WRITER
+				, CL_CATEGORY
 		 FROM 
 				COFFEECLASS
 		WHERE	
