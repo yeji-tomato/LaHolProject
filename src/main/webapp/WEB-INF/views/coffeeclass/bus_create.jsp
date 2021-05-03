@@ -63,7 +63,7 @@
 				<table id="clTable" style="white;">
 					<tr id="clTr">
 						<td>클래스명</td>
-						<td class="answer"><input type="text" class="classdes" name="className" maxlength="30" placeholder="글자 수 30자 제한" required></td>
+						<td class="answer"><input type="text" class="classdes" name="className" maxlength="25" placeholder="글자 수 25자 제한" required></td>
 					</tr>
 					<tr>
 						<td>사업자번호</td>

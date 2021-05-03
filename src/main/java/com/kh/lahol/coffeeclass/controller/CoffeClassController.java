@@ -85,12 +85,14 @@ public class CoffeClassController {
 	@GetMapping("coffeeclass/search")
 	public String searchClass(@ModelAttribute ClassSearch search,
 							  Model model) {
-		
 		  
+		// 페이징 : int listCount = clService.selectListCount(search);
+		//PageInfo pi = Pagination.getPageInfo(currentPage, listCount); 
+		
+		
 		List<ClassSearch> searchList = clService.searchList(search);
 		if(searchList.size() == 0) {
 			String nothing = String.format("%s에 대한 검색 결과가 없습니다.", search.getSearchValue());
-			System.out.println(nothing);
 			model.addAttribute("nothing", nothing);
 		}
 		model.addAttribute("list", searchList);
@@ -110,7 +112,6 @@ public class CoffeClassController {
 		List<ClassSearch> filterList = clService.filterList(search);
 		if(filterList.size() == 0) {
 			String nothing = String.format("찾으시는 클래스가 없습니다.");
-			System.out.println(nothing);
 			model.addAttribute("nothing", nothing);
 		}
 		

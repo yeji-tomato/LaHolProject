@@ -107,17 +107,18 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 	</select>
 	<!-- 메인페이지 불러오기 -->
 	<select id="selectList" resultMap="clResultSet">
-		 SELECT *
-		   FROM COFFEECLASS
-	  LEFT JOIN        
-			    (SELECT    CLASS_NO 
-			             , ROUND(AVG(CL_GRADE),1) AS AVGGRADE
-			     FROM      CL_REVIEW
-			     GROUP BY  CLASS_NO)
-		  USING (CLASS_NO)
-		  WHERE  CL_STATUS = 'Y'
-	   ORDER BY  REGEXP_REPLACE(CLASS_NO, '[0-9]'), TO_NUMBER(REGEXP_REPLACE(CLASS_NO, '[^0-9]')) DESC
-	</select>
+        SELECT  *
+          FROM  COFFEECLASS
+     LEFT JOIN        
+                (SELECT    CLASS_NO 
+                      , ROUND(AVG(CL_GRADE),1) AS AVGGRADE
+                FROM      CL_REVIEW
+                GROUP BY  CLASS_NO)
+         USING (CLASS_NO)
+         WHERE  CL_STATUS = 'Y'
+      ORDER BY  REGEXP_REPLACE(CLASS_NO, '[0-9]'), TO_NUMBER(REGEXP_REPLACE(CLASS_NO, '[^0-9]')) DESC
+   </select>
+
 	<insert id="insertClass" parameterType="CoffeeClass">	<!-- insert라 리턴타입없음 -->
 	   INSERT
 	   	 INTO	COFFEECLASS
@@ -346,8 +347,10 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 				OR CL_LOCA LIKE #{sv}
 				OR CL_SHORTDES LIKE #{sv}					
 		</where>
-	  ORDER BY CLASS_NO  
+	  ORDER BY CLASS_NO DESC
 	  </select>
+	  <!-- 질문 리스트 카운트 -->
+	  
 	  <!-- 메인페이지 필터검색 -->
 	  <select id="filterClass" parameterType="ClassSearch" resultMap="clResultSet">
 	     SELECT	
@@ -555,4 +558,22 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 	 	     , CLO.CURRVAL
 	 	)
 	 </insert>
+	 <!-- 클래스 검색 페이징 -->
+	 <select id="searchListCount" parameterType="String">
+	 <bind name="sv" value="'%' + _parameter.getSearchValue() +  '%'"/>
+	 	SELECT 
+	 			COUNT(*)
+	 	  FROM 
+	 	  		COFFEECLASS
+		<where>				
+				   CL_NAME LIKE #{sv}
+				OR CL_DES LIKE #{sv}
+				OR TR_NAME LIKE #{sv}
+				OR TR_INTRO LIKE #{sv}
+				OR CL_CURI LIKE #{sv}
+				OR CL_LOCA LIKE #{sv}
+				OR CL_SHORTDES LIKE #{sv}					
+		</where>
+	  ORDER BY CLASS_NO  
+	 </select>
 </mapper>
