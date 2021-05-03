@@ -223,7 +223,7 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 	           REPORT_NO AS REPORTNO
 	         , REPORT_TYPE AS REPORTTYPE
 	         , REPORT_REASON AS REPORTREASON
-         	 , CONCAT(NVL(BLIND, '0'), '건') AS ACCU
+	         , CONCAT(NVL(MN.BLIND, '0'), '건') AS ACCU
 	         , IMGNAME
 	         , NVL2(IMGNAME, 'O', 'X') AS HASIMG
 	         , IMGPATH
@@ -238,6 +238,8 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 	          REPORT R
 	     JOIN
 	     	  MEMBER M ON(R.REPORTEE_ID = M.ID)
+	LEFT JOIN
+		 	  M_NORMAL MN ON(R.REPORTEE_ID = MN.ID)
 	LEFT JOIN
 		      PR_REVIEW STRV ON (R.REPORTEE_ID = STRV.ID)
 	LEFT JOIN
@@ -254,7 +256,7 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 	          REPORT_NO AS REPORTNO
 	        , REPORT_TYPE AS REPORTTYPE
 	        , REPORT_REASON AS REPORTREASON
-	        , CONCAT(NVL(BLIND, '0'), '건') AS ACCU
+	        , CONCAT(NVL(MN.BLIND, '0'), '건') AS ACCU
 	        , IMGNAME
 	        , NVL2(IMGNAME, 'O', 'X') AS HASIMG
 	        , IMGPATH
@@ -272,6 +274,8 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 		      REPORT R
 		 JOIN
 		 	  MEMBER M ON(R.REPORTEE_ID = M.ID)
+	LEFT JOIN
+		 	  M_NORMAL MN ON(R.REPORTEE_ID = MN.ID)
 	LEFT JOIN 
 			  PR_REVIEW STRV ON (R.REPORTEE_ID = STRV.ID)
 	LEFT JOIN
@@ -281,7 +285,7 @@ PUBLIC "-//mybatis.org//DTD Mapepr 3.0//EN"
 		WHERE
 			  GRADE = 'N'
 		  AND
-		  	  ISCHECKED = 'T'		
+		  	  ISCHECKED = 'T'
 		</select>
 		<select id="selectCafeList" resultType="A_CafeList">
 	    SELECT

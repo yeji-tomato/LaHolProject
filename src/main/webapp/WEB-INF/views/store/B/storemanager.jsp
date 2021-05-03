@@ -81,7 +81,6 @@
 		                        <center>
 		                        <h4 >${ s.PR_NAME }</h4>
 		                            <h5 style="color: #96877D"> <fmt:formatNumber value="${ s.PR_PRICE }" pattern="#,###"/>원</h5>  
-		                           
 		                        </center>
 		                        </div>
 		                        <button id="ifs" onclick="location.href='${ contextPath }/store/updatepage?PR_CODE=${ s.PR_CODE }'" >수정</button>   
@@ -133,7 +132,6 @@
 			                </table>
 	                  
 			                </div> 
-				            
 				           
               		   </div>
                     </center>
