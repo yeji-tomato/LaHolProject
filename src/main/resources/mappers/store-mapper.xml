@@ -295,6 +295,7 @@ C_CODE	VARCHAR2(30 BYTE)	No		18	카페코드
 		   AND 
 				PR_STATUS = 'Y'
 	  ORDER BY
+	  		   PR_STATUS,
 	           PR_CODE DESC  
 	</select>
 	

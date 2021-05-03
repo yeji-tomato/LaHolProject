@@ -83,8 +83,8 @@ public class CoffeClassController {
 	  
 	// 검색 기능
 	@GetMapping("coffeeclass/search")
-	public String searchClass(@ModelAttribute ClassSearch search, HttpServletRequest request,
-							  Model model, ModelAndView mv, @RequestParam(value="page" , required=false, defaultValue="1")int currentPage ) {
+	public String searchClass(@ModelAttribute ClassSearch search,
+							  Model model) {
 		  
 		// 페이징 : int listCount = clService.selectListCount(search);
 		//PageInfo pi = Pagination.getPageInfo(currentPage, listCount); 

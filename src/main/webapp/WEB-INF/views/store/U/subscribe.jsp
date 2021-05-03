@@ -21,6 +21,14 @@
   <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
  <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 </head>
+<style>
+
+.ss div{
+	font-size:23px;
+}
+
+
+</style>
 <body>
 <!-- menubar --> 
 	<jsp:include page="/WEB-INF/views/common/menubar.jsp"/>
@@ -128,13 +136,13 @@
                             <div class="ss">
                     <h5  style="color:gray;"> 3개월 구독했을시 최대 할인금액!</h5>
                         <div class="hh">
-                            <div> 총금액 :  ${(s.PR_PRICE*3)*1 }   원 </div>
+                            <div> 총금액 :  <fmt:formatNumber value="${(s.PR_PRICE*3)*1 }" pattern="#,###"/>   원 </div>
                             <div style="margin-left: 20%;"> 할인금액:    <fmt:formatNumber value="   ${(s.PR_PRICE*3)*0.05} " pattern="#,###"/>원 </div>
-                            <div style="margin-left: 20%;"> 할인된금액:  <fmt:formatNumber value="  ${  (s.PR_PRICE*3)- (s.PR_PRICE*3)*0.05 }  " pattern="#,###"/>원 </div> 
+                            <div style="margin-left: 20%;"> 할인된금액:  <fmt:formatNumber value="  ${  (s.PR_PRICE*3)- (s.PR_PRICE*3)*0.05 }  " pattern="#,###"/>원</div> 
                         </div>
                     
                         <div class="hh2">
-                            <div style="   margin-top: 40px; float: right;  "> = 월 구독액:    <a style="color: brown;"> <fmt:formatNumber value="  ${  ((s.PR_PRICE*3)- ((s.PR_PRICE*3)*0.05)) /3  }  " pattern="#,###"/>     원</a>  </div>
+                            <div style="   margin-top: 40px; float: right;  "> = 월 구독액:    <a style="color: brown;"> <fmt:formatNumber value="  ${  ((s.PR_PRICE*3)- ((s.PR_PRICE*3)*0.05)) /3  }  " pattern="#,###"/>   원</a>  </div>
                         </div>
 
                     </div>
@@ -144,13 +152,13 @@
                             <div class="ss">
                     <h5  style="color:gray;">6개월 구독했을시  최대 할인금액!</h5>
                         <div class="hh">
-                            <div> 총금액 :  ${(s.PR_PRICE*6)*1 }   원 </div>
+                            <div> 총금액 :  <fmt:formatNumber value="${(s.PR_PRICE*6)*1 }" pattern="#,###"/>원 </div>
                             <div style="margin-left: 20%;"> 할인금액:    <fmt:formatNumber value=" ${(s.PR_PRICE*6)*0.1 } " pattern="#,###"/>원 </div>
-                            <div style="margin-left: 20%;"> 할인된금액:  <fmt:formatNumber value="${(s.PR_PRICE*6)- (s.PR_PRICE*6)*0.1}" pattern="#,###"/>원 </div> 
+                            <div style="margin-left: 20%;"> 할인된금액:  <fmt:formatNumber value="${(s.PR_PRICE*6)- (s.PR_PRICE*6)*0.1}" pattern="#,###"/>원</div> 
                         </div>
                     
                         <div class="hh2">
-                            <div style="   margin-top: 40px; float: right;  "> = 월 구독액:    <a style="color: brown;"> <fmt:formatNumber value="  ${  ((s.PR_PRICE*6)- ((s.PR_PRICE*6)*0.1)) /6  }  " pattern="#,###"/>     원</a>  </div>
+                            <div style="   margin-top: 40px; float: right;  "> = 월 구독액:    <a style="color: brown;"> <fmt:formatNumber value="  ${  ((s.PR_PRICE*6)- ((s.PR_PRICE*6)*0.1)) /6  }  " pattern="#,###"/>   원</a>  </div>
                         </div>
 
                     </div>
@@ -160,13 +168,13 @@
                             <div class="ss">
                     <h5  style="color:gray;">최대 9개월 할인했을경우!</h5>
                         <div class="hh">
-                            <div> 총금액 :  ${(s.PR_PRICE*9)*1 }   원 </div>
+                            <div> 총금액 : <fmt:formatNumber value="${(s.PR_PRICE*9)*1 }" pattern="#,###"/>원 </div>
                             <div style="margin-left: 20%;"> 할인금액:    <fmt:formatNumber value="   ${(s.PR_PRICE*9)*0.15*1 } " pattern="#,###"/>원 </div>
-                            <div style="margin-left: 20%;"> 할인된금액:  <fmt:formatNumber value="  ${  (s.PR_PRICE*9)- (s.PR_PRICE*9)*0.15 }  " pattern="#,###"/>원 </div> 
+                            <div style="margin-left: 20%;"> 할인된금액:  <fmt:formatNumber value="  ${  (s.PR_PRICE*9)- (s.PR_PRICE*9)*0.15 }  " pattern="#,###"/>원</div> 
                         </div>
                     
                         <div class="hh2">
-                            <div style="   margin-top: 40px; float: right;  "> = 월 구독액:    <a style="color: brown;"> <fmt:formatNumber value="  ${  ((s.PR_PRICE*9)- ((s.PR_PRICE*9)*0.15)) /9  }  " pattern="#,###"/>     원</a>  </div>
+                            <div style="   margin-top: 40px; float: right;  "> = 월 구독액:   <a style="color: brown;"> <fmt:formatNumber value="  ${  ((s.PR_PRICE*9)- ((s.PR_PRICE*9)*0.15)) /9  }  " pattern="#,###"/>   원</a>  </div>
                         </div>
 
                     </div>
