@@ -232,6 +232,7 @@ body {
     letter-spacing: 0.05em;
     text-decoration: none;
     padding-left: 2.5%;
+    cursor: pointer;
 }
 
 .period:hover,

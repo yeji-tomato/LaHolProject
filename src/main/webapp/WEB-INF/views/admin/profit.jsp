@@ -224,13 +224,13 @@
 					<!-- 날짜 -->
 					<div id="date-container">
 						<div id="date-box">
-							<a class="period dateBtn" id="day" href="#">Day</a>
+							<a class="period dateBtn" id="day">Day</a>
 
-							<a class="period dateBtn" id="week" href="#">Week</a>
+							<a class="period dateBtn" id="week">Week</a>
 
-							<a class="period dateBtn" id="month" href="#">Month</a>
+							<a class="period dateBtn" id="month">Month</a>
 
-							<a class="period dateBtn" id="year" href="#">Year</a>
+							<a class="period dateBtn" id="year">Year</a>
 
 							<a class="period" id="calendar" href="#">
 								<svg
@@ -260,18 +260,18 @@
 								<div class="doughnut-desc">
 									<img
 										class="chart-icon"
-										id="fee-icon"
-										src="${ contextPath }/resources/img/admin/icon/credit.svg"
+										id="ad-icon"
+										src="${ contextPath }/resources/img/admin/icon/ad-edit.svg"
 									/>
-									<div class="price-text" id="fee-text">₩ 0</div>
+									<div class="price-text" id="ad-text">₩ 0</div>
 								</div>
 								<div class="doughnut-desc">
 									<img
 										class="chart-icon"
-										id="ad-icon"
-										src="${ contextPath }/resources/img/admin/icon/ad.svg"
+										id="fee-icon"
+										src="${ contextPath }/resources/img/admin/icon/credit-edit.svg"
 									/>
-									<div class="price-text" id="ad-text">₩ 0</div>
+									<div class="price-text" id="fee-text">₩ 0</div>
 								</div>
 							</div>
 						</div>
@@ -298,12 +298,7 @@
 				</div>
 			</section>
 		</div>
-		<script>
-		$(function(){
-			$('body').attr('data-theme', sessionStorage.getItem('theme'));
-		    $(".toggle").toggleClass("toggle-on", sessionStorage.getItem('button'));
-		});
-		
+		<script>	
 		$('.dateBtn').on('click', function(){
 		    $('.dateBtn').removeClass('selected');
 		    $(this).addClass('selected');
@@ -426,14 +421,14 @@
 	        					"광고"
 	        				],
 	        				datasets: [{
-	        				data: [ad, fee],
+	        				data: [fee, ad],
 	        				backgroundColor: [
-	        					"rgb(54, 162, 235)",
-	        					"rgb(255, 205, 86)"
+	        					"rgb(255, 205, 86)",
+	        					"rgb(54, 162, 235)"
 	        				],
 	        				hoverBackgroundColor: [
-	        					"rgb(54, 162, 235)",
-	        					"rgb(255, 205, 86)"
+	        					"rgb(255, 205, 86)",
+	        					"rgb(54, 162, 235)"
 	        				]
 	        				}]
 	        			},
