@@ -246,6 +246,20 @@
                 height : 936px;
             }
         }
+        
+        @media only screen and (max-height : 864px) {
+            .login_wrapper{
+            	padding: 140px 0;
+            }
+            
+        }
+        
+        @media only screen and (max-height : 800px) {
+            .login_wrapper{
+            	padding: 130px 0;
+            }
+            
+        }
     </style>
 </head>
 <body>
