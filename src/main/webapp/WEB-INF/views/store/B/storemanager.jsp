@@ -83,9 +83,7 @@
 		                        <center>
 		                        <h4 >${ s.PR_NAME }</h4>
 		                            <h5 style="color: #96877D"> <fmt:formatNumber value="${ s.PR_PRICE }" pattern="#,###"/>원</h5>  
-		                            <c:if   test="${ s.SUBSCRIPTIONS eq 'Y' }" >
-		                            <h6 style="color: #96877D"> 구독상품 </h6>  
-		                            </c:if>
+		                            
 		                        </center>
 		                        </div>
 		                        <button  id="ifs" onclick="location.href='${ contextPath }/store/updatepage?PR_CODE=${ s.PR_CODE }'" >수정</button>   
@@ -137,9 +135,7 @@
 			                </table>
 	                  
 			                </div> 
-				             <div id="bu" style="width:60%;  height: 50px;   float:left;">
-				              <button id="management" style="margin-top: 0px;float:left;margin-left: 1300px;"    onClick="location.href=' ${ contextPath }/store/list'" >  스토어 메인 </button>   
-				              </div> 
+				             
 				           
               		   </div>
                     </center>
