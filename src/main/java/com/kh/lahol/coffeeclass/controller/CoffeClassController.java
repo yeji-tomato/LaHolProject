@@ -85,6 +85,7 @@ public class CoffeClassController {
 	@GetMapping("coffeeclass/search")
 	public String searchClass(@ModelAttribute ClassSearch search,
 							  Model model) {
+		
 		  
 		List<ClassSearch> searchList = clService.searchList(search);
 		if(searchList.size() == 0) {
