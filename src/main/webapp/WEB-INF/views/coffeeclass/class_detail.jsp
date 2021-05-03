@@ -169,13 +169,17 @@
 		                </form>
 				    </div>
 				    <div class="col">
-				    <button type="button" class="btn" id="report-btn" width="200vw">
+				   	<!--  <button type="button" class="btn" id="report-btn" width="200vw">
 	                  	
 	                    <i class="fa fa-bullhorn" aria-hidden="true" id="reportclass" data-bs-toggle="modal" data-bs-target="#exampleModal"></i>
 	                	</button>
 				     
-				    </div>
-  				</div>  
+				    </div> -->
+				    <button class="btn" type="button" id = "register-btn" style="width : 5vw; height : 8vh;">
+                     	신고 &nbsp;
+                  		<i class="fa fa-bullhorn" aria-hidden="true"  style="color : white; text-align : center" id="reportclass" data-bs-toggle="modal" data-bs-target="#exampleModal"></i>
+                	</button> 
+  					</div>  
             	 </c:if>
                     
                 <!-- 일반사용자들에게 보여지는 버튼 or 자신의 사업장이 아닌 클래스 열람시 보여지는 버튼 -->
@@ -258,7 +262,9 @@
                 <!-- Product description section 1-->
                 <div class="row align-items-center py-md-3 detailinfo">
                     <!--사진-->
-                    <div class="col-lg-5 col-md-6 offset-lg-1 order-md-2" ><img class="d-block rounded-3 classphotos" src="${ contextPath }/resources/nuploadFiles/classImg/${ coffeeclass.clThumbnail }" alt="Image"></div>
+                    <div class="col-lg-5 col-md-6 offset-lg-1 order-md-2" >
+                    지도로 바꾸기
+                    </div>
                     <!--설명-->
                     <div class="col-lg-4 col-md-6 offset-lg-1 py-4 order-md-1">
                     <h2 class="h3 mb-4 pb-2">클래스 소개</h2>
@@ -279,7 +285,7 @@
                 <p class="fs-sm text-muted pb-md-2" style="white-space: pre-line;"> ${ coffeeclass.classCurri }</p>
                 </div>
               </div>
-              <!-- Product description section 1-->
+              <!-- Product description section 3-->
               <div class="row align-items-center py-md-3 detailinfo">
                 <!--사진-->
                 <div class="col-lg-5 col-md-6 offset-lg-1 order-md-2"><img class="d-block rounded-3 classphotos" src="${ contextPath }/resources/nuploadFiles/classImg/${ coffeeclass.trPhoto}" alt="Image"></div>
@@ -289,7 +295,17 @@
                 <h6 class="fs-base mb-3">${ coffeeclass.trName }&nbsp;강사님</h6>
                 <p class="fs-sm text-muted pb-2" style="white-space: pre-line;">${ coffeeclass.trIntro }</p>
                 </div>
-            </div>
+             </div>
+             <!-- Product description section 4-->
+              <div class="row align-items-center py-4 py-lg-5 detailinfo">
+                <div class="col-lg-5 col-md-6 offset-lg-1">
+                	지도 출력
+                </div>
+                <div class="col-lg-4 col-md-6 offset-lg-1 py-4">
+                <h2 class="h3 mb-4 pb-2">클래스 위치</h2>
+                <h6>${ coffeeclass.classLoca }</h6>
+                </div>
+              </div>
         </div>
              <!-- 후기 , Q&A -->
     		<jsp:include page="/WEB-INF/views/coffeeclass/class_detail_comment.jsp"/>
