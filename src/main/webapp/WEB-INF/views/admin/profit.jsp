@@ -263,7 +263,7 @@
 										id="fee-icon"
 										src="${ contextPath }/resources/img/admin/icon/credit.svg"
 									/>
-									<div class="price-text" id="fee-text">₩ 1,300,000</div>
+									<div class="price-text" id="fee-text">₩ 0</div>
 								</div>
 								<div class="doughnut-desc">
 									<img
@@ -271,7 +271,7 @@
 										id="ad-icon"
 										src="${ contextPath }/resources/img/admin/icon/ad.svg"
 									/>
-									<div class="price-text" id="ad-text">₩ 400,000</div>
+									<div class="price-text" id="ad-text">₩ 0</div>
 								</div>
 							</div>
 						</div>
@@ -602,13 +602,13 @@
 		        		var fee = data.list[0].fee;
 		        		
 		        		if(date == 'week') {
-		        			labelName = ['Mon', 'Wed', 'Fri', 'Sun'];
+		        			labelName = ['월', '수', '금', '일'];
 		        			dataValue = [data.mon, data.wed, data.fri, data.sun];
 		        		} else if(date == 'month') {
-		        			labelName = ['firstDay', 'midDay', 'lastDay'];
+		        			labelName = ['월초', '중순', '월말'];
 		        			dataValue = [data.firstDay, data.midDay, data.lastDay];
 		        		} else if(date == 'year') {
-		        			labelName = ['Jan', 'Apr', 'Jul', 'Oct', 'Dec'];
+		        			labelName = ['1월', '4월', '7월', '10월', '12월'];
 		        			dataValue = [data.jan, data.apr, data.jul, data.oct, data.dec];
 		        		}
 		        		
@@ -636,8 +636,8 @@
 		        				tooltipFillColor: "rgba(51, 51, 51, 0.55)",
 		        				data: {
 		        				labels: [
-		        					"수수료",
-		        					"광고"
+		        					"광고",
+		        					"수수료"
 		        				],
 		        				datasets: [{
 		        				data: [ad, fee],
