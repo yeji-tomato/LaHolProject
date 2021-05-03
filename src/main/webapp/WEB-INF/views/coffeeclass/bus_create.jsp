@@ -158,7 +158,7 @@
 					<tr>
 					<td>강의 장소</td>
 					<td>
-			    	<input type="text" id="sample5_address" name="classLoca1" placeholder="주소" style="width : 594px;">
+			    	<input type="text" id="sample5_address" name="classLoca1" placeholder="주소" style="width : 594px;" readonly>
 					<input type="button" id="mapbtn" onclick="sample5_execDaumPostcode()" value="주소 검색"><br>
 					</td>
 					</tr>
@@ -207,7 +207,7 @@
 				
 					<div class="btnarea">
 						<button type="submit" class="submit btn" id="register" style="margin-bottom : 30px;"
-						onclick="confirm('정말 제출하시겠습니까?')" >승인요청</button>
+						>승인요청</button>
 						&nbsp;
 						<button type="button" class="btn" id="cancel" style="margin-bottom : 30px;"
 							onclick="history.back()">등록취소</button>
@@ -219,9 +219,7 @@
 		
 		<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 		<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=3400cb260ccc2b8ecfb54e177422380a&libraries=services&libraries=services"></script>
-		<script>
-
-		</script>
+	
 		<script>
 		    var mapContainer = document.getElementById('map'), // 지도를 표시할 div
 		        mapOption = {
