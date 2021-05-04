@@ -119,7 +119,7 @@
  <%@include file="./pickadate/picker.date.jsp" %>
  <%@include file="./pickadate/legacy.jsp" %>      
 <script>
-    $('.datepicker').pickadate();
+    $('.datepicker').pickadate({min: 0});
     console.log($(".timeSelect").val());
 </script>
 <script>
