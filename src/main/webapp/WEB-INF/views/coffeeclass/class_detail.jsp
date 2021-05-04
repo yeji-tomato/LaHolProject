@@ -26,6 +26,22 @@
     	height : 50vh; 
     	width : 45vw;
     }
+    
+    .wrap {position: absolute;left: 0;bottom: 40px;width: 288px;height: 132px;margin-left: -144px;text-align: left;overflow: hidden;font-size: 12px;font-family: 'Malgun Gothic', dotum, '돋움', sans-serif;line-height: 1.5;}
+    .wrap * {padding: 0;margin: 0;}
+    .wrap .info {width: 286px;height: 120px;border-radius: 5px;border-bottom: 2px solid #ccc;border-right: 1px solid #ccc;overflow: hidden;background: #fff;}
+    .wrap .info:nth-child(1) {border: 0;box-shadow: 0px 1px 2px #888;}
+    .info .title {padding: 5px 0 0 10px;height: 30px;background: #eee;border-bottom: 1px solid #ddd;font-size: 18px;font-weight: bold;}
+    .info .close {position: absolute;top: 10px;right: 10px;color: #888;width: 17px;height: 17px;background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/overlay_close.png');}
+    .info .close:hover {cursor: pointer;}
+    .info .body {position: relative;overflow: hidden;}
+    .info .desc {position: relative;margin: 13px 0 0 90px;height: 75px;}
+    .desc .ellipsis {overflow: hidden;text-overflow: ellipsis;white-space: nowrap;}
+    .desc .jibun {font-size: 11px;color: #888;margin-top: -2px;}
+    .info .img {position: absolute;top: 6px;left: 5px;width: 73px;height: 71px;border: 1px solid #ddd;color: #888;overflow: hidden;}
+    .info:after {content: '';position: absolute;margin-left: -12px;left: 50%;bottom: 0;width: 22px;height: 12px;background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')}
+    .info .link {color: #5085BB;}
+
     </style>   
 </head>
 <body>
@@ -169,11 +185,6 @@
 		                </form>
 				    </div>
 				    <div class="col">
-				   	 <!-- <button type="button" class="btn" id="report-btn" style="width : 5vw; height : 8vh; background-color : #935039; color:white;">
-	                  	<p style="font-size : 17px;">신고</p>
-	                    <i class="fa fa-bullhorn" aria-hidden="true" id="reportclass" data-bs-toggle="modal" data-bs-target="#exampleModal" 
-	                    style=" color : white; margin-bottom:2px; margin-right:2px;"></i>
-	                	</button> -->
 	                	<button style="width : 5vw; height : 8vh;" id="rep-btn" class="btn" >
                          <div class="report" style="margin-bottom: 3vh;">
                             신고<br>
@@ -181,6 +192,13 @@
                          </div>
                        </button>
 				     
+				     <!--클래스 신고-->                    
+	                    <button style="width : 5vw; height : 8vh;" id="rep-btn" class="btn" >
+	                      <div class="report" style="margin-bottom: 3vh;">
+	                      	신고<br>
+	                        <i class="fa fa-bullhorn" aria-hidden="true" id="reportclass" data-bs-toggle="modal" data-bs-target="#exampleModal" style=" color:white;"></i>
+	                      </div>
+	                    </button> 
 				    </div>
 				   <!--  <button class="btn" type="button" id = "register-btn" style="width : 5vw; height : 8vh;">
                      	신고 &nbsp;
@@ -188,39 +206,6 @@
                 	</button>  -->
   					</div>  
             	 </c:if>
-                    
-                <!-- 일반사용자들에게 보여지는 버튼 or 자신의 사업장이 아닌 클래스 열람시 보여지는 버튼 -->
-                <%-- <c:if test="${ loginUser == NULL || loginUser.id ne coffeeclass.clWriter }">
-                 <button class="btn" id = "register-btn">
-                	  수강신청
-                  <i class="fa fa-credit-card-alt" aria-hidden="true"></i>
-                </button> 
-                <button type="button" class="btn" id = "cart-btn">
-                  	  장바구니
-                  <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                </button>
-                <!-- 장바구니 -->
-                <form id = "cartclass" action="${ contextPath }/cart/cartclass" method="post">
-             	<input type="hidden" name="userId" value="${ sessionScope.loginUser.id }">
-               	<input type="hidden" id= "class_no" name="classNo" value="${ coffeeclass.classNo }">
-               	<input type="hidden" id= "class_name" name="cartName" value="${ coffeeclass.className }">
-               	<input type="hidden" id="cl_price" name="cartPrice" value="${ coffeeclass.clPrice}">
-                <input type="hidden" id = "cl_date" name="shipFee" value = "${ coffeeclass.classDate }">
-                <input type="hidden" id = "cl_time" name="clTime" value = "${  coffeeclass.classDate }">
-                </form>
-                
-                 <!--클래스 신고-->                    
-                <!-- <button style="border:transparent; background-color:transparent; float: right;">
-                  <div class="report" style="margin-bottom: 3vh;">
-                    <i class="fa fa-bullhorn" aria-hidden="true" id="reportclass" data-bs-toggle="modal" data-bs-target="#exampleModal"></i>
-                  </div>
-                </button> -->
-                <button class="btn" id = "register-btn">
-                	  신고 &nbsp;
-                  <i class="fa fa-bullhorn" aria-hidden="true"  style="color : white;" id="reportclass" data-bs-toggle="modal" data-bs-target="#exampleModal"></i>
-                </button> 
-                
-                </c:if> --%>
                </div> 
                
                
@@ -269,9 +254,10 @@
                 <!-- Product description section 1-->
                 <div class="row align-items-center py-md-3 detailinfo">
                     <!--사진-->
-                    <!-- <div class="col-lg-5 col-md-6 offset-lg-1 order-md-2" >
-                    지도로 바꾸기
-                    </div> -->
+                    <div class="col-lg-5 col-md-6 offset-lg-1 order-md-2">
+                    	<img class="d-block rounded-3" src="${ contextPath }/resources/nuploadFiles/classImg/${ coffeeclass.clThumbnail }" alt="Image">
+                    </div>
+
                     <!--설명-->
                     <div class="col-lg-4 col-md-6 offset-lg-1 py-4 order-md-1">
                     <h2 class="h3 mb-4 pb-2">클래스 소개</h2>
@@ -303,16 +289,84 @@
                 <p class="fs-sm text-muted pb-2" style="white-space: pre-line;">${ coffeeclass.trIntro }</p>
                 </div>
              </div>
+
              <!-- Product description section 4-->
              <%--  <div class="row align-items-center py-4 py-lg-5 detailinfo">
                 <div class="col-lg-5 col-md-6 offset-lg-1">
                 	지도 출력
                 </div>
+
+              <%-- <!-- Product description section 4-->
+              <div class="row align-items-center py-4 py-lg-5 detailinfo">
+                
+                <!-- cafeMap.jsp -->
+                 <input type="hidden" id="la" value="${ cafeInfo.caLa }">
+			     <input type="hidden" id="lo" value="${ cafeInfo.caLo }">
+			     
+				<div id="map" style="width:100%;height:60vh;"></div>
+			    <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=3400cb260ccc2b8ecfb54e177422380a&libraries=services&libraries=services"></script>
+				<script>
+				var mapla = parseFloat(document.getElementById('la').value);
+				var maplo = parseFloat(document.getElementById('lo').value);
+				var mapContainer = document.getElementById('map'), // 지도의 중심좌표
+			    mapOption = { 
+			        center: new kakao.maps.LatLng(mapla, maplo), // 지도의 중심좌표
+			        level: 5 // 지도의 확대 레벨
+			    }; 
+			
+				var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+			
+				// 지도에 마커를 표시합니다 
+				var marker = new kakao.maps.Marker({
+				    map: map, 
+				    position: new kakao.maps.LatLng(mapla, maplo)
+				});
+			
+				// 커스텀 오버레이에 표시할 컨텐츠 입니다
+				// 커스텀 오버레이는 아래와 같이 사용자가 자유롭게 컨텐츠를 구성하고 이벤트를 제어할 수 있기 때문에
+				// 별도의 이벤트 메소드를 제공하지 않습니다 
+				var content = '<div class="wrap">' + 
+				            '    <div class="info">' + 
+				            '        <div class="title">' + 
+				            '            ${ cafeInfo.caName }' + 
+				            '            <div class="close" onclick="closeOverlay()" title="닫기"></div>' + 
+				            '        </div>' + 
+				            '        <div class="body">' + 
+				            '            <div class="img">' +
+				            '                <img src="${ contextPath }/resources/nuploadFiles/cafeImg/${ cafeInfo.mainPhoto }" width="73" height="70">' +
+				            '           </div>' + 
+				            '            <div class="desc">' + 
+				            '                <div class="ellipsis">${ addr2 }</div>' + 
+				            '                <div class="jibun ellipsis">${ addr3 }</div>' + 
+				            '            </div>' + 
+				            '        </div>' + 
+				            '    </div>' +    
+				            '</div>';
+			
+				// 마커 위에 커스텀오버레이를 표시합니다
+				// 마커를 중심으로 커스텀 오버레이를 표시하기위해 CSS를 이용해 위치를 설정했습니다
+				var overlay = new kakao.maps.CustomOverlay({
+				    content: content,
+				    map: map,
+				    position: marker.getPosition()       
+				});
+			
+				// 마커를 클릭했을 때 커스텀 오버레이를 표시합니다
+				kakao.maps.event.addListener(marker, 'click', function() {
+				    overlay.setMap(map);
+				});
+			
+				// 커스텀 오버레이를 닫기 위해 호출되는 함수입니다 
+				function closeOverlay() {
+				    overlay.setMap(null);     
+				}
+				</script> 
+                
+
                 <div class="col-lg-4 col-md-6 offset-lg-1 py-4">
                 <h2 class="h3 mb-4 pb-2">클래스 위치</h2>
                 <h6>${ coffeeclass.classLoca }</h6>
                 </div>
-              </div> --%>
         </div>
              <!-- 후기 , Q&A -->
     		<jsp:include page="/WEB-INF/views/coffeeclass/class_detail_comment.jsp"/>
