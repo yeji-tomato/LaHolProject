@@ -237,8 +237,7 @@
     						
     						str += '<td class="d-flex justify-content-between py-3 border-bottom">';
     						str += '<li class="clearfix">';
-    						str += '<img src="${ contextPath }/resources/nuploadFiles/cafeImg/' + data[i].cfIchname + '" 
-    						alt="..."  style="width: 100px;"/>';
+    						str += '<img src="${ contextPath }/resources/nuploadFiles/cafeImg/' + data[i].cfIchname + '" alt="..."  style="width: 100px;"/>';
     						str += '&nbsp;<span class="item-name">'+ data[i].cfName +'</span>';
     					
     						str += '&nbsp;<span class="item-price">'+ data[i].cfPrice +'원</span>';
