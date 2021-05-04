@@ -452,9 +452,9 @@
 									               <td style="width: 66px;"><button id="sub" style="width:50px;  background-color:#F3D798; border-color:#F3D798;" >일반</button></td>
 									               </c:if>
 									                <c:if test="${ r.subscribe_code != null }">  
-									               <td style="width: 66px;"><button id="sub" style="width:50px;background-color:#935039; border-color:#935039;">구독</button></td>
+									               <td style="width: 66px;"><button id="sub" style="width:50px;background-color:#935039; border-color:#935039; color:white;">구독</button></td>
 									               </c:if>
-									               <td style="width: 216px;"> <div class="wrap-star"style="margin-top: 5px;"> 
+									               <td style="width: 280px;"> <div class="wrap-star"style="margin-top: 5px;"> 
 												     	<c:if test="${ r.review_grade == 0.5 }">  
 												        <div class='star-rating'> 
 												         <span style ="width:10%"></span>

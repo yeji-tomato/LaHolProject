@@ -11,7 +11,7 @@
 </head>
 <body>
 <!-- Modal -->
-<div class="modal-wrapper">
+<div class="modal-wrapper"> 
  <div class="modalCafe">
  <div class="headModal">
      <h5 class="headerM">음료 주문 내역</h5>

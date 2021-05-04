@@ -251,7 +251,7 @@
 </div>
  </div>
  <!-- 배송지 입력 -->
-<%@include file="./storeAddress.jsp" %>
+<%-- <%@include file="./storeAddress.jsp" %> --%>
 
 <!-- 쿠폰 및 전체 금액 -->
 <%@include file="./couponTotal.jsp" %> 

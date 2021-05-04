@@ -28,7 +28,7 @@
                                 <div style=" margin-top: 50px;">
                                     <ul class="ftUl">
                                         <li class="ftli">Ye Ji Lee</li>
-                                        <li class="ftli"><a href="${ contextPath }/admin/user/normalList">Youn Jae Lee</a></li>
+                                        <li class="ftli">Youn Jae Lee</li>
                                         <li class="ftli">Dayoon Choi</li>
                                         <li class="ftli">Wan Sik Kim </li>
                                         <li class="ftli">Jin Ju Baek </li>
