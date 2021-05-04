@@ -57,7 +57,7 @@
       };
 
       reset.addEventListener('click', () => {
-         location.href='${ contextPath }';
+         location.href='${ contextPath }/nMypage/couponView';
       });
 
       function createBoard() {

@@ -69,7 +69,7 @@
                     <thead>
                       <tr>
                         <td colspan="3">
-                          <pre class="cl-title">${ coffeeclass.className }</pre>
+                          <pre class="cl-title" style="font-family: 'NEXON Lv1 Gothic OTF Bold';">${ coffeeclass.className }</pre>
                         </td>
                       </tr>
                     </thead>
@@ -169,11 +169,17 @@
 		                </form>
 				    </div>
 				    <div class="col">
-				   	 <button type="button" class="btn" id="report-btn" style="width : 5vw; height : 8vh; background-color : #935039; color:white;">
+				   	 <!-- <button type="button" class="btn" id="report-btn" style="width : 5vw; height : 8vh; background-color : #935039; color:white;">
 	                  	<p style="font-size : 17px;">신고</p>
 	                    <i class="fa fa-bullhorn" aria-hidden="true" id="reportclass" data-bs-toggle="modal" data-bs-target="#exampleModal" 
 	                    style=" color : white; margin-bottom:2px; margin-right:2px;"></i>
-	                	</button>
+	                	</button> -->
+	                	<button style="width : 5vw; height : 8vh;" id="rep-btn" class="btn" >
+                         <div class="report" style="margin-bottom: 3vh;">
+                            신고<br>
+                           <i class="fa fa-bullhorn" aria-hidden="true" id="reportclass" data-bs-toggle="modal" data-bs-target="#exampleModal" style=" color:white;"></i>
+                         </div>
+                       </button>
 				     
 				    </div>
 				   <!--  <button class="btn" type="button" id = "register-btn" style="width : 5vw; height : 8vh;">
@@ -263,9 +269,9 @@
                 <!-- Product description section 1-->
                 <div class="row align-items-center py-md-3 detailinfo">
                     <!--사진-->
-                    <div class="col-lg-5 col-md-6 offset-lg-1 order-md-2" >
+                    <!-- <div class="col-lg-5 col-md-6 offset-lg-1 order-md-2" >
                     지도로 바꾸기
-                    </div>
+                    </div> -->
                     <!--설명-->
                     <div class="col-lg-4 col-md-6 offset-lg-1 py-4 order-md-1">
                     <h2 class="h3 mb-4 pb-2">클래스 소개</h2>
@@ -298,7 +304,7 @@
                 </div>
              </div>
              <!-- Product description section 4-->
-              <div class="row align-items-center py-4 py-lg-5 detailinfo">
+             <%--  <div class="row align-items-center py-4 py-lg-5 detailinfo">
                 <div class="col-lg-5 col-md-6 offset-lg-1">
                 	지도 출력
                 </div>
@@ -306,7 +312,7 @@
                 <h2 class="h3 mb-4 pb-2">클래스 위치</h2>
                 <h6>${ coffeeclass.classLoca }</h6>
                 </div>
-              </div>
+              </div> --%>
         </div>
              <!-- 후기 , Q&A -->
     		<jsp:include page="/WEB-INF/views/coffeeclass/class_detail_comment.jsp"/>
@@ -322,14 +328,33 @@
 	<jsp:include page="/WEB-INF/views/coffeeclass/class_detail_modal.jsp"/>
 	
 	<!-- 장바구니 insert -->
+	<script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 	<script>	
 	$(document).on("click", "#cart-btn", function(){
-		 if(confirm("장바구니로 이동하시겠습니까?") == true){
+		Swal.fire({
+			title : '상품이 장바구니에 추가되었습니다.',
+			text : "쇼핑을 계속 하시겠습니까??",
+			icon : 'success',
+			showCancelButton : true,
+			confirmButtonColor : '#4B654A',
+			cancelButtonColor : '#810B0B',
+			confirmButtonText : '계속 쇼핑',
+			cancelButtonText : '장바구니로'
+		}).then(function(result) {
+			if(result.isConfirmed) {
+				location.href="${ contextPath }/coffeeclass";
+			} else {
+				
+				location.href="${ contextPath }/cart/main";
+				$("#cartclass").submit();
+			}
+		});
+		/*  if(confirm("장바구니로 이동하시겠습니까?") == true){
 			 $("#cartclass").submit();
 		    }
 		    else{
 		        return "";
-		    }
+		    } */
 	});	
 	</script> 
 	<!-- 바로구매 -->

@@ -174,7 +174,7 @@
 				pay_method: 'card',
 				merchant_uid: 'merchant_' + new Date().getTime(),
 				name: cfName,
-				amount: 100,
+				amount: resultPrice,
 				
 				//임대인의 이메일
 				buyer_email: '${ sessionScope.loginUser.email }',
@@ -210,7 +210,7 @@
 		        			payTotal : resultPrice	
 		        		},
 		        		success : function(data){
-		        			location.href="${ contextPath }";
+		        			location.href="${ contextPath }/nMypage/paymentView";
 		        		},
 		        		error : function(e){
 							console.log(e);

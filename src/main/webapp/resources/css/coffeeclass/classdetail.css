@@ -99,12 +99,12 @@
      }
      
 
-     #register-btn, #changeinfo{
+     #register-btn, #changeinfo, #rep-btn{
       background-color: #935039;
       color: white;
      }
 
-     #register-btn:hover, #changeinfo{
+     #register-btn:hover, #changeinfo:hover, #rep-btn:hover{
       background-color: #c9a89c;
       color: black;
      }
