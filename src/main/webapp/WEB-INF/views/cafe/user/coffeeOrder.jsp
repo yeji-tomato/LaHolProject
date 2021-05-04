@@ -13,7 +13,7 @@
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>  
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>  
 </head>
-<body>
+<body> 
 	<jsp:include page="/WEB-INF/views/common/menubar.jsp"/>
 	
 	<%@include file="/WEB-INF/views/cart/cartJS.jsp" %>
