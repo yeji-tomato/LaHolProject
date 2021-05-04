@@ -351,13 +351,13 @@
 				function closeOverlay() {
 				    overlay.setMap(null);     
 				}
-				</script> --%>
+				</script> 
                 
                 <div class="col-lg-4 col-md-6 offset-lg-1 py-4">
                 <h2 class="h3 mb-4 pb-2">클래스 위치</h2>
                 <h6>${ coffeeclass.classLoca }</h6>
                 </div>
-              </div> 
+              </div>  --%>
         </div>
              <!-- 후기 , Q&A -->
     		<jsp:include page="/WEB-INF/views/coffeeclass/class_detail_comment.jsp"/>
