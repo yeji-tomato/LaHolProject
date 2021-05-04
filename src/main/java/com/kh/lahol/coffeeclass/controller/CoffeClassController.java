@@ -24,6 +24,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.lahol.cafe.bus.model.service.CafeBizService;
 import com.kh.lahol.cafe.bus.model.vo.Cafe;
+import com.kh.lahol.cafe.user.model.service.CafeService;
 import com.kh.lahol.coffeeclass.model.exception.CoffeeClassException;
 import com.kh.lahol.coffeeclass.model.service.CoffeeClassSerivce;
 import com.kh.lahol.coffeeclass.model.vo.ClassQnA;
@@ -51,6 +52,8 @@ public class CoffeClassController {
 	private CafeBizService cafeService;
 	@Autowired 
 	private CafeBizService caBizService;
+	@Autowired 
+	private CafeService caService;
 	
 
 	// 사용자 메인페이지
