@@ -8,8 +8,10 @@
 아침마다 잠을 깨려고 마셨던 커피도, 친구들과 인생샷을 남기기 위해 방문했던 카페의 모습도 많이 달라졌습니다. 
 그럼에도 여전히 우리는 어떻게 하루 평균 두 잔의 커피를 마시는 걸까요? 
 라홀은 ‘홈카페’와 ‘안전’을 커피트렌드의 키워드로 생각합니다. 
-길어지는 코로나시대에 커피는 집에서 소비될 것이며 방역과 거리두기가 잘 행해지는 카페의 이용만 살아남을 것입니다. 
-따라서 저희는 커피가전 및 원두를 판매하는 스토어, 꾸준히 이어지는 커피에 대한 관심을 충족시키기 위한 커피클래스, 
+길어지는 코로나시대에 커피는 집에서 소비될 것이며 
+방역과 거리두기가 잘 행해지는 카페의 이용만 살아남을 것입니다. 
+따라서 저희는 커피가전 및 원두를 판매하는 스토어, 
+꾸준히 이어지는 커피에 대한 관심을 충족시키기 위한 커피클래스, 
 그리고 거리두기 방침에 따라 소수의 인원만 허용되는 카페를 미리 예약하는 카페예약 시스템을 제공합니다. 
 더 나아가 라홀에서는 커피박람회와 짧은 지식을 전달하는 서비스도 제공하여 완전한 커피플랫폼으로 거듭나려합니다.
 ```
@@ -39,7 +41,6 @@
      <td align="center">
       <a href="https://github.com/LYJ-akp">
       <img src="https://avatars.githubusercontent.com/u/77710189?s=460&v=4" width="400px"  height="150px" alt="LYJ-akpprofile"/><br />
-      </a>
       <sub>
       <code> 로그인/회원가입/마이페이지</code><br/>
       <b>
@@ -47,11 +48,11 @@
       :horse:  
       </b>
       </sub>
+      </a>
     </td>
       <td align="center">
       <a href="https://github.com/100pearlcent">
       <img src="https://avatars.githubusercontent.com/u/58822023?s=460&v=4" width="400px"  height="150px" alt="100pearlcentprofile"/><br />
-      </a>
       <sub>
       <code>관리자 / 플레이그라운드</code>
       <b>
@@ -59,11 +60,11 @@
       :mouse: 
       </b>
       </sub>
+      </a>
     </td>
        <td align="center">
       <a href="https://github.com/kimwansik5">
       <img src="https://avatars.githubusercontent.com/u/76933689?s=460&v=4" width="400px"  height="150px" alt="kimwansik5profile"/><br />
-      </a>
       <sub>
       <code>스토어</code><br/>
       <b>
@@ -71,11 +72,11 @@
       :monkey_face: 
       </b>
       </sub>
+      </a>
     </td>
     <td align="center">
       <a href="https://github.com/Lee-ye-ji">
       <img src="https://avatars3.githubusercontent.com/u/59958929?s=460&u=f084b39c32e884337be6b229f6796c2283960844&v=4" width="400px"  height="150px" alt="yejiprofile"/><br />
-      </a>
       <sub>
         <code>카페</code><br/>
       <b>
@@ -83,11 +84,11 @@
       :cow:
       </b>
       </sub>
+      </a>
     </td>
     <td align="center">
       <a href="https://github.com/itskathyc">
       <img src="https://avatars2.githubusercontent.com/u/76470322?s=460&v=4"width="400px"  height="150px" alt="itskathycprofile"/><br />
-      </a>
       <sub>
         <code>클래스</code><br/>
       <b>
@@ -95,10 +96,12 @@
       :mouse:   
       </b>
       </sub>
+      </a>
     </td>
  </tr>
  <table>
 
 
+### 기능
 
 
