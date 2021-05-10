@@ -42,7 +42,7 @@
       <a href="https://github.com/LYJ-akp">
       <img src="https://avatars.githubusercontent.com/u/77710189?s=460&v=4" width="400px"  height="150px" alt="LYJ-akpprofile"/><br />
       <sub>
-      <code> 로그인/회원가입/마이페이지</code><br/>
+      <code> 회원 서비스 </code><br/>
       <b>
       LYJ-akp<br/>
       :horse:  
@@ -227,3 +227,12 @@
 </details>
 
 ### Using Langages, Tools and APIs
+| OS         | Window 10, Mac |
+| ---------- | ------------- |
+| Language      | HTML, CSS, Javascript, Java  |
+| RDBMS      | Oracle 11g  |
+| SDK     | Java 1.8, servlet, JSP  |
+| IDE        | Eclipse, Visual Studio Code, Spring Tool Suite3, SQL Developer  |
+| Library       | Bootstrap, Jquery, AJAX, SweetAlert2, ZingGrid |
+| API       |  KakaoMap, Import Payment, Chart.js  |
+
