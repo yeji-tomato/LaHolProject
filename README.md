@@ -226,13 +226,17 @@
   <br/>
 </details>
 
+
+
 ### Using Langages, Tools and APIs
 | OS         | Window 10, Mac |
 | ---------- | ------------- |
-| Language      | HTML, CSS, Javascript, Java  |
-| RDBMS      | Oracle 11g  |
-| SDK     | Java 1.8, servlet, JSP  |
-| IDE        | Eclipse, Visual Studio Code, Spring Tool Suite3, SQL Developer  |
-| Library       | Bootstrap, Jquery, AJAX, SweetAlert2, ZingGrid |
-| API       |  KakaoMap, Import Payment, Chart.js  |
+| Language      | ![HTML5](https://img.shields.io/badge/-HTML5-000000?style=flat&logo=html5) ![CSS3](https://img.shields.io/badge/-CSS-000000?style=flat&logo=css3) ![JavaScript](https://img.shields.io/badge/-JavaScript-000000?style=flat&logo=javascript) ![Java](https://img.shields.io/badge/-Java-000000?style=flat&logo=java)  |
+| RDBMS      | ![Oracle](https://img.shields.io/badge/-Oracle-000000?style=flat&logo=Oracle) |
+| SDK     | ![Java1.8](https://img.shields.io/badge/-Java1.8-black?style=flat-square&logo=Java1.8) ![servlet](https://img.shields.io/badge/-servlet-black?style=flat-square&logo=servlet) ![JSP](https://img.shields.io/badge/-JSP-black?style=flat-square&logo=JSP)|
+| IDE        | ![EclipseIDE](https://img.shields.io/badge/-Eclipse-black?style=flat-square&logo=EclipseIDE) ![VisualStudioCode](https://img.shields.io/badge/-VisualStudioCode-black?style=flat-square&logo=VisualStudioCode) ![Spring](https://img.shields.io/badge/-Spring-black?style=flat-square&logo=Spring) ![SQLDeveloper](https://img.shields.io/badge/-SQLDeveloper-black?style=flat-square&logo=SQLDeveloper) |
+| Library       | ![Bootstrap](https://img.shields.io/badge/-Bootstrap-black?style=flat-square&logo=bootstrap) ![jQuery](https://img.shields.io/badge/-jQuery-black?style=flat-square&logo=jQuery) ![AJAX](https://img.shields.io/badge/-AJAX-black?style=flat-square&logo=AJAX)  ![SweetAlert2](https://img.shields.io/badge/-SweetAlert2-black?style=flat-square&logo=SweetAlert2)  ![ZingGrid](https://img.shields.io/badge/-ZingGrid-black?style=flat-square&logo=ZingGrid) |
+| API       |  ![kakaoMap](https://img.shields.io/badge/-kakaoMap-black?style=flat-square&logo=kakaoMap) ![ImportPayment](https://img.shields.io/badge/-ImportPayment-black?style=flat-square&logo=ImportPayment) ![Chart.js](https://img.shields.io/badge/-Chart.js-black?style=flat-square&logo=Chart.js)  |
+
+
 
