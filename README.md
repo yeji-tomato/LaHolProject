@@ -238,4 +238,13 @@
 | Library       | ![Bootstrap](https://img.shields.io/badge/-Bootstrap-black?style=flat-square&logo=bootstrap) ![jQuery](https://img.shields.io/badge/-jQuery-black?style=flat-square&logo=jQuery) ![AJAX](https://img.shields.io/badge/-AJAX-black?style=flat-square&logo=AJAX)  ![SweetAlert2](https://img.shields.io/badge/-SweetAlert2-black?style=flat-square&logo=SweetAlert2)  ![ZingGrid](https://img.shields.io/badge/-ZingGrid-black?style=flat-square&logo=ZingGrid) |
 | API       |  ![kakaoMap](https://img.shields.io/badge/-kakaoMap-black?style=flat-square&logo=kakaoMap) ![ImportPayment](https://img.shields.io/badge/-ImportPayment-black?style=flat-square&logo=ImportPayment) ![Chart.js](https://img.shields.io/badge/-Chart.js-black?style=flat-square&logo=Chart.js)  |
 
-f
+
+
+### 📺 시현영상
+|<code><em><strong>[User] Main Page</strong></em></code>|<code><em><strong>Login & Register</strong></em></code>|
+|------|------|
+|<img src="https://user-images.githubusercontent.com/59958929/116652554-5fbd7980-a9c0-11eb-9865-e4e4e8e33b2b.gif"/>|------|
+|<code><em><strong>[User]Cafe Search</strong></em></code>|<code><em><strong>[User] Cafe Report & Review</strong></em></code>|
+|<img src="https://user-images.githubusercontent.com/59958929/116653117-8334f400-a9c1-11eb-9bbb-ace30789bd61.gif"/>|<img src="https://user-images.githubusercontent.com/59958929/116653650-9ac0ac80-a9c2-11eb-9a04-68007b77ddbe.gif"/>|
+
+
