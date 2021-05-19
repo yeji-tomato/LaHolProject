@@ -244,17 +244,17 @@
 |<code><em><strong>[User] Main Page</strong></em></code>|<code><em><strong>Login & Register</strong></em></code>|
 |------|------|
 |<img src="https://user-images.githubusercontent.com/59958929/116652554-5fbd7980-a9c0-11eb-9865-e4e4e8e33b2b.gif"/>|------|
-|<code><em><strong>[User] Cafe Search</strong></em></code>|<code><em><strong>[User] Cafe Report & Review</strong></em></code>|
+|<code><em><strong>[User] Cafe Report & Review</strong></em></code>|
 |<img src="https://user-images.githubusercontent.com/59958929/116653117-8334f400-a9c1-11eb-9bbb-ace30789bd61.gif"/>|<img src="https://user-images.githubusercontent.com/59958929/116653650-9ac0ac80-a9c2-11eb-9a04-68007b77ddbe.gif"/>|
 |<code><em><strong>[User]Cafe To Go or For Here</strong></em></code>|<code><em><strong>[User] Cafe Payment</strong></em></code>|
 |<img src="https://user-images.githubusercontent.com/59958929/116654569-5e8e4b80-a9c4-11eb-965b-27f73a8f7ef0.gif"/>|<img src="https://user-images.githubusercontent.com/59958929/116656125-1fadc500-a9c7-11eb-9e74-4a583a16ceca.gif"/>|
-|<code><em><strong>[User]Cart</strong></em></code>|<code><em><strong>[Biz]Main Page</strong></em></code>|
-|<img src="https://user-images.githubusercontent.com/59958929/116657006-a7e09a00-a9c8-11eb-9ca3-0c5bc7f10166.gif"/>|<img src="https://user-images.githubusercontent.com/59958929/116657665-c8f5ba80-a9c9-11eb-9272-9ad82b081dfd.gif"/>|
-|<code><em><strong>[Biz] Cafe Main & Order</strong></em></code>|<code><em><strong>[Biz] Reservation</strong></em></code>|
-|<img src="https://user-images.githubusercontent.com/59958929/116658280-ad3ee400-a9ca-11eb-92ab-0a8307ab1c7f.gif"/>|<img src="https://user-images.githubusercontent.com/59958929/116659508-a9ac5c80-a9cc-11eb-8d85-02528b6e985e.gif"/>|   
-|<code><em><strong>[Biz] Write </strong></em></code>|<code><em><strong>[Biz] Confirm & Coffee CRUD </strong></em></code>|
-|<img src="https://user-images.githubusercontent.com/59958929/116659834-25a6a480-a9cd-11eb-9476-1d5cac306a9f.gif"/>|<img src="https://user-images.githubusercontent.com/59958929/116663379-fba3b100-a9d1-11eb-99bf-213337bbacfe.gif"/>|
-|<code><em><strong>[Biz] Cafe Update & Delete</strong></em></code>|<code><em><strong>여기에 작성해주세요</strong></em></code>|
-|<img src="https://user-images.githubusercontent.com/59958929/116664998-2d1d7c00-a9d4-11eb-8579-414857781337.gif"/>|<img src="여기에 작성해주세요"/>|
+|<code><em><strong>[User] Cart</strong></em></code>|<code><em><strong>[Biz] Main Page</strong></em></code>|
+|<img src="https://user-images.githubusercontent.com/59958929/116657006-a7e09a00-a9c8-11eb-9ca3-0c5bc7f10166.gif"/>|<img src=""/>|
+|<code><em><strong>[Biz] Cafe Main Page</strong></em></code>|<code><em><strong>[Biz] Cafe Main & Order</strong></em></code>|
+|<img src="https://user-images.githubusercontent.com/59958929/116657665-c8f5ba80-a9c9-11eb-9272-9ad82b081dfd.gif"/>|<img src="https://user-images.githubusercontent.com/59958929/116658280-ad3ee400-a9ca-11eb-92ab-0a8307ab1c7f.gif"/>|   
+|<code><em><strong>[Biz] Reservation</strong></em></code>|<code><em><strong>[Biz] Write </strong></em></code>|
+|<img src="https://user-images.githubusercontent.com/59958929/116659508-a9ac5c80-a9cc-11eb-8d85-02528b6e985e.gif"/>|<img src="https://user-images.githubusercontent.com/59958929/116659834-25a6a480-a9cd-11eb-9476-1d5cac306a9f.gif"/>|
+|<code><em><strong>[Biz] Confirm & Coffee CRUD </strong></em></code>|<code><em><strong>[Biz] Cafe Update & Delete</strong></em></code>|
+|<img src="https://user-images.githubusercontent.com/59958929/116663379-fba3b100-a9d1-11eb-99bf-213337bbacfe.gif"/>|<img src="https://user-images.githubusercontent.com/59958929/116664998-2d1d7c00-a9d4-11eb-8579-414857781337.gif"/>|
 |<code><em><strong>여기에 작성해주세요</strong></em></code>|<code><em><strong>여기에 작성해주세요</strong></em></code>|
 |<img src="여기에 작성해주세요"/>|<img src="여기에 작성해주세요"/>|
