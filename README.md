@@ -244,7 +244,7 @@
 |<code><em><strong>[User] Main Page</strong></em></code>|<code><em><strong>Login & Register</strong></em></code>|
 |------|------|
 |<img src="https://user-images.githubusercontent.com/59958929/116652554-5fbd7980-a9c0-11eb-9865-e4e4e8e33b2b.gif"/>|------|
-|<code><em><strong>[User] Cafe Report & Review</strong></em></code>|
+|<code><em><strong>[User] Cafe Main</strong></em></code>|<code><em><strong>[User] Cafe Report & Review</strong></em></code>|
 |<img src="https://user-images.githubusercontent.com/59958929/116653117-8334f400-a9c1-11eb-9bbb-ace30789bd61.gif"/>|<img src="https://user-images.githubusercontent.com/59958929/116653650-9ac0ac80-a9c2-11eb-9a04-68007b77ddbe.gif"/>|
 |<code><em><strong>[User]Cafe To Go or For Here</strong></em></code>|<code><em><strong>[User] Cafe Payment</strong></em></code>|
 |<img src="https://user-images.githubusercontent.com/59958929/116654569-5e8e4b80-a9c4-11eb-965b-27f73a8f7ef0.gif"/>|<img src="https://user-images.githubusercontent.com/59958929/116656125-1fadc500-a9c7-11eb-9e74-4a583a16ceca.gif"/>|
