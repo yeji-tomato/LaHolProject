@@ -256,5 +256,5 @@
 |<img src="https://user-images.githubusercontent.com/59958929/116659508-a9ac5c80-a9cc-11eb-8d85-02528b6e985e.gif"/>|<img src="https://user-images.githubusercontent.com/59958929/116659834-25a6a480-a9cd-11eb-9476-1d5cac306a9f.gif"/>|
 |<code><em><strong>[Biz] Confirm & Coffee CRUD </strong></em></code>|<code><em><strong>[Biz] Cafe Update & Delete</strong></em></code>|
 |<img src="https://user-images.githubusercontent.com/59958929/116663379-fba3b100-a9d1-11eb-99bf-213337bbacfe.gif"/>|<img src="https://user-images.githubusercontent.com/59958929/116664998-2d1d7c00-a9d4-11eb-8579-414857781337.gif"/>|
-|<code><em><strong>여기에 작성해주세요</strong></em></code>|<code><em><strong>여기에 작성해주세요</strong></em></code>|
-|<img src="여기에 작성해주세요"/>|<img src="여기에 작성해주세요"/>|
+<!-- |<code><em><strong>여기에 작성해주세요</strong></em></code>|<code><em><strong>여기에 작성해주세요</strong></em></code>| -->
+<!-- |<img src="여기에 작성해주세요"/>|<img src="여기에 작성해주세요"/>| -->
