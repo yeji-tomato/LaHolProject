@@ -249,7 +249,7 @@
 |<code><em><strong>[User]Cafe To Go or For Here</strong></em></code>|<code><em><strong>[User] Cafe Payment</strong></em></code>|
 |<img src="https://user-images.githubusercontent.com/59958929/116654569-5e8e4b80-a9c4-11eb-965b-27f73a8f7ef0.gif"/>|<img src="https://user-images.githubusercontent.com/59958929/116656125-1fadc500-a9c7-11eb-9e74-4a583a16ceca.gif"/>|
 |<code><em><strong>[User] Cart</strong></em></code>|<code><em><strong>[Biz] Main Page</strong></em></code>|
-|<img src="https://user-images.githubusercontent.com/59958929/116657006-a7e09a00-a9c8-11eb-9ca3-0c5bc7f10166.gif"/>|<img src=""/>|
+|<img src="https://user-images.githubusercontent.com/59958929/116657006-a7e09a00-a9c8-11eb-9ca3-0c5bc7f10166.gif"/>|<img src="![image](https://user-images.githubusercontent.com/59958929/120455176-7c8a0a00-c3cf-11eb-8211-8ceddd3be3aa.png)"/>|
 |<code><em><strong>[Biz] Cafe Main Page</strong></em></code>|<code><em><strong>[Biz] Cafe Main & Order</strong></em></code>|
 |<img src="https://user-images.githubusercontent.com/59958929/116657665-c8f5ba80-a9c9-11eb-9272-9ad82b081dfd.gif"/>|<img src="https://user-images.githubusercontent.com/59958929/116658280-ad3ee400-a9ca-11eb-92ab-0a8307ab1c7f.gif"/>|   
 |<code><em><strong>[Biz] Reservation</strong></em></code>|<code><em><strong>[Biz] Write </strong></em></code>|
